@@ -11,10 +11,10 @@
         <center><h:graphicImage value="resources/images/sofa.png" style="width: 20%;"/></center>
 
         <p:accordionPanel>
-           
+
             <p:tab title="Menu:">
-            <h:panelGrid columns="2" cellpadding="10">
-                    
+                <h:panelGrid columns="2" cellpadding="10">
+
                     <h:link outcome="/agenda/List" value="Agenda"/>
 
                     <h:link outcome="/expediente/List" value="Expedientes"/>
@@ -22,51 +22,44 @@
                     <h:link outcome="/empleado/List" value="Empleados"/>
 
                     <h:link outcome="/procedencia/List" value="Procedencia"/>
-                
-            </h:panelGrid>
-           
-           </p:tab>
-           
+                    
+                    <h:link outcome="/turno/List" value="Turnos"/>
+
+                </h:panelGrid>
+
+            </p:tab>
+
             <br></br>
             <br></br>
-            
+
             <p:tab  title="Cantidad de Expedientes:">
-            <h:panelGrid columns="2" cellpadding="10">
-                                        <h:outputText value="#{expedienteController.items.size()}" />
-            </h:panelGrid>
-           
-           </p:tab>
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputText value="#{expedienteController.items.size()}" />
+                </h:panelGrid>
+
+            </p:tab>
             <p:tab title="Cantidad de Agendas:">
-            <h:panelGrid columns="2" cellpadding="10">
-                <h:outputText value="#{agendaController.items.size()}" />
-            </h:panelGrid>
-           
-           </p:tab>
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputText value="#{agendaController.items.size()}" />
+                </h:panelGrid>
+
+            </p:tab>
             <p:tab title="Cantidad de Empleados">
-            <h:panelGrid columns="2" cellpadding="10">
-                <h:outputText value="#{empleadoController.items.size()}" />
-            </h:panelGrid>
-           
-           </p:tab>
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputText value="#{empleadoController.items.size()}" />
+                </h:panelGrid>
+
+            </p:tab>
             <p:tab title="Cantidad de Procedencias:">
-            <h:panelGrid columns="2" cellpadding="10">
-                <h:outputText value="#{procedenciaController.items.size()}" />
-            </h:panelGrid>
-           
-           </p:tab>
-           
-            
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputText value="#{procedenciaController.items.size()}" />
+                </h:panelGrid>
+
+            </p:tab>
+
         </p:accordionPanel>
-        
-        
-        
-        
-        
+
     </h:body>
-
-    
-    
-
 
 </html>
 

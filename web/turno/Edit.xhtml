@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TurnoEditDlg" widgetVar="TurnoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTurnoTitle}">
+            <h:form id="TurnoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{turnoController.selected != null}">
+                        <p:outputLabel value="día y hora:" for="horaYDia" />
+                        <p:calendar id="horaYDia" pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" required="true" requiredMessage="#{bundle.EditTurnoRequiredMessage_horaYDia}" showOn="button"/>
+                        
+                        <p:outputLabel value="#{bundle.EditTurnoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{turnoController.selected.nombre}" title="nombre" />
+                        
+                        <p:outputLabel value="#{bundle.EditTurnoLabel_apellido}" for="apellido" />
+                        <p:inputText id="apellido" value="#{turnoController.selected.apellido}" title="#{bundle.EditTurnoTitle_apellido}" />
+                        <p:outputLabel value="#{bundle.EditTurnoLabel_nroDeTelefono}" for="nroDeTelefono" />
+                        <p:inputText id="nroDeTelefono" value="#{turnoController.selected.nroDeTelefono}" title="#{bundle.EditTurnoTitle_nroDeTelefono}" />
+                        <p:outputLabel value="#{bundle.EditTurnoLabel_procedencia}" for="procedencia" />
+                        <p:inputText id="procedencia" value="#{turnoController.selected.procedencia}" title="#{bundle.EditTurnoTitle_procedencia}" />
+                        <p:outputLabel value="#{bundle.EditTurnoLabel_observacion}" for="observacion" />
+                        <p:inputText id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.EditTurnoTitle_observacion}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{turnoController.update}" value="#{bundle.Save}" update="display,:TurnoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TurnoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TurnoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

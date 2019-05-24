@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-05-2019 a las 22:05:00
+-- Tiempo de generación: 24-05-2019 a las 23:02:38
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.20
 
@@ -137,6 +137,29 @@ INSERT INTO `Procedencia` (`idProcedencia`, `nombreProcedencia`) VALUES
 (3, 'ramiro rama'),
 (4, 'juan pablo cuello');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `turno`
+--
+
+CREATE TABLE `turno` (
+  `idTurno` int(11) NOT NULL,
+  `horaYDia` date NOT NULL,
+  `nombre` varchar(250) DEFAULT NULL,
+  `apellido` varchar(300) DEFAULT NULL,
+  `nroDeTelefono` varchar(150) DEFAULT NULL,
+  `procedencia` varchar(500) DEFAULT NULL,
+  `observacion` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `turno`
+--
+
+INSERT INTO `turno` (`idTurno`, `horaYDia`, `nombre`, `apellido`, `nroDeTelefono`, `procedencia`, `observacion`) VALUES
+(1, '2019-05-24', 'juan', 'cuello', '12312312', 'procedencia', 'observacion');
+
 --
 -- Índices para tablas volcadas
 --
@@ -166,6 +189,12 @@ ALTER TABLE `Procedencia`
   ADD PRIMARY KEY (`idProcedencia`);
 
 --
+-- Indices de la tabla `turno`
+--
+ALTER TABLE `turno`
+  ADD PRIMARY KEY (`idTurno`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -189,6 +218,11 @@ ALTER TABLE `Expediente`
 --
 ALTER TABLE `Procedencia`
   MODIFY `idProcedencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `turno`
+--
+ALTER TABLE `turno`
+  MODIFY `idTurno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

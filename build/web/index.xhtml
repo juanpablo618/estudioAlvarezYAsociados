@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Estudio Jurídico Alvarez y Asociados</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body>
+        <center><h:graphicImage value="resources/images/sofa.png" style="width: 20%;"/></center>
+
+        <p:accordionPanel>
+           
+            <p:tab title="Menu:">
+            <h:panelGrid columns="2" cellpadding="10">
+                    
+                    <h:link outcome="/agenda/List" value="Agenda"/>
+
+                    <h:link outcome="/expediente/List" value="Expedientes"/>
+
+                    <h:link outcome="/empleado/List" value="Empleados"/>
+
+                    <h:link outcome="/procedencia/List" value="Procedencia"/>
+                
+            </h:panelGrid>
+           
+           </p:tab>
+           
+            <br></br>
+            <br></br>
+            
+            <p:tab  title="Cantidad de Expedientes:">
+            <h:panelGrid columns="2" cellpadding="10">
+                                        <h:outputText value="#{expedienteController.items.size()}" />
+            </h:panelGrid>
+           
+           </p:tab>
+            <p:tab title="Cantidad de Agendas:">
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputText value="#{agendaController.items.size()}" />
+            </h:panelGrid>
+           
+           </p:tab>
+            <p:tab title="Cantidad de Empleados">
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputText value="#{empleadoController.items.size()}" />
+            </h:panelGrid>
+           
+           </p:tab>
+            <p:tab title="Cantidad de Procedencias:">
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputText value="#{procedenciaController.items.size()}" />
+            </h:panelGrid>
+           
+           </p:tab>
+           
+            
+        </p:accordionPanel>
+        
+        
+        
+        
+        
+    </h:body>
+
+    
+    
+
+
+</html>
+

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ExpedienteEditDlg" widgetVar="ExpedienteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditExpedienteTitle}">
+            <h:form id="ExpedienteEditForm">
+                <h:panelGroup id="display">
+                   
+                    <p:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
+                        <p:outputLabel value="tipo de Expediente" for="tipoDeExpediente" />
+                        
+                        <p:selectOneMenu id="tipoDeExpediente" value="#{expedienteController.selected.tipoDeExpediente}">
+                            <f:selectItem  itemLabel="judicial" itemValue="judicial" />
+                            <f:selectItem itemLabel="administrativo" itemValue="administrativo" />
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{bundle.EditExpedienteLabel_orden}" for="orden" style="font-weight: bold" />
+                        <p:inputText id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_orden}"/>
+                        
+                        <p:outputLabel value="#{bundle.EditExpedienteLabel_cuit}" for="cuit" style="font-weight: bold" />
+                        <p:inputText id="cuit" value="#{expedienteController.selected.cuit}" title="#{bundle.EditExpedienteTitle_cuit}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_cuit}"/>
+                        
+                        
+                        <p:outputLabel value="#{bundle.EditExpedienteLabel_nombre}" for="nombre" style="font-weight: bold" />
+                        <p:inputText id="nombre" value="#{expedienteController.selected.nombre}" title="#{bundle.EditExpedienteTitle_nombre}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_nombre}"/>
+                        
+                        <p:outputLabel value="nacionalidad" for="nacionalidad" style="font-weight: bold" />
+                        <p:inputText id="nacionalidad" value="#{expedienteController.selected.nacionalidad}" title="nacionalidad"/>
+                    
+                        <p:outputLabel value="#{bundle.EditExpedienteLabel_sexo}" for="sexo" style="font-weight: bold" />
+                        <p:inputText id="sexo" value="#{expedienteController.selected.sexo}" title="#{bundle.EditExpedienteTitle_sexo}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_sexo}"/>
+                        <p:outputLabel value="#{bundle.EditExpedienteLabel_apellido}" for="apellido" style="font-weight: bold" />
+                        <p:inputText id="apellido" value="#{expedienteController.selected.apellido}" title="#{bundle.EditExpedienteTitle_apellido}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_apellido}"/>
+                        <p:outputLabel value="#{bundle.EditExpedienteLabel_direccion}" for="direccion" style="font-weight: bold" />
+                        <p:inputText id="direccion" value="#{expedienteController.selected.direccion}" title="#{bundle.EditExpedienteTitle_direccion}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_direccion}"/>
+                        <p:outputLabel value="#{bundle.EditExpedienteLabel_nroDeAltura}" for="nroDeAltura" style="font-weight: bold" />
+                        <p:inputText id="nroDeAltura" value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.EditExpedienteTitle_nroDeAltura}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_nroDeAltura}"/>
+                        
+                        <p:outputLabel value="#{bundle.EditExpedienteLabel_piso}" for="piso" style="font-weight: bold" />
+                        <p:inputText id="piso" value="#{expedienteController.selected.piso}" title="#{bundle.EditExpedienteTitle_piso}"  requiredMessage="#{bundle.EditExpedienteRequiredMessage_piso}"/>
+                        
+                        <p:outputLabel value="#{bundle.EditExpedienteLabel_depto}" for="depto" style="font-weight: bold" />
+                        <p:inputText id="depto" value="#{expedienteController.selected.depto}" title="#{bundle.EditExpedienteTitle_depto}" requiredMessage="#{bundle.EditExpedienteRequiredMessage_depto}"/>
+                        
+                        <p:outputLabel value="#{bundle.EditExpedienteLabel_barrio}" for="barrio" style="font-weight: bold" />
+                        <p:inputText id="barrio" value="#{expedienteController.selected.barrio}" title="#{bundle.EditExpedienteTitle_barrio}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_barrio}"/>
+                        <p:outputLabel value="#{bundle.EditExpedienteLabel_telefono}" for="telefono" style="font-weight: bold" />
+                        <p:inputText id="telefono" value="#{expedienteController.selected.telefono}" title="#{bundle.EditExpedienteTitle_telefono}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_telefono}"/>
+                        <p:outputLabel value="#{bundle.EditExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento" style="font-weight: bold" />
+                        <p:calendar id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_fechaDeNacimiento}" showOn="button"/>
+                    
+                        <p:outputLabel value="#{bundle.EditExpedienteLabel_edad}" for="edad" style="font-weight: bold" />
+                        <p:inputText id="edad" value="#{expedienteController.selected.edad}" title="#{bundle.EditExpedienteTitle_edad}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_edad}"/>
+                    
+                        <p:outputLabel value="C. Seguridad Social" for="claveSeguridadSocial" style="font-weight: bold" />
+                        <p:inputText id="claveSeguridadSocial" value="#{expedienteController.selected.claveSeguridadSocial}" title="clave de seguridad social"/>
+                    
+                        <p:outputLabel value="C. Fiscal" for="claveFiscal" style="font-weight: bold" />
+                        <p:inputText id="claveFiscal" value="#{expedienteController.selected.claveFiscal}" title="clave Fiscal"/>
+                    
+                        <p:outputLabel value="C. Cidi" for="claveCidi" style="font-weight: bold" />
+                        <p:inputText id="claveCidi" value="#{expedienteController.selected.claveCidi}" title="clave Cidi"/>
+                    
+                        <p:outputLabel value="Cobra beneficio" style="font-weight: bold" />
+
+                        <p:selectOneMenu id="cobraBeneficio" value="#{expedienteController.selected.cobraBeneficio}" >
+                            <f:selectItem itemLabel="Si" itemValue="Si" />
+                            <f:selectItem itemLabel="No" itemValue="No" />
+                        </p:selectOneMenu>
+                    
+                        <p:outputLabel value="Fecha de Alta de expediente" for="fechaDeAltaDeExpediente" style="font-weight: bold" />
+                        <p:calendar id="fechaDeAltaDeExpediente" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAltaDeExpediente}" title="fecha de alta de expediente" required="true" requiredMessage="fecha de alta de expediente es requerido" showOn="button"/>
+                    
+                        <p:outputLabel value="codigo Postal:" for="codigoPostal" style="font-weight: bold" />
+                        <p:inputText id="codigoPostal" value="#{expedienteController.selected.codigoPostal}" title="codigoPostal"/>
+
+                        <p:outputLabel value="Localidad:" for="localidad" style="font-weight: bold" />
+                        <p:inputText id="localidad" value="#{expedienteController.selected.localidad}" title="localidad"/>
+
+                        <p:outputLabel value="tipo de tramite" for="tipoDeTramite" style="font-weight: bold" />
+                        <p:inputText id="tipoDeTramite" value="#{expedienteController.selected.tipoDeTramite}" title="tipoDeTramite"/>
+
+                        <p:outputLabel value="procedencia" for="procedencia" style="font-weight: bold" />
+                        <p:selectOneMenu  id="procedencia" value="#{expedienteController.selected.procedencia}"  >
+                                <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.nombreProcedencia}" itemValue="#{procedencia.nombreProcedencia}" />
+                        </p:selectOneMenu>
+                    
+                        <p:outputLabel value="fecha de atención:" for="fechaDeAtencion" style="font-weight: bold" />
+                        <p:calendar id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion"  showOn="button">
+                        </p:calendar>
+
+                        <p:outputLabel value="estado del Tramite" for="estadoDelTramite" style="font-weight: bold" />
+                        <p:inputText id="estadoDelTramite" value="#{expedienteController.selected.estadoDelTramite}" title="estadoDelTramite"/>
+
+                        <p:outputLabel value="fecha de cobro" for="fechaDeCobro" style="font-weight: bold" />
+                        <p:calendar id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" required="true" requiredMessage="fecha de cobro es requerido" showOn="button"/>
+
+                        <p:outputLabel value="Observaciones" for="observaciones" />
+                        <p:inputText id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
+
+                    </p:panelGrid>
+                    <br />
+                <p:panelGrid columns="6" rendered="#{expedienteController.selected != null}" >
+
+                        <p:outputLabel value="Caratula:" style="font-weight: bold" for="caratula"  rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"/>
+                        <p:inputText id="caratula" value="#{expedienteController.selected.caratula}" title="caratula"  rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"/>
+                        
+                        <p:outputLabel value="Nro de Expediente:" for="nroDeExpediente" style="font-weight: bold" />
+                        <p:inputText id="nroDeExpediente" value="#{expedienteController.selected.nroDeExpediente}" title="nroDeExpediente" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"/>
+                    
+                        <p:outputLabel value="Juzgado o Dependencia:" for="juzgadoODependencia" style="font-weight: bold" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"/>
+                        <p:inputText id="juzgadoODependencia" value="#{expedienteController.selected.juzgadoODependencia}" title="juzgadoODependencia" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" />
+                
+                </p:panelGrid>
+                    
+                    <p:commandButton actionListener="#{expedienteController.update}" value="#{bundle.Save}" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ExpedienteEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

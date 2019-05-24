@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AgendaCreateDlg" widgetVar="AgendaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAgendaTitle}">
+            <h:form id="AgendaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{agendaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateAgendaLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateAgendaLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{agendaController.selected.descripcion}" title="#{bundle.CreateAgendaTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateAgendaRequiredMessage_descripcion}"/>
+                        <p:outputLabel value="#{bundle.CreateAgendaLabel_nombreYapellido}" for="nombreYapellido" />
+                        <p:inputText id="nombreYapellido" value="#{agendaController.selected.nombreYapellido}" title="#{bundle.CreateAgendaTitle_nombreYapellido}" required="true" requiredMessage="#{bundle.CreateAgendaRequiredMessage_nombreYapellido}"/>
+                    
+                    <p:outputLabel value="responsable" for="responsable" />
+                    
+                        <p:selectOneMenu  id="responsable" value="#{agendaController.selected.responsable}"  >
+                            <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
+                        </p:selectOneMenu>
+                    
+                    
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{agendaController.create}" value="#{bundle.Save}" update="display,:AgendaListForm:datalist,:growl" oncomplete="handleSubmit(args,'AgendaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AgendaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

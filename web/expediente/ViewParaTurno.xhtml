@@ -8,9 +8,9 @@
 
     <ui:composition>
 
-        <p:dialog id="ExpedienteViewDlg" widgetVar="ExpedienteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewExpedienteTitle}">
+        <p:dialog id="ExpedienteViewDlgParaTurno" widgetVar="ExpedienteViewDialogParaTurno" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewExpedienteTitle}">
             
-            <h:form id="ExpedienteViewForm">
+            <h:form id="ExpedienteViewFormParaTurno">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
                         <h:outputText value="#{bundle.ViewExpedienteLabel_orden}" style="font-weight: bold" />
@@ -109,6 +109,7 @@
                     
                 </p:panelGrid>
                     <br /><br />  
+                    
                  
                     <p:panelGrid columns="6" rendered="#{expedienteController.selected != null}">
                         <h:outputText value="clave de seguridad social:" style="font-weight: bold" />
@@ -119,6 +120,7 @@
                         <h:outputText value="#{expedienteController.selected.claveFiscal}" title="clave Fiscal"/>
                         <button><a href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank">Clave Fiscal</a></button>
                         
+                        
                         <h:outputText value="clave Cidi:" style="font-weight: bold" />
                         <h:outputText value="#{expedienteController.selected.claveCidi}" title="clave Cidi"/>
                         <button><a href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank">Clave Fiscal</a></button>
@@ -126,32 +128,40 @@
                     
                     <br />
                     <br />
-                        <h:outputText value="Agregar a la Agenda" style="color: red"/>
+                        <h:outputText value="Agregar Turno" style="color: red"/>
                     <br />
                     <p:panelGrid columns="6" rendered="#{expedienteController.selected != null}">
-
-                        <p:outputLabel value="#{bundle.CreateAgendaLabel_fecha}" for="fecha" style="font-weight: bold" />
-                        <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
+                            
+                          <p:outputLabel value="día y hora:" for="horaYDia" />
+                        <p:calendar id="horaYDia" pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" required="true" requiredMessage="#{bundle.EditTurnoRequiredMessage_horaYDia}" showOn="button"/>
                         
-                        <p:outputLabel value="Actividad:" for="descripcion" style="font-weight: bold" />
-                        <p:inputText id="descripcion" value="#{agendaController.selected.descripcion}" title="#{bundle.CreateAgendaTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateAgendaRequiredMessage_descripcion}"/>
                         
-                        <p:outputLabel value="#{bundle.CreateAgendaLabel_nombreYapellido}" for="nombreYapellido" style="font-weight: bold" />
+                        <p:outputLabel value="nombre:" for="nombreParaTurno" style="font-weight: bold" />
                         
-                        <p:selectOneMenu id="nombreYapellido" value="#{agendaController.selected.nombreYapellido}" style="width:125px">
-                            <f:selectItem itemLabel="#{expedienteController.selected.nombre} #{expedienteController.selected.apellido} #{expedienteController.selected.orden}" itemValue="#{expedienteController.selected.nombre} #{expedienteController.selected.apellido} #{expedienteController.selected.orden}" />
+                        <p:selectOneMenu id="nombreParaTurno" value="#{turnoController.selected.nombre}" style="width:125px">
+                            <f:selectItem itemLabel="#{expedienteController.selected.nombre}" itemValue="#{expedienteController.selected.nombre} " />
                           </p:selectOneMenu>
 
-                        <p:outputLabel value="responsable:" for="responsable" style="font-weight: bold" />
-                        <p:selectOneMenu  id="responsable" value="#{agendaController.selected.responsable}"  >
-                            <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
-                        </p:selectOneMenu>
-
-                    </p:panelGrid>
-                    
-                        <p:commandButton actionListener="#{agendaController.create}" value="#{bundle.Save}" onclick="ExpedienteViewDialog.hide()"/>
+                        <p:outputLabel value="Apellido:" for="apellidoParaTurno" style="font-weight: bold" />
                         
-                    <p:commandButton value="#{bundle.Close}" onclick="ExpedienteViewDialog.hide()"/>
+                        <p:selectOneMenu id="apellidoParaTurno" value="#{turnoController.selected.apellido}" style="width:125px">
+                            <f:selectItem itemLabel="#{expedienteController.selected.apellido}" itemValue="#{expedienteController.selected.apellido} " />
+                          </p:selectOneMenu>
+
+                        
+                        <p:outputLabel value="#{bundle.CreateTurnoLabel_nroDeTelefono}" for="nroDeTelefono" />
+                        <p:inputText id="nroDeTelefono" value="#{turnoController.selected.nroDeTelefono}" title="#{bundle.CreateTurnoTitle_nroDeTelefono}" />
+                        
+                        <p:outputLabel value="#{bundle.CreateTurnoLabel_procedencia}" for="procedencia" />
+                        <p:inputText id="procedencia" value="#{turnoController.selected.procedencia}" title="#{bundle.CreateTurnoTitle_procedencia}" />
+                        <p:outputLabel value="#{bundle.CreateTurnoLabel_observacion}" for="observacion" />
+                        <p:inputText id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.CreateTurnoTitle_observacion}" />
+                       
+                    </p:panelGrid>
+
+                    <p:commandButton actionListener="#{turnoController.create}" value="#{bundle.Save}" onclick="ExpedienteViewDialogParaTurno.hide()"/>
+                        
+                    <p:commandButton value="#{bundle.Close}" onclick="ExpedienteViewDialogParaTurno.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

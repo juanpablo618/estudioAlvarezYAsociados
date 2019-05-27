@@ -26,8 +26,8 @@
 
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="createButton viewButton viewButtonParaTurno editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton viewButtonParaTurno editButton deleteButton"/>
 
                         <p:column filterBy="#{item.orden}"  filterMatchMode="exact">
                             <f:facet name="header">
@@ -161,7 +161,7 @@
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" actionListener="#{agendaController.prepareCreate}" update=":ExpedienteViewForm" oncomplete="PF('ExpedienteViewDialog').show()" disabled="#{empty expedienteController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()" disabled="#{empty expedienteController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{expedienteController.destroy}" update=":growl,datalist" disabled="#{empty expedienteController.selected}"/>
-                            
+                            <p:commandButton id="viewButtonParaTurno"   icon="ui-icon-pencil" value="agregar Turno" actionListener="#{turnoController.prepareCreate}" update=":ExpedienteViewFormParaTurno" oncomplete="PF('ExpedienteViewDialogParaTurno').show()" disabled="#{empty expedienteController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
@@ -170,6 +170,7 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="ViewParaTurno.xhtml"/>
         </ui:define>
     </ui:composition>
 

@@ -27,7 +27,7 @@ public class TurnoController implements Serializable {
     private com.estudioAlvarezVersion2.jpacontroller.TurnoFacade ejbFacade;
     private List<Turno> items = null;
     private Turno selected;
-
+    
     public TurnoController() {
     }
 

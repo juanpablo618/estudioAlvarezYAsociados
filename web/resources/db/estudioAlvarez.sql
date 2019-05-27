@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-05-2019 a las 23:02:38
+-- Tiempo de generación: 27-05-2019 a las 23:49:04
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.20
 
@@ -39,8 +39,8 @@ CREATE TABLE `Agenda` (
 --
 
 INSERT INTO `Agenda` (`idAgenda`, `fecha`, `descripcion`, `nombreYapellido`, `responsable`) VALUES
-(35, '2019-05-08', 'aasasda', 'descripcion nueva', 'Cuti cuti'),
-(36, '2019-05-16', 'crear una actividad para el cliente', 'juan cuello 1', 'Mateo ');
+(36, '2019-05-16', 'crear una actividad para el cliente', 'juan cuello 1', 'Mateo '),
+(37, '2019-05-17', 'descripcion', 'nombre y apellido', 'Mateo ');
 
 -- --------------------------------------------------------
 
@@ -60,7 +60,6 @@ CREATE TABLE `Empleado` (
 --
 
 INSERT INTO `Empleado` (`idEmpleado`, `Nombre`, `Apellido`, `Cargo`) VALUES
-(3, 'Mateo', '', 'administrativo'),
 (4, 'Cuti', 'cuti', 'Administrativo'),
 (5, 'juan', 'cuello', 'infomático');
 
@@ -133,7 +132,6 @@ CREATE TABLE `Procedencia` (
 --
 
 INSERT INTO `Procedencia` (`idProcedencia`, `nombreProcedencia`) VALUES
-(2, 'juan'),
 (3, 'ramiro rama'),
 (4, 'juan pablo cuello');
 
@@ -158,7 +156,9 @@ CREATE TABLE `turno` (
 --
 
 INSERT INTO `turno` (`idTurno`, `horaYDia`, `nombre`, `apellido`, `nroDeTelefono`, `procedencia`, `observacion`) VALUES
-(1, '2019-05-24', 'juan', 'cuello', '12312312', 'procedencia', 'observacion');
+(1, '2019-05-24', 'juan', 'cuello', '12312312', 'procedencia', 'observacion'),
+(4, '2019-05-22', 'ramiro actializado', 'jugan ', 'desde view', 'desde view', 'desde view editado'),
+(5, '2019-05-15', 'david', 'david', '31231231', 'david', '');
 
 --
 -- Índices para tablas volcadas
@@ -202,7 +202,7 @@ ALTER TABLE `turno`
 -- AUTO_INCREMENT de la tabla `Agenda`
 --
 ALTER TABLE `Agenda`
-  MODIFY `idAgenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `idAgenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT de la tabla `Empleado`
 --
@@ -222,7 +222,7 @@ ALTER TABLE `Procedencia`
 -- AUTO_INCREMENT de la tabla `turno`
 --
 ALTER TABLE `turno`
-  MODIFY `idTurno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idTurno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

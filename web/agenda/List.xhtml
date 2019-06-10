@@ -15,29 +15,51 @@
 
         <ui:define name="body">
             <h:form id="AgendaListForm">
+                <p:remoteCommand name="onload" oncomplete="PF('agendasTable').clearFilters()" autoRun="true" />
+
                 <p:panel header="#{bundle.ListAgendaTitle}">
                     <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
                                  selectionMode="single" selection="#{agendaController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idAgenda}"
                                  rows="10"
+                                 widgetVar="agendasTable"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  filteredValue="#{agendaController.filteredAgendas}"
-                                 emptyMessage="no hay agendas agregadas"   
+                                 emptyMessage="no hay agendas agregadas para esa fecha"   
                                  >
 
+                         <f:facet name="{Exporters}">
+                            <h:commandLink>
+                                <p:graphicImage name="/demo/images/excel.png" width="24"/>
+                                <p:dataExporter type="xls" target="tbl" fileName="cars" />
+                            </h:commandLink>
+
+
+                            <h:commandLink>
+                                <p:graphicImage name="/demo/images/csv.png" width="24"/>
+                                <p:dataExporter type="csv" target="tbl" fileName="cars" />
+                            </h:commandLink>
+
+                        </f:facet>
+                        
+                        
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
 
-                        <p:column filterBy="#{item.fecha}"  filterMatchMode="contains">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAgendaTitle_fecha}"/>
+                        
+                        <p:column sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="Fecha">
+                            <f:facet name="filter">
+                                <p:calendar pattern="dd/MM/yyyy" onkeyup="PF('agendasTable').filter()">
+                                    <p:ajax event="dateSelect" listener="#{agendaController.handleDateSelect}"/>
+                                </p:calendar>
                             </f:facet>
                             <h:outputText value="#{item.fecha}">
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAgendaTitle_descripcion}"/>
@@ -52,7 +74,7 @@
                             <h:outputText value="#{item.nombreYapellido}"/>
                         </p:column>
                         
-                        <p:column>
+                        <p:column filterBy="#{item.responsable}"  filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="responsable"/>
                             </f:facet>
@@ -65,6 +87,16 @@
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AgendaViewForm" oncomplete="PF('AgendaViewDialog').show()" disabled="#{empty agendaController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":AgendaEditForm" oncomplete="PF('AgendaEditDialog').show()" disabled="#{empty agendaController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{agendaController.destroy}" update=":growl,datalist" disabled="#{empty agendaController.selected}"/>
+                        
+                        <br></br>   
+                        <h:commandLink value="exportar solo filtradas">
+                            <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="true" />
+                        </h:commandLink>
+                            <br></br>
+                        <h:commandLink value="exportar todas">
+                            <p:dataExporter type="pdf" target="datalist" fileName="todasLasAgendas" pageOnly="false" />
+                        </h:commandLink>
+                        
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

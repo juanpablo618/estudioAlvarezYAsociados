@@ -150,6 +150,9 @@
                     </p:panelGrid>
                     
                         <p:commandButton actionListener="#{agendaController.create}" value="#{bundle.Save}" onclick="ExpedienteViewDialog.hide()"/>
+                    
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()" disabled="#{empty expedienteController.selected}"/>
+                            
                         
                     <p:commandButton value="#{bundle.Close}" onclick="ExpedienteViewDialog.hide()"/>
                 </h:panelGroup>

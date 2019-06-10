@@ -47,6 +47,7 @@
                         <h:outputText value="#{expedienteController.selected.barrio}" title="#{bundle.ViewExpedienteTitle_barrio}"/>
                         <h:outputText value="#{bundle.ViewExpedienteLabel_telefono}" style="font-weight: bold" />
                         <h:outputText value="#{expedienteController.selected.telefono}" title="#{bundle.ViewExpedienteTitle_telefono}"/>
+                        
                         <h:outputText value="#{bundle.ViewExpedienteLabel_fechaDeNacimiento}" style="font-weight: bold" />
                         <h:outputText value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.ViewExpedienteTitle_fechaDeNacimiento}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -133,7 +134,7 @@
                     <p:panelGrid columns="6" rendered="#{expedienteController.selected != null}">
                             
                           <p:outputLabel value="día y hora:" for="horaYDia" />
-                        <p:calendar id="horaYDia" pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" required="true" requiredMessage="#{bundle.EditTurnoRequiredMessage_horaYDia}" showOn="button"/>
+                        <p:calendar id="horaYDia" minHour="8" maxHour="19" pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" required="true" requiredMessage="#{bundle.EditTurnoRequiredMessage_horaYDia}" showOn="button"/>
                         
                         
                         <p:outputLabel value="nombre:" for="nombreParaTurno" style="font-weight: bold" />
@@ -148,12 +149,14 @@
                             <f:selectItem itemLabel="#{expedienteController.selected.apellido}" itemValue="#{expedienteController.selected.apellido} " />
                           </p:selectOneMenu>
 
-                        
                         <p:outputLabel value="#{bundle.CreateTurnoLabel_nroDeTelefono}" for="nroDeTelefono" />
-                        <p:inputText id="nroDeTelefono" value="#{turnoController.selected.nroDeTelefono}" title="#{bundle.CreateTurnoTitle_nroDeTelefono}" />
-                        
+                        <p:selectOneMenu id="nroDeTelefono" value="#{turnoController.selected.nroDeTelefono}" style="width:125px">
+                            <f:selectItem itemLabel="#{expedienteController.selected.telefono}" itemValue="#{expedienteController.selected.telefono}" />
+                        </p:selectOneMenu>
+
                         <p:outputLabel value="#{bundle.CreateTurnoLabel_procedencia}" for="procedencia" />
                         <p:inputText id="procedencia" value="#{turnoController.selected.procedencia}" title="#{bundle.CreateTurnoTitle_procedencia}" />
+                        
                         <p:outputLabel value="#{bundle.CreateTurnoLabel_observacion}" for="observacion" />
                         <p:inputText id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.CreateTurnoTitle_observacion}" />
                        

@@ -28,6 +28,8 @@ public class TurnoController implements Serializable {
     private List<Turno> items = null;
     private Turno selected;
     
+    private List<Turno> filteredturnos;
+    
     public TurnoController() {
     }
 
@@ -39,6 +41,16 @@ public class TurnoController implements Serializable {
         this.selected = selected;
     }
 
+    public List<Turno> getFilteredturnos() {
+        return filteredturnos;
+    }
+
+    public void setFilteredturnos(List<Turno> filteredturnos) {
+        this.filteredturnos = filteredturnos;
+    }
+
+    
+    
     protected void setEmbeddableKeys() {
     }
 

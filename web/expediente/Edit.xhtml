@@ -111,7 +111,7 @@
                         <p:outputLabel value="Caratula:" style="font-weight: bold" for="caratula"  rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"/>
                         <p:inputText id="caratula" value="#{expedienteController.selected.caratula}" title="caratula"  rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"/>
                         
-                        <p:outputLabel value="Nro de Expediente:" for="nroDeExpediente" style="font-weight: bold" />
+                        <p:outputLabel value="Nro de Expediente:" for="nroDeExpediente" style="font-weight: bold" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"/>
                         <p:inputText id="nroDeExpediente" value="#{expedienteController.selected.nroDeExpediente}" title="nroDeExpediente" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"/>
                     
                         <p:outputLabel value="Juzgado o Dependencia:" for="juzgadoODependencia" style="font-weight: bold" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"/>
@@ -119,7 +119,7 @@
                 
                 </p:panelGrid>
                     
-                    <p:commandButton actionListener="#{expedienteController.update}" value="#{bundle.Save}" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
+                    <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.update}" value="#{bundle.Save}" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ExpedienteEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

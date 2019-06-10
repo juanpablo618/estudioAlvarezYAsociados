@@ -18,6 +18,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 @Named("agendaController")
 @SessionScoped
@@ -179,6 +181,8 @@ public class AgendaController implements Serializable {
         this.filteredAgendas = filteredAgendas;
     }
     
-    
+    public void handleDateSelect(SelectEvent event) {
+    RequestContext.getCurrentInstance().execute("PF('agendasTable').filter()");
+}
 
 }

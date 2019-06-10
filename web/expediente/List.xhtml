@@ -14,11 +14,14 @@
 
         <ui:define name="body">
             <h:form id="ExpedienteListForm">
+                                <p:remoteCommand name="onload" oncomplete="PF('expedientesTable').clearFilters()" autoRun="true" />
+
                 <p:panel header="#{bundle.ListExpedienteTitle}">
                     <p:dataTable id="datalist" value="#{expedienteController.items}" var="item"
                                  selectionMode="single" selection="#{expedienteController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idExpediente}"
+                                 widgetVar="expedientesTable"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  filteredValue="#{expedienteController.filteredExpedientes}"
@@ -26,8 +29,8 @@
 
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton viewButtonParaTurno editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton viewButtonParaTurno editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="createButton viewButton viewButtonParaTurno  deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton viewButtonParaTurno  deleteButton"/>
 
                         <p:column filterBy="#{item.orden}"  filterMatchMode="exact">
                             <f:facet name="header">
@@ -159,9 +162,10 @@
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" actionListener="#{agendaController.prepareCreate}" update=":ExpedienteViewForm" oncomplete="PF('ExpedienteViewDialog').show()" disabled="#{empty expedienteController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()" disabled="#{empty expedienteController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{expedienteController.destroy}" update=":growl,datalist" disabled="#{empty expedienteController.selected}"/>
                             <p:commandButton id="viewButtonParaTurno"   icon="ui-icon-pencil" value="agregar Turno" actionListener="#{turnoController.prepareCreate}" update=":ExpedienteViewFormParaTurno" oncomplete="PF('ExpedienteViewDialogParaTurno').show()" disabled="#{empty expedienteController.selected}"/>
+                        
+                            
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

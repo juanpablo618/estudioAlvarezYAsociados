@@ -21,7 +21,6 @@
                             <f:ajax render="caratula nroDeExpediente juzgadoODependencia" />
                         </p:selectOneMenu>
                         
-                        
                         <p:outputLabel value="#{bundle.CreateExpedienteLabel_orden}" for="orden" />
                         <p:inputText id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.CreateExpedienteTitle_orden}" required="true" requiredMessage="#{bundle.CreateExpedienteRequiredMessage_orden}"/>
                         
@@ -123,9 +122,13 @@
                         </p:calendar>
                         
                         
-                        <p:outputLabel value="estado del Tramite" for="estadoDelTramite" />
-                        <p:inputText id="estadoDelTramite" value="#{expedienteController.selected.estadoDelTramite}" title="estadoDelTramite"/>
+                        <p:outputLabel value="estado del Tramite"  />
                         
+                        <p:selectOneMenu  id="estadoDelTramite" value="#{expedienteController.selected.estadoDelTramite}">
+                                <f:selectItem itemLabel=" -- Estado del tramite --"  noSelectionOption="true"/>
+                                <f:selectItems value="#{estadoDelTramiteController.items}" var="estado" itemLabel="#{estado.estado}" itemValue="#{estado.estado}" />
+                        </p:selectOneMenu>
+
                         <p:outputLabel value="fecha de cobro" for="fechaDeCobro" />
                         <p:calendar id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" required="true" requiredMessage="fecha de cobro es requerido" showOn="button"/>
                         

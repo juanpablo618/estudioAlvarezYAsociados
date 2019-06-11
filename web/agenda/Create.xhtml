@@ -14,17 +14,25 @@
                     <p:panelGrid columns="2" rendered="#{agendaController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateAgendaLabel_fecha}" for="fecha" />
                         <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
+                        
                         <p:outputLabel value="#{bundle.CreateAgendaLabel_descripcion}" for="descripcion" />
                         <p:inputText id="descripcion" value="#{agendaController.selected.descripcion}" title="#{bundle.CreateAgendaTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateAgendaRequiredMessage_descripcion}"/>
+                        
                         <p:outputLabel value="#{bundle.CreateAgendaLabel_nombreYapellido}" for="nombreYapellido" />
-                        <p:inputText id="nombreYapellido" value="#{agendaController.selected.nombreYapellido}" title="#{bundle.CreateAgendaTitle_nombreYapellido}" required="true" requiredMessage="#{bundle.CreateAgendaRequiredMessage_nombreYapellido}"/>
-                    
+                        
+                        
+                         <p:selectOneMenu id="nombreYapellido" value="#{agendaController.selected.nombreYapellido}" filter="true" filterMatchMode="startsWith" >
+
+                             <f:selectItems value="#{expedienteController.items}" var="expediente" itemLabel="#{expediente.nombre} #{expediente.apellido} #{expediente.orden}" itemDescription="#{expediente.nombre} #{expediente.apellido} #{expediente.orden}"  itemValue="#{expediente.nombre} #{expediente.apellido} #{expediente.orden}" />
+                           
+                         </p:selectOneMenu>
+                        
+                        
                     <p:outputLabel value="responsable" for="responsable" />
                     
                         <p:selectOneMenu  id="responsable" value="#{agendaController.selected.responsable}"  >
                             <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
                         </p:selectOneMenu>
-                    
                     
                     </p:panelGrid>
                     <p:commandButton actionListener="#{agendaController.create}" value="#{bundle.Save}" update="display,:AgendaListForm:datalist,:growl" oncomplete="handleSubmit(args,'AgendaCreateDialog');"/>

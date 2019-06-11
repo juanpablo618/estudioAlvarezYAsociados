@@ -59,7 +59,13 @@
                             </f:facet>
                             <h:outputText value="#{ item.nombre} #{ item.apellido}"/>
                         </p:column>
-                        
+                         
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListExpedienteTitle_direccion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.direccion}"/>
+                        </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="nacionalidad"/>
@@ -73,13 +79,7 @@
                             </f:facet>
                             <h:outputText value="#{item.sexo}"/>
                         </p:column>
-                        
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListExpedienteTitle_direccion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.direccion}"/>
-                        </p:column>
+                       
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListExpedienteTitle_nroDeAltura}"/>

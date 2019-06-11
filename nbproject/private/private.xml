@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/expediente/List.xhtml</file>
+            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/agenda/List.xhtml</file>
             <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/expediente/View.xhtml</file>
+            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/expediente/Create.xhtml</file>
+            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/agenda/Create.xhtml</file>
         </group>
     </open-files>
 </project-private>

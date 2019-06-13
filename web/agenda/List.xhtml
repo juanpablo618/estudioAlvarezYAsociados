@@ -8,15 +8,13 @@
 
     <ui:composition template="/template.xhtml">
 
-
         <ui:define name="title">
             <h:outputText value="Lista de Agendas"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
             <h:form id="AgendaListForm">
-                <p:remoteCommand name="onload" oncomplete="PF('agendasTable').clearFilters()" autoRun="true" />
-
+                
                 <p:panel header="#{bundle.ListAgendaTitle}">
                     <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
                                  selectionMode="single" selection="#{agendaController.selected}"
@@ -35,7 +33,6 @@
                                 <p:dataExporter type="xls" target="tbl" fileName="cars" />
                             </h:commandLink>
 
-
                             <h:commandLink>
                                 <p:graphicImage name="/demo/images/csv.png" width="24"/>
                                 <p:dataExporter type="csv" target="tbl" fileName="cars" />
@@ -43,11 +40,8 @@
 
                         </f:facet>
                         
-                        
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-
                         
                         <p:column sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="Fecha">
                             <f:facet name="filter">
@@ -80,7 +74,6 @@
                             </f:facet>
                             <h:outputText value="#{item.responsable}"/>
                         </p:column>
-                        
                         
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>

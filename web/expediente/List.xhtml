@@ -14,8 +14,7 @@
 
         <ui:define name="body">
             <h:form id="ExpedienteListForm">
-                                <p:remoteCommand name="onload" oncomplete="PF('expedientesTable').clearFilters()" autoRun="true" />
-
+                       
                 <p:panel header="#{bundle.ListExpedienteTitle}">
                     <p:dataTable id="datalist" value="#{expedienteController.items}" var="item"
                                  selectionMode="single" selection="#{expedienteController.selected}"

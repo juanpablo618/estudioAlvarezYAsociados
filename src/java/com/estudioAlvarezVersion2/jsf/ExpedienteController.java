@@ -127,26 +127,26 @@ public class ExpedienteController implements Serializable {
     
 
     public void update() {
-        Calendar fecha = new GregorianCalendar();
-        int añoActual = fecha.get(Calendar.YEAR);
-    
-        int añoDeNacimiento = selected.getFechaDeNacimiento().getYear();
-        
-        añoDeNacimiento = añoDeNacimiento + 1900;
-        
-        int edad = 0;
-        
-        edad = añoActual - añoDeNacimiento;
-        
-        selected.setEdad(edad);
-        
-        String cuit = selected.getCuit();
-        cuit = cuit.substring(2, 9);
-        
-        selected.setDni(cuit);
-        
-        
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteUpdated"));
+
+            Calendar fecha = new GregorianCalendar();
+            int añoActual = fecha.get(Calendar.YEAR);
+
+            int añoDeNacimiento = selected.getFechaDeNacimiento().getYear();
+
+            añoDeNacimiento = añoDeNacimiento + 1900;
+
+            int edad = 0;
+
+            edad = añoActual - añoDeNacimiento;
+
+            selected.setEdad(edad);
+            
+                String cuit = selected.getCuit();
+                cuit = cuit.substring(2, 9);
+                selected.setDni(cuit);
+            
+
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteUpdated"));
     }
 
     public void destroy() {

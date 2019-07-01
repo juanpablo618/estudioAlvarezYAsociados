@@ -30,7 +30,7 @@
                         <p:inputText id="nombre" value="#{expedienteController.selected.nombre}" title="#{bundle.EditExpedienteTitle_nombre}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_nombre}"/>
                         
                         <p:outputLabel value="Cuit:" for="cuit" style="font-weight: bold" />
-                        <p:inputText id="cuit" value="#{expedienteController.selected.cuit}" title="#{bundle.EditExpedienteTitle_cuit}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_cuit}"/>
+                        <p:inputText id="cuit" value="#{expedienteController.selected.cuit}" title="#{bundle.EditExpedienteTitle_cuit}" />
                         
                             <p:outputLabel value="Nacionalidad:" for="nacionalidad" style="font-weight: bold" />
                         <p:inputText id="nacionalidad" value="#{expedienteController.selected.nacionalidad}" title="nacionalidad"/>
@@ -43,7 +43,7 @@
                         </p:selectOneMenu>
                         
                         <p:outputLabel value="Fecha de Alta de expediente:" for="fechaDeAltaDeExpediente" style="font-weight: bold" />
-                        <p:calendar id="fechaDeAltaDeExpediente" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAltaDeExpediente}" title="fecha de alta de expediente" required="true" requiredMessage="fecha de alta de expediente es requerido" showOn="button"/>
+                        <p:calendar id="fechaDeAltaDeExpediente" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAltaDeExpediente}" title="fecha de alta de expediente" />
                         
                         <p:outputLabel value="fecha de atención:" for="fechaDeAtencion" style="font-weight: bold" />
                             <p:calendar id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion"  showOn="button">
@@ -84,7 +84,7 @@
                         <p:inputText id="telefono" value="#{expedienteController.selected.telefono}" title="#{bundle.EditExpedienteTitle_telefono}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_telefono}"/>
                         
                         <p:outputLabel value="#{bundle.EditExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento" style="font-weight: bold" />
-                        <p:calendar id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_fechaDeNacimiento}" showOn="button"/>
+                        <p:calendar id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}"  showOn="button"/>
                     
                             <p:outputLabel value="#{bundle.EditExpedienteLabel_edad}" for="edad" style="font-weight: bold" />
                         <p:inputText id="edad" value="#{expedienteController.selected.edad}" title="#{bundle.EditExpedienteTitle_edad}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_edad}"/>
@@ -163,7 +163,7 @@
                     <p:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
                         
                         <p:outputLabel value="Fecha de cobro:" for="fechaDeCobro" style="font-weight: bold" />
-                        <p:calendar id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" required="true" requiredMessage="fecha de cobro es requerido" showOn="button"/>
+                        <p:calendar id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" showOn="button"/>
                     
                     </p:panelGrid>
                       <br></br>  

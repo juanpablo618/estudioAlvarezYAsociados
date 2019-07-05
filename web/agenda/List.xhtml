@@ -61,11 +61,17 @@
                             <h:outputText value="#{item.descripcion}"/>
                         </p:column>
                         
-                        <p:column sortBy="#{item.nombreYapellido}" filterBy="#{item.nombreYapellido}" filterMatchMode="contains">
+                        <p:column   filterBy="#{agendaController.items}" filterMatchMode="contains">
                             <f:facet name="header" >
-                                <h:outputText value="Nombre, Apellido"/>
+                                <h:outputText value="Nombre y Apellido"/>
                             </f:facet>
-                            <h:outputText value="#{item.nombreYapellido}"/>
+                            
+                            
+                            <h:outputText value="#{expedienteController.getNombreYApellidoPorOrden(item.orden)}"/>
+                        
+                        
+                        
+                        
                         </p:column>
                         
                         <p:column filterBy="#{item.responsable}"  filterMatchMode="contains">
@@ -73,6 +79,13 @@
                                 <h:outputText value="responsable"/>
                             </f:facet>
                             <h:outputText value="#{item.responsable}"/>
+                        </p:column>
+                        
+                        <p:column filterBy="#{item.orden}"  filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="orden"/>
+                            </f:facet>
+                            <h:outputText value="#{item.orden}"/>
                         </p:column>
                         
                         <f:facet name="footer">

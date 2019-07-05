@@ -246,6 +246,19 @@ public class ExpedienteController implements Serializable {
         }
 
     }
+    
+    public String getNombreYApellidoPorOrden(int orden){
+        
+        String nombreYApellidoBuscado = null;
+        
+        for(Expediente i: items){
+            if(i.getOrden() == orden){
+                nombreYApellidoBuscado = i.getNombre() + i.getApellido();
+            }
+        }
+        
+    return nombreYApellidoBuscado;
+    }
 
     
     public void redirect() throws Exception {

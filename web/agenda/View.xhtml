@@ -19,7 +19,7 @@
                         <h:outputText value="#{bundle.ViewAgendaLabel_descripcion}"/>
                         <h:outputText value="#{agendaController.selected.descripcion}" title="#{bundle.ViewAgendaTitle_descripcion}"/>
                         <h:outputText value="#{bundle.ViewAgendaLabel_nombreYapellido}"/>
-                        <h:outputText value="#{agendaController.selected.nombreYapellido}" title="#{bundle.ViewAgendaTitle_nombreYapellido}"/>
+                        <h:outputText value="#{expedienteController.getNombreYApellidoPorOrden(agendaController.selected.orden)}" title="#{bundle.ViewAgendaTitle_nombreYapellido}"/>
                         
                         <h:outputText value="responsable:"/>
                         <h:outputText value="#{agendaController.selected.responsable}" title="responsable"/>

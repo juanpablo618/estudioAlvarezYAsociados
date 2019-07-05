@@ -149,9 +149,11 @@
                         </p:column>                        
                         
                         
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="F. de Cobro"/>
+                        <p:column filterBy="#{item.fechaDeCobro}" filterMatchMode="contains"  headerText="Fecha de cobro">
+                            <f:facet name="filter">
+                                <p:calendar pattern="dd/MM/yyyy" onkeyup="PF('expedientesTable').filter()">
+                                    <p:ajax event="dateSelect" listener="#{expedienteController.handleDateSelect}"/>
+                                </p:calendar>
                             </f:facet>
                             <h:outputText value="#{item.fechaDeCobro}">
                                 <f:convertDateTime pattern="dd/MM/yyyy" />

@@ -61,9 +61,9 @@
                             <h:outputText value="#{item.descripcion}"/>
                         </p:column>
                         
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Nombre, Apellido y Orden"/>
+                        <p:column sortBy="#{item.nombreYapellido}" filterBy="#{item.nombreYapellido}" filterMatchMode="contains">
+                            <f:facet name="header" >
+                                <h:outputText value="Nombre, Apellido"/>
                             </f:facet>
                             <h:outputText value="#{item.nombreYapellido}"/>
                         </p:column>

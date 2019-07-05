@@ -22,6 +22,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 @Named("expedienteController")
 @SessionScoped
@@ -251,5 +253,10 @@ public class ExpedienteController implements Serializable {
     ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
     externalContext.redirect("http://stackoverflow.com");
     }
+    
+    public void handleDateSelect(SelectEvent event) {
+    RequestContext.getCurrentInstance().execute("PF('expedientesTable').filter()");
+}
+    
     
 }

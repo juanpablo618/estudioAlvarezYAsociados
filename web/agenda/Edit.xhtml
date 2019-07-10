@@ -18,8 +18,11 @@
                         <p:inputText id="descripcion" value="#{agendaController.selected.descripcion}" title="#{bundle.EditAgendaTitle_descripcion}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_descripcion}"/>
                         
                         
-                        <p:outputLabel value="#{bundle.EditAgendaLabel_nombreYapellido}"  />
-                        <p:outputLabel value="#{expedienteController.getNombreYApellidoPorOrden(agendaController.selected.orden)}"  />
+                        <p:outputLabel value="Nombre:"  />
+                        <p:outputLabel value="#{agendaController.selected.nombre}"  />
+                        
+                        <p:outputLabel value="Apellido:"  />
+                        <p:outputLabel value="#{agendaController.selected.apellido}"  />
                         
                         
                         <p:outputLabel value="responsable" for="responsable" />

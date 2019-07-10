@@ -202,10 +202,16 @@
                          <br></br>
                      
                         <h:panelGrid columns="6" rendered="#{expedienteController.selected != null}" >
-                            <p:outputLabel value="#{bundle.CreateAgendaLabel_nombreYapellido}" for="nombreYapellido" style="font-weight: bold" />
+                            <p:outputLabel value="Nombre:" for="nombreAgenda" style="font-weight: bold" />
 
-                            <p:selectOneMenu id="nombreYapellido" value="#{agendaController.selected.nombreYapellido}" style="width:125px">
-                                <f:selectItem itemLabel="#{expedienteController.selected.nombre} #{expedienteController.selected.apellido} #{expedienteController.selected.orden}" itemValue="#{expedienteController.selected.nombre} #{expedienteController.selected.apellido} #{expedienteController.selected.orden}" />
+                            <p:selectOneMenu id="nombreAgenda" value="#{agendaController.selected.nombre}" style="width:125px">
+                                <f:selectItem itemLabel="#{expedienteController.selected.nombre}" itemValue="#{expedienteController.selected.nombre}" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Apellido:" style="font-weight: bold" />
+
+                            <p:selectOneMenu id="apellidoAgenda" value="#{agendaController.selected.apellido}" style="width:125px">
+                                <f:selectItem itemLabel="#{expedienteController.selected.apellido}" itemValue="#{expedienteController.selected.apellido}" />
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Responsable:" for="responsable" style="font-weight: bold" />

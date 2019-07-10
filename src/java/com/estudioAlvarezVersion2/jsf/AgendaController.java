@@ -61,7 +61,7 @@ public class AgendaController implements Serializable {
     
     public Agenda prepareCreateConApellidoYNombre(String nombreYapellido) {
         selected = new Agenda();
-        selected.setNombreYapellido(nombreYapellido);
+        selected.setNombre(nombreYapellido);
         initializeEmbeddableKey();
         return selected;
     }

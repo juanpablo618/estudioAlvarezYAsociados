@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Agenda.findByIdAgenda", query = "SELECT a FROM Agenda a WHERE a.idAgenda = :idAgenda")
     , @NamedQuery(name = "Agenda.findByFecha", query = "SELECT a FROM Agenda a WHERE a.fecha = :fecha")
     , @NamedQuery(name = "Agenda.findByDescripcion", query = "SELECT a FROM Agenda a WHERE a.descripcion = :descripcion")
-    , @NamedQuery(name = "Agenda.findByNombreYapellido", query = "SELECT a FROM Agenda a WHERE a.nombreYapellido = :nombreYapellido")})
+    , @NamedQuery(name = "Agenda.findByNombre", query = "SELECT a FROM Agenda a WHERE a.nombre = :nombre")})
 public class Agenda implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,11 +54,14 @@ public class Agenda implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 1000)
-    @Column(name = "nombreYapellido")
-    private String nombreYapellido;
 
+    @Size(min = 1, max = 500)
+    @Column(name = "nombre")
+    private String nombre;
+        
+    @Size(min = 1, max = 500)
+    @Column(name = "apellido")
+    private String apellido;
     
     @Basic(optional = false)
     @Column(name = "responsable")
@@ -75,11 +78,12 @@ public class Agenda implements Serializable {
         this.idAgenda = idAgenda;
     }
 
-    public Agenda(Integer idAgenda, Date fecha, String descripcion, String nombreYapellido, String responsable, int orden) {
+    public Agenda(Integer idAgenda, Date fecha, String descripcion, String nombre, String apellido, String responsable, int orden) {
         this.idAgenda = idAgenda;
         this.fecha = fecha;
         this.descripcion = descripcion;
-        this.nombreYapellido = nombreYapellido;
+        this.nombre = nombre;
+        this.apellido = apellido;
         this.responsable = responsable;
         this.orden = orden;
     }
@@ -108,13 +112,23 @@ public class Agenda implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public String getNombreYapellido() {
-        return nombreYapellido;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreYapellido(String nombreYapellido) {
-        this.nombreYapellido = nombreYapellido;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+    
+    
 
     public String getResponsable() {
         return responsable;

@@ -17,9 +17,18 @@
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewAgendaLabel_descripcion}"/>
-                        <h:outputText value="#{agendaController.selected.descripcion}" title="#{bundle.ViewAgendaTitle_descripcion}"/>
-                        <h:outputText value="#{bundle.ViewAgendaLabel_nombreYapellido}"/>
-                        <h:outputText value="#{expedienteController.getNombreYApellidoPorOrden(agendaController.selected.orden)}" title="#{bundle.ViewAgendaTitle_nombreYapellido}"/>
+                        
+                        <p:inputTextarea rows="10" cols="30" value="#{agendaController.selected.descripcion}" title="#{bundle.ViewAgendaTitle_descripcion}" readonly="true"/>
+                        
+                        <h:outputText value="Nombre:"/>
+                        <h:outputText value="#{agendaController.selected.nombre}"/>
+                        
+                        <h:outputText value="Apellido:"/>
+                        <h:outputText value="#{agendaController.selected.apellido}"/>
+
+                        <h:outputText value="Orden:"/>
+                        <h:outputText value="#{agendaController.selected.orden}"/>
+                                                
                         
                         <h:outputText value="responsable:"/>
                         <h:outputText value="#{agendaController.selected.responsable}" title="responsable"/>

@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/src/java/com/estudioAlvarezVersion2/jsf/AgendaController.java</file>
-            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/agenda/List.xhtml</file>
-            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/src/java/com/estudioAlvarezVersion2/jsf/ExpedienteController.java</file>
-            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/expediente/List.xhtml</file>
-            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/index.xhtml</file>
+            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/agenda/View.xhtml</file>
+            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/expediente/View.xhtml</file>
+            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/expediente/ViewParaTurno.xhtml</file>
             <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/expediente/Edit.xhtml</file>
-            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/expediente/Create.xhtml</file>
         </group>
     </open-files>
 </project-private>

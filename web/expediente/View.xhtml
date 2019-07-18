@@ -13,7 +13,6 @@
             <h:form id="ExpedienteViewForm">
                 <h:panelGroup id="display">
                     
-                    
                         <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
 
                             <h:outputText value="#{bundle.ViewExpedienteLabel_orden}" style="font-weight: bold" />
@@ -21,12 +20,10 @@
 
                         </h:panelGrid>   
                     
-                    
-                    
                     <p:panel  style="margin-bottom:2px">
                         <h:panelGrid columns="10" cellpadding="1" rendered="#{expedienteController.selected != null}">
 
-                            <h:outputText value="#{bundle.ViewExpedienteLabel_apellido}" style="font-weight: bold" />
+                            <h:outputText value="#{bundle.ViewExpedienteLabel_apellido}" style="font-weight: bold; " />
                             <h:outputText value="#{expedienteController.selected.apellido}" title="#{bundle.ViewExpedienteTitle_apellido}"/>
 
                             <h:outputText value="#{bundle.ViewExpedienteLabel_nombre}" style="font-weight: bold" />
@@ -154,7 +151,7 @@
 
                             <h:outputText value="C. Cidi:" style="font-weight: bold" />
                             <h:outputText value="#{expedienteController.selected.claveCidi}" title="C. Cidi"/>
-                            <button><a href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank">Clave Fiscal</a></button>
+                            <button><a href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank">C. Cidi</a></button>
 
                             <h:outputText value="C. Fiscal:" style="font-weight: bold" />
                             <h:outputText value="#{expedienteController.selected.claveFiscal}" title="C. Fiscal"/>

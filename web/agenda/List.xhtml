@@ -14,17 +14,19 @@
 
         <ui:define name="body">
             <h:form id="AgendaListForm">
+                <p:remoteCommand name="onload" oncomplete="PF('agendasTable').clearFilters()" autoRun="true" />
                 
                 <p:panel header="#{bundle.ListAgendaTitle}">
                     <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
                                  selectionMode="single" selection="#{agendaController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idAgenda}"
-                                 rows="40"
+                                 rows="10"
                                  widgetVar="agendasTable"
-                                 rowsPerPageTemplate="40,50,60,70"
+                                 rowsPerPageTemplate="100,200,500"
                                  filteredValue="#{agendaController.filteredAgendas}"
-                                 emptyMessage="no hay agendas agregadas para esa fecha"   
+                                 emptyMessage="no hay agendas agregadas para esa fecha" 
+                                 rendered="true"  
                                  >
 
                          <f:facet name="{Exporters}">
@@ -40,8 +42,8 @@
 
                         </f:facet>
                         
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="createButton  editButton"/>
+                        <p:ajax event="rowUnselect" update="createButton  editButton"/>
                         
                         <p:column sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="Fecha">
                             <f:facet name="filter">
@@ -54,6 +56,20 @@
                             </h:outputText>
                         </p:column>
                         
+                        <p:column filterBy="#{item.orden}"  filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="orden(Legajo)"/>
+                            </f:facet>
+                            <h:outputText value="#{item.orden}"/>
+                        </p:column>
+                        
+                        <p:column   filterBy="#{item.apellido} #{item.nombre}" filterMatchMode="contains">
+                            <f:facet name="header" >
+                                <h:outputText value="Apellido y Nombre"/>
+                            </f:facet>
+                                <h:outputText value="#{item.apellido} #{item.nombre}"/>
+                        </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAgendaTitle_descripcion}"/>
@@ -61,40 +77,17 @@
                             <h:outputText value="#{item.descripcion}"/>
                         </p:column>
                         
-                        <p:column   filterBy="#{item.nombre}" filterMatchMode="contains">
-                            <f:facet name="header" >
-                                <h:outputText value="Nombre"/>
-                            </f:facet>
-                                <h:outputText value="#{item.nombre}"/>
-                        </p:column>
-                        
-                        <p:column   filterBy="#{item.apellido}" filterMatchMode="contains">
-                            <f:facet name="header" >
-                                <h:outputText value="Apellido"/>
-                            </f:facet>
-                                <h:outputText value="#{item.apellido}"/>
-                        </p:column>
-                        
                         <p:column filterBy="#{item.responsable}"  filterMatchMode="contains">
                             <f:facet name="header">
-                                <h:outputText value="responsable"/>
+                                <h:outputText value="único responsable"/>
                             </f:facet>
                             <h:outputText value="#{item.responsable}"/>
                         </p:column>
                         
-                        <p:column filterBy="#{item.orden}"  filterMatchMode="contains">
-                            <f:facet name="header">
-                                <h:outputText value="orden"/>
-                            </f:facet>
-                            <h:outputText value="#{item.orden}"/>
-                        </p:column>
-                        
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AgendaViewForm" oncomplete="PF('AgendaViewDialog').show()" disabled="#{empty agendaController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":AgendaEditForm" oncomplete="PF('AgendaEditDialog').show()" disabled="#{empty agendaController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{agendaController.destroy}" update=":growl,datalist" disabled="#{empty agendaController.selected}"/>
-                        
+                            
                         <br></br>   
                         <h:commandLink value="exportar solo filtradas">
                             <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="true" />
@@ -107,6 +100,15 @@
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
+              
+                <p:contextMenu for="datalist">
+                <p:menuitem value="Ver" icon="ui-icon-search"  update=":AgendaViewForm" oncomplete="PF('AgendaViewDialog').show()" disabled="#{empty agendaController.selected}"/>
+                <p:menuitem value="Borrar" icon="ui-icon-trash"  actionListener="#{agendaController.destroy}" update=":growl,datalist" disabled="#{empty agendaController.selected}">
+                
+                
+                </p:menuitem>
+            </p:contextMenu> 
+                
             </h:form>
 
             <ui:include src="Create.xhtml"/>

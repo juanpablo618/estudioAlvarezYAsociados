@@ -173,7 +173,7 @@
  
                                 <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
                                             <p:outputLabel value="Fecha de cobro:" for="fechaDeCobro" />
-                                            <p:calendar id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" required="true" requiredMessage="fecha de cobro es requerido" showOn="button"/>
+                                            <p:calendar id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" showOn="button"/>
                         
                                 </h:panelGrid> 
                                 <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">

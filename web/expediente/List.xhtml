@@ -24,7 +24,7 @@
                                  paginator="true"
                                  rowKey="#{item.idExpediente}"
                                  widgetVar="expedientesTable"
-                                 rows="50"
+                                 rows="20"
                                  rowsPerPageTemplate="50,60,70,80,90"
                                  filteredValue="#{expedienteController.filteredExpedientes}"
                                  resizableColumns="true"
@@ -67,7 +67,6 @@
                         
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"/>
-                       
                             
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{expedienteController.destroy}" update=":growl,datalist" disabled="#{empty expedienteController.selected}">
                                 <p:confirm header="Confirmation" message="Are you sure?" icon="pi pi-exclamation-triangle" />
@@ -75,6 +74,16 @@
                             
                             <p:commandButton id="viewButtonParaTurno"   icon="ui-icon-pencil" value="agregar Turno" actionListener="#{turnoController.prepareCreate}" update=":ExpedienteViewFormParaTurno" oncomplete="PF('ExpedienteViewDialogParaTurno').show()" disabled="#{empty expedienteController.selected}"/>
                         
+                           <br></br>   
+                        <h:commandLink value="exportar solo filtrados">
+                            <p:dataExporter type="pdf" target="datalist" fileName="expedientesFiltrados" pageOnly="true" />
+                        </h:commandLink>
+                            <br></br>
+                        <h:commandLink value="exportar todos">
+                            <p:dataExporter type="pdf" target="datalist" fileName="todasLosExpedientes" pageOnly="false" />
+                        </h:commandLink>
+                         
+                            
                             
                         </f:facet>
                     </p:dataTable>

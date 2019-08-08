@@ -30,7 +30,7 @@
                         <p:outputLabel value="#{bundle.CreateTurnoLabel_observacion}" for="observacion" />
                         <p:inputText id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.CreateTurnoTitle_observacion}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{turnoController.create}" value="#{bundle.Save}" update="display,:TurnoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TurnoCreateDialog');"/>
+                    <p:commandButton actionListener="#{turnoController.create}" value="#{bundle.Save}" update="@all" oncomplete="handleSubmit(args,'TurnoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TurnoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

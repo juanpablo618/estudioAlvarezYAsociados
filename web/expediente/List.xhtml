@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -82,8 +83,6 @@
                         <h:commandLink value="exportar todos">
                             <p:dataExporter type="pdf" target="datalist" fileName="todasLosExpedientes" pageOnly="false" />
                         </h:commandLink>
-                         
-                            
                             
                         </f:facet>
                     </p:dataTable>
@@ -96,7 +95,7 @@
             <p:contextMenu for="datalist">
                 <p:menuitem value="Ver" icon="pi pi-search" update=":ExpedienteViewForm" actionListener="#{agendaController.prepareCreate}" oncomplete="PF('ExpedienteViewDialog').show()"/>
                 <p:menuitem value="Borrar" update=":growl,datalist" icon="pi pi-times" actionListener="#{expedienteController.destroy}">
-                
+                 
                 
                 </p:menuitem>
             </p:contextMenu>    

@@ -78,7 +78,7 @@
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TurnoViewForm" oncomplete="PF('TurnoViewDialog').show()" disabled="#{empty turnoController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TurnoEditForm" oncomplete="PF('TurnoEditDialog').show()" disabled="#{empty turnoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{turnoController.destroy}" update=":growl,datalist" disabled="#{empty turnoController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{turnoController.destroy}" update="@all" disabled="#{empty turnoController.selected}"/>
                         
                         <br></br>   
                         <h:commandLink value="exportar solo filtrados">

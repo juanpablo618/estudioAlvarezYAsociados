@@ -32,8 +32,8 @@
                                  rendered="true"  
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton  viewButtonParaTurno  deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton  viewButtonParaTurno  deleteButton"/>
+                        <p:ajax event="rowSelect"   update="createButton "/>
+                        <p:ajax event="rowUnselect" update="createButton "/>
 
                         <p:column filterBy="#{item.orden}"  filterMatchMode="exact">
                             <f:facet name="header">
@@ -68,13 +68,6 @@
                         
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"/>
-                            
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{expedienteController.destroy}" update=":growl,datalist" disabled="#{empty expedienteController.selected}">
-                                <p:confirm header="Confirmation" message="Are you sure?" icon="pi pi-exclamation-triangle" />
-                            </p:commandButton>
-                            
-                            <p:commandButton id="viewButtonParaTurno"   icon="ui-icon-pencil" value="agregar Turno" actionListener="#{turnoController.prepareCreate}" update=":ExpedienteViewFormParaTurno" oncomplete="PF('ExpedienteViewDialogParaTurno').show()" disabled="#{empty expedienteController.selected}"/>
-                        
                            <br></br>   
                         <h:commandLink value="exportar solo filtrados">
                             <p:dataExporter type="pdf" target="datalist" fileName="expedientesFiltrados" pageOnly="true" />
@@ -94,10 +87,11 @@
             
             <p:contextMenu for="datalist">
                 <p:menuitem value="Ver" icon="pi pi-search" update=":ExpedienteViewForm" actionListener="#{agendaController.prepareCreate}" oncomplete="PF('ExpedienteViewDialog').show()"/>
-                <p:menuitem value="Borrar" update=":growl,datalist" icon="pi pi-times" actionListener="#{expedienteController.destroy}">
-                 
-                
+                <p:menuitem value="Borrar" update="@all" icon="pi pi-times" actionListener="#{expedienteController.destroy}">
                 </p:menuitem>
+            
+                <p:menuitem id="viewButtonParaTurno"   icon="ui-icon-pencil" value="agregar Turno" actionListener="#{turnoController.prepareCreate}" update=":ExpedienteViewFormParaTurno" oncomplete="PF('ExpedienteViewDialogParaTurno').show()" disabled="#{empty expedienteController.selected}" />             
+                
             </p:contextMenu>    
                 
             </h:form>

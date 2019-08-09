@@ -15,6 +15,7 @@
                         <h:outputText value="procedencia:"/>
                         <h:outputText value="#{procedenciaController.selected.nombreProcedencia}" title="#{bundle.ViewProcedenciaTitle_nombreProcedencia}"/>
                     </p:panelGrid>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ProcedenciaEditForm" oncomplete="PF('ProcedenciaEditDialog').show()" disabled="#{empty procedenciaController.selected}"/>
                     <p:commandButton value="#{bundle.Close}" onclick="ProcedenciaViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

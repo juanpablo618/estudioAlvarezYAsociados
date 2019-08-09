@@ -11,14 +11,14 @@
         <p:dialog id="AgendaViewDlg" widgetVar="AgendaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAgendaTitle}">
             <h:form id="AgendaViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{agendaController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{agendaController.selected != null}">
                         <h:outputText value="#{bundle.ViewAgendaLabel_fecha}"/>
                         <h:outputText value="#{agendaController.selected.fecha}" title="#{bundle.ViewAgendaTitle_fecha}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewAgendaLabel_descripcion}"/>
                         
-                        <p:inputTextarea rows="5" cols="50" value="#{agendaController.selected.descripcion}" title="#{bundle.ViewAgendaTitle_descripcion}" readonly="true"/>
+                        <p:inputTextarea rows="10" cols="33" value="#{agendaController.selected.descripcion}" title="#{bundle.ViewAgendaTitle_descripcion}" readonly="true"/>
                         
                         <h:outputText value="Nombre:"/>
                         <h:outputText value="#{agendaController.selected.nombre}"/>
@@ -35,6 +35,8 @@
                         
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="AgendaViewDialog.hide()"/>
+                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":AgendaEditForm" oncomplete="PF('AgendaEditDialog').show()" disabled="#{empty agendaController.selected}"/>
+                           
                 </h:panelGroup>
             </h:form>
         </p:dialog>

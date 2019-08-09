@@ -24,8 +24,8 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="createButton "/>
+                        <p:ajax event="rowUnselect" update="createButton "/>
 
                         <p:column>
                             <f:facet name="header">
@@ -35,12 +35,19 @@
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{procedenciaController.prepareCreate}" update=":ProcedenciaCreateForm" oncomplete="PF('ProcedenciaCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProcedenciaViewForm" oncomplete="PF('ProcedenciaViewDialog').show()" disabled="#{empty procedenciaController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ProcedenciaEditForm" oncomplete="PF('ProcedenciaEditDialog').show()" disabled="#{empty procedenciaController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{procedenciaController.destroy}" update=":growl,datalist" disabled="#{empty procedenciaController.selected}"/>
+                            
+                            
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
+             
+               <p:contextMenu for="datalist">
+                <p:menuitem value="Ver" icon="ui-icon-search"  update=":ProcedenciaViewForm" oncomplete="PF('ProcedenciaViewDialog').show()" />
+                <p:menuitem value="Borrar" icon="ui-icon-trash"  actionListener="#{procedenciaController.destroy}" update="@all" />
+
+            </p:contextMenu> 
+              
+                
             </h:form>
 
             <ui:include src="Create.xhtml"/>

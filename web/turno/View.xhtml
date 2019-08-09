@@ -28,6 +28,7 @@
                         <h:outputText value="#{bundle.ViewTurnoLabel_observacion}"/>
                         <h:outputText value="#{turnoController.selected.observacion}" title="#{bundle.ViewTurnoTitle_observacion}"/>
                     </p:panelGrid>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TurnoEditForm" oncomplete="PF('TurnoEditDialog').show()" disabled="#{empty turnoController.selected}"/>
                     <p:commandButton value="#{bundle.Close}" onclick="TurnoViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

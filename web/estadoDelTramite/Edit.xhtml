@@ -15,7 +15,8 @@
                         <p:outputLabel value="#{bundle.EditEstadoDelTramiteLabel_estado}" for="estado" />
                         <p:inputText id="estado" value="#{estadoDelTramiteController.selected.estado}" title="#{bundle.EditEstadoDelTramiteTitle_estado}" required="true" requiredMessage="#{bundle.EditEstadoDelTramiteRequiredMessage_estado}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{estadoDelTramiteController.update}" value="#{bundle.Save}" update="display,:EstadoDelTramiteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EstadoDelTramiteEditDialog');"/>
+                    
+                    <p:commandButton onclick="EstadoDelTramiteViewDialog.hide()" actionListener="#{estadoDelTramiteController.update}" value="#{bundle.Save}" update="display,:EstadoDelTramiteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EstadoDelTramiteEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="EstadoDelTramiteEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

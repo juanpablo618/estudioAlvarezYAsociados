@@ -14,16 +14,15 @@
                     <p:panelGrid columns="2" rendered="#{agendaController.selected != null}">
                         <p:outputLabel value="#{bundle.EditAgendaLabel_fecha}" for="fecha" />
                         <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditAgendaLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{agendaController.selected.descripcion}" title="#{bundle.EditAgendaTitle_descripcion}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_descripcion}"/>
                         
+                        <p:outputLabel value="#{bundle.EditAgendaLabel_descripcion}" for="descripcion" />
+                        <p:inputTextarea rows="10" cols="33"  id="descripcion" value="#{agendaController.selected.descripcion}" />
                         
                         <p:outputLabel value="Nombre:"  />
                         <p:outputLabel value="#{agendaController.selected.nombre}"  />
                         
                         <p:outputLabel value="Apellido:"  />
                         <p:outputLabel value="#{agendaController.selected.apellido}"  />
-                        
                         
                         <p:outputLabel value="responsable" for="responsable" />
                         <p:selectOneMenu  id="responsable" value="#{agendaController.selected.responsable}"  >
@@ -33,11 +32,9 @@
                         <p:outputLabel value="orden" for="orden" />
                         <p:inputText id="orden" value="#{agendaController.selected.orden}" />
                         
-                        
-                        
                     </p:panelGrid>
                     
-                    <p:commandButton actionListener="#{agendaController.update}" value="#{bundle.Save}" update="display,:AgendaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AgendaEditDialog');"/>
+                    <p:commandButton onclick="AgendaViewDialog.hide()" actionListener="#{agendaController.update}" value="#{bundle.Save}" update="display,:AgendaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AgendaEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="AgendaEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

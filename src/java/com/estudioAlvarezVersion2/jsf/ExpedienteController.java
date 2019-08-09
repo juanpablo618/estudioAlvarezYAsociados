@@ -9,7 +9,9 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
+import static java.util.Objects.nonNull;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -157,6 +159,34 @@ public class ExpedienteController implements Serializable {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
+    }
+    
+    public void calcularEdades(){
+        Calendar fecha = new GregorianCalendar();
+        int añoActual = fecha.get(Calendar.YEAR);
+    
+        for(Expediente ex:items){
+            
+            if(nonNull(ex.getFechaDeNacimiento())){
+                int añoDeNacimiento = ex.getFechaDeNacimiento().getYear();
+
+                añoDeNacimiento = añoDeNacimiento + 1900;
+
+                int edad = 0;
+
+                edad = añoActual - añoDeNacimiento;
+
+                int mesDeNacimiento = ex.getFechaDeNacimiento().getMonth();
+                if(mesDeNacimiento>6){
+                    ex.setEdad(edad-1);
+                }else{
+                ex.setEdad(edad);
+                }
+            }
+        }
+        
+        
+        
     }
 
     public List<Expediente> getItems() {

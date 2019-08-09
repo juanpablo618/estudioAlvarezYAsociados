@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="EmpleadoViewDlg" widgetVar="EmpleadoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEmpleadoTitle}">
+        <p:dialog id="EmpleadoViewDlg" widgetVar="EmpleadoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Ver Empleado">
             <h:form id="EmpleadoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{empleadoController.selected != null}">
@@ -20,6 +20,8 @@
                         <h:outputText value="#{empleadoController.selected.cargo}" title="#{bundle.ViewEmpleadoTitle_cargo}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="EmpleadoViewDialog.hide()"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EmpleadoEditForm" oncomplete="PF('EmpleadoEditDialog').show()" disabled="#{empty empleadoController.selected}"/>
+                            
                 </h:panelGroup>
             </h:form>
         </p:dialog>

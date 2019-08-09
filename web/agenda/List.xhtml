@@ -42,8 +42,8 @@
 
                         </f:facet>
                         
-                        <p:ajax event="rowSelect"   update="createButton  editButton"/>
-                        <p:ajax event="rowUnselect" update="createButton  editButton"/>
+                        <p:ajax event="rowSelect"   update="createButton "/>
+                        <p:ajax event="rowUnselect" update="createButton "/>
                         
                         <p:column sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="Fecha">
                             <f:facet name="filter">
@@ -86,7 +86,6 @@
                         
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":AgendaEditForm" oncomplete="PF('AgendaEditDialog').show()" disabled="#{empty agendaController.selected}"/>
                             
                         <br></br>   
                         <h:commandLink value="exportar solo filtradas">
@@ -102,11 +101,9 @@
                 </p:panel>
               
                 <p:contextMenu for="datalist">
-                <p:menuitem value="Ver" icon="ui-icon-search"  update=":AgendaViewForm" oncomplete="PF('AgendaViewDialog').show()" disabled="#{empty agendaController.selected}"/>
-                <p:menuitem value="Borrar" icon="ui-icon-trash"  actionListener="#{agendaController.destroy}" update=":growl,datalist" disabled="#{empty agendaController.selected}">
-                
-                
-                </p:menuitem>
+                <p:menuitem value="Ver" icon="ui-icon-search"  update=":AgendaViewForm" oncomplete="PF('AgendaViewDialog').show()" />
+                <p:menuitem value="Borrar" icon="ui-icon-trash"  actionListener="#{agendaController.destroy}" update="@all" />
+
             </p:contextMenu> 
                 
             </h:form>

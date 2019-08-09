@@ -19,7 +19,8 @@
                         <p:outputLabel value="#{bundle.EditEmpleadoLabel_cargo}" for="cargo" />
                         <p:inputText id="cargo" value="#{empleadoController.selected.cargo}" title="#{bundle.EditEmpleadoTitle_cargo}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{empleadoController.update}" value="#{bundle.Save}" update="display,:EmpleadoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EmpleadoEditDialog');"/>
+                    
+                    <p:commandButton onclick="EmpleadoViewDialog.hide()" actionListener="#{empleadoController.update}" value="#{bundle.Save}" update="display,:EmpleadoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EmpleadoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="EmpleadoEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

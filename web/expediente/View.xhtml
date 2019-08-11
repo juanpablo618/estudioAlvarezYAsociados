@@ -8,19 +8,16 @@
 
     <ui:composition>
 
-        <p:dialog id="ExpedienteViewDlg" widgetVar="ExpedienteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewExpedienteTitle}">
+        <p:dialog id="ExpedienteViewDlg" widgetVar="ExpedienteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Expediente con orden: #{expedienteController.selected.orden}">
             
             <h:form id="ExpedienteViewForm">
                 <h:panelGroup id="display">
                     
-                        <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
-
-                            <h:outputText value="#{bundle.ViewExpedienteLabel_orden}" style="font-weight: bold" />
-                            <h:outputText value="#{expedienteController.selected.orden}" title="#{bundle.ViewExpedienteTitle_orden}"/>
-
-                        </h:panelGrid>   
-                    
+                        
+                   <p:fieldset legend="datos personales" toggleable="true" toggleSpeed="500">
+                       
                     <p:panel  style="margin-bottom:2px">
+                          
                         <p:panel>
                             <h:panelGrid columns="10" cellpadding="1" rendered="#{expedienteController.selected != null}">
                                <h:outputText value="#{bundle.ViewExpedienteLabel_apellido}" style="font-weight: bold; " />
@@ -35,7 +32,8 @@
                                 <h:outputText value="#{bundle.ViewExpedienteLabel_cuit}" style="font-weight: bold" />
                                 <h:outputText value="#{expedienteController.selected.cuit}" title="#{bundle.ViewExpedienteTitle_cuit}"/>
                             </h:panelGrid>        
-
+                           
+                            
                             <h:panelGrid columns="10" cellpadding="1" rendered="#{expedienteController.selected != null}">
 
                                 <h:outputText value="Nacionalidad:" style="font-weight: bold" />
@@ -59,9 +57,13 @@
                                 <h:outputText value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion">
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
-                            </h:panelGrid>        
-                     </p:panel>      
+                            </h:panelGrid>
+                               
+                    
+                     </p:panel>
+                        
                     <br></br>
+                    
                     <p:panel>
                     <h:panelGroup  rendered="#{expedienteController.selected != null}">
                         <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
@@ -132,12 +134,12 @@
                     <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
                         <h:outputText value="Observaciones:" style="font-weight: bold" />
                     </h:panelGrid>   
-                 
                     
                     <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
                         <h:outputText  value="#{expedienteController.selected.observaciones}" title="observaciones"/>
                     </h:panelGrid>
                  </p:panel>          
+                </p:fieldset> 
                     
                     <p:panel  style="margin-bottom:2px" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}">  
                         <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
@@ -192,38 +194,36 @@
                     </h:panelGrid>
                     </p:panel>
                     
-                    
-                    <p:panel  style="margin-bottom:2px">
-
-                        <h:outputText value="Agregar Agenda" style="color: red; " />
-                        <br />
-                        <h:panelGrid columns="6" rendered="#{expedienteController.selected != null}">
-
-                            <p:outputLabel value="#{bundle.CreateAgendaLabel_fecha}" for="fecha" style="font-weight: bold" />
-                            <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
-                         </h:panelGrid> 
-                        <br></br>
-
-                        <h:panelGrid columns="6" rendered="#{expedienteController.selected != null}">
-                            <p:outputLabel value="Actividad:" for="descripcion" style="font-weight: bold" />
-
-                            <p:inputTextarea rows="10" cols="30" id="descripcion" value="#{agendaController.selected.descripcion}" title="#{bundle.CreateAgendaTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateAgendaRequiredMessage_descripcion}"/>
-                        </h:panelGrid>    
-                         <br></br>
-                     
-                        <h:panelGrid columns="6" rendered="#{expedienteController.selected != null}" >
-                            
-                            <p:outputLabel value="Responsable:" for="responsable" style="font-weight: bold" />
-                            <p:selectOneMenu  id="responsable" value="#{agendaController.selected.responsable}"  >
-                                <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
-                            </p:selectOneMenu>
-
-                        </h:panelGrid>
+                   <p:fieldset legend="Agregar Agenda" toggleable="true" toggleSpeed="500">
                          
-                    </p:panel>
-                    <p:commandButton actionListener="#{agendaController.create(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.orden)}" value="#{bundle.Save}" onclick="ExpedienteViewDialog.hide()"/>
-                    
-                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()" disabled="#{empty expedienteController.selected}"/>
+                        <p:panel  style="margin-bottom:2px">
+
+                            <h:panelGrid columns="6" rendered="#{expedienteController.selected != null}">
+
+                                <p:outputLabel value="#{bundle.CreateAgendaLabel_fecha}" for="fecha" style="font-weight: bold" />
+                                <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
+                             </h:panelGrid> 
+                            
+                            <h:panelGrid columns="6" rendered="#{expedienteController.selected != null}">
+                                <p:outputLabel value="Actividad:" for="descripcion" style="font-weight: bold" />
+
+                                <p:inputTextarea rows="10" cols="30" id="descripcion" value="#{agendaController.selected.descripcion}" title="#{bundle.CreateAgendaTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateAgendaRequiredMessage_descripcion}"/>
+                            </h:panelGrid>    
+                             <br></br>
+
+                            <h:panelGrid columns="6" rendered="#{expedienteController.selected != null}" >
+
+                                <p:outputLabel value="Responsable:" for="responsable" style="font-weight: bold" />
+                                <p:selectOneMenu  id="responsable" value="#{agendaController.selected.responsable}"  >
+                                    <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
+                                </p:selectOneMenu>
+
+                            </h:panelGrid>
+                          <p:commandButton actionListener="#{agendaController.create(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.orden)}" value="Guardar Agenda" onclick="ExpedienteViewDialog.hide()"/>
+
+                        </p:panel>
+                    </p:fieldset>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Editar expediente" update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()" disabled="#{empty expedienteController.selected}"/>
                         
                     <p:commandButton value="#{bundle.Close}" onclick="ExpedienteViewDialog.hide()"/>
                 </h:panelGroup>

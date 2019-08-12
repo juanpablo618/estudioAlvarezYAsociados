@@ -32,8 +32,8 @@
                                  rendered="true"  
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButtonParaTurno"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButtonParaTurno"/>
+                        <p:ajax event="rowSelect"   update="createButton "/>
+                        <p:ajax event="rowUnselect" update="createButton "/>
 
                         <p:column filterBy="#{item.orden}"  filterMatchMode="exact">
                             <f:facet name="header">
@@ -55,6 +55,7 @@
                             </f:facet>
                             <h:outputText value="#{item.telefono}"/>
                         </p:column>
+                        
                         <p:column filterBy="#{item.fechaDeCobro}" filterMatchMode="contains"  headerText="Fecha de cobro">
                             <f:facet name="filter">
                                 <p:calendar pattern="dd/MM/yyyy" onkeyup="PF('expedientesTable').filter()">
@@ -68,7 +69,6 @@
                         
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"/>
-                           <p:commandButton id="viewButtonParaTurno"   icon="ui-icon-pencil" value="agregar Turno" actionListener="#{turnoController.prepareCreate}" update=":ExpedienteViewFormParaTurno" oncomplete="PF('ExpedienteViewDialogParaTurno').show()" disabled="#{empty expedienteController.selected}"/>
                            
                            
                            <p:commandButton id="juan"   icon="ui-icon-pencil" value="agregar edades" actionListener="#{expedienteController.calcularEdades()}" update="@all"/>
@@ -96,7 +96,7 @@
                 <p:menuitem value="Borrar" update="@all" icon="ui-icon-trash" actionListener="#{expedienteController.destroy}">
                 </p:menuitem>
             
-                <p:menuitem icon="ui-icon-pencil" value="agregar Turno" actionListener="#{turnoController.prepareCreate}" update=":ExpedienteViewFormParaTurno" oncomplete="PF('ExpedienteViewDialogParaTurno').show()" disabled="#{empty expedienteController.selected}" />             
+                <p:menuitem icon="ui-icon-pencil" value="agregar Turno" actionListener="#{turnoController.prepareCreate}" update=":ExpedienteViewFormParaTurno" oncomplete="PF('ExpedienteViewDialogParaTurno').show()" />             
                 
             </p:contextMenu>    
                 

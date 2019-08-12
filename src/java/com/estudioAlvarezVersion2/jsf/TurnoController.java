@@ -6,6 +6,7 @@ import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.TurnoFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -29,6 +30,17 @@ public class TurnoController implements Serializable {
     private Turno selected;
     
     private List<Turno> filteredturnos;
+    
+    private Date dateSelected;
+
+    
+    public Date getDateSelected() {
+        return dateSelected;
+    }
+
+    public void setDateSelected(Date dateSelected) {
+        this.dateSelected = dateSelected;
+    }
     
     public TurnoController() {
     }
@@ -68,6 +80,18 @@ public class TurnoController implements Serializable {
     }
 
     public void create() {
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TurnoCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    
+    public void createConNombreYApellido(String nombre, String apellido, String telefono) {
+        
+        selected.setNombre(nombre);
+        selected.setApellido(apellido);
+        selected.setNroDeTelefono(telefono);
+        
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TurnoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -172,6 +196,11 @@ public class TurnoController implements Serializable {
             }
         }
 
+    }
+    
+    
+    public void handleDateSelect(Date selected) {
+        this.dateSelected = selected;
     }
 
 }

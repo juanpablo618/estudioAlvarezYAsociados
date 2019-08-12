@@ -19,8 +19,8 @@
                         <h:outputText value="#{bundle.ViewEmpleadoLabel_cargo}"/>
                         <h:outputText value="#{empleadoController.selected.cargo}" title="#{bundle.ViewEmpleadoTitle_cargo}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="EmpleadoViewDialog.hide()"/>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EmpleadoEditForm" oncomplete="PF('EmpleadoEditDialog').show()" disabled="#{empty empleadoController.selected}"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="EmpleadoViewDialog.hide()"/>
                             
                 </h:panelGroup>
             </h:form>

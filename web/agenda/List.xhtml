@@ -87,7 +87,7 @@
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
                             
-                        <br></br>   
+                        <br></br><br></br>   
                         <h:commandLink value="exportar solo filtradas">
                             <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="true" />
                         </h:commandLink>

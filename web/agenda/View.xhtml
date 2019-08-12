@@ -34,8 +34,8 @@
                         <h:outputText value="#{agendaController.selected.responsable}" title="responsable"/>
                         
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="AgendaViewDialog.hide()"/>
                      <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":AgendaEditForm" oncomplete="PF('AgendaEditDialog').show()" disabled="#{empty agendaController.selected}"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="AgendaViewDialog.hide()"/>
                            
                 </h:panelGroup>
             </h:form>

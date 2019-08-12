@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="ExpedienteViewDlg" widgetVar="ExpedienteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Expediente con orden: #{expedienteController.selected.orden}">
+        <p:dialog id="ExpedienteViewDlg" widgetVar="ExpedienteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Ver Expediente">
             
             <h:form id="ExpedienteViewForm">
                 <h:panelGroup id="display">
@@ -20,6 +20,12 @@
                           
                         <p:panel>
                             <h:panelGrid columns="10" cellpadding="1" rendered="#{expedienteController.selected != null}">
+                                
+                                
+                               <h:outputText value="Orden:" style="font-weight: bold; " />
+                                <h:outputText value="#{expedienteController.selected.orden}"/>
+                            
+                                
                                <h:outputText value="#{bundle.ViewExpedienteLabel_apellido}" style="font-weight: bold; " />
                                 <h:outputText value="#{expedienteController.selected.apellido}" title="#{bundle.ViewExpedienteTitle_apellido}"/>
                             
@@ -39,19 +45,13 @@
                                 <h:outputText value="Nacionalidad:" style="font-weight: bold" />
                                 <h:outputText value="#{expedienteController.selected.nacionalidad}" title="nacionalidad"/>
                             
-
-                            
                                 <h:outputText value="Tipo de expediente:"  style="font-weight: bold" />
                                 <h:outputText value="#{expedienteController.selected.tipoDeExpediente}" title="tipoDeExpediente"/>
-                            
-
                             
                                 <h:outputText value="Fecha de alta de expediente:" style="font-weight: bold" />
                                 <h:outputText value="#{expedienteController.selected.fechaDeAltaDeExpediente}" title="fecha de alta de expediente">
                                         <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
-                            
-
                             
                                 <h:outputText value="Fecha de atención:" style="font-weight: bold" />
                                 <h:outputText value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion">
@@ -140,6 +140,7 @@
                     </h:panelGrid>
                  </p:panel>          
                 </p:fieldset> 
+                    <br></br>
                     
                     <p:panel  style="margin-bottom:2px" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}">  
                         <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
@@ -193,7 +194,7 @@
                     
                     </h:panelGrid>
                     </p:panel>
-                    
+                    <br></br>
                    <p:fieldset legend="Agregar Agenda" toggleable="true" toggleSpeed="500">
                          
                         <p:panel  style="margin-bottom:2px">
@@ -201,13 +202,13 @@
                             <h:panelGrid columns="6" rendered="#{expedienteController.selected != null}">
 
                                 <p:outputLabel value="#{bundle.CreateAgendaLabel_fecha}" for="fecha" style="font-weight: bold" />
-                                <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
+                                <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" title="#{bundle.EditAgendaTitle_fecha}" showOn="button"/>
                              </h:panelGrid> 
                             
                             <h:panelGrid columns="6" rendered="#{expedienteController.selected != null}">
                                 <p:outputLabel value="Actividad:" for="descripcion" style="font-weight: bold" />
 
-                                <p:inputTextarea rows="10" cols="30" id="descripcion" value="#{agendaController.selected.descripcion}" title="#{bundle.CreateAgendaTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateAgendaRequiredMessage_descripcion}"/>
+                                <p:inputTextarea rows="10" cols="30" id="descripcion" value="#{agendaController.selected.descripcion}" title="#{bundle.CreateAgendaTitle_descripcion}" />
                             </h:panelGrid>    
                              <br></br>
 

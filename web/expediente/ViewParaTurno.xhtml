@@ -8,152 +8,199 @@
 
     <ui:composition>
 
-        <p:dialog id="ExpedienteViewDlgParaTurno" widgetVar="ExpedienteViewDialogParaTurno" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewExpedienteTitle}">
+        <p:dialog id="ExpedienteViewDlgParaTurno" widgetVar="ExpedienteViewDialogParaTurno" modal="true" resizable="false" appendTo="@(body)" header="Agregar turno">
             
             <h:form id="ExpedienteViewFormParaTurno">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
-                        <h:outputText value="#{bundle.ViewExpedienteLabel_orden}" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.orden}" title="#{bundle.ViewExpedienteTitle_orden}"/>
+                   <p:fieldset legend="Datos Personales:" toggleable="true" toggleSpeed="500">
+                     
+                       <p:panel>  
+                            <h:panelGrid columns="10" cellpadding="1" >
+                                    
+                                <h:outputText value="#{bundle.ViewExpedienteLabel_orden}" style="font-weight: bold" />
+                                <h:outputText value="#{expedienteController.selected.orden}" title="#{bundle.ViewExpedienteTitle_orden}"/>
                         
-                        <h:outputText value="#{bundle.ViewExpedienteLabel_cuit}" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.cuit}" title="#{bundle.ViewExpedienteTitle_cuit}"/>
-                        
-                        <h:outputText value="Dni:" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.dni}" title="Dni"/>
-                        
-                        <h:outputText value="#{bundle.ViewExpedienteLabel_nombre}" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.nombre}" title="#{bundle.ViewExpedienteTitle_nombre}"/>
-                        
-                        <h:outputText value="#{bundle.ViewExpedienteLabel_apellido}" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.apellido}" title="#{bundle.ViewExpedienteTitle_apellido}"/>
-                        
-                        <h:outputText value="Nacionalidad:" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.nacionalidad}" title="nacionalidad"/>
-                        
-                        
-                        <h:outputText value="#{bundle.ViewExpedienteLabel_sexo}" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.sexo}" title="#{bundle.ViewExpedienteTitle_sexo}"/>
-                        
-                        <h:outputText value="#{bundle.ViewExpedienteLabel_direccion}" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.direccion}" title="#{bundle.ViewExpedienteTitle_direccion}"/>
-                        <h:outputText value="#{bundle.ViewExpedienteLabel_nroDeAltura}" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.ViewExpedienteTitle_nroDeAltura}"/>
-                        <h:outputText value="#{bundle.ViewExpedienteLabel_piso}" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.piso}" title="#{bundle.ViewExpedienteTitle_piso}"/>
-                        <h:outputText value="#{bundle.ViewExpedienteLabel_depto}" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.depto}" title="#{bundle.ViewExpedienteTitle_depto}"/>
-                        <h:outputText value="#{bundle.ViewExpedienteLabel_barrio}" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.barrio}" title="#{bundle.ViewExpedienteTitle_barrio}"/>
-                        <h:outputText value="#{bundle.ViewExpedienteLabel_telefono}" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.telefono}" title="#{bundle.ViewExpedienteTitle_telefono}"/>
-                        
-                        <h:outputText value="#{bundle.ViewExpedienteLabel_fechaDeNacimiento}" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.ViewExpedienteTitle_fechaDeNacimiento}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputText>
-                        <h:outputText value="#{bundle.ViewExpedienteLabel_edad}" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.edad}" title="#{bundle.ViewExpedienteTitle_edad}"/>
-                    
-                    <h:outputText value="Cobra  Beneficio:" style="font-weight: bold" />
-                    <h:outputText value="#{expedienteController.selected.cobraBeneficio}" title="cobra beneficio"/>
-                    
-                    <h:outputText value="fecha de alta de expediente:" style="font-weight: bold" />
-                    <h:outputText value="#{expedienteController.selected.fechaDeAltaDeExpediente}" title="fecha de alta de expediente">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </h:outputText>
-       
-                    <h:outputText value="codigo postal:" style="font-weight: bold" />
-                    <h:outputText value="#{expedienteController.selected.codigoPostal}" title="codigoPostal"/>
-                        
-                    <h:outputText value="Localidad:" style="font-weight: bold" />
-                    <h:outputText value="#{expedienteController.selected.localidad}" title="localidad"/>
-                    
-                    <h:outputText value="Tipo de tramite:" style="font-weight: bold" />
-                    <h:outputText value="#{expedienteController.selected.tipoDeTramite}" title="tipoDeTramite"/>
-                    
-                    <h:outputText value="Procedencia:" style="font-weight: bold" />
-                    <h:outputText value="#{expedienteController.selected.procedencia}" title="procedencia"/>
-                    
-                    <h:outputText value="fecha de atención:" style="font-weight: bold" />
-                    <h:outputText value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputText>
-                        
-                    <h:outputText value="Estado del tramite:" style="font-weight: bold" />
-                    <h:outputText value="#{expedienteController.selected.estadoDelTramite}" title="estadoDelTramite"/>
-                    
-                    <h:outputText value="Fecha de cobro:" style="font-weight: bold" />
-                    <h:outputText value="#{expedienteController.selected.fechaDeCobro}" title="fecha de cobro">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </h:outputText>
-                    
-                    <h:outputText value="Observaciones:" style="font-weight: bold" />
-                    <h:outputText value="#{expedienteController.selected.observaciones}" title="observaciones"/>
-                    
-                    <h:outputText value="Tipo de expediente:"  style="font-weight: bold" />
-                    <h:outputText value="#{expedienteController.selected.tipoDeExpediente}" title="tipoDeExpediente"/>
+                                <h:outputText value="#{bundle.ViewExpedienteLabel_apellido}" style="font-weight: bold" />
+                                <h:outputText value="#{expedienteController.selected.apellido}" title="#{bundle.ViewExpedienteTitle_apellido}"/>
 
-                    <h:outputText value="Caratula:" style="font-weight: bold" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"/>
-                    <h:outputText value="#{expedienteController.selected.caratula}" title="caratula" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" />
+                                <h:outputText value="#{bundle.ViewExpedienteLabel_nombre}" style="font-weight: bold" />
+                                <h:outputText value="#{expedienteController.selected.nombre}" title="#{bundle.ViewExpedienteTitle_nombre}"/>
 
-                    <h:outputText value="nro de Expediente:" style="font-weight: bold" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" />
-                    <h:outputText value="#{expedienteController.selected.nroDeExpediente}" title="nroDeExpediente" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" />
+                                <h:outputText value="Dni:" style="font-weight: bold" />
+                                <h:outputText value="#{expedienteController.selected.dni}" title="Dni"/>
 
-                    <h:outputText value="Juzgado O Dependencia:" style="font-weight: bold" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" />
-                    <h:outputText value="#{expedienteController.selected.juzgadoODependencia}" title="juzgadoODependencia" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" />
+                                <h:outputText value="#{bundle.ViewExpedienteLabel_cuit}" style="font-weight: bold" />
+                                <h:outputText value="#{expedienteController.selected.cuit}" title="#{bundle.ViewExpedienteTitle_cuit}"/>
+                            
+                            </h:panelGrid>         
+                      
+                            <h:panelGrid columns="10" cellpadding="1" >
 
-                    <p:panel header="Link al poder judicial"  rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"> 
-                    
-                        <button><a  href="https://scw.pjn.gov.ar/scw/home.seam" target="_blank">Link Para Judiciales</a></button>
-                    </p:panel>
-                    
-                </p:panelGrid>
-                    <br /><br />  
-                    
-                 
-                    <p:panelGrid columns="6" rendered="#{expedienteController.selected != null}">
-                        <h:outputText value="clave de seguridad social:" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.claveSeguridadSocial}" title="clave de seguridad social"/>
-                        <button><a href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=mianses" target="_blank">Clave de Seguridad Social</a></button>
+                                <h:outputText value="Nacionalidad:" style="font-weight: bold" />
+                                <h:outputText value="#{expedienteController.selected.nacionalidad}" title="nacionalidad"/>
+
+                                 <h:outputText value="Tipo de expediente:"  style="font-weight: bold" />
+                                 <h:outputText value="#{expedienteController.selected.tipoDeExpediente}" title="tipoDeExpediente"/>
+
+                                 <h:outputText value="fecha de alta de expediente:" style="font-weight: bold" />
+                                 <h:outputText value="#{expedienteController.selected.fechaDeAltaDeExpediente}" title="fecha de alta de expediente">
+                                         <f:convertDateTime pattern="dd/MM/yyyy" />
+                                 </h:outputText>
+
+                                <h:outputText value="fecha de atención:" style="font-weight: bold" />
+                                <h:outputText value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion">
+                                         <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+
+                            </h:panelGrid>        
+                        </p:panel>    
+                       
+                        <br></br>
+
+                       
+                        <p:panel>
+                            <h:panelGroup  rendered="#{expedienteController.selected != null}">
+                                <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
+                                    
+                                    <h:outputText value="#{bundle.ViewExpedienteLabel_direccion}" style="font-weight: bold" />
+                                    <h:outputText value="#{expedienteController.selected.direccion}" title="#{bundle.ViewExpedienteTitle_direccion}"/>
+                                    
+                                    <h:outputText value="#{bundle.ViewExpedienteLabel_nroDeAltura}" style="font-weight: bold" />
+                                    <h:outputText value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.ViewExpedienteTitle_nroDeAltura}"/>
+                                    
+                                    <h:outputText value="#{bundle.ViewExpedienteLabel_piso}" style="font-weight: bold" />
+                                    <h:outputText value="#{expedienteController.selected.piso}" title="#{bundle.ViewExpedienteTitle_piso}"/>
                         
-                        <h:outputText value="clave Fiscal:" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.claveFiscal}" title="clave Fiscal"/>
-                        <button><a href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank">Clave Fiscal</a></button>
+                                    
+                                </h:panelGrid>
+                                <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
+                                        
+                                        <h:outputText value="#{bundle.ViewExpedienteLabel_depto}" style="font-weight: bold" />
+                                        <h:outputText value="#{expedienteController.selected.depto}" title="#{bundle.ViewExpedienteTitle_depto}"/>
+                                        
+                                        <h:outputText value="#{bundle.ViewExpedienteLabel_barrio}" style="font-weight: bold" />
+                                        <h:outputText value="#{expedienteController.selected.barrio}" title="#{bundle.ViewExpedienteTitle_barrio}"/>
+                                        
+                                        <h:outputText value="codigo postal:" style="font-weight: bold" />
+                                        <h:outputText value="#{expedienteController.selected.codigoPostal}" title="codigoPostal"/>
+                                            
+                                        <h:outputText value="Localidad:" style="font-weight: bold" />
+                                        <h:outputText value="#{expedienteController.selected.localidad}" title="localidad"/>
+                    
+                                        
+                                            
+                                </h:panelGrid>
+                            </h:panelGroup>
+                        </p:panel>
+                        
+                        <p:panel  style="margin-bottom:2px">
+                            <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
+                                    
+                                    <h:outputText value="#{bundle.ViewExpedienteLabel_telefono}" style="font-weight: bold" />
+                                    <h:outputText value="#{expedienteController.selected.telefono}" title="#{bundle.ViewExpedienteTitle_telefono}"/>
+                        
+                                    <h:outputText value="#{bundle.ViewExpedienteLabel_fechaDeNacimiento}" style="font-weight: bold" />
+                                    <h:outputText value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.ViewExpedienteTitle_fechaDeNacimiento}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+
+                                    <h:outputText value="#{bundle.ViewExpedienteLabel_edad}" style="font-weight: bold" />
+                                    <h:outputText value="#{expedienteController.selected.edad}" title="#{bundle.ViewExpedienteTitle_edad}"/>
+                    
+                                    
+                            </h:panelGrid>
+                            <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
+                                    
+                                    <h:outputText value="Tipo de tramite:" style="font-weight: bold" />
+                                    <h:outputText value="#{expedienteController.selected.tipoDeTramite}" title="tipoDeTramite"/>
+                    
+                                    <h:outputText value="Estado del tramite:" style="font-weight: bold" />
+                                    <h:outputText value="#{expedienteController.selected.estadoDelTramite}" title="estadoDelTramite"/>
+                    
+                                    <h:outputText value="Cobra  Beneficio:" style="font-weight: bold" />
+                                    <h:outputText value="#{expedienteController.selected.cobraBeneficio}" title="cobra beneficio"/>
+                                    
+                                    <h:outputText value="#{bundle.ViewExpedienteLabel_sexo}" style="font-weight: bold" />
+                                    <h:outputText value="#{expedienteController.selected.sexo}" title="#{bundle.ViewExpedienteTitle_sexo}"/>
+                        
+                            
+                            </h:panelGrid>
+                            <br></br>
+                            <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
+                                <h:outputText value="Observaciones:" style="font-weight: bold" />
+                            </h:panelGrid>   
+                                
+                            <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
+                               <h:outputText value="#{expedienteController.selected.observaciones}" title="observaciones"/>
+                            </h:panelGrid>
+                            
+                            
+                        </p:panel>   
+                </p:fieldset>
+                <br></br>
+                    
+                    <p:panel  style="margin-bottom:2px" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}">  
+                        <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
+                        
+                                    <h:outputText value="Caratula:" style="font-weight: bold" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"/>
+                                    <h:outputText value="#{expedienteController.selected.caratula}" title="caratula" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" />
+
+                            
+                                    <h:outputText value="nro de Expediente:" style="font-weight: bold" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" />
+                                    <h:outputText value="#{expedienteController.selected.nroDeExpediente}" title="nroDeExpediente" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" />
+                    
+                                    <h:outputText value="Juzgado O Dependencia:" style="font-weight: bold" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" />
+                                    <h:outputText value="#{expedienteController.selected.juzgadoODependencia}" title="juzgadoODependencia" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" />
+
+                                    <p:panel header="Link al poder judicial"  rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"> 
+                                        <button><a  href="https://scw.pjn.gov.ar/scw/home.seam" target="_blank">Link Para Judiciales</a></button>
+                                    </p:panel>
+                            
+                        </h:panelGrid>
+                    </p:panel>     
+                        
+                    <p:panel  style="margin-bottom:2px">
+                        <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
+                        
+                            <h:outputText value="clave de SS:" style="font-weight: bold" />
+                            <h:outputText value="#{expedienteController.selected.claveSeguridadSocial}" title="clave de seguridad social"/>
+                            <button><a href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=mianses" target="_blank">Clave de Seguridad Social</a></button>
+
+                            <h:outputText value="clave Cidi:" style="font-weight: bold" />
+                            <h:outputText value="#{expedienteController.selected.claveCidi}" title="clave Cidi"/>
+                            <button><a href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank">Clave Fiscal</a></button>
+
+                            <h:outputText value="clave Fiscal:" style="font-weight: bold" />
+                            <h:outputText value="#{expedienteController.selected.claveFiscal}" title="clave Fiscal"/>
+                            <button><a href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank">Clave Fiscal</a></button>
                         
                         
-                        <h:outputText value="clave Cidi:" style="font-weight: bold" />
-                        <h:outputText value="#{expedienteController.selected.claveCidi}" title="clave Cidi"/>
-                        <button><a href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank">Clave Fiscal</a></button>
-                    </p:panelGrid> 
+                        </h:panelGrid>
+                    </p:panel>    
+                    
+                    <p:panel  style="margin-bottom:2px">
+                            <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
+                                    <h:outputText value="Fecha de cobro:" style="font-weight: bold" />
+                                    <h:outputText value="#{expedienteController.selected.fechaDeCobro}" title="fecha de cobro">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+
+                            </h:panelGrid>
+                        <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
+                                <h:outputText value="Procedencia:" style="font-weight: bold" />
+                                <h:outputText value="#{expedienteController.selected.procedencia}" title="procedencia"/>
+                    
+                        </h:panelGrid>    
+                    </p:panel>   
                     
                     <br />
-                    <br />
-                        <h:outputText value="Agregar Turno" style="color: red"/>
-                    <br />
+                   <p:fieldset legend="Agregar Turno:" toggleable="true" toggleSpeed="500">
+                   
                     <p:panelGrid columns="6" rendered="#{expedienteController.selected != null}">
                             
                           <p:outputLabel value="día y hora:" for="horaYDia" />
-                        <p:calendar id="horaYDia" minHour="8" maxHour="19" pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" required="true" requiredMessage="#{bundle.EditTurnoRequiredMessage_horaYDia}" showOn="button"/>
+                        <p:calendar id="horaYDia" minHour="8" maxHour="19" pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" showOn="button"/>
                         
-                        
-                        <p:outputLabel value="nombre:" for="nombreParaTurno" style="font-weight: bold" />
-                        
-                        <p:selectOneMenu id="nombreParaTurno" value="#{turnoController.selected.nombre}" style="width:125px">
-                            <f:selectItem itemLabel="#{expedienteController.selected.nombre}" itemValue="#{expedienteController.selected.nombre} " />
-                          </p:selectOneMenu>
-
-                        <p:outputLabel value="Apellido:" for="apellidoParaTurno" style="font-weight: bold" />
-                        
-                        <p:selectOneMenu id="apellidoParaTurno" value="#{turnoController.selected.apellido}" style="width:125px">
-                            <f:selectItem itemLabel="#{expedienteController.selected.apellido}" itemValue="#{expedienteController.selected.apellido} " />
-                          </p:selectOneMenu>
-
-                        <p:outputLabel value="#{bundle.CreateTurnoLabel_nroDeTelefono}" for="nroDeTelefono" />
-                        <p:selectOneMenu id="nroDeTelefono" value="#{turnoController.selected.nroDeTelefono}" style="width:125px">
-                            <f:selectItem itemLabel="#{expedienteController.selected.telefono}" itemValue="#{expedienteController.selected.telefono}" />
-                        </p:selectOneMenu>
-
                         <p:outputLabel value="#{bundle.CreateTurnoLabel_procedencia}" for="procedencia" />
                         <p:inputText id="procedencia" value="#{turnoController.selected.procedencia}" title="#{bundle.CreateTurnoTitle_procedencia}" />
                         
@@ -162,8 +209,9 @@
                        
                     </p:panelGrid>
 
-                    <p:commandButton actionListener="#{turnoController.create}" value="#{bundle.Save}" onclick="ExpedienteViewDialogParaTurno.hide()"/>
-                        
+                    <p:commandButton actionListener="#{turnoController.createConNombreYApellido(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.telefono)}" value="Guardar Turno" onclick="ExpedienteViewDialogParaTurno.hide()"/>
+                </p:fieldset> 
+      
                     <p:commandButton value="#{bundle.Close}" onclick="ExpedienteViewDialogParaTurno.hide()"/>
                 </h:panelGroup>
             </h:form>

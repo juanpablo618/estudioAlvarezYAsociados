@@ -152,6 +152,10 @@ public class ExpedienteController implements Serializable {
 
             persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteUpdated"));
     }
+    
+    public void update2() {
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteUpdated"));
+    }
 
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteDeleted"));
@@ -164,12 +168,18 @@ public class ExpedienteController implements Serializable {
     public void calcularEdades(){
         Calendar fecha = new GregorianCalendar();
         int añoActual = fecha.get(Calendar.YEAR);
-    
+        
+        System.out.println("entro al calcular edades");
+        
         for(Expediente ex:items){
-            
+                    System.out.println("entro al for");
             if(nonNull(ex.getFechaDeNacimiento())){
+                        System.out.println("entro al if");
+                        System.out.println("Orden: "+ex.getOrden());
+                        
                 int añoDeNacimiento = ex.getFechaDeNacimiento().getYear();
 
+                
                 añoDeNacimiento = añoDeNacimiento + 1900;
 
                 int edad = 0;
@@ -179,8 +189,12 @@ public class ExpedienteController implements Serializable {
                 int mesDeNacimiento = ex.getFechaDeNacimiento().getMonth();
                 if(mesDeNacimiento>6){
                     ex.setEdad(edad-1);
+                    selected = ex;
+                    update2();
                 }else{
                 ex.setEdad(edad);
+                selected = ex;
+                    update2();
                 }
             }
         }

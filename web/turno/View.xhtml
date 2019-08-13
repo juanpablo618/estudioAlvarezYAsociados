@@ -12,7 +12,7 @@
             <h:form id="TurnoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{turnoController.selected != null}">
-                        <h:outputText value="día y hora"/>
+                        <h:outputText value="día y hora:"/>
                         <h:outputText value="#{turnoController.selected.horaYDia}" title="#{bundle.ViewTurnoTitle_horaYDia}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                         </h:outputText>
@@ -21,11 +21,11 @@
                         
                         <h:outputText value="#{bundle.ViewTurnoLabel_apellido}"/>
                         <h:outputText value="#{turnoController.selected.apellido}" title="#{bundle.ViewTurnoTitle_apellido}"/>
-                        <h:outputText value="#{bundle.ViewTurnoLabel_nroDeTelefono}"/>
+                        <h:outputText value="Nro de teléfono:"/>
                         <h:outputText value="#{turnoController.selected.nroDeTelefono}" title="#{bundle.ViewTurnoTitle_nroDeTelefono}"/>
                         <h:outputText value="#{bundle.ViewTurnoLabel_procedencia}"/>
                         <h:outputText value="#{turnoController.selected.procedencia}" title="#{bundle.ViewTurnoTitle_procedencia}"/>
-                        <h:outputText value="#{bundle.ViewTurnoLabel_observacion}"/>
+                        <h:outputText value="Observación:"/>
                         <h:outputText value="#{turnoController.selected.observacion}" title="#{bundle.ViewTurnoTitle_observacion}"/>
                     </p:panelGrid>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TurnoEditForm" oncomplete="PF('TurnoEditDialog').show()" disabled="#{empty turnoController.selected}"/>

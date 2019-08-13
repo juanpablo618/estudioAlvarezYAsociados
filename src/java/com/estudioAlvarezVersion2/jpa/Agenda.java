@@ -44,13 +44,10 @@ public class Agenda implements Serializable {
     @Column(name = "idAgenda")
     private Integer idAgenda;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 1000)
     @Column(name = "descripcion")
     private String descripcion;
     @Basic(optional = false)

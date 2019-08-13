@@ -46,8 +46,8 @@ public class Turno implements Serializable {
     @Basic(optional = false)
     @Column(name = "idTurno")
     private Integer idTurno;
+    
     @Basic(optional = false)
-    @NotNull
     @Column(name = "horaYDia")
     @Temporal(TemporalType.DATE)
     private Date horaYDia;

@@ -141,7 +141,8 @@
                  </p:panel>          
                 </p:fieldset> 
                     <br></br>
-                    
+                  <p:fieldset legend="Claves" toggleable="true" toggleSpeed="500">
+                     
                     <p:panel  style="margin-bottom:2px" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}">  
                         <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
 
@@ -194,6 +195,7 @@
                     
                     </h:panelGrid>
                     </p:panel>
+                  </p:fieldset>  
                     <br></br>
                    <p:fieldset legend="Agregar Agenda" toggleable="true" toggleSpeed="500">
                          
@@ -208,7 +210,7 @@
                             <h:panelGrid columns="6" rendered="#{expedienteController.selected != null}">
                                 <p:outputLabel value="Actividad:" for="descripcion" style="font-weight: bold" />
 
-                                <p:inputTextarea rows="10" cols="30" id="descripcion" value="#{agendaController.selected.descripcion}" title="#{bundle.CreateAgendaTitle_descripcion}" />
+                                <p:inputTextarea rows="5" cols="50" id="descripcion" value="#{agendaController.selected.descripcion}" title="#{bundle.CreateAgendaTitle_descripcion}" />
                             </h:panelGrid>    
                              <br></br>
 

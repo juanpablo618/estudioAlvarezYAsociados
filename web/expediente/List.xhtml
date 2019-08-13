@@ -69,10 +69,6 @@
                         
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"/>
-                           
-                           
-                           <p:commandButton id="juan"   icon="ui-icon-pencil" value="agregar edades" actionListener="#{expedienteController.calcularEdades()}" update="@all"/>
-                           
                            <br></br>   
                            
                            <h:commandLink value="exportar solo filtrados">

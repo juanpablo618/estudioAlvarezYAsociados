@@ -8,10 +8,11 @@
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
     <h:body>
-        <center><h:graphicImage value="resources/images/sofa.png" style="width: 20%;"/></center>
-
-        <p:accordionPanel>
         
+        <center><h:graphicImage value="resources/images/sofa.png" style="width: 20%;"/></center>
+        
+        <p:accordionPanel>
+
             <p:tab title="Menu:">
                 <h:panelGrid columns="2" cellpadding="10">
 
@@ -26,13 +27,16 @@
                     <h:link outcome="/turno/List" value="Turnos" style="font-size: 150%"/>
 
                     <h:link outcome="/estadoDelTramite/List" value="Estados del tramite" style="font-size: 150%"/>
+                    
+                    <h:link outcome="/users/List" value="Usuarios" style="font-size: 150%"/>
+                    
                 </h:panelGrid>
-                
+
             </p:tab>
 
             <br></br>
             <br></br>
-            
+
             <p:tab  title="Cantidad de Expedientes:">
                 <h:panelGrid columns="2" cellpadding="10">
                     <h:outputText value="#{expedienteController.items.size()}" />

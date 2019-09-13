@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 13-08-2019 a las 22:07:34
+-- Tiempo de generación: 13-09-2019 a las 19:53:29
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.20
 
@@ -22971,6 +22971,27 @@ CREATE TABLE `turno` (
 INSERT INTO `turno` (`idTurno`, `horaYDia`, `nombre`, `apellido`, `nroDeTelefono`, `procedencia`, `observacion`) VALUES
 (1, '2019-08-13', 'Margarita Teresa', 'DALMASSO', '465-8093', 'procedencia juan cuello', 'observación observación desde agregar turno para globant');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Users`
+--
+
+CREATE TABLE `Users` (
+  `uid` int(20) NOT NULL,
+  `uname` varchar(60) NOT NULL,
+  `password` varchar(60) NOT NULL,
+  `rol` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `Users`
+--
+
+INSERT INTO `Users` (`uid`, `uname`, `password`, `rol`) VALUES
+(2, 'lucas', 'lucas', 'administrador'),
+(3, 'juanPablo', 'juanPablo', 'repositor');
+
 --
 -- Índices para tablas volcadas
 --
@@ -23012,6 +23033,12 @@ ALTER TABLE `turno`
   ADD PRIMARY KEY (`idTurno`);
 
 --
+-- Indices de la tabla `Users`
+--
+ALTER TABLE `Users`
+  ADD PRIMARY KEY (`uid`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -23019,7 +23046,7 @@ ALTER TABLE `turno`
 -- AUTO_INCREMENT de la tabla `Agenda`
 --
 ALTER TABLE `Agenda`
-  MODIFY `idAgenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9646;
+  MODIFY `idAgenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9645;
 --
 -- AUTO_INCREMENT de la tabla `Empleado`
 --
@@ -23029,7 +23056,7 @@ ALTER TABLE `Empleado`
 -- AUTO_INCREMENT de la tabla `EstadoDelTramite`
 --
 ALTER TABLE `EstadoDelTramite`
-  MODIFY `idEstadoDelTramite` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idEstadoDelTramite` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT de la tabla `Expediente`
 --
@@ -23045,6 +23072,11 @@ ALTER TABLE `Procedencia`
 --
 ALTER TABLE `turno`
   MODIFY `idTurno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `Users`
+--
+ALTER TABLE `Users`
+  MODIFY `uid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -23,14 +23,14 @@
             }
         </style>
     </h:head>  
-
-    <h:body style="background: url(images/mundoLimpieza2.jpg);">
-
-        <h:form style="margin-top: 14%; margin-left: 36.5%; background: rgba(76, 175, 80, 0.3); opacity: 0.9; width: 22.8%;">
+    
+        <h:form style="margin-top: 10%; margin-left: 36.5%;  width: 22.8%;">
 
             <p:growl id="mensajes" showDetail="true" life="2500" autoUpdate="true" />
 
-            <p:panel header="Ingrese su Cuenta por favor . . ." style="font-family: inherit;width:330px; text-align: center; background-color: black;
+            <center><h:graphicImage value="resources/images/logo-v2.png" style="width: 30%;"/>
+        
+            <p:panel header="Ingrese su Cuenta por favor" style="font-family: inherit;width:330px; text-align: center; background-color: black;
                      border: none;">
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputText value="Usuario" style="color: white;" />
@@ -48,6 +48,7 @@
                     </f:facet>        
                 </h:panelGrid>
             </p:panel>
+           </center>     
         </h:form>
-    </h:body>
+    
 </html>

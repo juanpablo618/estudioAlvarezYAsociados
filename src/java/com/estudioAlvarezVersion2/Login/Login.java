@@ -56,11 +56,14 @@ public class Login implements Serializable {
 
 	//validate login
 	public String validateUsernamePassword() {
+            			System.out.println("user: "+user);
+            			System.out.println("pwd: "+pwd);
 		boolean valid = LoginDAO.validate(user, pwd);
 		if (valid) {
 			HttpSession session = SessionUtils.getSession();
 			session.setAttribute("username", user);
                         
+                        System.out.println("is valid");
                          return "index";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(
@@ -68,7 +71,8 @@ public class Login implements Serializable {
 					new FacesMessage(FacesMessage.SEVERITY_WARN,
 							"Password o Usuario incorrecto",
 							"Por favor ingrese bien su usuario y password"));
-			return "login";
+			System.out.println("is not valid");
+                        return "login";
 		}
 	}
 

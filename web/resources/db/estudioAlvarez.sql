@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 13-09-2019 a las 19:53:29
+-- Tiempo de generación: 11-10-2019 a las 23:07:26
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.20
 
@@ -22990,7 +22990,10 @@ CREATE TABLE `Users` (
 
 INSERT INTO `Users` (`uid`, `uname`, `password`, `rol`) VALUES
 (2, 'lucas', 'lucas', 'administrador'),
-(3, 'juanPablo', 'juanPablo', 'repositor');
+(3, 'juanPablo', 'juanPablo', 'repositor'),
+(4, 'juan', 'juan', ''),
+(5, 'carlos', 'carlos', 'administrador'),
+(6, 'pedro', 'pedro', 'repositor');
 
 --
 -- Índices para tablas volcadas
@@ -23076,7 +23079,7 @@ ALTER TABLE `turno`
 -- AUTO_INCREMENT de la tabla `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `uid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `uid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -8,19 +8,15 @@
 
     <ui:composition>
 
-        <p:dialog id="UsersCreateDlg" widgetVar="UsersCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsersTitle}">
+        <p:dialog id="UsersCreateDlg" widgetVar="UsersCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Usuario:">
             <h:form id="UsersCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{usersController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateUsersLabel_uid}" for="uid" />
-                        <p:inputText id="uid" value="#{usersController.selected.uid}" title="#{bundle.CreateUsersTitle_uid}" required="true" requiredMessage="#{bundle.CreateUsersRequiredMessage_uid}"/>
-                        <p:outputLabel value="#{bundle.CreateUsersLabel_uname}" for="uname" />
-                        <p:inputText id="uname" value="#{usersController.selected.uname}" title="#{bundle.CreateUsersTitle_uname}" required="true" requiredMessage="#{bundle.CreateUsersRequiredMessage_uname}"/>
-                        <p:outputLabel value="#{bundle.CreateUsersLabel_password}" for="password" />
-                        <p:inputText id="password" value="#{usersController.selected.password}" title="#{bundle.CreateUsersTitle_password}" required="true" requiredMessage="#{bundle.CreateUsersRequiredMessage_password}"/>
-                        <p:outputLabel value="#{bundle.CreateUsersLabel_rol}" for="rol" />
-                        <p:inputText id="rol" value="#{usersController.selected.rol}" title="#{bundle.CreateUsersTitle_rol}" />
-                    </p:panelGrid>
+                    <p:outputLabel value="Nombre:" for="uname" /><br></br>
+                        <p:inputText id="uname" value="#{usersController.selected.uname}" title="#{bundle.CreateUsersTitle_uname}" required="true" requiredMessage="#{bundle.CreateUsersRequiredMessage_uname}"/><br></br><br></br>
+                        <p:outputLabel value="Contraseña:" for="password" /><br></br>
+                        <p:inputText id="password" value="#{usersController.selected.password}" title="#{bundle.CreateUsersTitle_password}" required="true" requiredMessage="#{bundle.CreateUsersRequiredMessage_password}"/><br></br><br></br>
+                        <p:outputLabel value="Rol:" for="rol" /><br></br>
+                        <p:inputText id="rol" value="#{usersController.selected.rol}" title="#{bundle.CreateUsersTitle_rol}" /><br></br><br></br>
                     <p:commandButton actionListener="#{usersController.create}" value="#{bundle.Save}" update="display,:UsersListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsersCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UsersCreateDialog.hide()"/>
                 </h:panelGroup>

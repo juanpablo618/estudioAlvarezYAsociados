@@ -12,3 +12,12 @@
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="java:app/AlvarezVersion2" object-type="user" pool-name="mysql_estudioAlvarez_rootPool"/>
 </resources>
+
+
+
+TAMBIEN CAMBIAR EN LA CLASE DAO.JAVA
+
+/EstudioAlvarezVersion2/src/java/com/estudioAlvarezVersion2/jpa/DAO.java
+
+
+

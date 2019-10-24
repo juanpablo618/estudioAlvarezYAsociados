@@ -15,7 +15,6 @@
 
         <ui:define name="body">
             <h:form id="EstadoDelTramiteListForm">
-                <p:panel header="Listado de Estados del tramite">
                     <p:dataTable id="datalist" value="#{estadoDelTramiteController.items}" var="item"
                                  selectionMode="single" selection="#{estadoDelTramiteController.selected}"
                                  paginator="true"
@@ -38,7 +37,7 @@
                             
                         </f:facet>
                     </p:dataTable>
-                </p:panel>
+                
                 
              <p:contextMenu for="datalist">
                 <p:menuitem value="Ver" icon="ui-icon-search"  update=":EstadoDelTramiteViewForm" oncomplete="PF('EstadoDelTramiteViewDialog').show()" />

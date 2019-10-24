@@ -15,7 +15,6 @@
 
         <ui:define name="body">
             <h:form id="EmpleadoListForm">
-                <p:panel header="#{bundle.ListEmpleadoTitle}">
                     <p:dataTable id="datalist" value="#{empleadoController.items}" var="item"
                                  selectionMode="single" selection="#{empleadoController.selected}"
                                  paginator="true"
@@ -54,7 +53,7 @@
                             
                         </f:facet>
                     </p:dataTable>
-                </p:panel>
+                
            
             <p:contextMenu for="datalist">
                 <p:menuitem value="Ver" icon="ui-icon-search"  update=":EmpleadoViewForm" oncomplete="PF('EmpleadoViewDialog').show()" />

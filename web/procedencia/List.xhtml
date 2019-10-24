@@ -15,7 +15,6 @@
 
         <ui:define name="body">
             <h:form id="ProcedenciaListForm">
-                <p:panel header="#{bundle.ListProcedenciaTitle}">
                     <p:dataTable id="datalist" value="#{procedenciaController.items}" var="item"
                                  selectionMode="single" selection="#{procedenciaController.selected}"
                                  paginator="true"
@@ -39,8 +38,7 @@
                             
                         </f:facet>
                     </p:dataTable>
-                </p:panel>
-             
+                
                <p:contextMenu for="datalist">
                 <p:menuitem value="Ver" icon="ui-icon-search"  update=":ProcedenciaViewForm" oncomplete="PF('ProcedenciaViewDialog').show()" />
                 <p:menuitem value="Borrar" icon="ui-icon-trash"  actionListener="#{procedenciaController.destroy}" update="@all" />

@@ -19,7 +19,6 @@
                 
                 <p:growl id="message" showDetail="true" />
                        
-                <p:panel header="#{bundle.ListExpedienteTitle}">
                     <p:dataTable id="datalist" value="#{expedienteController.items}" var="item"
                                  selectionMode="single" selection="#{expedienteController.selected}"
                                  paginator="true"
@@ -81,7 +80,7 @@
                             
                         </f:facet>
                     </p:dataTable>
-                </p:panel>
+                
               <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                     <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" update=":growl,datalist"/>
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" update=":growl,datalist"/>

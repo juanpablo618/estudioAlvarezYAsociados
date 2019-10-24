@@ -6,17 +6,16 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
+    
     <ui:composition template="/template.xhtml">
-
-        <ui:define name="title">
-            <h:outputText value="Lista de Agendas"></h:outputText>
-        </ui:define>
-
+    
+            
         <ui:define name="body">
             <h:form id="AgendaListForm">
                 <p:remoteCommand name="onload" oncomplete="PF('agendasTable').clearFilters()" autoRun="true" />
                 
-                <p:panel header="#{bundle.ListAgendaTitle}">
+                <center><div><h:graphicImage value="../faces/resources/images/cutmypic.png" style="width: 20%;"/></div></center>
+                
                     <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
                                  selectionMode="single" selection="#{agendaController.selected}"
                                  paginator="true"
@@ -45,6 +44,13 @@
                         <p:ajax event="rowSelect"   update="createButton "/>
                         <p:ajax event="rowUnselect" update="createButton "/>
                         
+                        <p:column   filterBy="#{item.apellido} #{item.nombre}" filterMatchMode="contains">
+                            <f:facet name="header" >
+                                <h:outputText value="Apellido y Nombre"/>
+                            </f:facet>
+                                <h:outputText value="#{item.apellido} #{item.nombre}"/>
+                        </p:column>
+                        
                         <p:column sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="Fecha">
                             <f:facet name="filter">
                                 <p:calendar pattern="dd/MM/yyyy" onkeyup="PF('agendasTable').filter()">
@@ -63,12 +69,6 @@
                             <h:outputText value="#{item.orden}"/>
                         </p:column>
                         
-                        <p:column   filterBy="#{item.apellido} #{item.nombre}" filterMatchMode="contains">
-                            <f:facet name="header" >
-                                <h:outputText value="Apellido y Nombre"/>
-                            </f:facet>
-                                <h:outputText value="#{item.apellido} #{item.nombre}"/>
-                        </p:column>
                         
                         <p:column>
                             <f:facet name="header">
@@ -98,8 +98,7 @@
                         
                         </f:facet>
                     </p:dataTable>
-                </p:panel>
-              
+                
                 <p:contextMenu for="datalist">
                 <p:menuitem value="Ver" icon="ui-icon-search"  update=":AgendaViewForm" oncomplete="PF('AgendaViewDialog').show()" />
                 <p:menuitem value="Borrar" icon="ui-icon-trash"  actionListener="#{agendaController.destroy}" update="@all" />

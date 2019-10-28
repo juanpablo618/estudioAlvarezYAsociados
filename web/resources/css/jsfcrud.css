@@ -1,5 +1,5 @@
 .ui-widget {
-    font-size: 20px !important;
+    font-size: 15px !important;
     font-family: sans-serif;
 }
 .ui-layout-north {
@@ -15,4 +15,32 @@
 }
 .ui-button {
     margin-top: 10px !important;
+}
+
+.linea
+{
+    display: inline-block;
+}
+.crearAgenda{
+    background: #2dfbd0;
+}
+
+.fondoBotones{
+    background-color: black;
+}
+
+.ui-layout-unit .ui-layout-unit-content {
+     background-color: #0563bd;
+}
+
+.ui-datatable-odd{
+    background:unset;
+}
+
+.ui-widget-header{
+    background: white;
+}
+
+.fondoBody{
+    background-color: white;
 }

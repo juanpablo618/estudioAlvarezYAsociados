@@ -3,49 +3,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <title><ui:insert name="title">Estudio Alvarez y Asociados</ui:insert></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
-        
     </h:head>
 
-    <h:body>
-
+    <h:body style="background-color: #F4F8FA">
         <p:growl id="growl" life="3000" />
         
-        <p:layout fullPage="true">
-            <p:layoutUnit position="west" size="200" >
+        <p:layout fullPage="true" style="background: #2A55AA;">
+            <p:layoutUnit position="west" size="60" style="background: #2A55AA;">
                 
-                <h:form id="menuForm">
-                    <p:tieredMenu >
-                            <p:menuitem outcome="/agenda/List" value="Agendas" />
+                <h:form id="menuForm" style="background: #2A55AA;">
+                    <p:tieredMenu style="background: #2A55AA;">
+                        <p:menuitem outcome="/agenda/List" icon="ui-icon-bookmark" style="background-color: white" title="Agendas"/>
                         <p:separator />
-                            <p:menuitem outcome="/expediente/List" value="Expedientes" />
+                            <p:menuitem outcome="/expediente/List" icon=" ui-icon-document" style="background-color: white" title="Expedientes"/>
                         <p:separator />
-                            <p:menuitem outcome="/empleado/List" value="Empleados" />
+                            <p:menuitem outcome="/empleado/List" icon="ui-icon-person" style="background-color: white" title="Empleados" />
                         <p:separator />
-                            <p:menuitem outcome="/procedencia/List" value="Procedencias" />
+                            <p:menuitem outcome="/procedencia/List" icon="ui-icon-suitcase" style="background-color: white" title="Procedencias" />
                         <p:separator />
-                            <p:menuitem outcome="/turno/List" value="Turnos"/>
+                            <p:menuitem outcome="/turno/List" icon="ui-icon-battery-3" style="background-color: white" title="Turnos"/>
                         <p:separator />
-                            <p:menuitem outcome="/estadoDelTramite/List" value="Estados del tramite"/>
+                            <p:menuitem outcome="/estadoDelTramite/List" icon="ui-icon-folder-open" style="background-color: white" title="Estados del Tramite"/>
                         <p:separator />
-                            <p:menuitem outcome="/users/List" value="Usuarios"/>
+                            <p:menuitem outcome="/users/List" icon="ui-icon-key" style="background-color: white" title="Usuarios"/>
                         <p:separator />
-                            <p:menuitem outcome="/login.xhtml" value="Salir"/>
-                        <p:separator />
+                            <p:menuitem outcome="/login.xhtml" icon="ui-icon-circle-close" style="background-color: white" title="Salir"/>
                     </p:tieredMenu> 
                 </h:form>
             </p:layoutUnit>
-
-            <p:layoutUnit position="center">
-               
-                <ui:insert name="body"/>
+            <p:layoutUnit position="center" style="background-color: #F4F8FA">
+                <ui:insert name="body"  />
             </p:layoutUnit>
-
         </p:layout>
 
     </h:body>

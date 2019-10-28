@@ -30,8 +30,7 @@ public class AgendaController implements Serializable {
     private List<Agenda> items = null;
     private Agenda selected;
     private List<Agenda> filteredAgendas;
-    
-    
+        
     public AgendaController() {
     }
 
@@ -194,6 +193,6 @@ public class AgendaController implements Serializable {
     
     public void handleDateSelect(SelectEvent event) {
     RequestContext.getCurrentInstance().execute("PF('agendasTable').filter()");
-}
+    }
 
 }

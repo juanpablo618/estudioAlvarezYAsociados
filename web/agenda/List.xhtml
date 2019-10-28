@@ -6,28 +6,32 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    
-    <ui:composition template="/template.xhtml">
-    
+    <ui:composition template="/template.xhtml" >
             
-        <ui:define name="body">
-            <h:form id="AgendaListForm">
+        <ui:define name="body"  >
+            <h:form id="AgendaListForm" style="background-color: #F4F8FA">
                 <p:remoteCommand name="onload" oncomplete="PF('agendasTable').clearFilters()" autoRun="true" />
                 
-                <center><div><h:graphicImage value="../faces/resources/images/cutmypic.png" style="width: 20%;"/></div></center>
+                <center style="background-color: white">
+                    <div><h:graphicImage value="../faces/resources/images/cutmypic.png" style="width: 20%;"/>
+                    </div>
+                </center>
                 
+                    <p:commandButton id="createButton" class="crearAgenda" icon="ui-icon-plus" value="CREAR AGENDA" style="background-color: #00c58b; border: 2px ;solid :#FFFFFF; font-family: Lato-Bold; font-size: 13px;  letter-spacing: 0.93px;" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
+                    <br></br><br></br>
+                                    
                     <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
                                  selectionMode="single" selection="#{agendaController.selected}"
-                                 paginator="true"
                                  rowKey="#{item.idAgenda}"
-                                 rows="10"
+                                 rows="20"
                                  widgetVar="agendasTable"
                                  rowsPerPageTemplate="100,200,500"
                                  filteredValue="#{agendaController.filteredAgendas}"
                                  emptyMessage="no hay agendas agregadas para esa fecha" 
                                  rendered="true"  
+                                 
                                  >
-
+                        
                          <f:facet name="{Exporters}">
                             <h:commandLink>
                                 <p:graphicImage name="/demo/images/excel.png" width="24"/>
@@ -44,50 +48,68 @@
                         <p:ajax event="rowSelect"   update="createButton "/>
                         <p:ajax event="rowUnselect" update="createButton "/>
                         
-                        <p:column   filterBy="#{item.apellido} #{item.nombre}" filterMatchMode="contains">
-                            <f:facet name="header" >
-                                <h:outputText value="Apellido y Nombre"/>
-                            </f:facet>
-                                <h:outputText value="#{item.apellido} #{item.nombre}"/>
-                        </p:column>
-                        
-                        <p:column sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="Fecha">
+                        <p:column style="background-color: white" sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="FECHA">
                             <f:facet name="filter">
                                 <p:calendar pattern="dd/MM/yyyy" onkeyup="PF('agendasTable').filter()">
                                     <p:ajax event="dateSelect" listener="#{agendaController.handleDateSelect}"/>
                                 </p:calendar>
                             </f:facet>
-                            <h:outputText value="#{item.fecha}">
+                            <h:outputText value="#{item.fecha}" style="color: #151717; text-shadow: unset;" >
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </p:column>
                         
-                        <p:column filterBy="#{item.orden}"  filterMatchMode="contains">
+                        <p:column  filterBy="#{item.orden}"  filterMatchMode="contains">
                             <f:facet name="header">
-                                <h:outputText value="orden(Legajo)"/>
+                                <h:outputText value="ORDEN"/>
                             </f:facet>
                             <h:outputText value="#{item.orden}"/>
                         </p:column>
                         
-                        
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Descripción"/>
+                        <p:column style="background-color: white;" filterBy="#{item.apellido} #{item.nombre}" filterMatchMode="contains">
+                            <f:facet name="header" >
+                                <h:outputText value="APELLIDO Y NOMBRE"/>
                             </f:facet>
-                            <h:outputText value="#{item.descripcion}"/>
+                            <h:outputText style="color: blue" value="#{item.apellido} #{item.nombre}"/>
                         </p:column>
                         
-                        <p:column filterBy="#{item.responsable}"  filterMatchMode="contains">
+                        <p:column style="background-color: white" filterBy="#{item.responsable}"  filterMatchMode="contains">
                             <f:facet name="header">
-                                <h:outputText value="único responsable"/>
+                                <h:outputText value="RESPONSABLE"/>
                             </f:facet>
                             <h:outputText value="#{item.responsable}"/>
                         </p:column>
                         
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
+                        <p:column style="background-color: white;">
+                            <f:facet name="header">
+                                <h:outputText value="DESCRIPCIÓN"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}" style="color: #151717; text-shadow: unset;" />
+                        </p:column>
+                        
+                        <p:column style="text-align: center; ">
                             
-                        <br></br><br></br>   
+                            <f:facet name="header">
+                                <h:outputText value="ACCIONES"/>
+                            </f:facet>
+                             
+                            <p:commandButton class="linea"  update=":AgendaViewForm" oncomplete="PF('AgendaViewDialog').show()" icon="ui-icon-locked" title="Claves">
+                                   <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
+                            </p:commandButton>
+                            
+                             
+                            <p:commandButton class="linea"  update=":AgendaViewForm" oncomplete="PF('AgendaViewDialog').show()" icon="ui-icon-search" title="Ver">
+                                   <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
+                            </p:commandButton>
+                            
+                            <p:commandButton class="linea"  actionListener="#{agendaController.destroy}" update="@all" icon="ui-icon-circle-close" title="borrar">
+                                <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
+                            </p:commandButton>
+                        </p:column>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus" rendered="false"  value="#{bundle.Create}" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
+                        
                         <h:commandLink value="exportar solo filtradas">
                             <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="true" />
                         </h:commandLink>
@@ -98,12 +120,6 @@
                         
                         </f:facet>
                     </p:dataTable>
-                
-                <p:contextMenu for="datalist">
-                <p:menuitem value="Ver" icon="ui-icon-search"  update=":AgendaViewForm" oncomplete="PF('AgendaViewDialog').show()" />
-                <p:menuitem value="Borrar" icon="ui-icon-trash"  actionListener="#{agendaController.destroy}" update="@all" />
-
-            </p:contextMenu> 
                 
             </h:form>
 

@@ -44,3 +44,20 @@
 .fondoBody{
     background-color: white;
 }
+
+.ui-menu .ui-menuitem-link{
+     background-color: #2A55AA !important;
+}
+
+.ui-widget-content .ui-icon{
+    background-color: white !important;
+}
+
+.botonCrearAgenda{
+    background: #00C6AE !important;
+    border: 2px solid #FFFFFF !important;
+    font-family: Lato-Bold !important;
+    font-size: 13px !important; 
+    color: #FFFFFF !important;
+    letter-spacing: 0.93px !important;
+ } 

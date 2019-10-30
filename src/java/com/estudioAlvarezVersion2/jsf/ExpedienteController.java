@@ -316,4 +316,54 @@ public class ExpedienteController implements Serializable {
 }
     
     
+    public String getClaveCidi(int orden){
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExpedienteController expedientetrollerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+
+        System.out.println("PASO POR CIDI"+orden);
+        String claveCidi = null;
+        
+              for(Expediente i: expedientetrollerBean.getItems()){
+                    System.out.println(i.getOrden());
+                  
+                if(i.getOrden() == orden){
+                    System.out.println(i.getOrden());
+                    claveCidi = i.getClaveCidi();
+                    return claveCidi;
+                }else{
+                    System.out.println("no macheo nada");
+                }
+            }
+        
+        return claveCidi;
+    }
+    
+    public String getClaveFiscal(int orden){
+            System.out.println("PASO POR FISCAL");
+
+        String claveFiscal = null;
+        
+        for(Expediente buscado: items){
+            if(buscado.getOrden()==orden){
+                claveFiscal = buscado.getClaveFiscal();
+            }
+        }
+    return claveFiscal;
+    }
+    
+    public String getClaveDeSeguridadSocial(int orden){
+            System.out.println("PASO POR SEguridad Social");
+
+         String claveDeSeguridadSocial = null;
+        
+        for(Expediente buscado: items){
+            if(buscado.getOrden()==orden){
+                claveDeSeguridadSocial = buscado.getClaveSeguridadSocial();
+            }
+        }
+    return claveDeSeguridadSocial;
+        
+    }
+    
 }

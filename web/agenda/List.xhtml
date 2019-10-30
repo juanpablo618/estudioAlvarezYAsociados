@@ -12,38 +12,38 @@
             <h:form id="AgendaListForm" style="background-color: #F4F8FA">
                 <p:remoteCommand name="onload" oncomplete="PF('agendasTable').clearFilters()" autoRun="true" />
                 
-                <center style="background-color: white">
-                    <div><h:graphicImage value="../faces/resources/images/cutmypic.png" style="width: 20%;"/>
+                <center style="background-color: #f4f8fa">
+                    <div><h:graphicImage value="../faces/resources/images/2019-10-29.png" style="width: 20%;"/>
                     </div>
                 </center>
                 
-                    <p:commandButton id="createButton" class="crearAgenda" icon="ui-icon-plus" value="CREAR AGENDA" style="background-color: #00c58b; border: 2px ;solid :#FFFFFF; font-family: Lato-Bold; font-size: 13px;  letter-spacing: 0.93px;" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
+                <div style="float: left"><p:commandButton id="createButton"  icon="ui-icon-plus" value="CREAR AGENDA" class="botonCrearAgenda" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
+                </div>
+                <br></br>
+                    
+                    <h:commandLink style="float: right">
+                                <h:graphicImage value="../faces/resources/images/pdf.png" />
+                                <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="true" />
+                    </h:commandLink>
+                    
+                    <h:commandLink style="float: right">
+                                <h:graphicImage value="../faces/resources/images/pdf.png" />
+                                <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="false" />
+                    </h:commandLink>
+                    
                     <br></br><br></br>
                                     
                     <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
                                  selectionMode="single" selection="#{agendaController.selected}"
                                  rowKey="#{item.idAgenda}"
+                                 paginator="true"
                                  rows="20"
                                  widgetVar="agendasTable"
                                  rowsPerPageTemplate="100,200,500"
                                  filteredValue="#{agendaController.filteredAgendas}"
                                  emptyMessage="no hay agendas agregadas para esa fecha" 
                                  rendered="true"  
-                                 
                                  >
-                        
-                         <f:facet name="{Exporters}">
-                            <h:commandLink>
-                                <p:graphicImage name="/demo/images/excel.png" width="24"/>
-                                <p:dataExporter type="xls" target="tbl" fileName="cars" />
-                            </h:commandLink>
-
-                            <h:commandLink>
-                                <p:graphicImage name="/demo/images/csv.png" width="24"/>
-                                <p:dataExporter type="csv" target="tbl" fileName="cars" />
-                            </h:commandLink>
-
-                        </f:facet>
                         
                         <p:ajax event="rowSelect"   update="createButton "/>
                         <p:ajax event="rowUnselect" update="createButton "/>
@@ -93,7 +93,7 @@
                                 <h:outputText value="ACCIONES"/>
                             </f:facet>
                              
-                            <p:commandButton class="linea"  update=":AgendaViewForm" oncomplete="PF('AgendaViewDialog').show()" icon="ui-icon-locked" title="Claves">
+                            <p:commandButton class="linea"  update=":AgendaViewForm" oncomplete="PF('AgendaViewClavesDialog').show()" icon="ui-icon-locked" title="Claves">
                                    <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
                             </p:commandButton>
                             
@@ -110,22 +110,14 @@
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus" rendered="false"  value="#{bundle.Create}" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
                         
-                        <h:commandLink value="exportar solo filtradas">
-                            <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="true" />
-                        </h:commandLink>
-                            <br></br>
-                        <h:commandLink value="exportar todas">
-                            <p:dataExporter type="pdf" target="datalist" fileName="todasLasAgendas" pageOnly="false" />
-                        </h:commandLink>
-                        
                         </f:facet>
                     </p:dataTable>
-                
             </h:form>
 
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="View_1.xhtml"/>
         </ui:define>
     </ui:composition>
 

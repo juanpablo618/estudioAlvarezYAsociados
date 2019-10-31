@@ -54,10 +54,9 @@
 }
 
 .botonCrearAgenda{
-    background: #00C6AE !important;
-    border: 2px solid #FFFFFF !important;
-    font-family: Lato-Bold !important;
+    background-color: #00C6AE !important;
     font-size: 13px !important; 
     color: #FFFFFF !important;
     letter-spacing: 0.93px !important;
+    text-shadow:unset !important;
  } 

@@ -13,29 +13,10 @@
                  
                 <h:panelGroup id="display">
                    
-                    <p:fieldset legend="Orden" toggleable="true" toggleSpeed="500">
-                        <h:panelGrid  cellpadding="5">
-                            <p:inputText id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_orden}"/>
-                        
-                        </h:panelGrid>
-                    </p:fieldset>
-                    
-                    <br></br>
                      
                         <p:fieldset legend="datos personales" toggleable="true" toggleSpeed="500">
                             
-                                <p:outputLabel value="#{bundle.EditExpedienteLabel_apellido}" for="apellido" style="font-weight: bold" />
-                                <p:inputText id="apellido" value="#{expedienteController.selected.apellido}" title="#{bundle.EditExpedienteTitle_apellido}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_apellido}"/>
-
-                                <p:outputLabel value="#{bundle.EditExpedienteLabel_nombre}" for="nombre" style="font-weight: bold" />
-                                <p:inputText id="nombre" value="#{expedienteController.selected.nombre}" title="#{bundle.EditExpedienteTitle_nombre}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_nombre}"/>
-
-                                <p:outputLabel value="Cuit:" for="cuit" style="font-weight: bold" />
-                                <p:inputText id="cuit" value="#{expedienteController.selected.cuit}" title="#{bundle.EditExpedienteTitle_cuit}" />
-
-                                <p:outputLabel value="Nacionalidad:" for="nacionalidad" style="font-weight: bold" />
-                                <p:inputText id="nacionalidad" value="#{expedienteController.selected.nacionalidad}" title="nacionalidad"/>
-
+                            
                             <p:outputLabel value="Tipo de Expediente:" for="tipoDeExpediente" style="font-weight: bold"/>
 
                             <p:selectOneMenu id="tipoDeExpediente" value="#{expedienteController.selected.tipoDeExpediente}">
@@ -54,39 +35,10 @@
                        
                    <br></br>
                       
-                        <p:fieldset legend="dirección" toggleable="true" toggleSpeed="500">
-                            
-                            <p:outputLabel value="#{bundle.EditExpedienteLabel_direccion}" for="direccion" style="font-weight: bold" />
-                            <p:inputText id="direccion" value="#{expedienteController.selected.direccion}" title="#{bundle.EditExpedienteTitle_direccion}" />
-
-                            <p:outputLabel value="Altura:" for="nroDeAltura" style="font-weight: bold" />
-                            <p:inputText id="nroDeAltura" value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.EditExpedienteTitle_nroDeAltura}" />
-
-                            <p:outputLabel value="#{bundle.EditExpedienteLabel_piso}" for="piso" style="font-weight: bold" />
-                            <p:inputText id="piso" value="#{expedienteController.selected.piso}" title="#{bundle.EditExpedienteTitle_piso}"  />
-
-                            <p:outputLabel value="#{bundle.EditExpedienteLabel_depto}" for="depto" style="font-weight: bold" />
-                            <p:inputText id="depto" value="#{expedienteController.selected.depto}" title="#{bundle.EditExpedienteTitle_depto}" />
-
-
-                            <p:outputLabel value="#{bundle.EditExpedienteLabel_barrio}" for="barrio" style="font-weight: bold" />
-                            <p:inputText id="barrio" value="#{expedienteController.selected.barrio}" title="#{bundle.EditExpedienteTitle_barrio}"  />
-
-                            <br></br>
-                            <p:outputLabel value="Código Postal:" for="codigoPostal" style="font-weight: bold" />
-                            <p:inputText id="codigoPostal" value="#{expedienteController.selected.codigoPostal}" title="codigoPostal"/>
-                                
-                            <p:outputLabel value="Localidad:" for="localidad" style="font-weight: bold" />
-                            <p:inputText id="localidad" value="#{expedienteController.selected.localidad}" title="localidad"/>
-
-                        </p:fieldset>
-                     
-                    <br></br>
+                        
                     
                     <p:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
                        
-                        <p:outputLabel value="#{bundle.EditExpedienteLabel_telefono}" for="telefono" style="font-weight: bold" />
-                        <p:inputText id="telefono" value="#{expedienteController.selected.telefono}" title="#{bundle.EditExpedienteTitle_telefono}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_telefono}"/>
                         
                         <p:outputLabel value="#{bundle.EditExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento" style="font-weight: bold" />
                         <p:calendar id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}"  showOn="button"/>
@@ -146,19 +98,6 @@
                     </p:panelGrid>
                     
                     <br></br>  
-                    <p:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
-                    
-                        <p:outputLabel value="C. SS:" for="claveSeguridadSocial" style="font-weight: bold" />
-                        <p:inputText id="claveSeguridadSocial" value="#{expedienteController.selected.claveSeguridadSocial}" title="clave de seguridad social"/>
-                    
-                        <p:outputLabel value="C. Fiscal:" for="claveFiscal" style="font-weight: bold" />
-                        <p:inputText id="claveFiscal" value="#{expedienteController.selected.claveFiscal}" title="clave Fiscal"/>
-                    
-                        <p:outputLabel value="C. Cidi:" for="claveCidi" style="font-weight: bold" />
-                        <p:inputText id="claveCidi" value="#{expedienteController.selected.claveCidi}" title="clave Cidi"/>
-                        
-                    </p:panelGrid>
-                      <br></br>  
                     
                     <p:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
                         
@@ -181,7 +120,97 @@
                     <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.update}" value="#{bundle.Save}" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ExpedienteEditDialog.hide()"/>
                 </h:panelGroup>
+                        
+        <p:tabView>
+                
+            <p:tab title="Datos personales">
+                    
+                
+                        <p:outputLabel value="Orden:"  style="font-weight: bold" />
+                        <p:inputText id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_orden}"/>
+                        
+                        
+                    
+                <br></br>
+                    
+                                    
+                                <p:outputLabel value="#{bundle.EditExpedienteLabel_apellido}" for="apellido" style="font-weight: bold" />
+                                <p:inputText id="apellido" value="#{expedienteController.selected.apellido}" title="#{bundle.EditExpedienteTitle_apellido}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_apellido}"/>
+
+                                <p:outputLabel value="#{bundle.EditExpedienteLabel_nombre}" for="nombre" style="font-weight: bold" />
+                                <p:inputText id="nombre" value="#{expedienteController.selected.nombre}" title="#{bundle.EditExpedienteTitle_nombre}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_nombre}"/>
+                 <br></br>
+                 
+                                <p:outputLabel value="Cuit:" for="cuit" style="font-weight: bold" />
+                                <p:inputText id="cuit" value="#{expedienteController.selected.cuit}" title="#{bundle.EditExpedienteTitle_cuit}" />
+
+                        <p:outputLabel value="#{bundle.EditExpedienteLabel_telefono}" for="telefono" style="font-weight: bold" />
+                        <p:inputText id="telefono" value="#{expedienteController.selected.telefono}" title="#{bundle.EditExpedienteTitle_telefono}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_telefono}"/>
+                        
+                 <br></br>               
+                                <p:outputLabel value="Nacionalidad:" for="nacionalidad" style="font-weight: bold" />
+                                <p:inputText id="nacionalidad" value="#{expedienteController.selected.nacionalidad}" title="nacionalidad"/>
+
+                                <br></br>
+                            
+                            <p:outputLabel value="#{bundle.EditExpedienteLabel_direccion}" for="direccion" style="font-weight: bold" />
+                            <p:inputText id="direccion" value="#{expedienteController.selected.direccion}" title="#{bundle.EditExpedienteTitle_direccion}" />
+
+                            <p:outputLabel value="Altura:" for="nroDeAltura" style="font-weight: bold" />
+                            <p:inputText id="nroDeAltura" value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.EditExpedienteTitle_nroDeAltura}" />
+
+                            <p:outputLabel value="#{bundle.EditExpedienteLabel_piso}" for="piso" style="font-weight: bold" />
+                            <p:inputText id="piso" value="#{expedienteController.selected.piso}" title="#{bundle.EditExpedienteTitle_piso}"  />
+
+                            <p:outputLabel value="#{bundle.EditExpedienteLabel_depto}" for="depto" style="font-weight: bold" />
+                            <p:inputText id="depto" value="#{expedienteController.selected.depto}" title="#{bundle.EditExpedienteTitle_depto}" />
+
+
+                            <p:outputLabel value="#{bundle.EditExpedienteLabel_barrio}" for="barrio" style="font-weight: bold" />
+                            <p:inputText id="barrio" value="#{expedienteController.selected.barrio}" title="#{bundle.EditExpedienteTitle_barrio}"  />
+
+                            <br></br>
+                            <p:outputLabel value="Código Postal:" for="codigoPostal" style="font-weight: bold" />
+                            <p:inputText id="codigoPostal" value="#{expedienteController.selected.codigoPostal}" title="codigoPostal"/>
+                                
+                            <p:outputLabel value="Localidad:" for="localidad" style="font-weight: bold" />
+                            <p:inputText id="localidad" value="#{expedienteController.selected.localidad}" title="localidad"/>
+
+                        
+                     
+                    <br></br>
+             
+            
+            </p:tab>
+                    
+            <p:tab title="claves">
+                <p:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
+                    
+                        <p:outputLabel value="C. SS:" for="claveSeguridadSocial" style="font-weight: bold" />
+                        <p:inputText id="claveSeguridadSocial" value="#{expedienteController.selected.claveSeguridadSocial}" title="clave de seguridad social"/>
+                    
+                        <p:outputLabel value="C. Fiscal:" for="claveFiscal" style="font-weight: bold" />
+                        <p:inputText id="claveFiscal" value="#{expedienteController.selected.claveFiscal}" title="clave Fiscal"/>
+                    
+                        <p:outputLabel value="C. Cidi:" for="claveCidi" style="font-weight: bold" />
+                        <p:inputText id="claveCidi" value="#{expedienteController.selected.claveCidi}" title="clave Cidi"/>
+                        
+                    </p:panelGrid>
+                      <br></br>  
+                    
+                     
+            </p:tab>
+            
+        </p:tabView>
+                
+            
+            
+            
             </h:form>
+            
+            
+            
+            
         </p:dialog>
 
     </ui:composition>

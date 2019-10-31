@@ -1,6 +1,7 @@
 package com.estudioAlvarezVersion2.jsf;
 
 import com.estudioAlvarezVersion2.jpa.Agenda;
+import com.estudioAlvarezVersion2.jpa.Expediente;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.AgendaFacade;
@@ -29,6 +30,8 @@ public class AgendaController implements Serializable {
     private com.estudioAlvarezVersion2.jpacontroller.AgendaFacade ejbFacade;
     private List<Agenda> items = null;
     private Agenda selected;
+    
+    
     private List<Agenda> filteredAgendas;
         
     public AgendaController() {
@@ -194,5 +197,7 @@ public class AgendaController implements Serializable {
     public void handleDateSelect(SelectEvent event) {
     RequestContext.getCurrentInstance().execute("PF('agendasTable').filter()");
     }
+    
+    
 
 }

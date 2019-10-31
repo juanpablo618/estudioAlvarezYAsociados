@@ -322,6 +322,7 @@ public class ExpedienteController implements Serializable {
         ExpedienteController expedientetrollerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
 
         System.out.println("PASO POR CIDI"+orden);
+        
         String claveCidi = null;
         
               for(Expediente i: expedientetrollerBean.getItems()){
@@ -333,11 +334,16 @@ public class ExpedienteController implements Serializable {
                     return claveCidi;
                 }else{
                     System.out.println("no macheo nada");
+                    claveCidi = "no se encontro";
                 }
             }
         
         return claveCidi;
     }
+    
+    
+    
+    
     
     public String getClaveFiscal(int orden){
             System.out.println("PASO POR FISCAL");

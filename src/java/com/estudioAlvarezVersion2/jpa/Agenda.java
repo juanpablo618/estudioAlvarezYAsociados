@@ -67,7 +67,7 @@ public class Agenda implements Serializable {
     @Column(name = "orden")
     private int orden;
 
-        
+    
     public Agenda() {
     }
 
@@ -96,7 +96,7 @@ public class Agenda implements Serializable {
     public Date getFecha() {
         return fecha;
     }
-
+    
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
@@ -124,9 +124,8 @@ public class Agenda implements Serializable {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-    
-    
 
+    
     public String getResponsable() {
         return responsable;
     }

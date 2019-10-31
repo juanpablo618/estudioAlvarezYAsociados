@@ -93,7 +93,7 @@
                                 <h:outputText value="ACCIONES"/>
                             </f:facet>
                              
-                            <p:commandButton class="linea"  update=":AgendaViewForm" oncomplete="PF('AgendaViewClavesDialog').show()" icon="ui-icon-locked" title="Claves">
+                            <p:commandButton class="linea"  update=":AgendaViewClavesForm" oncomplete="PF('AgendaViewClavesDialog').show()" icon="ui-icon-locked" title="Claves">
                                    <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
                             </p:commandButton>
                             

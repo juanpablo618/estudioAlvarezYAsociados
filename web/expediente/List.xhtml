@@ -17,17 +17,18 @@
             <h:form id="ExpedienteListForm" style=" background-color: #F4F8FA;">
                 <p:remoteCommand name="onload" oncomplete="PF('expedientesTable').clearFilters()" autoRun="true" />
                 
-                
-                
                 <center style="background-color: #f4f8fa">
                     <div><h:graphicImage value="../faces/resources/images/2019-10-29.png" style="width: 20%;"/>
                     </div>
                 </center>
                 
-                <div style="float: left"><p:commandButton id="createButton"  icon="ui-icon-plus" value="CREAR Expediente" class="botonCrearAgenda" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"/>
-                </div>
+                    <p:splitButton id="basic" value="CREAR EXPEDIENTE" action="#{buttonView.save}"  icon="pi pi-save">
+                        <p:menuitem style="background-color: white" value="Administrativo" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"  icon="pi pi-refresh" />
+                        <p:separator />
+                        <p:menuitem value="judicial" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()" icon="pi pi-times" />
+                    </p:splitButton>  
+                
                 <br></br>
-                    
                     <h:commandLink style="float: right">
                                 <h:graphicImage value="../faces/resources/images/pdf.png" />
                                 <p:dataExporter type="pdf" target="datalist" fileName="expedientesFiltrados" pageOnly="true" />

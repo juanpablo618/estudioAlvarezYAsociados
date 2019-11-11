@@ -25,7 +25,7 @@
                     <p:splitButton id="basic" value="CREAR EXPEDIENTE" action="#{buttonView.save}"  icon="pi pi-save">
                         <p:menuitem style="background-color: white" value="Administrativo" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"  icon="pi pi-refresh" />
                         <p:separator />
-                        <p:menuitem value="judicial" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()" icon="pi pi-times" />
+                        <p:menuitem value="judicial" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteJudicialCreateForm" oncomplete="PF('ExpedienteJudicialCreateDialog').show()" icon="pi pi-times" />
                     </p:splitButton>  
                 
                 <br></br>
@@ -118,6 +118,8 @@
             </h:form>
 
             <ui:include src="Create.xhtml"/>
+            <ui:include src="CreateExpJudicial.xhtml"/>
+            
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
             <ui:include src="View_1.xhtml"/>

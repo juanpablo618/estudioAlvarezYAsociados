@@ -88,7 +88,7 @@
                                  <div style="float: left">
                                      <p:outputLabel value="#{bundle.EditExpedienteLabel_direccion}" for="direccion" style="font-weight: bold" /><br></br>
                                      <p:inputText id="direccion" value="#{expedienteController.selected.direccion}" title="#{bundle.EditExpedienteTitle_direccion}" /><br></br>
-
+                                     <br></br>
                                      <p:outputLabel value="Altura:" for="nroDeAltura" style="font-weight: bold" /><br></br>
                                      <p:inputText id="nroDeAltura" value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.EditExpedienteTitle_nroDeAltura}" />
                                  </div>
@@ -213,10 +213,8 @@
 
                             <p:inputTextarea rows="10" cols="33" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
                     
-                
                 </div>
          
-               <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
                <div style="margin-top: 50%;float: right">
                     <p:commandButton value="#{bundle.Cancel}" onclick="ExpedienteEditDialog.hide()"/>
                     <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.update}" class="botonCrearAgenda" value="#{bundle.Save}" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>

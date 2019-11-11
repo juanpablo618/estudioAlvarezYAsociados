@@ -62,8 +62,8 @@
  } 
 
  .editDialogExpediente{
-    width: 50% !important;
-    height: 60% !important;
+    width: 70% !important;
+    height: 65% !important;
     left: 326.992px !important;
     z-index: 1005 !important;
     top: 110px !important;
@@ -86,4 +86,13 @@
 
 .ui-menu .ui-menuitem-link{
     background-color: #9db7e8 !important;
+}
+
+
+.crearExpediente{
+    width: 68% !important;
+    height: 70% !important;
+    left: 400px !important;
+    top: 77px !important;
+    z-index: 1005 !important;
 }

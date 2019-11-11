@@ -8,20 +8,10 @@
 
     <ui:composition>
 
-        <p:dialog id="ExpedienteJudicialCreateDlg" widgetVar="ExpedienteJudicialCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Expediente Judicial">
+        <p:dialog id="ExpedienteJudicialCreateDlg" class="crearExpediente" widgetVar="ExpedienteJudicialCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Expediente Judicial">
             <h:form id="ExpedienteJudicialCreateForm">
                 <h:panelGroup id="display">
                 </h:panelGroup >
-                
-                <div style="font-weight: bold;">
-                <h:outputText value="#{expedienteController.selected.apellido}" style=""/>
-                    <h:outputText value=" "/>
-                    <h:outputText value="#{expedienteController.selected.nombre}"/>
-                    <h:outputText value=" "/>
-                    <h:outputText value="#{expedienteController.selected.orden}"/>
-                </div>
-                
-                <br></br><br></br>
                 
                 <div style="float: left">   
                     
@@ -141,81 +131,75 @@
                 <div style="float: right"> 
                 
                 
-                    <p:outputLabel value="Tipo de Expediente:" for="tipoDeExpediente" style="font-weight: bold"/><br></br>
+                    <p:outputLabel value="Tipo" for="tipo" style="font-weight: bold"/><br></br>
 
-                            <p:selectOneMenu id="tipoDeExpediente" value="#{expedienteController.selected.tipoDeExpediente}">
-                                <f:selectItem  itemLabel="judicial" itemValue="judicial" />
-                                <f:selectItem itemLabel="administrativo" itemValue="administrativo" />
-                            </p:selectOneMenu>
+                                    <p:selectOneMenu id="tipo" style="margin-left: 3%" value="#{expedienteController.selected.tipo}" >
+                                        <f:selectItem itemLabel="Reajuste°" itemValue="Reajuste" />
+                                        <f:selectItem itemLabel="Amparo" itemValue="Amparo" />
+                                        <f:selectItem itemLabel="Pensión" itemValue="Pensión" />
+                                        <f:selectItem itemLabel="Ganancias" itemValue="Ganancias" />
+                                        <f:selectItem itemLabel="DDHH" itemValue="DDHH" />
+                                        <f:selectItem itemLabel="Laboral" itemValue="Laboral" />
+                                        <f:selectItem itemLabel="Otros" itemValue="Otros" />
+                                        
+                                    </p:selectOneMenu>
+                                   
+                            
+                            
                             <br></br>
                             
-                                    <p:outputLabel value="Caratula:" style="font-weight: bold" for="caratula"  rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"/><br ></br>
-                                    <p:inputText id="caratula" value="#{expedienteController.selected.caratula}" title="caratula"  rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"/><br></br>
-
-                                   <p:outputLabel value="Nro de Expediente:" for="nroDeExpediente" style="font-weight: bold" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"/><br></br>
-                                   <p:inputText id="nroDeExpediente" value="#{expedienteController.selected.nroDeExpediente}" title="nroDeExpediente" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"/><br></br>
-
-                                   <p:outputLabel value="Juzgado o Dependencia:" for="juzgadoODependencia" style="font-weight: bold" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"/><br></br>
-                                   <p:inputText id="juzgadoODependencia" value="#{expedienteController.selected.juzgadoODependencia}" title="juzgadoODependencia" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" /><br></br>
-
+                                    <p:outputLabel value="Caratula:" style="font-weight: bold" for="caratula" /><br ></br>
+                                    <p:inputText id="caratula" value="#{expedienteController.selected.caratula}" title="caratula" /><br></br>
+                                    <br></br>
+                                   
+                                   <p:outputLabel value="Nro de Expediente:" for="nroDeExpediente" style="font-weight: bold" /><br></br>
+                                   <p:inputText id="nroDeExpediente" value="#{expedienteController.selected.nroDeExpediente}" title="nroDeExpediente" /><br></br>
+                                    
                                    <br></br>
-                            <div>                            
-                                <p:outputLabel value="Fecha de A. de expediente:" for="fechaDeAltaDeExpediente" style="font-weight: bold" />
-                               <p:calendar id="fechaDeAltaDeExpediente" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAltaDeExpediente}" title="fecha de alta de expediente" />
-                            </div> <br></br>   
-                            
-                            <div> 
-                                <div style="float: left">
-                                    <p:outputLabel value="fecha de atención:" for="fechaDeAtencion" style="font-weight: bold" /><br></br>
-                                    <p:calendar  style="width: 35%" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion"  showOn="button">
-                                    </p:calendar>
-                                </div>
-                            <br></br>
-                                <div>
-                                    <p:outputLabel value="Tipo de tramite:" for="tipoDeTramite" style="margin-left: 3%;font-weight: bold" /><br></br>
-                                    <p:inputText style="width: 23%;margin-left: 3%" id="tipoDeTramite" value="#{expedienteController.selected.tipoDeTramite}" title="tipoDeTramite"/>
-                                </div>
-                            </div>
-                            <br></br>
-                            
-                            <p:outputLabel value="Estado del Tramite:" for="estadoDelTramite" style="font-weight: bold" />
-
-                            <p:selectOneMenu  id="estadoDelTramite" value="#{expedienteController.selected.estadoDelTramite}">
-                                    <f:selectItem itemLabel=" -- Estado del tramite --"  noSelectionOption="true"/>
-                                    <f:selectItems value="#{estadoDelTramiteController.items}" var="estado" itemLabel="#{estado.estado}" itemValue="#{estado.estado}" />
-                            </p:selectOneMenu>
-                            
-                            <br></br><br></br>
-                            <div>
-                            
-                                <div style="float: left">
-                                <p:outputLabel value="Fecha de cobro:" for="fechaDeCobro" style="font-weight: bold" /><br></br>
-                                 <p:calendar style="width: 112px;" id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" showOn="button"/>
-                                 </div>
-                                <div>
-                                    <p:outputLabel value="Cobra beneficio" style="margin-left: 3%;font-weight: bold" /><br></br><br></br>
-                                    <p:selectOneMenu id="cobraBeneficio" style="margin-left: 3%" value="#{expedienteController.selected.cobraBeneficio}" >
+                                   <p:outputLabel value="Jurisdicción::" for="jurisdiccion" style="font-weight: bold" /><br></br>
+                                   <p:selectOneMenu id="jurisdiccion" style="margin-left: 3%" value="#{expedienteController.selected.jurisdiccion}" >
+                                        <f:selectItem itemLabel="Provincia - Juzgado N°" itemValue="Provincia - Juzgado N°" />
+                                        <f:selectItem itemLabel="Provincia - Cámara" itemValue="Provincia - Cámara" />
+                                        <f:selectItem itemLabel="Federales - Jefatura 1" itemValue="Federales - Jefatura 1" />
+                                        <f:selectItem itemLabel="Federales - Jefatura 2" itemValue="Federales - Jefatura 2" />
+                                        <f:selectItem itemLabel="Federales - Jefatura 3" itemValue="Federales - Jefatura 3" />
+                                        <f:selectItem itemLabel="Federales - Camara - Sala A" itemValue="Federales - Camara - Sala A" />
+                                        <f:selectItem itemLabel="Federales - Camara - Sala b" itemValue="Federales - Camara - Sala b" />
+                                        
+                                    </p:selectOneMenu>
+                                   <br></br>
+                                   <p:outputLabel value="Etapa Procesal" for="etapaProcesal" style="font-weight: bold" /><br></br>
+                                   <p:selectOneMenu id="etapaProcesal" style="margin-left: 3%" value="#{expedienteController.selected.etapaProcesal}" >
+                                        <f:selectItem itemLabel="DDA iniciada" itemValue="DDA iniciada" />
+                                        <f:selectItem itemLabel="Contestación" itemValue="Contestación" />
+                                        <f:selectItem itemLabel="Prueba" itemValue="Prueba" />
+                                        <f:selectItem itemLabel="Alegatos" itemValue="Alegatos" />
+                                        <f:selectItem itemLabel="Sentencia" itemValue="Sentencia" />
+                                        <f:selectItem itemLabel="Apelación" itemValue="Apelación" />
+                                        <f:selectItem itemLabel="Sentencia definitiva" itemValue="Sentencia definitiva" />
+                                        <f:selectItem itemLabel="Ejecución" itemValue="Ejecución" />
+                                    </p:selectOneMenu>
+                                   <br></br>
+                                   <p:outputLabel value="Poder Firmado:" for="poderFirmado" style="font-weight: bold" /><br></br>
+                                   <p:selectOneMenu id="poderFirmado" style="margin-left: 3%" value="#{expedienteController.selected.poderFirmado}" >
                                         <f:selectItem itemLabel="Si" itemValue="Si" />
                                         <f:selectItem itemLabel="No" itemValue="No" />
+                                        
                                     </p:selectOneMenu>
-                                </div>
-                            </div>
-                            <br></br>
+                                   
+                                   
+                                   
+                                   
+                                   <br></br>
                             
-                            <p:outputLabel value="Procedencia:" for="procedencia" style="font-weight: bold" /><br></br>
-                        <p:selectOneMenu  id="procedencia" value="#{expedienteController.selected.procedencia}"  >
-                                <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.nombreProcedencia}" itemValue="#{procedencia.nombreProcedencia}" />
-                        </p:selectOneMenu><br></br>
-                    
                             
-                            <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
-
-                            <p:inputTextarea rows="10" cols="33" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
-                    
+                            
+                            
+                            
                 
                 </div>
          
-               <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+               <br></br>
                <div style="margin-top: 50%;float: right">
                     
                    <p:commandButton actionListener="#{expedienteController.create}" value="#{bundle.Save}" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ExpedienteJudicialCreateDialog');"/>

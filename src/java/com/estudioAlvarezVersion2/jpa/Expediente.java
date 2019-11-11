@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Expediente.findByIdExpediente", query = "SELECT e FROM Expediente e WHERE e.idExpediente = :idExpediente")
     , @NamedQuery(name = "Expediente.findByOrden", query = "SELECT e FROM Expediente e WHERE e.orden = :orden")
     , @NamedQuery(name = "Expediente.findByCuit", query = "SELECT e FROM Expediente e WHERE e.cuit = :cuit")
-    , @NamedQuery(name = "Expediente.findByDni", query = "SELECT e FROM Expediente e WHERE e.cuit = :dni")    
+    , @NamedQuery(name = "Expediente.findByDni", query = "SELECT e FROM Expediente e WHERE e.cuit = :dni")
     , @NamedQuery(name = "Expediente.findByNombre", query = "SELECT e FROM Expediente e WHERE e.nombre = :nombre")
     , @NamedQuery(name = "Expediente.findByTipoDeDocumento", query = "SELECT e FROM Expediente e WHERE e.tipoDeDocumento = :tipoDeDocumento")
     , @NamedQuery(name = "Expediente.findBySexo", query = "SELECT e FROM Expediente e WHERE e.sexo = :sexo")
@@ -53,17 +53,14 @@ public class Expediente implements Serializable {
 
     @Column(name = "orden")
     private int orden;
-    
-    @Basic(optional = false)
 
+    @Basic(optional = false)
     @Column(name = "cuit")
     private String cuit;
-    
+
     @Basic(optional = false)
     @Column(name = "dni")
     private String dni;
-    
-    @Basic(optional = false)
 
     @Size(min = 1, max = 100)
     @Column(name = "nombre")
@@ -92,18 +89,18 @@ public class Expediente implements Serializable {
 
     @Column(name = "nroDeAltura")
     private int nroDeAltura;
-    
+
     @Basic(optional = false)
     @Column(name = "piso")
     private String piso;
-    
+
     @Basic(optional = false)
     @Column(name = "depto")
     private String depto;
-    
+
     @Basic(optional = false)
     @Column(name = "barrio")
-    
+
     private String barrio;
     @Basic(optional = false)
 
@@ -115,7 +112,7 @@ public class Expediente implements Serializable {
     @Column(name = "fechaDeNacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechaDeNacimiento;
-    
+
     @Basic(optional = false)
     @Column(name = "edad")
     private int edad;
@@ -123,83 +120,95 @@ public class Expediente implements Serializable {
     @Basic(optional = false)
     @Column(name = "claveSeguridadSocial")
     private String claveSeguridadSocial;
-    
+
     @Basic(optional = false)
     @Column(name = "claveFiscal")
     private String claveFiscal;
-    
+
     @Basic(optional = false)
     @Column(name = "claveCidi")
     private String claveCidi;
 
     @Basic(optional = false)
-    @Column(name = "cobraBeneficio")    
+    @Column(name = "cobraBeneficio")
     private String cobraBeneficio;
-    
+
     @Basic(optional = false)
-    @Column(name = "fechaDeAltaDeExpediente")    
+    @Column(name = "fechaDeAltaDeExpediente")
     private Date fechaDeAltaDeExpediente;
-    
+
     @Basic(optional = false)
-    @Column(name = "codigoPostal")    
+    @Column(name = "codigoPostal")
     private String codigoPostal;
-    
+
     @Basic(optional = false)
-    @Column(name = "localidad")    
+    @Column(name = "localidad")
     private String localidad;
-    
-    
+
     @Basic(optional = false)
-    @Column(name = "tipoDeTramite")    
+    @Column(name = "tipoDeTramite")
     private String tipoDeTramite;
-    
+
     @Basic(optional = false)
-    @Column(name = "procedencia")    
+    @Column(name = "procedencia")
     private String procedencia;
-    
+
     @Basic(optional = false)
-    @Column(name = "estadoDelTramite")    
+    @Column(name = "estadoDelTramite")
     private String estadoDelTramite;
-    
+
     @Basic(optional = false)
-    @Column(name = "fechaDeCobro")    
+    @Column(name = "fechaDeCobro")
     private Date fechaDeCobro;
 
     @Basic(optional = false)
-    @Column(name = "nacionalidad")    
+    @Column(name = "nacionalidad")
     private String nacionalidad;
-    
-    
+
     @Basic(optional = false)
-    @Column(name = "tipoDeExpediente")    
+    @Column(name = "tipoDeExpediente")
     private String tipoDeExpediente;
 
     @Basic(optional = false)
-    @Column(name = "caratula")    
+    @Column(name = "caratula")
     private String caratula;
-    
+
     @Basic(optional = false)
-    @Column(name = "nroDeExpediente")    
+    @Column(name = "nroDeExpediente")
     private String nroDeExpediente;
-    
-        
+
     @Basic(optional = false)
-    @Column(name = "juzgadoODependencia")    
+    @Column(name = "juzgadoODependencia")
     private String juzgadoODependencia;
-    
-    
+
     @Basic(optional = false)
-    @Column(name = "observaciones")    
+    @Column(name = "observaciones")
     private String observaciones;
-    
-    
+
     @Basic(optional = false)
-    @Column(name = "fechaDeAtencion")    
+    @Column(name = "fechaDeAtencion")
     private Date fechaDeAtencion;
-    
-    
-            
-            
+
+    @Basic(optional = false)
+    @Column(name = "convenioDeHonorarios")
+    private String convenioDeHonorarios;
+
+    @Basic(optional = false)
+    @Column(name = "poderFirmado")
+    private String poderFirmado;
+
+    @Basic(optional = false)
+    @Column(name = "etapaProcesal")
+    private String etapaProcesal;
+
+    @Basic(optional = false)
+    @Column(name = "jurisdiccion")
+    private String jurisdiccion;
+
+    @Basic(optional = false)
+    @Column(name = "tipo")
+    private String tipo;
+
     public Expediente() {
     }
 
@@ -207,7 +216,18 @@ public class Expediente implements Serializable {
         this.idExpediente = idExpediente;
     }
 
-    public Expediente(Integer idExpediente, int orden, String cuit, String dni, String nombre, String tipoDeDocumento, String sexo, String apellido, String direccion, int nroDeAltura, String piso, String depto, String barrio, String telefono, Date fechaDeNacimiento, int edad, String claveSeguridadSocial, String claveFiscal, String claveCidi, String cobraBeneficio, Date fechaDeAltaDeExpediente, String codigoPostal, String localidad, String tipoDeTramite, String procedencia, String estadoDelTramite, Date fechaDeCobro, String nacionalidad, String tipoDeExpediente, String caratula, String nroDeExpediente, String juzgadoODependencia, String observaciones, Date fechaDeAtencion) {
+    public Expediente(Integer idExpediente, int orden, String cuit, String dni,
+            String nombre, String tipoDeDocumento, String sexo, String apellido,
+            String direccion, int nroDeAltura, String piso, String depto,
+            String barrio, String telefono, Date fechaDeNacimiento, int edad,
+            String claveSeguridadSocial, String claveFiscal, String claveCidi,
+            String cobraBeneficio, Date fechaDeAltaDeExpediente, String codigoPostal,
+            String localidad, String tipoDeTramite, String procedencia,
+            String estadoDelTramite, Date fechaDeCobro, String nacionalidad,
+            String tipoDeExpediente, String caratula, String nroDeExpediente,
+            String juzgadoODependencia, String observaciones, Date fechaDeAtencion,
+            String convenioDeHonorarios, String jurisdiccion, String poderFirmado,
+            String tipo, String etapaProcesal) {
         this.idExpediente = idExpediente;
         this.orden = orden;
         this.cuit = cuit;
@@ -242,6 +262,12 @@ public class Expediente implements Serializable {
         this.juzgadoODependencia = juzgadoODependencia;
         this.observaciones = observaciones;
         this.fechaDeAtencion = fechaDeAtencion;
+        this.convenioDeHonorarios = convenioDeHonorarios;
+        this.poderFirmado = poderFirmado;
+        this.tipo = tipo;
+        this.jurisdiccion = jurisdiccion;
+        this.etapaProcesal = etapaProcesal;
+
     }
 
     public Integer getIdExpediente() {
@@ -275,7 +301,7 @@ public class Expediente implements Serializable {
     public void setDni(String dni) {
         this.dni = dni;
     }
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -507,7 +533,7 @@ public class Expediente implements Serializable {
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -522,9 +548,46 @@ public class Expediente implements Serializable {
     public void setFechaDeAtencion(Date fechaDeAtencion) {
         this.fechaDeAtencion = fechaDeAtencion;
     }
-    
-    
-    
+
+    public String getConvenioDeHonorarios() {
+        return convenioDeHonorarios;
+    }
+
+    public void setConvenioDeHonorarios(String convenioDeHonorarios) {
+        this.convenioDeHonorarios = convenioDeHonorarios;
+    }
+
+    public String getPoderFirmado() {
+        return poderFirmado;
+    }
+
+    public void setPoderFirmado(String poderFirmado) {
+        this.poderFirmado = poderFirmado;
+    }
+
+    public String getEtapaProcesal() {
+        return etapaProcesal;
+    }
+
+    public void setEtapaProcesal(String etapaProcesal) {
+        this.etapaProcesal = etapaProcesal;
+    }
+
+    public String getJurisdiccion() {
+        return jurisdiccion;
+    }
+
+    public void setJurisdiccion(String jurisdiccion) {
+        this.jurisdiccion = jurisdiccion;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
     @Override
     public boolean equals(Object object) {
@@ -543,5 +606,5 @@ public class Expediente implements Serializable {
     public String toString() {
         return "com.estudioAlvarezVersion2.jpa.Expediente[ idExpediente=" + idExpediente + " ]";
     }
-    
+
 }

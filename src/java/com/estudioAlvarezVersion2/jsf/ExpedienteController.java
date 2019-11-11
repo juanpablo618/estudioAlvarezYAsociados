@@ -37,7 +37,7 @@ public class ExpedienteController implements Serializable {
     private Expediente selected;
 
     private List<Expediente> filteredExpedientes;
-    
+
     private Date dateSelected;
 
     public Date getDateSelected() {
@@ -47,10 +47,7 @@ public class ExpedienteController implements Serializable {
     public void setDateSelected(Date dateSelected) {
         this.dateSelected = dateSelected;
     }
-    
-    
-    
-    
+
     public ExpedienteController() {
     }
 
@@ -66,12 +63,10 @@ public class ExpedienteController implements Serializable {
         this.filteredExpedientes = filteredExpedientes;
     }
 
-    
-    
     public void setSelected(Expediente selected) {
         this.selected = selected;
     }
-    
+
     public void handleDateSelect(Date selected) {
         this.dateSelected = selected;
     }
@@ -92,69 +87,66 @@ public class ExpedienteController implements Serializable {
         return selected;
     }
 
- public void create() {
-            
+    public void create() {
+
         ingresarEdad();
-        
+
         ingresarDni();
-                
+
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    
-    public void ingresarEdad(){
-    Calendar fecha = new GregorianCalendar();
+
+    public void ingresarEdad() {
+        Calendar fecha = new GregorianCalendar();
         int añoActual = fecha.get(Calendar.YEAR);
-    
+
         int añoDeNacimiento = selected.getFechaDeNacimiento().getYear();
-        
+
         añoDeNacimiento = añoDeNacimiento + 1900;
-        
+
         int edad = 0;
-        
+
         edad = añoActual - añoDeNacimiento;
-        
+
         selected.setEdad(edad);
-        
+
     }
-    
-    public void ingresarDni(){
-    String cuit = selected.getCuit();
+
+    public void ingresarDni() {
+        String cuit = selected.getCuit();
         cuit = cuit.substring(2, 9);
-        
+
         selected.setDni(cuit);
-        
+
     }
-    
-    
 
     public void update() {
 
-            Calendar fecha = new GregorianCalendar();
-            int añoActual = fecha.get(Calendar.YEAR);
+        Calendar fecha = new GregorianCalendar();
+        int añoActual = fecha.get(Calendar.YEAR);
 
-            int añoDeNacimiento = selected.getFechaDeNacimiento().getYear();
+        int añoDeNacimiento = selected.getFechaDeNacimiento().getYear();
 
-            añoDeNacimiento = añoDeNacimiento + 1900;
+        añoDeNacimiento = añoDeNacimiento + 1900;
 
-            int edad = 0;
+        int edad = 0;
 
-            edad = añoActual - añoDeNacimiento;
+        edad = añoActual - añoDeNacimiento;
 
-            selected.setEdad(edad);
-            
-                String cuit = selected.getCuit();
-                cuit = cuit.substring(2, 9);
-                selected.setDni(cuit);
-            
+        selected.setEdad(edad);
 
-            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteUpdated"));
+        String cuit = selected.getCuit();
+        cuit = cuit.substring(2, 9);
+        selected.setDni(cuit);
+
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteUpdated"));
     }
-    
+
     public void update2() {
-            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteUpdated"));
     }
 
     public void destroy() {
@@ -164,22 +156,21 @@ public class ExpedienteController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    
-    public void calcularEdades(){
+
+    public void calcularEdades() {
         Calendar fecha = new GregorianCalendar();
         int añoActual = fecha.get(Calendar.YEAR);
-        
+
         System.out.println("entro al calcular edades");
-        
-        for(Expediente ex:items){
-                    System.out.println("entro al for");
-            if(nonNull(ex.getFechaDeNacimiento())){
-                        System.out.println("entro al if");
-                        System.out.println("Orden: "+ex.getOrden());
-                        
+
+        for (Expediente ex : items) {
+            System.out.println("entro al for");
+            if (nonNull(ex.getFechaDeNacimiento())) {
+                System.out.println("entro al if");
+                System.out.println("Orden: " + ex.getOrden());
+
                 int añoDeNacimiento = ex.getFechaDeNacimiento().getYear();
 
-                
                 añoDeNacimiento = añoDeNacimiento + 1900;
 
                 int edad = 0;
@@ -187,20 +178,18 @@ public class ExpedienteController implements Serializable {
                 edad = añoActual - añoDeNacimiento;
 
                 int mesDeNacimiento = ex.getFechaDeNacimiento().getMonth();
-                if(mesDeNacimiento>6){
-                    ex.setEdad(edad-1);
+                if (mesDeNacimiento > 6) {
+                    ex.setEdad(edad - 1);
                     selected = ex;
                     update2();
-                }else{
-                ex.setEdad(edad);
-                selected = ex;
+                } else {
+                    ex.setEdad(edad);
+                    selected = ex;
                     update2();
                 }
             }
         }
-        
-        
-        
+
     }
 
     public List<Expediente> getItems() {
@@ -290,86 +279,80 @@ public class ExpedienteController implements Serializable {
         }
 
     }
-    
-    public String getNombreYApellidoPorOrden(int orden){
-        
+
+    public String getNombreYApellidoPorOrden(int orden) {
+
         String nombreYApellidoBuscado = null;
-        
-        for(Expediente i: items){
-            if(i.getOrden() == orden){
+
+        for (Expediente i : items) {
+            if (i.getOrden() == orden) {
                 nombreYApellidoBuscado = i.getNombre() + i.getApellido();
             }
         }
-        
-    return nombreYApellidoBuscado;
+
+        return nombreYApellidoBuscado;
     }
 
-    
     public void redirect() throws Exception {
-    
-    ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-    externalContext.redirect("http://stackoverflow.com");
+
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        externalContext.redirect("http://stackoverflow.com");
     }
-    
+
     public void handleDateSelect(SelectEvent event) {
-    RequestContext.getCurrentInstance().execute("PF('expedientesTable').filter()");
-}
-    
-    
-    public String getClaveCidi(int orden){
-        
+        RequestContext.getCurrentInstance().execute("PF('expedientesTable').filter()");
+    }
+
+    public String getClaveCidi(int orden) {
+
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedientetrollerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
 
-        System.out.println("PASO POR CIDI"+orden);
-        
+        System.out.println("PASO POR CIDI" + orden);
+
         String claveCidi = null;
-        
-              for(Expediente i: expedientetrollerBean.getItems()){
-                    System.out.println(i.getOrden());
-                  
-                if(i.getOrden() == orden){
-                    System.out.println(i.getOrden());
-                    claveCidi = i.getClaveCidi();
-                    return claveCidi;
-                }else{
-                    System.out.println("no macheo nada");
-                    claveCidi = "no se encontro";
-                }
+
+        for (Expediente i : expedientetrollerBean.getItems()) {
+            System.out.println(i.getOrden());
+
+            if (i.getOrden() == orden) {
+                System.out.println(i.getOrden());
+                claveCidi = i.getClaveCidi();
+                return claveCidi;
+            } else {
+                System.out.println("no macheo nada");
+                claveCidi = "no se encontro";
             }
-        
+        }
+
         return claveCidi;
     }
-    
-    
-    
-    
-    
-    public String getClaveFiscal(int orden){
-            System.out.println("PASO POR FISCAL");
+
+    public String getClaveFiscal(int orden) {
+        System.out.println("PASO POR FISCAL");
 
         String claveFiscal = null;
-        
-        for(Expediente buscado: items){
-            if(buscado.getOrden()==orden){
+
+        for (Expediente buscado : items) {
+            if (buscado.getOrden() == orden) {
                 claveFiscal = buscado.getClaveFiscal();
             }
         }
-    return claveFiscal;
+        return claveFiscal;
     }
-    
-    public String getClaveDeSeguridadSocial(int orden){
-            System.out.println("PASO POR SEguridad Social");
 
-         String claveDeSeguridadSocial = null;
-        
-        for(Expediente buscado: items){
-            if(buscado.getOrden()==orden){
+    public String getClaveDeSeguridadSocial(int orden) {
+        System.out.println("PASO POR SEguridad Social");
+
+        String claveDeSeguridadSocial = null;
+
+        for (Expediente buscado : items) {
+            if (buscado.getOrden() == orden) {
                 claveDeSeguridadSocial = buscado.getClaveSeguridadSocial();
             }
         }
-    return claveDeSeguridadSocial;
-        
+        return claveDeSeguridadSocial;
+
     }
-    
+
 }

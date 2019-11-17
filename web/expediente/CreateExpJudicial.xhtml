@@ -15,7 +15,6 @@
                 
                 <div style="float: left">   
                     
-                    
                     <p:tabView style="width: 160%">
 
                         <p:tab title="Datos personales">
@@ -53,7 +52,6 @@
                                     <p:inputText id="telefono" value="#{expedienteController.selected.telefono}" style="margin-left: 3%" title="#{bundle.EditExpedienteTitle_telefono}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_telefono}"/>
                                 </div>
                             </div> 
-
 
                              <br></br><br></br>
                              <div>
@@ -167,7 +165,7 @@
                                         <f:selectItem itemLabel="Federales - Camara - Sala b" itemValue="Federales - Camara - Sala b" />
                                         
                                     </p:selectOneMenu>
-                                   <br></br>
+                                   <br></br><br></br>
                                    <p:outputLabel value="Etapa Procesal" for="etapaProcesal" style="font-weight: bold" /><br></br>
                                    <p:selectOneMenu id="etapaProcesal" style="margin-left: 3%" value="#{expedienteController.selected.etapaProcesal}" >
                                         <f:selectItem itemLabel="DDA iniciada" itemValue="DDA iniciada" />
@@ -179,7 +177,7 @@
                                         <f:selectItem itemLabel="Sentencia definitiva" itemValue="Sentencia definitiva" />
                                         <f:selectItem itemLabel="Ejecución" itemValue="Ejecución" />
                                     </p:selectOneMenu>
-                                   <br></br>
+                                   <br></br><br></br>
                                    <p:outputLabel value="Poder Firmado:" for="poderFirmado" style="font-weight: bold" /><br></br>
                                    <p:selectOneMenu id="poderFirmado" style="margin-left: 3%" value="#{expedienteController.selected.poderFirmado}" >
                                         <f:selectItem itemLabel="Si" itemValue="Si" />

@@ -55,11 +55,12 @@
 
 .botonCrearAgenda{
     background-color: #00C6AE !important;
+    background: #00C6AE !important;
     font-size: 13px !important; 
     color: #FFFFFF !important;
     letter-spacing: 0.93px !important;
     text-shadow:unset !important;
- } 
+} 
 
  .editDialogExpediente{
     width: 70% !important;
@@ -82,7 +83,6 @@
   /* IMPORTANTE */
   display: inline-block;
 }
-
 
 .ui-menu .ui-menuitem-link{
     background-color: #9db7e8 !important;

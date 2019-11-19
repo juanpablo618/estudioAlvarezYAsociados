@@ -14,9 +14,6 @@
 
                 </h:panelGroup >
 
-
-                <br></br><br></br>
-
                 <div style="float: left">   
 
 
@@ -25,7 +22,7 @@
                         <p:tab title="Datos personales">
 
                             <p:outputLabel value="Orden:"  style="font-weight: bold" /><br></br>
-                            <p:inputText id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_orden}"/>
+                            <p:inputText id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" />
 
 
                             <br></br><br></br>
@@ -36,7 +33,7 @@
 
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_apellido}" for="apellido" style="font-weight: bold" />
                                     <br></br> 
-                                    <p:inputText id="apellido" value="#{expedienteController.selected.apellido}" title="#{bundle.CreateExpedienteTitle_apellido}" required="true" requiredMessage="#{bundle.CreateExpedienteRequiredMessage_apellido}"/>
+                                    <p:inputText id="apellido" value="#{expedienteController.selected.apellido}" title="#{bundle.CreateExpedienteTitle_apellido}" />
 
 
 
@@ -46,7 +43,7 @@
 
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_nombre}" for="nombre" style="margin-left: 3%;font-weight: bold" />
                                     <br></br> 
-                                    <p:inputText id="nombre" value="#{expedienteController.selected.nombre}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_nombre}" required="true" requiredMessage="#{bundle.CreateExpedienteRequiredMessage_nombre}"/>
+                                    <p:inputText id="nombre" value="#{expedienteController.selected.nombre}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_nombre}" />
 
 
                                 </div> 
@@ -58,14 +55,14 @@
 
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_cuit}" for="cuit" style="font-weight: bold" />
                                     <br></br>
-                                    <p:inputText id="cuit" value="#{expedienteController.selected.cuit}" title="#{bundle.CreateExpedienteTitle_cuit}" required="true" requiredMessage="#{bundle.CreateExpedienteRequiredMessage_cuit}"/>
+                                    <p:inputText id="cuit" value="#{expedienteController.selected.cuit}" title="#{bundle.CreateExpedienteTitle_cuit}" />
 
                                 </div>
                                 <div>   
 
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="margin-left: 3%;font-weight: bold" />
                                     <br></br>       
-                                    <p:inputText id="telefono" value="#{expedienteController.selected.telefono}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_telefono}" required="true" requiredMessage="#{bundle.CreateExpedienteRequiredMessage_telefono}"/>
+                                    <p:inputText id="telefono" value="#{expedienteController.selected.telefono}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_telefono}" />
 
 
                                 </div>
@@ -79,13 +76,13 @@
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_fechaDeNacimiento}" style="font-weight: bold" for="fechaDeNacimiento" />
                                     <br></br>
 
-                                    <p:calendar id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_fechaDeNacimiento}" showOn="button">
+                                    <p:calendar id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" showOn="button">
                                     </p:calendar>
 
                                 </div>
                                 <div >
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_sexo}" for="sexo" style="margin-left: 3%;font-weight: bold" /><br></br>
-                                    <p:selectOneMenu style="margin-left: 3%" id="sexo" value="#{expedienteController.selected.sexo}" required="true" requiredMessage="#{bundle.CreateExpedienteRequiredMessage_sexo}">
+                                    <p:selectOneMenu style="margin-left: 3%" id="sexo" value="#{expedienteController.selected.sexo}" >
                                         <f:selectItem itemLabel="Masculino" itemValue="masculino" />
                                         <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
                                     </p:selectOneMenu><br></br><br></br>
@@ -93,7 +90,7 @@
 
                                     <p:outputLabel value="Nacionalidad:" for="nacionalidad" style="margin-left: 3%;font-weight: bold" /><br></br>
 
-                                    <p:selectOneMenu id="nacionalidad" value="#{expedienteController.selected.nacionalidad}" style="margin-left: 3%" required="true" requiredMessage="nacionalidad es requerido">
+                                    <p:selectOneMenu id="nacionalidad" value="#{expedienteController.selected.nacionalidad}" style="margin-left: 3%" >
                                         <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
                                         <f:selectItem itemLabel="Extranjero" itemValue="Extranjero" />
                                     </p:selectOneMenu><br></br>
@@ -105,11 +102,11 @@
                                 <div style="float: left">
 
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_direccion}" for="direccion" style="font-weight: bold" /><br></br>
-                                    <p:inputText id="direccion" value="#{expedienteController.selected.direccion}" title="#{bundle.CreateExpedienteTitle_direccion}" required="true" requiredMessage="#{bundle.CreateExpedienteRequiredMessage_direccion}"/><br></br>
+                                    <p:inputText id="direccion" value="#{expedienteController.selected.direccion}" title="#{bundle.CreateExpedienteTitle_direccion}" /><br></br>
 
                                     <br></br>                    
                                     <p:outputLabel value="Altura:" for="nroDeAltura" style="font-weight: bold" /><br></br>
-                                    <p:inputText id="nroDeAltura" value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.CreateExpedienteTitle_nroDeAltura}" required="true" requiredMessage="#{bundle.CreateExpedienteRequiredMessage_nroDeAltura}"/>
+                                    <p:inputText id="nroDeAltura" value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.CreateExpedienteTitle_nroDeAltura}" />
 
 
 
@@ -117,12 +114,12 @@
                                 </div>
                                 <div style="float: left">
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_piso}" for="piso" style="margin-left: 3%;font-weight: bold" /><br></br>
-                                    <p:inputText id="piso" value="#{expedienteController.selected.piso}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_piso}"  requiredMessage="#{bundle.CreateExpedienteRequiredMessage_piso}"/>
+                                    <p:inputText id="piso" value="#{expedienteController.selected.piso}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_piso}"  />
 
                                 </div>
                                 <div>
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_depto}" for="depto" style="margin-left: 3%;font-weight: bold"/><br></br>
-                                    <p:inputText id="depto" value="#{expedienteController.selected.depto}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_depto}"  requiredMessage="#{bundle.CreateExpedienteRequiredMessage_depto}"/>
+                                    <p:inputText id="depto" value="#{expedienteController.selected.depto}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_depto}"  />
 
                                 </div> <br></br>    
                                 <div style="float: left">
@@ -142,7 +139,8 @@
                                     <p:outputLabel value="Localidad:" for="localidad" style="margin-left: 3%;font-weight: bold" /><br></br>
                                     <p:inputText id="localidad" value="#{expedienteController.selected.localidad}" style="margin-left: 3%"  title="localidad"/>
 
-                                </div>          
+                                </div>
+                                <br></br>
                             </div>            
 
                             <br></br>
@@ -151,14 +149,34 @@
 
                         <p:tab title="claves">
 
+                            <div>
+                                <div>
                             <p:outputLabel value="C. Seguridad Social" for="claveSeguridadSocial" style="font-weight: bold" /><br></br>
-                            <p:inputText id="claveSeguridadSocial" value="#{expedienteController.selected.claveSeguridadSocial}" title="clave de seguridad social"/><br></br>
-
-                            <p:outputLabel value="C. Fiscal" for="claveFiscal" style="font-weight: bold" /><br></br>
-                            <p:inputText id="claveFiscal" value="#{expedienteController.selected.claveFiscal}" title="clave Fiscal"/><br></br>
-
-                            <p:outputLabel value="C. Cidi" for="claveCidi" style="font-weight: bold" /><br></br>
-                            <p:inputText id="claveCidi" value="#{expedienteController.selected.claveCidi}" title="clave Cidi"/><br></br>
+                            </div>
+                                <div>
+                                    <p:inputText id="claveSeguridadSocial" value="#{expedienteController.selected.claveSeguridadSocial}" title="clave de seguridad social"/><br></br>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div>
+                                <p:outputLabel value="C. Fiscal" for="claveFiscal" style="font-weight: bold" /><br></br>
+                                </div>
+                                <div>
+                                <p:inputText id="claveFiscal" value="#{expedienteController.selected.claveFiscal}" title="clave Fiscal"/><br></br>
+                                </div>
+                            </div>
+                            
+                            <div>
+                            <div style="float: left">
+                                <p:outputLabel value="C. Cidi" for="claveCidi" style="font-weight: bold" /><br></br>
+                                <p:inputText id="claveCidi" value="#{expedienteController.selected.claveCidi}" title="clave Cidi"/><br></br>
+                            </div>
+                                <div style="float: right">
+                                <p:button  value="Ir al sitio"  href="http://google.com" target="_blank" />
+                                </div>
+                            </div>
+                            
 
                         </p:tab>
 
@@ -178,40 +196,23 @@
                     <p:inputText id="tipoDeExpediente" value="#{expedienteController.selected.tipoDeExpediente}" title="tipoDeExpediente" /><br></br>
 
 
-                    <div style="float: left">
+                    <div style="float: left; width: 50%">
 
                         <p:outputLabel value="Fecha de atención:" for="fechaDeAtencion" style="font-weight: bold" /><br></br>
-                        <p:calendar style="width: 35%"  id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion"  showOn="button">
+                        <p:calendar style="width: 100px" class="inputFechaDeAtencion" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion">
                         </p:calendar>
-
-
+                        
                     </div>
 
 
 
-
-                    <p:outputLabel value="Caratula:" style="font-weight: bold" for="caratula"  /><br></br>
-                    <p:inputText id="caratula" value="#{expedienteController.selected.caratula}" title="caratula" disabled="#{expedienteController.selected.tipoDeExpediente eq 'administrativo'}" /><br></br>
-
-
-                    <p:outputLabel value="Nro de Expediente:" style="font-weight: bold" for="nroDeExpediente" /><br></br>
-                    <p:inputText id="nroDeExpediente" value="#{expedienteController.selected.nroDeExpediente}" title="nroDeExpediente" disabled="#{expedienteController.selected.tipoDeExpediente eq 'administrativo'}"/><br></br>
-
-                    <p:outputLabel value="Juzgado o Dependencia:" style="font-weight: bold" for="juzgadoODependencia" />
-                    <p:inputText id="juzgadoODependencia" value="#{expedienteController.selected.juzgadoODependencia}" title="juzgadoODependencia" disabled="#{expedienteController.selected.tipoDeExpediente eq 'administrativo'}"/>
-
+                    <div style="width: 30%">    
+                        <p:outputLabel value="Tipo de tramite:" style="font-weight: bold" for="tipoDeTramite"  /><br></br>
+                        <p:inputText style="width: 100px" id="caratula" value="#{expedienteController.selected.tipoDeTramite}" title="tipoDeTramite" /><br></br>
+                    </div>
 
                     <br></br>
-                    <div>                            
-
-
-                        <p:outputLabel value="Alta de expediente" for="fechaDeAltaDeExpediente" style="font-weight: bold" />
-                        <p:calendar  id="fechaDeAltaDeExpediente" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAltaDeExpediente}" title="fecha de alta de expediente" required="true" requiredMessage="fecha de alta de expediente es requerido" showOn="button"/>
-
-
-
-                    </div> <br></br>   
-
+                    
                     <div> 
 
                         <br></br>
@@ -219,7 +220,7 @@
 
                             <p:outputLabel value="Tipo de tramite:" for="tipoDeTramite" style="margin-left: 3%;font-weight: bold" /><br></br>
 
-                            <p:selectOneMenu style="width: 23%;margin-left: 3%" id="tipoDeTramite" value="#{expedienteController.selected.tipoDeTramite}" required="true" requiredMessage="tipo de tramite es requerido">
+                            <p:selectOneMenu style="width: 23%;margin-left: 3%" id="tipoDeTramite" value="#{expedienteController.selected.tipoDeTramite}" >
                                 <f:selectItem itemLabel="Jubilación Ordinaria" itemValue="Jubilación Ordinaria" />
                                 <f:selectItem itemLabel="Reconocimiento de Servicios" itemValue="Reconocimiento de Servicios" />
                                 <f:selectItem itemLabel="RTI" itemValue="RTI" />
@@ -227,10 +228,8 @@
                                 <f:selectItem itemLabel="Reajuste" itemValue="Reajuste" />
                                 <f:selectItem itemLabel="Amparo" itemValue="Amparo" />
                             </p:selectOneMenu>
-
-
-
                         </div>
+                        
                     </div>
                     <br></br>
 
@@ -244,20 +243,14 @@
 
                     <br></br><br></br>
                     <div>
-
                         <div style="float: left">
-
-
                             <p:outputLabel value="Fecha de cobro:" for="fechaDeCobro" style="font-weight: bold" /><br></br>
-                            <p:calendar style="width: 112px;" id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" showOn="button"/>
-
-
+                            <p:calendar style="width: 112px;" id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" />
                         </div>
                         <div>
-
                             <p:outputLabel value="Cobra Beneficio" for="cobraBeneficio" style="margin-left: 3%;font-weight: bold" /><br></br>
 
-                            <p:selectOneMenu style="margin-left: 3%" id="cobraBeneficio" value="#{expedienteController.selected.cobraBeneficio}" required="true" requiredMessage="cobra Beneficio es requerido">
+                            <p:selectOneMenu style="margin-left: 3%" id="cobraBeneficio" value="#{expedienteController.selected.cobraBeneficio}" >
                                 <f:selectItem itemLabel="Si Jubilación" itemValue="Si Jubilación" />
                                 <f:selectItem itemLabel="Si Pensión" itemValue="Si Pensión" />
 
@@ -286,7 +279,7 @@
 
                     <br></br>     
                     <p:commandButton value="#{bundle.Cancel}" onclick="ExpedienteCreateDialog.hide()"/> 
-                    <p:commandButton actionListener="#{expedienteController.create}" value="#{bundle.Save}" class="botonCrearAgenda" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ExpedienteCreateDialog');"/>
+                    <p:commandButton actionListener="#{expedienteController.create}" value="Crear" class="botonCrearAgenda" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ExpedienteCreateDialog');"/>
 
                 </div>
 

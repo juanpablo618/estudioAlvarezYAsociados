@@ -90,11 +90,23 @@
 
 
 .crearExpediente{
-    width: 68% !important;
-    height: 70% !important;
-    left: 400px !important;
-    top: 77px !important;
+    width: 90% !important;
+    height: 90% !important;
+    left: 5% !important;
+    top: 2% !important;
     z-index: 1005 !important;
+    position: absolute;
+
+}
+
+.crearExpedienteJudicial{
+    width: 70% !important;
+    height: 70% !important;
+    left: 10% !important;
+    top: 5% !important;
+    z-index: 1005 !important;
+    position: absolute;
+
 }
 
 .ui-layout-unit-content .ui-widget-content{
@@ -103,4 +115,14 @@
 
 .ui-menu .ui-menuitem-link{
     background-color: #2A55AA !important;
+}
+
+#fechaDeAtencion{
+    width: 100px !important;
+}
+
+
+.inputFechaDeAtencion{
+        width: 100px !important;
+
 }

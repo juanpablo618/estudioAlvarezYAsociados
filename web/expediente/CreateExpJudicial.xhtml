@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="ExpedienteJudicialCreateDlg" class="crearExpediente" widgetVar="ExpedienteJudicialCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Expediente Judicial">
+        <p:dialog id="ExpedienteJudicialCreateDlg"  class="crearExpedienteJudicial" widgetVar="ExpedienteJudicialCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Expediente Judicial">
             <h:form id="ExpedienteJudicialCreateForm">
                 <h:panelGroup id="display">
                 </h:panelGroup >
@@ -20,7 +20,7 @@
                         <p:tab title="Datos personales">
 
                                     <p:outputLabel value="Orden:"  style="font-weight: bold" /><br></br>
-                                    <p:inputText id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_orden}"/>
+                                    <p:inputText id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" />
 
                             <br></br><br></br>
 
@@ -29,13 +29,13 @@
 
                                     <p:outputLabel value="#{bundle.EditExpedienteLabel_apellido}" for="apellido" style="font-weight: bold" />
                                            <br></br>     
-                                           <p:inputText id="apellido" value="#{expedienteController.selected.apellido}" title="#{bundle.EditExpedienteTitle_apellido}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_apellido}"/>
+                                           <p:inputText id="apellido" value="#{expedienteController.selected.apellido}" title="#{bundle.EditExpedienteTitle_apellido}" />
                                 </div> 
                                 <div >
 
                                  <p:outputLabel value="#{bundle.EditExpedienteLabel_nombre}" for="nombre" style="margin-left: 3%;font-weight: bold" />
                                  <br></br> 
-                                 <p:inputText id="nombre" value="#{expedienteController.selected.nombre}" style="margin-left: 3%" title="#{bundle.EditExpedienteTitle_nombre}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_nombre}"/>
+                                 <p:inputText id="nombre" value="#{expedienteController.selected.nombre}" style="margin-left: 3%" title="#{bundle.EditExpedienteTitle_nombre}" />
                                 </div> 
                             </div> 
                             <br></br><br></br>
@@ -49,7 +49,7 @@
                                 <div>   
                                     <p:outputLabel value="#{bundle.EditExpedienteLabel_telefono}"  for="telefono" style="margin-left: 3%;font-weight: bold" />
                                     <br></br>       
-                                    <p:inputText id="telefono" value="#{expedienteController.selected.telefono}" style="margin-left: 3%" title="#{bundle.EditExpedienteTitle_telefono}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_telefono}"/>
+                                    <p:inputText id="telefono" value="#{expedienteController.selected.telefono}" style="margin-left: 3%" title="#{bundle.EditExpedienteTitle_telefono}" />
                                 </div>
                             </div> 
 
@@ -59,7 +59,7 @@
                                      <p:outputLabel value="#{bundle.EditExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento" style="font-weight: bold" /><br></br>
                                     <p:calendar id="fechaDeNacimiento" pattern="dd/MM/yyyy"  value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}"  showOn="button"/><br></br>
                                     <p:outputLabel value="#{bundle.EditExpedienteLabel_edad}" for="edad" style="font-weight: bold" /><br></br>
-                                    <p:inputText id="edad" value="#{expedienteController.selected.edad}"  title="#{bundle.EditExpedienteTitle_edad}" required="true" requiredMessage="#{bundle.EditExpedienteRequiredMessage_edad}"/><br></br>
+                                    <p:inputText id="edad" value="#{expedienteController.selected.edad}"  title="#{bundle.EditExpedienteTitle_edad}" /><br></br>
                                  </div>
                                  <div >
                                     <p:outputLabel value="#{bundle.EditExpedienteLabel_sexo}" for="sexo" style="margin-left: 3%;font-weight: bold" /><br></br>
@@ -98,7 +98,8 @@
                                  <div style="float: left">
                                         <p:outputLabel value="Localidad:" for="localidad" style="margin-left: 3%;font-weight: bold" /><br></br>
                                         <p:inputText id="localidad" value="#{expedienteController.selected.localidad}" style="margin-left: 3%" title="localidad"/>
-                                 </div>          
+                                 </div>
+                                 <br></br>
                               </div>            
 
                             <br></br>
@@ -200,8 +201,9 @@
                <br></br>
                <div style="margin-top: 50%;float: right">
                     
-                   <p:commandButton actionListener="#{expedienteController.create}" value="#{bundle.Save}" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ExpedienteJudicialCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ExpedienteJudicialCreateDialog.hide()"/>
+                    <p:commandButton actionListener="#{expedienteController.create}" class="botonCrearAgenda" value="Crear" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ExpedienteJudicialCreateDialog');"/>
+                 
                </div>
                 
         </h:form>

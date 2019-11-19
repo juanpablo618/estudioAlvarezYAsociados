@@ -49,8 +49,8 @@ public class Expediente implements Serializable {
     @Basic(optional = false)
     @Column(name = "idExpediente")
     private Integer idExpediente;
+    
     @Basic(optional = false)
-
     @Column(name = "orden")
     private int orden;
 
@@ -62,31 +62,27 @@ public class Expediente implements Serializable {
     @Column(name = "dni")
     private String dni;
 
-    @Size(min = 1, max = 100)
     @Column(name = "nombre")
     private String nombre;
+    
     @Basic(optional = false)
-
     @Size(min = 1, max = 200)
     @Column(name = "tipoDeDocumento")
     private String tipoDeDocumento;
+    
     @Basic(optional = false)
-
-    @Size(min = 1, max = 100)
     @Column(name = "sexo")
     private String sexo;
     @Basic(optional = false)
 
-    @Size(min = 1, max = 100)
     @Column(name = "apellido")
     private String apellido;
-    @Basic(optional = false)
 
-    @Size(min = 1, max = 100)
+    @Basic(optional = false)
     @Column(name = "direccion")
     private String direccion;
-    @Basic(optional = false)
 
+    @Basic(optional = false)
     @Column(name = "nroDeAltura")
     private int nroDeAltura;
 
@@ -100,15 +96,13 @@ public class Expediente implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "barrio")
-
     private String barrio;
+    
     @Basic(optional = false)
-
-    @Size(min = 1, max = 200)
     @Column(name = "telefono")
     private String telefono;
+    
     @Basic(optional = false)
-
     @Column(name = "fechaDeNacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechaDeNacimiento;

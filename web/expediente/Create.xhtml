@@ -16,7 +16,6 @@
 
                 <div style="float: left">   
 
-
                     <p:tabView style="width: 160%">
 
                         <p:tab title="Datos personales">
@@ -24,27 +23,21 @@
                             <p:outputLabel value="Orden:"  style="font-weight: bold" /><br></br>
                             <p:inputText id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" />
 
-
                             <br></br><br></br>
 
                             <div>
                                 <div  style="float: left"> 
 
-
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_apellido}" for="apellido" style="font-weight: bold" />
                                     <br></br> 
                                     <p:inputText id="apellido" value="#{expedienteController.selected.apellido}" title="#{bundle.CreateExpedienteTitle_apellido}" />
 
-
-
                                 </div> 
                                 <div >
-
 
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_nombre}" for="nombre" style="margin-left: 3%;font-weight: bold" />
                                     <br></br> 
                                     <p:inputText id="nombre" value="#{expedienteController.selected.nombre}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_nombre}" />
-
 
                                 </div> 
                             </div> 
@@ -176,8 +169,9 @@
                                 <p:button  value="Ir al sitio"  href="http://google.com" target="_blank" />
                                 </div>
                             </div>
-                            
-
+                            <br></br>
+                            <br></br>
+                            <br></br>
                         </p:tab>
 
                     </p:tabView>
@@ -194,7 +188,7 @@
 
                     <p:outputLabel value="Tipo de expediente" style="font-weight: bold" for="tipoDeExpediente"  /><br></br>
                     <p:inputText id="tipoDeExpediente" value="#{expedienteController.selected.tipoDeExpediente}" title="tipoDeExpediente" /><br></br>
-
+                    <br></br> 
 
                     <div style="float: left; width: 50%">
 
@@ -203,24 +197,15 @@
                         </p:calendar>
                         
                     </div>
-
-
-
-                    <div style="width: 30%">    
-                        <p:outputLabel value="Tipo de tramite:" style="font-weight: bold" for="tipoDeTramite"  /><br></br>
-                        <p:inputText style="width: 100px" id="caratula" value="#{expedienteController.selected.tipoDeTramite}" title="tipoDeTramite" /><br></br>
-                    </div>
-
                     <br></br>
-                    
-                    <div> 
-
-                        <br></br>
+                    <br></br>
+                    <br></br>
+                    <div style="width: 50%"> 
                         <div>
-
+                            
                             <p:outputLabel value="Tipo de tramite:" for="tipoDeTramite" style="margin-left: 3%;font-weight: bold" /><br></br>
 
-                            <p:selectOneMenu style="width: 23%;margin-left: 3%" id="tipoDeTramite" value="#{expedienteController.selected.tipoDeTramite}" >
+                            <p:selectOneMenu style="margin-left: 3%" id="tipoDeTramite" value="#{expedienteController.selected.tipoDeTramite}" editable="true" effect="fold" >
                                 <f:selectItem itemLabel="Jubilación Ordinaria" itemValue="Jubilación Ordinaria" />
                                 <f:selectItem itemLabel="Reconocimiento de Servicios" itemValue="Reconocimiento de Servicios" />
                                 <f:selectItem itemLabel="RTI" itemValue="RTI" />
@@ -273,7 +258,7 @@
                         <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.nombreProcedencia}" itemValue="#{procedencia.nombreProcedencia}" />
                     </p:selectOneMenu>
 
-                    <br></br>
+                    <br></br><br></br>
                     <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
                     <p:inputTextarea rows="10" cols="33" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
 

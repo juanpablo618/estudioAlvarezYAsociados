@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="ExpedienteViewClavesDlg" widgetVar="ExpedienteViewClavesDialog" modal="true" resizable="false" appendTo="@(body)" header="Ver Claves">
+        <p:dialog id="ExpedienteJudicialViewDlg" widgetVar="ExpedienteJudicialViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Ver Claves">
             
             <h:form id="ExpedienteViewClavesForm">
                 <h:panelGroup id="display">
@@ -219,12 +219,12 @@
                                 </p:selectOneMenu>
 
                             </h:panelGrid>
-                          <p:commandButton actionListener="#{agendaController.create(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.orden)}" value="Guardar Agenda" onclick="ExpedienteViewDialog.hide()"/>
+                          <p:commandButton actionListener="#{agendaController.create(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.orden)}" value="Guardar Agenda" onclick="ExpedienteJudicialViewDialog.hide()"/>
 
                         </p:panel>
                     </p:fieldset>
                         
-                    <p:commandButton value="#{bundle.Close}" onclick="ExpedienteViewClavesDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="ExpedienteJudicialViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

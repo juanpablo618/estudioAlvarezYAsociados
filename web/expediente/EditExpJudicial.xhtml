@@ -8,10 +8,19 @@
 
     <ui:composition>
 
-        <p:dialog id="ExpedienteJudicialCreateDlg"  class="crearExpedienteJudicial" widgetVar="ExpedienteJudicialCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Expediente Judicial">
-            <h:form id="ExpedienteJudicialCreateForm">
+      <p:dialog id="ExpedienteJudicialEditDlg"  class="editarExpedienteJudicial" widgetVar="ExpedienteJudicialEditDialog" modal="true" resizable="false" appendTo="@(body)" >
+            <h:form id="ExpedienteJudicialEditForm">
                 <h:panelGroup id="display">
                 </h:panelGroup >
+                <div style="font-weight: bold;">
+                <h:outputText value="#{expedienteController.selected.apellido}" />
+                    <h:outputText value=" "/>
+                    <h:outputText value="#{expedienteController.selected.nombre}"/>
+                    <h:outputText value=" "/>
+                    <h:outputText value="#{expedienteController.selected.orden}"/>
+                </div>
+                <br></br>
+                
                 
                 <div style="float: left">   
                     
@@ -106,7 +115,6 @@
 
                         </p:tab>
 
-                        
                     </p:tabView>
 
 
@@ -182,14 +190,16 @@
                <br></br>
                <div style="margin-top: 50%;float: right">
                     
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ExpedienteJudicialCreateDialog.hide()"/>
-                    <p:commandButton actionListener="#{expedienteController.create}" class="botonCrearAgenda" value="Crear" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ExpedienteJudicialCreateDialog');"/>
-                 
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ExpedienteJudicialEditDialog.hide()"/>
+                    
+                    <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.update}" class="botonCrearAgenda" value="#{bundle.Save}" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteJudicialEditDialog');"/>
+                    
                </div>
                 
         </h:form>
             
         </p:dialog>
 
+        
     </ui:composition>
 </html>

@@ -63,11 +63,14 @@
 } 
 
  .editDialogExpediente{
-    width: 70% !important;
-    height: 65% !important;
-    left: 326.992px !important;
+   
+      width: 90% !important;
+    height: 90% !important;
+    top: 2% !important;
     z-index: 1005 !important;
-    top: 110px !important;
+    position: absolute;
+
+     
  }
  
  
@@ -79,6 +82,14 @@
 .hijo {
   padding: 10px;
   margin: 10px;
+  
+  /* IMPORTANTE */
+  display: inline-block;
+}
+
+.hijoParaClaves {
+  padding: 10px;
+  margin: 2px;
   
   /* IMPORTANTE */
   display: inline-block;
@@ -99,10 +110,29 @@
 
 }
 
+.verExpediente{
+    width: 90% !important;
+    height: 90% !important;
+    top: 2% !important;
+    z-index: 1005 !important;
+    position: absolute;
+
+}
+
+
 .crearExpedienteJudicial{
     width: 70% !important;
     height: 70% !important;
     left: 10% !important;
+    top: 5% !important;
+    z-index: 1005 !important;
+    position: absolute;
+
+}
+.editarExpedienteJudicial{
+    width: 75% !important;
+    height: 75% !important;
+    left: 5% !important;
     top: 5% !important;
     z-index: 1005 !important;
     position: absolute;

@@ -13,22 +13,16 @@
             <h:form id="ExpedienteViewForm">
                 <h:panelGroup id="display">
                     
-                        
-                    
                     <p:panel>
                     <h:panelGroup  rendered="#{expedienteController.selected != null}">
                         
-                        
                     </h:panelGroup>   
                     </p:panel> 
-                    
-                                       
+                                    
                     <p:panel  style="margin-bottom:2px">
                         <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
-
-                            
+        
                             <h:panelGrid columns="10" cellpadding="1" rendered="#{expedienteController.selected != null}">
-
                                 
                                 <h:outputText value="Tipo de expediente:"  style="font-weight: bold" />
                                 <h:outputText value="#{expedienteController.selected.tipoDeExpediente}" title="tipoDeExpediente"/>
@@ -43,7 +37,6 @@
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
                             </h:panelGrid>
-                            
                           
                         </h:panelGrid>   
                     
@@ -151,7 +144,6 @@
                 <p:tabView>
                 
                     <p:tab title="Datos personales:">
-            
                         
                         <p:panel>
                             <h:panelGrid columns="2" cellpadding="1" rendered="#{expedienteController.selected != null}">
@@ -179,10 +171,8 @@
                             
                                 <h:outputText value="#{bundle.ViewExpedienteLabel_telefono}" style="font-weight: bold" />
                             <h:outputText value="#{expedienteController.selected.telefono}" title="#{bundle.ViewExpedienteTitle_telefono}"/>
-
                             
                             </h:panelGrid>  
-                            
                             
                             <h:panelGrid columns="10" cellpadding="1" rendered="#{expedienteController.selected != null}">   
                                     
@@ -208,7 +198,6 @@
 
                             <h:outputText value="Altura:" style="font-weight: bold" />
                             <h:outputText value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.ViewExpedienteTitle_nroDeAltura}"/>
-                        
                                 
                             <h:outputText value="#{bundle.ViewExpedienteLabel_piso}" style="font-weight: bold" />
                             <h:outputText value="#{expedienteController.selected.piso}" title="#{bundle.ViewExpedienteTitle_piso}"/>
@@ -228,9 +217,7 @@
                             <h:outputText value="#{expedienteController.selected.localidad}" title="localidad"/>
                         </h:panelGrid>    
                             
-                            
                      </p:panel>
-             
             
         </p:tab>
             <p:tab title="claves">

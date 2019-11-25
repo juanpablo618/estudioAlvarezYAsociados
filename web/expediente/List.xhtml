@@ -23,9 +23,9 @@
                 </center>
                 
                     <p:splitButton id="basic" value="CREAR EXPEDIENTE" action="#{buttonView.save}"  icon="pi pi-save">
-                        <p:menuitem style="background-color: white" value="Administrativo" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"  icon="pi pi-refresh" />
+                        <p:menuitem style="background-color: white !important" value="Administrativo" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"  icon="pi pi-refresh" />
                         <p:separator />
-                        <p:menuitem value="judicial" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteJudicialCreateForm" oncomplete="PF('ExpedienteJudicialCreateDialog').show()" icon="pi pi-times" />
+                        <p:menuitem style="background-color: white !important" value="judicial" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteJudicialCreateForm" oncomplete="PF('ExpedienteJudicialCreateDialog').show()" icon="pi pi-times" />
                     </p:splitButton>  
                 
                 <br></br>
@@ -84,7 +84,11 @@
                             </p:commandButton>
                             
                              
-                            <p:commandButton class="linea"  update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()"  icon="ui-icon-search" title="Ver">
+                            <p:commandButton class="linea"  update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()"  icon="ui-icon-search" rendered="#{item.tipoDeExpediente eq 'administrativo'}" title="Ver exp. Administrativo">
+                                <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
+                            </p:commandButton>
+                            
+                            <p:commandButton class="linea"  update=":ExpedienteJudicialEditForm" oncomplete="PF('ExpedienteJudicialEditDialog').show()" rendered="#{item.tipoDeExpediente eq 'judicial'}" icon="ui-icon-search" title="Ver exp. Judicial">
                                 <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                             </p:commandButton>
                             
@@ -107,20 +111,15 @@
               </p:confirmDialog>  
             
             <p:contextMenu for="datalist">
-                <p:menuitem value="Ver" icon="ui-icon-search" update=":ExpedienteViewForm" actionListener="#{agendaController.prepareCreate}" oncomplete="PF('ExpedienteViewDialog').show()"/>
-                <p:menuitem value="Borrar" update="@all" icon="ui-icon-trash" actionListener="#{expedienteController.destroy}">
-                </p:menuitem>
-            
                 <p:menuitem icon="ui-icon-pencil" value="agregar Turno" actionListener="#{turnoController.prepareCreate}" update=":ExpedienteViewFormParaTurno" oncomplete="PF('ExpedienteViewDialogParaTurno').show()" />             
-                
             </p:contextMenu>    
                 
             </h:form>
 
             <ui:include src="Create.xhtml"/>
             <ui:include src="CreateExpJudicial.xhtml"/>
-            
             <ui:include src="Edit.xhtml"/>
+            <ui:include src="EditExpJudicial.xhtml"/>
             <ui:include src="View.xhtml"/>
             <ui:include src="ViewExpJudicial.xhtml"/>
             <ui:include src="ViewParaTurno.xhtml"/>

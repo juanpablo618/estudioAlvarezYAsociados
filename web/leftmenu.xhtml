@@ -9,17 +9,20 @@
         <style>
             #menuForm{
                 padding: 0px;
+                background-color: #2A55AA !important; 
             } 
             #menu{
                 padding-right: -5px;
+                                background-color: #2A55AA !important; 
+
             }
         </style>
     </h:head>
 
-            <h:form id="menuForm">
+    <h:form id="menuForm">
         <p:growl id="messages" showDetail="false"/>
 
-        <p:tieredMenu style="width:150px; font-size: larger;">
+        <p:tieredMenu style="width:150px; font-size: larger; background-color: #2A55AA;">
                 <p:menuitem outcome="/agenda/List" value="Agendas" />
             <p:separator />
                 <p:menuitem outcome="/expediente/List" value="Expedientes" />

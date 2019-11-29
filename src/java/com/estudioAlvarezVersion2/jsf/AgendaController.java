@@ -7,6 +7,9 @@ import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.AgendaFacade;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -198,6 +201,4 @@ public class AgendaController implements Serializable {
     RequestContext.getCurrentInstance().execute("PF('agendasTable').filter()");
     }
     
-    
-
 }

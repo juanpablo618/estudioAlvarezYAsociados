@@ -58,20 +58,19 @@
                         <p:ajax event="rowSelect"   update="createButton "/>
                         <p:ajax event="rowUnselect" update="createButton "/>
 
-                        <p:column filterBy="#{item.orden}"  filterMatchMode="exact">
+                        <p:column filterBy="#{item.orden}"  styleClass="centeredColumnContent" filterMatchMode="exact">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListExpedienteTitle_orden}"/>
                             </f:facet>
                             <h:outputText value="#{item.orden}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.apellido} #{item.nombre}"  filterMatchMode="contains">
+                        <p:column filterBy="#{item.apellido} #{item.nombre}"  styleClass="centeredColumnContent" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="Nombre y Apellido"/>
                             </f:facet>
                             <h:outputText value="#{ item.apellido} #{ item.nombre}"/>
                         </p:column>
-                        
                         
                         <p:column style="text-align: center; ">
                             

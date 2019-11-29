@@ -1,0 +1,1 @@
+UPDATE Expediente SET tipoDeExpediente='administrativo' WHERE tipoDeExpediente IS NULL

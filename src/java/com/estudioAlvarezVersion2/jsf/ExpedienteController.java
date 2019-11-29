@@ -1,11 +1,14 @@
 package com.estudioAlvarezVersion2.jsf;
 
+import com.estudioAlvarezVersion2.jpa.Agenda;
 import com.estudioAlvarezVersion2.jpa.Expediente;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.ExpedienteFacade;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -198,8 +201,8 @@ public class ExpedienteController implements Serializable {
         }
         return items;
     }
-
-    private void persist(PersistAction persistAction, String successMessage) {
+    
+     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
             try {
@@ -355,4 +358,35 @@ public class ExpedienteController implements Serializable {
 
     }
 
+    
+    public String metodoLindo(int orden){
+            Date today = Calendar.getInstance().getTime();
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+
+        System.out.println("today: "+today);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
+        String date = sdf.format(new Date()); 
+        System.out.println("date: "+date); //Prints 26/10/2015
+        
+        for(Agenda agenda: agendaControllerBean.getItems()){
+                if(agenda.getOrden() == orden){
+                    String date2 = sdf.format(agenda.getFecha()); 
+        
+                    System.out.println("agenda.getFecha(): "+agenda.getFecha());
+                    System.out.println("date2: "+date2);
+        
+                    if(date.equals(date2)){
+                                            return agenda.toString();
+                    }
+                }
+        }
+        
+        return "no existen agendas para hoy";
+    }
+    
+    
+    
 }

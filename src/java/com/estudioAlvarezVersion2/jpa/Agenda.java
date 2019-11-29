@@ -164,7 +164,7 @@ public class Agenda implements Serializable {
 
     @Override
     public String toString() {
-        return "com.estudioAlvarezVersion2.jpa.Agenda[ idAgenda=" + idAgenda + " ]";
+        return "fecha=" + fecha + ", descripcion=" + descripcion ;
     }
-    
+
 }

@@ -23,8 +23,7 @@
                     <h:outputText value="#{expedienteController.selected.orden}"/>
                 </div>
                 
-                <br></br><br></br>
-                
+                    <br></br><br></br>
                 
                 <div style="float: left">   
 
@@ -182,18 +181,20 @@
 
                     </p:tabView>
 
-
                 </div>
-
 
                 <div style="float: right"> 
 
-
+                    <div>
+                    
+                        <p:outputLabel value="PRÓXIMA AGENDA" style="font-weight: bold" /><br></br>
+                        <p:outputLabel value="#{expedienteController.metodoLindo(expedienteController.selected.orden)}" style="font-weight: bold" /><br></br>
+                    
+                    </div>
+                    
                     <br></br>
-
-
-                    <p:outputLabel value="Tipo de expediente" style="font-weight: bold" for="tipoDeExpediente"  /><br></br>
-                    <p:inputText id="tipoDeExpediente" value="#{expedienteController.selected.tipoDeExpediente}" title="tipoDeExpediente" /><br></br>
+                        <p:outputLabel value="Tipo de expediente" style="font-weight: bold" for="tipoDeExpediente"  /><br></br>
+                        <p:inputText id="tipoDeExpediente" value="#{expedienteController.selected.tipoDeExpediente}" title="tipoDeExpediente" /><br></br>
                     <br></br> 
 
                     <div style="float: left; width: 50%">

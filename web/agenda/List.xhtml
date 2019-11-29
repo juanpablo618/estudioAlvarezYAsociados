@@ -47,18 +47,18 @@
                         <p:ajax event="rowSelect"   update="createButton "/>
                         <p:ajax event="rowUnselect" update="createButton "/>
                         
-                        <p:column style="background-color: white" sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="FECHA">
+                        <p:column style="background-color: white" styleClass="centeredColumnContent" sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="FECHA">
                             <f:facet name="filter">
                                 <p:calendar pattern="dd/MM/yyyy" onkeyup="PF('agendasTable').filter()">
                                     <p:ajax event="dateSelect" listener="#{agendaController.handleDateSelect}"/>
                                 </p:calendar>
                             </f:facet>
-                            <h:outputText value="#{item.fecha}" style="color: #151717; text-shadow: unset;" >
+                            <h:outputText value="#{item.fecha}"  style="color: #151717; text-shadow: unset;" >
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </p:column>
                         
-                        <p:column  filterBy="#{item.orden}"  filterMatchMode="exact">
+                        <p:column  filterBy="#{item.orden}"  styleClass="centeredColumnContent" filterMatchMode="exact">
                             <f:facet name="header">
                                 <h:outputText value="ORDEN"/>
                             </f:facet>
@@ -96,8 +96,7 @@
                                    <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
                             </p:commandButton>
                             
-                             
-                            <p:commandButton class="linea"  update=":AgendaViewForm" oncomplete="PF('AgendaViewDialog').show()" icon="ui-icon-search" title="Ver">
+                            <p:commandButton class="linea"  update=":AgendaEditForm" oncomplete="PF('AgendaEditDialog').show()" icon="ui-icon-search" title="Ver">
                                    <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
                             </p:commandButton>
                             

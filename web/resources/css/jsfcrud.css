@@ -53,6 +53,15 @@
     background-color: white !important;
 }
 
+.botonEditarAgenda{
+    background-color: #00C6AE !important;
+    background: #00C6AE !important;
+    font-size: 13px !important; 
+    color: #FFFFFF !important;
+    letter-spacing: 0.93px !important;
+    text-shadow:unset !important;
+}
+
 .botonCrearAgenda{
     background-color: #00C6AE !important;
     background: #00C6AE !important;
@@ -154,5 +163,14 @@
 
 .inputFechaDeAtencion{
         width: 100px !important;
+
+}
+
+td.centeredColumnContent{
+    text-align: center;
+}
+
+div.ui-layout-unit-content {
+        background-color: #2A55AA !important;
 
 }

@@ -55,11 +55,30 @@
                             </f:facet>
                             <h:outputText value="#{item.rol}"/>
                         </p:column>
+                        
+                        <p:column style="text-align: center; ">
+                            
+                            <f:facet name="header">
+                                <h:outputText value="ACCIONES"/>
+                            </f:facet>
+                             
+                            
+                            <p:commandButton class="linea"  update=":UsersEditForm" oncomplete="PF('UsersEditDialog').show()" icon="ui-icon-search" title="Ver">
+                                   <f:setPropertyActionListener value="#{item}" target="#{usersController.selected}" />
+                            </p:commandButton>
+                            
+                            <p:commandButton class="linea"  actionListener="#{usersController.destroy}" update="@all" icon="ui-icon-circle-close" title="borrar">
+                                <f:setPropertyActionListener value="#{item}" target="#{usersController.selected}" />
+                            </p:commandButton>
+                        </p:column>
+                        
+                        
+                        
                         <f:facet name="footer">
                             <p:commandButton rendered="false" id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usersController.prepareCreate}" update=":UsersCreateForm" oncomplete="PF('UsersCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UsersViewForm" oncomplete="PF('UsersViewDialog').show()" disabled="#{empty usersController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UsersEditForm" oncomplete="PF('UsersEditDialog').show()" disabled="#{empty usersController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{usersController.destroy}" update=":growl,datalist" disabled="#{empty usersController.selected}"/>
+                            <p:commandButton id="viewButton"  rendered="false" icon="ui-icon-search" value="#{bundle.View}" update=":UsersViewForm" oncomplete="PF('UsersViewDialog').show()" disabled="#{empty usersController.selected}"/>
+                            <p:commandButton id="editButton"  rendered="false" icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UsersEditForm" oncomplete="PF('UsersEditDialog').show()" disabled="#{empty usersController.selected}"/>
+                            <p:commandButton id="deleteButton" rendered="false" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{usersController.destroy}" update=":growl,datalist" disabled="#{empty usersController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 

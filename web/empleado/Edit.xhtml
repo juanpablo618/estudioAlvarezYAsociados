@@ -8,17 +8,15 @@
 
     <ui:composition>
 
-        <p:dialog id="EmpleadoEditDlg" widgetVar="EmpleadoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEmpleadoTitle}">
+        <p:dialog id="EmpleadoEditDlg" widgetVar="EmpleadoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar Empleado">
             <h:form id="EmpleadoEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{empleadoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{empleadoController.selected.nombre}" title="#{bundle.EditEmpleadoTitle_nombre}" />
-                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_apellido}" for="apellido" />
-                        <p:inputText id="apellido" value="#{empleadoController.selected.apellido}" title="#{bundle.EditEmpleadoTitle_apellido}" />
-                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_cargo}" for="cargo" />
-                        <p:inputText id="cargo" value="#{empleadoController.selected.cargo}" title="#{bundle.EditEmpleadoTitle_cargo}" />
-                    </p:panelGrid>
+                    <p:outputLabel value="#{bundle.EditEmpleadoLabel_nombre}" for="nombre" /><br></br>
+                        <p:inputText id="nombre" value="#{empleadoController.selected.nombre}" title="#{bundle.EditEmpleadoTitle_nombre}" /><br></br><br></br>
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_apellido}" for="apellido" /><br></br>
+                        <p:inputText id="apellido" value="#{empleadoController.selected.apellido}" title="#{bundle.EditEmpleadoTitle_apellido}" /><br></br><br></br>
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_cargo}" for="cargo" /><br></br>
+                        <p:inputText id="cargo" value="#{empleadoController.selected.cargo}" title="#{bundle.EditEmpleadoTitle_cargo}" /><br></br><br></br>
                     
                     <p:commandButton onclick="EmpleadoViewDialog.hide()" actionListener="#{empleadoController.update}" value="#{bundle.Save}" update="display,:EmpleadoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EmpleadoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="EmpleadoEditDialog.hide()"/>

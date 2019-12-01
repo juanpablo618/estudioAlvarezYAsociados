@@ -84,6 +84,25 @@
                             </f:facet>
                             <h:outputText value="#{item.observacion}"/>
                         </p:column>
+                        
+                        <p:column style="text-align: center; ">
+                            
+                            <f:facet name="header">
+                                <h:outputText value="ACCIONES"/>
+                            </f:facet>
+                             
+                            
+                            <p:commandButton class="linea"  update=":TurnoEditForm" oncomplete="PF('TurnoEditDialog').show()" icon="ui-icon-search" title="Ver">
+                                   <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
+                            </p:commandButton>
+                            
+                            <p:commandButton class="linea"  actionListener="#{turnoController.destroy}" update="@all" icon="ui-icon-circle-close" title="borrar">
+                                <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
+                            </p:commandButton>
+                        </p:column>
+                        
+                        
+                        
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
                             
@@ -98,11 +117,6 @@
                         
                         </f:facet>
                     </p:dataTable>
-                
-                <p:contextMenu for="datalist">
-                    <p:menuitem value="Ver" icon="ui-icon-search"  update=":TurnoViewForm" oncomplete="PF('TurnoViewDialog').show()" />
-                    <p:menuitem value="Borrar" icon="ui-icon-trash"  actionListener="#{turnoController.destroy}" update="@all" />
-                </p:contextMenu> 
             
             </h:form>
 

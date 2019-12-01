@@ -37,19 +37,28 @@
                             </f:facet>
                             <h:outputText value="#{item.nombreProcedencia}"/>
                         </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{procedenciaController.prepareCreate}" update=":ProcedenciaCreateForm" oncomplete="PF('ProcedenciaCreateDialog').show()"/>
+                        
+                        <p:column style="text-align: center; ">
                             
+                            <f:facet name="header">
+                                <h:outputText value="ACCIONES"/>
+                            </f:facet>
+                             
+                            
+                            <p:commandButton class="linea"  update=":ProcedenciaEditForm" oncomplete="PF('ProcedenciaEditDialog').show()" icon="ui-icon-search" title="Ver">
+                                   <f:setPropertyActionListener value="#{item}" target="#{procedenciaController.selected}" />
+                            </p:commandButton>
+                            
+                            <p:commandButton class="linea"  actionListener="#{procedenciaController.destroy}" update="@all" icon="ui-icon-circle-close" title="borrar">
+                                <f:setPropertyActionListener value="#{item}" target="#{procedenciaController.selected}" />
+                            </p:commandButton>
+                        </p:column>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton rendered="false" id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{procedenciaController.prepareCreate}" update=":ProcedenciaCreateForm" oncomplete="PF('ProcedenciaCreateDialog').show()"/>
                             
                         </f:facet>
                     </p:dataTable>
-                
-               <p:contextMenu for="datalist">
-                <p:menuitem value="Ver" icon="ui-icon-search"  update=":ProcedenciaViewForm" oncomplete="PF('ProcedenciaViewDialog').show()" />
-                <p:menuitem value="Borrar" icon="ui-icon-trash"  actionListener="#{procedenciaController.destroy}" update="@all" />
-
-            </p:contextMenu> 
-              
                 
             </h:form>
 

@@ -40,19 +40,29 @@
                             </f:facet>
                             <h:outputText value="#{item.estado}"/>
                         </p:column>
+                        
+                        <p:column style="text-align: center; ">
+                            
+                            <f:facet name="header">
+                                <h:outputText value="ACCIONES"/>
+                            </f:facet>
+                            
+                            <p:commandButton class="linea"  update=":EstadoDelTramiteEditForm" oncomplete="PF('EstadoDelTramiteEditDialog').show()" icon="ui-icon-search" title="Ver">
+                                   <f:setPropertyActionListener value="#{item}" target="#{estadoDelTramiteController.selected}" />
+                            </p:commandButton>
+                            
+                            <p:commandButton class="linea"  actionListener="#{estadoDelTramiteController.destroy}" update="@all" icon="ui-icon-circle-close" title="borrar">
+                                <f:setPropertyActionListener value="#{item}" target="#{estadoDelTramiteController.selected}" />
+                            </p:commandButton>
+                        </p:column>
+                        
+                        
+                        
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{estadoDelTramiteController.prepareCreate}" update=":EstadoDelTramiteCreateForm" oncomplete="PF('EstadoDelTramiteCreateDialog').show()"/>
                             
                         </f:facet>
                     </p:dataTable>
-                
-                
-             <p:contextMenu for="datalist">
-                <p:menuitem value="Ver" icon="ui-icon-search"  update=":EstadoDelTramiteViewForm" oncomplete="PF('EstadoDelTramiteViewDialog').show()" />
-                <p:menuitem value="Borrar" icon="ui-icon-trash"  actionListener="#{estadoDelTramiteController.destroy}" update="@all" />
-
-            </p:contextMenu> 
-               
                 
             </h:form>
 

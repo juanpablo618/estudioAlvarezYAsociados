@@ -8,8 +8,6 @@
 
     <ui:composition template="/template.xhtml">
 
-
-
         <ui:define name="body">
             <h:form id="EmpleadoListForm" style="background-color: #F4F8FA">
                 <center style="background-color: #f4f8fa">
@@ -56,21 +54,32 @@
                             </f:facet>
                             <h:outputText value="#{item.cargo}"/>
                         </p:column>
+                        
+                        <p:column style="text-align: center; ">
+                            
+                            <f:facet name="header">
+                                <h:outputText value="ACCIONES"/>
+                            </f:facet>
+                             
+                            
+                            <p:commandButton class="linea"  update=":EmpleadoEditForm" oncomplete="PF('EmpleadoEditDialog').show()" icon="ui-icon-search" title="Ver">
+                                   <f:setPropertyActionListener value="#{item}" target="#{empleadoController.selected}" />
+                            </p:commandButton>
+                            
+                            <p:commandButton class="linea"  actionListener="#{empleadoController.destroy}" update="@all" icon="ui-icon-circle-close" title="borrar">
+                                <f:setPropertyActionListener value="#{item}" target="#{empleadoController.selected}" />
+                            </p:commandButton>
+                        </p:column>
+                        
+                        
+                        
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{empleadoController.prepareCreate}" update=":EmpleadoCreateForm" oncomplete="PF('EmpleadoCreateDialog').show()"/>
                             
                         </f:facet>
                     </p:dataTable>
                 
-           
-            <p:contextMenu for="datalist">
-                <p:menuitem value="Ver" icon="ui-icon-search"  update=":EmpleadoViewForm" oncomplete="PF('EmpleadoViewDialog').show()" />
-                <p:menuitem value="Borrar" icon="ui-icon-trash"  actionListener="#{empleadoController.destroy}" update="@all" />
-
-            </p:contextMenu> 
-            
-            
-            </h:form>
+           </h:form>
 
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>

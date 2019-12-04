@@ -7,6 +7,7 @@ import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.AgendaFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -200,5 +201,30 @@ public class AgendaController implements Serializable {
     public void handleDateSelect(SelectEvent event) {
     RequestContext.getCurrentInstance().execute("PF('agendasTable').filter()");
     }
+    
+    public ArrayList<String> verClaveCidi(int orden){
+        
+        ArrayList<String> claves=new ArrayList<String>();//creating new generic arraylist  
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        
+        System.out.println("paso por el verClaveCIdi");
+        
+        System.out.println("orden: "+orden);
+        
+        for(Expediente expediente: expedienteControllerBean.getItems()){
+            System.out.println(expediente.getOrden());
+        
+                    if(Integer.compare(expediente.getOrden(), orden) == 0){
+                        claves.add(expediente.getClaveCidi());
+                        claves.add(expediente.getClaveFiscal());
+                        claves.add(expediente.getClaveSeguridadSocial());
+                    }
+        }
+        
+        return claves;
+    }
+    
     
 }

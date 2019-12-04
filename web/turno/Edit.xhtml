@@ -27,7 +27,7 @@
                         <p:outputLabel value="#{bundle.EditTurnoLabel_observacion}" for="observacion" />
                         <p:inputText id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.EditTurnoTitle_observacion}" />
                     </p:panelGrid>
-                    <p:commandButton onclick="TurnoViewDialog.hide()" actionListener="#{turnoController.update}" value="#{bundle.Save}" update="display,:TurnoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TurnoEditDialog');"/>
+                    <p:commandButton class="botonCrear" onclick="TurnoViewDialog.hide()" actionListener="#{turnoController.update}" value="#{bundle.Save}" update="display,:TurnoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TurnoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TurnoEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

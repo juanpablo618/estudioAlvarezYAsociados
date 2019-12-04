@@ -11,12 +11,10 @@
         <p:dialog id="EstadoDelTramiteEditDlg" widgetVar="EstadoDelTramiteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEstadoDelTramiteTitle}">
             <h:form id="EstadoDelTramiteEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{estadoDelTramiteController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditEstadoDelTramiteLabel_estado}" for="estado" />
-                        <p:inputText id="estado" value="#{estadoDelTramiteController.selected.estado}" title="#{bundle.EditEstadoDelTramiteTitle_estado}" required="true" requiredMessage="#{bundle.EditEstadoDelTramiteRequiredMessage_estado}"/>
-                    </p:panelGrid>
+                    <p:outputLabel value="#{bundle.EditEstadoDelTramiteLabel_estado}" for="estado" /><br></br>
+                        <p:inputText id="estado" value="#{estadoDelTramiteController.selected.estado}" title="#{bundle.EditEstadoDelTramiteTitle_estado}" required="true" requiredMessage="#{bundle.EditEstadoDelTramiteRequiredMessage_estado}"/><br></br><br></br>
                     
-                    <p:commandButton onclick="EstadoDelTramiteViewDialog.hide()" actionListener="#{estadoDelTramiteController.update}" value="#{bundle.Save}" update="display,:EstadoDelTramiteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EstadoDelTramiteEditDialog');"/>
+                        <p:commandButton class="botonCrear" onclick="EstadoDelTramiteViewDialog.hide()" actionListener="#{estadoDelTramiteController.update}" value="#{bundle.Save}" update="display,:EstadoDelTramiteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EstadoDelTramiteEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="EstadoDelTramiteEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

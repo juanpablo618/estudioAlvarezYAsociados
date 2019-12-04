@@ -11,12 +11,12 @@
         <p:dialog id="ProcedenciaCreateDlg" widgetVar="ProcedenciaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProcedenciaTitle}">
             <h:form id="ProcedenciaCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{procedenciaController.selected != null}">
-                        <p:outputLabel value="Procedencia" for="nombreProcedencia" />
-                        <p:inputText id="nombreProcedencia" value="#{procedenciaController.selected.nombreProcedencia}" title="#{bundle.CreateProcedenciaTitle_nombreProcedencia}" required="true" requiredMessage="#{bundle.CreateProcedenciaRequiredMessage_nombreProcedencia}"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{procedenciaController.create}" value="#{bundle.Save}" update="display,:ProcedenciaListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProcedenciaCreateDialog');"/>
+                    <p:outputLabel value="Procedencia" for="nombreProcedencia" /><br></br>
+                        <p:inputText id="nombreProcedencia" value="#{procedenciaController.selected.nombreProcedencia}" title="#{bundle.CreateProcedenciaTitle_nombreProcedencia}" required="true" requiredMessage="#{bundle.CreateProcedenciaRequiredMessage_nombreProcedencia}"/><br></br><br></br>
+                
                     <p:commandButton value="#{bundle.Cancel}" onclick="ProcedenciaCreateDialog.hide()"/>
+                    <p:commandButton class="botonCrear" actionListener="#{procedenciaController.create}" value="#{bundle.Save}" update="display,:ProcedenciaListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProcedenciaCreateDialog');"/>
+                
                 </h:panelGroup>
             </h:form>
         </p:dialog>

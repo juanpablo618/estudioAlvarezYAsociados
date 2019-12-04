@@ -359,7 +359,7 @@ public class ExpedienteController implements Serializable {
     }
 
     
-    public String metodoLindo(int orden){
+    public String verProximaAgenda(int orden){
             Date today = Calendar.getInstance().getTime();
 
         FacesContext context = FacesContext.getCurrentInstance();

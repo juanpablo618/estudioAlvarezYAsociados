@@ -11,10 +11,8 @@
         <p:dialog id="ProcedenciaEditDlg" widgetVar="ProcedenciaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditProcedenciaTitle}">
             <h:form id="ProcedenciaEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{procedenciaController.selected != null}">
-                        <p:outputLabel value="Procedencia:" for="nombreProcedencia" />
-                        <p:inputText id="nombreProcedencia" value="#{procedenciaController.selected.nombreProcedencia}" title="#{bundle.EditProcedenciaTitle_nombreProcedencia}" required="true" requiredMessage="#{bundle.EditProcedenciaRequiredMessage_nombreProcedencia}"/>
-                    </p:panelGrid>
+                        <p:outputLabel value="Procedencia:" for="nombreProcedencia" /><br></br>
+                        <p:inputText id="nombreProcedencia" value="#{procedenciaController.selected.nombreProcedencia}" title="#{bundle.EditProcedenciaTitle_nombreProcedencia}" required="true" requiredMessage="#{bundle.EditProcedenciaRequiredMessage_nombreProcedencia}"/><br></br><br></br>
                     <p:commandButton onclick="ProcedenciaViewDialog.hide()" actionListener="#{procedenciaController.update}" value="#{bundle.Save}" update="display,:ProcedenciaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProcedenciaEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ProcedenciaEditDialog.hide()"/>
                 </h:panelGroup>

@@ -14,17 +14,10 @@
                    
                     <p:panelGrid columns="4" rendered="#{agendaController.selected != null}">
                         
-                        <h:outputText value="Nombre:"/>
+                        <h:outputText value="clave CIDI:"/>
                         
-                        <h:outputText value="Apellido:"/>
-                        <h:outputText value="#{agendaController.selected.apellido}"/>
+                        <h:outputText value="#{agendaController.verClaveCidi(agendaController.selected.orden).toString()}"/>
 
-                        <h:outputText value="Orden:"/>
-                        <h:outputText value="#{agendaController.selected.orden}"/>
-                                                
-                        
-                        <h:outputText value="responsable:"/>
-                        <h:outputText value="#{agendaController.selected.responsable}" title="responsable"/>
                         
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="AgendaViewClavesDialog.hide()"/>

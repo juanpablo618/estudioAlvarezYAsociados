@@ -47,13 +47,13 @@
                         <p:ajax event="rowSelect"   update="createButton "/>
                         <p:ajax event="rowUnselect" update="createButton "/>
                         
-                        <p:column style="background-color: white" styleClass="centeredColumnContent" sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="FECHA">
+                        <p:column  styleClass="centeredColumnContent" sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="FECHA">
                             <f:facet name="filter">
                                 <p:calendar pattern="dd/MM/yyyy" onkeyup="PF('agendasTable').filter()">
                                     <p:ajax event="dateSelect" listener="#{agendaController.handleDateSelect}"/>
                                 </p:calendar>
                             </f:facet>
-                            <h:outputText value="#{item.fecha}"  style="color: #151717; text-shadow: unset;" >
+                            <h:outputText value="#{item.fecha}"  style="color: #151717; " >
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </p:column>
@@ -65,25 +65,25 @@
                             <h:outputText value="#{item.orden}"/>
                         </p:column>
                         
-                        <p:column style="background-color: white;" filterBy="#{item.apellido} #{item.nombre}" filterMatchMode="contains">
+                        <p:column  filterBy="#{item.apellido} #{item.nombre}" filterMatchMode="contains">
                             <f:facet name="header" >
                                 <h:outputText value="APELLIDO Y NOMBRE"/>
                             </f:facet>
                             <h:outputText style="color: blue" value="#{item.apellido} #{item.nombre}"/>
                         </p:column>
                         
-                        <p:column style="background-color: white" filterBy="#{item.responsable}"  filterMatchMode="contains">
+                        <p:column  filterBy="#{item.responsable}"  filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="RESPONSABLE"/>
                             </f:facet>
-                            <h:outputText value="#{item.responsable}"/>
+                            <h:outputText value="#{item.responsable}" style="color: #151717" />
                         </p:column>
                         
-                        <p:column style="background-color: white;">
+                        <p:column >
                             <f:facet name="header">
                                 <h:outputText value="DESCRIPCIÓN"/>
                             </f:facet>
-                            <h:outputText value="#{item.descripcion}" style="color: #151717; text-shadow: unset;" />
+                            <h:outputText value="#{item.descripcion}" style="color: #151717" />
                         </p:column>
                         
                         <p:column style="text-align: center; ">

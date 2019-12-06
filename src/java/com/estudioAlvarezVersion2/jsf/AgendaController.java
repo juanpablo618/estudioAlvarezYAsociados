@@ -202,28 +202,72 @@ public class AgendaController implements Serializable {
     RequestContext.getCurrentInstance().execute("PF('agendasTable').filter()");
     }
     
-    public ArrayList<String> verClaveCidi(int orden){
+    public String verClaveCidi(int orden){
         
-        ArrayList<String> claves=new ArrayList<String>();//creating new generic arraylist  
-
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        
-        System.out.println("paso por el verClaveCIdi");
-        
-        System.out.println("orden: "+orden);
         
         for(Expediente expediente: expedienteControllerBean.getItems()){
             System.out.println(expediente.getOrden());
         
                     if(Integer.compare(expediente.getOrden(), orden) == 0){
-                        claves.add(expediente.getClaveCidi());
-                        claves.add(expediente.getClaveFiscal());
-                        claves.add(expediente.getClaveSeguridadSocial());
+                        
+                        if(expediente.getClaveCidi() !=null){
+                            return expediente.getClaveCidi();
+                        }else{
+                            return "no posee clave CIDI";
+                        
+                        }
                     }
         }
         
-        return claves;
+        return "no posee clave CIDI";
+    }
+    
+    public String verClaveFiscal(int orden){
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        
+        for(Expediente expediente: expedienteControllerBean.getItems()){
+            System.out.println(expediente.getOrden());
+        
+                    if(Integer.compare(expediente.getOrden(), orden) == 0){
+                        
+                        
+                        if(expediente.getClaveFiscal() !=null){
+                            return expediente.getClaveFiscal();
+                        }else{
+                            return "no posee clave FISCAL";
+                        
+                        }
+                    }
+        }
+        return "no posee clave FISCAL";
+        
+    }
+    
+    public String verClaveDeSeguridadSocial(int orden){
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        
+        for(Expediente expediente: expedienteControllerBean.getItems()){
+            System.out.println(expediente.getOrden());
+        
+                    if(Integer.compare(expediente.getOrden(), orden) == 0){
+                        
+                        
+                        if(expediente.getClaveSeguridadSocial()!=null){
+                            return expediente.getClaveSeguridadSocial();
+                        }else{
+                            return "no posee clave de Seguridad Social";
+                        
+                        }
+                    }
+        }
+        return "no posee clave de Seguridad Social";
+        
     }
     
     

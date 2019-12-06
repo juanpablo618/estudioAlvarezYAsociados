@@ -8,21 +8,21 @@
 
     <ui:composition>
 
-        <p:dialog id="AgendaViewClavesDialog" widgetVar="AgendaViewClavesDialog" modal="true" resizable="false" appendTo="@(body)" header="Claves">
-            <h:form id="AgendaViewClavesForm">
+        <p:dialog id="ExpedienteViewClavesDialog2" widgetVar="ExpedienteViewClavesDialog2" modal="true" resizable="false" appendTo="@(body)" header="Claves">
+            <h:form id="ExpedienteViewClavesForm2">
                 <h:panelGroup id="display">
                    
                         
                         <h:outputText value="Clave CIDI:"/><br></br>
-                        <h:outputText value="#{agendaController.verClaveCidi(agendaController.selected.orden)}"/><br></br>
+                        <h:outputText value="#{expedienteController.verClaveCidi(expedienteController.selected.orden)}"/><br></br>
                         <p:button  value="Ir al sitio"  href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" /><br></br><br></br>
                         
                         <h:outputText value="Clave Fiscal:"/><br></br>
-                        <h:outputText value="#{agendaController.verClaveFiscal(agendaController.selected.orden)}"/><br></br>
+                        <h:outputText value="#{expedienteController.verClaveFiscal(expedienteController.selected.orden)}"/><br></br>
                         <p:button  value="Ir al sitio"  href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank" /><br></br><br></br>
                                 
                         <h:outputText value="Clave de Seguridad Social:"/><br></br>
-                        <h:outputText value="#{agendaController.verClaveDeSeguridadSocial(agendaController.selected.orden)}"/><br></br>
+                        <h:outputText value="#{expedienteController.verClaveDeSeguridadSocial(expedienteController.selected.orden)}"/><br></br>
                         <p:button value="ir al sitio" href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=mianses" target="_blank" /><br></br><br></br>
 
                     

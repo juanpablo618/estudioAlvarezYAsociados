@@ -75,11 +75,10 @@
                                 <h:outputText value="ACCIONES"/>
                             </f:facet>
                              
-                            <p:commandButton class="linea"  update=":ExpedienteViewClavesForm" oncomplete="PF('ExpedienteViewClavesDialog').show()" icon="ui-icon-locked" title="Claves">
+                            <p:commandButton class="linea"  update=":ExpedienteViewClavesForm2" oncomplete="PF('ExpedienteViewClavesDialog2').show()" icon="ui-icon-locked" title="Claves">
                                    <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                             </p:commandButton>
                             
-                             
                             <p:commandButton class="linea"  update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()"  icon="ui-icon-search" rendered="#{item.tipoDeExpediente eq 'administrativo'}" title="Ver exp. Administrativo">
                                 <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                             </p:commandButton>
@@ -87,7 +86,6 @@
                             <p:commandButton class="linea"  update=":ExpedienteJudicialEditForm" oncomplete="PF('ExpedienteJudicialEditDialog').show()" rendered="#{item.tipoDeExpediente eq 'judicial'}" icon="ui-icon-search" title="Ver exp. Judicial">
                                 <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                             </p:commandButton>
-                            
                             
                             <p:commandButton class="linea"  actionListener="#{expedienteController.destroy}" update="@all" icon="ui-icon-circle-close" title="borrar">
                                 <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
@@ -117,6 +115,7 @@
             <ui:include src="Edit.xhtml"/>
             <ui:include src="EditExpJudicial.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="View_1.xhtml"/>
             <ui:include src="ViewExpJudicial.xhtml"/>
             <ui:include src="ViewParaTurno.xhtml"/>
         </ui:define>

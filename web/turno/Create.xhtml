@@ -36,7 +36,7 @@
                         
                         
                         
-                    <p:commandButton actionListener="#{turnoController.create}" value="#{bundle.Save}" update="@all" oncomplete="handleSubmit(args,'TurnoCreateDialog');"/>
+                        <p:commandButton actionListener="#{turnoController.create}" class="botonCrear" value="#{bundle.Save}" update="@all" oncomplete="handleSubmit(args,'TurnoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TurnoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

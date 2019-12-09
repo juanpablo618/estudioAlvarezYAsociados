@@ -164,8 +164,6 @@ public class ExpedienteController implements Serializable {
         Calendar fecha = new GregorianCalendar();
         int añoActual = fecha.get(Calendar.YEAR);
 
-        System.out.println("entro al calcular edades");
-
         for (Expediente ex : items) {
             System.out.println("entro al for");
             if (nonNull(ex.getFechaDeNacimiento())) {
@@ -296,12 +294,6 @@ public class ExpedienteController implements Serializable {
         return nombreYApellidoBuscado;
     }
 
-    public void redirect() throws Exception {
-
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        externalContext.redirect("http://stackoverflow.com");
-    }
-
     public void handleDateSelect(SelectEvent event) {
         RequestContext.getCurrentInstance().execute("PF('expedientesTable').filter()");
     }
@@ -311,19 +303,14 @@ public class ExpedienteController implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedientetrollerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
 
-        System.out.println("PASO POR CIDI" + orden);
-
         String claveCidi = null;
 
         for (Expediente i : expedientetrollerBean.getItems()) {
-            System.out.println(i.getOrden());
-
+            
             if (i.getOrden() == orden) {
-                System.out.println(i.getOrden());
                 claveCidi = i.getClaveCidi();
                 return claveCidi;
             } else {
-                System.out.println("no macheo nada");
                 claveCidi = "no se encontro";
             }
         }
@@ -332,7 +319,6 @@ public class ExpedienteController implements Serializable {
     }
 
     public String getClaveFiscal(int orden) {
-        System.out.println("PASO POR FISCAL");
 
         String claveFiscal = null;
 
@@ -360,23 +346,17 @@ public class ExpedienteController implements Serializable {
 
     
     public String verProximaAgenda(int orden){
-            Date today = Calendar.getInstance().getTime();
+        Date today = Calendar.getInstance().getTime();
 
         FacesContext context = FacesContext.getCurrentInstance();
         AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
 
-        System.out.println("today: "+today);
-
         SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
         String date = sdf.format(new Date()); 
-        System.out.println("date: "+date); //Prints 26/10/2015
         
         for(Agenda agenda: agendaControllerBean.getItems()){
                 if(agenda.getOrden() == orden){
                     String date2 = sdf.format(agenda.getFecha()); 
-        
-                    System.out.println("agenda.getFecha(): "+agenda.getFecha());
-                    System.out.println("date2: "+date2);
         
                     if(date.equals(date2)){
                                             return agenda.toString();
@@ -415,10 +395,8 @@ public class ExpedienteController implements Serializable {
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
         
         for(Expediente expediente: expedienteControllerBean.getItems()){
-            System.out.println(expediente.getOrden());
-        
+            
                     if(Integer.compare(expediente.getOrden(), orden) == 0){
-                        
                         
                         if(expediente.getClaveFiscal() !=null){
                             return expediente.getClaveFiscal();
@@ -438,10 +416,8 @@ public class ExpedienteController implements Serializable {
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
         
         for(Expediente expediente: expedienteControllerBean.getItems()){
-            System.out.println(expediente.getOrden());
-        
+            
                     if(Integer.compare(expediente.getOrden(), orden) == 0){
-                        
                         
                         if(expediente.getClaveSeguridadSocial()!=null){
                             return expediente.getClaveSeguridadSocial();

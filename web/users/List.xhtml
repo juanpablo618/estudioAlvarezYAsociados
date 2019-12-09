@@ -37,19 +37,19 @@
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
 
-                        <p:column>
+                        <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="nombre de usuario"/>
                             </f:facet>
                             <h:outputText value="#{item.uname}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsersTitle_password}"/>
                             </f:facet>
                             <h:outputText value="#{item.password}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsersTitle_rol}"/>
                             </f:facet>

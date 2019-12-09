@@ -47,6 +47,8 @@
 
 .ui-menu .ui-menuitem-link{
      background-color: #2A55AA !important;
+        height:30px !important;
+
 }
 
 .ui-widget-content .ui-icon{

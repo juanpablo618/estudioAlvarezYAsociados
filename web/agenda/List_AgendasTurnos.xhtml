@@ -34,10 +34,7 @@
                     </h:commandLink>
                     
                     <br></br><br></br>
-                           
-                    
-                    
-                    
+                        
                     <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
                                  selectionMode="single" selection="#{agendaController.selected}"
                                  rowKey="#{item.idAgenda}"
@@ -138,7 +135,7 @@
                         <p:ajax event="rowSelect"   update="createButton "/>
                         <p:ajax event="rowUnselect" update="createButton "/>
 
-                        <p:column sortBy="#{item.horaYDia}" filterBy="#{item.horaYDia}" filterMatchMode="contains" headerText="Fecha">
+                        <p:column style="text-align: center;" sortBy="#{item.horaYDia}" filterBy="#{item.horaYDia}" filterMatchMode="contains" headerText="Fecha">
                         
                             <f:facet name="filter">
                                 <p:calendar pattern="dd/MM/yyyy" onkeyup="PF('turnosTable').filter()">
@@ -151,33 +148,33 @@
                             </h:outputText>
                         </p:column>
                         
-                        <p:column>
+                        <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTurnoTitle_nombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.nombre}"/>
                         </p:column>
                         
-                        <p:column filterBy="#{item.apellido}"  filterMatchMode="contains">
+                        <p:column style="text-align: center;" filterBy="#{item.apellido}"  filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTurnoTitle_apellido}"/>
                             </f:facet>
                             <h:outputText value="#{item.apellido}"/>
                         </p:column>
                         
-                        <p:column>
+                        <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTurnoTitle_nroDeTelefono}"/>
                             </f:facet>
                             <h:outputText value="#{item.nroDeTelefono}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="text-align: center;" >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTurnoTitle_procedencia}"/>
                             </f:facet>
                             <h:outputText value="#{item.procedencia}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTurnoTitle_observacion}"/>
                             </f:facet>
@@ -189,7 +186,6 @@
                             <f:facet name="header">
                                 <h:outputText value="ACCIONES"/>
                             </f:facet>
-                             
                             
                             <p:commandButton class="linea"  update=":TurnoEditForm" oncomplete="PF('TurnoEditDialog').show()" icon="ui-icon-search" title="Ver">
                                    <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
@@ -200,19 +196,8 @@
                             </p:commandButton>
                         </p:column>
                         
-                        
-                        
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
-                            
-                        <br></br><br></br>   
-                        <h:commandLink value="exportar solo filtrados">
-                            <p:dataExporter type="pdf" target="datalist" fileName="TurnosFiltrados" pageOnly="true" />
-                        </h:commandLink>
-                        <br></br>
-                        <h:commandLink value="exportar todos">
-                            <p:dataExporter type="pdf" target="datalist" fileName="TodosLosTurnos" pageOnly="false" />
-                        </h:commandLink>
+                            <p:commandButton rendered="false" id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
                         
                         </f:facet>
                     </p:dataTable>

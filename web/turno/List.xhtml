@@ -39,7 +39,7 @@
                         <p:ajax event="rowSelect"   update="createButton "/>
                         <p:ajax event="rowUnselect" update="createButton "/>
 
-                        <p:column sortBy="#{item.horaYDia}" filterBy="#{item.horaYDia}" filterMatchMode="contains" headerText="Fecha">
+                        <p:column style="text-align: center;" sortBy="#{item.horaYDia}" filterBy="#{item.horaYDia}" filterMatchMode="contains" headerText="Fecha">
                         
                             <f:facet name="filter">
                                 <p:calendar pattern="dd/MM/yyyy" onkeyup="PF('turnosTable').filter()">
@@ -52,33 +52,33 @@
                             </h:outputText>
                         </p:column>
                         
-                        <p:column>
+                        <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTurnoTitle_nombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.nombre}"/>
                         </p:column>
                         
-                        <p:column filterBy="#{item.apellido}"  filterMatchMode="contains">
+                        <p:column style="text-align: center;" filterBy="#{item.apellido}"  filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTurnoTitle_apellido}"/>
                             </f:facet>
                             <h:outputText value="#{item.apellido}"/>
                         </p:column>
                         
-                        <p:column>
+                        <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTurnoTitle_nroDeTelefono}"/>
                             </f:facet>
                             <h:outputText value="#{item.nroDeTelefono}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTurnoTitle_procedencia}"/>
                             </f:facet>
                             <h:outputText value="#{item.procedencia}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTurnoTitle_observacion}"/>
                             </f:facet>

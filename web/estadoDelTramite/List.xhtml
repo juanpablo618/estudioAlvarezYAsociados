@@ -34,14 +34,14 @@
                         <p:ajax event="rowSelect"   update="createButton "/>
                         <p:ajax event="rowUnselect" update="createButton "/>
 
-                        <p:column>
+                        <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEstadoDelTramiteTitle_estado}"/>
                             </f:facet>
                             <h:outputText value="#{item.estado}"/>
                         </p:column>
                         
-                        <p:column style="text-align: right;" resizable="true">
+                        <p:column style="text-align: center;" resizable="true">
                             
                             <f:facet name="header">
                                 <h:outputText value="ACCIONES"/>

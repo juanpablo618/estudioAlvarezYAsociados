@@ -114,7 +114,7 @@ public class Empleado implements Serializable {
 
     @Override
     public String toString() {
-        return "com.estudioAlvarezVersion2.jpa.Empleado[ idEmpleado=" + idEmpleado + " ]";
+        return nombre + " " + apellido;
     }
     
 }

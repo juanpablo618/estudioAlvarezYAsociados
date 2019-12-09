@@ -85,6 +85,13 @@
                             <h:outputText value="#{item.observacion}"/>
                         </p:column>
                         
+                        <p:column style="text-align: center;" filterBy="#{item.responsable}"  filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="responsable"/>
+                            </f:facet>
+                            <h:outputText value="#{item.responsable}"/>
+                        </p:column>
+                        
                         <p:column style="text-align: center; ">
                             
                             <f:facet name="header">

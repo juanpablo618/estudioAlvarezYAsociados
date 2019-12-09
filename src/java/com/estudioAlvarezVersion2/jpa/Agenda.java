@@ -67,6 +67,9 @@ public class Agenda implements Serializable {
     @Column(name = "orden")
     private int orden;
 
+    @Column(name = "realizado")
+    private boolean realizado;
+
     
     public Agenda() {
     }
@@ -75,7 +78,7 @@ public class Agenda implements Serializable {
         this.idAgenda = idAgenda;
     }
 
-    public Agenda(Integer idAgenda, Date fecha, String descripcion, String nombre, String apellido, String responsable, int orden) {
+    public Agenda(Integer idAgenda, Date fecha, String descripcion, String nombre, String apellido, String responsable, int orden, Boolean realizado) {
         this.idAgenda = idAgenda;
         this.fecha = fecha;
         this.descripcion = descripcion;
@@ -83,6 +86,7 @@ public class Agenda implements Serializable {
         this.apellido = apellido;
         this.responsable = responsable;
         this.orden = orden;
+        this.realizado = realizado;
     }
 
     public Integer getIdAgenda() {
@@ -142,6 +146,15 @@ public class Agenda implements Serializable {
         this.orden = orden;
     }
 
+    public boolean isRealizado() {
+        return realizado;
+    }
+
+    public void setRealizado(boolean realizado) {
+        this.realizado = realizado;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

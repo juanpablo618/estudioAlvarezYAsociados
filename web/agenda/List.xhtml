@@ -72,11 +72,21 @@
                             <h:outputText style="color: blue" value="#{item.apellido} #{item.nombre}"/>
                         </p:column>
                         
-                        <p:column  filterBy="#{item.responsable}"  filterMatchMode="contains">
-                            <f:facet name="header">
-                                <h:outputText value="RESPONSABLE"/>
+                        <p:column  filterBy="#{item.responsable}"  filterMatchMode="exact">
+                            
+                            
+                            
+                            
+                             <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('agendasTable').filter()" styleClass="custom-filter">
+                                    <f:selectItem itemLabel="empleados" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" />
+                                </p:selectOneMenu>
                             </f:facet>
                             <h:outputText value="#{item.responsable}" style="color: #151717" />
+
+                            
+                            
                         </p:column>
                         
                         <p:column >

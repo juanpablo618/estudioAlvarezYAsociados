@@ -68,6 +68,10 @@ public class Turno implements Serializable {
     @Column(name = "observacion")
     private String observacion;
 
+    @Column(name = "responsable")
+    private String responsable;
+
+    
     public Turno() {
     }
 
@@ -75,9 +79,10 @@ public class Turno implements Serializable {
         this.idTurno = idTurno;
     }
 
-    public Turno(Integer idTurno, Date horaYDia) {
+    public Turno(Integer idTurno, Date horaYDia, String responsable) {
         this.idTurno = idTurno;
         this.horaYDia = horaYDia;
+        this.responsable = responsable;
     }
 
     public Integer getIdTurno() {
@@ -136,6 +141,14 @@ public class Turno implements Serializable {
         this.observacion = observacion;
     }
 
+    public String getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(String responsable) {
+        this.responsable = responsable;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

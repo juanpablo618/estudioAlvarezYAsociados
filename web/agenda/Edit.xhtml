@@ -44,7 +44,11 @@
                                         <p:outputLabel value="Responsable" for="responsable" /><br></br>
                                         <p:selectOneMenu  id="responsable" value="#{agendaController.selected.responsable}"  >
                                             <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
-                                        </p:selectOneMenu>
+                                        </p:selectOneMenu><br></br><br></br>
+                                        
+                                        <h:outputText value="realizado: " /><br></br>
+                                        <p:selectBooleanButton id="realizado" value="#{agendaController.selected.realizado}" onLabel="Si" offLabel="No" style="width:60px" /><br></br><br></br>
+ 
                                     
                             <br></br>
                                 

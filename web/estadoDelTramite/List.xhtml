@@ -59,7 +59,7 @@
                         
                         
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{estadoDelTramiteController.prepareCreate}" update=":EstadoDelTramiteCreateForm" oncomplete="PF('EstadoDelTramiteCreateDialog').show()"/>
+                            <p:commandButton id="createButton" rendered="false" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{estadoDelTramiteController.prepareCreate}" update=":EstadoDelTramiteCreateForm" oncomplete="PF('EstadoDelTramiteCreateDialog').show()"/>
                             
                         </f:facet>
                     </p:dataTable>

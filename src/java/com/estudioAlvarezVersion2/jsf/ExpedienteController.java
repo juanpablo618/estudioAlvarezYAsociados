@@ -8,11 +8,9 @@ import com.estudioAlvarezVersion2.jpacontroller.ExpedienteFacade;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
 import java.util.List;
 import static java.util.Objects.nonNull;
 import java.util.ResourceBundle;
@@ -23,7 +21,6 @@ import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -319,7 +316,6 @@ public class ExpedienteController implements Serializable {
     }
 
     public String getClaveFiscal(int orden) {
-
         String claveFiscal = null;
 
         for (Expediente buscado : items) {
@@ -331,8 +327,6 @@ public class ExpedienteController implements Serializable {
     }
 
     public String getClaveDeSeguridadSocial(int orden) {
-        System.out.println("PASO POR SEguridad Social");
-
         String claveDeSeguridadSocial = null;
 
         for (Expediente buscado : items) {
@@ -373,8 +367,7 @@ public class ExpedienteController implements Serializable {
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
         
         for(Expediente expediente: expedienteControllerBean.getItems()){
-            System.out.println(expediente.getOrden());
-        
+            
                     if(Integer.compare(expediente.getOrden(), orden) == 0){
                         
                         if(expediente.getClaveCidi() !=null){

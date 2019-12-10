@@ -208,8 +208,7 @@ public class AgendaController implements Serializable {
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
         
         for(Expediente expediente: expedienteControllerBean.getItems()){
-            System.out.println(expediente.getOrden());
-        
+            
                     if(Integer.compare(expediente.getOrden(), orden) == 0){
                         
                         if(expediente.getClaveCidi() !=null){
@@ -230,8 +229,7 @@ public class AgendaController implements Serializable {
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
         
         for(Expediente expediente: expedienteControllerBean.getItems()){
-            System.out.println(expediente.getOrden());
-        
+            
                     if(Integer.compare(expediente.getOrden(), orden) == 0){
                         
                         

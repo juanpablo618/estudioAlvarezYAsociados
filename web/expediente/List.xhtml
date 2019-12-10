@@ -18,27 +18,25 @@
                     </div>
                 </center>
                 
-                <div style="float: left"> 
+                <div > 
                     <p:splitButton id="basic" value="CREAR EXPEDIENTE" action="#{buttonView.save}"  icon="pi pi-save">
                             <p:menuitem style="background-color: white !important" value="Administrativo" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"  icon="pi pi-refresh" />
                             <p:separator />
                             <p:menuitem style="background-color: white !important" value="judicial" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteJudicialCreateForm" oncomplete="PF('ExpedienteJudicialCreateDialog').show()" icon="pi pi-times" />
                     </p:splitButton>
-                </div>
                 
-                <br></br>
                     <h:commandLink style="float: right">
                                 <h:graphicImage value="../faces/resources/images/pdf.png" />
                                 <p:dataExporter type="pdf" target="datalist" fileName="expedientesFiltrados" pageOnly="true" />
                     </h:commandLink>
                     
-                    <h:commandLink style="float: right">
+                    <h:commandLink style="float: right" >
                                 <h:graphicImage value="../faces/resources/images/pdf.png" />
                                 <p:dataExporter type="pdf" target="datalist" fileName="todasLosExpedientes" pageOnly="false" />
                     </h:commandLink>
-                <br></br><br></br>
+                </div>
                    
-                  
+                <br></br>
                 
                     <p:dataTable id="datalist" value="#{expedienteController.items}" var="item"
                                  selectionMode="single" selection="#{expedienteController.selected}"
@@ -50,6 +48,7 @@
                                  filteredValue="#{expedienteController.filteredExpedientes}"
                                  resizableColumns="true"
                                  rendered="true"  
+                                 emptyMessage="no existen expedientes con ese filtro"
                                  >
 
                         <p:ajax event="rowSelect"   update="createButton "/>
@@ -90,7 +89,6 @@
                             <p:commandButton class="linea"  actionListener="#{expedienteController.destroy}" update="@all" icon="ui-icon-circle-close" title="borrar">
                                 <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                             </p:commandButton>
-                            
                             
                         </p:column>
                                                 

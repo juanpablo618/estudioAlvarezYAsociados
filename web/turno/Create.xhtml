@@ -27,13 +27,12 @@
                         <p:outputLabel value="#{bundle.CreateTurnoLabel_procedencia}" for="procedencia" /><br></br>
                         <p:inputText id="procedencia" value="#{turnoController.selected.procedencia}" title="#{bundle.CreateTurnoTitle_procedencia}" /><br></br><br></br>
                         <p:outputLabel value="#{bundle.CreateTurnoLabel_observacion}" for="observacion" /><br></br>
-                        <p:inputText id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.CreateTurnoTitle_observacion}" /><br></br><br></br>
+                        <p:inputTextarea cols="33" rows="10" autoResize="false" id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.CreateTurnoTitle_observacion}" /><br></br><br></br>
                         
                         <p:outputLabel value="Responsable" for="responsable" /><br></br>
                         <p:selectOneMenu  id="responsable" value="#{turnoController.selected.responsable}"  >
                               <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
                         </p:selectOneMenu><br></br><br></br>
-                        
                         
                         
                         <p:commandButton actionListener="#{turnoController.create}" class="botonCrear" value="#{bundle.Save}" update="@all" oncomplete="handleSubmit(args,'TurnoCreateDialog');"/>

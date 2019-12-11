@@ -24,7 +24,8 @@
                         <p:outputLabel value="#{bundle.EditTurnoLabel_procedencia}" for="procedencia" /><br></br>
                         <p:inputText id="procedencia" value="#{turnoController.selected.procedencia}" title="#{bundle.EditTurnoTitle_procedencia}" /><br></br><br></br>
                         <p:outputLabel value="#{bundle.EditTurnoLabel_observacion}" for="observacion" /><br></br>
-                        <p:inputText id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.EditTurnoTitle_observacion}" /><br></br><br></br>
+                        
+                        <p:inputTextarea cols="33" rows="10" autoResize="false" id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.EditTurnoTitle_observacion}" /><br></br><br></br>
                     
                         <p:outputLabel value="Responsable" for="responsable" /><br></br>
                         <p:selectOneMenu  id="responsable" value="#{turnoController.selected.responsable}"  >

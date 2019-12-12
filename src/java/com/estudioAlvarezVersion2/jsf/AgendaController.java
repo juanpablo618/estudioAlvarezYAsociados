@@ -214,7 +214,7 @@ public class AgendaController implements Serializable {
                         if(expediente.getClaveCidi() !=null){
                             return expediente.getClaveCidi();
                         }else{
-                            return "no posee clave CIDI";
+                            return "No posee clave CIDI";
                         
                         }
                     }
@@ -236,7 +236,7 @@ public class AgendaController implements Serializable {
                         if(expediente.getClaveFiscal() !=null){
                             return expediente.getClaveFiscal();
                         }else{
-                            return "no posee clave FISCAL";
+                            return "No posee clave FISCAL";
                         
                         }
                     }
@@ -257,7 +257,7 @@ public class AgendaController implements Serializable {
                         if(expediente.getClaveSeguridadSocial()!=null){
                             return expediente.getClaveSeguridadSocial();
                         }else{
-                            return "no posee clave de Seguridad Social";
+                            return "No posee clave de Seguridad Social";
                         
                         }
                     }

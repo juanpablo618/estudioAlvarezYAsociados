@@ -9,8 +9,10 @@
     <ui:composition template="/template.xhtml" >
             
         <ui:define name="body"  >
-            <h:form id="AgendaListForm" style="background-color: #F4F8FA">
-                <p:remoteCommand name="onload" oncomplete="PF('agendasTable').clearFilters()" autoRun="true" />
+            
+            
+            <h:form id="TurnoListForm" style="background-color: #F4F8FA">
+                <p:remoteCommand name="onload" oncomplete="PF('turnosTable').clearFilters()" autoRun="true" />
                 
                 <center style="background-color: #f4f8fa">
                     <div><h:graphicImage value="../faces/resources/images/2019-10-29.png" style="width: 20%;"/>
@@ -34,6 +36,96 @@
                     </h:commandLink>
                     
                     <br></br><br></br>
+                
+                    <p:dataTable id="datalist" value="#{turnoController.items}" var="item"
+                                 selectionMode="single" selection="#{turnoController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idTurno}"
+                                 widgetVar="turnosTable"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No existen turnos"
+                                 filteredValue="#{turnoController.filteredturnos}"
+
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton "/>
+                        <p:ajax event="rowUnselect" update="createButton "/>
+
+                        <p:column style="text-align: center; width: 10%" sortBy="#{item.horaYDia}" filterBy="#{item.horaYDia}" filterMatchMode="contains" headerText="Fecha">
+                        
+                            <f:facet name="filter">
+                                <p:calendar pattern="dd/MM/yyyy" onkeyup="PF('turnosTable').filter()">
+                                    <p:ajax event="dateSelect" listener="#{turnoController.handleDateSelect}"/>
+                                </p:calendar>
+                            </f:facet>
+                            
+                            <h:outputText value="#{item.horaYDia}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                            </h:outputText>
+                        </p:column>
+                        
+                        <p:column style="text-align: center; width: 10%">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTurnoTitle_nombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        
+                        <p:column style="text-align: center; width: 10%" filterBy="#{item.apellido}"  filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTurnoTitle_apellido}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.apellido}"/>
+                        </p:column>
+                        
+                        <p:column style="text-align: center; width: 10%">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTurnoTitle_nroDeTelefono}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nroDeTelefono}"/>
+                        </p:column>
+                        <p:column style="text-align: center;" >
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTurnoTitle_procedencia}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.procedencia}"/>
+                        </p:column>
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTurnoTitle_observacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.observacion}"/>
+                        </p:column>
+                        
+                        <p:column style="text-align: center; width: 7%">
+                            
+                            <f:facet name="header">
+                                <h:outputText value="ACCIONES"/>
+                            </f:facet>
+                            
+                            <p:commandButton class="linea"  update=":TurnoEditForm" oncomplete="PF('TurnoEditDialog').show()" icon="ui-icon-search" title="Ver">
+                                   <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
+                            </p:commandButton>
+                            
+                            <p:commandButton class="linea"  actionListener="#{turnoController.destroy}" update="@all" icon="ui-icon-circle-close" title="borrar">
+                                <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
+                            </p:commandButton>
+                        </p:column>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton rendered="false" id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
+                        
+                        </f:facet>
+                    </p:dataTable>
+            
+            </h:form>
+<br></br><br></br>
+            <br></br><br></br>
+            
+            <h:form id="AgendaListForm" style="background-color: #F4F8FA">
+                <p:remoteCommand name="onload" oncomplete="PF('agendasTable').clearFilters()" autoRun="true" />
+                
                         
                     <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
                                  selectionMode="single" selection="#{agendaController.selected}"
@@ -49,7 +141,7 @@
                         <p:ajax event="rowSelect"   update="createButton "/>
                         <p:ajax event="rowUnselect" update="createButton "/>
                         
-                        <p:column styleClass="centeredColumnContent" sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="FECHA">
+                        <p:column style="width: 9%" styleClass="centeredColumnContent" sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="FECHA">
                             <f:facet name="filter">
                                 <p:calendar pattern="dd/MM/yyyy" onkeyup="PF('agendasTable').filter()">
                                     <p:ajax event="dateSelect" listener="#{agendaController.handleDateSelect}"/>
@@ -60,7 +152,7 @@
                             </h:outputText>
                         </p:column>
                         
-                        <p:column  filterBy="#{item.orden}"  styleClass="centeredColumnContent" filterMatchMode="exact">
+                        <p:column  style="width: 9%" filterBy="#{item.orden}"  styleClass="centeredColumnContent" filterMatchMode="exact">
                             <f:facet name="header">
                                 <h:outputText value="ORDEN"/>
                             </f:facet>
@@ -74,7 +166,7 @@
                             <h:outputText style="color: #0053f6" value="#{item.apellido} #{item.nombre}"/>
                         </p:column>
                         
-                        <p:column filterBy="#{item.responsable}"  filterMatchMode="contains">
+                        <p:column style="width: 9%" filterBy="#{item.responsable}"  styleClass="centeredColumnContent" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="RESPONSABLE"/>
                             </f:facet>
@@ -88,7 +180,7 @@
                             <h:outputText value="#{item.descripcion}" style="color: #151717" />
                         </p:column>
                         
-                        <p:column style="text-align: center; ">
+                        <p:column style="text-align: center; width: 10% ">
                             
                             <f:facet name="header">
                                 <h:outputText value="ACCIONES"/>
@@ -114,96 +206,6 @@
                     </p:dataTable>
             </h:form>
             
-            <br></br><br></br>
-            <br></br><br></br>
-            
-            <h:form id="TurnoListForm" style="background-color: #F4F8FA">
-                <p:remoteCommand name="onload" oncomplete="PF('turnosTable').clearFilters()" autoRun="true" />
-                
-                    <p:dataTable id="datalist" value="#{turnoController.items}" var="item"
-                                 selectionMode="single" selection="#{turnoController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idTurno}"
-                                 widgetVar="turnosTable"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 emptyMessage="No existen turnos"
-                                 filteredValue="#{turnoController.filteredturnos}"
-
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton "/>
-                        <p:ajax event="rowUnselect" update="createButton "/>
-
-                        <p:column style="text-align: center;" sortBy="#{item.horaYDia}" filterBy="#{item.horaYDia}" filterMatchMode="contains" headerText="Fecha">
-                        
-                            <f:facet name="filter">
-                                <p:calendar pattern="dd/MM/yyyy" onkeyup="PF('turnosTable').filter()">
-                                    <p:ajax event="dateSelect" listener="#{turnoController.handleDateSelect}"/>
-                                </p:calendar>
-                            </f:facet>
-                            
-                            <h:outputText value="#{item.horaYDia}">
-                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-                            </h:outputText>
-                        </p:column>
-                        
-                        <p:column style="text-align: center;">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTurnoTitle_nombre}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombre}"/>
-                        </p:column>
-                        
-                        <p:column style="text-align: center;" filterBy="#{item.apellido}"  filterMatchMode="contains">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTurnoTitle_apellido}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.apellido}"/>
-                        </p:column>
-                        
-                        <p:column style="text-align: center;">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTurnoTitle_nroDeTelefono}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nroDeTelefono}"/>
-                        </p:column>
-                        <p:column style="text-align: center;" >
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTurnoTitle_procedencia}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.procedencia}"/>
-                        </p:column>
-                        <p:column style="text-align: center;">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTurnoTitle_observacion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.observacion}"/>
-                        </p:column>
-                        
-                        <p:column style="text-align: center; ">
-                            
-                            <f:facet name="header">
-                                <h:outputText value="ACCIONES"/>
-                            </f:facet>
-                            
-                            <p:commandButton class="linea"  update=":TurnoEditForm" oncomplete="PF('TurnoEditDialog').show()" icon="ui-icon-search" title="Ver">
-                                   <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
-                            </p:commandButton>
-                            
-                            <p:commandButton class="linea"  actionListener="#{turnoController.destroy}" update="@all" icon="ui-icon-circle-close" title="borrar">
-                                <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
-                            </p:commandButton>
-                        </p:column>
-                        
-                        <f:facet name="footer">
-                            <p:commandButton rendered="false" id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
-                        
-                        </f:facet>
-                    </p:dataTable>
-            
-            </h:form>
-
 
             <ui:include src="Create.xhtml"/>
             <ui:include src="../turno/Create.xhtml"/>

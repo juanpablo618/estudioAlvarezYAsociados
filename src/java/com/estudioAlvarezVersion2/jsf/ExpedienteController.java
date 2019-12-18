@@ -2,6 +2,7 @@ package com.estudioAlvarezVersion2.jsf;
 
 import com.estudioAlvarezVersion2.jpa.Agenda;
 import com.estudioAlvarezVersion2.jpa.Expediente;
+import com.estudioAlvarezVersion2.jpa.ExpedienteDAO;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.ExpedienteFacade;
@@ -92,6 +93,10 @@ public class ExpedienteController implements Serializable {
         ingresarEdad();
 
         ingresarDni();
+        
+        ingresarOrdenAutoincremental();
+        
+        
 
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -122,6 +127,12 @@ public class ExpedienteController implements Serializable {
         selected.setDni(cuit);
 
     }
+    
+    public void ingresarOrdenAutoincremental(){
+        
+        selected.setOrden(autoIncrementarOrden());
+    }
+    
 
     public void update() {
 
@@ -424,5 +435,18 @@ public class ExpedienteController implements Serializable {
         
     }
     
+    public int autoIncrementarOrden(){
+        ExpedienteDAO expedienteDao = new ExpedienteDAO();
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        
+        int orden = expedienteControllerBean.getItems().get(expedienteControllerBean.getItems().size() -1).getOrden() + 1;
+        
+        System.out.println("orden: "+orden);
+        
+        return orden;
+    }
+
     
 }

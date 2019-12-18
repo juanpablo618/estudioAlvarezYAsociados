@@ -20,7 +20,6 @@
                 <br></br>
                 <br></br>
                 
-                
                 <p:dataTable id="datalist" value="#{empleadoController.items}" var="item"
                                  selectionMode="single" selection="#{empleadoController.selected}"
                                  paginator="true"
@@ -29,7 +28,6 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No existen Empleados"
 
-                                 
                                  >
 
                         <p:ajax event="rowSelect"   update="createButton  "/>
@@ -48,6 +46,14 @@
                             </f:facet>
                             <h:outputText value="#{item.apellido}"/>
                         </p:column>
+                        
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="password"/>
+                            </f:facet>
+                            <h:outputText value="#{item.password}"/>
+                        </p:column>
+                        
                         <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEmpleadoTitle_cargo}"/>
@@ -60,7 +66,6 @@
                             <f:facet name="header">
                                 <h:outputText value="ACCIONES"/>
                             </f:facet>
-                             
                             
                             <p:commandButton class="linea"  update=":EmpleadoEditForm" oncomplete="PF('EmpleadoEditDialog').show()" icon="ui-icon-search" title="Ver">
                                    <f:setPropertyActionListener value="#{item}" target="#{empleadoController.selected}" />

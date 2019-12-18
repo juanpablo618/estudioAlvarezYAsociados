@@ -21,16 +21,16 @@
                 </div>
                 <br></br>
                 
-                    <h:commandLink style="float: right">
+                <h:commandLink style="float: right" title="Exportar solo filtradas" >
                                 <h:graphicImage value="../faces/resources/images/pdf.png" />
-                                <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="true" />
+                                <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="true"  preProcessor="#{agendaController.preProcessPDF}" />
                     </h:commandLink>
                     
-                    <h:commandLink style="float: right">
+                    <h:commandLink style="float: right" title="Exportar TODAS las agendas">
                                 <h:graphicImage value="../faces/resources/images/pdf.png" />
                                 <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="false" />
                     </h:commandLink>
-                    
+                
                     <br></br><br></br>
                                     
                     <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
@@ -47,7 +47,7 @@
                         <p:ajax event="rowSelect"   update="createButton "/>
                         <p:ajax event="rowUnselect" update="createButton "/>
                         
-                        <p:column  styleClass="centeredColumnContent" sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="FECHA">
+                        <p:column style="width: 9%" styleClass="centeredColumnContent" sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="FECHA">
                             <f:facet name="filter">
                                 <p:calendar pattern="dd/MM/yyyy" onkeyup="PF('agendasTable').filter()">
                                     <p:ajax event="dateSelect" listener="#{agendaController.handleDateSelect}"/>
@@ -58,7 +58,7 @@
                             </h:outputText>
                         </p:column>
                         
-                        <p:column  filterBy="#{item.orden}"  styleClass="centeredColumnContent" filterMatchMode="exact">
+                        <p:column  style="width: 9%" filterBy="#{item.orden}"  styleClass="centeredColumnContent" filterMatchMode="exact">
                             <f:facet name="header">
                                 <h:outputText value="ORDEN"/>
                             </f:facet>
@@ -72,13 +72,11 @@
                             <h:outputText style="color: #0053f6" value="#{item.apellido} #{item.nombre}"/>
                         </p:column>
                         
-                        <p:column  filterBy="#{item.responsable}"  filterMatchMode="exact">
+                        <p:column  style="width: 9%" filterBy="#{item.responsable}" styleClass="centeredColumnContent" filterMatchMode="exact">
                             
                             <f:facet name="header" >
-                                <h:outputText value="EMPLEADO"/>
+                                <h:outputText value="Responsable"/>
                             </f:facet>
-                            
-                            
                             
                              <f:facet name="filter">
                                 <p:selectOneMenu onchange="PF('agendasTable').filter()" styleClass="custom-filter">
@@ -87,19 +85,17 @@
                                 </p:selectOneMenu>
                             </f:facet>
                             <h:outputText value="#{item.responsable}" style="color: #151717" />
-
-                            
                             
                         </p:column>
                         
                         <p:column >
                             <f:facet name="header">
-                                <h:outputText value="DESCRIPCIÓN"/>
+                                <h:outputText value="DESCRIPCION"/>
                             </f:facet>
                             <h:outputText value="#{item.descripcion}" style="color: #151717" />
                         </p:column>
                         
-                        <p:column style="text-align: center; ">
+                        <p:column style="text-align: center; width: 10%" exportable="false">
                             
                             <f:facet name="header">
                                 <h:outputText value="ACCIONES"/>

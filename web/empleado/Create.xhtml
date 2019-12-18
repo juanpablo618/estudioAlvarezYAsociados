@@ -15,6 +15,10 @@
                         <p:inputText id="nombre" value="#{empleadoController.selected.nombre}" title="#{bundle.CreateEmpleadoTitle_nombre}" /><br></br><br></br>
                         <p:outputLabel value="#{bundle.CreateEmpleadoLabel_apellido}" for="apellido" /><br></br>
                         <p:inputText id="apellido" value="#{empleadoController.selected.apellido}" title="#{bundle.CreateEmpleadoTitle_apellido}" /><br></br><br></br>
+                        
+                        <p:outputLabel value="Password" for="password" /><br></br>
+                        <p:inputText id="password" value="#{empleadoController.selected.password}" title="password" /><br></br><br></br>
+                        
                         <p:outputLabel value="#{bundle.CreateEmpleadoLabel_cargo}" for="cargo" /><br></br>
                         <p:inputText id="cargo" value="#{empleadoController.selected.cargo}" title="#{bundle.CreateEmpleadoTitle_cargo}" /><br></br><br></br>
                     <p:commandButton value="#{bundle.Cancel}" onclick="EmpleadoCreateDialog.hide()"/>

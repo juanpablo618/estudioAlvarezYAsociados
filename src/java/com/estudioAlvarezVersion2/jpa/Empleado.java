@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.estudioAlvarezVersion2.jpa;
 
 import java.io.Serializable;
@@ -20,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author developer
+ * @author cuello.juanpablo@gmail.com
  */
 @Entity
 @Table(name = "Empleado")
@@ -49,6 +44,10 @@ public class Empleado implements Serializable {
     @Column(name = "Cargo")
     private String cargo;
 
+    @Column(name = "password")
+    private String password;
+
+    
     public Empleado() {
     }
 
@@ -56,6 +55,16 @@ public class Empleado implements Serializable {
         this.idEmpleado = idEmpleado;
     }
 
+    public Empleado(Integer idEmpleado, String nombre, String apellido, String cargo, String password) {
+        this.idEmpleado = idEmpleado;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.cargo = cargo;
+        this.password = password;
+    }
+
+    
+    
     public Integer getIdEmpleado() {
         return idEmpleado;
     }
@@ -92,6 +101,17 @@ public class Empleado implements Serializable {
         this.cargo = cargo;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

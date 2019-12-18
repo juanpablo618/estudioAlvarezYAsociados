@@ -5,6 +5,13 @@ import com.estudioAlvarezVersion2.jpa.Expediente;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.AgendaFacade;
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Image;
+import com.lowagie.text.PageSize;
+import java.io.File;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,9 +27,11 @@ import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.ServletContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -35,7 +44,7 @@ public class AgendaController implements Serializable {
     private List<Agenda> items = null;
     private Agenda selected;
     
-    
+        
     private List<Agenda> filteredAgendas;
         
     public AgendaController() {
@@ -265,5 +274,23 @@ public class AgendaController implements Serializable {
         return "no posee clave de Seguridad Social";
         
     }
+    
+    public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException {
+        
+
+    Document pdf = (Document) document;
+    
+    pdf.open();
+    pdf.setPageSize(PageSize.A4);
+    
+         ServletContext servletContext = (ServletContext)
+         FacesContext.getCurrentInstance().getExternalContext().getContext();
+    
+    String logo = servletContext.getRealPath("") + File.separator + "resources/images" +
+    File.separator + "cutmypic.png";
+    
+    pdf.add(Image.getInstance(logo));
+    
+}
     
 }

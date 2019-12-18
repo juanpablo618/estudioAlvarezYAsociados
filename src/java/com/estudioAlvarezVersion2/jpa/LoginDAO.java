@@ -22,21 +22,20 @@ public class LoginDAO {
         LoginDAO.rol = rol;
     }
     
-	public static boolean validate(String user, String password) {
+	public static boolean validate(String nombre, String password) {
 		Connection con = null;
 		PreparedStatement ps = null;
 
 		try {
 			con = DAO.getConnection();
-			ps = con.prepareStatement("Select rol, uname, password from Users where uname = ? and password = ?");
-			ps.setString(1, user);
+			ps = con.prepareStatement("Select  Nombre, password from Empleado where Nombre = ? and password = ?");
+			ps.setString(1, nombre);
 			ps.setString(2, password);
 
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-                                System.err.println("rol: " + rs.getString("rol"));
-                                setRol(rs.getString("rol"));
+                                System.out.println("entrando al login");
                                 return true;
 
 			}

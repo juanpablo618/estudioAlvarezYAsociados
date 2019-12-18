@@ -1,1 +1,10 @@
 UPDATE Expediente SET tipoDeExpediente='administrativo' WHERE tipoDeExpediente IS NULL
+
+
+select *
+  from Expediente
+ order by idExpediente desc
+ limit 1;
+
+
+

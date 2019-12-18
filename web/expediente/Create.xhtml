@@ -20,8 +20,6 @@
 
                         <p:tab title="Datos personales">
 
-                            <p:outputLabel value="Orden:"  style="font-weight: bold" /><br></br>
-                            <p:inputText id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" />
                             
                             <br></br><br></br>
 
@@ -144,10 +142,13 @@
 
                             <div>
                                 <div>
-                            <p:outputLabel value="C. Seguridad Social" for="claveSeguridadSocial" style="font-weight: bold" /><br></br>
-                            </div>
+                                <p:outputLabel value="C. Seguridad Social" for="claveSeguridadSocial" style="font-weight: bold" /><br></br>
+                                </div>
                                 <div>
                                     <p:inputText id="claveSeguridadSocial" value="#{expedienteController.selected.claveSeguridadSocial}" title="clave de seguridad social"/><br></br>
+                                </div>
+                                <div>
+                                    <p:button  value="Ir al sitio"  href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" /><br></br><br></br>
                                 </div>
                             </div>
                             
@@ -158,15 +159,18 @@
                                 <div>
                                 <p:inputText id="claveFiscal" value="#{expedienteController.selected.claveFiscal}" title="clave Fiscal"/><br></br>
                                 </div>
+                                <div>
+                                    <p:button  value="Ir al sitio"  href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank" /><br></br><br></br>
+                                </div>
                             </div>
                             
                             <div>
-                            <div style="float: left">
+                            <div >
                                 <p:outputLabel value="C. Cidi" for="claveCidi" style="font-weight: bold" /><br></br>
                                 <p:inputText id="claveCidi" value="#{expedienteController.selected.claveCidi}" title="clave Cidi"/><br></br>
                             </div>
-                                <div style="float: right">
-                                <p:button  value="Ir al sitio"  href="http://google.com" target="_blank" />
+                                <div >
+                                <p:button  value="Ir al sitio"  href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" /><br></br><br></br>
                                 </div>
                             </div>
                             <br></br>

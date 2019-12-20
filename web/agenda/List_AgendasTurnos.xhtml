@@ -25,17 +25,17 @@
                 </div>
                 <br></br>
                 
-                    <h:commandLink style="float: right">
+                <h:commandLink style="float: right" title="Exportar solo filtradas.">
                                 <h:graphicImage value="../faces/resources/images/pdf.png" />
                                 <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="true" />
-                    </h:commandLink>
+                </h:commandLink>
                     
-                    <h:commandLink style="float: right">
+                <h:commandLink style="float: right" title="Exportar todas.">
                                 <h:graphicImage value="../faces/resources/images/pdf.png" />
                                 <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="false" />
-                    </h:commandLink>
-                    
-                    <br></br><br></br>
+                </h:commandLink>
+                
+                <br></br><br></br>
                 
                     <p:dataTable id="datalist" value="#{turnoController.items}" var="item"
                                  selectionMode="single" selection="#{turnoController.selected}"

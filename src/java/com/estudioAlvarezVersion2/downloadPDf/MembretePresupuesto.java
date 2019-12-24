@@ -5,6 +5,8 @@
  */
 package com.estudioAlvarezVersion2.downloadPDf;
 
+import com.estudioAlvarezVersion2.jpa.Agenda;
+import com.estudioAlvarezVersion2.jpa.Turno;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -18,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import javax.faces.context.FacesContext;
 
 /**
@@ -35,7 +38,9 @@ public class MembretePresupuesto {
      * @param venta para sacar el monto, el cliente, y la forma de pago
      *
      */
-    public void createPdf(String filename ) throws IOException, DocumentException {
+    public void createPdf(String filename , ArrayList<Agenda> agendasFiltradas , ArrayList<Turno> turnosFiltrados ) throws IOException, DocumentException {
+        
+        
         Document document = new Document(PageSize.LETTER, 36, 36, 140, 36);
         
         // Date fechaDiaria = Calendar.getInstance().getTime();
@@ -85,55 +90,29 @@ public class MembretePresupuesto {
         DecimalFormat formateador = new DecimalFormat("####.00");
         DecimalFormat formateadorCantidades = new DecimalFormat("#.##");
 
-        /*for (DetalleVenta det : lista) {
+        for (Agenda agenda : agendasFiltradas) {
+
+            PdfPCell cell = new PdfPCell(new Paragraph(formateadorCantidades.format(agenda.getApellido())));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
+            table.addCell(cell);
+            //detalle nombre del producto
+                       
+        }
+        
+        
+        for (Turno turno : turnosFiltrados) {
 
             //cantidad
             
-            PdfPCell cell = new PdfPCell(new Paragraph(formateadorCantidades.format(det.getCantidad())));
+            PdfPCell cell = new PdfPCell(new Paragraph(formateadorCantidades.format(turno.getHoraYDia())));
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             
             table.addCell(cell);
             //detalle nombre del producto
             
-            String detallePorProducto = "";
-            
-             detallePorProducto = detallePorProducto + det.getProducto().toString();
-             detallePorProducto = detallePorProducto + " ";
-            
-            if(det.getProducto().getMarca()!=null){
-               detallePorProducto = detallePorProducto + det.getProducto().getMarca();
-            }
-                if(det.getProducto().getCaracteristica()!=null){
-                    detallePorProducto = detallePorProducto + " ";
-                    detallePorProducto = detallePorProducto + det.getProducto().getCaracteristica();
-                }
-                    if(det.getProducto().getFragancia()!=null){
-                        detallePorProducto = detallePorProducto + " ";
-                        detallePorProducto = detallePorProducto + det.getProducto().getFragancia();
-                    }
-                        if(det.getProducto().getMedida()!=null){
-                            detallePorProducto = detallePorProducto + " ";
-                            detallePorProducto = detallePorProducto + det.getProducto().getMedida();
-                        }
-                    
-            System.out.println("detallePorProducto :" +detallePorProducto);
-            table.addCell(detallePorProducto);
-            //precio unitario con el interes sumado
-
-            PdfPCell cellPU = new PdfPCell(new Paragraph(formateador.format(det.getProducto().getPrecioFinalAFacturar())));
-            cellPU.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                        
-            table.addCell(cellPU);
-            //precio total el pu con interes sumado * cantidad
-                        
-            PdfPCell cellPT = new PdfPCell(new Paragraph(formateador.format(det.getProducto().getPrecioFinalAFacturar() * det.getCantidad())));
-            cellPT.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                        
-            table.addCell(cellPT);
-            
-            totalDeFactura = totalDeFactura + det.getProducto().getPrecioFinalAFacturar() * det.getCantidad();
-            
-        }*/
+           
+        }
 
         table.addCell("");
         table.addCell("");

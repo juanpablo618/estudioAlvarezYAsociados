@@ -6,16 +6,22 @@ package com.estudioAlvarezVersion2.downloadPDf;
  * @author cuello.juanpablo@gmail.com
  */
 
+import com.estudioAlvarezVersion2.jpa.Agenda;
+import com.estudioAlvarezVersion2.jpa.Turno;
 import com.lowagie.text.DocumentException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.URL;
-import java.util.Calendar;
+import java.util.ArrayList;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @ManagedBean
 public class DownloadBean implements Serializable {
@@ -24,18 +30,42 @@ private static final long serialVersionUID = 626953318628565053L;
 
 //private final  String PDF_URL = ConfiguracionesGenerales.getPDF_URL();
 
-public void crearDocumento() throws IOException, DocumentException{
+public void crearDocumento( ArrayList<Agenda> agendasFiltradas , ArrayList<Turno> turnosFiltrados ) throws IOException, DocumentException, InterruptedException{
 
+    
+     Date date = new Date();
+//Caso 1: obtener la hora y salida por pantalla con formato:
+DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
+System.out.println("Hora: "+hourFormat.format(date));
+//Caso 2: obtener la fecha y salida por pantalla con formato:
+DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+System.out.println("Fecha: "+dateFormat.format(date));
+//Caso 3: obtenerhora y fecha y salida por pantalla con formato:
+DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+System.out.println("Hora y fecha: "+hourdateFormat.format(date));
+    
+            String fechaYHoraActual = hourdateFormat.format(date).toString();
+
+                fechaYHoraActual = fechaYHoraActual.replace(" ","");
+                fechaYHoraActual = fechaYHoraActual.replace(":","");
+                
                 String nombreDelDocumento = new String();
-                nombreDelDocumento = "PRESUPUESTO_".concat("JUANPABLO");
+
+                nombreDelDocumento = "Agendasyturnos".concat(fechaYHoraActual);
                 nombreDelDocumento = nombreDelDocumento.replace(" ","");
                 nombreDelDocumento = nombreDelDocumento.replace(":","");
 
                 
                   MembretePresupuesto doc = new MembretePresupuesto();
-                  doc.createPdf(nombreDelDocumento);
+                  
+                  System.out.println("nombreDelDocumento: "+ nombreDelDocumento);
+                  
+                  doc.createPdf(nombreDelDocumento, agendasFiltradas, turnosFiltrados);
+                  
+                  downloadPdf(nombreDelDocumento);
+                  
+                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Venta Facturada exitosamente"));
 
-    
     
 }
 

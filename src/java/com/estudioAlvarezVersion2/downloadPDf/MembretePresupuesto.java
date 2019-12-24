@@ -1,0 +1,158 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.estudioAlvarezVersion2.downloadPDf;
+
+import com.lowagie.text.Chunk;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import javax.faces.context.FacesContext;
+
+/**
+ *
+ * @author developer
+ */
+
+public class MembretePresupuesto {
+
+    /**
+     * Crea un documento con encabezado
+     *
+     * @param filename Nombre del archivo
+     * @param lista de objetos DetalleVenta
+     * @param venta para sacar el monto, el cliente, y la forma de pago
+     *
+     */
+    public void createPdf(String filename ) throws IOException, DocumentException {
+        Document document = new Document(PageSize.LETTER, 36, 36, 140, 36);
+        
+        // Date fechaDiaria = Calendar.getInstance().getTime();
+
+       FacesContext context = FacesContext.getCurrentInstance();
+       ConfiguracionesGeneralesController configuracionesGeneralesController = context.getApplication().evaluateExpressionGet(context, "#{configuracionesGeneralesController}", ConfiguracionesGeneralesController.class);
+       
+       PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(configuracionesGeneralesController.getConfiguracionesGenerales(1).getCarpetaDePresupuestos().concat(filename).concat(".pdf")));
+
+       FormatoDocumentoPresupuesto encabezado = new FormatoDocumentoPresupuesto();
+       Paragraph parrafo;
+       int i = 0;
+
+        // indicamos que objecto manejara los eventos al escribir el Pdf
+        writer.setPageEvent(encabezado);
+
+        document.open();
+
+        parrafo = new Paragraph("Presupuesto sin valor comercial - Mundo Limpieza");
+        parrafo.setAlignment(Element.ALIGN_CENTER);
+
+        document.add(parrafo);
+
+        document.add(Chunk.NEWLINE);
+
+        Paragraph parrafo4 = new Paragraph("Nombre y Apellido: ".concat("juan").concat(" ").concat("pablo").concat(". Razon social: ").concat("juanPAblo") );
+        document.add(parrafo4);
+
+                String formato="dd-MM-yyyy";
+                SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
+                
+        document.add(Chunk.NEWLINE);
+
+        PdfPTable table = new PdfPTable(4);
+        
+        float[] medidaCeldas = {0.55f, 2.25f, 0.50f, 0.50f};
+
+        // ASIGNAS LAS MEDIDAS A LA TABLA (ANCHO)
+        table.setWidths(medidaCeldas);
+        
+        table.addCell("Cantidad");
+        table.addCell("Detalle del producto");
+        table.addCell("P.U");
+        table.addCell("P.T");
+
+        double totalDeFactura = 0;
+        DecimalFormat formateador = new DecimalFormat("####.00");
+        DecimalFormat formateadorCantidades = new DecimalFormat("#.##");
+
+        /*for (DetalleVenta det : lista) {
+
+            //cantidad
+            
+            PdfPCell cell = new PdfPCell(new Paragraph(formateadorCantidades.format(det.getCantidad())));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
+            table.addCell(cell);
+            //detalle nombre del producto
+            
+            String detallePorProducto = "";
+            
+             detallePorProducto = detallePorProducto + det.getProducto().toString();
+             detallePorProducto = detallePorProducto + " ";
+            
+            if(det.getProducto().getMarca()!=null){
+               detallePorProducto = detallePorProducto + det.getProducto().getMarca();
+            }
+                if(det.getProducto().getCaracteristica()!=null){
+                    detallePorProducto = detallePorProducto + " ";
+                    detallePorProducto = detallePorProducto + det.getProducto().getCaracteristica();
+                }
+                    if(det.getProducto().getFragancia()!=null){
+                        detallePorProducto = detallePorProducto + " ";
+                        detallePorProducto = detallePorProducto + det.getProducto().getFragancia();
+                    }
+                        if(det.getProducto().getMedida()!=null){
+                            detallePorProducto = detallePorProducto + " ";
+                            detallePorProducto = detallePorProducto + det.getProducto().getMedida();
+                        }
+                    
+            System.out.println("detallePorProducto :" +detallePorProducto);
+            table.addCell(detallePorProducto);
+            //precio unitario con el interes sumado
+
+            PdfPCell cellPU = new PdfPCell(new Paragraph(formateador.format(det.getProducto().getPrecioFinalAFacturar())));
+            cellPU.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                        
+            table.addCell(cellPU);
+            //precio total el pu con interes sumado * cantidad
+                        
+            PdfPCell cellPT = new PdfPCell(new Paragraph(formateador.format(det.getProducto().getPrecioFinalAFacturar() * det.getCantidad())));
+            cellPT.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                        
+            table.addCell(cellPT);
+            
+            totalDeFactura = totalDeFactura + det.getProducto().getPrecioFinalAFacturar() * det.getCantidad();
+            
+        }*/
+
+        table.addCell("");
+        table.addCell("");
+        table.addCell("Precio total:");
+        
+        PdfPCell cellFinalPT = new PdfPCell(new Paragraph(formateador.format(totalDeFactura)));
+        cellFinalPT.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        
+        table.addCell(cellFinalPT);
+            
+        PdfPCell celdaFinal2 = new PdfPCell(new Paragraph("Firma, Aclaración y Dni: "));
+
+        celdaFinal2.setColspan(4);
+        celdaFinal2.setMinimumHeight(50);
+        table.addCell(celdaFinal2);
+
+        document.add(table);
+
+        document.close();
+        
+        }
+}

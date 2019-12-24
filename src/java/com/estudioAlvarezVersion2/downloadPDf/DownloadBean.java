@@ -1,19 +1,20 @@
-package com.estudioAlvarezVersion2.jsf.util;
+package com.estudioAlvarezVersion2.downloadPDf;
+
 
 /**
  *
  * @author cuello.juanpablo@gmail.com
  */
 
+import com.lowagie.text.DocumentException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.URL;
+import java.util.Calendar;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @ManagedBean
@@ -23,15 +24,34 @@ private static final long serialVersionUID = 626953318628565053L;
 
 //private final  String PDF_URL = ConfiguracionesGenerales.getPDF_URL();
 
+public void crearDocumento() throws IOException, DocumentException{
+
+                String nombreDelDocumento = new String();
+                nombreDelDocumento = "PRESUPUESTO_".concat("JUANPABLO");
+                nombreDelDocumento = nombreDelDocumento.replace(" ","");
+                nombreDelDocumento = nombreDelDocumento.replace(":","");
+
+                
+                  MembretePresupuesto doc = new MembretePresupuesto();
+                  doc.createPdf(nombreDelDocumento);
+
+    
+    
+}
+
+
+
+
 /**
      * This method reads PDF from the URL and writes it back as a response. 
      * @throws IOException 
      * @param nombreDelDocumento */
 
 public void downloadPdf(String nombreDelDocumento) throws IOException, InterruptedException {
+    System.err.println("");    
+    System.err.println("");
+    System.err.println("nombreDelDocumento: " + nombreDelDocumento.toString());
     
-    System.out.println("nombreDelDocumento"+nombreDelDocumento);
-    nombreDelDocumento = "hola";
     Thread.sleep(2000);
     
 // Get the FacesContext
@@ -50,9 +70,11 @@ response.setHeader("Content-Type", "application/pdf");
 OutputStream responseOutputStream = response.getOutputStream();
 
 //create facecontext to set the data PDF_URL retrieved to database
+ FacesContext context = FacesContext.getCurrentInstance();
+ ConfiguracionesGeneralesController configuracionesGeneralesController = context.getApplication().evaluateExpressionGet(context, "#{configuracionesGeneralesController}", ConfiguracionesGeneralesController.class);
       
 // Read PDF contents
-URL url = new URL("file:///home/developer/Documents/".concat(nombreDelDocumento).concat(".pdf"));
+URL url = new URL(configuracionesGeneralesController.getConfiguracionesGenerales(1).getPdfUrl().concat(nombreDelDocumento).concat(".pdf"));
 InputStream pdfInputStream = url.openStream();
 
 // Read PDF contents and write them to the output

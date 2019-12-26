@@ -34,8 +34,8 @@ public class MembretePresupuesto {
      * Crea un documento con encabezado
      *
      * @param filename Nombre del archivo
-     * @param lista de objetos DetalleVenta
-     * @param venta para sacar el monto, el cliente, y la forma de pago
+     * @param agendasFiltradas
+     * @param turnosFiltrados
      *
      */
     public void createPdf(String filename , ArrayList<Agenda> agendasFiltradas , ArrayList<Turno> turnosFiltrados ) throws IOException, DocumentException {
@@ -59,77 +59,93 @@ public class MembretePresupuesto {
 
         document.open();
 
-        parrafo = new Paragraph("Presupuesto sin valor comercial - Mundo Limpieza");
+        parrafo = new Paragraph("Estudio Alvarez y Asociados");
         parrafo.setAlignment(Element.ALIGN_CENTER);
 
         document.add(parrafo);
 
         document.add(Chunk.NEWLINE);
 
-        Paragraph parrafo4 = new Paragraph("Nombre y Apellido: ".concat("juan").concat(" ").concat("pablo").concat(". Razon social: ").concat("juanPAblo") );
+        Paragraph parrafo4 = new Paragraph("AGENDAS:");
         document.add(parrafo4);
 
-                String formato="dd-MM-yyyy";
+
+
+        
+        String formato="dd-MM-yyyy";
                 SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
                 
         document.add(Chunk.NEWLINE);
 
-        PdfPTable table = new PdfPTable(4);
+        PdfPTable table = new PdfPTable(3);
         
-        float[] medidaCeldas = {0.55f, 2.25f, 0.50f, 0.50f};
+        float[] medidaCeldas = {0.55f, 0.55f, 2.00f};
 
         // ASIGNAS LAS MEDIDAS A LA TABLA (ANCHO)
         table.setWidths(medidaCeldas);
         
-        table.addCell("Cantidad");
-        table.addCell("Detalle del producto");
-        table.addCell("P.U");
-        table.addCell("P.T");
-
-        double totalDeFactura = 0;
-        DecimalFormat formateador = new DecimalFormat("####.00");
-        DecimalFormat formateadorCantidades = new DecimalFormat("#.##");
-
+        table.addCell("ORDEN");
+        table.addCell("Nombre y Apellido");
+        table.addCell("Descripción:");
+        
         for (Agenda agenda : agendasFiltradas) {
 
-            PdfPCell cell = new PdfPCell(new Paragraph(formateadorCantidades.format(agenda.getApellido())));
+            PdfPCell cell = new PdfPCell(new Paragraph(agenda.getOrden()));
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             
             table.addCell(cell);
-            //detalle nombre del producto
-                       
+            
+            PdfPCell cell2 = new PdfPCell(new Paragraph(agenda.getApellido().concat(" ").concat(agenda.getNombre())));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
+            table.addCell(cell2);
+            
+            PdfPCell cell3 = new PdfPCell(new Paragraph(agenda.getDescripcion()));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
+            table.addCell(cell3);
+            
+            
+            
         }
+        
+        PdfPTable table2 = new PdfPTable(2);
+        
+        float[] medidaCeldas2 = {0.55f, 2.25f};
+
+        // ASIGNAS LAS MEDIDAS A LA TABLA (ANCHO)
+        table2.setWidths(medidaCeldas2);
+        
+
+        table2.addCell("Nombre y Apellido");
+        table2.addCell("Observación:");
         
         
         for (Turno turno : turnosFiltrados) {
 
-            //cantidad
+            PdfPCell cell = new PdfPCell(new Paragraph(turno.getApellido().concat(" ").concat(turno.getApellido())));
             
-            PdfPCell cell = new PdfPCell(new Paragraph(formateadorCantidades.format(turno.getHoraYDia())));
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             
-            table.addCell(cell);
-            //detalle nombre del producto
+            table2.addCell(cell);
             
-           
+
+            PdfPCell cell2 = new PdfPCell(new Paragraph(turno.getObservacion()));
+            
+            cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
+            table2.addCell(cell2);
+
+            
         }
 
-        table.addCell("");
-        table.addCell("");
-        table.addCell("Precio total:");
         
-        PdfPCell cellFinalPT = new PdfPCell(new Paragraph(formateador.format(totalDeFactura)));
-        cellFinalPT.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        
-        table.addCell(cellFinalPT);
-            
-        PdfPCell celdaFinal2 = new PdfPCell(new Paragraph("Firma, Aclaración y Dni: "));
-
-        celdaFinal2.setColspan(4);
-        celdaFinal2.setMinimumHeight(50);
-        table.addCell(celdaFinal2);
-
         document.add(table);
+
+        Paragraph parrafo6 = new Paragraph("TURNOS:");
+        document.add(parrafo6);
+
+        document.add(table2);
 
         document.close();
         

@@ -30,7 +30,7 @@ private static final long serialVersionUID = 626953318628565053L;
 
 //private final  String PDF_URL = ConfiguracionesGenerales.getPDF_URL();
 
-public void crearDocumento( ArrayList<Agenda> agendasFiltradas , ArrayList<Turno> turnosFiltrados ) throws IOException, DocumentException, InterruptedException{
+public void crearDocumento(ArrayList<Agenda> agendasFiltradas , ArrayList<Turno> turnosFiltrados ) throws IOException, DocumentException, InterruptedException{
 
     
      Date date = new Date();
@@ -54,11 +54,18 @@ System.out.println("Hora y fecha: "+hourdateFormat.format(date));
                 nombreDelDocumento = "Agendasyturnos".concat(fechaYHoraActual);
                 nombreDelDocumento = nombreDelDocumento.replace(" ","");
                 nombreDelDocumento = nombreDelDocumento.replace(":","");
+                nombreDelDocumento = nombreDelDocumento.replace("/","");
 
                 
                   MembretePresupuesto doc = new MembretePresupuesto();
                   
                   System.out.println("nombreDelDocumento: "+ nombreDelDocumento);
+                  
+                  System.out.println("//////////////////////////////////////////////////");
+                  System.out.println("agendasFiltradas: "+ agendasFiltradas.size());
+                  System.out.println("turnosFiltrados: "+ turnosFiltrados.size());
+   
+                  System.out.println("//////////////////////////////////////////////////");
                   
                   doc.createPdf(nombreDelDocumento, agendasFiltradas, turnosFiltrados);
                   

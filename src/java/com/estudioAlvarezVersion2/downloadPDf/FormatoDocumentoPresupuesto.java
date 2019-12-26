@@ -35,7 +35,7 @@ public class FormatoDocumentoPresupuesto extends PdfPageEventHelper
             ConfiguracionesGeneralesController configuracionesGeneralesController = context.getApplication().evaluateExpressionGet(context, "#{configuracionesGeneralesController}", ConfiguracionesGeneralesController.class);
       
             
-            PdfPCell celda1 = new PdfPCell(new Phrase("Mundo Limpieza"));
+            PdfPCell celda1 = new PdfPCell(new Phrase("Estudio Alvarez y Asociados"));
             PdfPCell celda2 = new PdfPCell(new Phrase("tel: ".concat(configuracionesGeneralesController.getConfiguracionesGenerales(1).getTelefonoSucursal())));
             
             imagen = Image.getInstance(configuracionesGeneralesController.getConfiguracionesGenerales(1).getUrlDeLogoMundoLimpieza());

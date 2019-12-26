@@ -35,7 +35,7 @@
                                 <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="false" />
                 </h:commandLink>
                 
-                <h:commandButton value="Imprimir Agendas" actionListener="#{downloadBean.crearDocumento(turnoController.filteredturnos, agendaController.filteredAgendas)}"
+                <h:commandButton value="Imprimir Agendas" actionListener="#{downloadBean.crearDocumento( agendaController.filteredAgendas, turnoController.filteredturnos)}"
                                          style="width: 15%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px;" />
 
                 

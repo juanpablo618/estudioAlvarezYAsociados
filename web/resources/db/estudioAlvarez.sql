@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 10-12-2019 a las 22:12:57
+-- Tiempo de generación: 26-12-2019 a las 16:54:55
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.20
 
@@ -9707,6 +9707,27 @@ INSERT INTO `Agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `ConfiguracionesGenerales`
+--
+
+CREATE TABLE `ConfiguracionesGenerales` (
+  `IdConfiguracionsGenerales` int(11) NOT NULL,
+  `telefonoSucursal` varchar(500) DEFAULT NULL,
+  `carpetaDePresupuestos` varchar(500) DEFAULT NULL,
+  `pdfUrl` varchar(500) DEFAULT NULL,
+  `urlDeLogoMundoLimpieza` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `ConfiguracionesGenerales`
+--
+
+INSERT INTO `ConfiguracionesGenerales` (`IdConfiguracionsGenerales`, `telefonoSucursal`, `carpetaDePresupuestos`, `pdfUrl`, `urlDeLogoMundoLimpieza`) VALUES
+(1, '99999999', '/home/developer/Documents', 'file:///home/developer/Documents', 'http://localhost:8080/EstudioAlvarezVersion2/faces/resources/images/cutmypic.png');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `Empleado`
 --
 
@@ -9714,16 +9735,18 @@ CREATE TABLE `Empleado` (
   `idEmpleado` int(11) NOT NULL,
   `Nombre` varchar(100) DEFAULT NULL,
   `Apellido` varchar(100) DEFAULT NULL,
-  `Cargo` varchar(100) DEFAULT NULL
+  `Cargo` varchar(100) DEFAULT NULL,
+  `Password` varchar(60) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `Empleado`
 --
 
-INSERT INTO `Empleado` (`idEmpleado`, `Nombre`, `Apellido`, `Cargo`) VALUES
-(5, 'juan ', 'cuello', 'informática'),
-(6, 'ramon', 'ramon', 'informatico');
+INSERT INTO `Empleado` (`idEmpleado`, `Nombre`, `Apellido`, `Cargo`, `Password`) VALUES
+(5, 'juan ', 'cuello', 'informática', 'juan'),
+(6, 'ramon', 'ramon', 'informatico', 'ramon'),
+(7, 'pablo', 'pablo', 'secretario', 'pablo');
 
 -- --------------------------------------------------------
 
@@ -9752,8 +9775,8 @@ INSERT INTO `EstadoDelTramite` (`idEstadoDelTramite`, `estado`) VALUES
 (10, 'FEDERALES – EN JUZGADO.'),
 (12, 'HONORARIOS PENDIENTES.'),
 (13, 'DADO DE BAJA.'),
-(14, 'TERMINADO OK.'),
-(15, 'INGRESADO AL ESTUDIO.');
+(15, 'INGRESADO AL ESTUDIO.'),
+(16, 'TERMINADO OK.');
 
 -- --------------------------------------------------------
 
@@ -13247,7 +13270,8 @@ INSERT INTO `Expediente` (`idExpediente`, `orden`, `cuit`, `dni`, `nombre`, `tip
 (4203, 3439, '23076303649', '7630364', 'ESPORA', NULL, 'masculino', 'GUTIERREZ ANTONIO JOS??? - IMPUESTO A LAS GANANCIAS', '116', NULL, NULL, NULL, 'JUAN XXIII', '4809540/156526343', '1948-11-08', 70, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'administrativo', NULL, NULL, NULL, 'Cidi: Nmfpyrw4 - Proc: Centro de Jubilados', NULL, NULL, NULL, NULL, NULL, NULL),
 (4204, 3440, '27137869301', '13786930', 'FAMATINA', NULL, 'femenino', 'AZULA ROSARIO - JUBILACION', '306', NULL, NULL, NULL, 'SAN MARTIN', '4718874 - 3512562984', '1959-10-07', 59, NULL, NULL, 'claveCIDI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'administrativo', NULL, NULL, NULL, 'CSS: estudio02 - CF: Estudio2019 - HON: 2 HABERES - Proc: Nuevo Enfoque -', NULL, NULL, NULL, NULL, NULL, NULL),
 (4205, 9999, '20350548220', '3505482', 'juan', NULL, 'masculino', 'cuello', 'ibarbalz', 762, '16', 'I', 'gral paz', '4522524', '2019-12-11', 0, NULL, NULL, NULL, NULL, NULL, '5000', 'córdoba', NULL, NULL, NULL, NULL, 'argentino', NULL, '', '999999999', NULL, NULL, NULL, NULL, 'Federales - Jefatura 2', 'Reajuste', 'Alegatos', 'Si'),
-(4206, 7777, '20350548220', '3505482', 'juan', NULL, 'masculino', 'cuello', 'ibarbalz', 752, '16', 'I', 'gral paz', '4522524', '2019-12-11', 0, '', '', '', 'Si Jubilación', NULL, '5000', 'cordoba', 'RTI', 'ramiro rama editado', 'DGSJ - INICIADO.', '2019-12-28', 'Argentina', 'administrativo', NULL, NULL, NULL, 'observaciones', '2019-12-25', 'honorarios', NULL, NULL, NULL, NULL);
+(4206, 7777, '20350548220', '3505482', 'juan', NULL, 'masculino', 'cuello', 'ibarbalz', 752, '16', 'I', 'gral paz', '4522524', '2019-12-11', 0, '', '', '', 'Si Jubilación', NULL, '5000', 'cordoba', 'RTI', 'ramiro rama editado', 'DGSJ - INICIADO.', '2019-12-28', 'Argentina', 'administrativo', NULL, NULL, NULL, 'observaciones', '2019-12-25', 'honorarios', NULL, NULL, NULL, NULL),
+(4207, 7778, '2035054999', '3505499', 'pablo', NULL, 'masculino', 'juan', 'ibarbalz', 752, '16', 'i', '', '4522524', '2019-12-19', 0, 'nada', 'nada', 'nada', 'Si Jubilación', NULL, '5000', 'cordoba', 'RTI', 'ramiro rama editado', 'ANSES - INGRESADO.', '2019-12-27', 'Argentina', 'administrativo', NULL, NULL, NULL, 'nada de nada.', '2019-12-06', 'nada', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -13266,7 +13290,7 @@ CREATE TABLE `Procedencia` (
 
 INSERT INTO `Procedencia` (`idProcedencia`, `nombreProcedencia`) VALUES
 (3, 'ramiro rama editado'),
-(5, 'JUAN cuello');
+(5, 'juan cuello');
 
 -- --------------------------------------------------------
 
@@ -13313,9 +13337,7 @@ CREATE TABLE `Users` (
 INSERT INTO `Users` (`uid`, `uname`, `password`, `rol`) VALUES
 (2, 'lucas', 'lucas', 'administrador'),
 (3, 'juanPablo', 'juanPablo', 'repositor'),
-(4, 'juan', 'juan', ''),
-(5, 'carlos', 'carlos', 'administrador'),
-(6, 'pedro', 'pedro', 'repositor');
+(4, 'juan', 'juan', '');
 
 --
 -- Índices para tablas volcadas
@@ -13326,6 +13348,12 @@ INSERT INTO `Users` (`uid`, `uname`, `password`, `rol`) VALUES
 --
 ALTER TABLE `Agenda`
   ADD PRIMARY KEY (`idAgenda`);
+
+--
+-- Indices de la tabla `ConfiguracionesGenerales`
+--
+ALTER TABLE `ConfiguracionesGenerales`
+  ADD PRIMARY KEY (`IdConfiguracionsGenerales`);
 
 --
 -- Indices de la tabla `Empleado`
@@ -13373,20 +13401,25 @@ ALTER TABLE `Users`
 ALTER TABLE `Agenda`
   MODIFY `idAgenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9646;
 --
+-- AUTO_INCREMENT de la tabla `ConfiguracionesGenerales`
+--
+ALTER TABLE `ConfiguracionesGenerales`
+  MODIFY `IdConfiguracionsGenerales` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT de la tabla `Empleado`
 --
 ALTER TABLE `Empleado`
-  MODIFY `idEmpleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idEmpleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `EstadoDelTramite`
 --
 ALTER TABLE `EstadoDelTramite`
-  MODIFY `idEstadoDelTramite` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idEstadoDelTramite` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `Expediente`
 --
 ALTER TABLE `Expediente`
-  MODIFY `idExpediente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4207;
+  MODIFY `idExpediente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4208;
 --
 -- AUTO_INCREMENT de la tabla `Procedencia`
 --
@@ -13401,7 +13434,7 @@ ALTER TABLE `turno`
 -- AUTO_INCREMENT de la tabla `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `uid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `uid` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

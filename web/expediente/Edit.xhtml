@@ -15,14 +15,23 @@
 
                 </h:panelGroup >
                 
-                <div style="font-weight: bold;">
+                <div style="font-weight: bold; float: left">
                 <h:outputText value="#{expedienteController.selected.apellido}" />
                     <h:outputText value=" "/>
                     <h:outputText value="#{expedienteController.selected.nombre}"/>
                     <h:outputText value=" "/>
                     <h:outputText value="#{expedienteController.selected.orden}"/>
                 </div>
-                
+                <div>
+                    <p:menuButton value="Descargar">
+                                    <p:menuitem style="background-color: white !important" value="Cronológico de aportes"  />
+                                    <p:separator />
+                                    <p:menuitem style="background-color: white !important" value="formularios de Anses"  />
+                                    <p:separator />
+                                    <p:menuitem style="background-color: white !important" value="Convenio de Honorarios"  />
+                                    
+                    </p:menuButton>
+                </div>
                     <br></br><br></br>
                 
                 <div style="float: left">   

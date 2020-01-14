@@ -7,18 +7,37 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-
+            
       <p:dialog id="ExpedienteJudicialEditDlg"  class="editarExpedienteJudicial" widgetVar="ExpedienteJudicialEditDialog" modal="true" resizable="false" appendTo="@(body)" >
             <h:form id="ExpedienteJudicialEditForm">
                 <h:panelGroup id="display">
                 </h:panelGroup >
-                <div style="font-weight: bold;">
+                <div style="font-weight: bold; float: left">
                 <h:outputText value="#{expedienteController.selected.apellido}" />
                     <h:outputText value=" "/>
                     <h:outputText value="#{expedienteController.selected.nombre}"/>
                     <h:outputText value=" "/>
                     <h:outputText value="#{expedienteController.selected.orden}"/>
                 </div>
+                <div>
+                    <p:menuButton value="Descargar">
+                                    <p:menuitem style="background-color: white !important" value="Cronológico de aportes"  />
+                                    <p:separator />
+                                    <p:menuitem style="background-color: white !important" value="formularios de Anses"  />
+                                    <p:separator />
+                                    <p:menuitem style="background-color: white !important" value="Convenio de Honorarios" >
+                                         
+                                    </p:menuitem>
+                                    
+                    </p:menuButton>
+                    
+                    
+                </div>
+                
+<h:commandButton value="Imprimir Cronologico" actionListener="#{downloadBean.crearCronologicoDeAportes( expedienteController.selected.nombre)}" />
+                                        
+<h:commandButton value="Imprimir Convenio" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni)}" />
+                
                 <br></br>
                 
                 
@@ -46,6 +65,7 @@
                                  <br></br> 
                                  <p:inputText id="nombre" value="#{expedienteController.selected.nombre}" style="margin-left: 3%" title="#{bundle.EditExpedienteTitle_nombre}" />
                                 </div> 
+                                
                             </div> 
                             <br></br><br></br>
 
@@ -113,6 +133,33 @@
 
                             <br></br>
 
+                        </p:tab>
+                        
+                        <p:tab title="claves">
+
+                             <div>
+                                    <p:outputLabel value="C. Seguridad Social" for="claveSeguridadSocial" style="font-weight: bold" /><br></br>
+                                    <p:inputText id="claveSeguridadSocial" value="#{expedienteController.selected.claveSeguridadSocial}" title="clave de seguridad social"/><br></br>
+                                    <p:button value="ir al sitio" href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=mianses" target="_blank" />
+
+                                </div>
+                            <br></br>
+                            <div>
+                                <p:outputLabel value="C. Fiscal" for="claveFiscal" style="font-weight: bold" /><br></br>
+                                <p:inputText id="claveFiscal" value="#{expedienteController.selected.claveFiscal}" title="clave Fiscal"/><br></br>
+                                <p:button  value="Ir al sitio"  href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank" />
+                                
+                            </div>
+                            <br></br>
+                            <div>
+                                <p:outputLabel value="C. Cidi" for="claveCidi" style="font-weight: bold" /><br></br>
+                                <p:inputText id="claveCidi" value="#{expedienteController.selected.claveCidi}" title="clave Cidi"/><br></br>
+                                <p:button  value="Ir al sitio"  href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" />
+                               
+                            </div>
+                            
+                            <br></br>
+                            <br></br>
                         </p:tab>
 
                     </p:tabView>

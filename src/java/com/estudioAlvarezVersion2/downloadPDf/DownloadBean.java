@@ -21,6 +21,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 
 @ManagedBean
@@ -32,17 +33,25 @@ private static final long serialVersionUID = 626953318628565053L;
 
 public void crearDocumento(ArrayList<Agenda> agendasFiltradas , ArrayList<Turno> turnosFiltrados ) throws IOException, DocumentException, InterruptedException{
 
-    
-     Date date = new Date();
-//Caso 1: obtener la hora y salida por pantalla con formato:
-DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
-System.out.println("Hora: "+hourFormat.format(date));
-//Caso 2: obtener la fecha y salida por pantalla con formato:
-DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-System.out.println("Fecha: "+dateFormat.format(date));
-//Caso 3: obtenerhora y fecha y salida por pantalla con formato:
-DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
-System.out.println("Hora y fecha: "+hourdateFormat.format(date));
+    if(agendasFiltradas == null || agendasFiltradas.isEmpty()) {
+      FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay Agendas filtradas para imprimir"));
+    }else{
+        if(turnosFiltrados == null || turnosFiltrados.isEmpty()){
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay Turnos filtrados para imprimir"));
+        }else{
+            
+        
+            
+        Date date = new Date();
+        //Caso 1: obtener la hora y salida por pantalla con formato:
+        DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
+        System.out.println("Hora: "+hourFormat.format(date));
+        //Caso 2: obtener la fecha y salida por pantalla con formato:
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        System.out.println("Fecha: "+dateFormat.format(date));
+        //Caso 3: obtenerhora y fecha y salida por pantalla con formato:
+        DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        System.out.println("Hora y fecha: "+hourdateFormat.format(date));
     
             String fechaYHoraActual = hourdateFormat.format(date).toString();
 
@@ -55,28 +64,102 @@ System.out.println("Hora y fecha: "+hourdateFormat.format(date));
                 nombreDelDocumento = nombreDelDocumento.replace(" ","");
                 nombreDelDocumento = nombreDelDocumento.replace(":","");
                 nombreDelDocumento = nombreDelDocumento.replace("/","");
-
                 
                   MembretePresupuesto doc = new MembretePresupuesto();
-                  
-                  System.out.println("nombreDelDocumento: "+ nombreDelDocumento);
-                  
-                  System.out.println("//////////////////////////////////////////////////");
-                  System.out.println("agendasFiltradas: "+ agendasFiltradas.size());
-                  System.out.println("turnosFiltrados: "+ turnosFiltrados.size());
-   
-                  System.out.println("//////////////////////////////////////////////////");
                   
                   doc.createPdf(nombreDelDocumento, agendasFiltradas, turnosFiltrados);
                   
                   downloadPdf(nombreDelDocumento);
                   
-                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Venta Facturada exitosamente"));
+                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Impresion exitosa"));
+        }
+        }
+    }
 
     
-}
+
+public void crearConvenioDeHonorarios(String nombre, String apellido, String dni) throws IOException, DocumentException, InterruptedException{
+
+    if(nombre == null) {
+      FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay nombre para imprimir"));
+    }else{
+            
+        Date date = new Date();
+        //Caso 1: obtener la hora y salida por pantalla con formato:
+        DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
+        System.out.println("Hora: "+hourFormat.format(date));
+        //Caso 2: obtener la fecha y salida por pantalla con formato:
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        System.out.println("Fecha: "+dateFormat.format(date));
+        //Caso 3: obtenerhora y fecha y salida por pantalla con formato:
+        DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        System.out.println("Hora y fecha: "+hourdateFormat.format(date));
+    
+            String fechaYHoraActual = hourdateFormat.format(date).toString();
+
+                fechaYHoraActual = fechaYHoraActual.replace(" ","");
+                fechaYHoraActual = fechaYHoraActual.replace(":","");
+                
+                String nombreDelDocumento = new String();
+
+                nombreDelDocumento = "ConvenioDeHonorariosPara_".concat(nombre).concat(fechaYHoraActual);
+                nombreDelDocumento = nombreDelDocumento.replace(" ","");
+                nombreDelDocumento = nombreDelDocumento.replace(":","");
+                nombreDelDocumento = nombreDelDocumento.replace("/","");
+                
+                  MembretePresupuesto doc = new MembretePresupuesto();
+                  
+                  doc.createPdfConvenioDeHonorarios(nombreDelDocumento, nombre, apellido, dni);
+                  
+                  downloadPdf(nombreDelDocumento);
+                  
+                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Impresion exitosa del convenio de Honorarios"));
+        }
+    }
+    
 
 
+
+public void crearCronologicoDeAportes(String nombre ) throws IOException, DocumentException, InterruptedException{
+
+    if(nombre == null) {
+      FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no nombre asociado"));
+    }else{
+            
+        Date date = new Date();
+        //Caso 1: obtener la hora y salida por pantalla con formato:
+        DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
+        System.out.println("Hora: "+hourFormat.format(date));
+        //Caso 2: obtener la fecha y salida por pantalla con formato:
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        System.out.println("Fecha: "+dateFormat.format(date));
+        //Caso 3: obtenerhora y fecha y salida por pantalla con formato:
+        DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        System.out.println("Hora y fecha: "+hourdateFormat.format(date));
+    
+            String fechaYHoraActual = hourdateFormat.format(date).toString();
+
+                fechaYHoraActual = fechaYHoraActual.replace(" ","");
+                fechaYHoraActual = fechaYHoraActual.replace(":","");
+                
+                String nombreDelDocumento = new String();
+
+                nombreDelDocumento = "convenioDeHonorarios".concat(fechaYHoraActual);
+                nombreDelDocumento = nombreDelDocumento.replace(" ","");
+                nombreDelDocumento = nombreDelDocumento.replace(":","");
+                nombreDelDocumento = nombreDelDocumento.replace("/","");
+                
+                  MembretePresupuesto doc = new MembretePresupuesto();
+                  
+                  doc.createPdfCronologicoDeAportes(nombreDelDocumento, nombre);
+                  
+                  downloadCsv(nombreDelDocumento);
+                  
+                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Impresion exitosa"));
+        }
+        }
+
+    
 
 
 /**
@@ -137,4 +220,60 @@ facesContext.responseComplete();
 //FacesContext context = FacesContext.getCurrentInstance();
 
 }
+
+public void downloadCsv(String nombreDelDocumento) throws IOException, InterruptedException {
+    System.err.println("");    
+    System.err.println("");
+    System.err.println("nombreDelDocumento: " + nombreDelDocumento.toString());
+    
+    Thread.sleep(2000);
+    
+// Get the FacesContext
+FacesContext facesContext = FacesContext.getCurrentInstance();
+
+// Get HTTP response
+HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+
+// Set response headers
+response.reset();
+// Reset the response in the first place
+response.setHeader("Content-Type", "application/xls"); 
+// Set only the content type
+
+// Open response output stream
+OutputStream responseOutputStream = response.getOutputStream();
+
+//create facecontext to set the data PDF_URL retrieved to database
+ FacesContext context = FacesContext.getCurrentInstance();
+ ConfiguracionesGeneralesController configuracionesGeneralesController = context.getApplication().evaluateExpressionGet(context, "#{configuracionesGeneralesController}", ConfiguracionesGeneralesController.class);
+      
+// Read PDF contents
+URL url = new URL(configuracionesGeneralesController.getConfiguracionesGenerales(1).getPdfUrl().concat(nombreDelDocumento).concat(".xls"));
+InputStream pdfInputStream = url.openStream();
+
+// Read PDF contents and write them to the output
+byte[] bytesBuffer = new byte[2048];
+int bytesRead;
+while ((bytesRead = pdfInputStream.read(bytesBuffer)) > 0) {
+responseOutputStream.write(bytesBuffer, 0, bytesRead);
+}
+
+// Make sure that everything is out
+responseOutputStream.flush();
+
+// Close both streams
+pdfInputStream.close();
+responseOutputStream.close();
+
+// JSF doc: 
+// Signal the JavaServer Faces implementation that the HTTP response for this request has already been generated 
+// (such as an HTTP redirect), and that the request processing lifecycle should be terminated
+// as soon as the current phase is completed.
+facesContext.responseComplete();
+
+//FacesContext context = FacesContext.getCurrentInstance();
+
+}
+
+
 }

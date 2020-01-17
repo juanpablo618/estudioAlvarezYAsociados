@@ -26,20 +26,14 @@
                                     <p:menuitem style="background-color: white !important" value="formularios de Anses"  />
                                     <p:separator />
                                     <p:menuitem style="background-color: white !important" value="Convenio de Honorarios" >
-                                         
                                     </p:menuitem>
-                                    
                     </p:menuButton>
-                    
-                    
                 </div>
                 
-<h:commandButton value="Imprimir Cronologico" actionListener="#{downloadBean.crearCronologicoDeAportes( expedienteController.selected.nombre)}" />
-                                        
-<h:commandButton value="Imprimir Convenio" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni)}" />
+                <h:commandButton value="Imprimir Cronologico" actionListener="#{downloadBean.crearCronologicoDeAportes( expedienteController.selected.nombre)}" />
+                <h:commandButton value="Imprimir Convenio" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion, expedienteController.selected.nroDeAltura, expedienteController.selected.barrio)}" />
                 
                 <br></br>
-                
                 
                 <div style="float: left">   
                     

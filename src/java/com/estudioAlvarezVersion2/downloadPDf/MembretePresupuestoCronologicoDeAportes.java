@@ -19,14 +19,14 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.faces.context.FacesContext;
-
+import javax.swing.text.StyleConstants.FontConstants;
 
 /**
  *
  * @author developer
  */
 
-public class MembretePresupuesto {
+public class MembretePresupuestoCronologicoDeAportes {
 
     /**
      * Crea un documento con encabezado
@@ -176,6 +176,8 @@ public class MembretePresupuesto {
 
         document.open();
 
+        
+        
         Paragraph parrafo4 = new Paragraph("CONVENIO DE HONORARIOS:");
         parrafo4.setAlignment(Element.ALIGN_CENTER);
 
@@ -214,6 +216,7 @@ public class MembretePresupuesto {
         document.add(parrafo6);
 
         document.add(Chunk.NEWLINE);
+
                 
                 Paragraph parrafo7 = new Paragraph(" . . . . . . . . . . . . . . . . . . . . . . . . . \n FIRMA");
                 parrafo7.setAlignment(Element.ALIGN_RIGHT);
@@ -224,21 +227,18 @@ public class MembretePresupuesto {
                 parrafo8.setAlignment(Element.ALIGN_RIGHT);
 
                 document.add(parrafo8);
+                
 
         document.close();
         
         }
     
+    
      public void createPdfCronologicoDeAportes(String filename , String nombre ) throws IOException, DocumentException {
         
-          float left = 0;
-        float right = 0;
-        float top = 0;
-        float bottom = 0;
-         
-        Document document = new Document(PageSize.LARGE_CROWN_OCTAVO, left, right, top, bottom);
+        Document document = new Document(PageSize.LETTER, 36, 36, 140, 36);
         
-        document.setPageSize(PageSize.LARGE_CROWN_OCTAVO.rotate());
+        // Date fechaDiaria = Calendar.getInstance().getTime();
 
        FacesContext context = FacesContext.getCurrentInstance();
        ConfiguracionesGeneralesController configuracionesGeneralesController = 
@@ -247,7 +247,7 @@ public class MembretePresupuesto {
        
        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(configuracionesGeneralesController.getConfiguracionesGenerales(1).getCarpetaDePresupuestos().concat(filename).concat(".xls")));
 
-       FormatoDocumentoCronologicoDeAportes encabezado = new FormatoDocumentoCronologicoDeAportes();
+       FormatoDocumentoPresupuesto encabezado = new FormatoDocumentoPresupuesto();
        Paragraph parrafo;
        int i = 0;
 
@@ -255,66 +255,36 @@ public class MembretePresupuesto {
         writer.setPageEvent(encabezado);
 
         document.open();
- 
-			// Create a Simple table
-			PdfPTable table = new PdfPTable(2);
- 
-			// Set First row as header
-			table.setHeaderRows(1);
-			// Add header details
 
-                        // Create a new Table
-			PdfPTable childTable1 = new PdfPTable(3);
-			childTable1.addCell("Empresa");
-			childTable1.addCell("desde");
-			childTable1.addCell("hasta");
-			childTable1.addCell("");
-                        childTable1.addCell("");
-                        childTable1.addCell("");
-                        childTable1.addCell("");
-                        childTable1.addCell("");
-                        childTable1.addCell("");
-                        childTable1.addCell("");
-                        childTable1.addCell("");
-                        childTable1.addCell("");
-                        childTable1.addCell("");
-                        childTable1.addCell("");
-                        childTable1.addCell("");
-                        childTable1.addCell("");
-                        childTable1.addCell("");
-                        childTable1.addCell("");
-                        
-			// Add the data
-			table.addCell(childTable1);
- 
-                        PdfPTable childTable2 = new PdfPTable(13);
-			childTable2.addCell("EMPRESA");
-			childTable2.addCell("D");
-			childTable2.addCell("M");
-			childTable2.addCell("A");
+        parrafo = new Paragraph("Estudio Alvarez y Asociados - Convenio De Honorarios".concat(nombre));
+        parrafo.setAlignment(Element.ALIGN_CENTER);
 
-                        childTable2.addCell("D");
-                        childTable2.addCell("M");
-                        childTable2.addCell("A");
-                        childTable2.addCell("A");
-                        childTable2.addCell("M");
-                        childTable2.addCell("D");
-                        childTable2.addCell("A");
-                        childTable2.addCell("M");
-                        childTable2.addCell("D");
-                                        
-			// Add the new table to the Cell of parent table
-			table.addCell(childTable2);
-			
-			// Add more data
-			table.addCell("");
-			table.addCell("");
-			table.addCell("");
- 
-			document.add(table);
- 
-			// close the document
-			document.close();
+        document.add(parrafo);
+
+        document.add(Chunk.NEWLINE);
+
+        
+        String formato="dd-MM-yyyy";
+                SimpleDateFormat dateFormat = new SimpleDateFormat(formato);
+                
+        document.add(Chunk.NEWLINE);
+
+        PdfPTable table = new PdfPTable(1);
+        
+        float[] medidaCeldas = {0.95f};
+
+        // ASIGNAS LAS MEDIDAS A LA TABLA (ANCHO)
+        table.setWidths(medidaCeldas);
+        
+        //table.addCell("ORDEN");
+        //table.addCell("Nombre y Apellido");
+        //table.addCell("Descripción:");
+        
+        
+        
+
+        
+        document.close();
         
         }
 }

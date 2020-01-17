@@ -78,7 +78,7 @@ public void crearDocumento(ArrayList<Agenda> agendasFiltradas , ArrayList<Turno>
 
     
 
-public void crearConvenioDeHonorarios(String nombre, String apellido, String dni) throws IOException, DocumentException, InterruptedException{
+public void crearConvenioDeHonorarios(String nombre, String apellido, String dni, String direccion, String nroDeAltura, String barrio) throws IOException, DocumentException, InterruptedException{
 
     if(nombre == null) {
       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay nombre para imprimir"));
@@ -90,6 +90,11 @@ public void crearConvenioDeHonorarios(String nombre, String apellido, String dni
         System.out.println("Hora: "+hourFormat.format(date));
         //Caso 2: obtener la fecha y salida por pantalla con formato:
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        
+        System.out.println("////////////////////////////////////");
+                System.out.println("////////////////////////////////////");
+                        System.out.println("////////////////////////////////////");
+                                System.out.println("////////////////////////////////////");
         System.out.println("Fecha: "+dateFormat.format(date));
         //Caso 3: obtenerhora y fecha y salida por pantalla con formato:
         DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
@@ -107,11 +112,11 @@ public void crearConvenioDeHonorarios(String nombre, String apellido, String dni
                 nombreDelDocumento = nombreDelDocumento.replace(":","");
                 nombreDelDocumento = nombreDelDocumento.replace("/","");
                 
-                  MembretePresupuesto doc = new MembretePresupuesto();
+                MembretePresupuesto doc = new MembretePresupuesto();
                   
-                  doc.createPdfConvenioDeHonorarios(nombreDelDocumento, nombre, apellido, dni);
+                doc.createPdfConvenioDeHonorarios(nombreDelDocumento, nombre, apellido, dni, direccion, nroDeAltura, barrio);
                   
-                  downloadPdf(nombreDelDocumento);
+                downloadPdf(nombreDelDocumento);
                   
                   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Impresion exitosa del convenio de Honorarios"));
         }

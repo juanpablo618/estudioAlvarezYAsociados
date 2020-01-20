@@ -19,19 +19,8 @@
                     <h:outputText value=" "/>
                     <h:outputText value="#{expedienteController.selected.orden}"/>
                 </div>
-                <div>
-                    <p:menuButton value="Descargar">
-                                    <p:menuitem style="background-color: white !important" value="Cronológico de aportes"  />
-                                    <p:separator />
-                                    <p:menuitem style="background-color: white !important" value="formularios de Anses"  />
-                                    <p:separator />
-                                    <p:menuitem style="background-color: white !important" value="Convenio de Honorarios" >
-                                    </p:menuitem>
-                    </p:menuButton>
-                </div>
                 
-                <h:commandButton value="Imprimir Cronologico" actionListener="#{downloadBean.crearCronologicoDeAportes( expedienteController.selected.nombre)}" />
-                <h:commandButton value="Imprimir Convenio" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion, expedienteController.selected.nroDeAltura, expedienteController.selected.barrio)}" />
+                                
                 
                 <br></br>
                 
@@ -156,6 +145,37 @@
                             <br></br>
                         </p:tab>
 
+                         <p:tab title="Documentos">
+
+                             <div>
+                                 <h:commandButton value="Imprimir Convenio" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion, expedienteController.selected.nroDeAltura, expedienteController.selected.barrio)}" />
+                
+                                    <p:commandButton value="C. de Aportes" ajax="false">
+                                        <p:fileDownload value="#{fileBean.file3}"/>
+                                    </p:commandButton>
+
+                             
+                                </div>
+                            <br></br>
+                            <div>
+                                <p:commandButton value="Carta Poder" ajax="false">
+                                    <p:fileDownload value="#{fileBean.file}"/>
+                                </p:commandButton>
+
+                            </div>
+                            <br></br>
+                            <div>
+                               <p:commandButton value="Solicitud de prestaciones previsionales" ajax="false">
+                                        <p:fileDownload value="#{fileBean.file2}"/>
+                                    </p:commandButton>
+
+                            </div>
+                            
+                            <br></br>
+                            <br></br>
+                        </p:tab>
+
+                        
                     </p:tabView>
 
 
@@ -232,6 +252,8 @@
                 
                 </div>
          
+                
+                
                <br></br>
                <div style="margin-top: 50%;float: right">
                     

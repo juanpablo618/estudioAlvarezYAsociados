@@ -20,8 +20,8 @@ private Connection cn;
     try {
         
             Class.forName("com.mysql.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/estudioAlvarez?user=root&password=");
-
+            cn = DriverManager.getConnection("jdbc:mysql://10.100.26.28:3306/estudioAlvarez?useSSL=false");
+            
         } catch (Exception e) {
         throw e;
             }
@@ -41,7 +41,7 @@ private Connection cn;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/estudioAlvarez", "root", "");
+					"jdbc:mysql://10.100.26.28:3306/estudioAlvarez?useSSL=false", "root", "FGAilv51524");
 			return con;
 		} catch (Exception ex) {
 			System.out.println("Database.getConnection() Error --> en la clase DAO."

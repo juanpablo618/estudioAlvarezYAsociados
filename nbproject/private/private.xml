@@ -3,13 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/src/java/com/estudioAlvarezVersion2/downloadPDf/ConfiguracionesGenerales.java</file>
-            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/agenda/List_AgendasTurnos.xhtml</file>
-            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/src/java/com/estudioAlvarezVersion2/downloadPDf/DownloadBean.java</file>
-            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/estadoDelTramite/Create.xhtml</file>
-            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/expediente/EditExpJudicial.xhtml</file>
-            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/src/java/com/estudioAlvarezVersion2/downloadPDf/MembretePresupuesto.java</file>
-            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/nbproject/build-impl.xml</file>
+            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/resources/scripts/propertiesToJelastic.txt</file>
+            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/WEB-INF/glassfish-resources.xml</file>
+            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/src/java/com/estudioAlvarezVersion2/Login/Login.java</file>
+            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/src/java/com/estudioAlvarezVersion2/jpa/DAO.java</file>
+            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/expediente/List.xhtml</file>
+            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/web/resources/scripts/scriptsParaDb.txt</file>
+            <file>file:/home/developer/NetBeansProjects/EstudioAlvarezVersion2/src/java/com/estudioAlvarezVersion2/jpa/LoginDAO.java</file>
         </group>
     </open-files>
 </project-private>

@@ -129,6 +129,7 @@ public class Expediente implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "fechaDeAltaDeExpediente")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaDeAltaDeExpediente;
 
     @Basic(optional = false)
@@ -153,6 +154,7 @@ public class Expediente implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "fechaDeCobro")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaDeCobro;
 
     @Basic(optional = false)
@@ -181,6 +183,7 @@ public class Expediente implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "fechaDeAtencion")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaDeAtencion;
 
     @Basic(optional = false)

@@ -64,7 +64,7 @@ public class Login implements Serializable {
 			session.setAttribute("username", user);
                         
                         System.out.println("is valid");
-                         return "agenda/List.xhtml";
+                         return "expediente/List.xhtml";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(
 					null,

@@ -82,6 +82,20 @@ public class ExpedienteController implements Serializable {
         return ejbFacade;
     }
 
+    public Expediente prepareCreateExpAdministrativo() {
+        selected = new Expediente();
+        selected.setTipoDeExpediente("administrativo");
+        initializeEmbeddableKey();
+        return selected;
+    }
+    
+    public Expediente prepareCreateExpJudicial() {
+        selected = new Expediente();
+        selected.setTipoDeExpediente("judicial");
+        initializeEmbeddableKey();
+        return selected;
+    }
+    
     public Expediente prepareCreate() {
         selected = new Expediente();
         initializeEmbeddableKey();

@@ -84,7 +84,7 @@
 
  .editDialogExpediente{
    
-      width: 90% !important;
+    width: 72% !important;
     height: 90% !important;
     top: 2% !important;
     z-index: 1005 !important;
@@ -141,17 +141,17 @@
 
 
 .crearExpedienteJudicial{
-    width: 70% !important;
-    height: 70% !important;
-    left: 10% !important;
+    width: 85% !important;
+    height: 85% !important;
+    left: 5% !important;
     top: 5% !important;
     z-index: 1005 !important;
     position: absolute;
 
 }
 .editarExpedienteJudicial{
-    width: 75% !important;
-    height: 75% !important;
+    width: 85% !important;
+    height: 85% !important;
     left: 5% !important;
     top: 5% !important;
     z-index: 1005 !important;
@@ -181,7 +181,17 @@ td.centeredColumnContent{
     text-align: center;
 }
 
+ui-datatable .ui-column-filter{
+    width: 38% !important;
+}
+
 div.ui-layout-unit-content {
         background-color: #2A55AA !important;
 
+}
+
+
+
+.ui-datatable .ui-column-filter{
+    width: 35% !important;
 }

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ExpedienteViewDialogParaAgenda" widgetVar="ExpedienteViewDialogParaAgenda" modal="true" resizable="false" appendTo="@(body)" header="Ver Expediente">
+            
+            <h:form id="ExpedienteViewFormParaAgenda">
+                <h:panelGroup id="display">
+                    
+                    <p:panel  style="margin-bottom:2px">
+                        <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
+        
+                            <h:panelGrid columns="10" cellpadding="1" rendered="#{expedienteController.selected != null}">
+                                
+                                <h:outputText value="Tipo de expediente:"  style="font-weight: bold" />
+                                <h:outputText value="#{expedienteController.selected.tipoDeExpediente}" title="tipoDeExpediente"/>
+                            
+                                <h:outputText value="Fecha de alta de expediente:" style="font-weight: bold" />
+                                <h:outputText value="#{expedienteController.selected.fechaDeAltaDeExpediente}" title="fecha de alta de expediente">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            
+                                <h:outputText value="Fecha de atención:" style="font-weight: bold" />
+                                <h:outputText value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </h:panelGrid>
+                          
+                        </h:panelGrid>   
+                    
+                    <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
+                        
+                        <h:outputText value="Tipo de tramite:" style="font-weight: bold" />
+                        <h:outputText value="#{expedienteController.selected.tipoDeTramite}" title="tipoDeTramite"/>
+                    
+                        <h:outputText value="Estado del tramite:" style="font-weight: bold" />
+                        <h:outputText value="#{expedienteController.selected.estadoDelTramite}" title="estadoDelTramite"/>
+
+                        <h:outputText value="Cobra  Beneficio:" style="font-weight: bold" />
+                        <h:outputText value="#{expedienteController.selected.cobraBeneficio}" title="cobra beneficio"/>
+
+                    </h:panelGrid>   
+                    
+                    <br></br>
+                    
+                    <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
+                        <h:outputText value="Observaciones:" style="font-weight: bold" />
+                    </h:panelGrid>   
+                    
+                    <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
+                        <h:outputText  value="#{expedienteController.selected.observaciones}" title="observaciones"/>
+                    </h:panelGrid>
+                 </p:panel>          
+                    <br></br>
+                   <p:fieldset legend="Agregar Agenda" toggleable="true" toggleSpeed="500">
+                         
+                        <p:panel  style="margin-bottom:2px">
+
+                            <h:panelGrid columns="6" rendered="#{expedienteController.selected != null}">
+
+                                <p:outputLabel value="#{bundle.CreateAgendaLabel_fecha}" for="fecha" style="font-weight: bold" />
+                                <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" title="#{bundle.EditAgendaTitle_fecha}" showOn="button"/>
+                             </h:panelGrid> 
+                            
+                            <h:panelGrid columns="6" rendered="#{expedienteController.selected != null}">
+                                <p:outputLabel value="Actividad:" for="descripcion" style="font-weight: bold" />
+
+                                <p:inputTextarea rows="5" cols="50" id="descripcion" value="#{agendaController.selected.descripcion}" title="#{bundle.CreateAgendaTitle_descripcion}" />
+                            </h:panelGrid>    
+                             <br></br>
+
+                            <h:panelGrid columns="6" rendered="#{expedienteController.selected != null}" >
+
+                                <p:outputLabel value="Responsable:" for="responsable" style="font-weight: bold" />
+                                <p:selectOneMenu  id="responsable" value="#{agendaController.selected.responsable}"  >
+                                    <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
+                                </p:selectOneMenu>
+
+                            </h:panelGrid>
+                          <p:commandButton actionListener="#{agendaController.create(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.orden)}" value="Guardar Agenda" onclick="ExpedienteViewDialog.hide()"/>
+
+                        </p:panel>
+                    </p:fieldset>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Editar expediente" update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()" disabled="#{empty expedienteController.selected}"/>
+                        
+                    <p:commandButton value="#{bundle.Close}" onclick="ExpedienteViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+            <br></br>
+            
+        </p:dialog>
+
+    </ui:composition>
+</html>

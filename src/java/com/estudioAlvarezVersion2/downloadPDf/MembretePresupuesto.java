@@ -89,16 +89,21 @@ public class MembretePresupuesto {
             Font font1 = new Font(Font.TIMES_ROMAN, 10, Font.BOLD);
             Font boldFont = new Font(Font.TIMES_ROMAN, 18, Font.BOLD);
 
-            //Chunk hello = new Chunk(" "+agenda.getApellido().concat(agenda.getNombre()), font1);
+                Phrase firstLine = null;
                 
-            Phrase firstLine = new Phrase(" "+agenda.getApellido().concat(" "+agenda.getNombre()), boldFont );
-
+            if (agenda.getApellido() != null && agenda.getNombre() != null) {
+                 firstLine = new Phrase(" "+agenda.getApellido().concat(" "+agenda.getNombre()), boldFont );
+            }
+            
             Paragraph orden = new Paragraph("orden: "+agenda.getOrden());
+            
+            
+            if (agenda.getApellido() != null && agenda.getNombre() != null) {
+                Paragraph nombreYApellidoEnBold = new Paragraph(agenda.getApellido().concat(" "+agenda.getNombre()), boldFont );
+                Paragraph ObservacionYResponsable = new Paragraph(agenda.getApellido().concat(agenda.getNombre()), boldFont );
+            }
 
-            Paragraph nombreYApellidoEnBold = new Paragraph(agenda.getApellido().concat(" "+agenda.getNombre()), boldFont );
-
-            Paragraph ObservacionYResponsable = new Paragraph(agenda.getApellido().concat(agenda.getNombre()), boldFont );
-
+    
             
             if(agenda.getApellido() != null && agenda.getApellido() != null && 
                agenda.getNombre() != null && agenda.getResponsable() != null && 

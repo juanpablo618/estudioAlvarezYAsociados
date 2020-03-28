@@ -13,9 +13,9 @@
                 <h:panelGroup id="display">
                 </h:panelGroup >
                 
-                <div >   
+                <div style="float: left">   
                     
-                    <p:tabView style="width: 120%">
+                    <p:tabView style="width: 160%">
 
                         <p:tab title="Datos personales">
 
@@ -152,8 +152,7 @@
             </div>
                     
                 
-                <div > 
-                
+                <div style="float: right"> 
                 
                     <p:outputLabel value="Tipo:" for="tipo" style="font-weight: bold"/><br></br>
 
@@ -166,8 +165,6 @@
                                         <f:selectItem itemLabel="Laboral" itemValue="Laboral" />
                                         <f:selectItem itemLabel="Otros" itemValue="Otros" />
                                     </p:selectOneMenu>
-                                   
-                            
                             
                             <br></br><br></br>
                             
@@ -179,7 +176,7 @@
                                    <p:inputText id="nroDeExpediente" value="#{expedienteController.selected.nroDeExpediente}" title="nroDeExpediente" /><br></br>
                                     
                                    <br></br>
-                                   <p:outputLabel value="Jurisdicción::" for="jurisdiccion" style="font-weight: bold" /><br></br>
+                                   <p:outputLabel value="Jurisdicción:" for="jurisdiccion" style="font-weight: bold" /><br></br>
                                    <p:selectOneMenu id="jurisdiccion" style="margin-left: 3%" value="#{expedienteController.selected.jurisdiccion}" editable="true" >
                                         <f:selectItem itemLabel="Provincia - Juzgado N°" itemValue="Provincia - Juzgado N°" />
                                         <f:selectItem itemLabel="Provincia - Cámara" itemValue="Provincia - Cámara" />
@@ -211,24 +208,16 @@
                                     </p:selectOneMenu>
                                    <br></br>
                                    <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
-                                   <p:inputTextarea rows="10" cols="33" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
+                                   <p:inputTextarea rows="5" cols="63" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
                                    <br></br>
                             
-                            
-                            
-                            
-                            
-                
-                </div>
-         
-               <br></br>
-               <div style="margin-top: 50%;float: right">
+                            <br></br>
                     
                     <p:commandButton value="#{bundle.Cancel}" onclick="ExpedienteJudicialCreateDialog.hide()"/>
                     <p:commandButton actionListener="#{expedienteController.create}" class="botonCrearAgenda" value="Crear" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ExpedienteJudicialCreateDialog');"/>
-                 
-               </div>
-                
+                   
+                </div>
+         
         </h:form>
             
         </p:dialog>

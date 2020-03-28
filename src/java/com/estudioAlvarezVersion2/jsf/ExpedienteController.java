@@ -8,7 +8,10 @@ import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.ExpedienteFacade;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -85,6 +88,11 @@ public class ExpedienteController implements Serializable {
     public Expediente prepareCreateExpAdministrativo() {
         selected = new Expediente();
         selected.setTipoDeExpediente("administrativo");
+        
+        Date date = new Date();
+    
+        selected.setFechaDeAtencion(date);
+                
         initializeEmbeddableKey();
         return selected;
     }

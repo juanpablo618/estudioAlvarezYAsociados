@@ -20,6 +20,9 @@ public class FileDownloadView {
     private StreamedContent file;
     private StreamedContent file2;
     private StreamedContent file3; 
+    
+    
+    
     public FileDownloadView() {
         file = new DefaultStreamedContent(FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/documentos/Carta_Poder.pdf"), "application/pdf", "Carta_Poder.pdf");
        
@@ -28,7 +31,7 @@ public class FileDownloadView {
         file3 = new DefaultStreamedContent(FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/documentos/cronologioDeAportes.xls"), "application/vnd.ms-excel", "cronologioDeAportes.xls");
        
     }
- 
+
     public StreamedContent getFile() {
         return file;
     }

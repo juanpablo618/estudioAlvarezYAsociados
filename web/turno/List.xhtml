@@ -23,7 +23,6 @@
                 <br></br>
                 <br></br>
                 
-                
                     <p:dataTable id="datalist" value="#{turnoController.items}" var="item"
                                  selectionMode="single" selection="#{turnoController.selected}"
                                  paginator="true"
@@ -52,19 +51,13 @@
                             </h:outputText>
                         </p:column>
                         
-                        <p:column style="text-align: center; width: 10%">
+                        <p:column  filterBy="#{item.apellido} #{item.nombre}"  styleClass="centeredColumnContent" filterMatchMode="contains">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTurnoTitle_nombre}"/>
+                                <h:outputText value="Nombre y Apellido"/>
                             </f:facet>
-                            <h:outputText value="#{item.nombre}"/>
+                            <h:outputText  id="JuanCuello" value="#{ item.apellido} #{ item.nombre}"/>
                         </p:column>
                         
-                        <p:column style="text-align: center; width: 7%" filterBy="#{item.apellido}"  filterMatchMode="contains">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTurnoTitle_apellido}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.apellido}"/>
-                        </p:column>
                         
                         <p:column style="text-align: center; width: 6%">
                             <f:facet name="header">

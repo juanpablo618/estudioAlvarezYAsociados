@@ -51,6 +51,8 @@
 
                         <p:ajax event="rowSelect"   update="createButton "/>
                         <p:ajax event="rowUnselect" update="createButton "/>
+                        
+                        <p:growl  id="message" showDetail="true" />
 
                         <p:column filterBy="#{item.orden}"  styleClass="centeredColumnContent" filterMatchMode="exact">
                             <f:facet name="header">
@@ -59,11 +61,11 @@
                             <h:outputText value="#{item.orden}"/>
                         </p:column>
 
-                        <p:column filterBy="#{item.apellido} #{item.nombre}"  styleClass="centeredColumnContent" filterMatchMode="contains">
+                        <p:column  filterBy="#{item.apellido} #{item.nombre}"  styleClass="centeredColumnContent" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="Nombre y Apellido"/>
                             </f:facet>
-                            <h:outputText value="#{ item.apellido} #{ item.nombre}"/>
+                            <h:outputText  id="JuanCuello" value="#{ item.apellido} #{ item.nombre}"/>
                         </p:column>
                         
                         <p:column style="text-align: center; " exportable="false">
@@ -84,9 +86,16 @@
                                 <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                             </p:commandButton>
                             
-                            <p:commandButton class="linea"  actionListener="#{expedienteController.destroy}" update=":growl,datalist" icon="ui-icon-circle-close" title="borrar">
+                            <p:commandButton class="linea" update=":growl,datalist, message" actionListener="#{expedienteController.destroy}"  icon="ui-icon-circle-close" title="borrar">
                                 <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
+                                <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
+
                             </p:commandButton>
+                            
+                            <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton update="@all" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                <p:commandButton update="@all" value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                            </p:confirmDialog> 
                             
                         </p:column>
                                                 
@@ -94,14 +103,12 @@
                             <p:commandButton id="createButton" rendered="false" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{expedienteController.prepareCreate}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"/>
                         </f:facet>
                     </p:dataTable>
-                
-              <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" update=":growl,datalist"/>
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" update=":growl,datalist"/>
-              </p:confirmDialog>  
-            
+                         
             <p:contextMenu for="datalist">
+                <p:menuitem icon="ui-icon-pencil" style="background-color: white !important" value="agregar Agenda" actionListener="#{agendaController.prepareCreate}" update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show()" />             
+            
                 <p:menuitem icon="ui-icon-pencil" style="background-color: white !important" value="agregar Turno" actionListener="#{turnoController.prepareCreate}" update=":ExpedienteViewFormParaTurno" oncomplete="PF('ExpedienteViewDialogParaTurno').show()" />             
+            
             </p:contextMenu>    
                 
             </h:form>
@@ -110,7 +117,7 @@
             <ui:include src="CreateExpJudicial.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="EditExpJudicial.xhtml"/>
-            <ui:include src="View.xhtml"/>
+            <ui:include src="ViewParaAgenda.xhtml"/>
             <ui:include src="View_1.xhtml"/>
             <ui:include src="ViewExpJudicial.xhtml"/>
             <ui:include src="ViewParaTurno.xhtml"/>

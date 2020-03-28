@@ -21,16 +21,7 @@
                     <h:outputText value=" "/>
                     <h:outputText value="#{expedienteController.selected.orden}"/>
                 </div>
-                <div>
-                    <p:menuButton value="Descargar">
-                                    <p:menuitem style="background-color: white !important" value="Cronológico de aportes"  />
-                                    <p:separator />
-                                    <p:menuitem style="background-color: white !important" value="formularios de Anses"  />
-                                    <p:separator />
-                                    <p:menuitem style="background-color: white !important" value="Convenio de Honorarios"  />
-                                    
-                    </p:menuButton>
-                </div>
+                
                     <br></br><br></br>
                 
                 <div style="float: left">   
@@ -195,9 +186,14 @@
                                     <p:commandButton value="C. de Aportes" ajax="false">
                                         <p:fileDownload value="#{fileBean.file3}"/>
                                     </p:commandButton>
-
-                             
-                                </div>
+                             </div>
+                            <div>
+                                <h:commandLink>
+                                    <p:graphicImage name="/demo/images/excel.png" width="24"/>
+                                    <p:dataExporter type="xls" target="#{fileBean.file3}" fileName="cars" options="#{customizedDocumentsView.excelOpt}" />
+                                </h:commandLink>
+                            </div>
+                            
                             <br></br>
                             <div>
                                 <p:commandButton value="Carta Poder" ajax="false">
@@ -221,7 +217,7 @@
 
                 </div>
 
-                <div style="float: right"> 
+                <div style="float: right; width: 38%"> 
 
                     <div>
                     
@@ -302,7 +298,7 @@
 
                     <br></br><br></br>
                     <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
-                    <p:inputTextarea rows="10" cols="33" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
+                    <p:inputTextarea rows="5" cols="53" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
 
                     <br></br>     
                     <p:commandButton value="#{bundle.Cancel}" onclick="ExpedienteEditDialog.hide()"/>

@@ -12,7 +12,7 @@
             
             <h:form id="ExpedienteViewFormParaTurno">
                 <h:panelGroup id="display">
-                   <p:fieldset legend="Datos Personales:" toggleable="true" toggleSpeed="500">
+                   <p:fieldset legend="Datos Personales:" toggleable="true"  toggleSpeed="500">
                      
                        <p:panel>  
                             <h:panelGrid columns="10" cellpadding="1" >
@@ -138,63 +138,6 @@
                         </p:panel>   
                 </p:fieldset>
                 <br></br>
-                <p:fieldset legend="Claves:" toggleable="true" toggleSpeed="500">
-                       
-                    <p:panel  style="margin-bottom:2px" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}">  
-                        <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
-                        
-                                    <h:outputText value="Caratula:" style="font-weight: bold" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"/>
-                                    <h:outputText value="#{expedienteController.selected.caratula}" title="caratula" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" />
-
-                            
-                                    <h:outputText value="nro de Expediente:" style="font-weight: bold" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" />
-                                    <h:outputText value="#{expedienteController.selected.nroDeExpediente}" title="nroDeExpediente" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" />
-                    
-                                    <h:outputText value="Juzgado O Dependencia:" style="font-weight: bold" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" />
-                                    <h:outputText value="#{expedienteController.selected.juzgadoODependencia}" title="juzgadoODependencia" rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" />
-
-                                    <p:panel header="Link al poder judicial"  rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}"> 
-                                        <button><a  href="https://scw.pjn.gov.ar/scw/home.seam" target="_blank">Link Para Judiciales</a></button>
-                                    </p:panel>
-                            
-                        </h:panelGrid>
-                    </p:panel>     
-                        
-                    <p:panel  style="margin-bottom:2px">
-                        <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
-                        
-                            <h:outputText value="clave de SS:" style="font-weight: bold" />
-                            <h:outputText value="#{expedienteController.selected.claveSeguridadSocial}" title="clave de seguridad social"/>
-                            <button><a href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=mianses" target="_blank">Clave de Seguridad Social</a></button>
-
-                            <h:outputText value="clave Cidi:" style="font-weight: bold" />
-                            <h:outputText value="#{expedienteController.selected.claveCidi}" title="clave Cidi"/>
-                            <button><a href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank">Clave Fiscal</a></button>
-
-                            <h:outputText value="clave Fiscal:" style="font-weight: bold" />
-                            <h:outputText value="#{expedienteController.selected.claveFiscal}" title="clave Fiscal"/>
-                            <button><a href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank">Clave Fiscal</a></button>
-                        
-                        
-                        </h:panelGrid>
-                    </p:panel>    
-                    
-                    <p:panel  style="margin-bottom:2px">
-                            <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
-                                    <h:outputText value="Fecha de cobro:" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selected.fechaDeCobro}" title="fecha de cobro">
-                                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-
-                            </h:panelGrid>
-                        <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
-                                <h:outputText value="Procedencia:" style="font-weight: bold" />
-                                <h:outputText value="#{expedienteController.selected.procedencia}" title="procedencia"/>
-                    
-                        </h:panelGrid>    
-                    </p:panel>   
-                  </p:fieldset>   
-                    <br />
                    <p:fieldset legend="Agregar Turno:" toggleable="true" toggleSpeed="500">
                    
                        <p:outputLabel value="día y hora:" for="horaYDia" />

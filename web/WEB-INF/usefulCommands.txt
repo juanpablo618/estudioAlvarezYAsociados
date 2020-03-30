@@ -1,0 +1,2 @@
+Converting all upper case to lower case in SQL 
+UPDATE expediente SET nombre = LOWER(nombre), apellido = LOWER(apellido);

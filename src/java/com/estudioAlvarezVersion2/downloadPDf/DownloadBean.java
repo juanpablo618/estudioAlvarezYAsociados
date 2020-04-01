@@ -91,10 +91,6 @@ public void crearConvenioDeHonorarios(String nombre, String apellido, String dni
         //Caso 2: obtener la fecha y salida por pantalla con formato:
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         
-        System.out.println("////////////////////////////////////");
-                System.out.println("////////////////////////////////////");
-                        System.out.println("////////////////////////////////////");
-                                System.out.println("////////////////////////////////////");
         System.out.println("Fecha: "+dateFormat.format(date));
         //Caso 3: obtenerhora y fecha y salida por pantalla con formato:
         DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");

@@ -1,2 +1,14 @@
 Converting all upper case to lower case in SQL 
 UPDATE expediente SET nombre = LOWER(nombre), apellido = LOWER(apellido);
+
+
+
+Para el error de "descargar convenio" hay que crear una carpeta en el server y luego modificar la bd.
+
+
+si los filtros no llegan a funcionar.
+<p:remoteCommand name="onload" oncomplete="PF('turnosTable').clearFilters()" autoRun="true" />
+                
+
+
+siempre usar el sistema en 80% por que las interfaces son muy grandes.

@@ -33,7 +33,9 @@
 
                         <p:ajax event="rowSelect"   update="createButton "/>
                         <p:ajax event="rowUnselect" update="createButton "/>
-
+                        
+                        <p:growl  id="message" showDetail="true" />
+ 
                         <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEstadoDelTramiteTitle_estado}"/>
@@ -51,9 +53,18 @@
                                    <f:setPropertyActionListener value="#{item}" target="#{estadoDelTramiteController.selected}" />
                             </p:commandButton>
                             
-                            <p:commandButton class="linea"  actionListener="#{estadoDelTramiteController.destroy}" update="@all" icon="ui-icon-circle-close" title="borrar">
+                            <p:commandButton class="linea" update=":growl,datalist, message" actionListener="#{estadoDelTramiteController.destroy}"  icon="ui-icon-circle-close" title="borrar">
                                 <f:setPropertyActionListener value="#{item}" target="#{estadoDelTramiteController.selected}" />
+                                <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
                             </p:commandButton>
+
+                            <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton update="@all" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                <p:commandButton update="@all" value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                            </p:confirmDialog> 
+                            
+                            
+                            
                         </p:column>
                         
                         

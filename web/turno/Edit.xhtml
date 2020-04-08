@@ -21,10 +21,14 @@
                         <p:inputText id="apellido" value="#{turnoController.selected.apellido}" title="#{bundle.EditTurnoTitle_apellido}" /><br></br><br></br>
                         <p:outputLabel value="#{bundle.EditTurnoLabel_nroDeTelefono}" for="nroDeTelefono" /><br></br>
                         <p:inputText id="nroDeTelefono" value="#{turnoController.selected.nroDeTelefono}" title="#{bundle.EditTurnoTitle_nroDeTelefono}" /><br></br><br></br>
-                        <p:outputLabel value="#{bundle.EditTurnoLabel_procedencia}" for="procedencia" /><br></br>
-                        <p:inputText id="procedencia" value="#{turnoController.selected.procedencia}" title="#{bundle.EditTurnoTitle_procedencia}" /><br></br><br></br>
-                        <p:outputLabel value="#{bundle.EditTurnoLabel_observacion}" for="observacion" /><br></br>
                         
+                        <p:outputLabel value="#{bundle.EditTurnoLabel_procedencia}" for="procedencia" /><br></br>
+                        
+                        <p:selectOneMenu  id="procedencia" value="#{turnoController.selected.procedencia}"  editable="true">
+                            <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.getNombreProcedencia()}" itemValue="#{procedencia.getNombreProcedencia()}" />
+                        </p:selectOneMenu><br></br><br></br>
+                        
+                        <p:outputLabel value="#{bundle.EditTurnoLabel_observacion}" for="observacion" /><br></br>
                         <p:inputTextarea cols="33" rows="10" autoResize="false" id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.EditTurnoTitle_observacion}" /><br></br><br></br>
                     
                         <p:outputLabel value="Responsable" for="responsable" /><br></br>

@@ -248,7 +248,18 @@
                         <br></br>
                         <div>
                             <p:outputLabel value="convenio de honorarios" style="font-weight: bold" for="convenioDeHonorarios" /><br></br>
-                            <p:inputText id="convenioDeHonorarios" value="#{expedienteController.selected.convenioDeHonorarios}" title="convenioDeHonorarios" />
+                            <p:selectOneMenu style="margin-left: 3%" id="convenioDeHonorarios" value="#{expedienteController.selected.convenioDeHonorarios}" editable="true" effect="fold" >
+                                <f:selectItem itemLabel="1 haber" itemValue="1 haber" />
+                                <f:selectItem itemLabel="2 haberes" itemValue="2 haberes" />
+                                <f:selectItem itemLabel="2 haberes y 20% retroactivo" itemValue="2 haberes y 20% retroactivo" />
+                                <f:selectItem itemLabel="2 haberes y 30% retroactivo" itemValue="2 haberes y 30% retroactivo" />
+                                <f:selectItem itemLabel="3 haberes" itemValue="3 haberes" />
+                                <f:selectItem itemLabel="20% retroactivo" itemValue="20% retroactivo" />
+                                <f:selectItem itemLabel="25% retroactivo" itemValue="25% retroactivo" />
+                            </p:selectOneMenu>
+                            
+                        
+                        
                         </div>
                     </div>
                     <br></br>

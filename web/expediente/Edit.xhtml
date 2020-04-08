@@ -52,7 +52,6 @@
                                 </div> 
                             </div> 
                             <br></br><br></br>
-
                             <div>
                                 <div style="float: left">
 
@@ -70,7 +69,6 @@
 
                                 </div>
                             </div> 
-
 
                             <br></br><br></br>
                             <div>
@@ -110,9 +108,6 @@
                                     <br></br>                    
                                     <p:outputLabel value="Altura:" for="nroDeAltura" style="font-weight: bold" /><br></br>
                                     <p:inputText id="nroDeAltura" value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.CreateExpedienteTitle_nroDeAltura}" />
-
-
-
 
                                 </div>
                                 <div style="float: left">
@@ -184,17 +179,9 @@
                                  <h:commandButton value="Imprimir Convenio" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion, expedienteController.selected.nroDeAltura, expedienteController.selected.barrio)}" />
                 
                                     <p:commandButton value="C. de Aportes" ajax="false">
-                                        <p:fileDownload value="#{fileBean.file3}"/>
-                                    </p:commandButton>
-                             </div>
-                            
-                            <div>
-                                 
-                                    <p:commandButton value="C. de CUELLOOOO" ajax="false">
                                         <p:fileDownload value="#{fileBean.createExcel(expedienteController.selected.fechaDeNacimiento, expedienteController.selected.sexo, expedienteController.selected.nroDeExpediente, expedienteController.selected.nombre, expedienteController.selected.apellido)}"/>
                                     </p:commandButton>
                              </div>
-                            
                             
                             <br></br>
                             <div>
@@ -222,10 +209,12 @@
                 <div style="float: right; width: 38%"> 
 
                     <div>
-                    
-                        <p:outputLabel value="PRÓXIMA AGENDA" style="font-weight: bold" /><br></br>
-                        <p:outputLabel value="#{expedienteController.verProximaAgenda(expedienteController.selected.orden)}" style="font-weight: bold" /><br></br>
-                    
+                        <p:fieldset legend="PRÓXIMA AGENDA" toggleable="true" toggleSpeed="500">
+                            <p:outputLabel value="#{expedienteController.verProximaAgenda(expedienteController.selected.orden)}" style="font-weight: bold" /><br></br>
+                        </p:fieldset>
+                    </div>
+                    <div>
+                        <p:commandButton id="createButton" value="crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteEditDlg').hide()" />
                     </div>
                     
                     <br></br>
@@ -270,9 +259,9 @@
 
                     <br></br><br></br>
                     <div>
-                        <div style="float: left">
-                            <p:outputLabel value="Fecha de cobro:" for="fechaDeCobro" style="font-weight: bold" /><br></br>
-                            <p:calendar style="width: 112px;" id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" />
+                        <div style="float: left" >
+                            <p:outputLabel value="Fecha de cobro:" for="fechaDeCobro" style="font-weight: bold" rendered="#{expedienteController.selected.estadoDelTramite eq 'RESUELTO FAVORABLE'}" /><br></br>
+                            <p:calendar style="width: 112px;" id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" rendered="#{expedienteController.selected.estadoDelTramite eq 'RESUELTO FAVORABLE'}" />
                         </div>
                         <div>
                             <p:outputLabel value="Cobra Beneficio" for="cobraBeneficio" style="margin-left: 3%;font-weight: bold" /><br></br>
@@ -288,7 +277,17 @@
                         <br></br>
                         <div>
                             <p:outputLabel value="convenio de honorarios" style="font-weight: bold" for="convenioDeHonorarios" /><br></br>
-                            <p:inputText id="convenioDeHonorarios" value="#{expedienteController.selected.convenioDeHonorarios}" title="convenioDeHonorarios" />
+                            
+                            <p:selectOneMenu style="margin-left: 3%" id="convenioDeHonorarios" value="#{expedienteController.selected.convenioDeHonorarios}" editable="true" effect="fold" >
+                                <f:selectItem itemLabel="1 haber" itemValue="1 haber" />
+                                <f:selectItem itemLabel="2 haberes" itemValue="2 haberes" />
+                                <f:selectItem itemLabel="2 haberes y 20% retroactivo" itemValue="2 haberes y 20% retroactivo" />
+                                <f:selectItem itemLabel="2 haberes y 30% retroactivo" itemValue="2 haberes y 30% retroactivo" />
+                                <f:selectItem itemLabel="3 haberes" itemValue="3 haberes" />
+                                <f:selectItem itemLabel="20% retroactivo" itemValue="20% retroactivo" />
+                                <f:selectItem itemLabel="25% retroactivo" itemValue="25% retroactivo" />
+                            </p:selectOneMenu>
+                        
                         </div>
                     </div>
                     <br></br>

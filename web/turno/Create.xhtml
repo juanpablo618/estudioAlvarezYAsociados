@@ -11,8 +11,8 @@
         <p:dialog id="TurnoCreateDlg" widgetVar="TurnoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTurnoTitle}">
             <h:form id="TurnoCreateForm">
                 <h:panelGroup id="display">
-                    <p:outputLabel value="día y hora:" for="horaYDia" /><br></br>
-                        <p:calendar id="horaYDia" minHour="8" maxHour="19" pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" required="true" requiredMessage="#{bundle.EditTurnoRequiredMessage_horaYDia}" showOn="button"/><br></br><br></br>
+                        <p:outputLabel value="día y hora:" for="horaYDia" /><br></br>
+                        <p:calendar id="horaYDia" minHour="8" maxHour="19" pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" showOn="button"/><br></br><br></br>
                         
                         <p:outputLabel value="#{bundle.CreateTurnoLabel_nombre}" for="nombre" /><br></br>
                         
@@ -25,7 +25,11 @@
                         <p:inputText id="nroDeTelefono" value="#{turnoController.selected.nroDeTelefono}" title="#{bundle.CreateTurnoTitle_nroDeTelefono}" /><br></br><br></br>
                         
                         <p:outputLabel value="#{bundle.CreateTurnoLabel_procedencia}" for="procedencia" /><br></br>
-                        <p:inputText id="procedencia" value="#{turnoController.selected.procedencia}" title="#{bundle.CreateTurnoTitle_procedencia}" /><br></br><br></br>
+                        
+                        <p:selectOneMenu  id="procedencia" value="#{turnoController.selected.procedencia}"  editable="true">
+                            <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.getNombreProcedencia()}" itemValue="#{procedencia.getNombreProcedencia()}" />
+                        </p:selectOneMenu><br></br><br></br>
+                        
                         <p:outputLabel value="#{bundle.CreateTurnoLabel_observacion}" for="observacion" /><br></br>
                         <p:inputTextarea cols="33" rows="10" autoResize="false" id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.CreateTurnoTitle_observacion}" /><br></br><br></br>
                         

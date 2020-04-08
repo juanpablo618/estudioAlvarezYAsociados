@@ -50,13 +50,10 @@ public class Agenda implements Serializable {
     @Basic(optional = false)
     @Column(name = "descripcion")
     private String descripcion;
-    @Basic(optional = false)
-
-    @Size(min = 1, max = 500)
+    
     @Column(name = "nombre")
     private String nombre;
         
-    @Size(min = 1, max = 500)
     @Column(name = "apellido")
     private String apellido;
     

@@ -7,9 +7,6 @@ package com.estudioAlvarezVersion2.downloadPDf;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Image;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.Rectangle;
-import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfPageEventHelper;
 import com.lowagie.text.pdf.PdfWriter;
@@ -31,12 +28,11 @@ public class FormatoDocumentoConvenioDeHonorarios extends PdfPageEventHelper
     {
         try
         {
-             FacesContext context = FacesContext.getCurrentInstance();
+            FacesContext context = FacesContext.getCurrentInstance();
             ConfiguracionesGeneralesController configuracionesGeneralesController = context.getApplication().evaluateExpressionGet(context, "#{configuracionesGeneralesController}", ConfiguracionesGeneralesController.class);
                               
             imagen = Image.getInstance(configuracionesGeneralesController.getConfiguracionesGenerales(1).getUrlDeLogoMundoLimpieza());
             imagen.setAbsolutePosition(10, 650f);            
-            
             
             table.setTotalWidth(350f);            
             
@@ -59,5 +55,5 @@ public class FormatoDocumentoConvenioDeHonorarios extends PdfPageEventHelper
          {
              doc.printStackTrace();
          }         
-     }
+}
 }

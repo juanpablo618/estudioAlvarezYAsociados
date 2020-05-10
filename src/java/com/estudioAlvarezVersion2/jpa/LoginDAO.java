@@ -28,7 +28,7 @@ public class LoginDAO {
 
 		try {
 			con = DAO.getConnection();
-			ps = con.prepareStatement("Select  Nombre, password from Empleado where Nombre = ? and password = ?");
+			ps = con.prepareStatement("SELECT  Nombre, password FROM Empleado WHERE Nombre = ? and password = ?;");
 			ps.setString(1, nombre);
 			ps.setString(2, password);
 

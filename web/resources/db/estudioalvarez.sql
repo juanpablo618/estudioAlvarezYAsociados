@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-03-2020 a las 06:31:19
+-- Tiempo de generación: 15-04-2020 a las 22:38:56
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -44,17 +44,9 @@ CREATE TABLE `agenda` (
 --
 
 INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
-(13, '2019-11-29', 'Ver si est? todo ok turno + pedir DNI original para turno.', 'juan  cuello', 3440, 'FRAGUEIRO', 'TITA PABLO ANTONIO - RTI', 1),
 (14, '2019-11-29', 'Consultar si pudo cobrar sentencia y si hizo transferencia por honorarios (ver mail 1?)', 'juan  cuello', 3440, 'MERLO', 'ZAZU AMADO ABDON C/ANSES S/REAJUSTE - EXPTE N??? 0112700012/2012', 1),
-(15, '2018-12-27', 'Verificar si contestaron mail de AMET por consulta de tramites en Caja Complemetaria Docente de CHATTAS y OLMOS', 'juan  cuello', 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO EDITADO', 0),
-(16, '2018-12-21', 'Verificar si vino por formularios para certificar + hacer asoc. de cuentas en AFIP.', NULL, 3328, 'GUASAPAMPA', 'MICHELOTTI ARMANDO - JO', 0),
 (17, '2018-12-20', 'Pedir constancia CBU firmada + agendar para presentar pedido de honorarios (todo listo en carpeta solo falta eso)', NULL, 1881, 'ANTONIO DE MELO', 'JUNCOS JESUS AMANDA C/ ANSES S/ AMPARO - EXPDTE N??? 12184/2013', 0),
-(18, '2018-12-28', 'Verificar si tuvimos novedades por caja de ahorro Marisa.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(19, '2019-01-18', 'Verificar si lleg? resoluci?n de apelaci?n (Presentada 05/10)', NULL, 3118, 'REMEDIOS DE ESCALADA', 'AHUMADA ANA LETICIA - RTI', 0),
-(20, '2018-12-20', 'Ver como seguimos con tte. QUISPE ESPEJO.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (21, '2018-12-26', 'Consultar en ANSES por SICAM', NULL, 3038, 'LEON TADIN', 'CAMPOS CARLOS ALFREDO - JO', 0),
-(22, '2018-12-20', 'VER ESTE TTE. HACER BLUECORP + AVISAR.', NULL, 2457, 'FRANCISCO BLASQUEZ', 'GARCIA GRACIELA MABEL - RECO CHUBUT', 0),
-(24, '2018-12-27', 'Avisar que RECO fue acordado.', NULL, 3160, 'LOS C???NDORES', 'CAMARA JOS??? LUIS - RECO', 0),
 (25, '2018-12-20', 'VER ESTE TTE. (RECO)', NULL, 2264, 'FRAGUEIRO', 'LABAT ALBERTO - RECO', 0),
 (26, '2018-12-26', 'Ver si se modific? estado de este tr?mite', NULL, 2476, 'REYNA Y VAZQUEZ', 'RATERO ROLANDO HUGO - NUEVA MORATORIA', 0),
 (27, '2018-12-20', 'Ir viendo este tte - varios empleadores SDM (CF ok)', NULL, 3174, 'GRAL DEHEZA', 'PE???ALOZA MARGARITA IN???S - NUEVA MORATORIA', 0),
@@ -376,15 +368,15 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (343, '2018-12-28', 'Ver si tenemos turno de Subsidio de contenci?n familiar', NULL, 3207, 'CELESTINO VIDAL', 'DEL MUL GRACIELA SUSANA PENSION DERIVADA DE CASAL ERMINDA', 0),
 (344, '2018-12-27', 'Presentar nota y pruebas de convivencia por citados + agendar por seguimiento', NULL, 2980, 'SAN LORENZO', 'AVILA MARCELA DEL VALLE PENSION DERIVADA DE RUIZ MARCOS', 0),
 (345, '2018-12-27', 'VER DE HABLAR CON LUIS - UDAI 1 POR ESTE TRAMITE RTI', NULL, 2971, 'M M  DE GUEMES', 'FLORES ALAN MARTIN - RTI', 0),
-(346, '2018-12-21', 'MORENO LABORAL: Ver si depositaron orden de pago', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(346, '2018-12-21', 'MORENO LABORAL: Ver si depositaron orden de pago', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (347, '2018-12-27', 'MORENO LABORAL: Ver si depositaron orden de pago y avisar a Natu + agendar para hacer y presentar escrito por HABILITACION DE FERIA', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (348, '2018-12-27', 'Avisar que pase a retirar DNI + ingres? ok el tte.', NULL, 3294, 'ADOLFO ORMA', 'MAGRIS LILIANA BEATRIZ - JO', 0),
 (349, '2018-12-27', 'Ver si se pasaron los 60 d?as h?biles para resolver.', NULL, 3267, NULL, 'ALTAMIRA MAURO MARTIN - RTI', 0),
 (350, '2018-12-28', 'Verificar si lleg? expte. de RV de METLIFE.', NULL, 2758, 'MANCHA Y VELAZCO', 'RICCIARDIELLO VALERIA ADELA DEL VALLE C/ ANSES S/ AMPARO - RVP - EXPTE. N??? 35355/2017', 0),
 (351, '2018-12-27', 'Coordinar para pasar por honorarios PRH.', NULL, 2474, NULL, 'REYNAGA ELENA ENCARNACION - JO', 0),
 (352, '2018-12-27', 'Hacer nota reapertura administrativa para iniciar a traves de CONSULTAS de Caja Jubilaciones con Clave CiDi.', NULL, 1922, 'TOM???S GARZON', 'RODRIGUEZ MARIA CRISTINA - PENSION DERIV. - HIJA C/DISCAP', 0),
-(353, '2019-03-15', 'Ver si acuerdo PRH esta homologado y si ANSES pago honorarios + dar de baja legajo', NULL, 3069, 'RAFAEL SANZIO', 'CARBALLO CUESTAS ESTELLA MARIS - PRH', 0),
+(353, '2019-03-15', 'Ver si acuerdo PRH esta homologado y si ANSES pago honorarios + dar de baja legajo', NULL, 3069, 'RAFAEL SANZIO', 'CARBALLO CUESTAS ESTELLA MARIS - PRH', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (354, '2019-03-15', 'Ver si acuerdo PRH esta homologado + agendar por honorarios de ANSES', NULL, 3228, 'LOS ZORZALES', 'MU???OZ NOVAS ENRIQUETA AMALIA - PRH', 0),
 (355, '2019-03-15', 'Ver si acuerdo PRH esta homologado + ver si ANSES pago honorarios.', NULL, 3057, 'MANUEL SERRA', 'VILLAVERDE MARIA ROSA - PRH', 0),
 (356, '2019-03-15', 'Ver si acuerdo PRH esta homologado + avisar sra. y agendar por honorarios de ANSES.', NULL, 3230, 'AV. NUEVO MUNDO', 'GOROSITO NORMA DELIA - PRH', 0),
@@ -709,15 +701,15 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (675, '2019-01-11', '08:15 hs.- UDAI I - Ir por citados - Mate', NULL, 2917, 'PERGAMINO', 'QUINTEROS ROBERTO OSCAR PENSION DERIVADA DE CORREA ENELIDA ANTONIA', 0),
 (676, '2019-01-08', 'Ver que nos solicitan con la citaci?n de ANSES.', NULL, 2917, 'PERGAMINO', 'QUINTEROS ROBERTO OSCAR PENSION DERIVADA DE CORREA ENELIDA ANTONIA', 0),
 (677, '2019-01-14', 'BORGNA LILIANA PALMIRA S/C: Verificar si Eli nos pas? foto de partida defunci?n + N? de beneficio.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(678, '2019-01-09', 'Ver si nos dieron turno a comision medica si no ir personalmente a consultar + ver de hacer telegrama', NULL, 3207, 'CELESTINO VIDAL', 'DEL MUL GRACIELA SUSANA PENSION DERIVADA DE CASAL ERMINDA', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(678, '2019-01-09', 'Ver si nos dieron turno a comision medica si no ir personalmente a consultar + ver de hacer telegrama', NULL, 3207, 'CELESTINO VIDAL', 'DEL MUL GRACIELA SUSANA PENSION DERIVADA DE CASAL ERMINDA', 0),
 (679, '2019-01-31', 'BAZZANO JUAN FELIX S/C: Verificar si se pudo comunicar con Dra. Greenway.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (680, '2019-01-14', 'Ver si se modific? estado de este tramite o tuvimos novedades de cobro retenido', NULL, 2257, 'ESTEBAN BONORINO', 'GONZALEZ EDUARDO REYES - JO', 0),
 (681, '2019-01-22', 'Hacer escrito expresi?n de agravios', NULL, 2318, 'JUAN ALBA POSSE', 'PUCHER STAMBUCK RICARDO MAXIMO LEON C/ANSES S/REAJUSTE - 043578/2017', 0),
 (682, '2019-02-01', 'Notificar decreto de fecha 18/12/2018', NULL, 2318, 'JUAN ALBA POSSE', 'PUCHER STAMBUCK RICARDO MAXIMO LEON C/ANSES S/REAJUSTE - 043578/2017', 0),
 (683, '2019-01-23', 'Ver si ya venci? c?dula diligenciada', NULL, 2049, 'DONACIANO DEL CAMPILLO', 'TRIVELLONE MARIA FILOMENA C/ANSES S/REAJUSTE - EXPTE 046523/2017', 0),
 (684, '2019-01-09', 'Verificar si nos contestaron consulta web SRT.', NULL, 3207, 'CELESTINO VIDAL', 'DEL MUL GRACIELA SUSANA PENSION DERIVADA DE CASAL ERMINDA', 0),
-(685, '2019-01-08', 'Hacer apelaci?n dictamen CM.', NULL, 3260, 'PUNTA ARENAS', 'GORI MARTHA EDITH - RTI', 0),
+(685, '2019-01-08', 'Hacer apelaci?n dictamen CM.', NULL, 3260, 'PUNTA ARENAS', 'GORI MARTHA EDITH - RTI', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (686, '2019-01-08', 'Enviar mail con doc. necesaria parar tramitar reclamo de HABERES DEVENGADOS en ANSES (jc@spgroup.com.ar)', NULL, 3305, NULL, 'CASTELLS JORGE LUIS MARIA - PUAM', 0),
 (687, '2019-01-09', 'Verificar si nos contestaron consulta web SRT.', NULL, 3277, 'GABRIELA MISTRAL', 'REYNA SILVIA ROSANA - PENSI???N DERIVADA DE REYNA RAMON', 0),
 (688, '2019-01-24', 'CHUJANDAMA: Hacer escrito solicitando reiteren oficios por ciudadan?a + llamar a Sra. para que venga a firmar.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
@@ -1033,8 +1025,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (998, '2019-01-21', 'Ver si tuvimos novedades de apelacion comision medica', NULL, 3267, NULL, 'ALTAMIRA MAURO MARTIN - RTI', 0),
 (999, '2019-01-16', 'Retirar acta de matrimonio por registro civil de caseros (creo que est? lista)', NULL, 2881, 'LA ALAMEDA', 'REYNA ROSARIO NOEMI - NUEVA MORATORIA', 0),
 (1000, '2019-01-21', 'Verificar si tuvimos novedades de DDJJ de convivencia pedida el 14/01 si no consultar + agendar para presentar en ANSES por citados', NULL, 3304, 'HIPOLITO HIRIGOYEN', 'ULIARTE LAURA ROSA - ACRECIMIENTO DE PENSION', 0),
-(1001, '2019-01-16', 'VER CLAVES SS: desbloquear ARIAS ROBUSTIANO + Cargar datos para habilitar CAVAGNI MIRTHA (no puede verif. n? tte) + TOLEDO MIRIAM', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(1001, '2019-01-16', 'VER CLAVES SS: desbloquear ARIAS ROBUSTIANO + Cargar datos para habilitar CAVAGNI MIRTHA (no puede verif. n? tte) + TOLEDO MIRIAM', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (1002, '2019-02-22', 'Ver si lleg? resoluci?n de este tramite si no ver si pedimos vista  + agendar para hacer dda. reajuste', NULL, 3315, 'CORONEL OLMEDO', 'BRITOS JOS??? EDUARDO C/ANSES S/REAJUSTE - EXPDTE 000389/2019', 0),
 (1003, '2019-01-31', 'Controlar estado expdte. 150-1', NULL, 2693, 'RAMON PLATERO', 'MORENO ZULLY MODESTA C/ANSES S/REAJUSTE - EXPDTE N??? 016634/2016', 0),
 (1004, '2019-01-16', 'LOYOLA - Laboral: Pedir informe de riesgo AEGIS S.A.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
@@ -1042,7 +1033,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (1006, '2019-01-16', '14:30 HS - CROZZOLI ADRIANA - Por nueva moratoria - Proc: Rev. Matices - TEL: 351 359-9685', NULL, 1850, NULL, '*TURNOS*', 0),
 (1007, '2019-01-21', '15.30 HS. Marisa con esposo por tema sucesi?n', NULL, 1850, NULL, '*TURNOS*', 0),
 (1008, '2021-09-06', 'Ver este tramite', NULL, 2908, 'AV. MOLINO DE THEA', 'PAREDES MIRIAN ESTELA - JUBILACION', 0),
-(1009, '2019-02-04', 'Avisar a Sra. tramite resuelto favorable', NULL, 3317, 'POLONIA', 'CARO MARIA DEL VALLE PENSI???N DIRECTA YABBUR DAVID', 0),
+(1009, '2019-02-04', 'Avisar a Sra. tramite resuelto favorable', NULL, 3317, 'POLONIA', 'CARO MARIA DEL VALLE PENSI???N DIRECTA YABBUR DAVID', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (1010, '2019-01-28', 'Avisar a Sra. tramite resuelto favorable', NULL, 3299, 'BALLESTEROS', 'DIAZ ESTELA DEL VALLE - JO', 0),
 (1011, '2019-01-23', 'Ver este tramite', NULL, 3293, 'MANUEL BELGRANO', 'MORENO RICARDO ALBERTO INCLUSION DERECHOHABIENTE', 0),
 (1012, '2019-01-29', 'Ver si est? cargado CODEM de Sra. + avisar que retire si no agendar para despues del 10/02', NULL, 2922, 'BRANDSEN', 'GIMENEZ GUZMAN SANTOS LUPERFINA - RTI', 0),
@@ -1364,15 +1356,15 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (1328, '2019-01-22', 'Revisar demanda', NULL, 3283, 'CARLOS CONTRERAS - UNQUILLO', 'GARRAZA ROSALES ALDO EPIFANIO C/CAJA FEDERAL S/SUPLEMENTOS - EXPDTE 012242/2019', 0),
 (1329, '2019-01-30', 'Verificar si se ha comunicado para ver si encaminara reajuste o llamar y consultar', NULL, 2733, 'DEAN FUNES', 'ROSELLINI FRANCISCO HERIBERTO - REAJUSTE', 0),
 (1330, '2019-02-14', 'Ver este tramite', NULL, 2794, 'TUPAC YUPANQUI', 'GARCIA RUBEN DANIEL - JO', 0),
-(1331, '2019-01-30', 'FERRERO GABRIEL S/C: Ver de retirar acta de matrimonio por Registro Civil de Colon', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(1331, '2019-01-30', 'FERRERO GABRIEL S/C: Ver de retirar acta de matrimonio por Registro Civil de Colon', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (1332, '2019-01-30', 'Ver de retirar acta de matrimonio por Registro Civil de Colon', NULL, 3337, 'JUAN LAFINUR', 'CROZZOLI ADRIANA HAYDEE - NUEVA MORATORIA', 0),
 (1333, '2019-01-23', 'Ver de presentar nota en IERIC para pedir informe de aportes del causante.', NULL, 3314, 'MICHELOTTI Y GRAL VALLE', 'CEBALLOS MIRIAN DEL VALLE PENSION DIRECTA DE TABLADA NICOLAS RUBEN', 0),
 (1334, '2019-01-30', 'Hacer escritos solicitando Audiencia del 58 para juicios laboral Mondino', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (1335, '2019-01-25', 'Ver si podemos desbloquear claves', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (1336, '2019-01-23', 'Intentar presentar en AFIP Cejas (Ver que no este la vieji rubia)', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (1337, '2019-01-23', 'Consultar en ANSES si pasa socioeconomico', NULL, 3307, NULL, 'HOYO INES ADRIANA PENSION DIRECTA OYOLA JOSE IGNACIO', 0),
-(1338, '2019-01-25', 'Verificar si Sra. retir? y envi? telegrama por prorroga citaci?n de ANSES + Agendar para ver si tenemos novedades de Cese para presentar', NULL, 3285, 'AV PATRIA', 'CORDOBA MARIA SANDRA ELIZABETH - RTI', 0),
+(1338, '2019-01-25', 'Verificar si Sra. retir? y envi? telegrama por prorroga citaci?n de ANSES + Agendar para ver si tenemos novedades de Cese para presentar', NULL, 3285, 'AV PATRIA', 'CORDOBA MARIA SANDRA ELIZABETH - RTI', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (1339, '2019-02-01', 'Ver estado de este tramite', NULL, 2128, 'RICARDO PEDRONI', 'ECHEGARAY MARIA CRISTINA - JO CAJA', 0),
 (1340, '2019-01-25', 'Hacer demanda reajuste', NULL, 3288, 'NAPOLES', 'SICILIANO JORGE OMAR C/ANSES S/REAJUSTE- EXPDTE N??? 388/2019', 0),
 (1341, '2019-01-28', 'Hacer demanda reajuste', NULL, 3315, 'CORONEL OLMEDO', 'BRITOS JOS??? EDUARDO C/ANSES S/REAJUSTE - EXPDTE 000389/2019', 0),
@@ -1685,15 +1677,15 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (1648, '2019-01-30', 'SACAR TURNOS ANSES', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (1649, '2019-02-27', 'Ver si acuerdo PRH esta homologado + avisar a Sr. y agendar por honorarios de ANSES si no reagendar', NULL, 3308, 'RAMON MESTRE', 'MONTOYA JORGE MIGUEL - PRH', 0),
 (1650, '2019-02-01', 'Ver si tuvimos respuesta de Comision Medica por consulta web o si ya est? dictamen + avisar a Mariana Heredia si no reagendar para seguir insistiendo', NULL, 3256, 'FACUNDO QUIROGA', 'LUNA MARGARITA ZUSANA - RTI', 0),
-(1651, '2019-02-26', 'Ver si expte. 974-1 est? ingresado en archivo gral. y digitalizado para ver posi de reajuste si no reiterar pedido de digitalizacion.', NULL, 2796, 'AV. DEL TRABAJO', 'GONZALEZ ALBERTO ANGEL - JO', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(1651, '2019-02-26', 'Ver si expte. 974-1 est? ingresado en archivo gral. y digitalizado para ver posi de reajuste si no reiterar pedido de digitalizacion.', NULL, 2796, 'AV. DEL TRABAJO', 'GONZALEZ ALBERTO ANGEL - JO', 0),
 (1652, '2019-01-31', 'Hacer seguimiento telegrama enviado el 24/01 por prorroga para presentar cese de actividad + agendar por novedades', NULL, 3285, 'AV PATRIA', 'CORDOBA MARIA SANDRA ELIZABETH - RTI', 0),
 (1653, '2019-02-04', 'Verificar si sra. trajo su DNI y el del dr. Jacobo para cargar ma?ana ADP de conviviente en ANSES.', NULL, 2823, NULL, 'CULATTI MONICA YOLANDA C/ANSES S/REAJUSTE - EXPTE N??? 53492/2017', 0),
 (1654, '2019-02-05', 'Cargar ADP de conviviente', NULL, 2823, NULL, 'CULATTI MONICA YOLANDA C/ANSES S/REAJUSTE - EXPTE N??? 53492/2017', 0),
 (1655, '2019-01-31', 'Verificar que Natalia Loyola haya enviado telegrama y nos haya pasado n?mero seguimiento env?o', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (1656, '2019-12-03', 'Ver este tramite', NULL, 3298, 'OMBU', 'DOMBALD JORGE ENRIQUE - PUAM', 0),
 (1657, '2020-11-02', 'Recordar a Sra. que tiene que pedir nueva junta medica en Caja jubilaciones para Retiro Definitivo por Invalidez', NULL, 3177, NULL, 'CATALAN MACHIN JULIETA MARIA - RTI CAJA', 0),
-(1658, '2019-03-25', 'Ver si esta intresado en transformacion PUAM en JO + agendar segun prorrateo si no dar de baja legajo', NULL, 3155, 'BARROS PASOS', 'BECERRA CARLOS HUMBERTO - PUAM', 0),
+(1658, '2019-03-25', 'Ver si esta intresado en transformacion PUAM en JO + agendar segun prorrateo si no dar de baja legajo', NULL, 3155, 'BARROS PASOS', 'BECERRA CARLOS HUMBERTO - PUAM', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (1659, '2019-02-06', 'Ver transformacion PUAM en JO + Avisar a Sr.', NULL, 2794, 'TUPAC YUPANQUI', 'GARCIA RUBEN DANIEL - JO', 0),
 (1660, '2019-02-06', 'Ver si damos de baja legajo', NULL, 1709, 'SANTA ROSA', 'LOBO RAMONA BENITA C/ANSES S/AMPAROS - EXPDTE N??? 21120001/2012', 0),
 (1661, '2019-02-01', 'Verificar si paso por formularios y acta de matrimonio para turno nueva moratoria si no recordar!', NULL, 2905, NULL, 'CALVI STELLA MARIS - NUEVA MORATORIA', 0),
@@ -2001,8 +1993,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (1963, '2019-04-16', 'FAURES JORGE RUBEN S/C: Verificar si lleg? resoluci?n de RECO + avisar a Sr. y dar de baja.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (1964, '2019-02-07', 'Verificar si Sra. pas? a firmar demanda de amparo + convenio. (Recordar dar turno por tema cobro)', NULL, 3206, 'SAN JUAN', 'AQUINO CASTORINA C/ANSES S/AMPARO - EXPDTE N???000882/2019', 0),
 (1965, '2019-02-05', 'Presentar nota baja plan SICAM.', NULL, 3157, 'MENDOZA', 'DE BERNARDI HUGO - JO', 0),
-(1966, '2019-02-06', 'Ver posibilidades de este tramite + avisar a Sra. (copias de expte. ok)', NULL, 3229, 'EVARISTO CARRIEGO', 'BARRIONUEVO ESTHER DEL VALLE - JO', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(1966, '2019-02-06', 'Ver posibilidades de este tramite + avisar a Sra. (copias de expte. ok)', NULL, 3229, 'EVARISTO CARRIEGO', 'BARRIONUEVO ESTHER DEL VALLE - JO', 0),
 (1967, '2019-02-05', 'CONSULTAR EN ANSES POR RENUNCIA ASIGNACION HIJO CON DISCAPACIDAD PARA QUE PAGUEN EN IAF', NULL, 2903, 'YAPEYU', 'CENTENO NICOLAS DEL CARMEN - JO', 0),
 (1968, '2019-02-05', 'LLAMAR A PAPELERA CUMBRE (PAMPA 70 GR - 3 CAJAS DE 10 R POR $1375 CADA CAJA)', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (1969, '2019-05-06', 'Verificar si Sra. se comunic? para iniciar tte. (Quer?a esperar a tener a?os de ss. pero que nos avisaba cualquier cosa)', NULL, 2370, 'TOMAS DE IROBI', 'KHAYAT MONICA MARIA (SIT PREVISIONAL)', 0),
@@ -2011,7 +2002,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (1972, '2019-02-08', 'Verificar si Fernando nos di? respuesta de AC sino consultar.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (1973, '2019-02-05', '10:30 hs - 1? COBRO EN BANCO NACION (Velez Sarsfield 898)', NULL, 2738, 'CONGRESO', 'SAVID SONIA GABRIELA C/ANSES S/AMPARO - EXPTE N??? 021832/2014', 0),
 (1974, '2019-02-05', 'Ver de pedir RUB en UDAI 1', NULL, 2738, 'CONGRESO', 'SAVID SONIA GABRIELA C/ANSES S/AMPARO - EXPTE N??? 021832/2014', 0),
-(1975, '2019-02-06', 'ARIAS SUSANA LABORAL: Ver este tr?mite', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
+(1975, '2019-02-06', 'ARIAS SUSANA LABORAL: Ver este tr?mite', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (1976, '2019-02-05', 'CAVAGNI MIRTA S/C: Avisar situaci?n previsional.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (1977, '2019-02-05', 'CONSULTAR A FLOR ZAPPEGNO TEMA POZZI', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (1978, '2019-02-05', 'CONSULTAR EN ANSES TEMA EUGE SOSA ESTUDIO LAION', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
@@ -2331,8 +2323,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (2292, '2019-02-15', 'Verificar que haya alcanzado CP Federales si no recordar.', NULL, 2613, 'CASTRO BARROS', 'IRIARTE MARTA MIRIAM C/ANSES S/REAJUSTE - EXPTE 054153/2017', 0),
 (2293, '2019-02-11', 'Dejar lista demanda amparo + hacer convenio - Sra. vendr?a por la tarde.', NULL, 3272, 'AV. KINGSLEY', 'GUZMAN DEOLINDA ALCIRA C/ANSES S/AMPARO LEY 16986- EXPDTE 003669/2019', 0),
 (2294, '2019-02-11', 'Hacer nota y dejar listo tramite', NULL, 2935, 'FELIPE II', 'TORRIGLIA RICARDO PEDRO - JO', 0),
-(2295, '2019-02-15', 'Recordar el Lunes pedir turno de vista expte. 974-2 para ver opci?n obra social.', NULL, 1978, 'MARCELO T DE ALVEAR', 'RODRIGUEZ TEJERINA LILIANA BEATRIZ DEL VALLE', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(2295, '2019-02-15', 'Recordar el Lunes pedir turno de vista expte. 974-2 para ver opci?n obra social.', NULL, 1978, 'MARCELO T DE ALVEAR', 'RODRIGUEZ TEJERINA LILIANA BEATRIZ DEL VALLE', 0),
 (2296, '2019-02-18', 'Pdir turno de vista expte. 974-2 para ver opci?n obra social. dir turno de vista expte. 974-2 para ver opci?n obra social.', NULL, 1978, 'MARCELO T DE ALVEAR', 'RODRIGUEZ TEJERINA LILIANA BEATRIZ DEL VALLE', 0),
 (2297, '2019-02-11', 'Verificar que hoy traiga formularios y doc para ADP y dejar listo para turno de ma?ana', NULL, 2905, NULL, 'CALVI STELLA MARIS - NUEVA MORATORIA', 0),
 (2298, '2019-02-11', 'Ver con clave CiDi si tuvimos respuesta a pedido de vista expte. reiterado 01/02 + ver posi de reclamo ART y Re. Reconsideracion RTI', NULL, 3124, 'SOL DE MAYO', 'VILLARRUEL SILVIA VIVIANA - RTI', 0),
@@ -2340,7 +2331,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (2300, '2019-05-16', 'LUGO FABIANA S/C: Verificar si viene aportando bien MT + ver de agendar cuando tenga regularidad.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (2301, '2019-02-12', 'Consultar con Mate si Sra. abon? honorarios!!', NULL, 3196, 'LAGUNILLA', 'ARCIDIACONO ESTELA ISABEL - PRH', 0),
 (2302, '2019-02-28', 'Verificar si no pasaron por honorarios PRH si no recordar!!!!!', NULL, 3204, 'CLEMENTE ZARRAGA', 'RODRIGUEZ RUIZ AMANDA BEATRIZ - PRH', 0),
-(2303, '2019-02-28', 'Verificar si no pasaron por honorarios PRH si no recordar!!!!!', NULL, 3210, 'OBISPO CLARA', 'ROLOTTI GLADYS ANA - PRH', 0),
+(2303, '2019-02-28', 'Verificar si no pasaron por honorarios PRH si no recordar!!!!!', NULL, 3210, 'OBISPO CLARA', 'ROLOTTI GLADYS ANA - PRH', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (2304, '2019-02-11', 'DRA. GREENWAY EST? DANDO TURNOS LOS VIERNES A LAS 10:00 HS. CONFIRMAR SI SACAMOS TURNO.', NULL, 3311, NULL, 'NU???EZ MARIA ALEJANDRA - RTI', 0),
 (2305, '2019-02-11', 'Hacer boletas de pago deuda MT + ir a pagar de Rebe.', NULL, 2925, 'TUCUMAN', 'LOPEZ LUQUE EUGENIA MARIA - NUEVA MORATORIA', 0),
 (2306, '2019-02-15', 'Verificar si vino por honorarios pendientes de Enero si no recordar.', NULL, 3030, 'TUPAC AMARU - RIO TERCERO.', 'KASZA DANIEL EDUARDO - JUBILACION POR CEGUERA', 0),
@@ -2651,8 +2643,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (2611, '2019-02-20', '15:00 hs.- GARCIA GRACIELA MABEL (2457) Para explicar tr?mite.', NULL, 1850, NULL, '*TURNOS*', 0),
 (2612, '2019-03-07', 'Verificar estado expdte. 150-1', NULL, 3142, NULL, 'GATICA HIVAR ORESTE C/ASNSES S/REAJUSTE - EXPDTE N??? 024070091/2008', 0),
 (2613, '2019-02-21', 'Hacer escritos (con libreta de familia y partida de nacimiento de Marcelo es suficiente)', NULL, 2745, 'ANTEQUERA Y CASTRO', 'VAZQUEZ ROSA C/ANSES S/REAJUSTE - EXPTE N??? 11230070/2010', 0),
-(2614, '2019-02-27', 'Hacer demanda pensi?n separada de hecho.', NULL, 3084, 'ENTRADA 2??? USINA', 'QUINTANA ZULUAGA ROSA BEATRIZ C/ANSES S/PENSIONES - EXPDTE N??? 012236/2019', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(2614, '2019-02-27', 'Hacer demanda pensi?n separada de hecho.', NULL, 3084, 'ENTRADA 2??? USINA', 'QUINTANA ZULUAGA ROSA BEATRIZ C/ANSES S/PENSIONES - EXPDTE N??? 012236/2019', 0),
 (2615, '2019-02-15', 'Llevar sobre a Dra. S?nchez con oficio Gonz?lez G?mez para que diligencie', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (2616, '2019-02-21', 'MONDINO ALICIA ANA S/C REAJUSTE: Hacer bluecorp.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (2617, '2019-02-18', 'Consultar a Roberto si volvi? del asesor y si pasa  a dictar sentencia', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
@@ -2662,7 +2653,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (2621, '2019-02-18', 'Ver tema POZZI', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (2622, '2019-02-15', 'Reclamar Formulario Carta Poder + dejar listo turno', NULL, 3262, 'JOSE A CORTAJARENA', 'ASIS SILVINA - REAJUSTE', 0),
 (2623, '2019-02-21', 'Verificar si Luis pudo desbloquear clave ss. que mando Liliana Trefilio.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(2624, '2019-02-18', 'Verificar si acuerdo est? en PJN + controlar cuando salga decreto de ratificaci?n/rectificaci?n hacer escrito rectificando y desistiendo PRH.', NULL, 3324, 'UNQUILLO', 'ARIAS ROBUSTIANO JOSE - PRH', 0),
+(2624, '2019-02-18', 'Verificar si acuerdo est? en PJN + controlar cuando salga decreto de ratificaci?n/rectificaci?n hacer escrito rectificando y desistiendo PRH.', NULL, 3324, 'UNQUILLO', 'ARIAS ROBUSTIANO JOSE - PRH', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (2625, '2019-02-19', 'MANZANELLI  C/ FFAA: Ver como hacer tr?mite de cobro - ver si est?n formularios acompa?ados por Fza A?rea y consultar tr?mite en Juzgado.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (2626, '2019-03-11', 'Turno LA CAJA - 09:00 hs - JO - Mateo', NULL, 2128, 'RICARDO PEDRONI', 'ECHEGARAY MARIA CRISTINA - JO CAJA', 0),
 (2627, '2019-03-08', 'Recordar lunes turno LA CAJA - 09:00 hs - JO - Mateo', NULL, 2128, 'RICARDO PEDRONI', 'ECHEGARAY MARIA CRISTINA - JO CAJA', 0),
@@ -2981,8 +2973,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (2940, '2019-02-21', 'HACER LIMPIEZA TRAMITES S/C', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (2941, '2019-02-28', 'Hacer escrito solicitando pase a fallo', NULL, 2628, 'AV. MIRA', 'ARAGON RUBEN C/ANSES S/REAJUSTE - EXPTE N??? 033010040/2006', 0),
 (2942, '2019-02-21', 'Hablar con Pablo Coronel y pedir CPU + organizar colocaci?n y tema RED', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(2943, '2019-02-21', 'Ver tramites son SDM que est?n para iniciar antes de Julio c/ moratoria 26970 para ir dejando listos con tiempo (ver si hay que reimputar pagos afip)', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(2943, '2019-02-21', 'Ver tramites son SDM que est?n para iniciar antes de Julio c/ moratoria 26970 para ir dejando listos con tiempo (ver si hay que reimputar pagos afip)', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (2944, '2019-02-20', 'Revisar demanda.', NULL, 3283, 'CARLOS CONTRERAS - UNQUILLO', 'GARRAZA ROSALES ALDO EPIFANIO C/CAJA FEDERAL S/SUPLEMENTOS - EXPDTE 012242/2019', 0),
 (2945, '2019-02-22', 'Verificar si Dra. Crucella nos pas? foto de dni para sacar clave ss. + ver de pedir remisi?n o vista de expte.', NULL, 3185, 'PASAJE DIKENS', 'LEZCANO MARIA CRISTINA - JO', 0),
 (2946, '2019-02-21', 'Verificar si no se modific? estado de expte. de cumplimiento', NULL, 2585, 'ING LOPEZ', 'MARQUEZ LUCIO MARTIN C/ANSES S/AMPARO - N??? EXPTE. 45586/2016', 0),
@@ -2990,7 +2981,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (2948, '2019-02-22', 'Hacer pronto despacho.', NULL, 2914, 'JULIO ARBOLEDA', 'MODIGO ALFREDO - JO', 0),
 (2949, '2019-02-20', 'Empezar a contactar a empleadores SDM por formulario para que certifiquen.', NULL, 3174, 'GRAL DEHEZA', 'PE???ALOZA MARGARITA IN???S - NUEVA MORATORIA', 0),
 (2950, '2019-02-26', 'Consultar como est? el tr?mite de pensi?n para ver cuando abonan honorarios PRH.', NULL, 3318, 'RANCAGUA', 'GABBARINI MIRTA AURELIA - RODRIGUEZ FELIX ANTONIO - PRH', 0),
-(2951, '2019-02-20', 'Ver demanda reajuste modificada - ver si citamos para firmar y presentamos.', NULL, 2481, 'AV SAGRADA FAMILIA', 'SOSA CARMEN DEL ROSARIO C/ANSES S/REAJUSTE - EXPTE. 004824/2019', 0),
+(2951, '2019-02-20', 'Ver demanda reajuste modificada - ver si citamos para firmar y presentamos.', NULL, 2481, 'AV SAGRADA FAMILIA', 'SOSA CARMEN DEL ROSARIO C/ANSES S/REAJUSTE - EXPTE. 004824/2019', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (2952, '2019-02-20', 'Ver si podemos contactar por tel. Comisi?n M?dica y avisar que no va a poder asistir a turno del 20/02 o preparar nota para que vaya 21/02', NULL, 3249, 'JOAQUIN V GONZALEZ', 'VILLARREAL JULIO EDUARDO RUBEN - RTI', 0),
 (2953, '2019-02-20', 'Hacer excel periodos + remuneraciones.', NULL, 3137, 'FALUCHO', 'LOPEZ PE???A ALEJANDRO - RTI', 0),
 (2954, '2019-02-27', 'Verificar si efectuaron reimputacion de pagos (form. presentado 20/02).', NULL, 3336, 'TUPAC YUPANQUI', 'VELAZ ILDA LAURA - RECO', 0),
@@ -3312,8 +3304,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (3270, '2019-03-01', 'Verificar si pas? por honorarios pendientes si no recordar!!', NULL, 3221, 'LUCIANO DE FIGUEROA', 'CHANQUIA MIGUEL AGUSTIN - PUAM', 0),
 (3271, '2019-02-26', 'Presentar por citados formulario incomatibilidad', NULL, 3038, 'LEON TADIN', 'CAMPOS CARLOS ALFREDO - JO', 0),
 (3272, '2019-02-27', '09:30 hs - KHAYAT MONICA - por consultas tr?mite previsional', NULL, 1850, NULL, '*TURNOS*', 0),
-(3273, '2019-02-27', 'Hoy a las 09:30 hs. tiene turno para Clave Fiscal', NULL, 3353, 'CURAQUEN', 'AMUCHASTEGUI BEATRIZ DEL CARMEN - NUEVA MORATORIA', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(3273, '2019-02-27', 'Hoy a las 09:30 hs. tiene turno para Clave Fiscal', NULL, 3353, 'CURAQUEN', 'AMUCHASTEGUI BEATRIZ DEL CARMEN - NUEVA MORATORIA', 0),
 (3274, '2019-03-06', 'Turno Vista UDAI 1 - Expte. 007-1 - Mate', NULL, 3332, 'MARIANO CASTEX', 'MALDONADO CARLOS ALBERTO PENSI???N DERIVADA DE COTO CARMEN', 0),
 (3275, '2019-03-01', 'Recordar el Miercoles turno Vista UDAI 1 - Expte. 007-1 - Mate', NULL, 3332, 'MARIANO CASTEX', 'MALDONADO CARLOS ALBERTO PENSI???N DERIVADA DE COTO CARMEN', 0),
 (3276, '2019-03-01', 'Recordar el Miercoles turno Vista UDAI 1 - Expte. 974-1 - Cuti', NULL, 3145, 'CARLOS LAVERAN', 'ARIAS JORGE VICTOR - JO', 0),
@@ -3321,7 +3312,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (3278, '2019-02-27', 'Ver si tuvimos respuesta de pedido vista expte. con clave CiDi de Sra. + pedir recibo de cobro de Diciembre y Enero para controlar liquidacion', NULL, 3195, 'LOS COCOS', 'RUGGIERI SONIA BEATRIZ - JO', 0),
 (3279, '2019-03-11', 'Ver con clave CiDi en consulta de tramites si hubo novedades de Reapertura Administrativa (25/02 pas? a Subgerencia Departamental)', NULL, 1922, 'TOM???S GARZON', 'RODRIGUEZ MARIA CRISTINA - PENSION DERIV. - HIJA C/DISCAP', 0),
 (3280, '2019-02-28', 'Verificar si envi? telegrama + si nos pas? n? para seguimiento si no pedir (retir? lunes 25/02)', NULL, 2691, 'AGUIRRE CAMARA', 'MICAELLI IRMA DEL VALLE C/ANSES S/REAJUSTES - EXPDTE N??? 11130131/2012', 0),
-(3281, '2019-04-26', 'Ver si ANSES pag? honorarios PRH + dar de baja legajo si no reagendar', NULL, 3087, NULL, 'HEREDIA CARLOS HUMBERTO - PRH', 0),
+(3281, '2019-04-26', 'Ver si ANSES pag? honorarios PRH + dar de baja legajo si no reagendar', NULL, 3087, NULL, 'HEREDIA CARLOS HUMBERTO - PRH', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (3282, '2019-03-06', 'Ver si lleg? a mail de Sra. notificaci?n de Resolucion Re. de Reconsideraci?n si no reagendar.', NULL, 3096, 'MZ A CASA 20', 'GARCIA GRACIELA ISABEL - PENSION CAJA', 0),
 (3283, '2019-05-27', 'Ver si acuedo PRH est? homologado y si ANSES pag? honorarios + dar de baja legajo', NULL, 3226, 'SANTIAGO BARAVINO', 'BIANCO MONICA - PRH', 0),
 (3284, '2019-02-26', 'Llevar pedido al Banco', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
@@ -3641,8 +3633,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (3598, '2019-03-01', 'Consultar con Mate si enviamos pronto despacho o telegrama. (Pronto despacho en la carpeta)', NULL, 2821, 'TELQUINCHO', 'PERALTA CRISTINA DEL VALLE - RECO', 0),
 (3599, '2019-03-11', '14:30 hs.- SANCHEZ GRACIELA EDITH S/C: Para explicar posibilides del tr?mite.', NULL, 1850, NULL, '*TURNOS*', 0),
 (3600, '2019-03-07', 'Verificar si pas? Roxana a firmar escrito si no recordar.', NULL, 2628, 'AV. MIRA', 'ARAGON RUBEN C/ANSES S/REAJUSTE - EXPTE N??? 033010040/2006', 0),
-(3601, '2019-03-13', 'Verificar si El Barcha se comunic? para hacer tracto abreviado', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(3601, '2019-03-13', 'Verificar si El Barcha se comunic? para hacer tracto abreviado', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (3602, '2019-03-11', 'Ver tr?mites con SDM que este para iniciar antes de Julio c/ moratoria 26970 para ir dejando listos con tiempo (ver si hay que reimputar pagos afip)', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (3603, '2019-03-18', 'Verificar si ANSES manifest? algo de traslado de expresion de agravios', NULL, 2318, 'JUAN ALBA POSSE', 'PUCHER STAMBUCK RICARDO MAXIMO LEON C/ANSES S/REAJUSTE - 043578/2017', 0),
 (3604, '2019-03-01', 'Ver contestaci?n ARRIOLA C SUP GOBIERNO', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
@@ -3650,7 +3641,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (3606, '2019-03-25', 'VEGA JOSE AMERICO S/C: Verificar si se comunic? por tr?mite + que alcance recibos de sueldo.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (3607, '2019-03-20', 'SUAREZ SILVERO FERMIN S/C: Verificar si pas? CF o impuesto para sacar clave f via web y ver aportes aut?nomo p hacer prorrateo y ver cuando j/rti', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (3608, '2019-03-01', 'Recordar a Roberto que consulte plazo para dictar resoluci?n', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(3609, '2019-03-29', 'Ver si acuerdo PRH est? homologado + agendar por cobro retroactivo', NULL, 2633, 'PEDRO GOYENA', 'BA???OS MARIA ILDA C/ANSES S/REAJUSTE- EXPDTE N???11020208/2012', 0),
+(3609, '2019-03-29', 'Ver si acuerdo PRH est? homologado + agendar por cobro retroactivo', NULL, 2633, 'PEDRO GOYENA', 'BA???OS MARIA ILDA C/ANSES S/REAJUSTE- EXPDTE N???11020208/2012', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (3610, '2019-03-08', 'Verificar si tenemos expte + empezar demanda de pensi?n', NULL, 3020, 'LA PAMPA', 'BRIZUELA DELIA RITA PENSION DERIVADA DE RODRIGUEZ RAFAEL EMILIO', 0),
 (3611, '2019-03-01', 'Ver por citados con Juan o Esteban', NULL, 2435, 'GENERAL PISTARINI', 'CARDOZO JORGE HORACIO PENSION DIRECTA DE DUARTE', 0),
 (3612, '2019-03-01', 'Presentar nota para dar de baja asignaci?n para que se la pague el IAF', NULL, 2903, 'YAPEYU', 'CENTENO NICOLAS DEL CARMEN - JO', 0),
@@ -3961,8 +3953,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (3917, '2019-03-13', 'HACER LIMPIEZA TRAMITES SIN CARPETA', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (3918, '2019-03-08', 'MONDINO ALICIA S/C REAJ: Ver de llamar a Sra. para explicar posi de tramite', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (3919, '2019-03-08', 'SACAR CLAVE SS. GUTIERREZ CLELIA + MULLISACA LARICO ADOLFA', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(3920, '2019-03-08', 'Verificar si enviaron mail con clave CiDi si no volver a llamar. CARRASCO SUSANA BEATRIZ', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(3920, '2019-03-08', 'Verificar si enviaron mail con clave CiDi si no volver a llamar. CARRASCO SUSANA BEATRIZ', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (3921, '2019-03-08', 'Ver tema POZZI', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (3922, '2019-03-11', 'Verificar si pas? Roxana a firmar escrito si no recordar.', NULL, 2628, 'AV. MIRA', 'ARAGON RUBEN C/ANSES S/REAJUSTE - EXPTE N??? 033010040/2006', 0),
 (3923, '2019-03-08', 'Ver si avisaremos a Sr. de propuesta PRH + intentar reclamar en JF3 para agilizar sentencia (ver de pedir certificado m?dico)', NULL, 2629, 'QUILLOAMIRA', 'ARAYA HUGO GERONIMO C/ANSES S/REAJUSTES- EXPDTE N??? 033010053/2008', 0),
@@ -3970,7 +3961,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (3925, '2019-03-08', 'Llamar al 130 para intentar dar de baja turno Nva Moratoria (Alta Gracia) + sacar nuevo', NULL, 3359, 'PARAGUAY', 'CUELLO GLADIS DEL CARMEN - NUEVA MORATORIA', 0),
 (3926, '2019-03-08', 'Revisar demanda', NULL, 3283, 'CARLOS CONTRERAS - UNQUILLO', 'GARRAZA ROSALES ALDO EPIFANIO C/CAJA FEDERAL S/SUPLEMENTOS - EXPDTE 012242/2019', 0),
 (3927, '2019-03-08', 'Hable con Sr. y no tiene ningun recibo de sueldo de cuando trabajaba en ferrocarriles.', NULL, 3203, 'RINCON 1675', 'JUNCOS RAUL ANTONIO - RECO', 0),
-(3928, '2019-03-13', 'Hacer escrito manifestando que en JF3 no est?n administrativos y solicitando emplazamiento ANSES.', NULL, 2681, 'TERCILIO GAMBINO', 'MACHADO CARLOS LUIS MARIA C/ANSES S/REAJUSTE - EXPTE N??? 33131470/2011', 0),
+(3928, '2019-03-13', 'Hacer escrito manifestando que en JF3 no est?n administrativos y solicitando emplazamiento ANSES.', NULL, 2681, 'TERCILIO GAMBINO', 'MACHADO CARLOS LUIS MARIA C/ANSES S/REAJUSTE - EXPTE N??? 33131470/2011', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (3929, '2019-03-14', 'Ver si Mariana Heredia nos pas? certificado m?dicos + terminar demanda pensi?n', NULL, 3130, 'ISAAC ALBENIZ', 'MANSILLA GRACIELA CEFERINA PENSION DIRECTA DE PAEZ ARNULFO AGUSTIN', 0),
 (3930, '2019-03-12', 'Verificar si Sra. nos pas? n? de seguimiento de telegrama. (Retir? lunes 25/02)', NULL, 2691, 'AGUIRRE CAMARA', 'MICAELLI IRMA DEL VALLE C/ANSES S/REAJUSTES - EXPDTE N??? 11130131/2012', 0),
 (3931, '2019-03-08', 'Empezar a contactar a empleadores SDM por formularios para que certifiquen', NULL, 3174, 'GRAL DEHEZA', 'PE???ALOZA MARGARITA IN???S - NUEVA MORATORIA', 0),
@@ -4289,8 +4281,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (4244, '2019-04-30', 'Verificar si acuerdo PRH est? homologado + si ANSES pag? honorarios', NULL, 3121, 'MERCEDES', 'ITURRIA JOSE MANUEL - PRH', 0),
 (4245, '2019-03-14', 'ver este tte para hacer amparo + agendar plazos + citar para explicar', NULL, 3101, NULL, 'QUISPE ESPEJO ALEJANDRO - RTI', 0),
 (4246, '2019-03-14', 'ver si hay novedades ARABEL C SABAINI sino reclamar', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(4247, '2019-03-14', 'Continuar demanda laboral LOYOLA NATALIA', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(4247, '2019-03-14', 'Continuar demanda laboral LOYOLA NATALIA', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (4248, '2019-03-19', 'Hablar con Guillermo Ciaravino por tema Euge Sosa', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (4249, '2019-03-14', 'HACER CALCULOS MARENGO + FRONTALINI Y AVISAR', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (4250, '2019-03-19', '14:30 hs.- CIRONI GLADYS (3355) . Para explicar posibilidades del tr?mite.', NULL, 1850, NULL, '*TURNOS*', 0),
@@ -4300,7 +4291,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (4254, '2019-03-14', 'Hablar con Roberto Carreon por honorarios ROSTAGNO SUMARIA', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (4255, '2019-04-17', 'Ver si acuerdo PRH est? homologado + agendar para chequear cobro retroactivo y honorarios.', NULL, 3099, 'SARMIENTO', 'OLIVERO JOSE MARIA - PRH', 0),
 (4256, '2019-05-07', 'Consultar si est? interesada en encaminar Jubilaci?n (Cumple a?os a fin de mes', NULL, 2370, 'TOMAS DE IROBI', 'KHAYAT MONICA MARIA (SIT PREVISIONAL)', 0),
-(4257, '2019-03-15', 'Verificar si acreditamos defunci?n + alcanzar formularios a Dra. Paez', NULL, 3366, 'BV. ROQUE SAENZ PE???A', 'ZAPATA RAMON ANTONIO PENSI???N DERIVADA DE CABANILLAS', 0),
+(4257, '2019-03-15', 'Verificar si acreditamos defunci?n + alcanzar formularios a Dra. Paez', NULL, 3366, 'BV. ROQUE SAENZ PE???A', 'ZAPATA RAMON ANTONIO PENSI???N DERIVADA DE CABANILLAS', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (4258, '2019-03-14', 'Acreditar defunci?n Sra. en UDAI I', NULL, 3366, 'BV. ROQUE SAENZ PE???A', 'ZAPATA RAMON ANTONIO PENSI???N DERIVADA DE CABANILLAS', 0),
 (4259, '2019-03-14', 'Presentar historia cl?nica en SRT + agendar por seguimiento', NULL, 3292, 'MANUEL BELGRANO', 'MORENO RICARDO ALBERTO PENSION DERIVADA DE LUNA VICTORIA MARIA', 0),
 (4260, '2019-10-04', 'Recordar a Sra. mes pr?ximo tiene turno en migraciones.', NULL, 3370, 'ECHEVARRIA', 'ALVA BARDALES MARIA CRISTINA - PUAM', 0),
@@ -4621,8 +4613,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (4575, '2019-03-22', 'Retirar sello Cuti por Dean Funes 151', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (4576, '2019-03-25', '14:30 HS - ISMAEL BIONDO por escrituraci?n en B? Las Terrazas - Proc: Chattas - TEL: 0351-156064368', NULL, 1850, NULL, '*TURNOS*', 0),
 (4577, '2019-03-29', 'Ver estado de este tramie (presentamos doc. para digitalizar 19/03)', NULL, 3112, '75 VIVIENDAS SECTOR 8 MZ D CASA 14', 'SOSA MARTA ELENA PENSION DERIVADA DE ROMAN ANGEL EDUARDO', 0),
-(4578, '2019-03-29', 'Ver estado de este tramite', NULL, 3137, 'FALUCHO', 'LOPEZ PE???A ALEJANDRO - RTI', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(4578, '2019-03-29', 'Ver estado de este tramite', NULL, 3137, 'FALUCHO', 'LOPEZ PE???A ALEJANDRO - RTI', 0),
 (4579, '2019-03-22', 'Verificar se haya acreditado Cheque honorarios Arduh - PRH depositado en HSBC Mate', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (4580, '2019-03-28', 'Turno Vista UDAI 1 - Expte. 006-1 - Cuti', NULL, 2972, 'BV. LOS GRANADEROS', 'FARIAS NIDIA LILIANA C/ANSES S/ PENSIONES EXPDTE N??? 010759/2019', 0),
 (4581, '2019-03-27', 'Recordar ma?ana turno Vista UDAI 1 - Expte. 006-1 - Cuti', NULL, 2972, 'BV. LOS GRANADEROS', 'FARIAS NIDIA LILIANA C/ANSES S/ PENSIONES EXPDTE N??? 010759/2019', 0),
@@ -4632,7 +4623,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (4585, '2019-03-28', 'Recordar ma?ana turno Vista UDAI 1 - Expte. 490-1 - Cuti', NULL, 3294, 'ADOLFO ORMA', 'MAGRIS LILIANA BEATRIZ - JO', 0),
 (4586, '2019-03-29', 'Turno Vista UDAI 1 - Expte. 974-1 - Mateo', NULL, 2898, NULL, 'COMETTO ESTELA VIRGINIA - JO', 0),
 (4587, '2019-03-28', 'Recordar ma?ana turno Vista UDAI 1 - Expte. 974-1 - Mateo', NULL, 2898, NULL, 'COMETTO ESTELA VIRGINIA - JO', 0),
-(4588, '2019-04-01', 'Pedir turno Vista UDAI 1 - Expte. 357-1', NULL, 3253, NULL, 'REVIGLIONO GRACIELA BEATRIZ - REAJUSTE PENSION', 0),
+(4588, '2019-04-01', 'Pedir turno Vista UDAI 1 - Expte. 357-1', NULL, 3253, NULL, 'REVIGLIONO GRACIELA BEATRIZ - REAJUSTE PENSION', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (4589, '2019-03-29', 'Recordar el Lunes pedir turno Vista UDAI 1 - Expte. 357-1', NULL, 3253, NULL, 'REVIGLIONO GRACIELA BEATRIZ - REAJUSTE PENSION', 0),
 (4590, '2019-03-20', 'LOPEZ PE?A LABORAL: Verificar que retire y env?e hoy telegrama', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (4591, '2019-03-25', 'PONCE C/CASALES: Verificar si Sra. pudo presentar escrito y retirar copias certificadas sentencia divorcio (llev? 19/03)', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
@@ -4937,8 +4929,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (4890, '2019-09-19', 'VER SI LLEG? FACTURA DE EPEC SI NO CONSULTAR POR WEB SI ESTA EMITIDA', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (4891, '2019-10-18', 'VER SI LLEG? FACTURA DE EPEC SI NO CONSULTAR POR WEB SI ESTA EMITIDA', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (4892, '2019-11-19', 'VER SI LLEG? FACTURA DE EPEC SI NO CONSULTAR POR WEB SI ESTA EMITIDA', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(4893, '2019-12-19', 'VER SI LLEG? FACTURA DE EPEC SI NO CONSULTAR POR WEB SI ESTA EMITIDA', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(4893, '2019-12-19', 'VER SI LLEG? FACTURA DE EPEC SI NO CONSULTAR POR WEB SI ESTA EMITIDA', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (4894, '2019-04-03', 'Ver si tuvimos novedades de dictamen comision medica o respuesta a consulta web SRT del 25/03', NULL, 3292, 'MANUEL BELGRANO', 'MORENO RICARDO ALBERTO PENSION DERIVADA DE LUNA VICTORIA MARIA', 0),
 (4895, '2019-04-03', 'Ver si tuvimos novedades de resolucion comision medica o consulta web SRT hecha el 25/03', NULL, 3207, 'CELESTINO VIDAL', 'DEL MUL GRACIELA SUSANA PENSION DERIVADA DE CASAL ERMINDA', 0),
 (4896, '2019-04-01', 'Ver si tuvimos novedades de resolucion apelacion comision medica o consulta web hecha por ese tramite (Expediente N? 05A-P-01410/18 )', NULL, 3260, 'PUNTA ARENAS', 'GORI MARTHA EDITH - RTI', 0),
@@ -4946,7 +4937,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (4898, '2019-03-26', 'STUCKY LAB: Verificar si salio de despacho', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (4899, '2019-03-28', 'URFER: Verificar si salio de despacho + consultar por GALOPPO', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (4900, '2019-03-26', 'Llamar a YPF y ver si podemos conseguir escala salarial o constancia de aportes (consultar a Pao)', NULL, 2067, 'AZUL', 'PONCE ROLANDO EDUARDO C/ANSES S/REAJUSTE- EXPDTE - FCB N???59660/2018', 0),
-(4901, '2019-03-27', 'Verificar si se notific? de resoluci?n comision medica + ver si apelamos y agendar por plazos!', NULL, 3213, NULL, 'PIRES OSVALDO CESAR - RTI', 0),
+(4901, '2019-03-27', 'Verificar si se notific? de resoluci?n comision medica + ver si apelamos y agendar por plazos!', NULL, 3213, NULL, 'PIRES OSVALDO CESAR - RTI', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (4902, '2019-03-26', 'Pedir digitalizacion expte. JO en Archivo', NULL, 2698, NULL, 'PATI???O ALFREDO MARCOS C/ANSES S/REAJUSTE - EXPDTE N??? 024170035/2007', 0),
 (4903, '2019-04-25', 'Ver si tuvimos novedades de resoluciona apelacion Comision Medica presentada 25/03/2019 - Expte. 249328/2019', NULL, 3323, 'BELGRANO', 'ARIAS SUSANA DEL VALLE - RTI', 0),
 (4904, '2019-03-26', 'Teo: Agendar vistas de QUINTEROS + JUNCOS + MANSILLA + QUINTANA Z', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
@@ -5271,8 +5263,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (5223, '2019-04-01', 'Verificar si vino por honorarios pendientes sino recordar!!!!!!!! ACTUALIZAREMOS MONTO', NULL, 3030, 'TUPAC AMARU - RIO TERCERO.', 'KASZA DANIEL EDUARDO - JUBILACION POR CEGUERA', 0),
 (5224, '2019-04-04', 'Verificar si pasaron por honorarios PRH si no recordar!!!!!!', NULL, 3204, 'CLEMENTE ZARRAGA', 'RODRIGUEZ RUIZ AMANDA BEATRIZ - PRH', 0),
 (5225, '2019-04-03', 'Verificar si Jos? de Cotolengo nos respondi? algo por los papeles.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(5226, '2019-03-29', 'CORZO COSME ANTONIO S/C: Avisar a Sr. que pasa socioeconomico + posibilidades del tr?mite.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(5226, '2019-03-29', 'CORZO COSME ANTONIO S/C: Avisar a Sr. que pasa socioeconomico + posibilidades del tr?mite.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (5227, '2019-03-29', 'HACER LIMPIEZA TRAMITES SIN CARPETA', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (5228, '2019-03-29', 'RODRIGUEZ GUSTAVO - Pedir fotocopia escritura o m?s datos (cedul?n impuesto rentas) de inmueble del padre que quiere vender su hermano (75% hmno?)', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (5229, '2019-04-03', 'PRADO ELINA HEBE (S/C) Ver si contest? mail y confirm? para hacer reco de servicios', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
@@ -5281,7 +5272,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (5232, '2019-06-07', 'Ver si ANSES pag? honorarios PRH + dar de baja legajo', NULL, 3154, NULL, 'OLIVA HECTOR ESTELIO - PRH', 0),
 (5233, '2019-04-05', 'Ver con clave CiDi en consultas si tuvimos novedades de pedido de recaculo del haber jubilatorio', NULL, 3195, 'LOS COCOS', 'RUGGIERI SONIA BEATRIZ - JO', 0),
 (5234, '2019-06-07', 'Ver si ANSES pag? honorarios PRH + dar de baja legajo', NULL, 3170, 'LIBERTAD', 'CUVIELLO CARLOS ROBERTO - PRH', 0),
-(5235, '2019-04-05', 'Ver estado de este tramite', NULL, 3112, '75 VIVIENDAS SECTOR 8 MZ D CASA 14', 'SOSA MARTA ELENA PENSION DERIVADA DE ROMAN ANGEL EDUARDO', 0),
+(5235, '2019-04-05', 'Ver estado de este tramite', NULL, 3112, '75 VIVIENDAS SECTOR 8 MZ D CASA 14', 'SOSA MARTA ELENA PENSION DERIVADA DE ROMAN ANGEL EDUARDO', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (5236, '2019-04-01', 'Consultar por Citados ANSES este expte. para terminar nota por alimentos.', NULL, 3264, 'PARAGUAY', 'BUSTOS NELIDA JULIA - INCLUSI???N DERECHOHABIENTE', 0),
 (5237, '2019-04-01', 'Consultar por Citados ANSES este expte. por intimaci?n pago.', NULL, 3255, 'YAVI', 'MACHADO MARIA TRINIDAD ESTHER - JO', 0),
 (5238, '2019-04-01', 'Hablar con Claudia - ANSES por caratulaci?n de este tramite', NULL, 3364, 'SANTA FE', 'GOMEZ MYRIAM NICOLASA PENSION', 0),
@@ -5598,8 +5590,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (5549, '2019-04-16', 'Tiene turno hoy para completar estudios que le solicitaron desde CM. Consultar como le fue.', NULL, 3346, 'JUAN ARIZA', 'CASTRO WALTER HUMBERTO - RTI', 0),
 (5550, '2019-04-25', 'Hacer nota y presentar con certificado m?dico por Art. 4 Res 56/97', NULL, 2697, 'CARABAJAL Y SARAVIA', 'NU???EZ PIEDAD DEL VALLE C/ANSES S/PENSIONES - EXPDTE N??? 035331/2013', 0),
 (5551, '2019-04-08', 'Verificar si subieron escrito de expresi?n de apelaci?n sino hacer escrito solicitando se tenga por no presentado.', NULL, 2902, '9 DE JULIO', 'SPILLMANN RUTH ELIZABETH C/ANSES S/ REAJUSTES VARIOS - EXPDTE N??? 57215/2017', 0),
-(5552, '2019-04-09', '09:00 hs.- SALVO ELISA AURORA (1990) Por tr?mite de pensi?n.', NULL, 1850, NULL, '*TURNOS*', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(5552, '2019-04-09', '09:00 hs.- SALVO ELISA AURORA (1990) Por tr?mite de pensi?n.', NULL, 1850, NULL, '*TURNOS*', 0),
 (5553, '2019-04-08', 'Llamar a Sr. Battisti para recordar turno ma?ana (09:00 hs.)', NULL, 1990, 'CERRO PISTARINI', 'SALVO ELISA AURORA - PENSION DIRECTA URUGUAY', 0),
 (5554, '2019-04-08', 'PISSANI MARGARITA ROSA S/C: Verificar si Dra. Paez nos pas? CF de Sra. si no generarle una nueva + dar turno en el estudio.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (5555, '2019-04-10', 'Recordar tiene que alcanzar dinero para moratoria + DNI.', NULL, 3367, 'COLANCHANGA', 'FERRERO GABRIEL - RECO', 0),
@@ -5607,7 +5598,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (5557, '2019-04-09', 'Verificar si podemos reclamar en ANSES por acuerdo PRH pendiente todavia no cobro retroactivo- (sentencia firme desde 06/02/19)', NULL, 3297, 'SARGENTO CABRAL', 'MICHALEK LIDIA EMILIA - PRH', 0),
 (5558, '2019-04-15', 'Ver si hubo alguna modificaci?n en estado de este tr?mite expte. 004-3 (verificaci?n 23/01)', NULL, 2903, 'YAPEYU', 'CENTENO NICOLAS DEL CARMEN - JO', 0),
 (5559, '2019-04-09', 'GALLEGUILLO C/ MUNI: Verificar si sali?', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(5560, '2019-04-05', 'Ver si tiene nuevo carnet de taxi + dejar listo este tr?mite + recordar que necesitamos DNI para el turno.', NULL, 2874, NULL, 'TAVIP ALEJANDRO SERGIO - JO', 0),
+(5560, '2019-04-05', 'Ver si tiene nuevo carnet de taxi + dejar listo este tr?mite + recordar que necesitamos DNI para el turno.', NULL, 2874, NULL, 'TAVIP ALEJANDRO SERGIO - JO', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (5561, '2019-04-05', 'Continuar demanda laboral LOYOLA C AEGIS.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (5562, '2019-04-05', 'HACER BLUECORP: Carballo + Rella + Depetris + Juncos', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (5563, '2019-04-11', '15:30 hs.- LOPEZ MARIA CRISTINA S/C REAJUSTE. Para explicar posibilidades de tr?mite reajuste seg?n Bluecorp.', NULL, 1850, NULL, '*TURNOS*', 0),
@@ -5924,8 +5916,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (5874, '2019-04-11', 'CANCIANI C/ MUNI: Presentar escrito en C?mara', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (5875, '2019-04-12', 'DIAZ GILMAN: Reclamar acumulaci?n', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (5876, '2019-04-16', 'URFER: Verificar si salio de despacho + ver si GALOPPO paso a despacho', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(5877, '2019-04-15', 'Verificar si Ing. A?n trajo escritos firmados sino llamar y recordar.', NULL, 735, 'URITORCO', 'MALDONADO FRANCISCA ROSARIO Y OTRO C/ANSES S/AMPARO - EXPTE N??? 11130095/2012', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(5877, '2019-04-15', 'Verificar si Ing. A?n trajo escritos firmados sino llamar y recordar.', NULL, 735, 'URITORCO', 'MALDONADO FRANCISCA ROSARIO Y OTRO C/ANSES S/AMPARO - EXPTE N??? 11130095/2012', 0),
 (5878, '2019-04-11', 'INTENTAR HACER ADP VIUDA DE SRA. + Pedir acta de matrimonio actualizada en Reg. Civil de Colon.', NULL, 2641, NULL, 'CAPURRO HUGO WASHINGTON C/ANSES S/REAJUSTE - EXPDTE N??? 11030074/2006', 0),
 (5879, '2019-06-03', 'Ver si empieza a cobrar con aumento PRH + avisar a Sr. Julio Pereyra si no reagendar', NULL, 3327, 'MZA 34 LOTE 15', 'ROMERO MARIA BASILIA - PRH', 0),
 (5880, '2019-06-03', 'Ver si este mes cobra con aumento PRH + avisar a Sra. si no reagendar (homologado 25/03)', NULL, 3261, 'DR BERNARDO HOUSSAY', 'CUETO CABRERA NILDA JUANA - PRH', 0),
@@ -5933,7 +5924,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (5882, '2019-04-17', 'MAGALLANES - VARIOS: Actualizar presupuesto por estudio de titulos+ avisar', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (5883, '2019-04-11', 'ARIAS SUSANA - ART: Ver con Fer Lopez si continuaremos reclamo en SRT', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (5884, '2019-04-11', 'Consultar en ANSES si pasa evaluaci?n socioecon?mica (Dic 18 y Feb 19 NO pasaba)', NULL, 3259, 'NECU???AN', 'PEREZ ANGELA MARISA - NUEVA MORATORIA', 0),
-(5885, '2019-04-22', 'ALEUA JORGE S/C REAJUSTE: Verificar si Sr. alcanz? escala salarial + certificado de cu?nto cobrar?a en la actualidad. (CAT 08) si no recordar.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
+(5885, '2019-04-22', 'ALEUA JORGE S/C REAJUSTE: Verificar si Sr. alcanz? escala salarial + certificado de cu?nto cobrar?a en la actualidad. (CAT 08) si no recordar.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (5886, '2019-04-26', 'MARQUEZ C/INTI: Verificar si contestaron demanda', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (5887, '2019-04-15', 'Ver de hacer sobre de contacto por honorarios pendientes.', NULL, 3062, 'ENFERMERA CLERMONT', 'BECERRA GLORIA NILDA - PRH', 0),
 (5888, '2019-04-22', 'Consultar con Dra. Crucella si ya tiene partidas + pasar a retirar + hacer ADP.', NULL, 3355, 'LUIS ANGEL FIRPO', 'BARRIONUEVO PENSI???N DIRECTA DE CIRONI', 0),
@@ -6236,8 +6228,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (6185, '2019-04-16', 'Verificar si Mariana pas? mail para enviarle dda.', NULL, 3020, 'LA PAMPA', 'BRIZUELA DELIA RITA PENSION DERIVADA DE RODRIGUEZ RAFAEL EMILIO', 0),
 (6186, '2019-04-23', 'CARO ARG?ELLO - VERIF. DE CREDITO: Verificar si contestaron respecto a presupuesto que pasamos', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (6187, '2019-05-21', 'Ver si iniciaremos tte - cambio de PNC a JO', NULL, 3359, 'PARAGUAY', 'CUELLO GLADIS DEL CARMEN - NUEVA MORATORIA', 0),
-(6188, '2019-04-30', 'Verificar si remitieron expdte. de C?mara a JF3 + hacer escrito solicitando orden de pago a nombre de la Sra. por astreintes+ cuantificar', NULL, 2622, 'MATOS NERON', 'ALIENDRO LUISA EULALIA C/ ANSES S/ AMPARO - EXPDTE N??? 044438/2014', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(6188, '2019-04-30', 'Verificar si remitieron expdte. de C?mara a JF3 + hacer escrito solicitando orden de pago a nombre de la Sra. por astreintes+ cuantificar', NULL, 2622, 'MATOS NERON', 'ALIENDRO LUISA EULALIA C/ ANSES S/ AMPARO - EXPDTE N??? 044438/2014', 0),
 (6189, '2019-04-17', 'Retirar certificacion de servicios de la sra. por consultora OXFORD.', NULL, 3383, 'PERU', 'PRADO ELINA HEBE - RECONOCIMIENTO DE SERVICIOS', 0),
 (6190, '2019-04-29', 'SACAR TURNO NUEVA MORATORIA', NULL, 3368, 'PRUDENCIO MURGIONDO', 'SUAREZ MARIA MARTINA -  NUEVA MORATORIA', 0),
 (6191, '2019-04-17', 'RECORDAR EL LUNES PEDIR TURNO DE VISTA', NULL, 2802, NULL, 'AVACA ARMANDO RAUL - REAJUSTE', 0),
@@ -6247,7 +6238,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (6195, '2019-04-22', 'GALLEGUILLO LAB: Verificar si decretaron', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (6196, '2019-04-24', 'DIAZ - GILMAN: Verificar si acumularon', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (6197, '2019-04-17', 'SABELLA DDHH: Pedir partida de nacimiento de Beatriz Cisneros', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(6198, '2019-04-24', 'URFER CONTENCIOSO: Verificar si se diligenci? c?dula (18 d?as para que contesten demanda)', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
+(6198, '2019-04-24', 'URFER CONTENCIOSO: Verificar si se diligenci? c?dula (18 d?as para que contesten demanda)', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (6199, '2019-04-17', 'Verificar si se comunicaron del instituto de ed. pedagogica por certificacion de servicios', NULL, 3383, 'PERU', 'PRADO ELINA HEBE - RECONOCIMIENTO DE SERVICIOS', 0),
 (6200, '2019-04-17', 'Ver de retirar partida de matrimonio por registro civil COLON.', NULL, 3372, 'CELSO BARRIOS', 'ACOSTA STELLA MARIS - JUBILACI???N POR CEGUERA', 0),
 (6201, '2019-04-26', 'Ver de retirar pedido de digitalizacion en archivo UDAI II.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
@@ -6555,8 +6547,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (6503, '2019-05-15', 'Dejar listo este tramite', NULL, 3336, 'TUPAC YUPANQUI', 'VELAZ ILDA LAURA - RECO', 0),
 (6504, '2019-05-08', 'Verificar que este todo encaminado', NULL, 3336, 'TUPAC YUPANQUI', 'VELAZ ILDA LAURA - RECO', 0),
 (6505, '2019-04-30', 'Ver formularios y convenio', NULL, 3336, 'TUPAC YUPANQUI', 'VELAZ ILDA LAURA - RECO', 0),
-(6506, '2019-04-24', 'Preparar carpeta para presentar en IERIC por historia laboral del Sr.', NULL, 3376, 'DR. MIGUEL DE G???EMES', 'GUTIERREZ RUDECINDO CLARO - JO', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(6506, '2019-04-24', 'Preparar carpeta para presentar en IERIC por historia laboral del Sr.', NULL, 3376, 'DR. MIGUEL DE G???EMES', 'GUTIERREZ RUDECINDO CLARO - JO', 0),
 (6507, '2019-04-24', 'Ver este tramite', NULL, 3336, 'TUPAC YUPANQUI', 'VELAZ ILDA LAURA - RECO', 0),
 (6508, '2019-04-24', 'Ver este tramite', NULL, 3352, 'NEUQUEN', 'BAZZANO JUAN FELIX - RTI', 0),
 (6509, '2019-04-30', 'Ver formularios y convenio', NULL, 3352, 'NEUQUEN', 'BAZZANO JUAN FELIX - RTI', 0),
@@ -6568,7 +6559,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (6515, '2019-04-24', 'Ver este tramite', NULL, 2962, 'SANTA FE', 'CASAS SANTO DEL VALLE - JO', 0),
 (6516, '2019-04-30', 'Ver formularios y convenio', NULL, 2962, 'SANTA FE', 'CASAS SANTO DEL VALLE - JO', 0),
 (6517, '2019-05-08', 'Verificar que este todo encaminado', NULL, 2962, 'SANTA FE', 'CASAS SANTO DEL VALLE - JO', 0),
-(6518, '2019-05-15', 'Dejar listo este tramite', NULL, 2962, 'SANTA FE', 'CASAS SANTO DEL VALLE - JO', 0),
+(6518, '2019-05-15', 'Dejar listo este tramite', NULL, 2962, 'SANTA FE', 'CASAS SANTO DEL VALLE - JO', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (6519, '2019-05-22', 'Turno UDAI 1 - 08:30 hs - JO - Cuti', NULL, 2962, 'SANTA FE', 'CASAS SANTO DEL VALLE - JO', 0),
 (6520, '2019-05-21', 'Recordar ma?ana turno UDAI 1 - 08:30 hs - JO - Cuti', NULL, 2962, 'SANTA FE', 'CASAS SANTO DEL VALLE - JO', 0),
 (6521, '2019-04-24', 'Ver este tramite', NULL, 2794, 'TUPAC YUPANQUI', 'GARCIA RUBEN DANIEL - JO', 0),
@@ -6883,8 +6875,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (6830, '2019-04-29', 'OLMOS Y CHATTAS: Ver bien que necesitamos para presentar tr?mites', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (6831, '2019-05-02', 'PERASSI OSCAR ALBERTO DEL VALLE S/C: Verificar si Sr. alcanz? formulario Asociaci?n de cuentas + agendar para ir a AFIP.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (6832, '2019-05-16', 'SABINO ANA AIDA S/C: Verificar si trajo CP para pedir informe de aportes del causante', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(6833, '2019-05-06', 'SOSA JUAN BARTOLO S/C: Ver este tr?mite. Tenemos CF', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(6833, '2019-05-06', 'SOSA JUAN BARTOLO S/C: Ver este tr?mite. Tenemos CF', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (6834, '2019-04-29', 'SUAREZ DDHH: Ver de presentar escritos (falta la firma de 2 hermanos)', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (6835, '2019-04-30', 'VER SI PASA SOCIOECONOMICO', NULL, 3216, 'VICTORINO RODRIGUEZ', 'ALBONICO ADRIANA EDITH - RECO', 0),
 (6836, '2019-04-30', 'Separar recibos + agendar para pedir formulario SDM a empleadores', NULL, 3357, 'SANTA ROSA', 'GODOY IDOLINA ELIZABET - NUEVA MORATORIA', 0),
@@ -6892,7 +6883,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (6838, '2019-04-30', 'Verificar si pas? a retirar telegrama si no llamar y recordar.', NULL, 3218, 'AV RAFAEL NU???EZ', 'SCHVARTZ RAQUEL PENSI???N DERIVADA DE SCHVARTMAN RICARDO MARCOS', 0),
 (6839, '2019-04-30', 'GUZMAN JUANA NORA S/C: Pedir HL causante (tenemos CP)', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (6840, '2019-05-14', 'Intentar sacar turno nueva moratoria para ver si pasa socioeconomico o agendar para consultar en ANSES', NULL, 3259, 'NECU???AN', 'PEREZ ANGELA MARISA - NUEVA MORATORIA', 0),
-(6841, '2019-05-03', 'Ver de retirar acta de matrimonio por registro civil COLON.', NULL, 3382, 'CHACAL', 'CARO GUSTAVO ALEJANDRO - RTI', 0),
+(6841, '2019-05-03', 'Ver de retirar acta de matrimonio por registro civil COLON.', NULL, 3382, 'CHACAL', 'CARO GUSTAVO ALEJANDRO - RTI', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (6842, '2019-05-06', 'Ver si se comunicaron del Instituto de Ed. Pedagogica por cer. de ss. sino llamar.', NULL, 3383, 'PERU', 'PRADO ELINA HEBE - RECONOCIMIENTO DE SERVICIOS', 0),
 (6843, '2019-05-06', 'Verificar si digitalizaron expte.', NULL, 2796, 'AV. DEL TRABAJO', 'GONZALEZ ALBERTO ANGEL - JO', 0),
 (6844, '2019-04-30', 'Hacer alegatos', NULL, 2067, 'AZUL', 'PONCE ROLANDO EDUARDO C/ANSES S/REAJUSTE- EXPDTE - FCB N???59660/2018', 0),
@@ -7225,8 +7217,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (7171, '2019-05-03', 'Verificar si Sra. Moreno se comunic?. Avisar que tiene que ir al turno para certificar formularios + consultar si tiene acta matrimonio para ADP Casad', NULL, 3125, 'RAYMOND POINCARE', 'MORENO NORMA AGUSTINA - RECO', 0),
 (7172, '2019-05-03', 'Verificar si Dr. Zemborain nos contest?. (MARTES 12:30 HS / 13:30 HS / 14:00 HS)', NULL, 2808, NULL, 'MURUA SILVIA SUSANA - REAJUSTE', 0),
 (7173, '2019-05-03', 'Verificar si Sra. pas? a firmar escrito + dar CP para que certifique en policia.', NULL, 2611, 'PJE ANGEL PACHECO', 'ORTIZ MIRTA CATALINA - C/ANSES S/REAJUSTE - EXPDTE N??? 048588/2018', 0),
-(7174, '2019-05-03', 'Verificar si Mariana Heredia trajo formularios + dejar listo turno el Martes si no recordar venga urgente!!', NULL, 3202, 'GRAL. BUSTOS', 'OLMEDO JUAN ANTONIO - RTI', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(7174, '2019-05-03', 'Verificar si Mariana Heredia trajo formularios + dejar listo turno el Martes si no recordar venga urgente!!', NULL, 3202, 'GRAL. BUSTOS', 'OLMEDO JUAN ANTONIO - RTI', 0),
 (7175, '2019-05-13', '15:30 hs.- QUADRI CUADROS JOS? IGNACIO (3380) Tenia que traer recibos cacorba sat (1990/2000)', NULL, 1850, NULL, '*TURNOS*', 0),
 (7176, '2019-05-03', 'TERMINAR AMPARO POR MORA + CITAR PARA FIRMAR', NULL, 2821, 'TELQUINCHO', 'PERALTA CRISTINA DEL VALLE - RECO', 0),
 (7177, '2019-05-03', 'Ver prueba', NULL, 3123, NULL, 'SALADINO ANA MARIA MERCEDES C/ANSES S/REAJUSTE - EXPDTE N??? 87986/2018', 0),
@@ -7235,7 +7226,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (7180, '2019-05-03', 'CAMINOS TOTO RAUL C/EFA: Hacer escrito solicitando desarchivo actuaciones para ver si es donde est? qui?ones', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (7181, '2019-05-03', 'MELONEZ JORGE ALBERTO S/C: Verificar si Dra. Paez nos alcanz? recibos de sueldo o cert. de ss. + ver tr?mite.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (7182, '2019-05-09', 'OLMOS Y CHATTAS: Ver bien que necesitamos para presentar tte.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(7183, '2019-05-03', 'Ver tr?mites nuevos + organizar.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
+(7183, '2019-05-03', 'Ver tr?mites nuevos + organizar.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (7184, '2019-05-03', 'Ver prueba que hay que diligenciar (not. 30/04/2019) + agendar para pedir clausura.', NULL, 2864, 'JUJUY', 'ATDJIAN DANIEL MARTIN C/ANSES S/ REAJUSTE - EXPDTE N??? 058479/2018', 0),
 (7185, '2019-05-03', 'Verificar si Mariana trajo demanda firmada sino llamar y recordar.', NULL, 3020, 'LA PAMPA', 'BRIZUELA DELIA RITA PENSION DERIVADA DE RODRIGUEZ RAFAEL EMILIO', 0),
 (7186, '2019-05-07', 'Verificar si Dra. Amieva digitaliz? expte. de cumplimiento sino volver a reclamar.', NULL, 2641, NULL, 'CAPURRO HUGO WASHINGTON C/ANSES S/REAJUSTE - EXPDTE N??? 11030074/2006', 0),
@@ -7555,8 +7547,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (7500, '2019-05-10', 'Verificar si pas? a retirar telegrama si no llamar y recordar', NULL, 3218, 'AV RAFAEL NU???EZ', 'SCHVARTZ RAQUEL PENSI???N DERIVADA DE SCHVARTMAN RICARDO MARCOS', 0),
 (7501, '2019-05-15', 'Verificar si pas? a retirar formulario baja PUAM para turno si no recordar.', NULL, 2794, 'TUPAC YUPANQUI', 'GARCIA RUBEN DANIEL - JO', 0),
 (7502, '2019-05-15', 'NEYRA SILVIA BEATRIZ S/C DEPENDE PRORROGA: Verificar si pas? CF + terminar de ver tte.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(7503, '2019-05-13', 'Completar formularios SDM que faltaban + dejar listisimo este tramite (:', NULL, 3336, 'TUPAC YUPANQUI', 'VELAZ ILDA LAURA - RECO', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(7503, '2019-05-13', 'Completar formularios SDM que faltaban + dejar listisimo este tramite (:', NULL, 3336, 'TUPAC YUPANQUI', 'VELAZ ILDA LAURA - RECO', 0),
 (7504, '2019-05-09', 'Aye hacer escrito LOPEZ PE?A acompa?ando documental', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (7505, '2019-05-29', 'HENIN GUSTAVO ANDRES S/C: Verificar si nos pas? CF para ver tr?mite si no recordar.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (7506, '2019-05-09', 'Verificar si Sra. paso a retirar telegrama', NULL, 2688, 'BEDOYA', 'MAUTINO ANA MARIA C/ ANSES S/REAJUSTES VARIOS - EXPDTE. 001402/2018', 0),
@@ -7564,7 +7555,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (7508, '2019-05-10', 'Verificar si Dra. Del Zotto subi? escrito sino hacer escrito solicitando emplazamiento.', NULL, 2053, 'ARRAYAN', 'MORALES ELIDA GLADYS C/ANSES S/PENSIONES - EXPDTE N??? 44435/2014', 0),
 (7509, '2019-05-14', 'Ver estado de este tramite con clave CiDi + si tuvimos respuesta Caja por doc. enviada.', NULL, 2128, 'RICARDO PEDRONI', 'ECHEGARAY MARIA CRISTINA - JO CAJA', 0),
 (7510, '2019-05-09', 'Presentar nota en la Caja.', NULL, 2128, 'RICARDO PEDRONI', 'ECHEGARAY MARIA CRISTINA - JO CAJA', 0),
-(7511, '2019-05-15', 'MELONEZ JORGE ALBERTO s/c: Hablar con Sr. para solicitar recibos de sueldo o cert. de ss.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
+(7511, '2019-05-15', 'MELONEZ JORGE ALBERTO s/c: Hablar con Sr. para solicitar recibos de sueldo o cert. de ss.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (7512, '2019-05-30', 'Ver si hay novedades del sobre enviado por honorarios pendientes.', NULL, 3062, 'ENFERMERA CLERMONT', 'BECERRA GLORIA NILDA - PRH', 0),
 (7513, '2019-05-10', 'Pedir vista expte. 121-1 - UDAI I.', NULL, 3298, 'OMBU', 'DOMBALD JORGE ENRIQUE - PUAM', 0),
 (7514, '2019-07-16', 'Ver si se prorroga moratoria 26970', NULL, 2780, NULL, 'MOTTA CLAUDIA', 0),
@@ -7891,15 +7883,15 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (7835, '2019-05-14', 'Terminar de ver reajustes (f. inicial de pago y periodo tenido en cta. p/ c?lculo)', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (7836, '2019-05-14', 'Llamar a Sra. y explicar que nos intiman a pagar tasa aportes Caja de Colegio.', NULL, 2715, 'RODRIGUEZ PE???A', 'REYNAGA ELENA ENCARNACION C/ANSES S/REAJUSTE - EXPDTE N??? 033192213/2012', 0),
 (7837, '2019-05-16', 'Verificar estado expte GALLEGUILLO C MUNICIPALIDAD', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(7838, '2019-05-30', 'Verificar si remitieron expdte. de C?mara a Juzgado para cumplimiento', NULL, 2648, 'CALLE PEATONAL B (2??? PASAJE)', 'CORDOBA JUSTINA FILOMENA C/ANSES S/REAJUSTE - EXPTE N??? 033030043/2012', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(7838, '2019-05-30', 'Verificar si remitieron expdte. de C?mara a Juzgado para cumplimiento', NULL, 2648, 'CALLE PEATONAL B (2??? PASAJE)', 'CORDOBA JUSTINA FILOMENA C/ANSES S/REAJUSTE - EXPTE N??? 033030043/2012', 0),
 (7839, '2019-05-27', 'Verificar si ANSES present? informe', NULL, 3206, 'SAN JUAN', 'AQUINO CASTORINA C/ANSES S/AMPARO - EXPDTE N???000882/2019', 0),
 (7840, '2019-05-27', 'Verificar si ANSES present? informe sino hacer escrito solicitado deca?miento de derecho.', NULL, 3272, 'AV. KINGSLEY', 'GUZMAN DEOLINDA ALCIRA C/ANSES S/AMPARO LEY 16986- EXPDTE 003669/2019', 0),
 (7841, '2019-05-15', '16:00 hs - SUSANA PINGET: Consulta para tramite de divorcio - TEL: 155055489 - Proc: Revista Nuevo Enfoque', NULL, 1850, NULL, '*TURNOS*', 0),
 (7842, '2019-05-15', 'Recordar llevar ma?ana para explicar situacion previsional a Ruth Vargas de Supervielle', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (7843, '2019-05-21', 'PAGAR EPEC (vence 23/05)', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (7844, '2019-05-20', 'Ver si est? cargado COMDE avisar a Dra. Acevedo para que retire + agendar para ver posi de jubilacion de Sra. si se prorroga moratoria', NULL, 3331, 'RUTA E56 S/N LOS TALAS ANISACATE', 'CEJAS GABRIELA ESTELA PENSI???N DIRECTA JAIME OSVALDO ANGEL', 0),
-(7845, '2019-05-20', 'Ver si esta cargado CODEM', NULL, 2905, NULL, 'CALVI STELLA MARIS - NUEVA MORATORIA', 0),
+(7845, '2019-05-20', 'Ver si esta cargado CODEM', NULL, 2905, NULL, 'CALVI STELLA MARIS - NUEVA MORATORIA', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (7846, '2019-05-28', 'Verificar si caratularon expdte. de cumplimiento sino hablar con la Dra. Moyano Amieva nuevamente (llevar const. PRH rechazada)', NULL, 2936, 'MARIANO LOZANO', 'STUCKY ALBERTO C/ANSES S/REAJUSTE - EXPTE N??? 24200015/2010', 0),
 (7847, '2019-06-24', 'Ver estado de este tramite', NULL, 3343, 'JUAN DEL CAMPILLO', 'ZURITA MARIA INES - REAJUSTE', 0),
 (7848, '2019-05-22', 'BRIZUELA DDHH: Verificar si figura en casillero (Expte n? 5809288)', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
@@ -8210,8 +8202,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (8153, '2019-05-20', 'Ver expte. + agendar para hacer demanda', NULL, 3340, 'SANTA ROSA', 'JUNCOS NILDA RITA - PENSION DERIVADA', 0),
 (8154, '2020-01-07', 'TURNO EN MIGRACIONES - 10:00 HS.', NULL, 3414, 'USPALLATA', 'GARINO LUIS - JO', 0),
 (8155, '2020-01-06', 'RECORDAR A SR. QUE MA?ANA TIENE TURNO EN MIGRACIONES - 10:00 HS.', NULL, 3414, 'USPALLATA', 'GARINO LUIS - JO', 0),
-(8156, '2019-12-30', 'RECORDAR EN 1 SEMANA TURNO EN MIGRACIONES - 10:00 HS.', NULL, 3414, 'USPALLATA', 'GARINO LUIS - JO', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(8156, '2019-12-30', 'RECORDAR EN 1 SEMANA TURNO EN MIGRACIONES - 10:00 HS.', NULL, 3414, 'USPALLATA', 'GARINO LUIS - JO', 0),
 (8157, '2019-05-20', 'GALINDEZ HUGO JULIO S/C: Hablar con Sr. para explicar. (No se puede hacer mucho) TEL: 4650927 al mediod?a.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (8158, '2019-05-20', 'LEDESMA ARTURO DDHH: Ver expte. DDHH y ejecutivo ACLADE con Vico Osorio', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (8159, '2019-05-31', 'MANSILLA DELIA MARTA S/C REAJUSTE: Verificar si digitalizaron expte. 060-1', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
@@ -8220,7 +8211,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (8162, '2019-05-31', 'Chequear si expte 299-1 esta en UDAI II para pedir vista.', NULL, 3205, 'QUINTA SANTA ANA', 'ALDAY LUIS EDUARDO - JO', 0),
 (8163, '2019-05-20', 'Pedir vistas RODRIGUEZ MALVON y WAITE.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (8164, '2019-05-24', 'Organizar vistas: LOBO RAMONA + SORIA ARCH', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(8165, '2019-05-31', 'Organizar vistas: HERRERA DOLY +PERALTA SILVIA', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
+(8165, '2019-05-31', 'Organizar vistas: HERRERA DOLY +PERALTA SILVIA', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (8166, '2019-07-17', 'Ver si hay novedades sobre posibilidad de reclamo reajuste PBU (Hospital Aeronautico: 2397/2371/2654/2716 y otras s/c reajuste)', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (8167, '2019-05-20', 'Entre las 08:30 hs. y 13:00 hs. ver si podemos llamar al Min. de Educaci?n de La Rioja y pedir hablar con Milena por cert. de ss.', NULL, 3356, 'EEUU', 'CAPPELLINI PATRICIA M???NICA - NUEVA MORATORIA', 0),
 (8168, '2019-05-24', 'Tenia que hacerse estudios que le solicitaron desde CM - consultar como le fue', NULL, 3382, 'CHACAL', 'CARO GUSTAVO ALEJANDRO - RTI', 0),
@@ -8537,8 +8529,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (8479, '2019-05-23', 'Terminar de ver reajustes (f.inical y periodo)', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (8480, '2019-05-23', 'FERNANDEZ YVONNE GLADYS: Avisar situaci?n previsional a Sra. (Proc: Ruth Supervielle) TEL: 0351-156608815', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (8481, '2019-05-23', 'GALINDEZ HUGO JULIO S/C: Hablar con Sr. para explicar (no se puede hacer mucho) TEL: 4650927 al mediodia', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(8482, '2019-05-27', 'Confirmar a Sra. hora de turno para encontrarnos en ANSES y completar formulario nivel escolaridad', NULL, 3388, 'DEAN FUNES', 'BRUSADIN PATRICIA DENISSE - JUBILACI???N POR CEGUERA', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(8482, '2019-05-27', 'Confirmar a Sra. hora de turno para encontrarnos en ANSES y completar formulario nivel escolaridad', NULL, 3388, 'DEAN FUNES', 'BRUSADIN PATRICIA DENISSE - JUBILACI???N POR CEGUERA', 0),
 (8483, '2019-05-23', 'Continuar dda. reajuste topes', NULL, 3262, 'JOSE A CORTAJARENA', 'ASIS SILVINA - REAJUSTE', 0),
 (8484, '2019-05-23', 'LOPEZ EDUARDO S/C: Ver de pedir cert. de ss. a Entes Liquidados con clave fiscal (aportes Forja del 75 al 84)', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (8485, '2019-05-24', 'Verificar si nos respondieron por pedido escala salarial', NULL, 2049, 'DONACIANO DEL CAMPILLO', 'TRIVELLONE MARIA FILOMENA C/ANSES S/REAJUSTE - EXPTE 046523/2017', 0),
@@ -8546,7 +8537,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (8487, '2019-05-23', 'MAZA LILIANA MILAGRO S/C DEPENDE PRORROGA: Llamar a Sr. y explicar por recibos que dejo.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (8488, '2019-05-28', '15:00 hs.- LEON Revista Nuevo Enfoque', NULL, 1850, NULL, '*TURNOS*', 0),
 (8489, '2019-05-28', '14:30 hs.- MORI ESPADA GABRIEL - 3417 por RTI en La Caja', NULL, 1850, NULL, '*TURNOS*', 0),
-(8490, '2019-05-30', 'PERALTA ELVIRA MABEL S/C REAJUSTE: Verificar si camb?o estado PRH', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
+(8490, '2019-05-30', 'PERALTA ELVIRA MABEL S/C REAJUSTE: Verificar si camb?o estado PRH', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (8491, '2019-06-06', 'RODRIGUEZ GUSTAVO: Verificar si nos alcanz? fotocopia escritura o m?s datos (cedulon rentas) del inmueble del padre que quiere vender su hno', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (8492, '2019-05-23', 'SANCHEZ GUSTAVO HUMBERTO S/C: Avisarle a Sr. que son aportes en La Caja - generarle clave CiDi', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (8493, '2019-05-23', 'SERRA ART: Verificar si me contestan en SRT si no avisar a Fer', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
@@ -8872,8 +8864,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (8813, '2019-06-14', 'Ver si acuerdo PRH esta homologado y si ANSES pago honorarios + dar de baja legajo', NULL, 3234, 'MAIPU', 'RIEDER WALTRAUD - PRH', 0),
 (8814, '2019-05-31', 'Pedir vista de expte. 357-1 .', NULL, 2862, NULL, 'ACOSTA MIGUEL OSCAR - REAJUSTE', 0),
 (8815, '2019-05-30', 'SUAREZ DDHH: Verificar si tuvimos novedades del sobre enviado.', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(8816, '2019-06-03', 'Ver si este mes pagan retro PRH + ver honorarios si no reagendar para mes proximo', NULL, 3325, 'EL PALENQUE', 'CORDOBA ALDO ABEL - PRH', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(8816, '2019-06-03', 'Ver si este mes pagan retro PRH + ver honorarios si no reagendar para mes proximo', NULL, 3325, 'EL PALENQUE', 'CORDOBA ALDO ABEL - PRH', 0),
 (8817, '2019-07-01', 'Ver si este mes cobra retro PRH + ver honorarios si no reagendar para mes proximo', NULL, 3325, 'EL PALENQUE', 'CORDOBA ALDO ABEL - PRH', 0),
 (8818, '2019-07-15', 'Ver si ANSES pago honorarios PRH + dar de baja legajo', NULL, 3261, 'DR BERNARDO HOUSSAY', 'CUETO CABRERA NILDA JUANA - PRH', 0),
 (8819, '2019-05-31', 'MARQUEZ C/INTI: Verificar si Cra. respondi? mail o fij? fecha de pericia', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
@@ -8881,7 +8872,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (8821, '2019-05-31', 'Verificar si Sra. vino y dejo $ para ir pagando deuda MT y SDM + hacer boletas y dejar de Rebe', NULL, 3126, 'YACANTO', 'GONZALEZ MIRIAN NOEMI - JO', 0),
 (8822, '2019-05-29', 'ARRIOLA C/ SUPERIOR GOB: Diligenciar oficio en Panal', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (8823, '2019-05-29', 'URFER: Hacer prueba', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(8824, '2019-05-29', 'SACAR TURNOS ANSES', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
+(8824, '2019-05-29', 'SACAR TURNOS ANSES', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (8825, '2019-05-29', 'Presentar por citados cert. de ss.', NULL, 3351, 'PJE SANTA ROSA', 'PEDRAZA OSVALDO ALBERTO - RTI', 0),
 (8826, '2019-05-29', 'Presentar nota solicitando reconstruccion en ANSES', NULL, 2713, 'BERNARDO CAPDEVILLA', 'QUAGLIA CLAUDIO MARIO C/ ANSES S/REAJUSTES VARIOS - EXPTE 043126/2017', 0),
 (8827, '2019-06-06', 'Intentar sacar turno Nueva Moratoria para ver si pasa socioeconomico', NULL, 3259, 'NECU???AN', 'PEREZ ANGELA MARISA - NUEVA MORATORIA', 0),
@@ -9198,15 +9190,15 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (9138, '2019-06-03', 'Hacer demanda reajuste pensi?n', NULL, 2844, 'CARNERILLO', 'BONET IRMA BEATRIZ - REAJUSTE', 0),
 (9139, '2019-06-07', 'Si no se modific? estado de este tr?mite', NULL, 3373, 'ESTADOS UNIDOS', 'CARUBINI BEATRIZ DELIA - REHABILITACI???N DE BENEFICIO', 0),
 (9140, '2019-06-05', 'VER QUE HACEMOS CON ESTE TR?MITE - NO SE COMUNICARON M?S', NULL, 2656, 'ISABEL LA CATOLICA', 'DEBLOC EMILIO VICENTE C/ANSES S/REAJUSTE- EXPDTE N??? 033041183/2011', 0),
-(9141, '2019-06-03', 'Avisar a hijo', NULL, 3379, 'RICARDO ZARATE', 'GONZALEZ ENRIQUE DANIEL - JO', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(9141, '2019-06-03', 'Avisar a hijo', NULL, 3379, 'RICARDO ZARATE', 'GONZALEZ ENRIQUE DANIEL - JO', 0),
 (9142, '2019-06-06', 'Verificar si Sra. vino y dejo $ para ir pagando deuda MT y SDM + hacer boletas y dejar de Rebe', NULL, 3126, 'YACANTO', 'GONZALEZ MIRIAN NOEMI - JO', 0),
 (9143, '2019-06-26', 'Verificar si remitieron de la C?mara al Juzgado', NULL, 221, 'PASAJE ANDRES OLIVA', 'GONZALEZ OLGA PATRICIA C/ANSES S/ AMPARO - EXPDTE N??? 033070015/2007', 0),
 (9144, '2019-06-04', 'Hacer escrito pref. despacho', NULL, 221, 'PASAJE ANDRES OLIVA', 'GONZALEZ OLGA PATRICIA C/ANSES S/ AMPARO - EXPDTE N??? 033070015/2007', 0),
 (9145, '2019-06-03', 'Empezar demanda pensi?n denegada', NULL, 3340, 'SANTA ROSA', 'JUNCOS NILDA RITA - PENSION DERIVADA', 0),
 (9146, '2019-06-05', 'Verificar si nos contestaron vista de expte. con clave CiDi', NULL, 3418, NULL, 'LANICI DELIA INES PENSION DE VILLAREAL EDUARDO RICARDO', 0),
 (9147, '2019-06-03', 'Presentar apelaci?n en CM', NULL, 3428, 'RIO PARANA', 'MACHUCA MIRTA LILIANA - RTI', 0),
-(9148, '2019-06-03', 'Hacer excel nuevo con recibos San Cristobal que trajo + agendar para hacer bluecorp y ejecuci?n de sentencia.', NULL, 2717, 'JOSE A VOCOS', 'RIVAROLA VIVIANA MARIELA C/ANSES S/RVP - EXPDTE N??? 006539/2013', 0),
+(9148, '2019-06-03', 'Hacer excel nuevo con recibos San Cristobal que trajo + agendar para hacer bluecorp y ejecuci?n de sentencia.', NULL, 2717, 'JOSE A VOCOS', 'RIVAROLA VIVIANA MARIELA C/ANSES S/RVP - EXPDTE N??? 006539/2013', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (9149, '2019-06-07', 'Verificar si pas? por saldo de honorarios PRH si no recordar!!!!!', NULL, 3204, 'CLEMENTE ZARRAGA', 'RODRIGUEZ RUIZ AMANDA BEATRIZ - PRH', 0),
 (9150, '2019-06-06', 'Verificar si tuvimos novedades de pedido de b?squeda de expediente.', NULL, 3143, 'ILLINOIS', 'ROSALES BILMA BAUDILIA C/ANSES S/PENSIONES - EXPTE 070185/2018', 0),
 (9151, '2019-06-14', 'Verificar si Sra. alcanz? cert. m?dico para ver posibilidad de juicio ART', NULL, 2910, 'AV. PETTIROSSI', 'SANCHEZ MIRIAM DEL VALLE - NUEVA MORATORIA', 0),
@@ -9528,8 +9520,7 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (9467, '2019-06-10', 'SANCHEZ HECTOR HUGO S/C: Verificar si se comunicaron para coordinar turno', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (9468, '2019-06-27', 'Verificar si Sra. vino y dej? $ para ir pagando deuda MT y SDM + hacer boletas y dejar de Rebe', NULL, 3126, 'YACANTO', 'GONZALEZ MIRIAN NOEMI - JO', 0),
 (9469, '2019-06-10', 'Verificar si pas? a retirar turno para hacer CF relacionada si no recordar.', NULL, 3413, 'ROSALES', 'GUZMAN JUANA NORA - PENSI???N DIRECTA', 0),
-(9470, '2019-06-12', 'Tiene turno para hacer CF relacionada - consultar como le fue.', NULL, 3413, 'ROSALES', 'GUZMAN JUANA NORA - PENSI???N DIRECTA', 0);
-INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
+(9470, '2019-06-12', 'Tiene turno para hacer CF relacionada - consultar como le fue.', NULL, 3413, 'ROSALES', 'GUZMAN JUANA NORA - PENSI???N DIRECTA', 0),
 (9471, '2019-06-07', 'Pedir baja turno en UDAI II', NULL, 2981, 'LAVALLEJA', 'LUNA JESUS LIDIA - JUBILACION', 0),
 (9472, '2019-07-04', 'Verificar si le lleg? resoluci?n de CM si no ver de hacer consulta web.', NULL, 3202, 'GRAL. BUSTOS', 'OLMEDO JUAN ANTONIO - RTI', 0),
 (9473, '2019-06-07', 'Ver en que quedamos con este tr?mite. Mariana alcanz? documentaci?n', NULL, 3314, 'MICHELOTTI Y GRAL VALLE', 'CEBALLOS MIRIAN DEL VALLE PENSION DIRECTA DE TABLADA NICOLAS RUBEN', 0),
@@ -9537,7 +9528,8 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (9475, '2019-06-07', 'Reclamar en Arabel c Sabaini por planilla', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (9476, '2019-06-13', 'Verificar si alcanz? formularios. (llev? 06/05)', NULL, 3441, 'AV. LOS TILOS', 'PEREYRA ALFONSO EMILIO - RECO', 0),
 (9477, '2019-06-07', 'Hablar con Ariel Mansilla', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
-(9478, '2019-06-10', 'Hacer bluecorp Carballo y Falco', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
+(9478, '2019-06-10', 'Hacer bluecorp Carballo y Falco', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0);
+INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`, `nombre`, `apellido`, `realizado`) VALUES
 (9479, '2019-06-07', 'Aye: reclamar en sala que pasen a casillero y hacer planilla POZZI C ATIC GROUP', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (9480, '2019-06-07', 'LOPEZ MARIA INES S/C VER SI PODEMOS IMPRIMIR CREDENCIAL', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
 (9481, '2019-06-11', 'Ver planilla Vazquez c transporte y avisar abogada', NULL, 1154, 'AMUCHASTEGUI', 'AGENDA ESTUDIO', 0),
@@ -9705,7 +9697,10 @@ INSERT INTO `agenda` (`idAgenda`, `fecha`, `descripcion`, `responsable`, `orden`
 (9643, '2019-07-22', 'JUAN PABLO CUELLO', 'Cuti cuti', 0, NULL, NULL, 0),
 (9644, '2019-07-22', 'juan cuello 2 para agendar', 'Cuti cuti', 0, 'Hebe Argentina', 'ALMADA', 0),
 (9645, '2019-12-09', 'juan pablo cuello', 'juan  cuello', 21, 'juan cuello', 'cuello', 1),
-(9646, '2020-03-27', 'leddezma antonia', 'ramon ramon', 3, 'Antonia', 'LEDEZMA', 0);
+(9646, '2020-03-27', 'leddezma antonia', 'ramon ramon', 3, 'Antonia', 'LEDEZMA', 0),
+(9647, '2020-04-07', 'juan juan juanjuanjuan\r\njuan\r\njuan\r\njuan\r\njuan', 'juan  cuello', 10, 'cuello', 'apellido', 0),
+(9648, '2020-04-07', 'juanjuanjuanjuan', 'juan  cuello', 21, '', 'juan', 0),
+(9649, '2020-04-08', 'juan cuello agenda para hoy\r\njuan cuello agenda para hoyjuan cuello agenda para hoyjuan cuello agenda para hoyjuan cuello agenda para hoyjuan cuello agenda para hoyjuan cuello agenda para hoyjuan cuello agenda para hoyjuan cuello agenda para hoy', 'juan  cuello', 28, 'mercedes', 'patio', 0);
 
 -- --------------------------------------------------------
 
@@ -9726,7 +9721,7 @@ CREATE TABLE `configuracionesgenerales` (
 --
 
 INSERT INTO `configuracionesgenerales` (`IdConfiguracionsGenerales`, `telefonoSucursal`, `carpetaDePresupuestos`, `pdfUrl`, `urlDeLogoMundoLimpieza`) VALUES
-(1, '99999999', 'C:\\Users\\juan.cuello\\Documents\\Downloads', 'file:///C:\\Users\\juan.cuello\\Documents\\Downloads', 'http://localhost:8080/EstudioAlvarezVersion2/faces/resources/images/cutmypic.png');
+(1, '99999999', 'C:\\Users\\juan.cuello\\Documents\\Downloads', 'file:///C:\\Users\\juan.cuello\\Documents\\Downloads', 'http://localhost:8080/estudioAlvarezYAsociados/faces/resources/images/cutmypic.png');
 
 -- --------------------------------------------------------
 
@@ -9748,8 +9743,7 @@ CREATE TABLE `empleado` (
 
 INSERT INTO `empleado` (`idEmpleado`, `Nombre`, `Apellido`, `Cargo`, `Password`) VALUES
 (5, 'juan ', 'cuello', 'informática', 'juan'),
-(6, 'ramon', 'ramon', 'informatico', 'ramon'),
-(7, 'pablo', 'pablo', 'secretario', 'pablo');
+(9, 'termo', 'termo', 'termo', 'termo');
 
 -- --------------------------------------------------------
 
@@ -9767,7 +9761,6 @@ CREATE TABLE `estadodeltramite` (
 --
 
 INSERT INTO `estadodeltramite` (`idEstadoDelTramite`, `estado`) VALUES
-(2, 'ANSES SACAR TURNO'),
 (3, 'ANSES CON TURNO.'),
 (4, 'ANSES - INGRESADO.'),
 (5, 'DGSJ - INICIADO.'),
@@ -9779,7 +9772,9 @@ INSERT INTO `estadodeltramite` (`idEstadoDelTramite`, `estado`) VALUES
 (12, 'HONORARIOS PENDIENTES.'),
 (13, 'DADO DE BAJA.'),
 (15, 'INGRESADO AL ESTUDIO.'),
-(16, 'TERMINADO OK.');
+(16, 'TERMINADO OK.'),
+(17, 'ANSES SACAR TURNO'),
+(18, 'RESUELTO FAVORABLE');
 
 -- --------------------------------------------------------
 
@@ -9835,13 +9830,12 @@ CREATE TABLE `expediente` (
 
 INSERT INTO `expediente` (`idExpediente`, `orden`, `cuit`, `dni`, `nombre`, `tipoDeDocumento`, `sexo`, `apellido`, `direccion`, `nroDeAltura`, `piso`, `depto`, `barrio`, `telefono`, `fechaDeNacimiento`, `edad`, `claveSeguridadSocial`, `claveFiscal`, `claveCidi`, `cobraBeneficio`, `fechaDeAltaDeExpediente`, `codigoPostal`, `localidad`, `tipoDeTramite`, `procedencia`, `estadoDelTramite`, `fechaDeCobro`, `nacionalidad`, `tipoDeExpediente`, `caratula`, `nroDeExpediente`, `juzgadoODependencia`, `observaciones`, `fechaDeAtencion`, `convenioDeHonorarios`, `jurisdiccion`, `tipo`, `etapaProcesal`, `poderFirmado`) VALUES
 (786, 3, '27010627139', '0106271', 'antonia', NULL, 'femenino', 'ledezma', 'francisco uzal', 5178, '', '', 'NICOLAS AVELLANEDA', '497-4526', '1927-11-10', 91, '', '', '', 'Si', NULL, '', '', '', 'ramiro rama', NULL, NULL, '', 'judicial', NULL, NULL, NULL, 'ACORDADO 22/08/06 -grupo 4  //  Cobr? el 15/11/06    ///   PAG? LA TOTALIDAD DE LOS HONORARIOS', NULL, NULL, NULL, NULL, NULL, NULL),
-(788, 26, '27014479193', '0144791', 'esther piedad', NULL, 'femenino', 'garay', 'av. padre claret', 6025, NULL, NULL, 'LOS BULEVARES', '03543-447097', '1938-11-28', 80, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'administrativo', NULL, NULL, NULL, 'acordado 14/09/06', NULL, NULL, NULL, NULL, NULL, NULL),
+(788, 26, '27014479193', '0144791', 'esther piedad', NULL, 'masculino', 'garay', 'av. padre claret', 6025, '', '', 'LOS BULEVARES', '03543-447097', '1938-11-28', 82, '', '', '', 'Si Jubilación', NULL, '', '', NULL, 'ramiro rama editado', 'DADO DE BAJA.', NULL, 'Argentina', 'administrativo', NULL, NULL, NULL, 'acordado 14/09/06', NULL, NULL, NULL, NULL, NULL, NULL),
 (789, 28, '23015657154', '0156571', 'mercedes', NULL, 'masculino', 'patio', 'brown', 2712, '', '', 'ROSEDAL', '465-2805/25', '1931-09-24', 88, 'seguridad', 'fiscal', 'cidi', 'Si Jubilación', NULL, '', '', NULL, 'ramiro rama editado', NULL, NULL, 'Argentina', 'administrativo', NULL, NULL, NULL, 'iniciado 12/08/06+ //. fue denegado por error en base de datos de AFIP + fue corregidoen afip y reenviado por la web el 14/10/06 ///     PAGO LA TOTALIDAD DE HONORARIOS!', NULL, '', NULL, NULL, NULL, NULL),
 (801, 39, '23048558674', '0485586', 'graciela elida', NULL, 'femenino', 'donato', 'pascal', 2817, NULL, NULL, 'VILLA BELGRANO', '155507508', '1944-07-04', 75, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'administrativo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (804, 42, '27052798006', '0527980', 'silvina luisa', NULL, 'femenino', 'chattas feigin', 'av. ricchieri - torre', 2637, '', '', '', '464-8088--155184529', '1945-10-30', 73, '', '', '', 'Si', NULL, '', '', '', 'ramiro rama', NULL, NULL, '', 'judicial', NULL, NULL, NULL, 'PUEDE COBRAR A PARTIR DEL 19/06/07', NULL, NULL, NULL, NULL, NULL, NULL),
 (806, 44, '27176260683', '1762606', 'angela severina', NULL, 'femenino', 'pascutto', 'mendoza', 2039, NULL, NULL, 'ALTA CORDOBA', '471-8626', '1927-04-27', 92, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'administrativo', NULL, NULL, NULL, 'cobro en octubre de 2006               ///////////////    Acordado 04/09/06+Beneficio 15-0-1662430-0       AVISADA + cobra el 23/10/06 en Banex Alta Cordoba', NULL, NULL, NULL, NULL, NULL, NULL),
 (807, 45, '20079651576', '0796515', 'roque carmelo', NULL, 'masculino', 'scherma mena', 'pehuenche', 8813, NULL, NULL, 'CERRRO NORTE', '03543-429119 // 155-387756', '1941-08-26', 77, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'administrativo', NULL, NULL, NULL, 'enviado por internet 28/03/2007 // LA 1? CTA LA PAG? EL ESTUDIO Y LA COBRA JUNTO CON LOS HONORARIOS.  // pago totalidad de honorarios + cuota 22/08', NULL, NULL, NULL, NULL, NULL, NULL),
-(809, 47, '27062661165', '0626611', 'graciela marta', NULL, 'femenino', 'engler', 'aviador mira', 2816, NULL, NULL, NULL, '466-3304', '1950-03-03', 69, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'administrativo', NULL, NULL, NULL, 'pendiente - falta fotocopia dni + clave fiscal', NULL, NULL, NULL, NULL, NULL, NULL),
 (810, 48, '20079737594', '0797375', 'juan carlos', NULL, 'masculino', 'burgos', 'lagunilla 4903', NULL, NULL, NULL, 'VILLA ADELA', '466-0020', '1943-09-06', 75, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'administrativo', NULL, NULL, NULL, 'cobrara el dia martes 23/06/2009 ---- PAGO TOTALIDAD DE HONORARIOS 23/06', NULL, NULL, NULL, NULL, NULL, NULL),
 (811, 49, '27041117120', '0411171', 'ramona delicia', NULL, 'femenino', 'arguello', 'mart???n lacarra', 6030, NULL, NULL, 'AVELLANEDA', '4974526 - VECINA ANTONIA FLORES', '1940-12-12', 78, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'administrativo', NULL, NULL, NULL, 'la hicimos sin aportes + NICIADA POR LA WEB  09/02/07   - avisada  5-3-07   ///  pago la totalidad de honorarios 12/06 -- la comison de la sra flores ($50) se compesa con el adelanto dado el 20/04', NULL, NULL, NULL, NULL, NULL, NULL),
 (813, 51, '27037777434', '0377774', 'gricelda', NULL, 'femenino', 'pedraza', '27 de abril', 980, 'PB', NULL, 'ALBERDI', '156-537034(HIJA - CLAUDIA)', '1938-09-23', 80, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'administrativo', NULL, NULL, NULL, 'acordado 16/08/06     BENEFICIO 15-0-1557812-0-2 .-GR. 4     Cobr? el 15/11/06 a las 09:45', NULL, NULL, NULL, NULL, NULL, NULL),
@@ -13260,9 +13254,7 @@ INSERT INTO `expediente` (`idExpediente`, `orden`, `cuit`, `dni`, `nombre`, `tip
 (4202, 3438, '27142905979', '14290597', 'natal crespo', NULL, 'femenino', 'asrin adriana beatriz - reco', '4790', NULL, NULL, NULL, NULL, '3516560713', '1960-09-07', 58, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'administrativo', NULL, NULL, NULL, 'Proc: Pau - css: estudio02 - cf: COFICO386 - 2 hab al momento de JO - 04/06 llev? formularios', NULL, NULL, NULL, NULL, NULL, NULL),
 (4203, 3439, '23076303649', '7630364', 'espora', NULL, 'masculino', 'gutierrez antonio jos??? - impuesto a las ganancias', '116', NULL, NULL, NULL, 'JUAN XXIII', '4809540/156526343', '1948-11-08', 70, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'administrativo', NULL, NULL, NULL, 'Cidi: Nmfpyrw4 - Proc: Centro de Jubilados', NULL, NULL, NULL, NULL, NULL, NULL),
 (4204, 3440, '27137869301', '13786930', 'famatina', NULL, 'femenino', 'azula rosario - jubilacion', '306', NULL, NULL, NULL, 'SAN MARTIN', '4718874 - 3512562984', '1959-10-07', 59, NULL, NULL, 'claveCIDI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'administrativo', NULL, NULL, NULL, 'CSS: estudio02 - CF: Estudio2019 - HON: 2 HABERES - Proc: Nuevo Enfoque -', NULL, NULL, NULL, NULL, NULL, NULL),
-(4205, 9999, '20350548220', '3505482', 'juan', NULL, 'masculino', 'cuello', 'ibarbalz', 762, '16', 'I', 'gral paz', '4522524', '2019-12-11', 0, NULL, NULL, NULL, NULL, NULL, '5000', 'córdoba', NULL, NULL, NULL, NULL, 'argentino', NULL, '', '999999999', NULL, NULL, NULL, NULL, 'Federales - Jefatura 2', 'Reajuste', 'Alegatos', 'Si'),
-(4206, 7777, '20350548220', '3505482', 'juan', NULL, 'masculino', 'cuello', 'ibarbalz', 752, '16', 'I', 'gral paz', '4522524', '2019-12-11', 0, '', '', '', 'Si Jubilación', NULL, '5000', 'cordoba', 'RTI', 'ramiro rama editado', 'DGSJ - INICIADO.', '2019-12-28', 'Argentina', 'administrativo', NULL, NULL, NULL, 'observaciones', '2019-12-25', 'honorarios', NULL, NULL, NULL, NULL),
-(4207, 7778, '2035054999', '3505499', 'pablo', NULL, 'masculino', 'juan', 'ibarbalz', 752, '16', 'i', '', '4522524', '2019-12-19', 0, 'nada', 'nada', 'nada', 'Si Jubilación', NULL, '5000', 'cordoba', 'RTI', 'ramiro rama editado', 'ANSES - INGRESADO.', '2019-12-27', 'Argentina', 'administrativo', NULL, NULL, NULL, 'nada de nada.', '2019-12-06', 'nada', NULL, NULL, NULL, NULL);
+(4209, 3441, '20350548220', '3505482', 'juan', NULL, 'masculino', 'cuello', 'ibarbalz', 0, '', '', '', '4522524', '1990-04-02', 30, '', '', '', NULL, NULL, '5000', 'cordoba', NULL, 'ramiro rama editado', 'DGSJ - INICIADO.', NULL, 'Argentina', 'administrativo', NULL, NULL, NULL, '', '2020-04-09', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -13281,7 +13273,9 @@ CREATE TABLE `procedencia` (
 
 INSERT INTO `procedencia` (`idProcedencia`, `nombreProcedencia`) VALUES
 (3, 'ramiro rama editado'),
-(5, 'juan cuello');
+(5, 'juan cuello'),
+(9, 'nueva procedencia editado'),
+(10, 'github editado');
 
 -- --------------------------------------------------------
 
@@ -13291,7 +13285,7 @@ INSERT INTO `procedencia` (`idProcedencia`, `nombreProcedencia`) VALUES
 
 CREATE TABLE `turno` (
   `idTurno` int(11) NOT NULL,
-  `horaYDia` date NOT NULL,
+  `horaYDia` timestamp NULL DEFAULT NULL,
   `nombre` varchar(250) DEFAULT NULL,
   `apellido` varchar(300) DEFAULT NULL,
   `nroDeTelefono` varchar(150) DEFAULT NULL,
@@ -13305,9 +13299,10 @@ CREATE TABLE `turno` (
 --
 
 INSERT INTO `turno` (`idTurno`, `horaYDia`, `nombre`, `apellido`, `nroDeTelefono`, `procedencia`, `observacion`, `responsable`) VALUES
-(1, '2019-08-13', 'Margarita Teresa', 'DALMASSO', '465-8093', 'procedencia juan cuello', 'observación observación desde agregar turno para globant', 'juan  cuello'),
-(2, '2019-12-11', 'juan', 'cuello', '2312312', 'procedencia', 'observacion', 'ramon ramon'),
-(3, '2020-03-27', 'Mercedes', 'PATIO', '465-2805/25', 'procedencia juan cuello', 'haaaa', NULL);
+(5, '2020-04-21 22:00:00', 'dsakdas', 'asdkasd', 'asdasd', 'sadsa', 'asdads', 'juan  cuello'),
+(7, '2020-04-22 14:00:00', 'dsakdas', 'asdkasd', 'asdasd', 'sadsa', 'observacion', 'juan  cuello'),
+(9, '2020-04-15 17:00:00', 'juan', 'cuello', '4522524', 'nueva procedencia editado', 'blablablablablabla', 'juan  cuello'),
+(10, '2020-05-15 17:00:00', 'juan', 'cuello', '4522524', 'juan cuello', 'nada nada', 'juan  cuello');
 
 -- --------------------------------------------------------
 
@@ -13391,7 +13386,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `agenda`
 --
 ALTER TABLE `agenda`
-  MODIFY `idAgenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9647;
+  MODIFY `idAgenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9651;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracionesgenerales`
@@ -13403,31 +13398,31 @@ ALTER TABLE `configuracionesgenerales`
 -- AUTO_INCREMENT de la tabla `empleado`
 --
 ALTER TABLE `empleado`
-  MODIFY `idEmpleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idEmpleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `estadodeltramite`
 --
 ALTER TABLE `estadodeltramite`
-  MODIFY `idEstadoDelTramite` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idEstadoDelTramite` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `expediente`
 --
 ALTER TABLE `expediente`
-  MODIFY `idExpediente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4208;
+  MODIFY `idExpediente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4210;
 
 --
 -- AUTO_INCREMENT de la tabla `procedencia`
 --
 ALTER TABLE `procedencia`
-  MODIFY `idProcedencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idProcedencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `turno`
 --
 ALTER TABLE `turno`
-  MODIFY `idTurno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idTurno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `users`

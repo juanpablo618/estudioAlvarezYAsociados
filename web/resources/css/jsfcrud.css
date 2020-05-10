@@ -47,7 +47,7 @@
 
 .ui-menu .ui-menuitem-link{
      background-color: #2A55AA !important;
-        height:50px !important;
+        height:80px !important;
 
 }
 
@@ -194,4 +194,12 @@ div.ui-layout-unit-content {
 
 .ui-datatable .ui-column-filter{
     width: 35% !important;
+}
+
+#ExpedienteListForm:datalist:j_idt36:filter{
+    text-transform: uppercase;
+}
+.ui-column-filter.ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all{
+        text-transform: uppercase;
+
 }

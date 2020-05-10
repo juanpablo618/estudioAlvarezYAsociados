@@ -57,7 +57,7 @@
                              <div>
                                  <div style="float: left">
                                      <p:outputLabel value="#{bundle.EditExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento" style="font-weight: bold" /><br></br>
-                                    <p:calendar id="fechaDeNacimiento" pattern="dd/MM/yyyy"  value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}"  showOn="button"/><br></br>
+                                     <p:calendar id="fechaDeNacimiento" pattern="dd/MM/yyyy"  value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" required="true" requiredMessage="fecha de nacimiento es requerido" showOn="button"/><br></br>
                                     
                                  </div>
                                  <div >
@@ -180,11 +180,11 @@
                                    <p:selectOneMenu id="jurisdiccion" style="margin-left: 3%" value="#{expedienteController.selected.jurisdiccion}" editable="true" >
                                         <f:selectItem itemLabel="Provincia - Juzgado N°" itemValue="Provincia - Juzgado N°" />
                                         <f:selectItem itemLabel="Provincia - Cámara" itemValue="Provincia - Cámara" />
-                                        <f:selectItem itemLabel="Federales - Jefatura 1" itemValue="Federales - Jefatura 1" />
-                                        <f:selectItem itemLabel="Federales - Jefatura 2" itemValue="Federales - Jefatura 2" />
-                                        <f:selectItem itemLabel="Federales - Jefatura 3" itemValue="Federales - Jefatura 3" />
+                                        <f:selectItem itemLabel="Federales - Juzgado 1" itemValue="Federales - Juzgado 1" />
+                                        <f:selectItem itemLabel="Federales - Juzgado 2" itemValue="Federales - Juzgado 2" />
+                                        <f:selectItem itemLabel="Federales - Juzgado 3" itemValue="Federales - Juzgado 3" />
                                         <f:selectItem itemLabel="Federales - Camara - Sala A" itemValue="Federales - Camara - Sala A" />
-                                        <f:selectItem itemLabel="Federales - Camara - Sala b" itemValue="Federales - Camara - Sala b" />
+                                        <f:selectItem itemLabel="Federales - Camara - Sala B" itemValue="Federales - Camara - Sala B" />
                                         
                                     </p:selectOneMenu>
                                    <br></br><br></br>

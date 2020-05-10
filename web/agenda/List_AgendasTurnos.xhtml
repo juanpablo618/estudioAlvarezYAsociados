@@ -7,15 +7,27 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml" >
+        <script>
+            function enviarTexto(){
+                var texto = document.getElementById("inputText2").value;
+                document.getElementById("inputText").value=texto;
+            }
             
+        </script>
         <ui:define name="body"  >
-            
-            <h:form id="TurnoListForm" style="background-color: #F4F8FA">
-                
-                <center style="background-color: #f4f8fa">
+            <center style="background-color: #f4f8fa">
                     <div><h:graphicImage value="../faces/resources/images/2019-10-29.png" style="width: 20%;"/>
                     </div>
                 </center>
+                
+            <h:form style="background-color: #F4F8FA">   
+               <p:calendar  required="true" requiredMessage="fecha es requerido" style="margin-left: 10px;" id="horaYDia"  pattern="dd/MM/yyyy"  value="#{turnoController.dateSelected}" title="#{bundle.EditTurnoTitle_horaYDia}"  showButtonPanel="true"/>
+     
+                    <h:commandButton  value="Filtrar las 2 tablas" actionListener="#{turnoController.filtrarAgendasYTurnos(turnoController.getDateSelected())}"
+                                         style="width: 15%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 10px;" />
+            </h:form>
+            <h:form id="TurnoListForm" style="background-color: #F4F8FA">
+                
                 
                 <div style="float: left">
                     <p:commandButton id="createButton" style="margin-right: 10px" icon="ui-icon-plus" value="CREAR AGENDA" class="botonCrearAgenda" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
@@ -36,7 +48,9 @@
                 <h:commandButton value="Imprimir Agendas" actionListener="#{downloadBean.crearDocumento( agendaController.filteredAgendas, turnoController.filteredturnos)}"
                                          style="width: 15%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px;" />
 
+    
                 
+    
                 <br></br><br></br>
                 
                     <p:dataTable id="datalist" value="#{turnoController.items}" var="item"
@@ -64,14 +78,14 @@
                                 </p:calendar>
                             </f:facet>
                             
-                            <h:outputText value="#{item.horaYDia}">
+                            <h:outputText  value="#{item.horaYDia}">
                                 <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                             </h:outputText>
                         </p:column>
                         
                         <p:column  filterBy="#{item.apellido} #{item.nombre}"  styleClass="centeredColumnContent" filterMatchMode="contains">
                             <f:facet name="header">
-                                <h:outputText value="Nombre y Apellido"/>
+                                <h:outputText value="NOMBRE Y APELLIDO"/>
                             </f:facet>
                             <h:outputText  id="JuanCuello" value="#{ item.apellido} #{ item.nombre}"/>
                         </p:column>
@@ -79,19 +93,19 @@
                         
                         <p:column style="text-align: center; width: 10%">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTurnoTitle_nroDeTelefono}"/>
+                                <h:outputText value="NRO DE TELÉFONO"/>
                             </f:facet>
                             <h:outputText value="#{item.nroDeTelefono}"/>
                         </p:column>
                         <p:column style="text-align: center;" >
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTurnoTitle_procedencia}"/>
+                                <h:outputText value="PROCEDENCIA"/>
                             </f:facet>
                             <h:outputText value="#{item.procedencia}"/>
                         </p:column>
                         <p:column style="text-align: center;">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTurnoTitle_observacion}"/>
+                                <h:outputText value="OBSERVACIÓN"/>
                             </f:facet>
                             <h:outputText value="#{item.observacion}"/>
                         </p:column>
@@ -127,7 +141,7 @@
             
             </h:form>
 <br></br><br></br>
-            <br></br><br></br>
+            <br></br>
             
             <h:form id="AgendaListForm" style="background-color: #F4F8FA">
                 
@@ -149,13 +163,13 @@
                         <p:growl  id="message2" showDetail="true" />
  
                         
-                        <p:column style="width: 9%" styleClass="centeredColumnContent" sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="FECHA">
+                        <p:column style="width: 20%" styleClass="centeredColumnContent" sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" >
                             <f:facet name="filter">
-                                <p:calendar pattern="dd/MM/yyyy" onkeyup="PF('agendasTable').filter()">
+                                <p:calendar  pattern="dd/MM/yyyy" onkeyup="PF('agendasTable').filter()">
                                     <p:ajax event="dateSelect" listener="#{agendaController.handleDateSelect}"/>
                                 </p:calendar>
                             </f:facet>
-                            <h:outputText value="#{item.fecha}"  style="color: #151717" >
+                            <h:outputText  value="#{item.fecha}"  style="color: #151717" >
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </p:column>
@@ -223,7 +237,7 @@
                     </p:dataTable>
             </h:form>
             
-
+            
             <ui:include src="Create.xhtml"/>
             <ui:include src="../turno/Create.xhtml"/>
             <ui:include src="../turno/Edit.xhtml"/>

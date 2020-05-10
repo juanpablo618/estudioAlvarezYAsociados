@@ -8,6 +8,7 @@ package com.estudioAlvarezVersion2.downloadPDf;
 
 import com.estudioAlvarezVersion2.jpa.Agenda;
 import com.estudioAlvarezVersion2.jpa.Turno;
+import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,6 +24,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 @ManagedBean
 public class DownloadBean implements Serializable {
@@ -110,10 +113,10 @@ public void crearConvenioDeHonorarios(String nombre, String apellido, String dni
                 
                 MembretePresupuesto doc = new MembretePresupuesto();
                   
-                doc.createPdfConvenioDeHonorarios(nombreDelDocumento, nombre, apellido, dni, direccion, nroDeAltura, barrio);
-                  
+                 doc.createPdfConvenioDeHonorarios(nombreDelDocumento, nombre, apellido, dni, direccion, nroDeAltura, barrio);
+                
                 downloadPdf(nombreDelDocumento);
-                  
+                
                   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Impresion exitosa del convenio de Honorarios"));
         }
     }
@@ -160,14 +163,10 @@ public void crearCronologicoDeAportes(String nombre ) throws IOException, Docume
         }
         }
 
-    
-
-
 /**
      * This method reads PDF from the URL and writes it back as a response. 
      * @throws IOException 
      * @param nombreDelDocumento */
-
 public void downloadPdf(String nombreDelDocumento) throws IOException, InterruptedException {
     System.err.println("");    
     System.err.println("");

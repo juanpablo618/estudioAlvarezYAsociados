@@ -39,14 +39,8 @@
 
                         <p:growl  id="message" showDetail="true" />
  
-                        <p:column style="text-align: center; width: 10%" sortBy="#{item.horaYDia}" filterBy="#{item.horaYDia}" filterMatchMode="contains" headerText="Fecha">
+                        <p:column style="text-align: center; width: 10%" sortBy="#{item.horaYDia}" filterBy="#{item.horaYDia}" filterMatchMode="contains" headerText="Filtro solo con el día del mes">
                         
-                            <f:facet name="filter">
-                                <p:calendar pattern="dd/MM/yyyy" onkeyup="PF('turnosTable').filter()">
-                                    <p:ajax event="dateSelect" listener="#{turnoController.handleDateSelect}"/>
-                                </p:calendar>
-                            </f:facet>
-                            
                             <h:outputText value="#{item.horaYDia}" >
                                 <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                             </h:outputText>

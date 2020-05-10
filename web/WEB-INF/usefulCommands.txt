@@ -12,3 +12,34 @@ si los filtros no llegan a funcionar.
 
 
 siempre usar el sistema en 80% por que las interfaces son muy grandes.
+
+
+(1, '99999999', 'C:\\Users\\juan.cuello\\Documents\\Downloads', 'file:///C:\\Users\\juan.cuello\\Documents\\Downloads', 'http://localhost:8080/EstudioAlvarezVersion2/faces/resources/images/cutmypic.png');
+
+esto es para cambiar por base de datos
+/home/jelastic/documentos
+
+
+pegar en nombre todo por q la otra base de datos esta todo pegado nombre y apellido.
+
+para sacar los apellidos:
+=LEFT(G12; FIND(" ";G12;1))
+
+para sacar los nombres:
+=MID(G12;SEARCH(" ";G12)+1;LEN(G12))
+
+
+
+
+
+download para maquina con windows:
+
+C:\Users\juan.cuello\Documents\Downloads
+
+
+con linux
+/home/jelastic/Documents
+
+
+
+SIEMPRE CAMBIAR LOS VALORES tipoDeExpediente a "administrativo" para una nueva carga de datos en el sistema.

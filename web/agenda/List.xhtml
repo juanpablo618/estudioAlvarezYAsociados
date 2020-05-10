@@ -48,9 +48,9 @@
                         
                         <p:growl  id="message" showDetail="true" />
 
-                        <p:column style="width: 9%" styleClass="centeredColumnContent" sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="FECHA">
+                        <p:column style="width: 23%" styleClass="centeredColumnContent" sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="FECHA">
                             <f:facet name="filter">
-                                <p:calendar pattern="dd/MM/yyyy" onkeyup="PF('agendasTable').filter()">
+                                <p:calendar  mode="inline" pattern="dd/MM/yyyy" onkeyup="PF('agendasTable').filter()">
                                     <p:ajax event="dateSelect" listener="#{agendaController.handleDateSelect}"/>
                                 </p:calendar>
                             </f:facet>

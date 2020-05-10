@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -43,13 +44,22 @@ public class AgendaController implements Serializable {
     private com.estudioAlvarezVersion2.jpacontroller.AgendaFacade ejbFacade;
     private List<Agenda> items = null;
     private Agenda selected;
-    
-        
+    private Date fechaParaFiltrar = new Date();
     private List<Agenda> filteredAgendas;
-        
+
+    
     public AgendaController() {
     }
 
+    public Date getFechaParaFiltrar() {
+        return fechaParaFiltrar;
+    }
+
+    public void setFechaParaFiltrar(Date fechaParaFiltrar) {
+        this.fechaParaFiltrar = fechaParaFiltrar;
+    }
+    
+    
     public Agenda getSelected() {
         return selected;
     }
@@ -208,6 +218,8 @@ public class AgendaController implements Serializable {
     }
     
     public void handleDateSelect(SelectEvent event) {
+         System.out.println(event.toString());
+       
     RequestContext.getCurrentInstance().execute("PF('agendasTable').filter()");
     }
     
@@ -292,5 +304,31 @@ public class AgendaController implements Serializable {
     pdf.add(Image.getInstance(logo));
     
 }
+    
+    public void filtrarPorFecha(Date fechaParaFiltrar){
+        this.filteredAgendas = new ArrayList<Agenda>();
+                
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String date = sdf.format(fechaParaFiltrar); 
+        
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+
+            if(fechaParaFiltrar != null){
+                    
+                for(Agenda agenda: agendaControllerBean.getItems()){
+                    String date2 = sdf.format(agenda.getFecha()); 
+        
+                    if(date.equals(date2)){
+                                    agendaControllerBean.getFilteredAgendas().add(agenda);
+                        
+                    }
+                
+                }
+            }        
+      
+    }
     
 }

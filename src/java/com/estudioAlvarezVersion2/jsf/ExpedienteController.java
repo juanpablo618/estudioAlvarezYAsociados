@@ -189,7 +189,7 @@ public class ExpedienteController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    
     public void calcularEdades() {
         Calendar fecha = new GregorianCalendar();
         int añoActual = fecha.get(Calendar.YEAR);
@@ -373,12 +373,11 @@ public class ExpedienteController implements Serializable {
 
     
     public String verProximaAgenda(int orden){
-        Date today = Calendar.getInstance().getTime();
-
+        
         FacesContext context = FacesContext.getCurrentInstance();
         AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String date = sdf.format(new Date()); 
         
         for(Agenda agenda: agendaControllerBean.getItems()){

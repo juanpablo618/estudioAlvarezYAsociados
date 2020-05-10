@@ -74,10 +74,16 @@
                             <div>
                                 <div style="float: left">
 
+                                    <div>
+                                    <p:outputLabel value="Edad:"  style="margin-left: 3%;font-weight: bold" /><br></br>
+                                    <p:outputLabel value="#{expedienteController.selected.edad}" style="margin-left: 3%;font-weight: bold" /><br></br>
+
+                                </div>
+                                
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_fechaDeNacimiento}" style="font-weight: bold" for="fechaDeNacimiento" />
                                     <br></br>
 
-                                    <p:calendar id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" showOn="button">
+                                    <p:calendar required="true" requiredMessage="fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" showOn="button">
                                     </p:calendar>
 
                                 </div>
@@ -96,6 +102,7 @@
                                         <f:selectItem itemLabel="Extranjero" itemValue="Extranjero" />
                                     </p:selectOneMenu><br></br>
                                 </div>
+                                
                             </div>  
                             <br></br>
 
@@ -177,7 +184,7 @@
 
                              <div>
                                  <h:commandButton value="Imprimir Convenio" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion, expedienteController.selected.nroDeAltura, expedienteController.selected.barrio)}" />
-                
+                                 
                                     <p:commandButton value="C. de Aportes" ajax="false">
                                         <p:fileDownload value="#{fileBean.createExcel(expedienteController.selected.fechaDeNacimiento, expedienteController.selected.sexo, expedienteController.selected.nroDeExpediente, expedienteController.selected.nombre, expedienteController.selected.apellido)}"/>
                                     </p:commandButton>
@@ -219,8 +226,12 @@
                     
                     <br></br>
                         <p:outputLabel value="Tipo de expediente" style="font-weight: bold" for="tipoDeExpediente"  /><br></br>
-                        <p:inputText id="tipoDeExpediente" value="#{expedienteController.selected.tipoDeExpediente}" title="tipoDeExpediente" /><br></br>
-                    <br></br> 
+                          <p:selectOneMenu id="tipoDeExpediente" style="margin-left: 3%" value="#{expedienteController.selected.tipoDeExpediente}" editable="false" >
+                                        <f:selectItem itemLabel="administrativo" itemValue="administrativo" />
+                                        <f:selectItem itemLabel="judicial" itemValue="judicial" />
+                         </p:selectOneMenu>
+                                   
+                        <br></br> 
 
                     <div style="float: left; width: 50%">
 

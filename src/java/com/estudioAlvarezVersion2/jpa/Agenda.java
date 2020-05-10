@@ -47,7 +47,6 @@ public class Agenda implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    @Basic(optional = false)
     @Column(name = "descripcion")
     private String descripcion;
     

@@ -20,22 +20,13 @@
                 
                 <h:form id="menuForm" style="background: #2A55AA;">
                     <p:tieredMenu style="background: #2A55AA;">
-                        <p:menuitem outcome="/agenda/List" icon="ui-icon-bookmark" style="background-color: white" title="Agendas"/>
-                        <p:separator />
-                            <p:menuitem outcome="/expediente/List" icon=" ui-icon-document" style="background-color: white" title="Expedientes"/>
+                        <p:menuitem outcome="/expediente/List" icon=" ui-icon-document" style="background-color: white" title="Expedientes"/>
                         <p:separator />
                             <p:menuitem outcome="/empleado/List" icon="ui-icon-person" style="background-color: white" title="Empleados" />
                         <p:separator />
-                            <p:menuitem outcome="/procedencia/List" icon="ui-icon-suitcase" style="background-color: white" title="Procedencias" />
-                        <p:separator />
-                        <p:separator />
-                            <p:menuitem outcome="/turno/List" icon="ui-icon-battery-3" style="background-color: white" title="Turnos"/>
-                        <p:separator />
                             <p:menuitem outcome="/agenda/List_AgendasTurnos" icon="ui-icon-battery-3" style="background-color: white" title="Agendas y Turnos"/>
                         <p:separator />
-                        <p:separator />
-                            <p:menuitem outcome="/estadoDelTramite/List" icon="ui-icon-folder-open" style="background-color: white" title="Estados del Tramite"/>
-                        <p:separator />
+                            <p:menuitem outcome="/estadoDelTramite/List_EstadoDelTramiteYProcedencias" style="background-color: white" icon="ui-icon-suitcase" title="Estados del tramite y Procedencias"/>
                         <p:separator />
                             <p:menuitem outcome="/login.xhtml" icon="ui-icon-circle-close" style="background-color: white" title="Salir"/>
                     </p:tieredMenu> 

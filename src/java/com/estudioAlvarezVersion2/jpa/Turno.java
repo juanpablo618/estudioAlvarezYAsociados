@@ -49,7 +49,7 @@ public class Turno implements Serializable {
     
     @Basic(optional = false)
     @Column(name = "horaYDia")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date horaYDia;
     
     @Column(name = "nombre")

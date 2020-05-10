@@ -4,12 +4,21 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/nbproject/build-impl.xml</file>
-            <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpacontroller/util/FileDownloadView.java</file>
+            <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/downloadPDf/FormatoDocumentoConvenioDeHonorarios.java</file>
+            <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/downloadPDf/DownloadBean.java</file>
             <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/web/expediente/Edit.xhtml</file>
-            <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/DAO.java</file>
+            <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/ExpedienteDAO.java</file>
+            <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/LoginDAO.java</file>
+            <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Empleado.java</file>
             <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/web/WEB-INF/glassfish-resources.xml</file>
-            <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/web/WEB-INF/usefulCommands.txt</file>
-            <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/web/expediente/List.xhtml</file>
+            <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Agenda.java</file>
+            <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Expediente.java</file>
+            <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/DAO.java</file>
+            <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Turno.java</file>
+            <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/UsersFacade.java</file>
+            <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/EstadoDelTramite.java</file>
+            <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Procedencia.java</file>
+            <file>file:/C:/Users/juan.cuello/Downloads/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/Login/Users.java</file>
         </group>
     </open-files>
 </project-private>

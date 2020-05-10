@@ -1,11 +1,15 @@
 package com.estudioAlvarezVersion2.jsf;
 
+import com.estudioAlvarezVersion2.downloadPDf.ConfiguracionesGeneralesController;
+import com.estudioAlvarezVersion2.jpa.Agenda;
 import com.estudioAlvarezVersion2.jpa.Turno;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.TurnoFacade;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -19,6 +23,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 @Named("turnoController")
 @SessionScoped
@@ -199,8 +205,41 @@ public class TurnoController implements Serializable {
     }
     
     
-    public void handleDateSelect(Date selected) {
-        this.dateSelected = selected;
+    public void handleDateSelect(SelectEvent event) {
+        System.out.println(event.toString());
+        RequestContext.getCurrentInstance().execute("PF('turnosTable').filter()");
+    
     }
 
+    public void filtrarAgendasYTurnos(Date dateSelected){
+            this.filteredturnos = new ArrayList<Turno>();
+        
+             FacesContext context = FacesContext.getCurrentInstance();
+            AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+           
+            agendaController.filtrarPorFecha(dateSelected);
+            
+        if(dateSelected != null){
+            System.out.println("dateSelected:  " + dateSelected);
+            
+            System.out.println("filteredturnos:  " + filteredturnos.size());
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String date = sdf.format(dateSelected); 
+            System.out.println("dateSelected:  " + date);
+            
+        
+                for(Turno turno:getItems()){
+                        System.out.println(turno.getHoraYDia());
+                        SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
+                        String date2 = sdf2.format(turno.getHoraYDia()); 
+
+                    if(date2.equals(date)){
+                            filteredturnos.add(turno);
+                    }
+                }
+        }
+    }
+
+    
 }

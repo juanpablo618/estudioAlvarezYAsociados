@@ -8,7 +8,7 @@
 
     <ui:composition>
             
-      <p:dialog id="ExpedienteJudicialEditDlg"  class="editarExpedienteJudicial" widgetVar="ExpedienteJudicialEditDialog" modal="true" resizable="false" appendTo="@(body)" >
+      <p:dialog id="ExpedienteJudicialEditDlg" widgetVar="ExpedienteJudicialEditDialog" class="editarExpedienteJudicial" modal="true" resizable="false" appendTo="@(body)" >
             <h:form id="ExpedienteJudicialEditForm">
                 <h:panelGroup id="display">
                 </h:panelGroup >
@@ -24,7 +24,7 @@
                 
                 <div style="float: left">   
                     
-                    <p:tabView style="width: 160%">
+                    <p:tabView style="width: 120%">
 
                         <p:tab title="Datos personales">
 
@@ -69,17 +69,21 @@
                                      <p:outputLabel value="#{bundle.EditExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento" style="font-weight: bold" /><br></br>
                                     <p:calendar required="true" requiredMessage="fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy"  value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}"  showOn="button"/><br></br>
                                     
-                                    
                                     <p:outputLabel value="#{bundle.EditExpedienteLabel_edad}" for="edad" style="font-weight: bold" /><br></br>
                                     <p:inputText id="edad" value="#{expedienteController.selected.edad}"  title="#{bundle.EditExpedienteTitle_edad}" /><br></br>
                                  </div>
-                                 <div >
+                                 <div>
                                     <p:outputLabel value="#{bundle.EditExpedienteLabel_sexo}" for="sexo" style="margin-left: 3%;font-weight: bold" /><br></br>
-                                    <p:inputText id="sexo" value="#{expedienteController.selected.sexo}" style="margin-left: 3%" title="#{bundle.EditExpedienteTitle_sexo}" /><br></br><br></br>               
-
+                                     <p:selectOneMenu style="margin-left: 3%" id="sexo" value="#{expedienteController.selected.sexo}" >
+                                        <f:selectItem itemLabel="Masculino" itemValue="masculino" />
+                                        <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
+                                    </p:selectOneMenu><br></br><br></br>   
+                                    
                                     <p:outputLabel value="Nacionalidad:" for="nacionalidad" style="margin-left: 3%;font-weight: bold" /><br></br>
-                                    <p:inputText id="nacionalidad"  value="#{expedienteController.selected.nacionalidad}" style="margin-left: 3%" title="nacionalidad"/><br></br>               
-
+                                    <p:selectOneMenu id="nacionalidad" value="#{expedienteController.selected.nacionalidad}" style="margin-left: 3%" >
+                                        <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
+                                        <f:selectItem itemLabel="Extranjero" itemValue="Extranjero" />
+                                    </p:selectOneMenu><br></br>
                                  </div>
                               </div>  
                              <br></br>
@@ -145,7 +149,12 @@
                             <br></br>
                         </p:tab>
 
-                         <p:tab title="Documentos">
+                        <p:tab title="Comunicaciones">
+                               <p:outputLabel value="Comunicaciones" for="comunicaciones" style="font-weight: bold"/><br></br>
+                               <p:inputTextarea rows="5" cols="33" autoResize="false"  id="comunicaciones" value="#{expedienteController.selected.comunicaciones}" title="comunicaciones"/>
+                        </p:tab>
+                        
+                        <p:tab title="Documentos">
 
                              <div>
                                  <h:commandButton value="Imprimir Convenio" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion, expedienteController.selected.nroDeAltura, expedienteController.selected.barrio)}" />
@@ -174,17 +183,27 @@
                             <br></br>
                             <br></br>
                         </p:tab>
-
-                        
+        
                     </p:tabView>
-
-
             </div>
-                    
                 
                 <div style="float: right; width: 38%"> 
                 
-                
+                    <div>
+                        <p:fieldset legend="AGENDA PARA HOY" toggleable="true" toggleSpeed="500">
+                            <p:outputLabel value="#{expedienteController.verProximaAgenda(expedienteController.selected.orden)}" style="font-weight: bold" /><br></br>
+                        </p:fieldset>
+                    </div>
+                    <div>
+                        <p:commandButton id="createButton" value="crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteJudicialEditDialog').hide()" />
+                    </div>
+                    
+                    <div style="float: right; width: 50%">
+                        <p:outputLabel value="Fecha de atención:" for="fechaDeAtencion" style="font-weight: bold" /><br></br>
+                        <p:calendar style="width: 100px" class="inputFechaDeAtencion" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion">
+                        </p:calendar>
+                    </div>    
+                    
                     <p:outputLabel value="Tipo:" for="tipo" style="font-weight: bold"/><br></br>
 
                                     <p:selectOneMenu id="tipo" style="margin-left: 3%" value="#{expedienteController.selected.tipo}" >
@@ -202,15 +221,16 @@
                             <br></br><br></br>
                             
                                     <p:outputLabel value="Caratula:" style="font-weight: bold" for="caratula" /><br ></br>
-                                    <p:inputText id="caratula" value="#{expedienteController.selected.caratula}" title="caratula" /><br></br>
+                                    <p:inputTextarea rows="3" cols="53" autoResize="false"  id="caratula" value="#{expedienteController.selected.caratula}" title="caratula"/>
+
                                     <br></br>
                                    
                                    <p:outputLabel value="Nro de Expediente:" for="nroDeExpediente" style="font-weight: bold" /><br></br>
                                    <p:inputText id="nroDeExpediente" value="#{expedienteController.selected.nroDeExpediente}" title="nroDeExpediente" /><br></br>
                                     
                                    <br></br>
-                                   <p:outputLabel value="Jurisdicción::" for="jurisdiccion" style="font-weight: bold" /><br></br>
-                                   <p:selectOneMenu id="jurisdiccion" style="margin-left: 3%" value="#{expedienteController.selected.jurisdiccion}" editable="true" >
+                                   <p:outputLabel value="Jurisdicción:" for="jurisdiccion" style="font-weight: bold" /><br></br>
+                                   <p:selectOneMenu id="jurisdiccion" style="margin-left: 3%;width: 400px" value="#{expedienteController.selected.jurisdiccion}" editable="true" >
                                         <f:selectItem itemLabel="Provincia - Juzgado N°" itemValue="Provincia - Juzgado N°" />
                                         <f:selectItem itemLabel="Provincia - Cámara" itemValue="Provincia - Cámara" />
                                         <f:selectItem itemLabel="Federales - Juzgado 1" itemValue="Federales - Juzgado 1" />
@@ -218,12 +238,10 @@
                                         <f:selectItem itemLabel="Federales - Juzgado 3" itemValue="Federales - Juzgado 3" />
                                         <f:selectItem itemLabel="Federales - Camara - Sala A" itemValue="Federales - Camara - Sala A" />
                                         <f:selectItem itemLabel="Federales - Camara - Sala B" itemValue="Federales - Camara - Sala B" />
-                                        
-                                    </p:selectOneMenu>
+                                   </p:selectOneMenu>
                                    <br></br><br></br>
                                    <p:outputLabel value="Etapa Procesal" for="etapaProcesal" style="font-weight: bold" /><br></br>
-                                   <p:selectOneMenu id="etapaProcesal" style="margin-left: 3%" value="#{expedienteController.selected.etapaProcesal}" >
-                                        
+                                   <p:selectOneMenu id="etapaProcesal" editable="true" style="margin-left: 3%" value="#{expedienteController.selected.etapaProcesal}" >
                                         <f:selectItem itemLabel="Preparación de Demanda" itemValue="Preparación de Demanda" />
                                         <f:selectItem itemLabel="DDA iniciada" itemValue="DDA iniciada" />
                                         <f:selectItem itemLabel="Contestación" itemValue="Contestación" />
@@ -235,15 +253,34 @@
                                         <f:selectItem itemLabel="Ejecución" itemValue="Ejecución" />
                                     </p:selectOneMenu>
                                    <br></br><br></br>
+                                   <div>
+                                        <p:outputLabel value="convenio de honorarios" style="font-weight: bold" for="convenioDeHonorarios" /><br></br>
+
+                                        <p:selectOneMenu style="margin-left: 3%" id="convenioDeHonorarios" value="#{expedienteController.selected.convenioDeHonorarios}" editable="true" effect="fold" >
+                                            <f:selectItem itemLabel="1 haber" itemValue="1 haber" />
+                                            <f:selectItem itemLabel="2 haberes" itemValue="2 haberes" />
+                                            <f:selectItem itemLabel="2 haberes y 20% retroactivo" itemValue="2 haberes y 20% retroactivo" />
+                                            <f:selectItem itemLabel="2 haberes y 30% retroactivo" itemValue="2 haberes y 30% retroactivo" />
+                                            <f:selectItem itemLabel="3 haberes" itemValue="3 haberes" />
+                                            <f:selectItem itemLabel="20% retroactivo" itemValue="20% retroactivo" />
+                                            <f:selectItem itemLabel="25% retroactivo" itemValue="25% retroactivo" />
+                                        </p:selectOneMenu>
+
+                                    </div>
                                    <p:outputLabel value="Poder Firmado:" for="poderFirmado" style="font-weight: bold" /><br></br>
                                    <p:selectOneMenu id="poderFirmado" style="margin-left: 3%" value="#{expedienteController.selected.poderFirmado}" >
                                         <f:selectItem itemLabel="Si" itemValue="Si" />
                                         <f:selectItem itemLabel="No" itemValue="No" />
-                                        
-                                    </p:selectOneMenu>
+                                   </p:selectOneMenu>
                                    <br></br>
+                                   <p:outputLabel value="Procedencia:" for="procedencia" style="font-weight: bold" /><br></br>
+                                    <p:selectOneMenu  id="procedencia" value="#{expedienteController.selected.procedencia}"  >
+                                        <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.nombreProcedencia}" itemValue="#{procedencia.nombreProcedencia}" />
+                                    </p:selectOneMenu>
+                                    <br></br><br></br>
+                                    
                                    <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
-                                   <p:inputTextarea rows="5" cols="63" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
+                                   <p:inputTextarea rows="3" cols="63" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
                                    <br></br>
                                    <p:commandButton value="#{bundle.Cancel}" onclick="ExpedienteJudicialEditDialog.hide()"/>
                                    <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.update}" class="botonCrearAgenda" value="#{bundle.Save}" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteJudicialEditDialog');"/>

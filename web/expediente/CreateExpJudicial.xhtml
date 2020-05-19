@@ -19,8 +19,6 @@
 
                         <p:tab title="Datos personales">
 
-                                    <p:outputLabel value="Orden:"  style="font-weight: bold" /><br></br>
-                                    <p:inputText id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" />
 
                             <br></br><br></br>
 
@@ -44,7 +42,9 @@
                                 <div style="float: left">
                                     <p:outputLabel value="Cuit:" for="cuit" style="font-weight: bold" />
                                     <br></br>
-                                    <p:inputText id="cuit" value="#{expedienteController.selected.cuit}"  title="#{bundle.EditExpedienteTitle_cuit}" />
+                                    <p:inputText id="cuit" required="true" maxlength="11"  requiredMessage="cuit deben ser 11 digitos"  value="#{expedienteController.selected.cuit}"  title="#{bundle.EditExpedienteTitle_cuit}" >
+                                        <f:validateLength minimum="11" />
+                                    </p:inputText>
                                 </div>
                                 <div>   
                                     <p:outputLabel value="#{bundle.EditExpedienteLabel_telefono}"  for="telefono" style="margin-left: 3%;font-weight: bold" />
@@ -62,11 +62,18 @@
                                  </div>
                                  <div >
                                     <p:outputLabel value="#{bundle.EditExpedienteLabel_sexo}" for="sexo" style="margin-left: 3%;font-weight: bold" /><br></br>
-                                    <p:inputText id="sexo" value="#{expedienteController.selected.sexo}" style="margin-left: 3%" title="#{bundle.EditExpedienteTitle_sexo}" /><br></br><br></br>               
+                                    <p:selectOneMenu style="margin-left: 3%" id="sexo" value="#{expedienteController.selected.sexo}" >
+                                        <f:selectItem itemLabel="Masculino" itemValue="masculino" />
+                                        <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
+                                    </p:selectOneMenu><br></br><br></br>
 
+                                    
+                                    
                                     <p:outputLabel value="Nacionalidad:" for="nacionalidad" style="margin-left: 3%;font-weight: bold" /><br></br>
-                                    <p:inputText id="nacionalidad"  value="#{expedienteController.selected.nacionalidad}" style="margin-left: 3%" title="nacionalidad"/><br></br>               
-
+                                    <p:selectOneMenu id="nacionalidad" value="#{expedienteController.selected.nacionalidad}" style="margin-left: 3%" >
+                                        <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
+                                        <f:selectItem itemLabel="Extranjero" itemValue="Extranjero" />
+                                    </p:selectOneMenu><br></br>
                                  </div>
                               </div>  
                              <br></br>
@@ -144,7 +151,14 @@
                             <br></br>
                             <br></br>
                         </p:tab>
+                        <p:tab title="Comunicaciones">
+                        
+                            <p:outputLabel value="Comunicaciones" for="comunicaciones" style="font-weight: bold"/><br></br>
+                            <p:inputTextarea rows="5" cols="33" autoResize="true"  id="comunicaciones" value="#{expedienteController.selected.comunicaciones}" title="comunicaciones"/>
 
+                            
+                        </p:tab>
+                        
                         
                     </p:tabView>
 
@@ -189,7 +203,7 @@
                                     </p:selectOneMenu>
                                    <br></br><br></br>
                                    <p:outputLabel value="Etapa Procesal" for="etapaProcesal" style="font-weight: bold" /><br></br>
-                                   <p:selectOneMenu id="etapaProcesal" style="margin-left: 3%" value="#{expedienteController.selected.etapaProcesal}" >
+                                   <p:selectOneMenu id="etapaProcesal" editable="true" style="margin-left: 3%" value="#{expedienteController.selected.etapaProcesal}" >
                                         <f:selectItem itemLabel="DDA iniciada" itemValue="DDA iniciada" />
                                         <f:selectItem itemLabel="Contestación" itemValue="Contestación" />
                                         <f:selectItem itemLabel="Prueba" itemValue="Prueba" />
@@ -213,7 +227,6 @@
                             
                             <br></br>
                     
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ExpedienteJudicialCreateDialog.hide()"/>
                     <p:commandButton actionListener="#{expedienteController.create}" class="botonCrearAgenda" value="Crear" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ExpedienteJudicialCreateDialog');"/>
                    
                 </div>

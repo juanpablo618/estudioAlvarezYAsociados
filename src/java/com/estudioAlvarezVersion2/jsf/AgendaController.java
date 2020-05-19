@@ -229,7 +229,7 @@ public class AgendaController implements Serializable {
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
         
         for(Expediente expediente: expedienteControllerBean.getItems()){
-            
+            if(expediente.getOrden() != null){
                     if(Integer.compare(expediente.getOrden(), orden) == 0){
                         
                         if(expediente.getClaveCidi() !=null){
@@ -239,6 +239,7 @@ public class AgendaController implements Serializable {
                         
                         }
                     }
+            }        
         }
         
         return "no posee clave CIDI";
@@ -250,15 +251,17 @@ public class AgendaController implements Serializable {
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
         
         for(Expediente expediente: expedienteControllerBean.getItems()){
-            
-                    if(Integer.compare(expediente.getOrden(), orden) == 0){
-                        
-                        
-                        if(expediente.getClaveFiscal() !=null){
-                            return expediente.getClaveFiscal();
-                        }else{
-                            return "No posee clave FISCAL";
-                        
+
+                    if(expediente.getOrden() != null){
+                        if(Integer.compare(expediente.getOrden(), orden) == 0){
+
+
+                            if(expediente.getClaveFiscal() !=null){
+                                return expediente.getClaveFiscal();
+                            }else{
+                                return "No posee clave FISCAL";
+
+                            }
                         }
                     }
         }
@@ -273,13 +276,15 @@ public class AgendaController implements Serializable {
         
         for(Expediente expediente: expedienteControllerBean.getItems()){
             
-                    if(Integer.compare(expediente.getOrden(), orden) == 0){
-                        
-                        if(expediente.getClaveSeguridadSocial()!=null){
-                            return expediente.getClaveSeguridadSocial();
-                        }else{
-                            return "No posee clave de Seguridad Social";
-                        
+                    if(expediente.getOrden() != null){
+                        if(Integer.compare(expediente.getOrden(), orden) == 0){
+
+                            if(expediente.getClaveSeguridadSocial()!=null){
+                                return expediente.getClaveSeguridadSocial();
+                            }else{
+                                return "No posee clave de Seguridad Social";
+
+                            }
                         }
                     }
         }

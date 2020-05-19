@@ -106,8 +106,7 @@
 
                                     <h:outputText value="#{bundle.ViewExpedienteLabel_edad}" style="font-weight: bold" />
                                     <h:outputText value="#{expedienteController.selected.edad}" title="#{bundle.ViewExpedienteTitle_edad}"/>
-                    
-                                    
+                                                        
                             </h:panelGrid>
                             <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
                                     
@@ -122,8 +121,7 @@
                                     
                                     <h:outputText value="#{bundle.ViewExpedienteLabel_sexo}" style="font-weight: bold" />
                                     <h:outputText value="#{expedienteController.selected.sexo}" title="#{bundle.ViewExpedienteTitle_sexo}"/>
-                        
-                            
+                                                    
                             </h:panelGrid>
                             <br></br>
                             <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
@@ -133,7 +131,6 @@
                             <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
                                <h:outputText value="#{expedienteController.selected.observaciones}" title="observaciones"/>
                             </h:panelGrid>
-                            
                             
                         </p:panel>   
                 </p:fieldset>

@@ -16,8 +16,8 @@ function myFunction() {
   document.getElementById("myDialog").showModal(); 
 } 
 </script>
-        <p:dialog id="ExpedienteEditDlg" class="editDialogExpediente" widgetVar="ExpedienteEditDialog" modal="true" resizable="false" appendTo="@(body)" >
-            <h:form id="ExpedienteEditForm">
+        <p:dialog id="ExpedienteSinCarpetaEditDlg" class="editDialogExpediente" widgetVar="ExpedienteSinCarpetaEditDialog" modal="true" resizable="false" appendTo="@(body)" >
+            <h:form id="ExpedienteSinCarpetaEditForm">
                 <h:panelGroup id="display">
 
                 </h:panelGroup >
@@ -222,18 +222,13 @@ function myFunction() {
                         <p:tab title="Comunicaciones">
 
                              <div>
-                            <p:outputLabel value="Comunicaciones" for="comunicaciones" style="font-weight: bold"/><br></br>
-                            <p:inputTextarea rows="5" cols="33" autoResize="false"  id="comunicaciones" value="#{expedienteController.selected.comunicaciones}" title="comunicaciones"/><br></br>
-                        
+                                <p:outputLabel value="Comunicaciones" for="comunicaciones" style="font-weight: bold"/><br></br>
+                                <p:inputTextarea rows="5" cols="33" autoResize="false"  id="comunicaciones" value="#{expedienteController.selected.comunicaciones}" title="comunicaciones"/><br></br>
                              </div>
-                            
                             
                             <br></br>
                             <br></br>
                         </p:tab>
-                        
-                        
-                        
                         
                     </p:tabView>
 
@@ -241,20 +236,13 @@ function myFunction() {
 
                 <div style="float: right; width: 38%"> 
 
-                    <div>
-                        <p:fieldset legend="AGENDA PARA HOY" toggleable="true" toggleSpeed="500">
-                            <p:outputLabel value="#{expedienteController.verProximaAgenda(expedienteController.selected.orden)}" style="font-weight: bold" /><br></br>
-                        </p:fieldset>
-                    </div>
-                    <div>
-                        <p:commandButton id="createButton" value="crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteEditDialog').hide()" />
-                    </div>
-                    
                     <br></br>
                         <p:outputLabel value="Tipo de expediente" style="font-weight: bold" for="tipoDeExpediente"  /><br></br>
                           <p:selectOneMenu id="tipoDeExpediente" style="margin-left: 3%" value="#{expedienteController.selected.tipoDeExpediente}" editable="false" >
                                         <f:selectItem itemLabel="administrativo" itemValue="administrativo" />
                                         <f:selectItem itemLabel="judicial" itemValue="judicial" />
+                                        <f:selectItem itemLabel="sin carpeta" itemValue="sin carpeta" />
+                                        
                          </p:selectOneMenu>
                                    
                         <br></br> 

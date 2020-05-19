@@ -121,7 +121,7 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return "com.estudioAlvarezVersion2.jsf.Users[ uid=" + uid + " ]";
+        return uname ;
     }
-    
+   
 }

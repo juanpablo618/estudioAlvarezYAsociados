@@ -48,9 +48,6 @@
                 <h:commandButton value="Imprimir Agendas" actionListener="#{downloadBean.crearDocumento( agendaController.filteredAgendas, turnoController.filteredturnos)}"
                                          style="width: 15%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px;" />
 
-    
-                
-    
                 <br></br><br></br>
                 
                     <p:dataTable id="datalist" value="#{turnoController.items}" var="item"
@@ -62,8 +59,7 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No existen turnos"
                                  filteredValue="#{turnoController.filteredturnos}"
-
-                                 >
+                             >
 
                         <p:ajax event="rowSelect"   update="createButton "/>
                         <p:ajax event="rowUnselect" update="createButton "/>
@@ -89,8 +85,7 @@
                             </f:facet>
                             <h:outputText  id="JuanCuello" value="#{ item.apellido} #{ item.nombre}"/>
                         </p:column>
-                        
-                        
+                                                
                         <p:column style="text-align: center; width: 10%">
                             <f:facet name="header">
                                 <h:outputText value="NRO DE TELÉFONO"/>
@@ -140,17 +135,17 @@
                     </p:dataTable>
             
             </h:form>
-<br></br><br></br>
+            <br></br>
+            <br></br>
             <br></br>
             
             <h:form id="AgendaListForm" style="background-color: #F4F8FA">
-                
                         
                     <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
                                  selectionMode="single" selection="#{agendaController.selected}"
                                  rowKey="#{item.idAgenda}"
                                  paginator="true"
-                                 rows="5"
+                                 rows="50"
                                  widgetVar="agendasTable"
                                  rowsPerPageTemplate="100,200,500"
                                  filteredValue="#{agendaController.filteredAgendas}"
@@ -161,9 +156,8 @@
                         <p:ajax event="rowUnselect" update="createButton "/>
                         
                         <p:growl  id="message2" showDetail="true" />
- 
-                        
-                        <p:column style="width: 20%" styleClass="centeredColumnContent" sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" >
+                         
+                        <p:column style="width: 20%" styleClass="centeredColumnContent#{item.realizado}" sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" >
                             <f:facet name="filter">
                                 <p:calendar  pattern="dd/MM/yyyy" onkeyup="PF('agendasTable').filter()">
                                     <p:ajax event="dateSelect" listener="#{agendaController.handleDateSelect}"/>
@@ -174,35 +168,39 @@
                             </h:outputText>
                         </p:column>
                         
-                        <p:column  style="width: 9%" filterBy="#{item.orden}"  styleClass="centeredColumnContent" filterMatchMode="exact">
+                        <p:column  style="width: 9%" filterBy="#{item.orden}"  styleClass="centeredColumnContent#{item.realizado}" filterMatchMode="exact">
                             <f:facet name="header">
                                 <h:outputText value="ORDEN"/>
                             </f:facet>
                             <h:outputText value="#{item.orden}"/>
                         </p:column>
                         
-                        <p:column filterBy="#{item.apellido} #{item.nombre}" filterMatchMode="contains">
+                        <p:column filterBy="#{item.apellido} #{item.nombre}" styleClass="centeredColumnContent#{item.realizado}" filterMatchMode="contains">
                             <f:facet name="header" >
                                 <h:outputText value="APELLIDO Y NOMBRE"/>
                             </f:facet>
                             <h:outputText style="color: #0053f6" value="#{item.apellido} #{item.nombre}"/>
                         </p:column>
                         
-                        <p:column style="width: 9%" filterBy="#{item.responsable}"  styleClass="centeredColumnContent" filterMatchMode="contains">
-                            <f:facet name="header">
-                                <h:outputText value="RESPONSABLE"/>
+                        <p:column style="width: 9%" filterBy="#{item.responsable}" headerText="RESPONSABLE" styleClass="centeredColumnContent#{item.realizado}"  filterMatchMode="exact">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('agendasTable').filter()" styleClass="custom-filter">
+                                    <f:selectItem itemLabel="Seleccionar uno" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" />
+                                </p:selectOneMenu>
                             </f:facet>
-                            <h:outputText value="#{item.responsable}" style="color: #151717" />
+                            <h:outputText value="#{item.responsable}" />
                         </p:column>
                         
-                        <p:column>
+                        
+                        <p:column styleClass="centeredColumnContent#{item.realizado}">
                             <f:facet name="header">
                                 <h:outputText value="DESCRIPCIÓN"/>
                             </f:facet>
                             <h:outputText value="#{item.descripcion}" style="color: #151717" />
                         </p:column>
                         
-                        <p:column style="text-align: center; width: 10% ">
+                        <p:column styleClass="centeredColumnContent#{item.realizado}" style="text-align: center; width: 10% ">
                             
                             <f:facet name="header">
                                 <h:outputText value="ACCIONES"/>

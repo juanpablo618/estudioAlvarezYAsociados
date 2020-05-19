@@ -52,7 +52,7 @@ public class Expediente implements Serializable {
     
     @Basic(optional = false)
     @Column(name = "orden")
-    private int orden;
+    private Integer orden;
 
     @Basic(optional = false)
     @Column(name = "cuit")
@@ -180,6 +180,11 @@ public class Expediente implements Serializable {
     @Basic(optional = false)
     @Column(name = "observaciones")
     private String observaciones;
+    
+    @Basic(optional = false)
+    @Column(name = "comunicaciones")
+    private String comunicaciones;
+
 
     @Basic(optional = false)
     @Column(name = "fechaDeAtencion")
@@ -222,7 +227,7 @@ public class Expediente implements Serializable {
             String localidad, String tipoDeTramite, String procedencia,
             String estadoDelTramite, Date fechaDeCobro, String nacionalidad,
             String tipoDeExpediente, String caratula, String nroDeExpediente,
-            String juzgadoODependencia, String observaciones, Date fechaDeAtencion,
+            String juzgadoODependencia, String observaciones, String comunicaciones, Date fechaDeAtencion,
             String convenioDeHonorarios, String jurisdiccion, String poderFirmado,
             String tipo, String etapaProcesal) {
         this.idExpediente = idExpediente;
@@ -258,6 +263,8 @@ public class Expediente implements Serializable {
         this.nroDeExpediente = nroDeExpediente;
         this.juzgadoODependencia = juzgadoODependencia;
         this.observaciones = observaciones;
+        this.comunicaciones = comunicaciones;
+        
         this.fechaDeAtencion = fechaDeAtencion;
         this.convenioDeHonorarios = convenioDeHonorarios;
         this.poderFirmado = poderFirmado;
@@ -275,11 +282,11 @@ public class Expediente implements Serializable {
         this.idExpediente = idExpediente;
     }
 
-    public int getOrden() {
+    public Integer getOrden() {
         return orden;
     }
 
-    public void setOrden(int orden) {
+    public void setOrden(Integer orden) {
         this.orden = orden;
     }
 
@@ -327,6 +334,14 @@ public class Expediente implements Serializable {
         return apellido;
     }
 
+    public String getApellidoYNombre() {
+        if(apellido != null && nombre !=null){
+        return apellido.concat(" ").concat(nombre);
+        }else{
+                return null;
+                }
+    }
+       
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
@@ -531,6 +546,16 @@ public class Expediente implements Serializable {
         this.observaciones = observaciones;
     }
 
+    public String getComunicaciones() {
+        return comunicaciones;
+    }
+
+    public void setComunicaciones(String comunicaciones) {
+        this.comunicaciones = comunicaciones;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -18,7 +18,7 @@
 
                     <p:tabView style="width: 160%">
 
-                        <p:tab title="Datos personales">
+                        <p:tab title="Datos Personales">
 
                             
                             <br></br><br></br>
@@ -46,7 +46,7 @@
 
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_cuit}" for="cuit" style="font-weight: bold" />
                                     <br></br>
-                                    <p:inputText required="true" requiredMessage="cuit es requerido" id="cuit" value="#{expedienteController.selected.cuit}" title="#{bundle.CreateExpedienteTitle_cuit}" />
+                                    <p:inputText maxlength="11" required="true" requiredMessage="cuit es requerido deben ser 11 dígitos" id="cuit" value="#{expedienteController.selected.cuit}" title="#{bundle.CreateExpedienteTitle_cuit}" />
 
                                 </div>
                                 <div>   
@@ -78,7 +78,6 @@
                                         <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
                                     </p:selectOneMenu><br></br><br></br>
 
-
                                     <p:outputLabel value="Nacionalidad:" for="nacionalidad" style="margin-left: 3%;font-weight: bold" /><br></br>
 
                                     <p:selectOneMenu id="nacionalidad" value="#{expedienteController.selected.nacionalidad}" style="margin-left: 3%" >
@@ -98,9 +97,6 @@
                                     <br></br>                    
                                     <p:outputLabel value="Altura:" for="nroDeAltura" style="font-weight: bold" /><br></br>
                                     <p:inputText id="nroDeAltura" value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.CreateExpedienteTitle_nroDeAltura}" />
-
-
-
 
                                 </div>
                                 <div style="float: left">
@@ -123,7 +119,6 @@
                                     <p:outputLabel value="Código Postal:" for="codigoPostal" style="margin-left: 3%;font-weight: bold" /><br></br>
                                     <p:inputText id="codigoPostal" value="#{expedienteController.selected.codigoPostal}" style="margin-left: 3%" title="codigoPostal"/>
 
-
                                 </div><br></br>
                                 <div style="float: left">
 
@@ -138,7 +133,7 @@
 
                         </p:tab>
 
-                        <p:tab title="claves">
+                        <p:tab title="Claves">
 
                             <div>
                                 <div>
@@ -177,18 +172,20 @@
                             <br></br>
                             <br></br>
                         </p:tab>
+                        
+                        <p:tab title="Comunicaciones">
+                            <p:outputLabel value="Comunicaciones" for="comunicaciones" style="font-weight: bold"/><br></br>
+                            <p:inputTextarea rows="5" cols="33" autoResize="true"  id="comunicaciones" value="#{expedienteController.selected.comunicaciones}" title="comunicaciones"/>
 
+                        </p:tab>
+                                
                     </p:tabView>
-
 
                 </div>
 
-
                 <div style="float: right; width: 38%"> 
 
-
                     <br></br>
-
 
                     <p:outputLabel value="Tipo de expediente" style="font-weight: bold" for="tipoDeExpediente"  /><br></br>
                     <p:inputText id="tipoDeExpediente" readonly="true" value="#{expedienteController.selected.tipoDeExpediente}" title="tipoDeExpediente" /><br></br>
@@ -229,7 +226,6 @@
                         <f:selectItems value="#{estadoDelTramiteController.items}" var="estado" itemLabel="#{estado.estado}" itemValue="#{estado.estado}" />
                     </p:selectOneMenu>
 
-
                     <br></br><br></br>
                     <div>
                         <div style="float: left">
@@ -240,8 +236,8 @@
                             <p:outputLabel value="Cobra Beneficio" for="cobraBeneficio" style="margin-left: 3%;font-weight: bold" /><br></br>
 
                             <p:selectOneMenu style="margin-left: 3% ; width: 30%" id="cobraBeneficio" value="#{expedienteController.selected.cobraBeneficio}" editable="true" >
-                                <f:selectItem itemLabel="Si" itemValue="Si" />
                                 <f:selectItem itemLabel="No" itemValue="No" />
+                                <f:selectItem itemLabel="Si" itemValue="Si" />
                             </p:selectOneMenu>
 
                         </div>
@@ -257,14 +253,9 @@
                                 <f:selectItem itemLabel="20% retroactivo" itemValue="20% retroactivo" />
                                 <f:selectItem itemLabel="25% retroactivo" itemValue="25% retroactivo" />
                             </p:selectOneMenu>
-                            
-                        
-                        
                         </div>
                     </div>
                     <br></br>
-
-
 
                     <p:outputLabel value="Procedencia:" for="procedencia" style="font-weight: bold" /><br></br>
                     <p:selectOneMenu  id="procedencia" value="#{expedienteController.selected.procedencia}"  >
@@ -276,13 +267,11 @@
                     <p:inputTextarea rows="5" cols="53" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
 
                     <br></br>     
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ExpedienteCreateDialog.hide()"/> 
                     <p:commandButton actionListener="#{expedienteController.create}" value="Crear" class="botonCrearAgenda" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ExpedienteCreateDialog');"/>
 
                 </div>
 
                 <br></br>
-
 
             </h:form>
         </p:dialog>

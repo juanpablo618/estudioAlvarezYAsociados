@@ -21,6 +21,9 @@
                         <p:menuitem style="background-color: white !important" value="Administrativo" actionListener="#{expedienteController.prepareCreateExpAdministrativo()}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"  icon="pi pi-refresh" />
                             <p:separator />
                             <p:menuitem style="background-color: white !important" value="Judicial" actionListener="#{expedienteController.prepareCreateExpJudicial()}" update=":ExpedienteJudicialCreateForm" oncomplete="PF('ExpedienteJudicialCreateDialog').show()" icon="pi pi-times" />
+                            <p:separator />
+                            <p:menuitem style="background-color: white !important" value="Sin carpeta" actionListener="#{expedienteController.prepareCreateExpSinCarpeta()}" update=":ExpedienteSinCarpetaCreateForm" oncomplete="PF('ExpedienteSinCarpetaCreateDialog').show()"  icon="pi pi-refresh" />
+                    
                     </p:splitButton>
                 
                     <h:commandLink style="float: right">
@@ -54,21 +57,29 @@
                         
                         <p:growl  id="message" showDetail="true" />
 
-                        <p:column filterBy="#{item.orden}" sortBy="#{item.orden}" styleClass="centeredColumnContent" filterMatchMode="exact">
+                        <p:column filterBy="#{item.orden}" sortBy="#{item.orden}" styleClass="centeredColumnContent#{item.tipoDeExpediente}" filterMatchMode="exact">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListExpedienteTitle_orden}"/>
                             </f:facet>
                             <h:outputText value="#{item.orden}"/>
                         </p:column>
 
-                        <p:column style="text-transform: uppercase" filterBy="#{item.apellido} #{item.nombre}"  styleClass="centeredColumnContent" filterMatchMode="contains">
+                        <p:column  filterBy="#{item.apellidoYNombre}"  styleClass="centeredColumnContent#{item.tipoDeExpediente}" filterMatchMode="contains">
                             <f:facet name="header" >
-                                <h:outputText style="text-transform: uppercase" value="Nombre y Apellido"/>
+                                <h:outputText  value="Nombre y Apellido"/>
                             </f:facet>
-                            <h:outputText  id="JuanCuello" value="#{ item.apellido} #{ item.nombre}"/>
+                            <h:outputText  id="JuanCuello" value="#{ item.apellidoYNombre}"/>
                         </p:column>
                         
-                        <p:column style="text-align: center; " exportable="false">
+                        <p:column filterBy="#{item.dni}" sortBy="#{item.dni}" styleClass="centeredColumnContent#{item.tipoDeExpediente}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="DNI"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dni}"/>
+                        </p:column>
+
+                        
+                        <p:column style="text-align: center; " styleClass="centeredColumnContent#{item.tipoDeExpediente}" exportable="false">
                             
                             <f:facet name="header">
                                 <h:outputText value="ACCIONES"/>
@@ -82,9 +93,15 @@
                                 <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                             </p:commandButton>
                             
+                            <p:commandButton class="linea"  update=":ExpedienteSinCarpetaEditForm" oncomplete="PF('ExpedienteSinCarpetaEditDialog').show()"  icon="ui-icon-search" rendered="#{item.tipoDeExpediente eq 'sin carpeta'}" title="Ver exp. Sin Carpeta">
+                                <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
+                            </p:commandButton>
+                            
                             <p:commandButton class="linea"  update=":ExpedienteJudicialEditForm" oncomplete="PF('ExpedienteJudicialEditDialog').show()" rendered="#{item.tipoDeExpediente eq 'judicial'}" icon="ui-icon-search" title="Ver exp. Judicial">
                                 <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                             </p:commandButton>
+                            
+                            
                             
                             <p:commandButton class="linea" update=":growl,datalist, message" actionListener="#{expedienteController.destroy}"  icon="ui-icon-circle-close" title="borrar">
                                 <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
@@ -115,7 +132,9 @@
 
             <ui:include src="Create.xhtml"/>
             <ui:include src="CreateExpJudicial.xhtml"/>
+            <ui:include src="CreateExpSinCarpeta.xhtml"/>
             <ui:include src="Edit.xhtml"/>
+            <ui:include src="EditExpSinCarpeta.xhtml"/>
             <ui:include src="EditExpJudicial.xhtml"/>
             <ui:include src="ViewParaAgenda.xhtml"/>
             <ui:include src="View_1.xhtml"/>

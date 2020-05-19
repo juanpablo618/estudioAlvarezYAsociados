@@ -11,7 +11,7 @@
 }
 .ui-widget-header {
     text-align: center;
-    text-transform: uppercase;
+    
 }
 .ui-button {
     margin-top: 10px !important;
@@ -47,7 +47,7 @@
 
 .ui-menu .ui-menuitem-link{
      background-color: #2A55AA !important;
-        height:80px !important;
+        height: 130px !important;
 
 }
 
@@ -142,7 +142,7 @@
 
 .crearExpedienteJudicial{
     width: 85% !important;
-    height: 85% !important;
+    height: 95% !important;
     left: 5% !important;
     top: 5% !important;
     z-index: 1005 !important;
@@ -151,7 +151,7 @@
 }
 .editarExpedienteJudicial{
     width: 85% !important;
-    height: 85% !important;
+    height: 95% !important;
     left: 5% !important;
     top: 5% !important;
     z-index: 1005 !important;
@@ -180,6 +180,27 @@
 td.centeredColumnContent{
     text-align: center;
 }
+td.centeredColumnContenttrue{
+    text-align: center;
+    background-color: lightgreen;
+}
+
+
+
+td.centeredColumnContentadministrativo{
+    text-align: center;
+}
+
+td.centeredColumnContentjudicial{
+    text-align: center;
+    background-color: lightsteelblue;
+}
+
+
+td.centeredColumnContentSinCarpeta{
+    text-align: center;
+    background-color: dodgerblue;
+}
 
 ui-datatable .ui-column-filter{
     width: 38% !important;
@@ -194,12 +215,4 @@ div.ui-layout-unit-content {
 
 .ui-datatable .ui-column-filter{
     width: 35% !important;
-}
-
-#ExpedienteListForm:datalist:j_idt36:filter{
-    text-transform: uppercase;
-}
-.ui-column-filter.ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all{
-        text-transform: uppercase;
-
 }

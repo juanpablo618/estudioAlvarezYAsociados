@@ -84,6 +84,20 @@ public class AgendaController implements Serializable {
         return selected;
     }
     
+    public Agenda prepareReagendar(Agenda agendaAnterior) {
+        selected = new Agenda();
+        selected.setApellido(agendaAnterior.getApellido());
+        selected.setDescripcion(agendaAnterior.getDescripcion());
+        selected.setFecha(agendaAnterior.getFecha());
+        selected.setNombre(agendaAnterior.getNombre());
+        selected.setOrden(agendaAnterior.getOrden());
+        selected.setRealizado(false);
+        selected.setResponsable(agendaAnterior.getResponsable());
+        
+        initializeEmbeddableKey();
+        return selected;
+    }
+    
     public Agenda prepareCreateConApellidoYNombre(String nombreYapellido) {
         selected = new Agenda();
         selected.setNombre(nombreYapellido);
@@ -110,6 +124,7 @@ public class AgendaController implements Serializable {
     }
 
     public void update() {
+
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AgendaUpdated"));
     }
 

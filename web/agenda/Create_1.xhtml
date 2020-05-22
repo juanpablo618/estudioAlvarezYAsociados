@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AgendaReagendarDlg" widgetVar="AgendaReagendarDialog" modal="true" resizable="false" appendTo="@(body)" header="Reagendar Agenda">
+            <h:form id="AgendaReagendarForm">
+                <h:panelGroup id="display">
+                    
+                    <div class="padre">
+                        <div class="hijo">
+                        
+                                <p:outputLabel value="#{bundle.CreateAgendaLabel_fecha}" for="fecha" />
+                                <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" mode="inline" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
+                    </div>
+                    
+                    <div class="hijo">
+                        <p:outputLabel value="Descripción" for="descripcion" /><br></br>
+                        <p:inputTextarea  id="descripcion" rows="12" cols="33" autoResize="false" value="#{agendaController.selected.descripcion}" title="Descripcion"/>
+                    </div>
+                        
+                    <div class="hijo">
+                            
+                             <p:outputLabel value="Nombre" for="nombre" /><br></br>
+                                <p:inputText id="nombre" value="#{agendaController.selected.nombre}" /><br></br><br></br>
+
+                                <p:outputLabel value="Apellido" for="apellido" /><br></br>
+                                <p:inputText id="apellido" value="#{agendaController.selected.apellido}" /><br></br><br></br>
+
+                                <p:outputLabel value="Orden" for="orden" /><br></br>
+                                <p:inputText id="orden" value="#{agendaController.selected.orden}" /><br></br><br></br>
+
+                                <p:outputLabel value="Responsable" for="responsable" /><br></br>
+
+                                <p:selectOneMenu  id="responsable" value="#{agendaController.selected.responsable}"  >
+                                    <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
+                                </p:selectOneMenu>
+                                <br></br>
+                                <div>
+                                    <p:commandButton actionListener="#{agendaController.create}" class="botonCrear" value="#{bundle.Save}" update="display,:AgendaListForm:datalist,:growl" oncomplete="handleSubmit(args,'AgendaReagendarDialog');"/>
+                                </div>
+                    
+                        </div>
+                    </div>
+                    
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

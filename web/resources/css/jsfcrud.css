@@ -180,6 +180,11 @@
 td.centeredColumnContent{
     text-align: center;
 }
+
+td.centeredColumnContentfalse{
+    text-align: center;
+}
+
 td.centeredColumnContenttrue{
     text-align: center;
     background-color: lightgreen;

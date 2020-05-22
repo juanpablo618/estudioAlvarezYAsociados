@@ -61,7 +61,7 @@ public class Agenda implements Serializable {
     private String responsable;
 
     @Column(name = "orden")
-    private int orden;
+    private Integer orden;
 
     @Column(name = "realizado")
     private boolean realizado;
@@ -134,11 +134,11 @@ public class Agenda implements Serializable {
         this.responsable = responsable;
     }
 
-    public int getOrden() {
+    public Integer getOrden() {
         return orden;
     }
 
-    public void setOrden(int orden) {
+    public void setOrden(Integer orden) {
         this.orden = orden;
     }
 

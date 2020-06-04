@@ -1,0 +1,17 @@
+Asegurarse de que exista corriendo en el environment un servidor de aplicaciones glashfish 
+la versión actual es la 5.1.0
+
+Asegurarse de que exista corriendo también una base de datos mysql 
+8.0.19
+con versiones como la 5 también funcionó bien.
+
+luego ir al repositorio y cambiar en el archivo glashfish-resources.xml
+las parametros de conexión a la base de datos, deberían haber llegado por email. o ya tenerlos en un archivo
+
+También cambiar los parametros en la clase DAO.java dentro en 2 lugares
+
+Luego construir la aplicación con clean and build , esto tendria que generar un war sin problemas.
+
+Luego ir a la parte de gestor de despliegue dentro de jelastic y subir el archivo war generado.
+
+1ro borrar en la parte de  despliegue 

@@ -18,7 +18,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -28,11 +27,11 @@ import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.servlet.ServletContext;
+import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -44,9 +43,9 @@ public class AgendaController implements Serializable {
     private com.estudioAlvarezVersion2.jpacontroller.AgendaFacade ejbFacade;
     private List<Agenda> items = null;
     private Agenda selected;
+    private Agenda selectedParaCrearUnaNueva;
     private Date fechaParaFiltrar = new Date();
     private List<Agenda> filteredAgendas;
-
     
     public AgendaController() {
     }
@@ -59,7 +58,6 @@ public class AgendaController implements Serializable {
         this.fechaParaFiltrar = fechaParaFiltrar;
     }
     
-    
     public Agenda getSelected() {
         return selected;
     }
@@ -68,6 +66,14 @@ public class AgendaController implements Serializable {
         this.selected = selected;
     }
 
+    public Agenda getSelectedParaCrearUnaNueva() {
+        return selectedParaCrearUnaNueva;
+    }
+
+    public void setSelectedParaCrearUnaNueva(Agenda selectedParaCrearUnaNueva) {
+        this.selectedParaCrearUnaNueva = selectedParaCrearUnaNueva;
+    }
+    
     protected void setEmbeddableKeys() {
     }
 
@@ -80,22 +86,24 @@ public class AgendaController implements Serializable {
 
     public Agenda prepareCreate() {
         selected = new Agenda();
+        selected.setRealizado("No");
         initializeEmbeddableKey();
         return selected;
     }
     
     public Agenda prepareReagendar(Agenda agendaAnterior) {
-        selected = new Agenda();
-        selected.setApellido(agendaAnterior.getApellido());
-        selected.setDescripcion(agendaAnterior.getDescripcion());
-        selected.setFecha(agendaAnterior.getFecha());
-        selected.setNombre(agendaAnterior.getNombre());
-        selected.setOrden(agendaAnterior.getOrden());
-        selected.setRealizado(false);
-        selected.setResponsable(agendaAnterior.getResponsable());
+        selectedParaCrearUnaNueva = new Agenda();
+        
+        selectedParaCrearUnaNueva.setNombre(agendaAnterior.getNombre());
+        selectedParaCrearUnaNueva.setApellido(agendaAnterior.getApellido());
+        selectedParaCrearUnaNueva.setDescripcion(agendaAnterior.getDescripcion());
+        selectedParaCrearUnaNueva.setFecha(agendaAnterior.getFecha());
+        selectedParaCrearUnaNueva.setOrden(agendaAnterior.getOrden());
+        selectedParaCrearUnaNueva.setRealizado("No");
+        selectedParaCrearUnaNueva.setResponsable(agendaAnterior.getResponsable());
         
         initializeEmbeddableKey();
-        return selected;
+        return selectedParaCrearUnaNueva;
     }
     
     public Agenda prepareCreateConApellidoYNombre(String nombreYapellido) {
@@ -105,7 +113,53 @@ public class AgendaController implements Serializable {
         return selected;
     }
 
+    
+    public void createParaActividad() {
+        
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreatedParaActividad"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    
+    public void createAgendaConFiltroPorNombreYApellido() {
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        ExpedienteController expedienteController = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        
+        Integer idExpediente = null;
+        
+        if(agendaController.getSelected().getApellido() != null){
+            idExpediente = Integer.parseInt(agendaController.getSelected().getApellido());
+             System.out.println("EN createAgendaConFiltroPorNombreYApellido METODO idExpediente: "+idExpediente);
+         
+             agendaController.getSelected().setApellido(expedienteController.getExpediente(idExpediente).getApellido());
+        }
+        
+        
+       System.out.println("EN createAgendaConFiltroPorNombreYApellido METODO: "+agendaController.getSelected().toString());
+        
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    
     public void create() {
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        
+        ExpedienteController expedienteController = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        
+        Integer idExpediente = null;
+                
+        if(agendaController.getSelected().getApellido() != null){
+            idExpediente = Integer.parseInt(agendaController.getSelected().getApellido());
+            agendaController.getSelected().setApellido(expedienteController.getExpediente(idExpediente).getApellido());
+         }
+                       
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -122,10 +176,31 @@ public class AgendaController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    
+    public void createReagendado(String nombre, String apellido, String responsable, String realizado, Integer orden, Date fecha, String descripcion ) {
+        
+        selectedParaCrearUnaNueva.setNombre(nombre);
+        selectedParaCrearUnaNueva.setApellido(apellido);
+        selectedParaCrearUnaNueva.setOrden(orden);
+        selectedParaCrearUnaNueva.setDescripcion(descripcion);
+        selectedParaCrearUnaNueva.setFecha(fecha);
+        selectedParaCrearUnaNueva.setOrden(orden);
+        selectedParaCrearUnaNueva.setRealizado(realizado);
+        selectedParaCrearUnaNueva.setResponsable(responsable);
+                
+        persistReagendado(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreatedReagendada"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    
     public void update() {
-
+        System.out.println("selected"+selected.toString());
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AgendaUpdated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null; 
+            filteredAgendas = null;                 // Invalidate list of items to trigger re-query.
+        }
     }
 
     public void destroy() {
@@ -151,6 +226,34 @@ public class AgendaController implements Serializable {
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);
+                }
+                JsfUtil.addSuccessMessage(successMessage);
+            } catch (EJBException ex) {
+                String msg = "";
+                Throwable cause = ex.getCause();
+                if (cause != null) {
+                    msg = cause.getLocalizedMessage();
+                }
+                if (msg.length() > 0) {
+                    JsfUtil.addErrorMessage(msg);
+                } else {
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
+    
+    private void persistReagendado(PersistAction persistAction, String successMessage) {
+        if (selectedParaCrearUnaNueva != null) {
+            setEmbeddableKeys();
+            try {
+                if (persistAction != PersistAction.DELETE) {
+                    getFacade().edit(selectedParaCrearUnaNueva);
+                } else {
+                    getFacade().remove(selectedParaCrearUnaNueva);
                 }
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
@@ -251,12 +354,10 @@ public class AgendaController implements Serializable {
                             return expediente.getClaveCidi();
                         }else{
                             return "No posee clave CIDI";
-                        
                         }
                     }
             }        
         }
-        
         return "no posee clave CIDI";
     }
     
@@ -270,12 +371,10 @@ public class AgendaController implements Serializable {
                     if(expediente.getOrden() != null){
                         if(Integer.compare(expediente.getOrden(), orden) == 0){
 
-
                             if(expediente.getClaveFiscal() !=null){
                                 return expediente.getClaveFiscal();
                             }else{
                                 return "No posee clave FISCAL";
-
                             }
                         }
                     }
@@ -308,7 +407,6 @@ public class AgendaController implements Serializable {
     }
     
     public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException {
-        
 
     Document pdf = (Document) document;
     
@@ -328,27 +426,53 @@ public class AgendaController implements Serializable {
     public void filtrarPorFecha(Date fechaParaFiltrar){
         this.filteredAgendas = new ArrayList<Agenda>();
                 
-        
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String date = sdf.format(fechaParaFiltrar); 
-        
         
         FacesContext context = FacesContext.getCurrentInstance();
         AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
 
-            if(fechaParaFiltrar != null){
-                    
+        if(fechaParaFiltrar != null){
                 for(Agenda agenda: agendaControllerBean.getItems()){
-                    String date2 = sdf.format(agenda.getFecha()); 
-        
-                    if(date.equals(date2)){
-                                    agendaControllerBean.getFilteredAgendas().add(agenda);
-                        
+                    if(agenda.getFecha() != null){
+                        String date2 = sdf.format(agenda.getFecha()); 
+                        if(date.equals(date2)){
+                                        agendaControllerBean.getFilteredAgendas().add(agenda);
+                        }
                     }
-                
                 }
             }        
-      
+    }
+    
+    public void clearAllFilters() {
+
+    DataTable dataTable = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent(":AgendaListForm:datalist");
+    if (!dataTable.getFilters().isEmpty()) {
+        dataTable.reset();
+
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.update(":AgendaListForm:datalist");
+    }
+}
+    
+    public void transferir(){
+    
+        FacesContext context = FacesContext.getCurrentInstance();
+        
+        AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        ExpedienteController expedienteController = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        
+        Integer idExpediente = null;
+        
+        if(agendaController.getSelected().getApellido() != null){
+         idExpediente = Integer.parseInt(agendaController.getSelected().getApellido());
+          System.out.println("EN TRANSFERIR METODO idExpediente: "+idExpediente);
+         agendaController.getSelected().setNombre(expedienteController.getExpediente(idExpediente).getNombre());
+         agendaController.getSelected().setOrden(expedienteController.getExpediente(idExpediente).getOrden());
+         agendaController.getSelected().setApellido(expedienteController.getExpediente(idExpediente).getApellido());
+        }
+        
+       System.out.println("EN TRANSFERIR METODO: "+agendaController.getSelected().getApellido());
     }
     
 }

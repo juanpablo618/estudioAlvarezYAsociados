@@ -52,9 +52,6 @@ Login : root
 Contraseña : BIOeqi72215
 
 
-
-
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
 <resources>
@@ -70,8 +67,6 @@ Contraseña : BIOeqi72215
     <jdbc-resource enabled="true" jndi-name="java:app/AlvarezVersion2" object-type="user" pool-name="mysql_estudioAlvarez_rootPool"/>
 </resources>
 
-
-
 #ExpedienteListForm:datalist:j_idt36:filter{
     text-transform: uppercase;
 }
@@ -79,3 +74,55 @@ Contraseña : BIOeqi72215
 .ui-column-filter.ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all{
         text-transform: uppercase;
 }
+
+
+por el problema de los filtros
+
+https://stackoverflow.com/questions/14339855/ajax-update-doesnt-work-when-using-filter-on-pdatatable
+
+
+//////////////////////////////////////////////////////////////////////// DEPLOY /////////////////////////////////////////////////////////////////////////////////
+Asegurarse de que exista corriendo en el environment un servidor de aplicaciones glashfish 
+la versión actual es la 5.1.0
+
+Asegurarse de que exista corriendo también una base de datos mysql 
+8.0.19
+con versiones como la 5 también funcionó bien.
+
+luego ir al repositorio y cambiar en el archivo glashfish-resources.xml
+las parametros de conexión a la base de datos, deberían haber llegado por email. o ya tenerlos en un archivo
+
+También cambiar los parametros en la clase DAO.java dentro en 2 lugares
+
+Luego construir la aplicación con clean and build , esto tendria que generar un war sin problemas.
+
+Luego ir a la parte de gestor de despliegue dentro de jelastic y subir el archivo war generado.
+
+1ro borrar en la parte de  despliegue subir el archivo
+
+luego desplegarlo como root en el ambiente
+
+y luego verificar entrando a la url del archivo y abrir todos los botones de la izquierda para asegurarse de que todas las vistan se muestran bien.
+
+
+
+//////////////////////////////////// DEPLOY ///////////////////////////////////
+
+
+
+//////////////////////PROBLEMAS CON LOS EXPEDIENTES ////////////////////////////
+
+Si un expediente no muestra la "lupa" para "ver" el expediente por la interfaz
+de usuario es por que el dato "tipoDeExpediente" de ese exp. en la base de datos
+no está macheando exactamente con "judicial" "administrativo" "sin carpeta" .
+
+lo que hay que hacer es 1ro preguntar de que tipo es. por el grupo
+luego hacer una sentencia sql y filtrar a través del nro de orden ejemplo 
+=  SELECT * FROM `Expediente` WHERE orden = 3205
+
+y dentro de la columna "tipoDeExpediente" colocar bien el dato exacto. 
+
+luego la interfaz ya tendría q mostrar la lupa. de ese exp.
+
+
+////////////////////PROBLEMAS CON LOS EXPEDIENTES ////////////////////////////

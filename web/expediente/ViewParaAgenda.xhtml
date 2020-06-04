@@ -18,6 +18,19 @@
         
                             <h:panelGrid columns="10" cellpadding="1" rendered="#{expedienteController.selected != null}">
                                 
+                                <h:outputText value="Orden:"  style="font-weight: bold" />
+                                <h:outputText value="#{expedienteController.selected.orden}" title="tipoDeExpediente"/>
+                            
+                                <h:outputText value="Apellido y Nombre:"  style="font-weight: bold" />
+                                <h:outputText value="#{expedienteController.selected.apellidoYNombre}" title="tipoDeExpediente"/>
+                                
+                            </h:panelGrid>
+                          
+                        </h:panelGrid>   
+                    
+                    <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
+                        
+                        
                                 <h:outputText value="Tipo de expediente:"  style="font-weight: bold" />
                                 <h:outputText value="#{expedienteController.selected.tipoDeExpediente}" title="tipoDeExpediente"/>
                             
@@ -30,11 +43,6 @@
                                 <h:outputText value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion">
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
-                            </h:panelGrid>
-                          
-                        </h:panelGrid>   
-                    
-                    <h:panelGrid columns="10" rendered="#{expedienteController.selected != null}">
                         
                         <h:outputText value="Tipo de tramite:" style="font-weight: bold" />
                         <h:outputText value="#{expedienteController.selected.tipoDeTramite}" title="tipoDeTramite"/>

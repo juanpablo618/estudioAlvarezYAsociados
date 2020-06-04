@@ -16,33 +16,33 @@
                         <div class="hijo">
                         
                                 <p:outputLabel value="#{bundle.CreateAgendaLabel_fecha}" for="fecha" />
-                                <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" mode="inline" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
+                                <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selectedParaCrearUnaNueva.fecha}" mode="inline" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
                     </div>
                     
                     <div class="hijo">
                         <p:outputLabel value="Descripción" for="descripcion" /><br></br>
-                        <p:inputTextarea  id="descripcion" rows="12" cols="33" autoResize="false" value="#{agendaController.selected.descripcion}" title="Descripcion"/>
+                        <p:inputTextarea  id="descripcion" rows="12" cols="33" autoResize="false" value="#{agendaController.selectedParaCrearUnaNueva.descripcion}" title="Descripcion"/>
                     </div>
                         
                     <div class="hijo">
                             
                              <p:outputLabel value="Nombre" for="nombre" /><br></br>
-                                <p:inputText id="nombre" value="#{agendaController.selected.nombre}" /><br></br><br></br>
+                                <p:inputText id="nombre" value="#{agendaController.selectedParaCrearUnaNueva.nombre}" /><br></br><br></br>
 
                                 <p:outputLabel value="Apellido" for="apellido" /><br></br>
-                                <p:inputText id="apellido" value="#{agendaController.selected.apellido}" /><br></br><br></br>
+                                <p:inputText id="apellido" value="#{agendaController.selectedParaCrearUnaNueva.apellido}" /><br></br><br></br>
 
                                 <p:outputLabel value="Orden" for="orden" /><br></br>
-                                <p:inputText id="orden" value="#{agendaController.selected.orden}" /><br></br><br></br>
+                                <p:inputText id="orden" value="#{agendaController.selectedParaCrearUnaNueva.orden}" /><br></br><br></br>
 
                                 <p:outputLabel value="Responsable" for="responsable" /><br></br>
 
-                                <p:selectOneMenu  id="responsable" value="#{agendaController.selected.responsable}"  >
+                                <p:selectOneMenu  id="responsable" value="#{agendaController.selectedParaCrearUnaNueva.responsable}"  >
                                     <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
                                 </p:selectOneMenu>
                                 <br></br>
                                 <div>
-                                    <p:commandButton actionListener="#{agendaController.create}" class="botonCrear" value="#{bundle.Save}" update="display,:AgendaListForm:datalist,:growl" oncomplete="handleSubmit(args,'AgendaReagendarDialog');"/>
+                                    <p:commandButton actionListener="#{agendaController.createReagendado(agendaController.selectedParaCrearUnaNueva.nombre, agendaController.selectedParaCrearUnaNueva.apellido, agendaController.selectedParaCrearUnaNueva.responsable, agendaController.selectedParaCrearUnaNueva.realizado, agendaController.selectedParaCrearUnaNueva.orden, agendaController.selectedParaCrearUnaNueva.fecha, agendaController.selectedParaCrearUnaNueva.descripcion)}" class="botonCrear" value="#{bundle.Save}" update="display,:AgendaListForm:datalist,:growl" oncomplete="handleSubmit(args,'AgendaReagendarDialog');"/>
                                 </div>
                     
                         </div>

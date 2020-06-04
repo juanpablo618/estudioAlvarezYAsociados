@@ -8,8 +8,8 @@
 
     <ui:composition>
 
-        <p:dialog id="AgendaCreateDlg" widgetVar="AgendaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Agenda">
-            <h:form id="AgendaCreateForm">
+        <p:dialog id="AgendaParaActividadCreateDlg" widgetVar="AgendaParaActividadCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Actividad Para Agenda">
+            <h:form id="AgendaParaActividadCreateForm">
                 <h:panelGroup id="display">
                     
                     <div class="padre">
@@ -26,17 +26,6 @@
                         
                     <div class="hijo">
                             
-                                <p:outputLabel value="Apellido y Nombre:" for="apellido" /><br></br>
-                                
-                                <p:selectOneMenu style="width: 100% !important" id="apellido" value="#{agendaController.selected.apellido}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith" >
-                                         <f:selectItem itemLabel="Seleccione su Expediente" itemValue="#{null}" noSelectionOption="true" />
-                                    <f:selectItems  value="#{expedienteController.itemsAvailableSelectOne}" var="exp" itemLabel="#{exp.getApellidoYNombre()}" itemDescription="#{exp.getApellidoYNombre()}"  itemValue="#{exp}" />
-                                    <p:ajax listener="#{agendaController.transferir()}" update="orden" />
-                                </p:selectOneMenu><br></br>
-                                
-                                <p:outputLabel value="Orden" for="orden" /><br></br>
-                                <p:inputText id="orden" value="#{agendaController.selected.orden}" /><br></br><br></br>
-
                                 <p:outputLabel value="Responsable" for="responsable" /><br></br>
 
                                 <p:selectOneMenu  id="responsable" value="#{agendaController.selected.responsable}"  >
@@ -45,8 +34,9 @@
                                 <br></br>
                                 <div>
                                     <p:commandButton value="#{bundle.Cancel}" onclick="AgendaCreateDialog.hide()"/>
-                                    <p:commandButton actionListener="#{agendaController.createAgendaConFiltroPorNombreYApellido}" class="botonCrear" value="#{bundle.Save}" update="display,:AgendaListForm:datalist,:growl" oncomplete="handleSubmit(args,'AgendaCreateDialog');"/>
+                                    <p:commandButton actionListener="#{agendaController.createParaActividad}" class="botonCrear" value="#{bundle.Save}" update="display,:AgendaListForm:datalist,:growl" oncomplete="handleSubmit(args,'AgendaParaActividadCreateDialog');"/>
                                 </div>
+                    
                         </div>
                     </div>
                     

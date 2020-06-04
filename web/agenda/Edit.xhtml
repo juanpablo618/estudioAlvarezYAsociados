@@ -20,6 +20,9 @@
                             </div>
                     
                             <div class="hijo">
+                                     <p:outputLabel value="IdAgenda"  /><br></br>
+                                     <p:inputText readonly="true" value="#{agendaController.selected.idAgenda}" /><br></br><br></br>
+                                
                                     <p:outputLabel value="#{bundle.EditAgendaLabel_descripcion}" for="descripcion" /><br></br>
                                     <p:inputTextarea readonly="true" rows="10" cols="33"  id="descripcion" value="#{agendaController.selected.descripcion}" />
                             </div>
@@ -41,13 +44,25 @@
                                         </p:selectOneMenu><br></br><br></br>
                                         
                                         <h:outputText value="realizado: " /><br></br>
-                                        <p:selectBooleanButton id="realizado" value="#{agendaController.selected.realizado}" onLabel="Si" offLabel="No" style="width:60px" /><br></br><br></br>
- 
+                                        
+                                        <p:selectOneMenu id="realizado"  value="#{agendaController.selected.realizado}" editable="true" style="width:50%"><br></br><br></br>
+                                        <f:selectItem itemLabel="Si" itemValue="Si" />
+                                        <f:selectItem itemLabel="No" itemValue="No" />
+                                        <f:selectItem itemLabel="Reagendada" itemValue="Reagendada" />
+                                        
+                                        </p:selectOneMenu>
+                                               
                                     
                             <br></br>
                                 
                                 <div>
-                                     <p:commandButton onclick="AgendaViewDialog.hide()" class="botonEditarAgenda" actionListener="#{agendaController.update}" value="Actualizar esta agenda" update="display,:AgendaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AgendaEditDialog');"/>
+                                     <p:commandButton onclick="AgendaViewDialog.hide()" 
+                                     class="botonEditarAgenda" actionListener="#{agendaController.update}" 
+                                     value="Actualizar esta agenda" update="display,:AgendaListForm:datalist,:growl"
+                                     oncomplete="handleSubmit(args, 'AgendaEditDialog');"  />
+                                     
+                                   
+                                     
                                 </div>     
                             
                                 <div >

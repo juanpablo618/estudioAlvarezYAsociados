@@ -59,7 +59,6 @@
                             <f:facet name="header">
                                 <h:outputText value="ACCIONES"/>
                             </f:facet>
-                             
                             
                             <p:commandButton class="linea"  update=":UsersEditForm" oncomplete="PF('UsersEditDialog').show()" icon="ui-icon-search" title="Ver">
                                    <f:setPropertyActionListener value="#{item}" target="#{usersController.selected}" />
@@ -71,13 +70,11 @@
                             </p:commandButton>
 
                             <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton update="@all" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-                                <p:commandButton update="@all" value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                                <p:commandButton update=":UsersListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                <p:commandButton update=":UsersListForm" value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
                             </p:confirmDialog>
                             
                         </p:column>
-                        
-                        
                         
                         <f:facet name="footer">
                             <p:commandButton rendered="false" id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usersController.prepareCreate}" update=":UsersCreateForm" oncomplete="PF('UsersCreateDialog').show()"/>
@@ -86,7 +83,6 @@
                             <p:commandButton id="deleteButton" rendered="false" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{usersController.destroy}" update=":growl,datalist" disabled="#{empty usersController.selected}"/>
                         </f:facet>
                     </p:dataTable>
-                
             </h:form>
 
             <ui:include src="Create.xhtml"/>

@@ -78,7 +78,6 @@
                             <h:outputText value="#{item.dni}"/>
                         </p:column>
 
-                        
                         <p:column style="text-align: center; " styleClass="centeredColumnContent#{item.tipoDeExpediente}" exportable="false">
                             
                             <f:facet name="header">
@@ -101,17 +100,14 @@
                                 <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                             </p:commandButton>
                             
-                            
-                            
-                            <p:commandButton class="linea" update=":growl,datalist, message" actionListener="#{expedienteController.destroy}"  icon="ui-icon-circle-close" title="borrar">
+                            <p:commandButton class="linea" update=":growl,datalist, message" oncomplete="PF('expedientesTable').clearFilters()" actionListener="#{expedienteController.destroy}"  icon="ui-icon-circle-close" title="borrar">
                                 <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                                 <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
-
                             </p:commandButton>
                             
                             <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton update="@all" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-                                <p:commandButton update="@all" value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                                <p:commandButton update=":ExpedienteListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                <p:commandButton update=":ExpedienteListForm" value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
                             </p:confirmDialog> 
                             
                         </p:column>

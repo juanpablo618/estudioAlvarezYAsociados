@@ -18,13 +18,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author developer
+ * @author cuello.juanpablo@gmail.com
  */
 @Entity
 @Table(name = "Agenda")
@@ -64,7 +62,7 @@ public class Agenda implements Serializable {
     private Integer orden;
 
     @Column(name = "realizado")
-    private boolean realizado;
+    private String realizado;
 
     
     public Agenda() {
@@ -74,7 +72,7 @@ public class Agenda implements Serializable {
         this.idAgenda = idAgenda;
     }
 
-    public Agenda(Integer idAgenda, Date fecha, String descripcion, String nombre, String apellido, String responsable, int orden, Boolean realizado) {
+    public Agenda(Integer idAgenda, Date fecha, String descripcion, String nombre, String apellido, String responsable, int orden, String realizado) {
         this.idAgenda = idAgenda;
         this.fecha = fecha;
         this.descripcion = descripcion;
@@ -142,11 +140,11 @@ public class Agenda implements Serializable {
         this.orden = orden;
     }
 
-    public boolean isRealizado() {
+    public String getRealizado() {
         return realizado;
     }
 
-    public void setRealizado(boolean realizado) {
+    public void setRealizado(String realizado) {
         this.realizado = realizado;
     }
     
@@ -171,9 +169,16 @@ public class Agenda implements Serializable {
         return true;
     }
 
+    //@Override
+    //public String toString() {
+    //    return "fecha=" + fecha + ", descripcion=" + descripcion ;
+    //}
+
     @Override
     public String toString() {
-        return "fecha=" + fecha + ", descripcion=" + descripcion ;
+        return "Agenda{" + "idAgenda=" + idAgenda + ", fecha=" + fecha + ", descripcion=" + descripcion + ", nombre=" + nombre + ", apellido=" + apellido + ", responsable=" + responsable + ", orden=" + orden + ", realizado=" + realizado + '}';
     }
+    
+    
 
 }

@@ -282,7 +282,6 @@
                                    <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
                                    <p:inputTextarea rows="3" cols="63" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
                                    <br></br>
-                                   <p:commandButton value="#{bundle.Cancel}" onclick="ExpedienteJudicialEditDialog.hide()"/>
                                    <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.update}" class="botonCrearAgenda" value="#{bundle.Save}" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteJudicialEditDialog');"/>
                     
                   

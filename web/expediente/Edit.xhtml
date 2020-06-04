@@ -336,7 +336,6 @@ function myFunction() {
                     <p:inputTextarea rows="5" cols="53" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
 
                     <br></br>     
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ExpedienteEditDialog.hide()"/>
                     <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.update}" class="botonCrearAgenda" value="#{bundle.Save}" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
                    
                 </div>

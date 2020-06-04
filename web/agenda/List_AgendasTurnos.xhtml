@@ -19,19 +19,18 @@
                     <div><h:graphicImage value="../faces/resources/images/2019-10-29.png" style="width: 20%;"/>
                     </div>
                 </center>
-                
             <h:form style="background-color: #F4F8FA">   
                <p:calendar  required="true" requiredMessage="fecha es requerido" style="margin-left: 10px;" id="horaYDia"  pattern="dd/MM/yyyy"  value="#{turnoController.dateSelected}" title="#{bundle.EditTurnoTitle_horaYDia}"  showButtonPanel="true"/>
-     
-                    <h:commandButton  value="Filtrar las 2 tablas" actionListener="#{turnoController.filtrarAgendasYTurnos(turnoController.getDateSelected())}"
+                         <h:commandButton  value="Filtrar las 2 tablas" actionListener="#{turnoController.filtrarAgendasYTurnos(turnoController.getDateSelected())}"
                                          style="width: 15%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 10px;" />
             </h:form>
             <h:form id="TurnoListForm" style="background-color: #F4F8FA">
                 
-                
                 <div style="float: left">
                     <p:commandButton id="createButton" style="margin-right: 10px" icon="ui-icon-plus" value="CREAR AGENDA" class="botonCrearAgenda" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
                     <p:commandButton id="createButtonTurno"  icon="ui-icon-plus" value="CREAR TURNO" class="botonCrearAgenda" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
+                    <p:commandButton id="createAgendaParaActividadButton" style="margin-right: 10px" icon="ui-icon-plus" value="CREAR ACTIVIDAD" class="botonCrearAgenda" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaParaActividadCreateDialog').show()"/>
+                
                 </div>
                 <br></br>
                 
@@ -94,9 +93,9 @@
                         </p:column>
                         <p:column style="text-align: center;" >
                             <f:facet name="header">
-                                <h:outputText value="PROCEDENCIA"/>
+                                <h:outputText value="RESPONSABLE"/>
                             </f:facet>
-                            <h:outputText value="#{item.procedencia}"/>
+                            <h:outputText value="#{item.responsable}"/>
                         </p:column>
                         <p:column style="text-align: center;">
                             <f:facet name="header">
@@ -115,14 +114,14 @@
                                    <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
                             </p:commandButton>
                             
-                            <p:commandButton class="linea" update=":growl,datalist, message" actionListener="#{turnoController.destroy}"  icon="ui-icon-circle-close" title="borrar">
+                            <p:commandButton class="linea" update=":growl,datalist, message"  oncomplete="PF('turnosTable').clearFilters()"  actionListener="#{turnoController.destroy}"  icon="ui-icon-circle-close" title="borrar">
                                 <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
                                 <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
                             </p:commandButton>
 
                             <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton update="@all" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-                                <p:commandButton update="@all" value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                                <p:commandButton update=":TurnoListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                <p:commandButton update=":TurnoListForm" value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
                             </p:confirmDialog> 
                             
                             
@@ -152,6 +151,7 @@
                                  emptyMessage="no hay agendas agregadas para esa fecha" 
                                  rendered="true"  
                                  >
+                        <p:poll interval="2" update="datalist" />
                         <p:ajax event="rowSelect"   update="createButton "/>
                         <p:ajax event="rowUnselect" update="createButton "/>
                         
@@ -185,7 +185,7 @@
                         <p:column style="width: 9%" filterBy="#{item.responsable}" headerText="RESPONSABLE" styleClass="centeredColumnContent#{item.realizado}"  filterMatchMode="exact">
                             <f:facet name="filter">
                                 <p:selectOneMenu onchange="PF('agendasTable').filter()" styleClass="custom-filter">
-                                    <f:selectItem itemLabel="Seleccionar uno" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="Seleccionar Todos" itemValue="#{null}" noSelectionOption="true" />
                                     <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" />
                                 </p:selectOneMenu>
                             </f:facet>
@@ -215,16 +215,15 @@
                             </p:commandButton>
                             
                             
-                            <p:commandButton class="linea" update=":growl,datalist, message2" actionListener="#{agendaController.destroy}"  icon="ui-icon-circle-close" title="borrar">
+                            <p:commandButton class="linea" update=":growl,datalist, message2" oncomplete="PF('agendasTable').clearFilters()" actionListener="#{agendaController.destroy}"  icon="ui-icon-circle-close" title="borrar">
                                 <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
                                 <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
                             </p:commandButton>
 
                             <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton update="@all" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-                                <p:commandButton update="@all" value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                                <p:commandButton  update=":growl,datalist" oncomplete="PF('agendasTable').clearFilters()" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                <p:commandButton update="@all"  oncomplete="agendasTable.filter()" value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
                             </p:confirmDialog> 
-
                             
                         </p:column>
                         
@@ -233,10 +232,12 @@
                         
                         </f:facet>
                     </p:dataTable>
+                
             </h:form>
             
             
             <ui:include src="Create.xhtml"/>
+                        <ui:include src="CreateAgendaParaActividad.xhtml"/>
             <ui:include src="Create_1.xhtml"/>
 
             <ui:include src="../turno/Create.xhtml"/>

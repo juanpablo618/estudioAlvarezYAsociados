@@ -624,9 +624,11 @@ public class Expediente implements Serializable {
         return true;
     }
 
-    @Override
+       
+    
+    
     public String toString() {
-        return "com.estudioAlvarezVersion2.jpa.Expediente[ idExpediente=" + idExpediente + " ]";
+        return idExpediente.toString() ;
     }
 
 }

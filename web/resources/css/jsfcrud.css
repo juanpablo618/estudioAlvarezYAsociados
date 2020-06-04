@@ -48,7 +48,6 @@
 .ui-menu .ui-menuitem-link{
      background-color: #2A55AA !important;
         height: 130px !important;
-
 }
 
 .ui-widget-content .ui-icon{
@@ -83,16 +82,12 @@
 } 
 
  .editDialogExpediente{
-   
     width: 77% !important;
     height: 95% !important;
     top: 2% !important;
     z-index: 1005 !important;
     position: absolute;
-
-     
  }
- 
  
 .padre {
   /* IMPORTANTE */
@@ -102,7 +97,6 @@
 .hijo {
   padding: 10px;
   margin: 10px;
-  
   /* IMPORTANTE */
   display: inline-block;
 }
@@ -110,7 +104,6 @@
 .hijoParaClaves {
   padding: 10px;
   margin: 2px;
-  
   /* IMPORTANTE */
   display: inline-block;
 }
@@ -119,7 +112,6 @@
     background-color: #9db7e8 !important;
 }
 
-
 .crearExpediente{
     width: 90% !important;
     height: 90% !important;
@@ -127,7 +119,6 @@
     top: 2% !important;
     z-index: 1005 !important;
     position: absolute;
-
 }
 
 .verExpediente{
@@ -136,9 +127,7 @@
     top: 2% !important;
     z-index: 1005 !important;
     position: absolute;
-
 }
-
 
 .crearExpedienteJudicial{
     width: 85% !important;
@@ -147,7 +136,6 @@
     top: 5% !important;
     z-index: 1005 !important;
     position: absolute;
-
 }
 .editarExpedienteJudicial{
     width: 85% !important;
@@ -156,7 +144,6 @@
     top: 5% !important;
     z-index: 1005 !important;
     position: absolute;
-
 }
 
 .ui-layout-unit-content .ui-widget-content{
@@ -171,26 +158,27 @@
     width: 100px !important;
 }
 
-
 .inputFechaDeAtencion{
         width: 100px !important;
-
 }
 
 td.centeredColumnContent{
     text-align: center;
 }
 
-td.centeredColumnContentfalse{
+td.centeredColumnContentNo{
     text-align: center;
 }
 
-td.centeredColumnContenttrue{
+td.centeredColumnContentSi{
     text-align: center;
     background-color: lightgreen;
 }
 
-
+td.centeredColumnContentReagendada{
+    text-align: center;
+    background-color: yellow;
+}
 
 td.centeredColumnContentadministrativo{
     text-align: center;

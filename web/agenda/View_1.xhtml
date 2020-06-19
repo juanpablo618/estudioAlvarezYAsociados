@@ -12,7 +12,10 @@
             <h:form id="AgendaViewClavesForm">
                 <h:panelGroup id="display">
                    
-                        
+                        <h:outputText value="NRO DE CUIL:"/><br></br>
+                        <h:outputText style="font-weight: bold" value="#{agendaController.verNroDeCuil(agendaController.selected.orden)}"/><br></br><br></br>
+                            
+                    
                         <h:outputText value="Clave CIDI:"/><br></br>
                         <h:outputText value="#{agendaController.verClaveCidi(agendaController.selected.orden)}"/><br></br>
                         <p:button  value="Ir al sitio"  href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" /><br></br><br></br>

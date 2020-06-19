@@ -1,4 +1,3 @@
-
 package com.estudioAlvarezVersion2.downloadPDf;
 
 import com.estudioAlvarezVersion2.jpa.Agenda;
@@ -19,11 +18,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.faces.context.FacesContext;
-import javax.swing.text.StyleConstants.FontConstants;
 
 /**
  *
- * @author developer
+ * @author cuello.juanpablo@gmail.com
  */
 
 public class MembretePresupuestoCronologicoDeAportes {
@@ -279,10 +277,6 @@ public class MembretePresupuestoCronologicoDeAportes {
         //table.addCell("ORDEN");
         //table.addCell("Nombre y Apellido");
         //table.addCell("Descripción:");
-        
-        
-        
-
         
         document.close();
         

@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
@@ -13,6 +12,13 @@
     </h:head>
 
     <h:body style="background-color: #F4F8FA">
+             <h:form>
+                <p:growl id="messages1" showDetail="true" sticky="true" />
+                <p:idleMonitor timeout="240000">
+                    <p:ajax event="idle" listener="#{login.onIdle}" update="messages1" />
+                </p:idleMonitor>
+            </h:form>
+
         <p:growl id="growl" life="3000" />
         
         <p:layout fullPage="true" style="background: #2A55AA;">

@@ -6,6 +6,8 @@
 package com.estudioAlvarezVersion2.jpa;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,26 +20,25 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author developer
+ * @author cuello.juanpablo@gmail.com
  */
 @Entity
 @Table(name = "turno")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Turno.findAll", query = "SELECT t FROM Turno t")
-    , @NamedQuery(name = "Turno.findByIdTurno", query = "SELECT t FROM Turno t WHERE t.idTurno = :idTurno")
-    , @NamedQuery(name = "Turno.findByHoraYDia", query = "SELECT t FROM Turno t WHERE t.horaYDia = :horaYDia")
-    , @NamedQuery(name = "Turno.findByNombre", query = "SELECT t FROM Turno t WHERE t.nombre = :nombre")
-    , @NamedQuery(name = "Turno.findByApellido", query = "SELECT t FROM Turno t WHERE t.apellido = :apellido")
-    , @NamedQuery(name = "Turno.findByNroDeTelefono", query = "SELECT t FROM Turno t WHERE t.nroDeTelefono = :nroDeTelefono")
-    , @NamedQuery(name = "Turno.findByProcedencia", query = "SELECT t FROM Turno t WHERE t.procedencia = :procedencia")
-    , @NamedQuery(name = "Turno.findByObservacion", query = "SELECT t FROM Turno t WHERE t.observacion = :observacion")})
+    @NamedQuery(name = "Turno.findAll", query = "SELECT t FROM Turno t"),
+    @NamedQuery(name = "Turno.findByIdTurno", query = "SELECT t FROM Turno t WHERE t.idTurno = :idTurno"),
+    @NamedQuery(name = "Turno.findByHoraYDia", query = "SELECT t FROM Turno t WHERE t.horaYDia = :horaYDia"),
+    @NamedQuery(name = "Turno.findByNombre", query = "SELECT t FROM Turno t WHERE t.nombre = :nombre"),
+    @NamedQuery(name = "Turno.findByApellido", query = "SELECT t FROM Turno t WHERE t.apellido = :apellido"),
+    @NamedQuery(name = "Turno.findByNroDeTelefono", query = "SELECT t FROM Turno t WHERE t.nroDeTelefono = :nroDeTelefono"),
+    @NamedQuery(name = "Turno.findByProcedencia", query = "SELECT t FROM Turno t WHERE t.procedencia = :procedencia"),
+    @NamedQuery(name = "Turno.findByObservacion", query = "SELECT t FROM Turno t WHERE t.observacion = :observacion")})
 public class Turno implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,15 +47,15 @@ public class Turno implements Serializable {
     @Basic(optional = false)
     @Column(name = "idTurno")
     private Integer idTurno;
-    
+
     @Basic(optional = false)
     @Column(name = "horaYDia")
     @Temporal(TemporalType.TIMESTAMP)
     private Date horaYDia;
-    
+
     @Column(name = "nombre")
     private String nombre;
-    
+
     @Size(max = 300)
     @Column(name = "apellido")
     private String apellido;
@@ -71,7 +72,6 @@ public class Turno implements Serializable {
     @Column(name = "responsable")
     private String responsable;
 
-    
     public Turno() {
     }
 
@@ -95,6 +95,11 @@ public class Turno implements Serializable {
 
     public Date getHoraYDia() {
         return horaYDia;
+    }
+
+    public String getDiaMesAnio() {
+        DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        return formatoFecha.format(horaYDia);
     }
 
     public void setHoraYDia(Date horaYDia) {
@@ -148,7 +153,7 @@ public class Turno implements Serializable {
     public void setResponsable(String responsable) {
         this.responsable = responsable;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -173,5 +178,5 @@ public class Turno implements Serializable {
     public String toString() {
         return "com.estudioAlvarezVersion2.jpa.Turno[ idTurno=" + idTurno + " ]";
     }
-    
+
 }

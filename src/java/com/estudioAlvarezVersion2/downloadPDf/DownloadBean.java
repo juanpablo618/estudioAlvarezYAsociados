@@ -1,14 +1,7 @@
 package com.estudioAlvarezVersion2.downloadPDf;
 
-
-/**
- *
- * @author cuello.juanpablo@gmail.com
- */
-
 import com.estudioAlvarezVersion2.jpa.Agenda;
 import com.estudioAlvarezVersion2.jpa.Turno;
-import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,10 +15,13 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
+
+/**
+ *
+ * @author cuello.juanpablo@gmail.com
+ */
+
 
 @ManagedBean
 public class DownloadBean implements Serializable {
@@ -42,8 +38,6 @@ public void crearDocumento(ArrayList<Agenda> agendasFiltradas , ArrayList<Turno>
         if(turnosFiltrados == null || turnosFiltrados.isEmpty()){
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay Turnos filtrados para imprimir"));
         }else{
-            
-        
             
         Date date = new Date();
         //Caso 1: obtener la hora y salida por pantalla con formato:
@@ -78,8 +72,6 @@ public void crearDocumento(ArrayList<Agenda> agendasFiltradas , ArrayList<Turno>
         }
         }
     }
-
-    
 
 public void crearConvenioDeHonorarios(String nombre, String apellido, String dni, String direccion, String nroDeAltura, String barrio) throws IOException, DocumentException, InterruptedException{
 
@@ -120,9 +112,6 @@ public void crearConvenioDeHonorarios(String nombre, String apellido, String dni
                   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Impresion exitosa del convenio de Honorarios"));
         }
     }
-    
-
-
 
 public void crearCronologicoDeAportes(String nombre ) throws IOException, DocumentException, InterruptedException{
 
@@ -274,6 +263,5 @@ facesContext.responseComplete();
 //FacesContext context = FacesContext.getCurrentInstance();
 
 }
-
 
 }

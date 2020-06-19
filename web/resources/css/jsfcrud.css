@@ -17,8 +17,7 @@
     margin-top: 10px !important;
 }
 
-.linea
-{
+.linea {
     display: inline-block;
 }
 .crearAgenda{
@@ -82,7 +81,7 @@
 } 
 
  .editDialogExpediente{
-    width: 77% !important;
+    width: 84% !important;
     height: 95% !important;
     top: 2% !important;
     z-index: 1005 !important;
@@ -189,10 +188,9 @@ td.centeredColumnContentjudicial{
     background-color: lightsteelblue;
 }
 
-
-td.centeredColumnContentSinCarpeta{
+td.centeredColumnContentsincarpeta{
     text-align: center;
-    background-color: dodgerblue;
+    background-color: bisque;
 }
 
 ui-datatable .ui-column-filter{
@@ -203,8 +201,6 @@ div.ui-layout-unit-content {
         background-color: #2A55AA !important;
 
 }
-
-
 
 .ui-datatable .ui-column-filter{
     width: 35% !important;

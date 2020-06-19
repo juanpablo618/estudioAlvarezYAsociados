@@ -301,6 +301,17 @@ public class Expediente implements Serializable {
     public String getDni() {
         return dni;
     }
+    
+    //ESTO LO TENGO Q HACER POR Q LOS DNI ESTÁN MAL CARGADOS LA GRAN MAYORíA
+    public String getCuitRecordado() {
+        if(cuit !=null && cuit.length()>=10){
+        String documento = cuit.replace(" ", "");
+        documento = documento.substring(2, 10);
+        return documento;
+        }else{
+            return dni;
+        }
+    }
 
     public void setDni(String dni) {
         this.dni = dni;
@@ -508,6 +519,14 @@ public class Expediente implements Serializable {
 
     public String getTipoDeExpediente() {
         return tipoDeExpediente;
+    }
+    
+    public String getTipoDeExpedienteParaEstilo() {
+        String tipoDeExpedienteParaEstilo = "no tiene tipo de exp.";
+        if(tipoDeExpediente != null){
+         tipoDeExpedienteParaEstilo = tipoDeExpediente.replace(" ", "");
+        }
+        return tipoDeExpedienteParaEstilo;
     }
 
     public void setTipoDeExpediente(String tipoDeExpediente) {

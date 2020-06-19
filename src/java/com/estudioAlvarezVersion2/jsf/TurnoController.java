@@ -206,9 +206,7 @@ public class TurnoController implements Serializable {
     
     
     public void handleDateSelect(SelectEvent event) {
-        System.out.println(event.toString());
         RequestContext.getCurrentInstance().execute("PF('turnosTable').filter()");
-    
     }
 
     public void filtrarAgendasYTurnos(Date dateSelected){
@@ -220,14 +218,8 @@ public class TurnoController implements Serializable {
             agendaController.filtrarPorFecha(dateSelected);
             
         if(dateSelected != null){
-            System.out.println("dateSelected:  " + dateSelected);
-            
-            System.out.println("filteredturnos:  " + filteredturnos.size());
-            
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String date = sdf.format(dateSelected); 
-            System.out.println("dateSelected:  " + date);
-            
         
                 for(Turno turno:getItems()){
                         System.out.println(turno.getHoraYDia());
@@ -240,6 +232,5 @@ public class TurnoController implements Serializable {
                 }
         }
     }
-
     
 }

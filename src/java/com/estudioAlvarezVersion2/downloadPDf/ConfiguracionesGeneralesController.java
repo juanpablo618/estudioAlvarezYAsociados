@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.estudioAlvarezVersion2.downloadPDf;
-
 
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
@@ -30,15 +24,12 @@ public class ConfiguracionesGeneralesController implements Serializable {
     private ConfiguracionesGeneralesFacade ejbFacade;
     private List<ConfiguracionesGenerales> items = null;
     private ConfiguracionesGenerales selected;
-
-    
     private static final String foto_home = "condicionIVA/resources/images/home.jpg";
     private static final String foto_caja = "resources/images/caja.jpg";
     private static final String foto_users = "resources/images/userss.jpg";
     private static final String foto_product = "resources/images/product.jpg";
     private static final String foto_cart = "resources/images/cart.jpg";
     private static final String foto_production = "resources/images/production.jpg";
-
     
     public ConfiguracionesGeneralesFacade getEjbFacade() {
         return ejbFacade;

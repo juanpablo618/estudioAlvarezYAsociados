@@ -10,12 +10,22 @@
     <ui:composition template="/template.xhtml">
 
         <ui:define name="body">
-            <h:form id="ExpedienteListForm" style=" background-color: #F4F8FA;">
-                
-                <center style="background-color: #f4f8fa">
+            <center style="background-color: #f4f8fa">
                     <div><h:graphicImage value="../faces/resources/images/2019-10-29.png" style="width: 20%;"/>
                     </div>
                 </center>
+            
+                   <h:form style="float: right; background-color: #F4F8FA">   
+                        <p:selectOneMenu required="true" requiredMessage="debe seleccionar un estado del tramite correcto" id="estadoDelTramite" value="#{expedienteController.estadoDelTramiteSelected}">
+                        <f:selectItem itemLabel=" -- Elige un Estado del tramite --"  noSelectionOption="true"  />
+                        <f:selectItems value="#{estadoDelTramiteController.items}" var="estado" itemLabel="#{estado.estado}" itemValue="#{estado.estado}" />
+                        </p:selectOneMenu><br></br>
+                        <h:commandButton  value="Filtrar por Est. del tramite" actionListener="#{expedienteController.filtrarPorEstadoDelTramite(expedienteController.getEstadoDelTramiteSelected())}"
+                                      style="width: 82%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 10px;" />
+                    </h:form>
+                  
+            <h:form id="ExpedienteListForm" style=" background-color: #F4F8FA;">
+                
                 <div > 
                     <p:splitButton id="basic" value="CREAR EXPEDIENTE" action="#{buttonView.save}"  icon="pi pi-save">
                         <p:menuitem style="background-color: white !important" value="Administrativo" actionListener="#{expedienteController.prepareCreateExpAdministrativo()}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"  icon="pi pi-refresh" />
@@ -25,7 +35,9 @@
                             <p:menuitem style="background-color: white !important" value="Sin carpeta" actionListener="#{expedienteController.prepareCreateExpSinCarpeta()}" update=":ExpedienteSinCarpetaCreateForm" oncomplete="PF('ExpedienteSinCarpetaCreateDialog').show()"  icon="pi pi-refresh" />
                     
                     </p:splitButton>
+                <h:commandButton  value="Limpiar filtros" onclick="PF('expedientesTable').clearFilters()"   style="width: 15%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; " />
                 
+                      
                     <h:commandLink style="float: right">
                                 <h:graphicImage value="../faces/resources/images/pdf.png" />
                                 <p:dataExporter type="pdf" target="datalist" fileName="expedientesFiltrados" pageOnly="true" />
@@ -35,8 +47,8 @@
                                 <h:graphicImage value="../faces/resources/images/pdf.png" />
                                 <p:dataExporter type="pdf" target="datalist" fileName="todasLosExpedientes" pageOnly="false" />
                     </h:commandLink>
+                    
                 </div>
-                   
                 <br></br>
                 
                     <p:dataTable id="datalist" value="#{expedienteController.items}" var="item"
@@ -57,28 +69,28 @@
                         
                         <p:growl  id="message" showDetail="true" />
 
-                        <p:column filterBy="#{item.orden}" sortBy="#{item.orden}" styleClass="centeredColumnContent#{item.tipoDeExpediente}" filterMatchMode="exact">
+                        <p:column filterBy="#{item.orden}" sortBy="#{item.orden}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="exact">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListExpedienteTitle_orden}"/>
                             </f:facet>
                             <h:outputText value="#{item.orden}"/>
                         </p:column>
 
-                        <p:column  filterBy="#{item.apellidoYNombre}"  styleClass="centeredColumnContent#{item.tipoDeExpediente}" filterMatchMode="contains">
+                        <p:column  filterBy="#{item.apellidoYNombre}"  styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
                             <f:facet name="header" >
                                 <h:outputText  value="Nombre y Apellido"/>
                             </f:facet>
                             <h:outputText  id="JuanCuello" value="#{ item.apellidoYNombre}"/>
                         </p:column>
                         
-                        <p:column filterBy="#{item.dni}" sortBy="#{item.dni}" styleClass="centeredColumnContent#{item.tipoDeExpediente}" filterMatchMode="contains">
+                        <p:column filterBy="#{item.getCuitRecordado()}" sortBy="#{item.getCuitRecordado()}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="DNI"/>
                             </f:facet>
-                            <h:outputText value="#{item.dni}"/>
+                            <h:outputText value="#{item.getCuitRecordado()}"/>
                         </p:column>
 
-                        <p:column style="text-align: center; " styleClass="centeredColumnContent#{item.tipoDeExpediente}" exportable="false">
+                        <p:column style="text-align: center; " styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" exportable="false">
                             
                             <f:facet name="header">
                                 <h:outputText value="ACCIONES"/>

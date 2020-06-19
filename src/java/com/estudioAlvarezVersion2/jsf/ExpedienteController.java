@@ -8,10 +8,8 @@ import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.ExpedienteFacade;
 
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -40,6 +38,8 @@ public class ExpedienteController implements Serializable {
     private List<Expediente> items = null;
     private Expediente selected;
 
+    private String estadoDelTramiteSelected;
+
     private List<Expediente> filteredExpedientes;
 
     private Date dateSelected;
@@ -61,6 +61,14 @@ public class ExpedienteController implements Serializable {
 
     public List<Expediente> getFilteredExpedientes() {
         return filteredExpedientes;
+    }
+
+    public String getEstadoDelTramiteSelected() {
+        return estadoDelTramiteSelected;
+    }
+
+    public void setEstadoDelTramiteSelected(String estadoDelTramiteSelected) {
+        this.estadoDelTramiteSelected = estadoDelTramiteSelected;
     }
 
     public void setFilteredExpedientes(List<Expediente> filteredExpedientes) {
@@ -92,11 +100,11 @@ public class ExpedienteController implements Serializable {
         selected.setFechaDeAtencion(date);
         //ingresarOrdenAutoincremental();
         ingresarOrdenAutoincrementalSaltandoExpedientesSinCarpeta();
-        
+
         initializeEmbeddableKey();
         return selected;
     }
-    
+
     public Expediente prepareCreateExpJudicial() {
         selected = new Expediente();
         selected.setTipoDeExpediente("judicial");
@@ -104,22 +112,22 @@ public class ExpedienteController implements Serializable {
         selected.setFechaDeAtencion(date);
         //ingresarOrdenAutoincremental();
         ingresarOrdenAutoincrementalSaltandoExpedientesSinCarpeta();
-        
+
         initializeEmbeddableKey();
         return selected;
     }
-    
+
     public Expediente prepareCreateExpSinCarpeta() {
         selected = new Expediente();
         selected.setTipoDeExpediente("sin carpeta");
         Date date = new Date();
         selected.setFechaDeAtencion(date);
         selected.setOrden(null);
-               
+
         initializeEmbeddableKey();
         return selected;
     }
-    
+
     public Expediente prepareCreate() {
         selected = new Expediente();
         initializeEmbeddableKey();
@@ -131,7 +139,7 @@ public class ExpedienteController implements Serializable {
         ingresarEdad();
 
         ingresarDni();
-        
+
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteCreated").concat(selected.getTipoDeExpediente()));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -139,52 +147,52 @@ public class ExpedienteController implements Serializable {
     }
 
     public void ingresarEdad() {
-        if(selected.getFechaDeNacimiento() != null){
-        Calendar fecha = new GregorianCalendar();
-        int añoActual = fecha.get(Calendar.YEAR);
+        if (selected.getFechaDeNacimiento() != null) {
+            Calendar fecha = new GregorianCalendar();
+            int añoActual = fecha.get(Calendar.YEAR);
 
-        int añoDeNacimiento = selected.getFechaDeNacimiento().getYear();
+            int añoDeNacimiento = selected.getFechaDeNacimiento().getYear();
 
-        añoDeNacimiento = añoDeNacimiento + 1900;
+            añoDeNacimiento = añoDeNacimiento + 1900;
 
-        int edad = 0;
+            int edad = 0;
 
-        edad = añoActual - añoDeNacimiento;
+            edad = añoActual - añoDeNacimiento;
 
-        selected.setEdad(edad);
-        }else{
+            selected.setEdad(edad);
+        } else {
             //TODO: review this code to drop off a notificacion !
-        selected.setEdad(0);
-        
+            selected.setEdad(0);
+
         }
-        
+
     }
 
     public void ingresarDni() {
-        
-        if(selected.getCuit().length() > 8){
-        
-        String cuit = selected.getCuit();
-        
-        cuit = cuit.substring(2, 9);
 
-        selected.setDni(cuit);
-        }else{
-        selected.setDni(null);
-        
+        if (selected.getCuit().length() > 8) {
+
+            String dni = selected.getCuit();
+            dni = dni.replace(" ", "");
+
+            dni = dni.substring(2, 10);
+
+            selected.setDni(dni);
+        } else {
+            selected.setDni(null);
+
         }
     }
-    
-    public void ingresarOrdenAutoincrementalSaltandoExpedientesSinCarpeta(){
+
+    public void ingresarOrdenAutoincrementalSaltandoExpedientesSinCarpeta() {
         selected.setOrden(autoIncrementarOrdenSaltandoExpedientesSinCarpeta());
-    
+
     }
-    
-    public void ingresarOrdenAutoincremental(){
-        
+
+    public void ingresarOrdenAutoincremental() {
+
         selected.setOrden(autoIncrementarOrden());
     }
-    
 
     public void update() {
 
@@ -219,7 +227,7 @@ public class ExpedienteController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    
+
     public void calcularEdades() {
         Calendar fecha = new GregorianCalendar();
         int añoActual = fecha.get(Calendar.YEAR);
@@ -259,8 +267,8 @@ public class ExpedienteController implements Serializable {
         }
         return items;
     }
-    
-     private void persist(PersistAction persistAction, String successMessage) {
+
+    private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
             try {
@@ -338,7 +346,6 @@ public class ExpedienteController implements Serializable {
                 return null;
             }
         }
-
     }
 
     public String getNombreYApellidoPorOrden(int orden) {
@@ -350,7 +357,6 @@ public class ExpedienteController implements Serializable {
                 nombreYApellidoBuscado = i.getNombre() + i.getApellido();
             }
         }
-
         return nombreYApellidoBuscado;
     }
 
@@ -366,7 +372,7 @@ public class ExpedienteController implements Serializable {
         String claveCidi = null;
 
         for (Expediente i : expedientetrollerBean.getItems()) {
-            
+
             if (i.getOrden() == orden) {
                 claveCidi = i.getClaveCidi();
                 return claveCidi;
@@ -374,7 +380,6 @@ public class ExpedienteController implements Serializable {
                 claveCidi = "no se encontro";
             }
         }
-
         return claveCidi;
     }
 
@@ -398,133 +403,136 @@ public class ExpedienteController implements Serializable {
             }
         }
         return claveDeSeguridadSocial;
-
     }
 
-    
-    public String verProximaAgenda(Integer orden){
-        
+    public String verProximaAgenda(Integer orden) {
+
         FacesContext context = FacesContext.getCurrentInstance();
         AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String date = sdf.format(new Date()); 
-        
-        for(Agenda agenda: agendaControllerBean.getItems()){
-            if(orden != null){
-                if(agenda.getOrden() == orden){
-                    String date2 = sdf.format(agenda.getFecha()); 
-        
-                    if(date.equals(date2)){
-                                            return agenda.toString();
+        String date = sdf.format(new Date());
+
+        for (Agenda agenda : agendaControllerBean.getItems()) {
+            if (orden != null) {
+                if (agenda.getOrden() == orden) {
+                    String date2 = sdf.format(agenda.getFecha());
+
+                    if (date.equals(date2)) {
+                        return agenda.toString();
                     }
                 }
-            }    
+            }
         }
-        
+
         return "no existen agendas para hoy";
     }
-    
-    public String verClaveCidi(int orden){
-        
+
+    public String verClaveCidi(int orden) {
+
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        
-        for(Expediente expediente: expedienteControllerBean.getItems()){
-                    
-                    if(expediente.getOrden() != null){
-                        if(Integer.compare(expediente.getOrden(), orden) == 0 ){
 
-                            if(expediente.getClaveCidi() !=null){
-                                return expediente.getClaveCidi();
-                            }else{
-                                return "no posee clave CIDI";
-                            }
-                        }
+        for (Expediente expediente : expedienteControllerBean.getItems()) {
+            if (expediente.getOrden() != null) {
+                if (Integer.compare(expediente.getOrden(), orden) == 0) {
+                    if (expediente.getClaveCidi() != null) {
+                        return expediente.getClaveCidi();
+                    } else {
+                        return "no posee clave CIDI";
                     }
+                }
+            }
         }
         return "no posee clave CIDI";
     }
-    
-    public String verClaveFiscal(int orden){
-        
+
+    public String verClaveFiscal(int orden) {
+
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        
-        for(Expediente expediente: expedienteControllerBean.getItems()){
-            
-                    if(expediente.getOrden() != null){
-                    
-                        if(Integer.compare(expediente.getOrden(), orden) == 0 ){
 
-                            if(expediente.getClaveFiscal() !=null){
-                                return expediente.getClaveFiscal();
-                            }else{
-                                return "no posee clave FISCAL";
-
-                            }
-                        }
+        for (Expediente expediente : expedienteControllerBean.getItems()) {
+            if (expediente.getOrden() != null) {
+                if (Integer.compare(expediente.getOrden(), orden) == 0) {
+                    if (expediente.getClaveFiscal() != null) {
+                        return expediente.getClaveFiscal();
+                    } else {
+                        return "no posee clave FISCAL";
                     }
+                }
+            }
         }
         return "no posee clave FISCAL";
-        
     }
-    
-    public String verClaveDeSeguridadSocial(int orden){
-        
+
+    public String verClaveDeSeguridadSocial(int orden) {
+
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        
-        for(Expediente expediente: expedienteControllerBean.getItems()){
-            
-                    if(expediente.getOrden() != null){
-                    
-                        if(Integer.compare(expediente.getOrden(), orden) == 0 ){
 
-                            if(expediente.getClaveSeguridadSocial()!=null){
-                                return expediente.getClaveSeguridadSocial();
-                            }else{
-                                return "no posee clave de Seguridad Social";
-
-                            }
-                        }
-                    }    
+        for (Expediente expediente : expedienteControllerBean.getItems()) {
+            if (expediente.getOrden() != null) {
+                if (Integer.compare(expediente.getOrden(), orden) == 0) {
+                    if (expediente.getClaveSeguridadSocial() != null) {
+                        return expediente.getClaveSeguridadSocial();
+                    } else {
+                        return "no posee clave de Seguridad Social";
+                    }
+                }
+            }
         }
         return "no posee clave de Seguridad Social";
-        
     }
-    
-    public int autoIncrementarOrdenSaltandoExpedientesSinCarpeta(){
+
+    public int autoIncrementarOrdenSaltandoExpedientesSinCarpeta() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        
-        boolean encontrado = false;
+
         int orden = 0;
-        
-        for(int i = 1 ; i<=expedienteControllerBean.getItemsAvailableSelectOne().size(); i++){
-                if(expedienteControllerBean.getItemsAvailableSelectOne().get(expedienteControllerBean.getItemsAvailableSelectOne().size() - i).getTipoDeExpediente().equalsIgnoreCase("administrativo") || expedienteControllerBean.getItemsAvailableSelectOne().get(expedienteControllerBean.getItemsAvailableSelectOne().size() - i).getTipoDeExpediente().equalsIgnoreCase("judicial")){
-                        orden = expedienteControllerBean.getItemsAvailableSelectOne().get(expedienteControllerBean.getItemsAvailableSelectOne().size() - i).getOrden() + 1;
-                        break;
-                }
+
+        for (int i = 1; i <= expedienteControllerBean.getItemsAvailableSelectOne().size(); i++) {
+            if (expedienteControllerBean.getItemsAvailableSelectOne().get(expedienteControllerBean.getItemsAvailableSelectOne().size() - i).getTipoDeExpediente().equalsIgnoreCase("administrativo") || expedienteControllerBean.getItemsAvailableSelectOne().get(expedienteControllerBean.getItemsAvailableSelectOne().size() - i).getTipoDeExpediente().equalsIgnoreCase("judicial")) {
+                orden = expedienteControllerBean.getItemsAvailableSelectOne().get(expedienteControllerBean.getItemsAvailableSelectOne().size() - i).getOrden() + 1;
+                break;
+            }
         }
-        System.out.println("orden: "+orden);
-        
-        return orden;
-    
-    }
-    
-    public int autoIncrementarOrden(){
-        ExpedienteDAO expedienteDao = new ExpedienteDAO();
-        
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        
-        int orden = expedienteControllerBean.getItemsAvailableSelectOne().get(expedienteControllerBean.getItemsAvailableSelectOne().size() -1).getOrden() + 1;
-        
-        System.out.println("orden: "+orden);
-        
+        System.out.println("orden: " + orden);
         return orden;
     }
 
-    
+    public int autoIncrementarOrden() {
+        ExpedienteDAO expedienteDao = new ExpedienteDAO();
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+
+        int orden = expedienteControllerBean.getItemsAvailableSelectOne().get(expedienteControllerBean.getItemsAvailableSelectOne().size() - 1).getOrden() + 1;
+
+        System.out.println("orden: " + orden);
+
+        return orden;
+    }
+
+    public void limpiarFiltros() {
+
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("PF('expedientesTable').clearFilters()");
+    }
+
+    public void filtrarPorEstadoDelTramite(String estadoDelTramiteSelected) {
+        this.filteredExpedientes = new ArrayList<Expediente>();
+        if (estadoDelTramiteSelected != null) {
+            System.out.print("getItems(): " + getItems().size());
+            for (Expediente expediente : getItems()) {
+                System.out.print("expediente: " + expediente.getEstadoDelTramite());
+                if (expediente.getEstadoDelTramite() != null) {
+                    if (expediente.getEstadoDelTramite().equals(estadoDelTramiteSelected)) {
+                        filteredExpedientes.add(expediente);
+                    }
+                }
+            }
+        }
+    }
+
 }

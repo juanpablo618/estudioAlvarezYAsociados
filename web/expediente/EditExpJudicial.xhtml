@@ -28,10 +28,24 @@
 
                         <p:tab title="Datos personales">
 
+                            <div>
+                                <div  style="float: left"> 
                                     <p:outputLabel value="Orden:"  style="font-weight: bold" /><br></br>
-                                    <p:inputText id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" />
+                                    <p:inputText onchange="myFunction()" id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" />
 
-                            <br></br><br></br>
+                                </div> 
+                                <div >
+                                    <p:outputLabel value="Fecha de atención:" for="fechaDeAtencion" style="font-weight: bold; margin-left: 3%" /><br></br>
+                                    <p:calendar style="width: 100px; margin-left: 3%" class="inputFechaDeAtencion" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion">
+                                    </p:calendar>
+
+                                </div> 
+                            </div>
+                                    
+                                    
+                                    
+                            <br></br>
+                            <br></br>
 
                             <div>
                                 <div  style="float: left"> 
@@ -54,7 +68,7 @@
                                 <div style="float: left">
                                     <p:outputLabel value="Cuit:" for="cuit" style="font-weight: bold" />
                                     <br></br>
-                                    <p:inputText id="cuit" value="#{expedienteController.selected.cuit}"  title="#{bundle.EditExpedienteTitle_cuit}" />
+                                    <p:inputText required="true" requiredMessage="CUIT NO INGRESADO" id="cuit" value="#{expedienteController.selected.cuit}"  title="#{bundle.EditExpedienteTitle_cuit}" />
                                 </div>
                                 <div>   
                                     <p:outputLabel value="#{bundle.EditExpedienteLabel_telefono}"  for="telefono" style="margin-left: 3%;font-weight: bold" />
@@ -144,6 +158,12 @@
                                 <p:button  value="Ir al sitio"  href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" />
                                
                             </div>
+                            <br></br>
+                            <div>
+                                <p:outputLabel value="CUIT" for="claveCidi" style="font-weight: bold" /><br></br>
+                                <p:outputLabel value="#{expedienteController.selected.cuit}" style="font-weight: bold" /><br></br>
+                            </div>
+
                             
                             <br></br>
                             <br></br>
@@ -198,11 +218,6 @@
                         <p:commandButton id="createButton" value="crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteJudicialEditDialog').hide()" />
                     </div>
                     
-                    <div style="float: right; width: 50%">
-                        <p:outputLabel value="Fecha de atención:" for="fechaDeAtencion" style="font-weight: bold" /><br></br>
-                        <p:calendar style="width: 100px" class="inputFechaDeAtencion" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion">
-                        </p:calendar>
-                    </div>    
                     
                     <p:outputLabel value="Tipo:" for="tipo" style="font-weight: bold"/><br></br>
 

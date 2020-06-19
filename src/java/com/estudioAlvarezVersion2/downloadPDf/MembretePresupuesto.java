@@ -1,4 +1,3 @@
-
 package com.estudioAlvarezVersion2.downloadPDf;
 
 import com.estudioAlvarezVersion2.jpa.Agenda;
@@ -20,12 +19,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.faces.context.FacesContext;
 
-
 /**
  *
- * @author developer
+ * @author cuello.juanpablo@gmail.com
  */
-
 public class MembretePresupuesto {
 
     /**

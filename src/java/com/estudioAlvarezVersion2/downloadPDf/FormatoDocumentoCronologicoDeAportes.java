@@ -1,15 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.estudioAlvarezVersion2.downloadPDf;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Image;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.Rectangle;
-import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfPageEventHelper;
 import com.lowagie.text.pdf.PdfWriter;
@@ -17,7 +9,7 @@ import javax.faces.context.FacesContext;
 
 /**
  *
- * @author developer
+ * @author cuello.juanpablo@gmail.com
  */
 public class FormatoDocumentoCronologicoDeAportes extends PdfPageEventHelper
 {    

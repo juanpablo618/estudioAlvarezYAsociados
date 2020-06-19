@@ -361,6 +361,27 @@ public class AgendaController implements Serializable {
         return "no posee clave CIDI";
     }
     
+    public String verNroDeCuil(int orden){
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        
+        for(Expediente expediente: expedienteControllerBean.getItems()){
+            if(expediente.getOrden() != null){
+                    if(Integer.compare(expediente.getOrden(), orden) == 0){
+                        
+                        if(expediente.getCuit() !=null){
+                            return expediente.getCuit();
+                        }else{
+                            return "No posee CUIT/CUIL";
+                        }
+                    }
+            }        
+        }
+        return "No posee CUIT/CUIL";
+    }
+    
+    
     public String verClaveFiscal(int orden){
         
         FacesContext context = FacesContext.getCurrentInstance();

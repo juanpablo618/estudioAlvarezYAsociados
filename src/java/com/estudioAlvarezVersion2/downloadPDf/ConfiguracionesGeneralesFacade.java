@@ -1,16 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.estudioAlvarezVersion2.downloadPDf;
-
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import com.estudioAlvarezVersion2.jpa.AbstractFacade;
 import javax.ejb.Stateless;
@@ -19,7 +7,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author developer
+ * @author cuello.juanpablo@gmail.com
  */
 @Stateless
 public class ConfiguracionesGeneralesFacade extends AbstractFacade<ConfiguracionesGenerales> {
@@ -37,4 +25,3 @@ public class ConfiguracionesGeneralesFacade extends AbstractFacade<Configuracion
     }
     
 }
-

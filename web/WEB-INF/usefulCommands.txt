@@ -7,7 +7,8 @@ UPDATE expediente SET nombre = UPPER(nombre), apellido = UPPER(apellido);
 Para el error de "descargar convenio" hay que crear una carpeta en el server y luego modificar la bd.
 
 
-si los filtros no llegan a funcionar.
+si los filtros no llegan a funcionar. OJO con esto por que borra los filtros manuales que le pusimos en agendas y turnos y en exp.
+ejemplo el "filtrar las 2 tablas"
 <p:remoteCommand name="onload" oncomplete="PF('turnosTable').clearFilters()" autoRun="true" />
                 
 
@@ -126,3 +127,15 @@ luego la interfaz ya tendría q mostrar la lupa. de ese exp.
 
 
 ////////////////////PROBLEMAS CON LOS EXPEDIENTES ////////////////////////////
+
+
+
+Consultar todos los exp. que tienen en el cuit un guión medio:
+SELECT * FROM `expediente` WHERE cuit LIKE '%-%'
+
+Remove special characters from a database field
+
+sacar los guiones medio de todas las filas en el atributo cuit
+
+update Expediente
+set cuit = REPLACE(cuit,'-','')

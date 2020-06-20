@@ -1,0 +1,65 @@
+.fondo {
+    background-color: #123a6d !important;
+}
+
+.ui-layout-unit-content .ui-widget-content{
+    border: none !important;
+}
+
+.ui-widget-content {
+    border:none !important;
+}
+
+.myIconSize{
+    font-size: 3em;
+}
+
+.separador{
+    margin-bottom: 5% !important;
+    margin-top: 5% !important;
+    
+}
+
+.btnMenuLeft {
+    width: auto !important;
+    padding: auto !important;
+    margin: 0 auto;
+    color: white !important;
+    margin-bottom: 5% !important;
+    margin-top: 5% !important;
+}
+ 
+#fondoCenter{background-color: #123a6d !important;}
+
+#menuForm{
+    float: left;
+    margin: 0 auto !important;
+    width: 100%;
+}
+
+#menuLeft{
+    width:7% !important;
+    margin: 0 !important;
+}
+
+#menuLeft-resizer{
+    background-color: #123a6d !important;
+}
+
+.bordersn{
+    border:none !important;
+}
+
+.maxwidth{
+    width: 100% !important;
+    margin: 0 auto !important;
+}
+
+.btmMarginLeft{
+    margin-left: 1%;
+}
+
+.btnBorderColor{
+    border-radius: 20px !important;
+    color: #00C6AE !important;
+}

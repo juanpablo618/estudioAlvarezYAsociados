@@ -1,3 +1,4 @@
+
 .ui-widget {
     font-size: 15px !important;
     font-family: sans-serif;
@@ -17,7 +18,8 @@
     margin-top: 10px !important;
 }
 
-.linea {
+.linea
+{
     display: inline-block;
 }
 .crearAgenda{
@@ -45,8 +47,8 @@
 }
 
 .ui-menu .ui-menuitem-link{
-     background-color: #2A55AA !important;
-        height: 130px !important;
+     background-color: #123a6d !important;
+     
 }
 
 .ui-widget-content .ui-icon{
@@ -81,7 +83,7 @@
 } 
 
  .editDialogExpediente{
-    width: 84% !important;
+    width: 77% !important;
     height: 95% !important;
     top: 2% !important;
     z-index: 1005 !important;
@@ -150,7 +152,7 @@
 }
 
 .ui-menu .ui-menuitem-link{
-    background-color: #2A55AA !important;
+    background-color: #123a6d !important;
 }
 
 #fechaDeAtencion{
@@ -188,9 +190,10 @@ td.centeredColumnContentjudicial{
     background-color: lightsteelblue;
 }
 
-td.centeredColumnContentsincarpeta{
+
+td.centeredColumnContentSinCarpeta{
     text-align: center;
-    background-color: bisque;
+    background-color: dodgerblue;
 }
 
 ui-datatable .ui-column-filter{
@@ -198,9 +201,11 @@ ui-datatable .ui-column-filter{
 }
 
 div.ui-layout-unit-content {
-        background-color: #2A55AA !important;
+        background-color: #123a6d !important;
 
 }
+
+
 
 .ui-datatable .ui-column-filter{
     width: 35% !important;

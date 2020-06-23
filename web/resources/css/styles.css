@@ -63,3 +63,11 @@
     border-radius: 20px !important;
     color: #00C6AE !important;
 }
+
+.sizeAction{
+    width: 15%;
+}
+
+.mrgBtn{
+    margin-right: 5%; 
+}

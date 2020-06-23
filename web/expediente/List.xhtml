@@ -24,7 +24,7 @@
                 
                 <div > 
                     
-                    <p:splitButton value="CREAR EXPEDIENTE" action="#{buttonView.save}" class="btmMarginLeft" style="border-radius: 20px;">
+                    <p:splitButton value="CREAR EXPEDIENTE" action="#{buttonView.save}" class="btmMarginLeft" style="border-radius: 20px;" styleClass="ui-priority-primary" >
                         <p:menuitem style="background-color: white !important" value="Administrativo " actionListener="#{expedienteController.prepareCreateExpAdministrativo()}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"  />
                             <p:separator />
                             <p:menuitem style="background-color: white !important" value="Judicial " actionListener="#{expedienteController.prepareCreateExpJudicial()}" update=":ExpedienteJudicialCreateForm" oncomplete="PF('ExpedienteJudicialCreateDialog').show()" />
@@ -33,7 +33,7 @@
                     
                     </p:splitButton>
                 
-                <h:commandButton  value="Limpiar filtros" onclick="PF('expedientesTable').clearFilters()"   style="width: 15%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; " />
+                <h:commandButton value="Limpiar filtros" onclick="PF('expedientesTable').clearFilters()"   style="width: 15%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; " />
                 
                       
                     <h:commandLink style="float: right">

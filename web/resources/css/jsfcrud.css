@@ -1,3 +1,13 @@
+.ui-button-text-only .ui-button-text {
+    text-shadow: none !important;
+}
+
+.ui-buttonset .ui-button{
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 2%;
+    background: #32b9a9;
+}
 
 .ui-widget {
     font-size: 15px !important;
@@ -208,5 +218,6 @@ div.ui-layout-unit-content {
 
 
 .ui-datatable .ui-column-filter{
-    width: 35% !important;
+    width: 95% !important;
 }
+

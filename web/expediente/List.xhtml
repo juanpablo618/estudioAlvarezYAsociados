@@ -65,34 +65,34 @@
 
                     <p:growl  id="message" showDetail="true" />
 
-                    <p:column class="filterFifty" filterBy="#{item.orden}" sortBy="#{item.orden}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="exact">
+                    <p:column style="width: 5% !important;" filterBy="#{item.orden}" sortBy="#{item.orden}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="exact">
                         <f:facet name="header">
                             <h:outputText value="#{bundle.ListExpedienteTitle_orden}"/>
                         </f:facet>
                         <h:outputText value="#{item.orden}"/>
                     </p:column>
 
-                    <p:column  filterBy="#{item.apellidoYNombre}"  styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
+                    <p:column width="40" filterBy="#{item.apellidoYNombre}"  styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
                         <f:facet name="header" >
                             <h:outputText  value="Nombre y Apellido"/>
                         </f:facet>
                         <h:outputText  id="JuanCuello" value="#{ item.apellidoYNombre}"/>
                     </p:column>
 
-                    <p:column filterBy="#{item.getCuitRecordado()}" sortBy="#{item.getCuitRecordado()}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
+                    <p:column width="30" filterBy="#{item.getCuitRecordado()}" sortBy="#{item.getCuitRecordado()}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
                         <f:facet name="header">
                             <h:outputText value="DNI"/>
                         </f:facet>
                         <h:outputText value="#{item.getCuitRecordado()}"/>
                     </p:column>
 
-                    <p:column style="text-align: center; " styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" exportable="false">
+                    <p:column width="20" style="text-align: center; " styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" exportable="false">
 
                         <f:facet name="header">
                             <h:outputText value="ACCIONES"/>
                         </f:facet>
 
-                        <p:commandButton class="linea"  update=":ExpedienteViewClavesForm2" oncomplete="PF('ExpedienteViewClavesDialog2').show()" icon="ui-icon-locked" title="Claves">
+                        <p:commandButton class="linea pi pi-check"  update=":ExpedienteViewClavesForm2" oncomplete="PF('ExpedienteViewClavesDialog2').show()" icon="ui-icon-locked" title="Claves">
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
 

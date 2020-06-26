@@ -31,6 +31,8 @@
 .linea
 {
     display: inline-block;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 .crearAgenda{
     background: #2dfbd0;
@@ -218,6 +220,6 @@ div.ui-layout-unit-content {
 
 
 .ui-datatable .ui-column-filter{
-    width: 95% !important;
+    width: 80% !important;
 }
 

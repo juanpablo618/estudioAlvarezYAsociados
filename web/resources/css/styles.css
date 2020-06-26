@@ -76,4 +76,13 @@
 
 .mrgBtn{
     margin-right: 2%; 
+
 }
+
+.mrg10{width: 10% !important;}
+.mrg20{width: 20%;}
+.mrg30{width: 30%;}
+.mrg40{width: 40%;}
+.mrg50{width: 50%;}
+.mrg60{width: 60%;}
+.mrg100{width: 100%;}

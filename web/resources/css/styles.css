@@ -86,3 +86,9 @@
 .mrg50{width: 50%;}
 .mrg60{width: 60%;}
 .mrg100{width: 100%;}
+
+.btnDelete{background-color: red !important; }
+.btnSearch{background-color: green !important; }
+.btnKey{background-color: #4fb2e1  !important; }
+
+.CIDI{background-image:  url("#{resources['images/CIDI.png']}");}

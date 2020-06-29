@@ -92,11 +92,11 @@
                             <h:outputText value="ACCIONES"/>
                         </f:facet>
 
-                        <p:commandButton class="linea pi pi-check"  update=":ExpedienteViewClavesForm2" oncomplete="PF('ExpedienteViewClavesDialog2').show()" icon="ui-icon-locked" title="Claves">
+                        <p:commandButton class="linea btnKey"  update=":ExpedienteViewClavesForm2" oncomplete="PF('ExpedienteViewClavesDialog2').show()" icon="ui-icon-locked" title="Claves">
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
 
-                        <p:commandButton class="linea"  update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()"  icon="ui-icon-search" rendered="#{item.tipoDeExpediente eq 'administrativo'}" title="Ver exp. Administrativo">
+                        <p:commandButton class="linea btnSearch"  update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()"  icon="ui-icon-search" rendered="#{item.tipoDeExpediente eq 'administrativo'}" title="Ver exp. Administrativo">
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
 
@@ -108,7 +108,7 @@
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
 
-                        <p:commandButton class="linea" update=":growl,datalist, message" oncomplete="PF('expedientesTable').clearFilters()" actionListener="#{expedienteController.destroy}"  icon="ui-icon-circle-close" title="borrar">
+                        <p:commandButton class="linea btnDelete" update=":growl,datalist, message" oncomplete="PF('expedientesTable').clearFilters()" actionListener="#{expedienteController.destroy}"  icon="ui-icon-trash" title="Eliminar" >
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                             <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
                         </p:commandButton>

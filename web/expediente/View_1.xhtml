@@ -15,15 +15,23 @@
                         
                         <h:outputText value="Clave CIDI:"/><br></br>
                         <h:outputText value="#{expedienteController.verClaveCidi(expedienteController.selected.orden)}"/><br></br>
-                        <p:button  value="Ir al sitio"  href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" /><br></br><br></br>
+                        
+                        <a href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" >
+                            <img src="resources/images/CIDI.png"></img>
+                        </a>
+                        <br></br><br></br>
                         
                         <h:outputText value="Clave Fiscal:"/><br></br>
                         <h:outputText value="#{expedienteController.verClaveFiscal(expedienteController.selected.orden)}"/><br></br>
-                        <p:button  value="Ir al sitio"  href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank" /><br></br><br></br>
+                        <a href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank" >
+                            <img src="resources/images/afip.png" style="width: 80%;" ></img>
+                        </a><br></br><br></br>
                                 
                         <h:outputText value="Clave de Seguridad Social:"/><br></br>
                         <h:outputText value="#{expedienteController.verClaveDeSeguridadSocial(expedienteController.selected.orden)}"/><br></br>
-                        <p:button value="ir al sitio" href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=mianses" target="_blank" /><br></br><br></br>
+                        <a href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=mianses" target="_blank" >
+                            <img src="resources/images/anses.png" style="background: #0053f6;"></img>
+                        </a><br></br><br></br>
 
                     
                     <p:commandButton value="#{bundle.Close}" onclick="AgendaViewClavesDialog.hide()"/>

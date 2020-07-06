@@ -17,32 +17,27 @@
         <ui:define name="body"  >
             <h:form style="background-color: #F4F8FA">   
                 <p:calendar  required="true" requiredMessage="fecha es requerido para filtrar las dos tablas" style="margin-left: 10px;" id="horaYDia"  pattern="dd/MM/yyyy"  value="#{turnoController.dateSelected}" title="#{bundle.EditTurnoTitle_horaYDia}"  showButtonPanel="true"/>
-                <h:commandButton  value="Filtrar las 2 tablas" actionListener="#{turnoController.filtrarAgendasYTurnos(turnoController.getDateSelected())}"
-                                  style="width: 15%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 10px;" />
+                <h:commandButton  value="Filtrar las 2 tablas" actionListener="#{turnoController.filtrarAgendasYTurnos(turnoController.getDateSelected())}" class="filterTables hoverBlue"/>
             </h:form>
             <h:form id="TurnoListForm" style="background-color: #F4F8FA">
-                  
-                <div style="float: left">
-                    <p:commandButton id="createButton" style="margin-right: 10px" icon="ui-icon-plus" value="CREAR AGENDA" class="botonCrearAgenda" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
-                    <p:commandButton id="createButtonTurno"  icon="ui-icon-plus" value="CREAR TURNO" class="botonCrearAgenda" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
-                    <p:commandButton id="createAgendaParaActividadButton" style="margin-right: 10px" icon="ui-icon-plus" value="CREAR ACTIVIDAD" class="botonCrearAgenda" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaParaActividadCreateDialog').show()"/>
 
+                <div style="float: left;width: -moz-available;">
+                    <p:commandButton id="createButton" icon="ui-icon-plus" value="NUEVA AGENDA" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
+                    <p:commandButton id="createButtonTurno"  icon="ui-icon-plus" value="NUEVO TURNO" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
+                    <p:commandButton id="createAgendaParaActividadButton" icon="ui-icon-plus" value="NUEVA ACTIVIDAD" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaParaActividadCreateDialog').show()"/>
                 </div>
                 <br></br>
-
-                <h:commandLink style="float: right" title="Exportar solo filtradas.">
-                    <h:graphicImage value="../faces/resources/images/pdf.png" />
-                    <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="true" />
-                </h:commandLink>
-
-                <h:commandLink style="float: right" title="Exportar todas.">
-                    <h:graphicImage value="../faces/resources/images/pdf.png" />
+                
+                <h:commandLink style="float: right;margin-right: 1%;" title="Exportar todas.">
+                    <h:graphicImage value="../faces/resources/images/pdficon.png" width="50px"/>
                     <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="false" />
                 </h:commandLink>
-
-                <h:commandButton value="Imprimir Agendas" actionListener="#{downloadBean.crearDocumento( agendaController.filteredAgendas, turnoController.filteredturnos)}"
-                                 style="width: 15%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px;" />
-
+                <h:commandLink style="float: right;" title="Exportar solo filtradas.">
+                    <h:graphicImage value="../faces/resources/images/pdficon2.png" width="50px"/>
+                    <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="true" />
+                </h:commandLink>                
+                
+                <h:commandButton value="Imprimir Agendas" actionListener="#{downloadBean.crearDocumento( agendaController.filteredAgendas, turnoController.filteredturnos)}" class="btnPrint"/>
                 <br></br><br></br>
 
                 <p:dataTable id="datalist" value="#{turnoController.items}" var="item"
@@ -62,12 +57,12 @@
                     <p:growl  id="message" showDetail="true" />
 
                     <p:column style="text-align: center; width: 10%" sortBy="#{item.getDiaMesAnio()}" filterBy="#{item.getDiaMesAnio()}" filterMatchMode="contains" headerText="Fecha">
-                      
+
                         <h:outputText  value="#{item.horaYDia}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                         </h:outputText>
                     </p:column>
-                    
+
                     <p:column  filterBy="#{item.apellido} #{item.nombre}"  styleClass="centeredColumnContent" filterMatchMode="contains">
                         <f:facet name="header">
                             <h:outputText value="NOMBRE Y APELLIDO"/>
@@ -100,11 +95,11 @@
                             <h:outputText value="ACCIONES"/>
                         </f:facet>
 
-                        <p:commandButton class="linea"  update=":TurnoEditForm" oncomplete="PF('TurnoEditDialog').show()" icon="ui-icon-search" title="Ver">
+                        <p:commandButton class="linea btnSearch"  update=":TurnoEditForm" oncomplete="PF('TurnoEditDialog').show()" icon="ui-icon-search" title="Ver">
                             <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
                         </p:commandButton>
 
-                        <p:commandButton class="linea" update=":growl,datalist, message"  oncomplete="PF('turnosTable').clearFilters()"  actionListener="#{turnoController.destroy}"  icon="ui-icon-circle-close" title="borrar">
+                        <p:commandButton class="linea btnDelete" update=":growl,datalist, message"  oncomplete="PF('turnosTable').clearFilters()"  actionListener="#{turnoController.destroy}"  icon="ui-icon-trash" title="borrar">
                             <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
                             <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
                         </p:commandButton>
@@ -129,7 +124,7 @@
             <br></br>
 
             <h:form id="AgendaListForm" style="background-color: #F4F8FA">
-                 
+
                 <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
                              selectionMode="single" selection="#{agendaController.selected}"
                              rowKey="#{item.idAgenda}"

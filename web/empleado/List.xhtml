@@ -10,7 +10,7 @@
 
         <ui:define name="body">
             <h:form id="EmpleadoListForm" style="background-color: #F4F8FA">   
-                <div style="float: left"><p:commandButton id="createButton"  icon="ui-icon-plus" value="CREAR EMPLEADO" class="botonCrearAgenda" actionListener="#{empleadoController.prepareCreate}" update=":EmpleadoCreateForm" oncomplete="PF('EmpleadoCreateDialog').show()"/>
+                <div style="float: left;margin-left: .5%;"><p:commandButton id="createButton"  icon="ui-icon-plus" value="NUEVO EMPLEADO" class="botonCrearAgenda borderRd mrgTB2 hoverGreen" actionListener="#{empleadoController.prepareCreate}" update=":EmpleadoCreateForm" oncomplete="PF('EmpleadoCreateDialog').show()"/>
                 </div>
                 <br></br>
                 <br></br>
@@ -45,7 +45,7 @@
                         
                         <p:column style="text-align: center;">
                             <f:facet name="header">
-                                <h:outputText value="password"/>
+                                <h:outputText value="PASSWORD"/>
                             </f:facet>
                             <h:outputText value="#{item.password}"/>
                         </p:column>
@@ -57,18 +57,18 @@
                             <h:outputText value="#{item.cargo}"/>
                         </p:column>
                         
-                        <p:column style="text-align: center; ">
+                        <p:column style="text-align: center; width: 10%; ">
                             
                             <f:facet name="header">
                                 <h:outputText value="ACCIONES"/>
                             </f:facet>
                             
-                            <p:commandButton class="linea"  update=":EmpleadoEditForm" oncomplete="PF('EmpleadoEditDialog').show()" icon="ui-icon-search" title="Ver">
+                            <p:commandButton class="linea btnSearch"  update=":EmpleadoEditForm" oncomplete="PF('EmpleadoEditDialog').show()" icon="ui-icon-search" title="Ver">
                                    <f:setPropertyActionListener value="#{item}" target="#{empleadoController.selected}" />
                             </p:commandButton>
                             
 
-                            <p:commandButton class="linea" update=":growl,datalist, message" actionListener="#{empleadoController.destroy}"  icon="ui-icon-circle-close" title="borrar">
+                            <p:commandButton class="linea btnDelete" update=":growl,datalist, message" actionListener="#{empleadoController.destroy}"  icon="ui-icon-trash" title="Eliminar">
                                 <f:setPropertyActionListener value="#{item}" target="#{empleadoController.selected}" />
                                 <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
                             </p:commandButton>

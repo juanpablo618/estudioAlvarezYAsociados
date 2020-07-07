@@ -11,13 +11,15 @@
 
         <ui:define name="body">
 
-            <h:form style="float: right; background-color: #F4F8FA;margin-top: 2%;" class="mrgBtn">   
+            <h:form style="float: right; background-color: #F4F8FA;margin-top: 1%;" class="mrgBtn">   
                 <p:selectOneMenu required="true" requiredMessage="debe seleccionar un estado del tramite correcto" id="estadoDelTramite" value="#{expedienteController.estadoDelTramiteSelected}">
                     <f:selectItem itemLabel=" -- Elige un Estado del tramite --"  noSelectionOption="true"  />
                     <f:selectItems value="#{estadoDelTramiteController.items}" var="estado" itemLabel="#{estado.estado}" itemValue="#{estado.estado}" />
                 </p:selectOneMenu><br></br>
-                <h:commandButton  value="Filtrar por Est. del tramite" actionListener="#{expedienteController.filtrarPorEstadoDelTramite(expedienteController.getEstadoDelTramiteSelected())}"
-                                  style="width: 82%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 10px;" />
+                <h:commandButton class="hoverBlue" value="Filtrar por Est. del tramite" actionListener="#{expedienteController.filtrarPorEstadoDelTramite(expedienteController.getEstadoDelTramiteSelected())}"
+                                  style="width: 82%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 5px;" />
+                <h:commandButton value="Limpiar filtros" onclick="PF('expedientesTable').clearFilters()" class="hoverBlue" 
+                                 style="width: 82%;margin-top: .5%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 5px;"/>
             </h:form>
 
             <h:form id="ExpedienteListForm" style=" background-color: #F4F8FA;">
@@ -25,23 +27,20 @@
                 <div > 
 
                     <p:splitButton value="CREAR EXPEDIENTE" action="#{buttonView.save}" class="btmMarginLeft" style="border-bottom-left-radius: 20px;border-top-left-radius: 20px;border-bottom-right-radius: 0px;border-top-right-radius: 0px; padding: 2%; color: white; font-family: serif; " >
-                        <p:menuitem style="" value="Administrativo " actionListener="#{expedienteController.prepareCreateExpAdministrativo()}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"  />
+                        <p:menuitem class="subMenu" style="background-color: #38978c !important; " value="Administrativo " actionListener="#{expedienteController.prepareCreateExpAdministrativo()}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"  />
                         <p:separator />
-                        <p:menuitem style="background-color: white !important" value="Judicial " actionListener="#{expedienteController.prepareCreateExpJudicial()}" update=":ExpedienteJudicialCreateForm" oncomplete="PF('ExpedienteJudicialCreateDialog').show()" />
+                        <p:menuitem class="subMenu" style="background-color: #38978c !important" value="Judicial " actionListener="#{expedienteController.prepareCreateExpJudicial()}" update=":ExpedienteJudicialCreateForm" oncomplete="PF('ExpedienteJudicialCreateDialog').show()" />
                         <p:separator />
-                        <p:menuitem style="background-color: white !important" value="Sin carpeta " actionListener="#{expedienteController.prepareCreateExpSinCarpeta()}" update=":ExpedienteSinCarpetaCreateForm" oncomplete="PF('ExpedienteSinCarpetaCreateDialog').show()" />
+                        <p:menuitem class="subMenu" style="background-color: #38978c !important" value="Sin carpeta " actionListener="#{expedienteController.prepareCreateExpSinCarpeta()}" update=":ExpedienteSinCarpetaCreateForm" oncomplete="PF('ExpedienteSinCarpetaCreateDialog').show()" />
 
                     </p:splitButton>
 
-                    <h:commandButton value="Limpiar filtros" onclick="PF('expedientesTable').clearFilters()"   style="width: 15%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 0%; " />
-
-
-                    <h:commandLink style="float: right;margin-top: 2%;margin-right: 1%;">
+                    <h:commandLink style="float: right;margin-top: 1%;margin-right: 1%;">
                         <h:graphicImage value="../faces/resources/images/pdficon2.png" width="50px"/>
                         <p:dataExporter type="pdf" target="datalist" fileName="expedientesFiltrados" pageOnly="true" />
                     </h:commandLink>
 
-                    <h:commandLink style="float: right;margin-top: 2%;" >
+                    <h:commandLink style="float: right;margin-top: 1%;" >
                         <h:graphicImage value="../faces/resources/images/pdficon.png" width="50px"/>
                         <p:dataExporter type="pdf" target="datalist" fileName="todosLosExpedientes" pageOnly="false" />
                     </h:commandLink>
@@ -74,7 +73,7 @@
 
                     <p:column width="40" filterBy="#{item.apellidoYNombre}"  styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
                         <f:facet name="header" >
-                            <h:outputText  value="Nombre y Apellido"/>
+                            <h:outputText  value="NOMBRE y APELLIDO"/>
                         </f:facet>
                         <h:outputText  id="JuanCuello" value="#{ item.apellidoYNombre}"/>
                     </p:column>
@@ -126,9 +125,9 @@
                 </p:dataTable>
 
                 <p:contextMenu for="datalist">
-                    <p:menuitem icon="ui-icon-pencil" style="background-color: white !important" value="agregar Agenda" actionListener="#{agendaController.prepareCreate}" update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show()" />             
+                    <p:menuitem icon="ui-icon-pencil" class="hoverBlue" style="background-color: #4fb2e1 !important; color: black;" value="agregar Agenda" actionListener="#{agendaController.prepareCreate}" update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show()" />             
 
-                    <p:menuitem icon="ui-icon-pencil" style="background-color: white !important" value="agregar Turno" actionListener="#{turnoController.prepareCreate}" update=":ExpedienteViewFormParaTurno" oncomplete="PF('ExpedienteViewDialogParaTurno').show()" />             
+                    <p:menuitem icon="ui-icon-pencil" class="hoverGreen" style="background-color: #4fb2e1 !important;color: black;" value="agregar Turno" actionListener="#{turnoController.prepareCreate}" update=":ExpedienteViewFormParaTurno" oncomplete="PF('ExpedienteViewDialogParaTurno').show()" />             
 
                 </p:contextMenu>    
 

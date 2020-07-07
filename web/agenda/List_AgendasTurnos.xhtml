@@ -56,7 +56,7 @@
 
                     <p:growl  id="message" showDetail="true" />
 
-                    <p:column style="text-align: center; width: 10%" sortBy="#{item.getDiaMesAnio()}" filterBy="#{item.getDiaMesAnio()}" filterMatchMode="contains" headerText="Fecha">
+                    <p:column style="text-align: center; width: 10%" sortBy="#{item.getDiaMesAnio()}" filterBy="#{item.getDiaMesAnio()}" filterMatchMode="contains" headerText="FECHA">
 
                         <h:outputText  value="#{item.horaYDia}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
@@ -99,7 +99,7 @@
                             <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
                         </p:commandButton>
 
-                        <p:commandButton class="linea btnDelete" update=":growl,datalist, message"  oncomplete="PF('turnosTable').clearFilters()"  actionListener="#{turnoController.destroy}"  icon="ui-icon-trash" title="borrar">
+                        <p:commandButton class="linea btnDelete" update=":growl,datalist, message"  oncomplete="PF('turnosTable').clearFilters()"  actionListener="#{turnoController.destroy}"  icon="ui-icon-trash" title="Eliminar">
                             <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
                             <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
                         </p:commandButton>
@@ -200,7 +200,7 @@
                         </p:commandButton>
 
 
-                        <p:commandButton class="linea" update=":growl,datalist, message2" oncomplete="PF('agendasTable').clearFilters()" actionListener="#{agendaController.destroy}"  icon="ui-icon-circle-close" title="borrar">
+                        <p:commandButton class="linea" update=":growl,datalist, message2" oncomplete="PF('agendasTable').clearFilters()" actionListener="#{agendaController.destroy}"  icon="ui-icon-trash" title="Eliminar">
                             <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
                             <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
                         </p:commandButton>

@@ -27,6 +27,7 @@
     color: white !important;
     margin-bottom: 5% !important;
     margin-top: 5% !important;
+    font-weight: bold !important;
 }
  
 #fondoCenter{background-color: #123a6d !important;}
@@ -58,6 +59,10 @@
 .btmMarginLeft{
     width: 20%;
     text-shadow: 0px 0px 0px !important;
+}
+
+#ExpedienteListForm:j_idt37:hover{
+    background-color: mediumseagreen !important;
 }
 
 #font{
@@ -102,6 +107,11 @@
     margin-right: 1%;
 }
 
+.mrgTB2{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
 .btnPrint{
     width: 15%; 
     padding: 0.5%; 
@@ -137,4 +147,13 @@
     color: white; 
     border-radius: 7px 7px 7px 7px; 
     margin-left: 10px;
+}
+
+.subMenu{
+    color: white !important;
+}
+
+.subMenu:hover{
+    color: black !important;
+    font-weight: bold;
 }

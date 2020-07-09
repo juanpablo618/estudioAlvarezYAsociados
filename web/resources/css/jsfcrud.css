@@ -253,3 +253,25 @@ border-style:solid none solid none !important; /*Lineas tabala*/
 #TurnoListForm\:datalist\ {
  margin-bottom: 10% !important;
 }
+
+.ui-datepicker .ui-datepicker-calendar .ui-state-default {
+ background:#c8b363 !important;
+ border:none;
+ color:#000000 !important;
+}
+
+
+.ui-datepicker .ui-datepicker-header {
+ background:#a69753 !important;
+}
+
+.ui-datepicker .ui-datepicker-calendar .ui-state-hover{
+    background: #716536 !important;
+    color: white !important;
+}
+
+.ui-widget-header{color:black !important;}
+
+.ui-datepicker-days-cell-over  .ui-datepicker-today{
+    color: white !important;
+}

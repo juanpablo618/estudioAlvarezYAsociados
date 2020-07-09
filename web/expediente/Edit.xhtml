@@ -16,11 +16,9 @@
                 document.getElementById("myDialog").showModal();
             }
         </script>
-        <p:dialog id="ExpedienteEditDlg" class="editDialogExpediente" widgetVar="ExpedienteEditDialog" modal="true" resizable="false" appendTo="@(body)" >
+        <p:dialog id="ExpedienteEditDlg" class="editDialogExpediente" widgetVar="ExpedienteEditDialog" modal="true" resizable="true" appendTo="@(body)" width="100" style="overflow-y:auto">
             <h:form id="ExpedienteEditForm">
-                <h:panelGroup id="display">
 
-                </h:panelGroup >
 
                 <div style="font-weight: bold; float: left">
                     <h:outputText value="#{expedienteController.selected.apellido}" />
@@ -32,131 +30,87 @@
 
                 <br></br><br></br>
 
-                <div style="float: left">   
+                <div style="float: left;width: 100%;">   
 
-                    <p:tabView style="width: 120%">
+                    <p:tabView style="width: 100%">
+                        <h:panelGroup id="display">
 
+                        </h:panelGroup >
                         <p:tab title="Datos personales">
-                            <div>
-                                <div  style="float: left"> 
-                                    <p:outputLabel value="Orden:"  style="font-weight: bold" /><br></br>
-                                    <p:inputText onchange="myFunction()" id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" />
-                                </div> 
-                                <div >
-                                    <p:outputLabel value="Fecha de atención:" for="fechaDeAtencion" style="font-weight: bold; margin-left: 3%" /><br></br>
-                                    <p:calendar style="width: 100px; margin-left: 3%" class="inputFechaDeAtencion" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion">
-                                    </p:calendar>
-                                </div> 
-                            </div> 
-                            <br></br>
-                            <br></br>
-                            <div>
-                                <div  style="float: left"> 
-                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_apellido}" for="apellido" style="font-weight: bold" />
-                                    <br></br> 
-                                    <p:inputText id="apellido" value="#{expedienteController.selected.apellido}" title="#{bundle.CreateExpedienteTitle_apellido}" />
-                                </div> 
-                                <div >
-                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_nombre}" for="nombre" style="margin-left: 3%;font-weight: bold" />
-                                    <br></br> 
-                                    <p:inputText id="nombre" value="#{expedienteController.selected.nombre}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_nombre}" />
-                                </div> 
-                            </div> 
-                            <br></br><br></br>
-                            <div>
-                                <div style="float: left">
-                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_cuit}" for="cuit" style="font-weight: bold" />
-                                    <br></br>
-                                    <p:inputText required="true" requiredMessage="CUIT ES REQUERIDO" id="cuit" value="#{expedienteController.selected.cuit}" title="#{bundle.CreateExpedienteTitle_cuit}" />
-                                </div>
-                                <div>   
-                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="margin-left: 3%;font-weight: bold" />
-                                    <br></br>       
-                                    <p:inputText id="telefono" value="#{expedienteController.selected.telefono}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_telefono}" />
+                            <h:panelGrid columns="4" cellspacing="5">
+                                <p:outputLabel value="Orden:"  style="font-weight: bold" class="float-r"/>
+                                <p:inputText onchange="myFunction()" id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" style="float: right;"/>
 
-                                </div>
-                            </div> 
+                                <p:outputLabel value="Fecha_Atención:" for="fechaDeAtencion" style="font-weight: bold;" class="float-r" />
+                                <p:calendar style="width: 100px; margin-left: 3%;" class="inputFechaDeAtencion" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion">
+                                </p:calendar>
 
-                            <br></br><br></br>
-                            <div>
-                                <div style="float: left">
+                                <p:outputLabel value="#{bundle.CreateExpedienteLabel_apellido}" for="apellido" style="font-weight: bold" class="float-r"/>
+                                <p:inputText id="apellido" value="#{expedienteController.selected.apellido}" title="#{bundle.CreateExpedienteTitle_apellido}" />
 
-                                    <div>
-                                        <p:outputLabel value="Edad:"  style="margin-left: 3%;font-weight: bold" /><br></br>
-                                        <p:outputLabel value="#{expedienteController.selected.edad}" style="margin-left: 3%;font-weight: bold" /><br></br>
+                                <p:outputLabel value="#{bundle.CreateExpedienteLabel_nombre}" for="nombre" style="font-weight: bold" class="float-r"/>
+                                <p:inputText id="nombre" value="#{expedienteController.selected.nombre}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_nombre}" />
 
-                                    </div>
+                                <p:outputLabel value="#{bundle.CreateExpedienteLabel_cuit}" for="cuit" style="font-weight: bold" class="float-r"/>
+                                <p:inputText required="true" requiredMessage="CUIT ES REQUERIDO" id="cuit" value="#{expedienteController.selected.cuit}" title="#{bundle.CreateExpedienteTitle_cuit}" />
 
-                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_fechaDeNacimiento}" style="font-weight: bold" for="fechaDeNacimiento" />
-                                    <br></br>
+                                <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="font-weight: bold" class="float-r"/>    
+                                <p:inputText id="telefono" value="#{expedienteController.selected.telefono}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_telefono}" />
+                            </h:panelGrid>
 
-                                    <p:calendar required="true" requiredMessage="fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" showOn="button">
-                                    </p:calendar>
+                            <h:panelGrid columns="2" cellspacing="5" cellpadding="1" style="margin-top: 3%;">
+                                <p:outputLabel value="Edad:"  style="font-weight: bold" class="float-r"/>
+                                <p:outputLabel value="#{expedienteController.selected.edad}" style="font-weight: bold; margin-right: 30%;"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellspacing="5" cellpadding="1">            
+                                <p:outputLabel value="#{bundle.CreateExpedienteLabel_fechaDeNacimiento}" style="font-weight: bold" for="fechaDeNacimiento" class="float-r"/>
+                                <p:calendar required="true" requiredMessage="fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" showOn="button">
+                                </p:calendar>
+                            </h:panelGrid>
+                            <h:panelGrid columns="6" cellspacing="5" >        
+                                <p:outputLabel value="#{bundle.CreateExpedienteLabel_sexo}" for="sexo" style="font-weight: bold" class="float-r"/>
+                                <p:selectOneMenu style="margin-left: 3%" id="sexo" value="#{expedienteController.selected.sexo}" >
+                                    <f:selectItem itemLabel="Masculino" itemValue="masculino" />
+                                    <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
+                                </p:selectOneMenu>
 
-                                </div>
-                                <div >
-                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_sexo}" for="sexo" style="margin-left: 3%;font-weight: bold" /><br></br>
-                                    <p:selectOneMenu style="margin-left: 3%" id="sexo" value="#{expedienteController.selected.sexo}" >
-                                        <f:selectItem itemLabel="Masculino" itemValue="masculino" />
-                                        <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
-                                    </p:selectOneMenu>
-                                    <br></br>
-                                    <br></br>
-                                    <p:outputLabel value="Nacionalidad:" for="nacionalidad" style="margin-left: 3%;font-weight: bold" />
-                                    <br></br>
-                                    <p:selectOneMenu id="nacionalidad" value="#{expedienteController.selected.nacionalidad}" style="margin-left: 3%" >
-                                        <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
-                                        <f:selectItem itemLabel="Extranjero" itemValue="Extranjero" />
-                                    </p:selectOneMenu>
-                                    <br></br>
-                                    <br></br>
-                                    <p:outputLabel value="Cobra Beneficio" for="cobraBeneficio" style="font-weight: bold" />
-                                    <br></br>
-                                    <p:selectOneMenu  id="cobraBeneficio" value="#{expedienteController.selected.cobraBeneficio}" >
-                                        <f:selectItem itemLabel="No" itemValue="No" />
-                                        <f:selectItem itemLabel="Si Jubilación" itemValue="Si Jubilación" />
-                                        <f:selectItem itemLabel="Si Pensión" itemValue="Si Pensión" />
-                                    </p:selectOneMenu>
-                                    <br></br>
-                                </div>
-                            </div>
-                            <br></br>
-                            <div>    
-                                <div style="float: left">
-                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_direccion}" for="direccion" style="font-weight: bold" /><br></br>
-                                    <p:inputText id="direccion" value="#{expedienteController.selected.direccion}" title="#{bundle.CreateExpedienteTitle_direccion}" /><br></br>
-                                    <br></br>                    
-                                    <p:outputLabel value="Altura:" for="nroDeAltura" style="font-weight: bold" /><br></br>
-                                    <p:inputText id="nroDeAltura" value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.CreateExpedienteTitle_nroDeAltura}" />
-                                </div>
-                                <div style="float: left">
-                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_piso}" for="piso" style="margin-left: 3%;font-weight: bold" /><br></br>
-                                    <p:inputText id="piso" value="#{expedienteController.selected.piso}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_piso}"  />
+                                <p:outputLabel value="Nacionalidad:" for="nacionalidad" style="font-weight: bold" class="float-r"/>
+                                <p:selectOneMenu id="nacionalidad" value="#{expedienteController.selected.nacionalidad}" style="margin-left: 3%" >
+                                    <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
+                                    <f:selectItem itemLabel="Extranjero" itemValue="Extranjero" />
+                                </p:selectOneMenu>
 
-                                </div>
-                                <div>
-                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_depto}" for="depto" style="margin-left: 3%;font-weight: bold"/><br></br>
-                                    <p:inputText id="depto" value="#{expedienteController.selected.depto}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_depto}"  />
+                                <p:outputLabel value="Cobra Beneficio" for="cobraBeneficio" style="font-weight: bold" class="float-r"/>
+                                <p:selectOneMenu  id="cobraBeneficio" value="#{expedienteController.selected.cobraBeneficio}" >
+                                    <f:selectItem itemLabel="No" itemValue="No" />
+                                    <f:selectItem itemLabel="Si Jubilación" itemValue="Si Jubilación" />
+                                    <f:selectItem itemLabel="Si Pensión" itemValue="Si Pensión" />
+                                </p:selectOneMenu>
 
-                                </div> <br></br>    
-                                <div style="float: left">
-                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_barrio}" for="barrio" style="margin-left: 3%;font-weight: bold" /><br></br>
-                                    <p:inputText id="barrio" value="#{expedienteController.selected.barrio}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_barrio}" />
-                                </div>
-                                <div>
-                                    <p:outputLabel value="Código Postal:" for="codigoPostal" style="margin-left: 3%;font-weight: bold" /><br></br>
-                                    <p:inputText id="codigoPostal" value="#{expedienteController.selected.codigoPostal}" style="margin-left: 3%" title="codigoPostal"/>
-                                </div>
-                                <br></br>
-                                <div style="float: left">
-                                    <p:outputLabel value="Localidad:" for="localidad" style="margin-left: 3%;font-weight: bold" /><br></br>
-                                    <p:inputText id="localidad" value="#{expedienteController.selected.localidad}" style="margin-left: 3%"  title="localidad"/>
-                                </div>
-                                <br></br>
-                            </div>            
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellspacing="5" style="margin-top: 3%;"> 
+                                <p:outputLabel value="Código_Postal:" for="codigoPostal" style="margin-left: 3%;font-weight: bold" />
+                                <p:inputText id="codigoPostal" value="#{expedienteController.selected.codigoPostal}" style="margin-left: 3%;width: 71%" title="codigoPostal"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="6" cellspacing="5" >         
+                                <p:outputLabel value="#{bundle.CreateExpedienteLabel_direccion}" for="direccion" style="font-weight: bold" />
+                                <p:inputText id="direccion" value="#{expedienteController.selected.direccion}" title="#{bundle.CreateExpedienteTitle_direccion}" />
 
-                            <br></br>
+                                <p:outputLabel value="Altura:" for="nroDeAltura" style="font-weight: bold" />
+                                <p:inputText id="nroDeAltura" value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.CreateExpedienteTitle_nroDeAltura}" />
 
+                                <p:outputLabel value="#{bundle.CreateExpedienteLabel_piso}" for="piso" style="margin-left: 3%;font-weight: bold" />
+                                <p:inputText id="piso" value="#{expedienteController.selected.piso}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_piso}"  />
+
+                                <p:outputLabel value="#{bundle.CreateExpedienteLabel_depto}" for="depto" style="margin-left: 3%;font-weight: bold"/>
+                                <p:inputText id="depto" value="#{expedienteController.selected.depto}"  title="#{bundle.CreateExpedienteTitle_depto}"  />
+
+                                <p:outputLabel value="#{bundle.CreateExpedienteLabel_barrio}" for="barrio" style="margin-left: 3%;font-weight: bold" />
+                                <p:inputText id="barrio" value="#{expedienteController.selected.barrio}"     title="#{bundle.CreateExpedienteTitle_barrio}" />
+
+                                <p:outputLabel value="Localidad:" for="localidad" style="margin-left: 3%;font-weight: bold" />
+                                <p:inputText id="localidad" value="#{expedienteController.selected.localidad}" style="margin-left: 3%"  title="localidad"/>
+                            </h:panelGrid>           
                         </p:tab>
 
                         <p:tab title="claves">
@@ -194,16 +148,14 @@
                         <p:tab title="Documentos">
 
                             <div>
-                                <h:commandButton value="Imprimir Convenio" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion, expedienteController.selected.nroDeAltura, expedienteController.selected.barrio)}" />
-
-                                <p:commandButton value="C. de Aportes" ajax="false">
+                                <p:commandButton value="C. de Aportes" ajax="false" id="clearClass">
                                     <p:fileDownload value="#{fileBean.createExcel(expedienteController.selected.fechaDeNacimiento, expedienteController.selected.sexo, expedienteController.selected.nroDeExpediente, expedienteController.selected.nombre, expedienteController.selected.apellido)}"/>
                                 </p:commandButton>
                             </div>
 
                             <br></br>
                             <div>
-                                <p:commandButton value="Carta Poder" ajax="false">
+                                <p:commandButton value="Carta Poder" ajax="false" image="fa fa-file-download">
                                     <p:fileDownload value="#{fileBean.file}"/>
                                 </p:commandButton>
 
@@ -231,108 +183,108 @@
                             <br></br>
                             <br></br>
                         </p:tab>
+                        <p:tab title="Agenda">
+                            <div style="float: right; width: 80%"> 
 
+                                <div>
+                                    <p:fieldset legend="AGENDA PARA HOY" toggleable="true" toggleSpeed="500">
+                                        <p:outputLabel value="#{expedienteController.verProximaAgenda(expedienteController.selected.orden)}" style="font-weight: bold" /><br></br>
+                                    </p:fieldset>
+                                </div>
+                                <div>
+                                    <p:commandButton id="createButton" value="crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteEditDialog').hide()" />
+                                </div>
+
+                                <br></br>
+                                <p:outputLabel value="Tipo de expediente" style="font-weight: bold" for="tipoDeExpediente"  /><br></br>
+                                <p:selectOneMenu id="tipoDeExpediente" style="margin-left: 3%" value="#{expedienteController.selected.tipoDeExpediente}" editable="false" >
+                                    <f:selectItem itemLabel="administrativo" itemValue="administrativo" />
+                                    <f:selectItem itemLabel="judicial" itemValue="judicial" />
+                                </p:selectOneMenu>
+
+                                <br></br>
+                                <br></br>
+                                <div style="width: 50%"> 
+                                    <div>
+
+                                        <p:outputLabel value="Tipo de tramite:" for="tipoDeTramite" style="margin-left: 3%;font-weight: bold" /><br></br>
+
+                                        <p:selectOneMenu style="margin-left: 3%" id="tipoDeTramite" value="#{expedienteController.selected.tipoDeTramite}" editable="true" effect="fold" >
+                                            <f:selectItem itemLabel="JUBILACION ORDINARIA" itemValue="JUBILACION ORDINARIA" />
+                                            <f:selectItem itemLabel="JUBILACION C/MORATORIA LEY. 24476" itemValue="JUBILACION C/MORATORIA LEY. 24476" />
+                                            <f:selectItem itemLabel="JUBILACION C/MORATORIA LEY. 24476 Y APORTES SDM" itemValue="JUBILACION C/MORATORIA LEY. 24476 Y APORTES SDM" />
+                                            <f:selectItem itemLabel="JUBILACION C/NUEVA MORATORIA (LEY 26.970)" itemValue="JUBILACION C/NUEVA MORATORIA (LEY 26.970)" />
+                                            <f:selectItem itemLabel="JUBILACION C/NUEVA MORATORIA (LEY 26.970) Y APORTES SDM" itemValue="JUBILACION C/NUEVA MORATORIA (LEY 26.970) Y APORTES SDM" />
+                                            <f:selectItem itemLabel="RETIRO POR INVALIDEZ" itemValue="RETIRO POR INVALIDEZ" />
+                                            <f:selectItem itemLabel="RETIRO POR INVALIDEZ CON APORTES SDM" itemValue="RETIRO POR INVALIDEZ CON APORTES SDM" />
+                                            <f:selectItem itemLabel="RETIRO POR INVALIDEZ C/MORATORIA 24476" itemValue="RETIRO POR INVALIDEZ C/MORATORIA 24476" />
+                                            <f:selectItem itemLabel="RETIRO POR INVALIDEZ C/MORATORIA 24476 + APORTES SDM" itemValue="RETIRO POR INVALIDEZ C/MORATORIA 24476 + APORTES SDM" />
+                                            <f:selectItem itemLabel="RECONOCIMIENTO DE SERVICIOS" itemValue="RECONOCIMIENTO DE SERVICIOS" />
+                                            <f:selectItem itemLabel="RECONOCIMIENTO DE SERVICIOS CON APORTES SDM" itemValue="RECONOCIMIENTO DE SERVICIOS CON APORTES SDM" />
+                                            <f:selectItem itemLabel="PUAM" itemValue="PUAM" />
+                                            <f:selectItem itemLabel="PENSION DIRECTA" itemValue="PENSION DIRECTA" />
+                                            <f:selectItem itemLabel="PENSION DIRECTA CON APORTES SDM DE CAUSANTE" itemValue="PENSION DIRECTA CON APORTES SDM DE CAUSANTE" />
+                                            <f:selectItem itemLabel="PENSION DIRECTA C/MORATORIA 24476" itemValue="PENSION DIRECTA C/MORATORIA 24476" />
+                                            <f:selectItem itemLabel="PENSION DIRECTA C/MORATORIA 24476 Y APORTES SDM CAUSANTE" itemValue="PENSION DIRECTA C/MORATORIA 24476 Y APORTES SDM CAUSANTE" />
+                                            <f:selectItem itemLabel="PENSION DERIVADA" itemValue="PENSION DERIVADA" />
+                                            <f:selectItem itemLabel="PENSION DERIVADA HIJO CON DISCAPACIDAD" itemValue="PENSION DERIVADA HIJO CON DISCAPACIDAD" />
+                                            <f:selectItem itemLabel="REAJUSTE" itemValue="REAJUSTE" />
+                                            <f:selectItem itemLabel="OTRO" itemValue="OTRO" />
+                                        </p:selectOneMenu>
+
+                                    </div>
+
+                                </div>
+                                <br></br>
+
+                                <p:outputLabel value="Estado del Tramite:" style="font-weight: bold" />
+
+                                <p:selectOneMenu  id="estadoDelTramite" value="#{expedienteController.selected.estadoDelTramite}">
+                                    <f:selectItem itemLabel=" -- Estado del tramite --"  noSelectionOption="true"/>
+                                    <f:selectItems value="#{estadoDelTramiteController.items}" var="estado" itemLabel="#{estado.estado}" itemValue="#{estado.estado}" />
+                                </p:selectOneMenu>
+
+                                <br></br><br></br>
+                                <div>
+                                    <div style="float: left" >
+                                        <p:outputLabel value="Fecha de cobro:" for="fechaDeCobro" style="font-weight: bold" rendered="#{expedienteController.selected.estadoDelTramite eq 'RESUELTO FAVORABLE'}" /><br></br>
+                                        <p:calendar style="width: 112px;" id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" rendered="#{expedienteController.selected.estadoDelTramite eq 'RESUELTO FAVORABLE'}" />
+                                    </div>
+                                    <br></br>
+                                    <div>
+                                        <p:outputLabel value="convenio de honorarios" style="font-weight: bold" for="convenioDeHonorarios" /><br></br>
+                                        <p:selectOneMenu style="margin-left: 3%" id="convenioDeHonorarios" value="#{expedienteController.selected.convenioDeHonorarios}" editable="true" effect="fold" >
+                                            <f:selectItem itemLabel="1 haber" itemValue="1 haber" />
+                                            <f:selectItem itemLabel="2 haberes" itemValue="2 haberes" />
+                                            <f:selectItem itemLabel="2 haberes y 20% retroactivo" itemValue="2 haberes y 20% retroactivo" />
+                                            <f:selectItem itemLabel="2 haberes y 30% retroactivo" itemValue="2 haberes y 30% retroactivo" />
+                                            <f:selectItem itemLabel="3 haberes" itemValue="3 haberes" />
+                                            <f:selectItem itemLabel="20% retroactivo" itemValue="20% retroactivo" />
+                                            <f:selectItem itemLabel="25% retroactivo" itemValue="25% retroactivo" />
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                                <br></br>
+
+                                <p:outputLabel value="Procedencia:" for="procedencia" style="font-weight: bold" /><br></br>
+                                <p:selectOneMenu  id="procedencia" value="#{expedienteController.selected.procedencia}"  >
+                                    <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.nombreProcedencia}" itemValue="#{procedencia.nombreProcedencia}" />
+                                </p:selectOneMenu>
+
+                                <br></br><br></br>
+                                <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
+                                <p:inputTextarea rows="10" cols="53" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
+
+                                <br></br>     
+                                <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.update}" class="botonCrearAgenda" value="#{bundle.Save}" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
+
+                            </div>
+                        </p:tab>
                     </p:tabView>
 
                 </div>
 
-                <div style="float: right; width: 38%"> 
 
-                    <div>
-                        <p:fieldset legend="AGENDA PARA HOY" toggleable="true" toggleSpeed="500">
-                            <p:outputLabel value="#{expedienteController.verProximaAgenda(expedienteController.selected.orden)}" style="font-weight: bold" /><br></br>
-                        </p:fieldset>
-                    </div>
-                    <div>
-                        <p:commandButton id="createButton" value="crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteEditDialog').hide()" />
-                    </div>
-
-                    <br></br>
-                    <p:outputLabel value="Tipo de expediente" style="font-weight: bold" for="tipoDeExpediente"  /><br></br>
-                    <p:selectOneMenu id="tipoDeExpediente" style="margin-left: 3%" value="#{expedienteController.selected.tipoDeExpediente}" editable="false" >
-                        <f:selectItem itemLabel="administrativo" itemValue="administrativo" />
-                        <f:selectItem itemLabel="judicial" itemValue="judicial" />
-                    </p:selectOneMenu>
-
-                    <br></br>
-                    <br></br>
-                    <div style="width: 50%"> 
-                        <div>
-
-                            <p:outputLabel value="Tipo de tramite:" for="tipoDeTramite" style="margin-left: 3%;font-weight: bold" /><br></br>
-
-                            <p:selectOneMenu style="margin-left: 3%" id="tipoDeTramite" value="#{expedienteController.selected.tipoDeTramite}" editable="true" effect="fold" >
-                                <f:selectItem itemLabel="JUBILACION ORDINARIA" itemValue="JUBILACION ORDINARIA" />
-                                <f:selectItem itemLabel="JUBILACION C/MORATORIA LEY. 24476" itemValue="JUBILACION C/MORATORIA LEY. 24476" />
-                                <f:selectItem itemLabel="JUBILACION C/MORATORIA LEY. 24476 Y APORTES SDM" itemValue="JUBILACION C/MORATORIA LEY. 24476 Y APORTES SDM" />
-                                <f:selectItem itemLabel="JUBILACION C/NUEVA MORATORIA (LEY 26.970)" itemValue="JUBILACION C/NUEVA MORATORIA (LEY 26.970)" />
-                                <f:selectItem itemLabel="JUBILACION C/NUEVA MORATORIA (LEY 26.970) Y APORTES SDM" itemValue="JUBILACION C/NUEVA MORATORIA (LEY 26.970) Y APORTES SDM" />
-                                <f:selectItem itemLabel="RETIRO POR INVALIDEZ" itemValue="RETIRO POR INVALIDEZ" />
-                                <f:selectItem itemLabel="RETIRO POR INVALIDEZ CON APORTES SDM" itemValue="RETIRO POR INVALIDEZ CON APORTES SDM" />
-                                <f:selectItem itemLabel="RETIRO POR INVALIDEZ C/MORATORIA 24476" itemValue="RETIRO POR INVALIDEZ C/MORATORIA 24476" />
-                                <f:selectItem itemLabel="RETIRO POR INVALIDEZ C/MORATORIA 24476 + APORTES SDM" itemValue="RETIRO POR INVALIDEZ C/MORATORIA 24476 + APORTES SDM" />
-                                <f:selectItem itemLabel="RECONOCIMIENTO DE SERVICIOS" itemValue="RECONOCIMIENTO DE SERVICIOS" />
-                                <f:selectItem itemLabel="RECONOCIMIENTO DE SERVICIOS CON APORTES SDM" itemValue="RECONOCIMIENTO DE SERVICIOS CON APORTES SDM" />
-                                <f:selectItem itemLabel="PUAM" itemValue="PUAM" />
-                                <f:selectItem itemLabel="PENSION DIRECTA" itemValue="PENSION DIRECTA" />
-                                <f:selectItem itemLabel="PENSION DIRECTA CON APORTES SDM DE CAUSANTE" itemValue="PENSION DIRECTA CON APORTES SDM DE CAUSANTE" />
-                                <f:selectItem itemLabel="PENSION DIRECTA C/MORATORIA 24476" itemValue="PENSION DIRECTA C/MORATORIA 24476" />
-                                <f:selectItem itemLabel="PENSION DIRECTA C/MORATORIA 24476 Y APORTES SDM CAUSANTE" itemValue="PENSION DIRECTA C/MORATORIA 24476 Y APORTES SDM CAUSANTE" />
-                                <f:selectItem itemLabel="PENSION DERIVADA" itemValue="PENSION DERIVADA" />
-                                <f:selectItem itemLabel="PENSION DERIVADA HIJO CON DISCAPACIDAD" itemValue="PENSION DERIVADA HIJO CON DISCAPACIDAD" />
-                                <f:selectItem itemLabel="REAJUSTE" itemValue="REAJUSTE" />
-                                <f:selectItem itemLabel="OTRO" itemValue="OTRO" />
-                            </p:selectOneMenu>
-
-                        </div>
-
-                    </div>
-                    <br></br>
-
-                    <p:outputLabel value="Estado del Tramite:" style="font-weight: bold" />
-
-                    <p:selectOneMenu  id="estadoDelTramite" value="#{expedienteController.selected.estadoDelTramite}">
-                        <f:selectItem itemLabel=" -- Estado del tramite --"  noSelectionOption="true"/>
-                        <f:selectItems value="#{estadoDelTramiteController.items}" var="estado" itemLabel="#{estado.estado}" itemValue="#{estado.estado}" />
-                    </p:selectOneMenu>
-
-                    <br></br><br></br>
-                    <div>
-                        <div style="float: left" >
-                            <p:outputLabel value="Fecha de cobro:" for="fechaDeCobro" style="font-weight: bold" rendered="#{expedienteController.selected.estadoDelTramite eq 'RESUELTO FAVORABLE'}" /><br></br>
-                            <p:calendar style="width: 112px;" id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" rendered="#{expedienteController.selected.estadoDelTramite eq 'RESUELTO FAVORABLE'}" />
-                        </div>
-                        <br></br>
-                        <div>
-                            <p:outputLabel value="convenio de honorarios" style="font-weight: bold" for="convenioDeHonorarios" /><br></br>
-                            <p:selectOneMenu style="margin-left: 3%" id="convenioDeHonorarios" value="#{expedienteController.selected.convenioDeHonorarios}" editable="true" effect="fold" >
-                                <f:selectItem itemLabel="1 haber" itemValue="1 haber" />
-                                <f:selectItem itemLabel="2 haberes" itemValue="2 haberes" />
-                                <f:selectItem itemLabel="2 haberes y 20% retroactivo" itemValue="2 haberes y 20% retroactivo" />
-                                <f:selectItem itemLabel="2 haberes y 30% retroactivo" itemValue="2 haberes y 30% retroactivo" />
-                                <f:selectItem itemLabel="3 haberes" itemValue="3 haberes" />
-                                <f:selectItem itemLabel="20% retroactivo" itemValue="20% retroactivo" />
-                                <f:selectItem itemLabel="25% retroactivo" itemValue="25% retroactivo" />
-                            </p:selectOneMenu>
-                        </div>
-                    </div>
-                    <br></br>
-
-                    <p:outputLabel value="Procedencia:" for="procedencia" style="font-weight: bold" /><br></br>
-                    <p:selectOneMenu  id="procedencia" value="#{expedienteController.selected.procedencia}"  >
-                        <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.nombreProcedencia}" itemValue="#{procedencia.nombreProcedencia}" />
-                    </p:selectOneMenu>
-
-                    <br></br><br></br>
-                    <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
-                    <p:inputTextarea rows="10" cols="53" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
-
-                    <br></br>     
-                    <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.update}" class="botonCrearAgenda" value="#{bundle.Save}" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
-
-                </div>
-
-                <br></br>
 
             </h:form>
         </p:dialog>

@@ -240,3 +240,16 @@ div.ui-layout-unit-content {
     width: 80% !important;
 }
 
+
+.ui-datatable thead th,
+.ui-datatable tbody td,
+.ui-datatable tfoot td {
+ padding:4px 10px;
+ overflow:hidden;
+ border-width:1px;
+border-style:solid none solid none !important; /*Lineas tabala*/
+}
+
+#TurnoListForm\:datalist\ {
+ margin-bottom: 10% !important;
+}

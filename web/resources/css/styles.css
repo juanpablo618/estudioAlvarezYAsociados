@@ -157,3 +157,8 @@
     color: black !important;
     font-weight: bold;
 }
+
+.confirmar{
+    color: black;
+    background-color: yellow;
+}

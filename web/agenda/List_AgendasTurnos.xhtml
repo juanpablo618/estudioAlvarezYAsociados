@@ -101,12 +101,12 @@
 
                         <p:commandButton class="linea btnDelete" update=":growl,datalist, message"  oncomplete="PF('turnosTable').clearFilters()"  actionListener="#{turnoController.destroy}"  icon="ui-icon-trash" title="Eliminar">
                             <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
-                            <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
+                            <p:confirm header="Confirmación" message="¿Seguro de Eliminar?" icon="ui-icon-alert"/>
                         </p:commandButton>
 
                         <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton update=":TurnoListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-                            <p:commandButton update=":TurnoListForm" value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                            <p:commandButton update=":TurnoListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes  ui-state-default" icon="ui-icon-check" style="color: black;"/>
+                            <p:commandButton update=":TurnoListForm" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
                         </p:confirmDialog> 
 
 
@@ -202,12 +202,12 @@
 
                         <p:commandButton class="linea" update=":growl,datalist, message2" oncomplete="PF('agendasTable').clearFilters()" actionListener="#{agendaController.destroy}"  icon="ui-icon-trash" title="Eliminar">
                             <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
-                            <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
+                            <p:confirm header="Confirmación" message="¿Seguro de Eliminar?" icon="ui-icon-alert" />
                         </p:commandButton>
 
                         <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton  update=":growl,datalist" oncomplete="PF('agendasTable').clearFilters()" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-                            <p:commandButton update="@all"  oncomplete="agendasTable.filter()" value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                            <p:commandButton  update=":growl,datalist" oncomplete="PF('agendasTable').clearFilters()" value="Si" type="button" styleClass="ui-confirmdialog-yesui-state-default" icon="ui-icon-check" style="color: black;"/>
+                            <p:commandButton update="@all"  oncomplete="agendasTable.filter()" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
                         </p:confirmDialog> 
 
                     </p:column>

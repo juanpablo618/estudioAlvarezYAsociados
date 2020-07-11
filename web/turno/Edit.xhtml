@@ -8,37 +8,38 @@
 
     <ui:composition>
 
-        <p:dialog id="TurnoEditDlg" widgetVar="TurnoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTurnoTitle}">
+        <p:dialog id="TurnoEditDlg" widgetVar="TurnoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTurnoTitle}" style="width: 70%;">
             <h:form id="TurnoEditForm">
                 <h:panelGroup id="display">
-                    <p:outputLabel value="día y hora:" for="horaYDia" /><br></br>
+                    <h:panelGrid columns="4">
+                        <p:outputLabel value="Día y Hora:" for="horaYDia" />
                         <p:calendar id="horaYDia" pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" required="true" requiredMessage="#{bundle.EditTurnoRequiredMessage_horaYDia}" showOn="button"/><br></br><br></br>
+                    </h:panelGrid>    
+                    <h:panelGrid columns="6">
+                        <p:outputLabel value="#{bundle.EditTurnoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{turnoController.selected.nombre}" title="nombre" />
+
+                        <p:outputLabel value="#{bundle.EditTurnoLabel_apellido}" for="apellido" />
+                        <p:inputText id="apellido" value="#{turnoController.selected.apellido}" title="#{bundle.EditTurnoTitle_apellido}" />
                         
-                        <p:outputLabel value="#{bundle.EditTurnoLabel_nombre}" for="nombre" /><br></br>
-                        <p:inputText id="nombre" value="#{turnoController.selected.nombre}" title="nombre" /><br></br><br></br>
-                        
-                        <p:outputLabel value="#{bundle.EditTurnoLabel_apellido}" for="apellido" /><br></br>
-                        <p:inputText id="apellido" value="#{turnoController.selected.apellido}" title="#{bundle.EditTurnoTitle_apellido}" /><br></br><br></br>
-                        <p:outputLabel value="#{bundle.EditTurnoLabel_nroDeTelefono}" for="nroDeTelefono" /><br></br>
-                        <p:inputText id="nroDeTelefono" value="#{turnoController.selected.nroDeTelefono}" title="#{bundle.EditTurnoTitle_nroDeTelefono}" /><br></br><br></br>
-                        
-                        <p:outputLabel value="#{bundle.EditTurnoLabel_procedencia}" for="procedencia" /><br></br>
-                        
+                        <p:outputLabel value="#{bundle.EditTurnoLabel_nroDeTelefono}" for="nroDeTelefono" />
+                        <p:inputText id="nroDeTelefono" value="#{turnoController.selected.nroDeTelefono}" title="#{bundle.EditTurnoTitle_nroDeTelefono}" />
+
+                        <p:outputLabel value="#{bundle.EditTurnoLabel_procedencia}" for="procedencia" />
                         <p:selectOneMenu  id="procedencia" value="#{turnoController.selected.procedencia}"  editable="true">
                             <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.getNombreProcedencia()}" itemValue="#{procedencia.getNombreProcedencia()}" />
-                        </p:selectOneMenu><br></br><br></br>
-                        
+                        </p:selectOneMenu><br></br>
+                    </h:panelGrid>    
                         <p:outputLabel value="#{bundle.EditTurnoLabel_observacion}" for="observacion" /><br></br>
-                        <p:inputTextarea cols="33" rows="10" autoResize="false" id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.EditTurnoTitle_observacion}" /><br></br><br></br>
-                    
+                        <p:inputTextarea cols="80" rows="7" autoResize="false" id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.EditTurnoTitle_observacion}" /><br></br><br></br>
+
                         <p:outputLabel value="Responsable" for="responsable" /><br></br>
                         <p:selectOneMenu  id="responsable" value="#{turnoController.selected.responsable}"  >
-                              <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
+                            <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
                         </p:selectOneMenu><br></br><br></br>
-                                        
-                        
-                    <p:commandButton class="botonCrear" onclick="TurnoViewDialog.hide()" actionListener="#{turnoController.update}" value="#{bundle.Save}" update="display,:TurnoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TurnoEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="TurnoEditDialog.hide()"/>
+
+                    <p:commandButton class="botonCrear hoverGreen" onclick="TurnoViewDialog.hide()" actionListener="#{turnoController.update}" value="#{bundle.Save}" update="display,:TurnoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TurnoEditDialog');"/>
+                    <p:commandButton class="botonCrear hoverGreen" value="#{bundle.Cancel}" onclick="TurnoEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

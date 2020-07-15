@@ -34,7 +34,8 @@
                         <p:menuitem class="subMenu" style="background-color: #38978c !important" value="Sin carpeta " actionListener="#{expedienteController.prepareCreateExpSinCarpeta()}" update=":ExpedienteSinCarpetaCreateForm" oncomplete="PF('ExpedienteSinCarpetaCreateDialog').show()" />
 
                     </p:splitButton>
-
+                    
+                    <p:commandButton value="Download" icon="fa fa-fw fa-download" type="button"/>
                     <h:commandLink style="float: right;margin-top: 1%;margin-right: 1%;">
                         <h:graphicImage value="../faces/resources/images/pdficon2.png" width="50px"/>
                         <p:dataExporter type="pdf" target="datalist" fileName="expedientesFiltrados" pageOnly="true" />

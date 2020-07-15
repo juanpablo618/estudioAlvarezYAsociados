@@ -12,14 +12,14 @@
             <h:form id="TurnoCreateForm">
                 <h:panelGroup id="display">
                         <p:outputLabel value="día y hora:" for="horaYDia" /><br></br>
-                        <p:calendar id="horaYDia" minHour="8" maxHour="19" pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" showOn="false"/><br></br><br></br>
+                        <p:calendar autocomplete="off" id="horaYDia"  pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" showOn="false"/><br></br><br></br>
  
-                        <p:outputLabel value="#{bundle.CreateTurnoLabel_nombre}" for="nombre" /><br></br>
-                        
-                        <p:inputText id="nombre" value="#{turnoController.selected.nombre}" title="nombre" /><br></br><br></br>
-                        
                         <p:outputLabel value="#{bundle.CreateTurnoLabel_apellido}" for="apellido" /><br></br>
                         <p:inputText id="apellido" value="#{turnoController.selected.apellido}" title="#{bundle.CreateTurnoTitle_apellido}" /><br></br><br></br>
+                        
+                        <p:outputLabel value="#{bundle.CreateTurnoLabel_nombre}" for="nombre" /><br></br>
+                        <p:inputText id="nombre" value="#{turnoController.selected.nombre}" title="nombre" /><br></br><br></br>
+                        
                         
                         <p:outputLabel value="#{bundle.CreateTurnoLabel_nroDeTelefono}" for="nroDeTelefono" /><br></br>
                         <p:inputText id="nroDeTelefono" value="#{turnoController.selected.nroDeTelefono}" title="#{bundle.CreateTurnoTitle_nroDeTelefono}" /><br></br><br></br>

@@ -1,7 +1,5 @@
 package com.estudioAlvarezVersion2.jsf;
 
-import com.estudioAlvarezVersion2.downloadPDf.ConfiguracionesGeneralesController;
-import com.estudioAlvarezVersion2.jpa.Agenda;
 import com.estudioAlvarezVersion2.jpa.Turno;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
@@ -35,10 +33,13 @@ public class TurnoController implements Serializable {
     private List<Turno> items = null;
     private Turno selected;
     
-    private List<Turno> filteredturnos;
+    private String responsableSeleccionadoEnTurno;
+    private String apellidoYNombreSeleccionadoEnTurno;
+    private String fechaSeleccionadaEnTurno;
+    private String ordenSeleccionadoEnTurno;
     
+    private List<Turno> filteredturnos;
     private Date dateSelected;
-
     
     public Date getDateSelected() {
         return dateSelected;
@@ -67,7 +68,37 @@ public class TurnoController implements Serializable {
         this.filteredturnos = filteredturnos;
     }
 
-    
+    public String getResponsableSeleccionadoEnTurno() {
+        return responsableSeleccionadoEnTurno;
+    }
+
+    public void setResponsableSeleccionadoEnTurno(String responsableSeleccionadoEnTurno) {
+        this.responsableSeleccionadoEnTurno = responsableSeleccionadoEnTurno;
+    }
+
+    public String getApellidoYNombreSeleccionadoEnTurno() {
+        return apellidoYNombreSeleccionadoEnTurno;
+    }
+
+    public void setApellidoYNombreSeleccionadoEnTurno(String apellidoYNombreSeleccionadoEnTurno) {
+        this.apellidoYNombreSeleccionadoEnTurno = apellidoYNombreSeleccionadoEnTurno;
+    }
+
+    public String getFechaSeleccionadaEnTurno() {
+        return fechaSeleccionadaEnTurno;
+    }
+
+    public void setFechaSeleccionadaEnTurno(String fechaSeleccionadaEnTurno) {
+        this.fechaSeleccionadaEnTurno = fechaSeleccionadaEnTurno;
+    }
+
+    public String getOrdenSeleccionadoEnTurno() {
+        return ordenSeleccionadoEnTurno;
+    }
+
+    public void setOrdenSeleccionadoEnTurno(String ordenSeleccionadoEnTurno) {
+        this.ordenSeleccionadoEnTurno = ordenSeleccionadoEnTurno;
+    }
     
     protected void setEmbeddableKeys() {
     }
@@ -81,6 +112,7 @@ public class TurnoController implements Serializable {
 
     public Turno prepareCreate() {
         selected = new Turno();
+        selected.setRealizado("No");
         initializeEmbeddableKey();
         return selected;
     }
@@ -204,7 +236,6 @@ public class TurnoController implements Serializable {
 
     }
     
-    
     public void handleDateSelect(SelectEvent event) {
         RequestContext.getCurrentInstance().execute("PF('turnosTable').filter()");
     }
@@ -212,7 +243,7 @@ public class TurnoController implements Serializable {
     public void filtrarAgendasYTurnos(Date dateSelected){
             this.filteredturnos = new ArrayList<Turno>();
         
-             FacesContext context = FacesContext.getCurrentInstance();
+            FacesContext context = FacesContext.getCurrentInstance();
             AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
            
             agendaController.filtrarPorFecha(dateSelected);
@@ -231,6 +262,7 @@ public class TurnoController implements Serializable {
                     }
                 }
         }
+        this.dateSelected = null;
     }
     
 }

@@ -3,15 +3,12 @@ UPDATE expediente SET nombre = LOWER(nombre), apellido = LOWER(apellido);
 
 UPDATE expediente SET nombre = UPPER(nombre), apellido = UPPER(apellido);
 
-
 Para el error de "descargar convenio" hay que crear una carpeta en el server y luego modificar la bd.
-
 
 si los filtros no llegan a funcionar. OJO con esto por que borra los filtros manuales que le pusimos en agendas y turnos y en exp.
 ejemplo el "filtrar las 2 tablas"
 <p:remoteCommand name="onload" oncomplete="PF('turnosTable').clearFilters()" autoRun="true" />
                 
-
 
 siempre usar el sistema en 80% por que las interfaces son muy grandes.
 
@@ -32,16 +29,12 @@ para sacar los nombres:
 
 
 
-
-
 download para maquina con windows:
 
 C:\Users\juan.cuello\Documents\Downloads
 
-
 con linux
 /home/jelastic/Documents
-
 
 
 SIEMPRE CAMBIAR LOS VALORES tipoDeExpediente a "administrativo" para una nueva carga de datos en el sistema.
@@ -106,9 +99,7 @@ luego desplegarlo como root en el ambiente
 y luego verificar entrando a la url del archivo y abrir todos los botones de la izquierda para asegurarse de que todas las vistan se muestran bien.
 
 
-
 //////////////////////////////////// DEPLOY ///////////////////////////////////
-
 
 
 //////////////////////PROBLEMAS CON LOS EXPEDIENTES ////////////////////////////
@@ -125,10 +116,7 @@ y dentro de la columna "tipoDeExpediente" colocar bien el dato exacto.
 
 luego la interfaz ya tendría q mostrar la lupa. de ese exp.
 
-
 ////////////////////PROBLEMAS CON LOS EXPEDIENTES ////////////////////////////
-
-
 
 Consultar todos los exp. que tienen en el cuit un guión medio:
 SELECT * FROM `expediente` WHERE cuit LIKE '%-%'
@@ -139,3 +127,19 @@ sacar los guiones medio de todas las filas en el atributo cuit
 
 update Expediente
 set cuit = REPLACE(cuit,'-','')
+
+/////////////////////////////////////////////////////////////////////////
+la diferencia entre Agendas y Turnos es que el "DATE" en turnos lleva fecha y hora
+
+en cambio en Agendas es solo la fecha .
+
+agendas es solo = 22/06/2020
+en cambio turnos es = 22/06/2020 14:00
+
+esto trae muchos problemas en los filtros de la tabla gigante en agenda y turno.
+
+/////////////////////////////////////////////////////////////////////////
+Este tipo de consultas es muy usado y muy practica a la hora de cambiar todos los datos de una columna en especial
+objetivo : por alguna razon necesitamos que todos los valores de ese campo tengan el mismo valor.
+
+UPDATE turno SET realizado = "No" ;

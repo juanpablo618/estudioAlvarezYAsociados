@@ -27,6 +27,9 @@
                         <h:outputText value="#{turnoController.selected.procedencia}" title="#{bundle.ViewTurnoTitle_procedencia}"/>
                         <h:outputText value="Observación:"/>
                         <h:outputText value="#{turnoController.selected.observacion}" title="#{bundle.ViewTurnoTitle_observacion}"/>
+                        <h:outputText value="Realizado:"/>
+                        <h:outputText value="#{turnoController.selected.realizado}" title="realizado"/>
+                        
                     </p:panelGrid>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TurnoEditForm" oncomplete="PF('TurnoEditDialog').show()" disabled="#{empty turnoController.selected}"/>
                     <p:commandButton value="#{bundle.Close}" onclick="TurnoViewDialog.hide()"/>

@@ -59,6 +59,7 @@ public class Turno implements Serializable {
     @Size(max = 300)
     @Column(name = "apellido")
     private String apellido;
+    
     @Size(max = 150)
     @Column(name = "nroDeTelefono")
     private String nroDeTelefono;
@@ -72,6 +73,9 @@ public class Turno implements Serializable {
     @Column(name = "responsable")
     private String responsable;
 
+    @Column(name = "realizado")
+    private String realizado;
+    
     public Turno() {
     }
 
@@ -107,7 +111,11 @@ public class Turno implements Serializable {
     }
 
     public String getNombre() {
-        return nombre;
+        if(nombre != null){
+        return nombre;}
+        else{
+            return "";
+        }
     }
 
     public void setNombre(String nombre) {
@@ -152,6 +160,14 @@ public class Turno implements Serializable {
 
     public void setResponsable(String responsable) {
         this.responsable = responsable;
+    }
+
+    public String getRealizado() {
+        return realizado;
+    }
+
+    public void setRealizado(String realizado) {
+        this.realizado = realizado;
     }
 
     @Override

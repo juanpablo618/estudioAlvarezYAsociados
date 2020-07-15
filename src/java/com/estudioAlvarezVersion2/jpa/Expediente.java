@@ -211,6 +211,12 @@ public class Expediente implements Serializable {
     @Column(name = "tipo")
     private String tipo;
 
+    
+    @Basic(optional = false)
+    @Column(name = "detalleDeEstadoDeTramite")
+    private String detalleDeEstadoDeTramite;
+    
+    
     public Expediente() {
     }
 
@@ -229,7 +235,7 @@ public class Expediente implements Serializable {
             String tipoDeExpediente, String caratula, String nroDeExpediente,
             String juzgadoODependencia, String observaciones, String comunicaciones, Date fechaDeAtencion,
             String convenioDeHonorarios, String jurisdiccion, String poderFirmado,
-            String tipo, String etapaProcesal) {
+            String tipo, String etapaProcesal, String detalleDeEstadoDeTramite) {
         this.idExpediente = idExpediente;
         this.orden = orden;
         this.cuit = cuit;
@@ -271,6 +277,7 @@ public class Expediente implements Serializable {
         this.tipo = tipo;
         this.jurisdiccion = jurisdiccion;
         this.etapaProcesal = etapaProcesal;
+        this.detalleDeEstadoDeTramite = detalleDeEstadoDeTramite;
 
     }
 
@@ -573,8 +580,14 @@ public class Expediente implements Serializable {
         this.comunicaciones = comunicaciones;
     }
 
-    
-    
+    public String getDetalleDeEstadoDeTramite() {
+        return detalleDeEstadoDeTramite;
+    }
+
+    public void setDetalleDeEstadoDeTramite(String detalleDeEstadoDeTramite) {
+        this.detalleDeEstadoDeTramite = detalleDeEstadoDeTramite;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -643,9 +656,6 @@ public class Expediente implements Serializable {
         return true;
     }
 
-       
-    
-    
     public String toString() {
         return idExpediente.toString() ;
     }

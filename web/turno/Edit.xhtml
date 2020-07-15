@@ -36,6 +36,15 @@
                               <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
                         </p:selectOneMenu><br></br><br></br>
                                         
+                        <h:outputText value="realizado: " /><br></br>
+                                        <p:selectOneMenu id="realizado"  value="#{turnoController.selected.realizado}" editable="false" style="width:50%"><br></br><br></br>
+                                        <f:selectItem itemLabel="Si" itemValue="Si" />
+                                        <f:selectItem itemLabel="No" itemValue="No" />
+                                        <f:selectItem itemLabel="Pendiente" itemValue="Pendiente" />
+                                        
+                                        </p:selectOneMenu><br></br><br></br>
+                                        
+                        
                         
                     <p:commandButton class="botonCrear" onclick="TurnoViewDialog.hide()" actionListener="#{turnoController.update}" value="#{bundle.Save}" update="display,:TurnoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TurnoEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TurnoEditDialog.hide()"/>

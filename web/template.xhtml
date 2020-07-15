@@ -13,9 +13,8 @@
 
     <h:body style="background-color: #F4F8FA">
              <h:form>
-                <p:growl id="messages1" showDetail="true" sticky="true" />
-                <p:idleMonitor timeout="240000">
-                    <p:ajax event="idle" listener="#{login.onIdle}" update="messages1" />
+                <p:idleMonitor timeout="600000">
+                    <p:ajax event="idle" listener="#{login.onIdle}"  />
                 </p:idleMonitor>
             </h:form>
 

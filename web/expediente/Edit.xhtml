@@ -16,6 +16,7 @@
                 document.getElementById("myDialog").showModal();
             }
         </script>
+        
         <p:dialog id="ExpedienteEditDlg" class="editDialogExpediente" widgetVar="ExpedienteEditDialog" modal="true" resizable="false" appendTo="@(body)" >
             <h:form id="ExpedienteEditForm">
                 <h:panelGroup id="display">
@@ -294,9 +295,17 @@
                     <p:selectOneMenu  id="estadoDelTramite" value="#{expedienteController.selected.estadoDelTramite}">
                         <f:selectItem itemLabel=" -- Estado del tramite --"  noSelectionOption="true"/>
                         <f:selectItems value="#{estadoDelTramiteController.items}" var="estado" itemLabel="#{estado.estado}" itemValue="#{estado.estado}" />
+                       <f:ajax render="inputDetalleDelEstadoDelTramite" />
+
                     </p:selectOneMenu>
 
-                    <br></br><br></br>
+                    <br></br>
+                    <h:panelGroup id="inputDetalleDelEstadoDelTramite">
+                        <p:outputLabel id="detalleOutput" rendered="#{expedienteController.selected.estadoDelTramite == 'FECHA DE COBRO.' || expedienteController.selected.estadoDelTramite == 'ANSES - CON TURNO.' || expedienteController.selected.estadoDelTramite == 'ESPERANDO REGULARIDAD.'}" value="detalle del estado del tramite:" for="detalleDelEstadoDelTramite" style="font-weight: bold"/><br></br>
+                        <p:inputTextarea rows="3" cols="43" rendered="#{expedienteController.selected.estadoDelTramite == 'FECHA DE COBRO.' || expedienteController.selected.estadoDelTramite == 'ANSES - CON TURNO.' || expedienteController.selected.estadoDelTramite == 'ESPERANDO REGULARIDAD.'}" autoResize="false"  id="detalleDelEstadoDelTramite" value="#{expedienteController.selected.detalleDeEstadoDeTramite}" title="detallesDelEstadoDelTramite"/>
+                    </h:panelGroup>
+
+                    <br></br>
                     <div>
                         <div style="float: left" >
                             <p:outputLabel value="Fecha de cobro:" for="fechaDeCobro" style="font-weight: bold" rendered="#{expedienteController.selected.estadoDelTramite eq 'RESUELTO FAVORABLE'}" /><br></br>
@@ -327,6 +336,9 @@
                     <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
                     <p:inputTextarea rows="10" cols="53" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
 
+                    <br></br>
+                    
+                    
                     <br></br>     
                     <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.update}" class="botonCrearAgenda" value="#{bundle.Save}" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
 

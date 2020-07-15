@@ -42,6 +42,8 @@ public class AgendaController implements Serializable {
     @EJB
     private com.estudioAlvarezVersion2.jpacontroller.AgendaFacade ejbFacade;
     private List<Agenda> items = null;
+    private List ItemsTODOS = null;
+    
     private Agenda selected;
     private Agenda selectedParaCrearUnaNueva;
     private Date fechaParaFiltrar = new Date();
@@ -135,6 +137,8 @@ public class AgendaController implements Serializable {
              System.out.println("EN createAgendaConFiltroPorNombreYApellido METODO idExpediente: "+idExpediente);
          
              agendaController.getSelected().setApellido(expedienteController.getExpediente(idExpediente).getApellido());
+             agendaController.getSelected().setNombre(expedienteController.getExpediente(idExpediente).getNombre());
+             
         }
         
         
@@ -217,7 +221,22 @@ public class AgendaController implements Serializable {
         }
         return items;
     }
-
+    
+    public List<Agenda> getItemsTODOS() {
+        if (items == null) {
+            items = getFacade().findAll();
+        }
+        ItemsTODOS = new ArrayList();
+        ItemsTODOS.addAll(items);
+        FacesContext context = FacesContext.getCurrentInstance();
+        TurnoController turnoControllerBean = context.getApplication().evaluateExpressionGet(context, "#{turnoController}", TurnoController.class);
+        ItemsTODOS.addAll(turnoControllerBean.getItems());
+        
+        
+        return items;
+    }
+    
+    
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
@@ -336,8 +355,7 @@ public class AgendaController implements Serializable {
     }
     
     public void handleDateSelect(SelectEvent event) {
-         System.out.println(event.toString());
-       
+        System.out.println("paso por el handle Date Selec de angenda controller");
     RequestContext.getCurrentInstance().execute("PF('agendasTable').filter()");
     }
     

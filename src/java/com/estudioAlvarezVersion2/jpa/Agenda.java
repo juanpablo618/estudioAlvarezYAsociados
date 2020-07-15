@@ -1,6 +1,8 @@
 package com.estudioAlvarezVersion2.jpa;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -143,6 +145,16 @@ public class Agenda implements Serializable {
         this.realizado = realizado;
     }
     
+    public String getDiaMesAnio() {
+        
+        if(fecha != null){
+        DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        return formatoFecha.format(fecha);
+        }
+        return "";
+        
+    }
+
     
     @Override
     public int hashCode() {

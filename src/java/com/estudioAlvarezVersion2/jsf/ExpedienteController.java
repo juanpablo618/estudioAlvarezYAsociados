@@ -209,14 +209,18 @@ public class ExpedienteController implements Serializable {
 
         selected.setEdad(edad);
 
-        String cuit = selected.getCuit();
-        cuit = cuit.substring(2, 9);
-        selected.setDni(cuit);
-
+        if(selected.getCuit() != null){
+            String cuit = selected.getCuit();
+            cuit = cuit.substring(2, 9);
+            selected.setDni(cuit);
+        }
+        
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteUpdated"));
+                System.out.println("ACA UPDATE ");
     }
 
     public void update2() {
+        System.out.println("ACA UPDATE 2");
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteUpdated"));
     }
 

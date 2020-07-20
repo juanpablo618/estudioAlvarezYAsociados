@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -201,18 +202,32 @@ public class AgendaController implements Serializable {
     public void update() {
         System.out.println("selected"+selected.toString());
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AgendaUpdated"));
+        
+        System.out.println("Dentro de update filteredAgendas tamaño: "+filteredAgendas.size());
+        
         if (!JsfUtil.isValidationFailed()) {
             items = null; 
-            filteredAgendas = null;                 // Invalidate list of items to trigger re-query.
+            //filteredAgendas = null;    // Invalidate list of items to trigger re-query.  BASICAMENTE ELIMINE ESTo PARA Q LUEGO DE QUE EL USUARIO HAGA UN UPDATE NO PIERDA LA LISTA FILTRADA EN LA TABLA
         }
+        System.out.println(" 222 Dentro de update filteredAgendas tamaño: "+filteredAgendas.size());
+        
     }
 
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("AgendaDeleted"));
+        
         if (!JsfUtil.isValidationFailed()) {
+
+                    for(int i = 0 ; i< filteredAgendas.size();i++){
+                        if(Objects.equals(filteredAgendas.get(i).getIdAgenda(), selected.getIdAgenda())){
+                            filteredAgendas.remove(i);
+                        }
+                    }
+                    
             selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+            items = null;    // Invalidate list of items to trigger re-query.  
         }
+        
     }
 
     public List<Agenda> getItems() {

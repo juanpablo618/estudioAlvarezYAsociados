@@ -56,18 +56,23 @@
                              emptyMessage="No existen turnos"
                              filteredValue="#{turnoController.filteredturnos}"
                              paginatorPosition="top" 
+                             
                              >
-
+                             
                     <p:ajax event="rowSelect"   update="createButton "/>
                     <p:ajax event="rowUnselect" update="createButton "/>
 
                     <p:growl  id="message" showDetail="true" />
 
-                    <p:column style="text-align: center; width: 20%" sortBy="#{item.getDiaMesAnio()}" filterBy="#{item.getDiaMesAnio()}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="startsWith" headerText="Fecha">
+                    <p:column style="text-align: center; width: 20%"  sortBy="#{item.getDiaMesAnio()}" filterBy="#{item.getDiaMesAnio()}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="startsWith" headerText="Fecha">
                         <f:facet name="filter" >
-                            <p:inputText id="inputFechaEnTurnoTable" onblur="PF('turnosTable').filter()" onchange="PF('turnosTable').filter()"  value="#{turnoController.fechaSeleccionadaEnTurno}" >
+                            <p:inputText id="inputFechaEnTurnoTable"  onfocus="PF('turnosTable').filter()" onblur="PF('turnosTable').filter()" onchange="PF('turnosTable').filter()"  value="#{turnoController.fechaSeleccionadaEnTurno}" >
                                 <p:ajax update=":AgendaListForm:datalist:inputFechaEnAgenda"/> 
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputFechaEnAgenda"/>
+                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
+                                <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
+                                                      
+
                             </p:inputText>
                         </f:facet>
                         <h:outputText  value="#{item.horaYDia}">
@@ -77,9 +82,12 @@
                     
                     <p:column  style="width: 20%" filterBy="#{item.apellido} #{item.nombre}"  styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="contains" headerText="APELLIDO Y NOMBRE">
                         <f:facet name="filter" >
-                            <p:inputText id="inputApellidoYNombreEnTurnoTable" onchange="PF('turnosTable').filter()" value="#{turnoController.apellidoYNombreSeleccionadoEnTurno}" >
+                            <p:inputText id="inputApellidoYNombreEnTurnoTable" onfocus="PF('turnosTable').filter()" onchange="PF('turnosTable').filter()" value="#{turnoController.apellidoYNombreSeleccionadoEnTurno}" >
                                 <p:ajax update=":AgendaListForm:datalist:inputApellidoYNombreEnAgenda"/> 
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputApellidoYNombreEnAgenda"/>
+                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
+                                <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
+                            
                             </p:inputText>
                         </f:facet>
                         <h:outputText value="#{ item.apellido} #{ item.nombre}"/>
@@ -92,6 +100,9 @@
                                 <f:selectItems  value="#{empleadoController.itemsAvailableSelectOne}" />
                                 <p:ajax update=":AgendaListForm:datalist:inputEnAgenda"/> 
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputEnAgenda"/>
+                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
+                                <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
+                            
                             </p:selectOneMenu>
                             
                         </f:facet>
@@ -110,6 +121,11 @@
                             <p:inputText id="inputOrdenEnTurnoTable"  value="#{turnoController.ordenSeleccionadoEnTurno}" >
                                 <p:ajax update=":AgendaListForm:datalist:inputOrdenEnAgenda"/> 
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputOrdenEnAgenda"/>
+                            
+                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
+                                <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
+                            
+                                
                             </p:inputText>
                         </f:facet>
                         <h:outputText value="No poseen ORDEN"/>

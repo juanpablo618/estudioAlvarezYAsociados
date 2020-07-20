@@ -61,12 +61,11 @@
                                      value="Actualizar esta agenda" update="display,:AgendaListForm:datalist,:growl"
                                      oncomplete="handleSubmit(args, 'AgendaEditDialog');"  />
                                      
-                                   
                                      
                                 </div>     
                             
                                 <div >
-                                    <p:commandButton rendered="#{!agendaController.selected.realizado}"  class="botonEditarAgenda" actionListener="#{agendaController.prepareReagendar(agendaController.selected)}" value="Reagendar"  update=":AgendaReagendarForm" oncomplete="PF('AgendaReagendarDialog').show()" />
+                                    <p:commandButton rendered="#{!agendaController.selected.realizado}"  class="botonEditarAgendaEsteBotonNoSirveMasPeroLoNecesitaLaUI" actionListener="#{agendaController.prepareReagendar(agendaController.selected)}" value="Reagendar"  update=":AgendaReagendarForm" oncomplete="PF('AgendaReagendarDialog').show()" />
                                 </div>     
                             
                             

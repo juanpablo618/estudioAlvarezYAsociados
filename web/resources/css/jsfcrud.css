@@ -1,4 +1,22 @@
 
+tr.ui-datatable-even:hover, tr.ui-datatable-even:active,
+tr.ui-datatable-odd:hover, tr.ui-datatable-odd:active {
+    background-color: #123a6d;
+}
+.ui-datatable .ui-datatable-data tr.ui-state-hover,
+.ui-datatable .ui-datatable-data tr.ui-state-active {
+    background-color: #2a55aa;
+}
+.ui-datatable tbody tr.ui-selected td {
+    background-color: #123a6d;
+}
+.ui-datatable tbody tr.ui-state-highlight td {
+    background-color: #123a6d;
+}
+
+table.dataTable.nowrap td{white-space:nowrap}
+
+
 .ui-widget {
     font-size: 15px !important;
     font-family: sans-serif;
@@ -12,7 +30,7 @@
 }
 .ui-widget-header {
     text-align: center;
-    
+
 }
 .ui-button {
     margin-top: 10px !important;
@@ -21,7 +39,10 @@
 .linea
 {
     display: inline-block;
+    margin-left: 5%;
+    margin-right: 5%;
 }
+
 .crearAgenda{
     background: #2dfbd0;
 }
@@ -31,7 +52,7 @@
 }
 
 .ui-layout-unit .ui-layout-unit-content {
-     background-color: white;
+    background-color: white;
 }
 
 .ui-datatable-odd{
@@ -47,8 +68,8 @@
 }
 
 .ui-menu .ui-menuitem-link{
-     background-color: #123a6d !important;
-     
+    background-color: #123a6d !important;
+
 }
 
 .ui-widget-content .ui-icon{
@@ -82,31 +103,31 @@
     text-shadow:unset !important;
 } 
 
- .editDialogExpediente{
+.editDialogExpediente{
     width: 77% !important;
     height: 95% !important;
     top: 2% !important;
     z-index: 1005 !important;
     position: absolute;
- }
- 
+}
+
 .padre {
-  /* IMPORTANTE */
-  text-align: center;
+    /* IMPORTANTE */
+    text-align: center;
 }
 
 .hijo {
-  padding: 10px;
-  margin: 10px;
-  /* IMPORTANTE */
-  display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    /* IMPORTANTE */
+    display: inline-block;
 }
 
 .hijoParaClaves {
-  padding: 10px;
-  margin: 2px;
-  /* IMPORTANTE */
-  display: inline-block;
+    padding: 10px;
+    margin: 2px;
+    /* IMPORTANTE */
+    display: inline-block;
 }
 
 .ui-menu .ui-menuitem-link{
@@ -160,7 +181,7 @@
 }
 
 .inputFechaDeAtencion{
-        width: 100px !important;
+    width: 100px !important;
 }
 
 td.centeredColumnContent{
@@ -196,18 +217,15 @@ td.centeredColumnContentSinCarpeta{
     background-color: dodgerblue;
 }
 
-ui-datatable .ui-column-filter{
-    width: 38% !important;
-}
 
 div.ui-layout-unit-content {
-        background-color: #123a6d !important;
+    background-color: #123a6d !important;
 
 }
 
 
 .ui-datatable .ui-column-filter{
-    width: 95% !important;
+    width: 80% !important;
 }
 
 div[id="AgendaListForm:datalist"] thead {
@@ -223,4 +241,17 @@ div[id="AgendaListForm:datalist"] thead {
     border-bottom-right-radius: 20px;
     padding: 2%;
     background: #32b9a9;
+}
+
+.ui-datatable thead th,
+.ui-datatable tbody td,
+.ui-datatable tfoot td {
+    padding:4px 10px;
+    overflow:hidden;
+    border-width:1px;
+    border-style:solid none solid none !important; /*Lineas tabala*/
+}
+
+#TurnoListForm\:datalist\ {
+    margin-bottom: 10% !important;
 }

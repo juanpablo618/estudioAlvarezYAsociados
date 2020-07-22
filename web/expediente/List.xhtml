@@ -11,32 +11,34 @@
 
         <ui:define name="body">
 
-            <h:form style="float: right; background-color: #F4F8FA;margin-top: 2%;" class="mrgBtn">   
+            <h:form style="float: right; background-color: #F4F8FA;margin-top: 1%;" class="mrgBtn">    
                 <p:selectOneMenu required="true" requiredMessage="debe seleccionar un estado del tramite correcto" id="estadoDelTramite" value="#{expedienteController.estadoDelTramiteSelected}">
                     <f:selectItem itemLabel=" -- Elige un Estado del tramite --"  noSelectionOption="true"  />
                     <f:selectItems value="#{estadoDelTramiteController.items}" var="estado" itemLabel="#{estado.estado}" itemValue="#{estado.estado}" />
                 </p:selectOneMenu><br></br>
-                <h:commandButton  value="Filtrar por Est. del tramite" actionListener="#{expedienteController.filtrarPorEstadoDelTramite(expedienteController.getEstadoDelTramiteSelected())}"
-                                  style="width: 82%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 10px;" />
+                <h:commandButton class="hoverBlue" value="Filtrar por Est. del tramite" actionListener="#{expedienteController.filtrarPorEstadoDelTramite(expedienteController.getEstadoDelTramiteSelected())}"
+                                 style="width: 82%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 10px;" />
+                <h:commandButton class="hoverBlue" value="Limpiar filtros" onclick="PF('expedientesTable').clearFilters()" 
+                                 style="width: 82%;margin-top: .5%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 3%;"/>
             </h:form>
 
             <h:form id="ExpedienteListForm" style=" background-color: #F4F8FA;">
 
                 <div > 
                     <p:splitButton value="CREAR EXPEDIENTE" action="#{buttonView.save}" class="btmMarginLeft" style="border-bottom-left-radius: 20px;border-top-left-radius: 20px;border-bottom-right-radius: 0px;border-top-right-radius: 0px; padding: 2%; color: white; font-family: serif; " >
-                        <p:menuitem style="" value="Administrativo " actionListener="#{expedienteController.prepareCreateExpAdministrativo()}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"  />
+                        <p:menuitem class="subMenu" style="background-color: #38978c !important; " value="Administrativo " actionListener="#{expedienteController.prepareCreateExpAdministrativo()}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"  />
                         <p:separator />
-                        <p:menuitem style="background-color: white !important" value="Judicial " actionListener="#{expedienteController.prepareCreateExpJudicial()}" update=":ExpedienteJudicialCreateForm" oncomplete="PF('ExpedienteJudicialCreateDialog').show()" />
+                        <p:menuitem class="subMenu" style="background-color: #38978c !important" value="Judicial " actionListener="#{expedienteController.prepareCreateExpJudicial()}" update=":ExpedienteJudicialCreateForm" oncomplete="PF('ExpedienteJudicialCreateDialog').show()" />
                         <p:separator />
-                        <p:menuitem style="background-color: white !important" value="Sin carpeta " actionListener="#{expedienteController.prepareCreateExpSinCarpeta()}" update=":ExpedienteSinCarpetaCreateForm" oncomplete="PF('ExpedienteSinCarpetaCreateDialog').show()" />
+                        <p:menuitem class="subMenu" style="background-color: #38978c !important" value="Sin carpeta " actionListener="#{expedienteController.prepareCreateExpSinCarpeta()}" update=":ExpedienteSinCarpetaCreateForm" oncomplete="PF('ExpedienteSinCarpetaCreateDialog').show()" />
                     </p:splitButton>
-                    <h:commandButton value="Limpiar filtros" onclick="PF('expedientesTable').clearFilters()"   style="width: 15%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 0%; " />
 
-                    <h:commandLink style="float: right;margin-top: 2%;margin-right: 1%;">
+
+                    <h:commandLink style="float: right;margin-top: 1%;margin-right: 1%;">
                         <h:graphicImage value="../faces/resources/images/pdficon2.png" width="50px"/>
                         <p:dataExporter type="pdf" target="datalist" fileName="expedientesFiltrados" pageOnly="true" />
                     </h:commandLink>
-                    <h:commandLink style="float: right;margin-top: 2%;" >
+                    <h:commandLink style="float: right;margin-top: 1%;" >
                         <h:graphicImage value="../faces/resources/images/pdficon.png" width="50px"/>
                         <p:dataExporter type="pdf" target="datalist" fileName="todosLosExpedientes" pageOnly="false" />
                     </h:commandLink>
@@ -62,38 +64,38 @@
 
                     <p:growl  id="message" showDetail="true" />
 
-                    <p:column filterBy="#{item.orden}" sortBy="#{item.orden}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="exact">
+                    <p:column style="width: 5% !important;" filterBy="#{item.orden}" sortBy="#{item.orden}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="exact">
                         <f:facet name="header">
                             <h:outputText value="#{bundle.ListExpedienteTitle_orden}"/>
                         </f:facet>
                         <h:outputText value="#{item.orden}"/>
                     </p:column>
 
-                    <p:column  filterBy="#{item.apellidoYNombre}"  styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
+                    <p:column width="40" filterBy="#{item.apellidoYNombre}"  styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
                         <f:facet name="header" >
                             <h:outputText  value="APELLIDO Y NOMBRE"/>
                         </f:facet>
                         <h:outputText  id="JuanCuello" value="#{ item.apellidoYNombre}"/>
                     </p:column>
 
-                    <p:column filterBy="#{item.getCuitRecordado()}" sortBy="#{item.getCuitRecordado()}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
+                    <p:column width="30" filterBy="#{item.getCuitRecordado()}" sortBy="#{item.getCuitRecordado()}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
                         <f:facet name="header">
                             <h:outputText value="DNI"/>
                         </f:facet>
                         <h:outputText value="#{item.getCuitRecordado()}"/>
                     </p:column>
 
-                    <p:column style="text-align: center; " styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" exportable="false">
+                    <p:column width="20" style="text-align: center; " styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" exportable="false">
 
                         <f:facet name="header">
                             <h:outputText value="ACCIONES"/>
                         </f:facet>
 
-                        <p:commandButton class="linea"  update=":ExpedienteViewClavesForm2" oncomplete="PF('ExpedienteViewClavesDialog2').show()" icon="ui-icon-locked" title="Claves">
+                        <p:commandButton class="linea btnKey"  update=":ExpedienteViewClavesForm2" oncomplete="PF('ExpedienteViewClavesDialog2').show()" icon="ui-icon-locked" title="Claves">
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
 
-                        <p:commandButton class="linea"  update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()"  icon="ui-icon-search" rendered="#{item.tipoDeExpediente eq 'administrativo'}" title="Ver exp. Administrativo">
+                        <p:commandButton class="linea btnSearch"  update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()"  icon="ui-icon-search" rendered="#{item.tipoDeExpediente eq 'administrativo'}" title="Ver exp. Administrativo">
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
 
@@ -105,14 +107,14 @@
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
 
-                        <p:commandButton class="linea" update=":growl,datalist, message" oncomplete="PF('expedientesTable').clearFilters()" actionListener="#{expedienteController.destroy}"  icon="ui-icon-circle-close" title="borrar">
+                        <p:commandButton class="linea btnDelete" update=":growl,datalist, message" oncomplete="PF('expedientesTable').clearFilters()" actionListener="#{expedienteController.destroy}"  icon="ui-icon-trash" title="Eliminar">
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
-                            <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
+                            <p:confirm header="Confirmación" message="¿Estas seguro?"  icon="ui-icon-alert"/>
                         </p:commandButton>
 
                         <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton update=":ExpedienteListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-                            <p:commandButton update=":ExpedienteListForm" value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                            <p:commandButton update=":ExpedienteListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;" />
+                            <p:commandButton update=":ExpedienteListForm" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;" />
                         </p:confirmDialog> 
 
                     </p:column>

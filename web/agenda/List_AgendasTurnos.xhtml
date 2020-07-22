@@ -15,35 +15,29 @@
 
         </script>
         <ui:define name="body"  >
-            
-            <center style="background-color: #f4f8fa">
-                <div><h:graphicImage value="../faces/resources/images/2019-10-29.png" style="width: 20%;"/>
-                </div>
-            </center>
-            
-            <h:form id="TurnoListForm" style="background-color: #F4F8FA">
-                  
-                <div style="float: left">
-                    <p:commandButton id="createButton" style="margin-right: 10px" icon="ui-icon-plus" value="CREAR AGENDA" class="botonCrearAgenda" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
-                    <p:commandButton id="createButtonTurno"   icon="ui-icon-plus" value="CREAR TURNO" class="botonCrearAgenda" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
-                    <p:commandButton id="createAgendaParaActividadButton" style="margin-right: 10px" icon="ui-icon-plus" value="CREAR ACTIVIDAD" class="botonCrearAgenda" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaParaActividadCreateDialog').show()"/>
 
+
+            <h:form id="TurnoListForm" style="background-color: #F4F8FA">
+
+                <div style="float: left;width: -moz-available;">
+                    <p:commandButton id="createButton" icon="ui-icon-plus" value="NUEVA AGENDA" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
+                    <p:commandButton id="createButtonTurno"  icon="ui-icon-plus" value="NUEVO TURNO" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
+                    <p:commandButton id="createAgendaParaActividadButton" icon="ui-icon-plus" value="NUEVA ACTIVIDAD" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaParaActividadCreateDialog').show()"/>
                 </div>
                 <br></br>
-                    
-                <h:commandLink style="float: right" title="Exportar solo filtradas.">
-                    <h:graphicImage value="../faces/resources/images/pdf.png" />
-                    <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="true" />
-                </h:commandLink>
 
-                <h:commandLink style="float: right" title="Exportar todas.">
-                    <h:graphicImage value="../faces/resources/images/pdf.png" />
+                <h:commandLink style="float: right;margin-right: 1%;" title="Exportar todas.">
+                    <h:graphicImage value="../faces/resources/images/pdficon.png" width="50px"/>
                     <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="false" />
                 </h:commandLink>
 
-                <h:commandButton value="Imprimir Agendas" actionListener="#{downloadBean.crearDocumento( agendaController.filteredAgendas, turnoController.filteredturnos)}"
-                                 style="width: 10%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px;" />
+                <h:commandLink style="float: right;" title="Exportar solo filtradas.">
+                    <h:graphicImage value="../faces/resources/images/pdficon2.png" width="50px"/>
+                    <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="true" />
+                </h:commandLink>  
                 
+                <h:commandButton value="Imprimir Agendas" actionListener="#{downloadBean.crearDocumento( agendaController.filteredAgendas, turnoController.filteredturnos)}" class="btnPrint" />
+
                 <br></br><br></br>
 
                 <p:dataTable id="datalist" value="#{turnoController.items}" var="item"
@@ -56,22 +50,21 @@
                              emptyMessage="No existen turnos"
                              filteredValue="#{turnoController.filteredturnos}"
                              paginatorPosition="top" 
-                             
                              >
-                             
+
                     <p:ajax event="rowSelect"   update="createButton "/>
                     <p:ajax event="rowUnselect" update="createButton "/>
 
                     <p:growl  id="message" showDetail="true" />
 
-                    <p:column style="text-align: center; width: 20%"  sortBy="#{item.getDiaMesAnio()}" filterBy="#{item.getDiaMesAnio()}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="startsWith" headerText="Fecha">
+                    <p:column style="text-align: center; width: 10%"  sortBy="#{item.getDiaMesAnio()}" filterBy="#{item.getDiaMesAnio()}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="startsWith" headerText="FECHA">
                         <f:facet name="filter" >
                             <p:inputText id="inputFechaEnTurnoTable"  onfocus="PF('turnosTable').filter()" onblur="PF('turnosTable').filter()" onchange="PF('turnosTable').filter()"  value="#{turnoController.fechaSeleccionadaEnTurno}" >
                                 <p:ajax update=":AgendaListForm:datalist:inputFechaEnAgenda"/> 
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputFechaEnAgenda"/>
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
                                 <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
-                                                      
+
 
                             </p:inputText>
                         </f:facet>
@@ -79,7 +72,7 @@
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                         </h:outputText>
                     </p:column>
-                    
+
                     <p:column  style="width: 20%" filterBy="#{item.apellido} #{item.nombre}"  styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="contains" headerText="APELLIDO Y NOMBRE">
                         <f:facet name="filter" >
                             <p:inputText id="inputApellidoYNombreEnTurnoTable" onfocus="PF('turnosTable').filter()" onchange="PF('turnosTable').filter()" value="#{turnoController.apellidoYNombreSeleccionadoEnTurno}" >
@@ -87,7 +80,7 @@
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputApellidoYNombreEnAgenda"/>
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
                                 <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
-                            
+
                             </p:inputText>
                         </f:facet>
                         <h:outputText value="#{ item.apellido} #{ item.nombre}"/>
@@ -102,50 +95,50 @@
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputEnAgenda"/>
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
                                 <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
-                            
+
                             </p:selectOneMenu>
-                            
+
                         </f:facet>
                         <h:outputText value="#{item.responsable}"/>
                     </p:column>
-                    
+
                     <p:column style="text-align: center;" styleClass="centeredColumnContent#{item.getRealizado()}">
                         <f:facet name="header">
                             <h:outputText value="DESCRIPCIÓN"/>
                         </f:facet>
                         <h:outputText value="#{item.observacion}"/>
                     </p:column>
-                    
+
                     <p:column filterBy="#{item.apellido}"  style="width: 4%" headerText="ORDEN" styleClass="centeredColumnContent#{item.getRealizado()}">
                         <f:facet name="filter" >
                             <p:inputText id="inputOrdenEnTurnoTable"  value="#{turnoController.ordenSeleccionadoEnTurno}" >
                                 <p:ajax update=":AgendaListForm:datalist:inputOrdenEnAgenda"/> 
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputOrdenEnAgenda"/>
-                            
+
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
                                 <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
-                            
-                                
+
+
                             </p:inputText>
                         </f:facet>
                         <h:outputText value="No poseen ORDEN"/>
                     </p:column>
-                    
-                    
+
+
                     <p:column style="text-align: center; width: 10%" styleClass="centeredColumnContent#{item.getRealizado()}">
                         <f:facet name="header">
                             <h:outputText value="ACCIONES"/>
                         </f:facet>
-                        <p:commandButton class="linea"  update=":TurnoEditForm" oncomplete="PF('TurnoEditDialog').show()" icon="ui-icon-search" title="Ver">
+                        <p:commandButton class="linea btnSearch"  update=":TurnoEditForm" oncomplete="PF('TurnoEditDialog').show()" icon="ui-icon-search" title="Ver">
                             <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
                         </p:commandButton>
-                        <p:commandButton class="linea" update=":growl,datalist, message"  oncomplete="PF('turnosTable').clearFilters()"  actionListener="#{turnoController.destroy}"  icon="ui-icon-circle-close" title="borrar">
+                        <p:commandButton class="linea btnDelete" update=":growl,datalist, message"  oncomplete="PF('turnosTable').clearFilters()"  actionListener="#{turnoController.destroy}"  icon="ui-icon-trash" title="Eliminar">
                             <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
-                            <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
+                            <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert"/>
                         </p:commandButton>
                         <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton update=":TurnoListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-                            <p:commandButton update=":TurnoListForm" value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                            <p:commandButton update=":TurnoListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;"/>
+                            <p:commandButton update=":TurnoListForm" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
                         </p:confirmDialog> 
                     </p:column>
 
@@ -157,9 +150,9 @@
 
             </h:form>
             <br></br>
-            
+
             <h:form id="AgendaListForm" style="background-color: #F4F8FA">
-                 
+
                 <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
                              selectionMode="single" selection="#{agendaController.selected}"
                              rowKey="#{item.idAgenda}"
@@ -180,19 +173,19 @@
 
                     <p:column style="width: 20%" styleClass="centeredColumnContent#{item.realizado}" sortBy="#{item.getDiaMesAnio()}" filterBy="#{item.getDiaMesAnio()}" filterMatchMode="exact" >
                         <f:facet name="filter">
-                              <p:inputText id="inputFechaEnAgenda" onchange="PF('agendasTable').filter()" value="#{turnoController.fechaSeleccionadaEnTurno}" />
+                            <p:inputText id="inputFechaEnAgenda" onchange="PF('agendasTable').filter()" value="#{turnoController.fechaSeleccionadaEnTurno}" />
                         </f:facet>
                         <h:outputText  value="#{item.fecha}"  style="color: #151717" >
                             <f:convertDateTime pattern="dd/MM/yyyy"  />
                         </h:outputText>
                     </p:column>
-                    
-                                       
+
+
                     <p:column style="width: 20%" filterBy="#{item.apellido} #{item.nombre}" styleClass="centeredColumnContent#{item.realizado}" filterMatchMode="contains">
                         <f:facet name="filter" >
                             <p:inputText id="inputApellidoYNombreEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.apellidoYNombreSeleccionadoEnTurno}" />
                         </f:facet>
-                        
+
                         <h:outputText style="color: #0053f6" value="#{item.apellido} #{item.nombre}"/>
                     </p:column>
 
@@ -216,7 +209,7 @@
                         </f:facet>
                         <h:outputText value="#{item.orden}"/>
                     </p:column>
-                    
+
                     <p:column styleClass="centeredColumnContent#{item.realizado}" style="text-align: center; width: 10% ">
 
                         <f:facet name="header">
@@ -234,12 +227,12 @@
 
                         <p:commandButton class="linea" update=":growl,datalist, message2" oncomplete="PF('agendasTable').clearFilters()" actionListener="#{agendaController.destroy}"  icon="ui-icon-circle-close" title="borrar">
                             <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
-                            <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
+                            <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert"/>
                         </p:commandButton>
 
                         <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton  update=":growl,datalist" oncomplete="PF('agendasTable').clearFilters()" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-                            <p:commandButton update="@all"  oncomplete="agendasTable.filter()" value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                            <p:commandButton  update=":growl,datalist" oncomplete="PF('agendasTable').clearFilters()" value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;"/>
+                            <p:commandButton update="@all"  oncomplete="agendasTable.filter()" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
                         </p:confirmDialog> 
 
                     </p:column>

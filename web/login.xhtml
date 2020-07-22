@@ -32,18 +32,18 @@
             <p:panel header="INGRESA SU CUENTA POR FAVOR" style="font-family: inherit;width:330px; text-align: center; background-color: darkgrey;
                      border: none;">
                 <h:panelGrid columns="2" cellpadding="5">
-                    <h:outputText value="USUARIO" style="color: black; font-size: 1em;font-weight:bold;" />
-                    <p:inputText id="username" value="#{login.user}" required="true" label="Usuario"  style="font-family: serif; width: 80%" ></p:inputText>
+                    <h:outputText value="USUARIO" style="color: black; font-size: 1em" />
+                    <p:inputText id="username" value="#{login.user}" required="true" label="Usuario"  style="font-family: serif;" ></p:inputText>
                     <h:message for="username"></h:message>
                     <br></br><br></br>
-                    <h:outputText value="CLAVE" style="color: black;font-weight:bold;"/>
-                    <h:inputSecret id="password" value="#{login.pwd}" style="font-family: serif; width: 80%" ></h:inputSecret>
+                    <h:outputText value="CLAVE" style="color: black;"/>
+                    <h:inputSecret id="password" value="#{login.pwd}" style="font-family: serif; color: black;" ></h:inputSecret>
                     <h:message for="password"></h:message>
                     <br></br>
                     <f:facet name="footer">    
                         <h:commandButton id="botonIniciarSesion" action="#{login.validateUsernamePassword}"
-                                         value="Iniciar Sesión" style="font-family: serif;font-weight:bold; font-size: 1.2em;
-                                         color: black; padding: 3% 20% 3% 20%; margin-left: 8%;" ></h:commandButton>
+                                         value="INICIAR SESIÓN" style="font-family: serif;
+                                         color: black; padding: 3% 20% 3% 20%; margin-left: 8%; " ></h:commandButton>
                     </f:facet>        
                 </h:panelGrid>
             </p:panel>

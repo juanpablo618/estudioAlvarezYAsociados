@@ -27,6 +27,7 @@
     color: white !important;
     margin-bottom: 5% !important;
     margin-top: 5% !important;
+    font-weight: bold !important;
 }
 
 #fondoCenter{background-color: #123a6d !important;}
@@ -76,4 +77,87 @@
 
 .mrgBtn{
     margin-right: 2%; 
+} 
+
+.mrg10{width: 10% !important;}
+.mrg20{width: 20%;}
+.mrg30{width: 30%;}
+.mrg40{width: 40%;}
+.mrg50{width: 50%;}
+.mrg60{width: 60%;}
+.mrg100{width: 100%;} 
+
+.btnDelete{background-color: red !important; }
+.btnSearch{background-color: green !important; }
+.btnKey{background-color: #4fb2e1  !important; }
+
+.CIDI{background-image:  url("#{resources['images/CIDI.png']}");}
+
+.borderRd{
+    border-radius: 20px !important;
+}
+
+.mrgLR2{
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.btnPrint{
+    width: 15%; 
+    padding: 0.5%; 
+    font-family: bolt; 
+    font-weight:bold; 
+    background: #4fb2e1; 
+    border-color: #9FCBD4;
+    color: white; 
+    border-radius: 7px 7px 7px 7px;
+    margin-top: .5%;
+    margin-left: .5%;
+}   
+
+.btnPrint:hover{
+    background: #2a55aa;
+}
+
+.hoverGreen:hover{
+    background-color: mediumseagreen !important;
+}
+
+.hoverBlue:hover{
+    background-color: #2a55aa !important;
+}
+
+.filterTables{
+    width: 15%; 
+    padding: 0.5%; 
+    font-family: bolt; 
+    font-weight:bold; 
+    background: #4fb2e1; 
+    border-color: #9FCBD4;
+    color: white; 
+    border-radius: 7px 7px 7px 7px; 
+    margin-left: 10px;
+} 
+
+#ExpedienteListForm:j_idt37:hover{
+    background-color: mediumseagreen !important;
+}
+
+.mrgTB2{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.subMenu{
+    color: white !important;
+}
+
+.subMenu:hover{
+    color: black !important;
+    font-weight: bold;
+}
+
+.confirmar{
+    color: black;
+    background-color: yellow;
 } 

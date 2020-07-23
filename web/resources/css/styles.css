@@ -87,6 +87,9 @@
 .mrg60{width: 60%;}
 .mrg100{width: 100%;} 
 
+.mgr-left-40{margin-left: 40%;}
+.width80{width: 80%;}
+
 .btnDelete{background-color: red !important; }
 .btnSearch{background-color: green !important; }
 .btnKey{background-color: #4fb2e1  !important; }
@@ -161,3 +164,14 @@
     color: black;
     background-color: yellow;
 } 
+
+.colum-2{
+    column: 2;
+    column-rule: 4px double #ff00ff;
+}
+
+.colum-space{
+    column-gap: 5px;
+}
+
+.float-r{float: right;}

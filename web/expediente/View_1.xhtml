@@ -29,10 +29,10 @@
                         <h:outputText value="Clave de Seguridad Social:"/><br></br>
                         <h:outputText value="#{expedienteController.verClaveDeSeguridadSocial(expedienteController.selected.orden)}"/><br></br>
                         <a href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=mianses" target="_blank" >
-                            <img src="resources/images/anses.png" style="background: #0053f6;"></img>
+                            <img src="resources/images/anses.png"></img>
                         </a><br></br><br></br>
                     
-                    <p:commandButton value="#{bundle.Close}" onclick="AgendaViewClavesDialog.hide()"/>
+                    <p:commandButton class="botonCrear hoverGreen" value="#{bundle.Close}" onclick="AgendaViewClavesDialog.hide()"/>
                            
                 </h:panelGroup>
             </h:form>

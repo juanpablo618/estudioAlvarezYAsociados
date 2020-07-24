@@ -92,7 +92,8 @@
 
 .btnDelete{background-color: red !important; }
 .btnSearch{background-color: green !important; }
-.btnKey{background-color: #4fb2e1  !important; }
+.btnKey{background-color:  #3485ac  !important; }
+
 
 .CIDI{background-image:  url("#{resources['images/CIDI.png']}");}
 
@@ -126,6 +127,11 @@
     background-color: mediumseagreen !important;
 }
 
+.hoverGreenCancel{
+    background-color: mediumseagreen !important;
+    color: red !important;
+}
+
 .hoverBlue:hover{
     background-color: #2a55aa !important;
 }
@@ -157,7 +163,7 @@
 
 .subMenu:hover{
     color: black !important;
-    font-weight: bold;
+    font-weight: bold !important;
 }
 
 .confirmar{
@@ -175,3 +181,9 @@
 }
 
 .float-r{float: right;}
+
+.createButtonAgenda{
+    margin-left: 5%; 
+    background: #4fb2e1; 
+    color: white;
+}

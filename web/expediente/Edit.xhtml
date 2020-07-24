@@ -111,27 +111,30 @@
                             </h:panelGrid>           
                         </p:tab>
 
-                        <p:tab title="claves">
+                        <p:tab title="Claves">
 
                             <div>
-                                <p:outputLabel value="C. Seguridad Social" for="claveSeguridadSocial" style="font-weight: bold" /><br></br>
+                                <p:outputLabel value="Clave Seguridad Social" for="claveSeguridadSocial" style="font-weight: bold" /><br></br>
                                 <p:inputText id="claveSeguridadSocial" value="#{expedienteController.selected.claveSeguridadSocial}" title="clave de seguridad social"/><br></br>
-                                <p:button value="ir al sitio" href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=mianses" target="_blank" />
-
+                                <a href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=mianses" target="_blank" >
+                                    <img src="resources/images/anses.png" style="width: 15%;"></img>
+                                </a>
                             </div>
                             <br></br>
                             <div>
-                                <p:outputLabel value="C. Fiscal" for="claveFiscal" style="font-weight: bold" /><br></br>
+                                <p:outputLabel value="Clave Fiscal" for="claveFiscal" style="font-weight: bold" /><br></br>
                                 <p:inputText id="claveFiscal" value="#{expedienteController.selected.claveFiscal}" title="clave Fiscal"/><br></br>
-                                <p:button  value="Ir al sitio"  href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank" />
-
+                                <a href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank" >
+                                    <img src="resources/images/afip.png" style="width: 15%;" ></img>
+                                </a>
                             </div>
                             <br></br>
                             <div>
-                                <p:outputLabel value="C. Cidi" for="claveCidi" style="font-weight: bold" /><br></br>
+                                <p:outputLabel value="Clave CIDI" for="claveCidi" style="font-weight: bold" /><br></br>
                                 <p:inputText id="claveCidi" value="#{expedienteController.selected.claveCidi}" title="clave Cidi"/><br></br>
-                                <p:button  value="Ir al sitio"  href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" />
-
+                                <a href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" >
+                                    <img src="resources/images/CIDI.png"></img>
+                                </a>
                             </div>
                             <br></br>
                             <div>
@@ -148,7 +151,7 @@
                             <div>
                                 <h:commandButton value="Imprimir Convenio" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion, expedienteController.selected.nroDeAltura, expedienteController.selected.barrio)}" />
 
-                                <p:commandButton value="C. de Aportes" ajax="false" id="clearClass">
+                                <p:commandButton value="C. de Aportes" ajax="false">
                                     <p:fileDownload value="#{fileBean.createExcel(expedienteController.selected.fechaDeNacimiento, expedienteController.selected.sexo, expedienteController.selected.nroDeExpediente, expedienteController.selected.nombre, expedienteController.selected.apellido)}"/>
                                 </p:commandButton>
                             </div>
@@ -176,7 +179,7 @@
 
                             <div>
                                 <p:outputLabel value="Comunicaciones" for="comunicaciones" style="font-weight: bold"/><br></br>
-                                <p:inputTextarea rows="5" cols="33" autoResize="false"  id="comunicaciones" value="#{expedienteController.selected.comunicaciones}" title="comunicaciones"/><br></br>
+                                <p:inputTextarea rows="7" cols="55" autoResize="false"  id="comunicaciones" value="#{expedienteController.selected.comunicaciones}" title="comunicaciones"/><br></br>
 
                             </div>
 
@@ -184,30 +187,28 @@
                             <br></br>
                         </p:tab>
                         <p:tab title="Agenda">
-                            <div style="float: right; width: 80%">
+                            <div style="float: right; width: 40%">
                                 <div>
                                     <p:fieldset legend="AGENDA PARA HOY" toggleable="true" toggleSpeed="500">
-                                        <p:outputLabel value="#{expedienteController.verProximaAgenda(expedienteController.selected.orden)}" style="font-weight: bold" /><br></br>
+                                        <p:outputLabel value="#{expedienteController.verProximaAgenda(expedienteController.selected.orden)}" /><br></br>
                                     </p:fieldset>
                                 </div>
                                 <div>
-                                    <p:commandButton id="createButton" value="crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteEditDialog').hide()" />
+                                    <p:commandButton id="createButtonAgenda" class="hoverBlue" value="Crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteEditDialog').hide()" />
                                 </div>
-                                <br></br>
-                                <p:outputLabel value="Tipo de expediente" style="font-weight: bold" for="tipoDeExpediente"  /><br></br>
-                                <p:selectOneMenu id="tipoDeExpediente" style="margin-left: 3%" value="#{expedienteController.selected.tipoDeExpediente}" editable="false" >
-                                    <f:selectItem itemLabel="administrativo" itemValue="administrativo" />
-                                    <f:selectItem itemLabel="judicial" itemValue="judicial" />
+                            </div>
+                            <div style="float:left;width: 50%">
+                                <p:outputLabel value="Tipo de Expediente" style="font-weight: bold" for="tipoDeExpediente"  /><br></br>
+                                <p:selectOneMenu id="tipoDeExpediente" style="width: 50%" value="#{expedienteController.selected.tipoDeExpediente}" editable="false" >
+                                    <f:selectItem class="subMenu" itemLabel="Administrativo" itemValue="administrativo" />
+                                    <f:selectItem class="subMenu" itemLabel="judicial" itemValue="Judicial" />
                                 </p:selectOneMenu>
-
-                                <br></br>
-                                <br></br>
-                                <div style="width: 50%"> 
+                                <br></br><br></br>
+                                <div>
                                     <div>
+                                        <p:outputLabel value="Tipo de Tramite:" for="tipoDeTramite" style="font-weight: bold" /><br></br>
 
-                                        <p:outputLabel value="Tipo de tramite:" for="tipoDeTramite" style="margin-left: 3%;font-weight: bold" /><br></br>
-
-                                        <p:selectOneMenu style="margin-left: 3%" id="tipoDeTramite" value="#{expedienteController.selected.tipoDeTramite}" editable="true" effect="fold" >
+                                        <p:selectOneMenu id="tipoDeTramite" value="#{expedienteController.selected.tipoDeTramite}" editable="true" effect="fold" >
                                             <f:selectItem itemLabel="JUBILACION ORDINARIA" itemValue="JUBILACION ORDINARIA" />
                                             <f:selectItem itemLabel="JUBILACION C/MORATORIA LEY. 24476" itemValue="JUBILACION C/MORATORIA LEY. 24476" />
                                             <f:selectItem itemLabel="JUBILACION C/MORATORIA LEY. 24476 Y APORTES SDM" itemValue="JUBILACION C/MORATORIA LEY. 24476 Y APORTES SDM" />
@@ -234,14 +235,14 @@
                                 </div>
                                 <br></br>
 
-                                <p:outputLabel value="Estado del Tramite:" style="font-weight: bold" />
+                                <p:outputLabel value="Estado del Tramite:" style="font-weight: bold" /><br></br>
 
                                 <p:selectOneMenu  id="estadoDelTramite" value="#{expedienteController.selected.estadoDelTramite}">
                                     <f:selectItem itemLabel=" -- Estado del tramite --"  noSelectionOption="true"/>
                                     <f:selectItems value="#{estadoDelTramiteController.items}" var="estado" itemLabel="#{estado.estado}" itemValue="#{estado.estado}" />
                                 </p:selectOneMenu>
 
-                                <br></br><br></br>
+                                <br></br>
                                 <div>
                                     <div style="float: left" >
                                         <p:outputLabel value="Fecha de cobro:" for="fechaDeCobro" style="font-weight: bold" rendered="#{expedienteController.selected.estadoDelTramite eq 'RESUELTO FAVORABLE'}" /><br></br>
@@ -249,8 +250,8 @@
                                     </div>
                                     <br></br>
                                     <div>
-                                        <p:outputLabel value="convenio de honorarios" style="font-weight: bold" for="convenioDeHonorarios" /><br></br>
-                                        <p:selectOneMenu style="margin-left: 3%" id="convenioDeHonorarios" value="#{expedienteController.selected.convenioDeHonorarios}" editable="true" effect="fold" >
+                                        <p:outputLabel value="Convenio de Honorarios" style="font-weight: bold" for="convenioDeHonorarios" /><br></br>
+                                        <p:selectOneMenu id="convenioDeHonorarios" value="#{expedienteController.selected.convenioDeHonorarios}" editable="true" effect="fold" >
                                             <f:selectItem itemLabel="1 haber" itemValue="1 haber" />
                                             <f:selectItem itemLabel="2 haberes" itemValue="2 haberes" />
                                             <f:selectItem itemLabel="2 haberes y 20% retroactivo" itemValue="2 haberes y 20% retroactivo" />
@@ -270,11 +271,10 @@
 
                                 <br></br><br></br>
                                 <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
-                                <p:inputTextarea rows="10" cols="53" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
+                                <p:inputTextarea rows="5" cols="70" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
 
                                 <br></br>     
-                                <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.update}" class="botonCrearAgenda" value="#{bundle.Save}" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
-
+                                <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.update}" class="botonCrearAgenda hoverGreen" value="#{bundle.Save}" update="display,:ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
                             </div>
                         </p:tab>
                     </p:tabView>      

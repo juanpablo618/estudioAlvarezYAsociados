@@ -277,3 +277,39 @@ div[id="AgendaListForm:datalist"] thead {
 .ui-datepicker-days-cell-over  .ui-datepicker-today{
     color: white !important;
 }
+
+.ui-fieldset-toggleable .ui-fieldset-legend {
+    background: #4fb2e1 !important; 
+    color: white !important;
+    text-shadow: none !important;
+}
+
+.ui-fieldset-toggleable .ui-fieldset-legend:hover{
+    background-color: #2a55aa !important;
+}   
+
+.ui-fieldset .ui-fieldset-toggler {
+ padding-right:0em !important; 
+ margin-top:0em !important; 
+}
+
+.ui-state-active a,
+.ui-state-active a:link,
+.ui-state-active a:visited {
+ color:white !important;
+ background: #3485ac !important;
+ text-shadow: none !important;
+}
+
+.ui-draggable .ui-dialog-titlebar {
+    cursor:move;
+    background: #2a55aa !important;
+    color: white !important;
+    text-shadow: none !important;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    background: #2a55aa !important;
+    color: white !important;
+    text-shadow: none !important;
+} 

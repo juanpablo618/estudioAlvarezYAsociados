@@ -64,28 +64,34 @@
 
                     <p:growl  id="message" showDetail="true" />
 
-                    <p:column style="width: 5% !important;" filterBy="#{item.orden}" sortBy="#{item.orden}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="exact">
+                    <p:column style="width: 8% !important;" filterBy="#{item.orden}" sortBy="#{item.orden}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="exact">
                         <f:facet name="header">
                             <h:outputText value="#{bundle.ListExpedienteTitle_orden}"/>
                         </f:facet>
-                        <h:outputText value="#{item.orden}"/>
+                        <center>
+                            <h:outputText value="#{item.orden}"/>
+                        </center>
                     </p:column>
 
-                    <p:column width="40" filterBy="#{item.apellidoYNombre}"  styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
+                    <p:column style="width: 40% !important;" filterBy="#{item.apellidoYNombre}"  styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
                         <f:facet name="header" >
                             <h:outputText  value="APELLIDO Y NOMBRE"/>
                         </f:facet>
-                        <h:outputText  id="JuanCuello" value="#{ item.apellidoYNombre}"/>
+                        <center>
+                            <h:outputText  id="JuanCuello" value="#{ item.apellidoYNombre}"/>
+                        </center>
                     </p:column>
 
-                    <p:column width="30" filterBy="#{item.getCuitRecordado()}" sortBy="#{item.getCuitRecordado()}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
+                    <p:column style="width: 11% !important;" filterBy="#{item.getCuitRecordado()}" sortBy="#{item.getCuitRecordado()}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
                         <f:facet name="header">
                             <h:outputText value="DNI"/>
                         </f:facet>
-                        <h:outputText value="#{item.getCuitRecordado()}"/>
+                        <center>
+                            <h:outputText value="#{item.getCuitRecordado()}"/>
+                        </center>
                     </p:column>
 
-                    <p:column width="20" style="text-align: center; " styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" exportable="false">
+                    <p:column style="width: 10% !important;text-align: center; " styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" exportable="false">
 
                         <f:facet name="header">
                             <h:outputText value="ACCIONES"/>

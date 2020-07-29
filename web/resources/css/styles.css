@@ -183,7 +183,7 @@
 .float-r{float: right;}
 
 .createButtonAgenda{
-    margin-left: 5%; 
-    background: #4fb2e1; 
-    color: white;
+    margin-left: 10% !important; 
+    background: #4fb2e1 !important; 
+    color: white !important;
 }

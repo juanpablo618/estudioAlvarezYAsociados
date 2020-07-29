@@ -194,27 +194,28 @@ td.centeredColumnContentNo{
 
 td.centeredColumnContentSi{
     text-align: center;
-    background-color: lightgreen;
+    background-color: lightgreen !important;
 }
 
 td.centeredColumnContentReagendada{
     text-align: center;
-    background-color: yellow;
+    background-color: yellow !important;
 }
 
 td.centeredColumnContentadministrativo{
     text-align: center;
+   
 }
 
 td.centeredColumnContentjudicial{
     text-align: center;
-    background-color: lightsteelblue;
+    background-color: lightsteelblue !important;
 }
 
 
 td.centeredColumnContentSinCarpeta{
     text-align: center;
-    background-color: dodgerblue;
+    background-color: dodgerblue !important;
 }
 
 
@@ -313,3 +314,7 @@ div[id="AgendaListForm:datalist"] thead {
     color: white !important;
     text-shadow: none !important;
 } 
+
+:focus {
+    outline: none !important;
+}

@@ -105,11 +105,11 @@
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
 
-                        <p:commandButton class="linea"  update=":ExpedienteSinCarpetaEditForm" oncomplete="PF('ExpedienteSinCarpetaEditDialog').show()"  icon="ui-icon-search" rendered="#{item.tipoDeExpediente eq 'sin carpeta'}" title="Ver exp. Sin Carpeta">
+                        <p:commandButton class="linea btnSearch"  update=":ExpedienteSinCarpetaEditForm" oncomplete="PF('ExpedienteSinCarpetaEditDialog').show()"  icon="ui-icon-search" rendered="#{item.tipoDeExpediente eq 'sin carpeta'}" title="Ver exp. Sin Carpeta">
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
 
-                        <p:commandButton class="linea"  update=":ExpedienteJudicialEditForm" oncomplete="PF('ExpedienteJudicialEditDialog').show()" rendered="#{item.tipoDeExpediente eq 'judicial'}" icon="ui-icon-search" title="Ver exp. Judicial">
+                        <p:commandButton class="linea btnSearch"  update=":ExpedienteJudicialEditForm" oncomplete="PF('ExpedienteJudicialEditDialog').show()" rendered="#{item.tipoDeExpediente eq 'judicial'}" icon="ui-icon-search" title="Ver exp. Judicial">
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
 
@@ -130,13 +130,7 @@
                     </f:facet>
                 </p:dataTable>
 
-                <p:contextMenu for="datalist">
-                    <p:menuitem icon="ui-icon-pencil" style="background-color: white !important" value="agregar Agenda" actionListener="#{agendaController.prepareCreate}" update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show()" />             
-
-                    <p:menuitem icon="ui-icon-pencil" style="background-color: white !important" value="agregar Turno" actionListener="#{turnoController.prepareCreate}" update=":ExpedienteViewFormParaTurno" oncomplete="PF('ExpedienteViewDialogParaTurno').show()" />             
-
-                </p:contextMenu>    
-
+                
             </h:form>
 
             <ui:include src="Create.xhtml"/>

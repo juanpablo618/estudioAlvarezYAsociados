@@ -1,18 +1,79 @@
 
-tr.ui-datatable-even:hover, tr.ui-datatable-even:active,
-tr.ui-datatable-odd:hover, tr.ui-datatable-odd:active {
-    background-color: #123a6d;
+td.centeredColumnContent{
+    text-align: center;
+}
+
+td.centeredColumnContentNo{
+    text-align: center;
+}
+
+td.centeredColumnContentSi{
+    text-align: center;
+    background-color: lightgreen !important;
+}
+
+td.centeredColumnContentReagendada{
+    text-align: center;
+    background-color: yellow !important;
+}
+
+td.centeredColumnContentadministrativo{
+    text-align: center;
+    
+}
+
+.centeredColumnContentjudicial{
+    text-align: center;
+    background-color: lightskyblue;
+    color: #4f4f4f;
+    text-shadow:none !important;
+}
+
+tbody tr:hover  td.centeredColumnContentjudicial{
+    text-align: center;
+    background-color: #3485ac;
+    color: white;
+    text-shadow:none !important;
+}
+
+
+td.centeredColumnContentSinCarpeta{
+    text-align: center;
+    background-color: darkgray !important;
+}
+
+tr.ui-datatable-even:hover td.centeredColumnContentadministrativo,
+tr.ui-datatable-odd:hover td.centeredColumnContentadministrativo {
+    background-color: #1B6BD1 !important;
+    color: white !important;
+}
+
+tr.ui-datatable-even:hover td.centeredColumnContentadministrativo,
+tr.ui-datatable-odd:hover td.centeredColumnContentadministrativo {
+    background-color: #1B6BD1 !important;
+    color: white !important;
 }
 .ui-datatable .ui-datatable-data tr.ui-state-hover,
-.ui-datatable .ui-datatable-data tr.ui-state-active {
+.ui-datatable .ui-datatable-data tr.ui-state-active{
     background-color: #2a55aa;
 }
 .ui-datatable tbody tr.ui-selected td {
     background-color: #123a6d;
 }
+
+.ui-datatable tbody tr.ui-state-highlight td.centeredColumnContentjudicial,
+.ui-datatable tbody tr.ui-state-highlight td.centeredColumnContentadministrativo,
+.ui-datatable tbody tr.ui-state-highlight td.centeredColumnContentSinCarpeta {
+    background-color: #123a6d !important;
+    color: white !important;
+}
+
+
 .ui-datatable tbody tr.ui-state-highlight td {
     background-color: #123a6d;
+    color: white;
 }
+
 
 table.dataTable.nowrap td{white-space:nowrap}
 
@@ -182,40 +243,6 @@ table.dataTable.nowrap td{white-space:nowrap}
 
 .inputFechaDeAtencion{
     width: 100px !important;
-}
-
-td.centeredColumnContent{
-    text-align: center;
-}
-
-td.centeredColumnContentNo{
-    text-align: center;
-}
-
-td.centeredColumnContentSi{
-    text-align: center;
-    background-color: lightgreen !important;
-}
-
-td.centeredColumnContentReagendada{
-    text-align: center;
-    background-color: yellow !important;
-}
-
-td.centeredColumnContentadministrativo{
-    text-align: center;
-   
-}
-
-td.centeredColumnContentjudicial{
-    text-align: center;
-    background-color: lightsteelblue !important;
-}
-
-
-td.centeredColumnContentSinCarpeta{
-    text-align: center;
-    background-color: dodgerblue !important;
 }
 
 

@@ -32,14 +32,15 @@
         </style>
     </h:head>  
 
-    <h:form style="margin-top: 7%; margin-left: 36.5%;  width: 22.8%;">
-
+    
         <p:growl id="mensajes" showDetail="true" life="2500" autoUpdate="true" />
 
         <center><h:graphicImage value="resources/images/2019-10-29.png" style="width: 125%;"/>
 
             <p:panel header="INGRESA TUS DATOS POR FAVOR" style="font-family: inherit;width:121%; text-align: center; background-color: darkgrey;
                      border: none;">
+                 <h:form style="margin-top: 7%; margin-left: 36.5%;  width: 22.8%;">
+           
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputText value="USUARIO" style="color: black; font-size: 1em" />
                     <p:inputText id="username" value="#{login.user}" required="true" label="Usuario"  style="font-family: serif;" ></p:inputText>
@@ -55,8 +56,9 @@
                                          color: black; padding: 3% 20% 3% 20%; width: -webkit-fill-available; " ></h:commandButton>
                     </f:facet>        
                 </h:panelGrid>
+                      </h:form>
+   
             </p:panel>
         </center>     
-    </h:form>
 
 </html>

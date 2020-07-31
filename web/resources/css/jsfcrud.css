@@ -24,22 +24,23 @@ td.centeredColumnContentadministrativo{
 
 .centeredColumnContentjudicial{
     text-align: center;
-    background-color: lightskyblue;
+    background-color: lightgreen;
     color: #4f4f4f;
     text-shadow:none !important;
 }
 
 tbody tr:hover  td.centeredColumnContentjudicial{
     text-align: center;
-    background-color: #3485ac;
+    background-color: darkolivegreen;
     color: white;
     text-shadow:none !important;
 }
 
-
-td.centeredColumnContentSinCarpeta{
+tbody tr:hover  td.centeredColumnContentsincarpeta{
     text-align: center;
-    background-color: darkgray !important;
+    background-color: salmon !important;
+    color: white;
+    text-shadow:none !important;
 }
 
 tr.ui-datatable-even:hover td.centeredColumnContentadministrativo,
@@ -48,11 +49,12 @@ tr.ui-datatable-odd:hover td.centeredColumnContentadministrativo {
     color: white !important;
 }
 
-tr.ui-datatable-even:hover td.centeredColumnContentadministrativo,
-tr.ui-datatable-odd:hover td.centeredColumnContentadministrativo {
-    background-color: #1B6BD1 !important;
-    color: white !important;
+
+td.centeredColumnContentsincarpeta{
+    text-align: center;
+    background-color: burlywood !important;
 }
+
 .ui-datatable .ui-datatable-data tr.ui-state-hover,
 .ui-datatable .ui-datatable-data tr.ui-state-active{
     background-color: #2a55aa;
@@ -63,7 +65,7 @@ tr.ui-datatable-odd:hover td.centeredColumnContentadministrativo {
 
 .ui-datatable tbody tr.ui-state-highlight td.centeredColumnContentjudicial,
 .ui-datatable tbody tr.ui-state-highlight td.centeredColumnContentadministrativo,
-.ui-datatable tbody tr.ui-state-highlight td.centeredColumnContentSinCarpeta {
+.ui-datatable tbody tr.ui-state-highlight td.centeredColumnContentsincarpeta {
     background-color: #123a6d !important;
     color: white !important;
 }

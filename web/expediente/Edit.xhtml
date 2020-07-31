@@ -67,7 +67,7 @@
                             </h:panelGrid>
                             <h:panelGrid columns="2" cellspacing="5" cellpadding="1">            
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_fechaDeNacimiento}" style="font-weight: bold" for="fechaDeNacimiento" class="float-r"/>
-                                <p:calendar required="true" requiredMessage="fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" showOn="button">
+                                <p:calendar required="true" requiredMessage="Fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" showOn="button">
                                 </p:calendar>
                             </h:panelGrid>
                             <h:panelGrid columns="6" cellspacing="5" >        
@@ -200,7 +200,7 @@
                                 <p:outputLabel value="Clave Seguridad Social" for="claveSeguridadSocial" style="font-weight: bold" /><br></br>
                                 <p:inputText id="claveSeguridadSocial" value="#{expedienteController.selected.claveSeguridadSocial}" title="clave de seguridad social"/><br></br>
                                 <a href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=mianses" target="_blank" >
-                                    <img src="/estudioAlvarezYAsociados/faces/resources/images/anses.png" style="width: 15%;"></img>
+                                    <img src="../faces/resources/images/anses.png" style="width: 15%;"></img>
                                 </a>
                             </div>
                             <br></br>

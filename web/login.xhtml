@@ -22,7 +22,7 @@
             }
             .hover:hover{
                 background-color: #f7f4f4 !important;
-                color: #123a6d !important;
+                color: black !important;
                 font-weight: bold;
             }
             :focus {
@@ -32,33 +32,36 @@
         </style>
     </h:head>  
 
-    
-        <p:growl id="mensajes" showDetail="true" life="2500" autoUpdate="true" />
 
-        <center><h:graphicImage value="resources/images/2019-10-29.png" style="width: 125%;"/>
+    <p:growl id="mensajes" showDetail="true" life="2500" autoUpdate="true" />
 
-            <p:panel header="INGRESA TUS DATOS POR FAVOR" style="font-family: inherit;width:121%; text-align: center; background-color: darkgrey;
-                     border: none;">
-                 <h:form style="margin-top: 7%; margin-left: 36.5%;  width: 22.8%;">
-           
+    <center>
+        <h:graphicImage value="resources/images/2019-10-29.png" style="width: 30%;"/>
+
+        <p:panel header="INGRESA TUS DATOS POR FAVOR" style="font-family: inherit; text-align: center; background-color: darkkhaki;border: none; width: 30%;">
+            <h:form>
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputText value="USUARIO" style="color: black; font-size: 1em" />
                     <p:inputText id="username" value="#{login.user}" required="true" label="Usuario"  style="font-family: serif;" ></p:inputText>
 
                     <h:outputText value="CLAVE" style="color: black;"/>
-                    <h:inputSecret id="password" value="#{login.pwd}" style="font-family: serif; color: black; focus: none !important;" ></h:inputSecret>
+                    <h:inputSecret id="password" value="#{login.pwd}" style="font-family: serif; color: black; focus: none !important; " ></h:inputSecret>
                     <h:message for="username"></h:message>
                     <h:message for="password"></h:message>
-
-                    <f:facet name="footer">    
-                        <h:commandButton id="botonIniciarSesion" class="hover" action="#{login.validateUsernamePassword}"
-                                         value="INICIAR SESIÓN" style="font-family: serif; margin-top: 5%;
-                                         color: black; padding: 3% 20% 3% 20%; width: -webkit-fill-available; " ></h:commandButton>
+                </h:panelGrid>
+                <h:panelGrid width="100%">
+                    <f:facet name="footer">   
+                        <center>
+                            <h:commandButton id="botonIniciarSesion" class="hover" action="#{login.validateUsernamePassword}"
+                                             value="INICIAR SESIÓN" style="font-family: serif; margin-top: 5%;
+                                             color: black; padding: 3% 20% 3% 20%;width: 100%; " >
+                            </h:commandButton>
+                        </center>
                     </f:facet>        
                 </h:panelGrid>
-                      </h:form>
-   
-            </p:panel>
-        </center>     
+            </h:form>
+
+        </p:panel>
+    </center>     
 
 </html>

@@ -191,3 +191,23 @@
 .negrita{
     font-weight: bold;
 }
+
+.maxModal{
+    max-width: 85% !important;
+    max-height: 85% !important;
+}
+
+.pipeSeparator{
+    font-size: 1.5em;
+    color: #2a55aa;
+}
+
+#ExpedienteViewDlgParaTurno{
+    width: 85% !important;
+    height: 95% !important;
+}
+
+#ExpedienteViewDialogParaAgenda{
+    width: 85% !important;
+    height: 95% !important;
+}

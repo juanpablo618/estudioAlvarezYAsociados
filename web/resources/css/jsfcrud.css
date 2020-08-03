@@ -216,7 +216,7 @@ table.dataTable.nowrap td{white-space:nowrap}
 
 .crearExpedienteJudicial{
     width: 85% !important;
-    height: 95% !important;
+    height: 90% !important;
     left: 5% !important;
     top: 5% !important;
     z-index: 1005 !important;
@@ -224,7 +224,7 @@ table.dataTable.nowrap td{white-space:nowrap}
 }
 .editarExpedienteJudicial{
     width: 85% !important;
-    height: 95% !important;
+    height: 90% !important;
     left: 5% !important;
     top: 5% !important;
     z-index: 1005 !important;
@@ -346,4 +346,11 @@ div[id="AgendaListForm:datalist"] thead {
 
 :focus {
     outline: none !important;
+}
+
+.ui-buttonset .ui-button {
+    margin-top: 1% !important;
+    margin-right: 0;
+    padding-bottom: 2.5%;
+    padding-top: 1.5%;
 }

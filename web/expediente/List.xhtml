@@ -35,11 +35,11 @@
 
 
                     <h:commandLink style="float: right;margin-top: 1%;margin-right: 1%;">
-                        <h:graphicImage value="../faces/resources/images/pdficon2.png" width="50px"/>
+                        <h:graphicImage value="../faces/resources/images/pdficon2.png" width="50px" title="Descargar Solo Filtrados" />
                         <p:dataExporter type="pdf" target="datalist" fileName="expedientesFiltrados" pageOnly="true" />
                     </h:commandLink>
                     <h:commandLink style="float: right;margin-top: 1%;" >
-                        <h:graphicImage value="../faces/resources/images/pdficon.png" width="50px"/>
+                        <h:graphicImage value="../faces/resources/images/pdficon.png" width="50px" title="Descargar Todo"/>
                         <p:dataExporter type="pdf" target="datalist" fileName="todosLosExpedientes" pageOnly="false" />
                     </h:commandLink>
 

@@ -217,6 +217,11 @@ public class Expediente implements Serializable {
     private String detalleDeEstadoDeTramite;
     
     
+    @Basic(optional = false)
+    @Column(name = "tablaDeHonorariosYGastos")
+    private String tablaDeHonorariosYGastos;
+    
+    
     public Expediente() {
     }
 
@@ -235,7 +240,7 @@ public class Expediente implements Serializable {
             String tipoDeExpediente, String caratula, String nroDeExpediente,
             String juzgadoODependencia, String observaciones, String comunicaciones, Date fechaDeAtencion,
             String convenioDeHonorarios, String jurisdiccion, String poderFirmado,
-            String tipo, String etapaProcesal, String detalleDeEstadoDeTramite) {
+            String tipo, String etapaProcesal, String detalleDeEstadoDeTramite, String tablaDeHonorariosYGastos) {
         this.idExpediente = idExpediente;
         this.orden = orden;
         this.cuit = cuit;
@@ -278,6 +283,7 @@ public class Expediente implements Serializable {
         this.jurisdiccion = jurisdiccion;
         this.etapaProcesal = etapaProcesal;
         this.detalleDeEstadoDeTramite = detalleDeEstadoDeTramite;
+        this.tablaDeHonorariosYGastos = tablaDeHonorariosYGastos;
 
     }
 
@@ -587,6 +593,16 @@ public class Expediente implements Serializable {
     public void setDetalleDeEstadoDeTramite(String detalleDeEstadoDeTramite) {
         this.detalleDeEstadoDeTramite = detalleDeEstadoDeTramite;
     }
+
+    public String getTablaDeHonorariosYGastos() {
+        return tablaDeHonorariosYGastos;
+    }
+
+    public void setTablaDeHonorariosYGastos(String tablaDeHonorariosYGastos) {
+        this.tablaDeHonorariosYGastos = tablaDeHonorariosYGastos;
+    }
+    
+    
 
     @Override
     public int hashCode() {

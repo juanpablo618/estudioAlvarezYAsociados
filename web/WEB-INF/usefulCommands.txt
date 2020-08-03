@@ -143,3 +143,11 @@ Este tipo de consultas es muy usado y muy practica a la hora de cambiar todos lo
 objetivo : por alguna razon necesitamos que todos los valores de ese campo tengan el mismo valor.
 
 UPDATE turno SET realizado = "No" ;
+
+///////////////////////////////////////////////////////////////////////
+
+Resetear un branch de Git al estado del Remoto
+Osea, en en un ejemplo posta usando el master y origin como remote.
+
+git fetch origin master
+git reset --hard origin/master

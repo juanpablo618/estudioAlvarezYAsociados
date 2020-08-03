@@ -96,6 +96,8 @@ public class ExpedienteController implements Serializable {
     public Expediente prepareCreateExpAdministrativo() {
         selected = new Expediente();
         selected.setTipoDeExpediente("administrativo");
+        selected.setTablaDeHonorariosYGastos("fecha | concepto | debe | haber | saldo |");
+        
         Date date = new Date();
         selected.setFechaDeAtencion(date);
         //ingresarOrdenAutoincremental();
@@ -108,6 +110,8 @@ public class ExpedienteController implements Serializable {
     public Expediente prepareCreateExpJudicial() {
         selected = new Expediente();
         selected.setTipoDeExpediente("judicial");
+         selected.setTablaDeHonorariosYGastos("fecha | concepto | debe | haber | saldo |");
+       
         Date date = new Date();
         selected.setFechaDeAtencion(date);
         //ingresarOrdenAutoincremental();
@@ -120,6 +124,8 @@ public class ExpedienteController implements Serializable {
     public Expediente prepareCreateExpSinCarpeta() {
         selected = new Expediente();
         selected.setTipoDeExpediente("sin carpeta");
+         selected.setTablaDeHonorariosYGastos("fecha | concepto | debe | haber | saldo |");
+       
         Date date = new Date();
         selected.setFechaDeAtencion(date);
         selected.setOrden(null);

@@ -16,50 +16,35 @@
 
                 <div style="float: left">   
 
-                    <p:tabView style="width: 160%">
+                    <p:tabView style="width: 110%">
 
                         <p:tab title="Datos Personales">
-
-                            
                             <br></br><br></br>
-
                             <div>
                                 <div  style="float: left"> 
-
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_apellido}" for="apellido" style="font-weight: bold" />
                                     <br></br> 
                                     <p:inputText id="apellido" value="#{expedienteController.selected.apellido}" title="#{bundle.CreateExpedienteTitle_apellido}" />
-
                                 </div> 
                                 <div >
-
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_nombre}" for="nombre" style="margin-left: 3%;font-weight: bold" />
                                     <br></br> 
                                     <p:inputText id="nombre" value="#{expedienteController.selected.nombre}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_nombre}" />
-
                                 </div> 
                             </div> 
                             <br></br><br></br>
-
                             <div>
                                 <div style="float: left">
-
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_cuit}" for="cuit" style="font-weight: bold" />
                                     <br></br>
                                     <p:inputText maxlength="11" required="true" requiredMessage="cuit es requerido deben ser 11 dígitos" id="cuit" value="#{expedienteController.selected.cuit}" title="#{bundle.CreateExpedienteTitle_cuit}" />
-
                                 </div>
                                 <div>   
-
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="margin-left: 3%;font-weight: bold" />
                                     <br></br>       
                                     <p:inputText id="telefono" value="#{expedienteController.selected.telefono}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_telefono}" />
-
-
                                 </div>
                             </div> 
-
-
                             <br></br><br></br>
                             <div>
                                 <div style="float: left">
@@ -178,7 +163,33 @@
                             <p:inputTextarea rows="5" cols="33" autoResize="true"  id="comunicaciones" value="#{expedienteController.selected.comunicaciones}" title="comunicaciones"/>
 
                         </p:tab>
-                                
+                        <p:tab title="Honorarios y Gastos">
+                                <div>
+                                    <p:outputLabel value="convenio de honorarios" style="font-weight: bold" for="convenioDeHonorarios" />
+                                    <p:selectOneMenu style="margin-left: 3%" id="convenioDeHonorarios" value="#{expedienteController.selected.convenioDeHonorarios}" editable="true" effect="fold" >
+                                        <f:selectItem itemLabel="1 haber" itemValue="1 haber" />
+                                        <f:selectItem itemLabel="2 haberes" itemValue="2 haberes" />
+                                        <f:selectItem itemLabel="2 haberes y 20% retroactivo" itemValue="2 haberes y 20% retroactivo" />
+                                        <f:selectItem itemLabel="2 haberes y 30% retroactivo" itemValue="2 haberes y 30% retroactivo" />
+                                        <f:selectItem itemLabel="3 haberes" itemValue="3 haberes" />
+                                        <f:selectItem itemLabel="20% retroactivo" itemValue="20% retroactivo" />
+                                        <f:selectItem itemLabel="25% retroactivo" itemValue="25% retroactivo" />
+                                    </p:selectOneMenu>
+                                </div>
+                           
+                            <br></br>
+                            <br></br>
+                            <p:outputLabel value="Firmado" for="poderFirmado" style="font-weight: bold" />
+                            <p:selectOneMenu style="margin-left: 3%" id="poderFirmado" value="#{expedienteController.selected.poderFirmado}" editable="false" effect="fold" >
+                                        <f:selectItem itemLabel="--" itemValue="--" noSelectionOption="true" />
+                                        <f:selectItem itemLabel="Si" itemValue="Si" />
+                                        <f:selectItem itemLabel="No" itemValue="No" />
+                                    </p:selectOneMenu>
+                            
+                            <br></br>
+                            <br></br>
+                            <p:editor width="700" value="#{expedienteController.selected.tablaDeHonorariosYGastos}"></p:editor>    
+                        </p:tab>  
                     </p:tabView>
 
                 </div>
@@ -257,18 +268,6 @@
 
                         </div>
                         <br></br>
-                        <div>
-                            <p:outputLabel value="convenio de honorarios" style="font-weight: bold" for="convenioDeHonorarios" /><br></br>
-                            <p:selectOneMenu style="margin-left: 3%" id="convenioDeHonorarios" value="#{expedienteController.selected.convenioDeHonorarios}" editable="true" effect="fold" >
-                                <f:selectItem itemLabel="1 haber" itemValue="1 haber" />
-                                <f:selectItem itemLabel="2 haberes" itemValue="2 haberes" />
-                                <f:selectItem itemLabel="2 haberes y 20% retroactivo" itemValue="2 haberes y 20% retroactivo" />
-                                <f:selectItem itemLabel="2 haberes y 30% retroactivo" itemValue="2 haberes y 30% retroactivo" />
-                                <f:selectItem itemLabel="3 haberes" itemValue="3 haberes" />
-                                <f:selectItem itemLabel="20% retroactivo" itemValue="20% retroactivo" />
-                                <f:selectItem itemLabel="25% retroactivo" itemValue="25% retroactivo" />
-                            </p:selectOneMenu>
-                        </div>
                     </div>
                     <br></br>
 

@@ -12,6 +12,11 @@ td.centeredColumnContentSi{
     background-color: lightgreen !important;
 }
 
+td.centeredColumnContentPendiente{
+    text-align: center;
+    background-color: yellow !important;
+}
+
 td.centeredColumnContentReagendada{
     text-align: center;
     background-color: yellow !important;

@@ -49,7 +49,6 @@
 
 
                     <p:commandButton class="botonCrear hoverGreen" onclick="TurnoViewDialog.hide()" actionListener="#{turnoController.update}" value="#{bundle.Save}" update="display,:TurnoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TurnoEditDialog');"/>
-                    <p:commandButton class="botonCrear hoverGreen" value="#{bundle.Cancel}" onclick="TurnoEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

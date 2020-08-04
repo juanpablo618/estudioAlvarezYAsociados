@@ -9,17 +9,38 @@ td.centeredColumnContentNo{
 
 td.centeredColumnContentSi{
     text-align: center;
-    background-color: lightgreen !important;
+    background-color: lightgreen;
+}
+
+tbody tr:hover  td.centeredColumnContentSi{
+    text-align: center;
+    background-color: darkcyan;
+    color: white;
+    text-shadow:none !important;
 }
 
 td.centeredColumnContentPendiente{
     text-align: center;
-    background-color: yellow !important;
+    background-color: yellow;
+}
+
+tbody tr:hover  td.centeredColumnContentPendiente{
+    text-align: center;
+    background-color: #D6D661;
+    color: white;
+    text-shadow:none !important;
 }
 
 td.centeredColumnContentReagendada{
     text-align: center;
-    background-color: yellow !important;
+    background-color: gold;
+}
+
+tbody tr:hover  td.centeredColumnContentReagendada{
+    text-align: center;
+    background-color: #D6D661;
+    color: white;
+    text-shadow:none !important;
 }
 
 td.centeredColumnContentadministrativo{

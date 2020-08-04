@@ -17,22 +17,23 @@
         <ui:define name="body"  >
             <h:form id="TurnoListForm" style="background-color: #F4F8FA">
 
-                <div style="float: left;width: -moz-available;">
+                <div style="float: left;width: 100%;">
                     <p:commandButton id="createButton" icon="ui-icon-plus" value="NUEVA AGENDA" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
                     <p:commandButton id="createButtonTurno"  icon="ui-icon-plus" value="NUEVO TURNO" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
                     <p:commandButton id="createAgendaParaActividadButton" icon="ui-icon-plus" value="NUEVA ACTIVIDAD" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaParaActividadCreateDialog').show()"/>
                 </div>
                 <br></br>
 
-                <h:commandLink style="float: right;margin-right: 1%;" title="Exportar todas.">
+                <h:commandLink style="float: right;margin-right: 1%;" title="Exportar Filtradas.">
+                    <h:graphicImage value="../faces/resources/images/pdficon2.png" width="50px"/>
+                    <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="true" />
+                </h:commandLink>  
+                <h:commandLink style="float: right;" title="Exportar Todo.">
                     <h:graphicImage value="../faces/resources/images/pdficon.png" width="50px"/>
                     <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="false" />
                 </h:commandLink>
 
-                <h:commandLink style="float: right;" title="Exportar solo filtradas.">
-                    <h:graphicImage value="../faces/resources/images/pdficon2.png" width="50px"/>
-                    <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="true" />
-                </h:commandLink>  
+                
                 
                 <h:commandButton value="Imprimir Agendas" actionListener="#{downloadBean.crearDocumento( agendaController.filteredAgendas, turnoController.filteredturnos)}" class="btnPrint" />
 
@@ -56,8 +57,8 @@
                     <p:growl  id="message" showDetail="true" />
 
                     <p:column style="text-align: center; width: 10%"  sortBy="#{item.getDiaMesAnio()}" filterBy="#{item.getDiaMesAnio()}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="startsWith" headerText="FECHA">
-                        <f:facet name="filter" >
-                            <p:inputText id="inputFechaEnTurnoTable"  onfocus="PF('turnosTable').filter()" onblur="PF('turnosTable').filter()" onchange="PF('turnosTable').filter()"  value="#{turnoController.fechaSeleccionadaEnTurno}" >
+                        <f:facet name="filter">
+                            <p:inputText id="inputFechaEnTurnoTable" style="width: -webkit-fill-available;" onfocus="PF('turnosTable').filter()" onblur="PF('turnosTable').filter()" onchange="PF('turnosTable').filter()"  value="#{turnoController.fechaSeleccionadaEnTurno}" >
                                 <p:ajax update=":AgendaListForm:datalist:inputFechaEnAgenda"/> 
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputFechaEnAgenda"/>
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
@@ -66,7 +67,7 @@
 
                             </p:inputText>
                         </f:facet>
-                        <h:outputText  value="#{item.horaYDia}">
+                        <h:outputText style="width: 10%" value="#{item.horaYDia}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                         </h:outputText>
                     </p:column>
@@ -100,30 +101,28 @@
                         <h:outputText value="#{item.responsable}"/>
                     </p:column>
 
-                    <p:column style="text-align: center;" styleClass="centeredColumnContent#{item.getRealizado()}">
+                    <p:column style="text-align: center; width: 28%;" styleClass="centeredColumnContent#{item.getRealizado()}">
                         <f:facet name="header">
                             <h:outputText value="DESCRIPCIÓN"/>
                         </f:facet>
                         <h:outputText value="#{item.observacion}"/>
                     </p:column>
 
-                    <p:column filterBy="#{item.apellido}"  style="width: 4%" headerText="ORDEN" styleClass="centeredColumnContent#{item.getRealizado()}">
-                        <f:facet name="filter" >
-                            <p:inputText id="inputOrdenEnTurnoTable"  value="#{turnoController.ordenSeleccionadoEnTurno}" >
+                    <p:column filterBy="#{item.apellido}"  style="width: 7%" headerText="ORDEN" styleClass="centeredColumnContent#{item.getRealizado()}">
+                        <f:facet name="filter">
+                            <p:inputText id="inputOrdenEnTurnoTable" style="width: -webkit-fill-available;" value="#{turnoController.ordenSeleccionadoEnTurno}" >
                                 <p:ajax update=":AgendaListForm:datalist:inputOrdenEnAgenda"/> 
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputOrdenEnAgenda"/>
 
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
                                 <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
-
-
                             </p:inputText>
                         </f:facet>
-                        <h:outputText value="No poseen ORDEN"/>
+                        <h:outputText value="S/N"/>
                     </p:column>
 
 
-                    <p:column style="text-align: center; width: 10%" styleClass="centeredColumnContent#{item.getRealizado()}">
+                    <p:column style="text-align: center; width: 15%" styleClass="centeredColumnContent#{item.getRealizado()}">
                         <f:facet name="header">
                             <h:outputText value="ACCIONES"/>
                         </f:facet>
@@ -147,8 +146,7 @@
                 </p:dataTable>
 
             </h:form>
-            <br></br>
-
+       
             <h:form id="AgendaListForm" style="background-color: #F4F8FA">
 
                 <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
@@ -184,7 +182,7 @@
                             <p:inputText id="inputApellidoYNombreEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.apellidoYNombreSeleccionadoEnTurno}" />
                         </f:facet>
 
-                        <h:outputText style="color: #0053f6" value="#{item.apellido} #{item.nombre}"/>
+                        <h:outputText value="#{item.apellido} #{item.nombre}"/>
                     </p:column>
 
                     <p:column id="columnToUpdate"  style="width: 20%"  filterBy="#{item.responsable}" headerText="RESPONSABLE" styleClass="centeredColumnContent#{item.realizado}"  filterMatchMode="exact">
@@ -194,21 +192,21 @@
                         <h:outputText value="#{item.responsable}" />
                     </p:column>
 
-                    <p:column styleClass="centeredColumnContent#{item.realizado}">
+                    <p:column style="width: 28%" styleClass="centeredColumnContent#{item.realizado}">
                         <f:facet name="header">
                             <h:outputText value="DESCRIPCIÓN"/>
                         </f:facet>
                         <h:outputText value="#{item.descripcion}"  />
                     </p:column>
 
-                    <p:column  style="width: 4%" filterBy="#{item.orden}"  styleClass="centeredColumnContent#{item.realizado}" filterMatchMode="exact">
+                    <p:column  style="width: 7%" filterBy="#{item.orden}"  styleClass="centeredColumnContent#{item.realizado}" filterMatchMode="exact">
                         <f:facet name="filter" >
                             <p:inputText id="inputOrdenEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.ordenSeleccionadoEnTurno}" />
                         </f:facet>
                         <h:outputText value="#{item.orden}"/>
                     </p:column>
 
-                    <p:column styleClass="centeredColumnContent#{item.realizado}" style="text-align: center; width: 10% ">
+                    <p:column styleClass="centeredColumnContent#{item.realizado}" style="text-align: center; width: 15% ">
 
                         <f:facet name="header">
                             <h:outputText value="ACCIONES"/>

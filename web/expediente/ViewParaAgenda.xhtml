@@ -83,11 +83,11 @@
                                 </p:selectOneMenu>
 
                             </h:panelGrid>
-                            <p:commandButton class="botonCrearAgenda hoverGreen" actionListener="#{agendaController.create(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.orden)}" value="Guardar Agenda" onclick="ExpedienteViewDialog.hide()"/>
+                            <p:commandButton class="createButtonAgenda hoverBlue" actionListener="#{agendaController.create(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.orden)}" value="Guardar Agenda" onclick="ExpedienteViewDialog.hide()" />
 
                         </p:panel>
                     </p:fieldset>
-                    <p:commandButton id="editButton" class="botonCrearAgenda hoverGreen"  icon="ui-icon-pencil" value="Editar expediente" update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()" disabled="#{empty expedienteController.selected}"/>
+                    <p:commandButton id="editButton" class="botonCrearAgenda hoverGreen"  icon="ui-icon-pencil" value="Editar expediente" update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()" disabled="#{empty expedienteController.selected}" />
 
                     <p:commandButton class="botonCrearAgenda hoverGreen" value="#{bundle.Close}" onclick="ExpedienteViewDialog.hide()" style="margin-left: 1%;"/>
                 </h:panelGroup>

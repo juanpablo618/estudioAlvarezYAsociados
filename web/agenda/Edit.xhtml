@@ -8,72 +8,68 @@
 
     <ui:composition>
 
-        <p:dialog id="AgendaEditDlg" widgetVar="AgendaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="ver Agenda">
+        <p:dialog id="AgendaEditDlg" widgetVar="AgendaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar Agenda">
             <h:form id="AgendaEditForm">
                 <h:panelGroup id="display">
 
                     <div class="padre">
-                            
-                            <div class="hijo">
-                                        <p:outputLabel value="#{bundle.EditAgendaLabel_fecha}" for="fecha" />
-                                        <p:calendar   id="fecha" mode="inline" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
-                            </div>
-                    
-                            <div class="hijo">
-                                     <p:outputLabel value="IdAgenda"  /><br></br>
-                                     <p:inputText readonly="true" value="#{agendaController.selected.idAgenda}" /><br></br><br></br>
-                                
-                                    <p:outputLabel value="#{bundle.EditAgendaLabel_descripcion}" for="descripcion" /><br></br>
-                                    <p:inputTextarea readonly="true" rows="10" cols="33"  id="descripcion" value="#{agendaController.selected.descripcion}" />
-                            </div>
-                        
-                            <div class="hijo">
-                                    
-                                        <p:outputLabel value="Nombre"  /><br></br>
-                                        <p:inputText readonly="true" value="#{agendaController.selected.nombre}" /><br></br><br></br>
 
-                                        <p:outputLabel value="Apellido"  /><br></br>
-                                        <p:inputText readonly="true" value="#{agendaController.selected.apellido}"  /><br></br><br></br>
-                                        
-                                        <p:outputLabel value="Orden" for="orden" /><br></br>
-                                        <p:inputText  id="orden" value="#{agendaController.selected.orden}" /><br></br><br></br>
+                        <div class="hijo">
+                            <p:outputLabel value="#{bundle.EditAgendaLabel_fecha}" for="fecha" />
+                            <p:calendar   id="fecha" mode="inline" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
 
-                                        <p:outputLabel value="Responsable" for="responsable" /><br></br>
-                                        <p:selectOneMenu  id="responsable" value="#{agendaController.selected.responsable}"  >
-                                            <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
-                                        </p:selectOneMenu><br></br><br></br>
-                                        
-                                        <h:outputText value="realizado: " /><br></br>
-                                        
-                                        <p:selectOneMenu id="realizado" value="#{agendaController.selected.realizado}" editable="false" style="width:50%"><br></br><br></br>
-                                        <f:selectItem itemLabel="Si" itemValue="Si" />
-                                        <f:selectItem itemLabel="No" itemValue="No" />
-                                        <f:selectItem itemLabel="Reagendada" itemValue="Reagendada" />
-                                        
-                                        </p:selectOneMenu>
-                                               
-                                    
-                            <br></br>
-                                
-                                <div>
-                                     <p:commandButton onclick="AgendaViewDialog.hide()" 
-                                     class="botonEditarAgenda" actionListener="#{agendaController.update}" 
-                                     value="Actualizar esta agenda" update="display,:AgendaListForm:datalist,:growl"
-                                     oncomplete="handleSubmit(args, 'AgendaEditDialog');"  />
-                                     
-                                     
-                                </div>     
-                            
-                                <div >
-                                    <p:commandButton rendered="#{!agendaController.selected.realizado}"  class="botonEditarAgendaEsteBotonNoSirveMasPeroLoNecesitaLaUI" actionListener="#{agendaController.prepareReagendar(agendaController.selected)}" value="Reagendar"  update=":AgendaReagendarForm" oncomplete="PF('AgendaReagendarDialog').show()" />
-                                </div>     
-                            
-                            
-                            </div>
-                    
+                            <p:outputLabel value="Nº Agenda:"  />
+                            <p:inputText readonly="true" value="#{agendaController.selected.idAgenda}" /><br></br><br></br>
+
+                            <p:outputLabel value="#{bundle.EditAgendaLabel_descripcion}" for="descripcion" /><br></br>
+                            <p:inputTextarea readonly="true" rows="8" cols="33"  id="descripcion" value="#{agendaController.selected.descripcion}" />
+                        </div>
+
+                        <div class="hijo" style="float:left;">
+
+                            <p:outputLabel value="Nombre"  /><br></br>
+                            <p:inputText readonly="true" value="#{agendaController.selected.nombre}" /><br></br><br></br>
+
+                            <p:outputLabel value="Apellido"  /><br></br>
+                            <p:inputText readonly="true" value="#{agendaController.selected.apellido}"  /><br></br><br></br>
+
+                            <p:outputLabel value="Orden" for="orden" /><br></br>
+                            <p:inputText  id="orden" value="#{agendaController.selected.orden}" /><br></br><br></br>
+
+                            <p:outputLabel value="Responsable" for="responsable" /><br></br>
+                            <p:selectOneMenu  id="responsable" value="#{agendaController.selected.responsable}"  >
+                                <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
+                            </p:selectOneMenu><br></br><br></br>
+
+                            <h:outputText value="Realizado: " /><br></br>
+
+                            <p:selectOneMenu id="realizado" value="#{agendaController.selected.realizado}" editable="false">
+                                <f:selectItem itemLabel="Si" itemValue="Si" />
+                                <f:selectItem itemLabel="No" itemValue="No" />
+                                <f:selectItem itemLabel="Reagendada" itemValue="Reagendada" />
+
+                            </p:selectOneMenu>
+
+
+                            <div>
+                                <p:commandButton onclick="AgendaViewDialog.hide()" 
+                                                 class="createButtonAgenda hoverBlue" actionListener="#{agendaController.update}" 
+                                                 value="Actualizar Agenda" update="display,:AgendaListForm:datalist,:growl"
+                                                 oncomplete="handleSubmit(args, 'AgendaEditDialog');"  />
+
+
+                            </div>     
+
+                            <div >
+                                <p:commandButton rendered="#{!agendaController.selected.realizado}"  class="botonEditarAgendaEsteBotonNoSirveMasPeroLoNecesitaLaUI botonCrear hoverGreen" actionListener="#{agendaController.prepareReagendar(agendaController.selected)}" value="Reagendar"  update=":AgendaReagendarForm" oncomplete="PF('AgendaReagendarDialog').show()" />
+                            </div>     
+
+
+                        </div>
+
 
                     </div>
-                      
+
 
                 </h:panelGroup>
             </h:form>

@@ -15,7 +15,7 @@
                         <p:outputLabel value="Día y Hora:" for="horaYDia" />
                         <p:calendar id="horaYDia" pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" required="true" requiredMessage="#{bundle.EditTurnoRequiredMessage_horaYDia}" showOn="button"/><br></br><br></br>
                     </h:panelGrid>    
-                    <h:panelGrid columns="6">
+                    <h:panelGrid columns="4">
                         <p:outputLabel value="#{bundle.EditTurnoLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{turnoController.selected.nombre}" title="nombre" />
 
@@ -28,8 +28,9 @@
 
                         <p:selectOneMenu  id="procedencia" value="#{turnoController.selected.procedencia}"  editable="true">
                             <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.getNombreProcedencia()}" itemValue="#{procedencia.getNombreProcedencia()}" />
-                        </p:selectOneMenu><br></br>
+                        </p:selectOneMenu>
                     </h:panelGrid>
+                    <br></br>
                     <p:outputLabel value="#{bundle.EditTurnoLabel_observacion}" for="observacion" /><br></br>
                     <p:inputTextarea cols="80" rows="7" autoResize="false" id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.EditTurnoTitle_observacion}" /><br></br><br></br>
 
@@ -39,7 +40,7 @@
                     </p:selectOneMenu><br></br><br></br>
 
                     <h:outputText value="realizado: " /><br></br>
-                    <p:selectOneMenu id="realizado"  value="#{turnoController.selected.realizado}" editable="false" style="width:50%"><br></br><br></br>
+                    <p:selectOneMenu id="realizado"  value="#{turnoController.selected.realizado}" editable="false" ><br></br><br></br>
                         <f:selectItem itemLabel="Si" itemValue="Si" />
                         <f:selectItem itemLabel="No" itemValue="No" />
                         <f:selectItem itemLabel="Pendiente" itemValue="Pendiente" />

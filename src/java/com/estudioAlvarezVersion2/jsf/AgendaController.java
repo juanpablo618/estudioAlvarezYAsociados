@@ -200,10 +200,8 @@ public class AgendaController implements Serializable {
     }
     
     public void update() {
-        System.out.println("selected"+selected.toString());
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AgendaUpdated"));
         
-        System.out.println("Dentro de update filteredAgendas tamaño: "+filteredAgendas.size());
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AgendaUpdated"));
         
         if (!JsfUtil.isValidationFailed()) {
             items = null; 

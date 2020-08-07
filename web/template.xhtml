@@ -8,36 +8,44 @@
     <h:head>
         <title><ui:insert name="title">Estudio Alvarez y Asociados</ui:insert></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputStylesheet library="css" name="styles.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"></link>
     </h:head>
 
-    <h:body style="background-color: #F4F8FA">
-             <h:form>
-                <p:idleMonitor timeout="600000">
-                    <p:ajax event="idle" listener="#{login.onIdle}"  />
-                </p:idleMonitor>
-            </h:form>
+    <h:body class="fondo">
+        <h:form>
+            <p:growl id="messages1" showDetail="true" sticky="true" />
+            <p:idleMonitor timeout="240000">
+                <p:ajax event="idle" listener="#{login.onIdle}" update="messages1" />
+            </p:idleMonitor>
+        </h:form>
+         <p:growl id="growl" life="3000" />
+        <p:layout fullPage="true" style="background: #123a6d;">
+            <p:layoutUnit position="north" class="bordersn maxwidth" style="margin: 0 !important; padding: 0 !important;">
+                <center style="background-color: white;">
+                    <h:graphicImage value="../faces/resources/images/Navbar.png" style="width: 90%; margin-bottom: 0% !important;"/>
+                </center>
+            </p:layoutUnit>
+            <p:layoutUnit position="west" id="menuLeft" style="background: #123a6d;">
 
-        <p:growl id="growl" life="3000" />
-        
-        <p:layout fullPage="true" style="background: #2A55AA;">
-            <p:layoutUnit position="west" size="60" style="background: #2A55AA;">
-                
-                <h:form id="menuForm" style="background: #2A55AA;">
-                    <p:tieredMenu style="background: #2A55AA;">
-                        <p:menuitem outcome="/expediente/List" icon=" ui-icon-document" style="background-color: white" title="Expedientes"/>
-                        <p:separator />
-                         <p:menuitem outcome="/agenda/List_AgendasTurnos" icon="ui-icon-battery-3" style="background-color: white" title="Agendas y Turnos"/>
-                            <p:separator />
-                            <p:menuitem outcome="/empleado/List" icon="ui-icon-person" style="background-color: white" title="Empleados" />
-                            <p:separator />
-                            <p:menuitem outcome="/estadoDelTramite/List_EstadoDelTramiteYProcedencias" style="background-color: white" icon="ui-icon-suitcase" title="Estados del tramite y Procedencias"/>
-                        <p:separator />
-                            <p:menuitem outcome="/login.xhtml" icon="ui-icon-circle-close" style="background-color: white" title="Salir"/>
-                    </p:tieredMenu> 
+                <h:form class="menuForm" style="background: #123a6d !important;">
+                    <p:menu style="width: auto !important;background: #123a6d !important;">
+                        <p:submenu> 
+                            <p:menuitem outcome="/expediente/List" class="fa fa-folder-open fa-3x btnMenuLeft" title="Expedientes"/>
+                            <p:separator class="separador" />
+                            <p:menuitem outcome="/agenda/List_AgendasTurnos" class="fa fa-calendar-alt fa-3x btnMenuLeft" title="Agendas y Turnos"/>
+                            <p:separator class="separador"/>
+                            <p:menuitem outcome="/empleado/List" class="fa fa-id-card fa-3x btnMenuLeft" title="Empleados" />
+                            <p:separator class="separador"/>
+                            <p:menuitem outcome="/estadoDelTramite/List_EstadoDelTramiteYProcedencias" class="fa fa-file-archive fa-3x btnMenuLeft" title="Estados del tramite y Procedencias"/>
+                            <p:separator class="separador"/>
+                            <p:menuitem outcome="/login.xhtml" class="fa fa-user-circle fa-3x btnMenuLeft" title="Salir"/>
+                        </p:submenu>
+                    </p:menu>
                 </h:form>
             </p:layoutUnit>
-            <p:layoutUnit position="center" style="background-color: #F4F8FA">
+            <p:layoutUnit position="center"  id="fondoCenter">
                 <ui:insert name="body"  />
             </p:layoutUnit>
         </p:layout>

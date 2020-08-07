@@ -12,13 +12,12 @@
             <h:form id="TurnoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{turnoController.selected != null}">
-                        <h:outputText value="día y hora:"/>
+                        <h:outputText value="Día y Hora:"/>
                         <h:outputText value="#{turnoController.selected.horaYDia}" title="#{bundle.ViewTurnoTitle_horaYDia}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewTurnoLabel_nombre}"/>
                         <h:outputText value="#{turnoController.selected.nombre}" title="nombre"/>
-                        
                         <h:outputText value="#{bundle.ViewTurnoLabel_apellido}"/>
                         <h:outputText value="#{turnoController.selected.apellido}" title="#{bundle.ViewTurnoTitle_apellido}"/>
                         <h:outputText value="Nro de teléfono:"/>

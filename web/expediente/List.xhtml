@@ -25,7 +25,7 @@
             <h:form id="ExpedienteListForm" style=" background-color: #F4F8FA;">
 
                 <div style="width: 100%"> 
-                    <p:splitButton value="CREAR EXPEDIENTE" action="#{buttonView.save}" class="btmMarginLeft" style="border-bottom-left-radius: 20px;border-top-left-radius: 20px;border-bottom-right-radius: 0px;border-top-right-radius: 0px; padding: 2%; color: white; font-family: serif; " >
+                    <p:splitButton value="CREAR EXPEDIENTE" action="#{buttonView.save}" class="btmMarginLeft" style="border-bottom-left-radius: 20px;border-top-left-radius: 20px;border-bottom-right-radius: 0px;border-top-right-radius: 0px; padding: 2%; color: white; font-family: gotham Logo; " >
                         <p:menuitem class="subMenu" style="background-color: #38978c !important; " value="Administrativo " actionListener="#{expedienteController.prepareCreateExpAdministrativo()}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"  />
                         <p:separator />
                         <p:menuitem class="subMenu" style="background-color: #38978c !important" value="Judicial " actionListener="#{expedienteController.prepareCreateExpJudicial()}" update=":ExpedienteJudicialCreateForm" oncomplete="PF('ExpedienteJudicialCreateDialog').show()" />

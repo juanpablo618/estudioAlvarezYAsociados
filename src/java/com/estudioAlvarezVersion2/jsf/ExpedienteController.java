@@ -99,6 +99,8 @@ public class ExpedienteController implements Serializable {
         Date date = new Date();
         selected.setFechaDeAtencion(date);
         //ingresarOrdenAutoincremental();
+       selected.setTablaDeHonorariosYGastos("fecha | concepto | debe | haber | saldo |");
+
         ingresarOrdenAutoincrementalSaltandoExpedientesSinCarpeta();
 
         initializeEmbeddableKey();
@@ -112,6 +114,7 @@ public class ExpedienteController implements Serializable {
         selected.setFechaDeAtencion(date);
         //ingresarOrdenAutoincremental();
         ingresarOrdenAutoincrementalSaltandoExpedientesSinCarpeta();
+        selected.setTablaDeHonorariosYGastos("fecha | concepto | debe | haber | saldo |");
 
         initializeEmbeddableKey();
         return selected;
@@ -123,6 +126,7 @@ public class ExpedienteController implements Serializable {
         Date date = new Date();
         selected.setFechaDeAtencion(date);
         selected.setOrden(null);
+        selected.setTablaDeHonorariosYGastos("fecha | concepto | debe | haber | saldo |");
 
         initializeEmbeddableKey();
         return selected;
@@ -159,9 +163,15 @@ public class ExpedienteController implements Serializable {
 
             edad = añoActual - añoDeNacimiento;
 
+            int mesDeNacimiento = selected.getFechaDeNacimiento().getMonth();
+            if (mesDeNacimiento > 6) {
+            selected.setEdad(edad-1);
+            }else{
             selected.setEdad(edad);
+            }
+            
         } else {
-            //TODO: review this code to drop off a notificacion !
+            //TODO: review this code to drop off a notificacion We need to give an avise that date is not been setted!
             selected.setEdad(0);
 
         }
@@ -232,6 +242,7 @@ public class ExpedienteController implements Serializable {
         }
     }
 
+    //TODO : this method is not been used, then remove
     public void calcularEdades() {
         Calendar fecha = new GregorianCalendar();
         int añoActual = fecha.get(Calendar.YEAR);

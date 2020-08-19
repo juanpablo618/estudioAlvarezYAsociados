@@ -141,24 +141,9 @@
                                     <f:selectItem itemLabel="Ejecución" itemValue="Ejecución" />
                                 </p:selectOneMenu>
 
-                                <p:outputLabel value="Poder Firmado:" for="poderFirmado" style="font-weight: bold" />
-                                <p:selectOneMenu id="poderFirmado" style="margin-left: 3%" value="#{expedienteController.selected.poderFirmado}" >
-                                    <f:selectItem itemLabel="Si" itemValue="Si" />
-                                    <f:selectItem itemLabel="No" itemValue="No" />
-                                </p:selectOneMenu>
                             </h:panelGrid>
                             <h:panelGrid columns="4" cellspacing="5" style="margin-top: 3%">
-                                <p:outputLabel value="Convenio de Honorarios" style="font-weight: bold" for="convenioDeHonorarios" />
-                                <p:selectOneMenu style="margin-left: 3%" id="convenioDeHonorarios" value="#{expedienteController.selected.convenioDeHonorarios}" editable="true" effect="fold" >
-                                    <f:selectItem itemLabel="1 haber" itemValue="1 haber" />
-                                    <f:selectItem itemLabel="2 haberes" itemValue="2 haberes" />
-                                    <f:selectItem itemLabel="2 haberes y 20% retroactivo" itemValue="2 haberes y 20% retroactivo" />
-                                    <f:selectItem itemLabel="2 haberes y 30% retroactivo" itemValue="2 haberes y 30% retroactivo" />
-                                    <f:selectItem itemLabel="3 haberes" itemValue="3 haberes" />
-                                    <f:selectItem itemLabel="20% retroactivo" itemValue="20% retroactivo" />
-                                    <f:selectItem itemLabel="25% retroactivo" itemValue="25% retroactivo" />
-                                </p:selectOneMenu>
-
+                                
                                 <p:outputLabel value="Procedencia:" for="procedencia" style="font-weight: bold" />
                                 <p:selectOneMenu  id="procedencia" value="#{expedienteController.selected.procedencia}"  >
                                     <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.nombreProcedencia}" itemValue="#{procedencia.nombreProcedencia}" />
@@ -234,7 +219,8 @@
                         </p:tab>
                         <p:tab title="Comunicaciones">
                             <p:outputLabel value="Comunicaciones" for="comunicaciones" style="font-weight: bold"/><br></br>
-                            <p:inputTextarea rows="7" cols="55" autoResize="false"  id="comunicaciones" value="#{expedienteController.selected.comunicaciones}" title="comunicaciones"/>
+                          <p:editor width="700" id="comunicaciones" value="#{expedienteController.selected.comunicaciones}"  ></p:editor>
+                               
                         </p:tab>
                         <p:tab title="Agenda">
                             <div style="width: 40%"> 
@@ -248,7 +234,35 @@
                                 </div>
                             </div>
                         </p:tab>
+                        
+                        <p:tab title="Honorarios y Gastos">
+                            <div>
+                            <p:outputLabel value="convenio de honorarios" style="font-weight: bold" for="convenioDeHonorarios" />
+                            <p:selectOneMenu style="margin-left: 3%" id="convenioDeHonorarios" value="#{expedienteController.selected.convenioDeHonorarios}" editable="true" effect="fold" >
+                            <f:selectItem itemLabel="1 haber" itemValue="1 haber" />
+                            <f:selectItem itemLabel="2 haberes" itemValue="2 haberes" />
+                            <f:selectItem itemLabel="2 haberes y 20% retroactivo" itemValue="2 haberes y 20% retroactivo" />
+                            <f:selectItem itemLabel="2 haberes y 30% retroactivo" itemValue="2 haberes y 30% retroactivo" />
+                            <f:selectItem itemLabel="3 haberes" itemValue="3 haberes" />
+                            <f:selectItem itemLabel="20% retroactivo" itemValue="20% retroactivo" />
+                            <f:selectItem itemLabel="25% retroactivo" itemValue="25% retroactivo" />
+                            </p:selectOneMenu>
+                            </div>
 
+                            <br></br>
+                            <br></br>
+                            <p:outputLabel value="Firmado" for="poderFirmado" style="font-weight: bold" />
+                            <p:selectOneMenu style="margin-left: 3%" id="poderFirmado" value="#{expedienteController.selected.poderFirmado}" editable="false" effect="fold" >
+                            <f:selectItem itemLabel="--" itemValue="--" noSelectionOption="true" />
+                            <f:selectItem itemLabel="Si" itemValue="Si" />
+                            <f:selectItem itemLabel="No" itemValue="No" />
+                            </p:selectOneMenu>
+
+                            <br></br>
+                            <br></br>
+                            <p:editor width="700" value="#{expedienteController.selected.tablaDeHonorariosYGastos}"></p:editor>
+                            </p:tab>
+                        
                     </p:tabView>
                 </div>
 

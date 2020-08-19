@@ -76,6 +76,13 @@ public class Turno implements Serializable {
     @Column(name = "realizado")
     private String realizado;
     
+    @Column(name = "oficina")
+    private String oficina;
+    
+    @Column(name = "tipoDeTurno")
+    private String tipoDeTurno;
+    
+    
     public Turno() {
     }
 
@@ -170,6 +177,22 @@ public class Turno implements Serializable {
         this.realizado = realizado;
     }
 
+    public String getOficina() {
+        return oficina;
+    }
+
+    public void setOficina(String oficina) {
+        this.oficina = oficina;
+    }
+
+    public String getTipoDeTurno() {
+        return tipoDeTurno;
+    }
+
+    public void setTipoDeTurno(String tipoDeTurno) {
+        this.tipoDeTurno = tipoDeTurno;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

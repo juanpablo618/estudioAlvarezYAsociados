@@ -1,3 +1,18 @@
+@font-face {
+font-family: "gotham Logo";
+
+src: url("#{resource['fonts/Gotham-BookItalic.otf']}");
+font-weight: normal;
+font-style: normal;
+
+    body{
+        font-family: "gotham Logo";
+    }
+}
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+      font-family: "gotham Logo" !important;
+}
 
 td.centeredColumnContent{
     text-align: center;
@@ -109,7 +124,7 @@ table.dataTable.nowrap td{white-space:nowrap}
 
 .ui-widget {
     font-size: 15px !important;
-    font-family: sans-serif;
+    font-family: gotham Logo;
 }
 .ui-layout-north {
     z-index: 20 !important;

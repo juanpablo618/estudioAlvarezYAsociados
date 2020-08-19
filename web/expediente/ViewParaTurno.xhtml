@@ -48,7 +48,7 @@
                                 </h:panelGrid>    
                             </p:panel>
                         </p:outputLabel>
-                        <p:outputLabel value="Datos Domiciliarios / Contacto" style="font-size: 1.2em !important; font-weight: 800;color: #2a55aa">
+                        <p:outputLabel value="Datos Domiciliarios / Contacto:" style="font-size: 1.2em !important; font-weight: 800;color: #2a55aa">
                             <p:panel>
                                 <h:panelGroup  rendered="#{expedienteController.selected != null}">
                                     <h:panelGrid columns="2" rendered="#{expedienteController.selected != null}">
@@ -86,7 +86,7 @@
 
                     </div>
                     <div style="float: left; width: 50%;">
-                        <p:outputLabel value="Datos del Expediente / Tramite" style="font-size: 1.2em !important; font-weight: 800;color: #2a55aa">
+                        <p:outputLabel value="Datos del Expediente / Tramite:" style="font-size: 1.2em !important; font-weight: 800;color: #2a55aa">
                             <p:panel>
                                 <h:panelGrid columns="2" cellpadding="1" >
                                     <h:outputText value="Tipo de expediente:"  style="font-weight: bold" />
@@ -116,16 +116,31 @@
                         </p:outputLabel>
                         <p:fieldset legend="Agregar Turno:" toggleable="true" toggleSpeed="500" collapsed="true">
                             <h:panelGrid columns="2">
-                                <p:outputLabel value="Día y Hora:" for="horaYDia" />
+                                <p:outputLabel value="Día y Hora:" for="horaYDia" style="font-weight: bold" />
                                 <p:calendar id="horaYDia" minHour="8" maxHour="19" pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" showOn="button"/>
 
-                                <p:outputLabel value="#{bundle.CreateTurnoLabel_procedencia}" for="procedencia" />
+                                <p:outputLabel value="#{bundle.CreateTurnoLabel_procedencia}" for="procedencia" style="font-weight: bold" />
                                 <p:inputText id="procedencia" value="#{turnoController.selected.procedencia}" title="#{bundle.CreateTurnoTitle_procedencia}" />
 
-                                <p:outputLabel value="#{bundle.CreateTurnoLabel_observacion}" for="observacion" />
+                                <p:outputLabel value="#{bundle.CreateTurnoLabel_observacion}" for="observacion" style="font-weight: bold"/>
                                 <p:inputTextarea rows="5" cols="50" id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.CreateTurnoTitle_observacion}" />
+                            
+                                <p:outputLabel value="Oficina:" for="oficina" style="font-weight: bold" />
+                                <p:selectOneMenu id="oficina" value="#{turnoController.selected.oficina}" editable="true" effect="fold" >
+                                                    <f:selectItem itemLabel="CERRO" itemValue="CERRO" />
+                                                    <f:selectItem itemLabel="CENTRO" itemValue="CENTRO" />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="Tipo de Turno:" for="tipoDeTurno" style="font-weight: bold" />
+                                    <p:selectOneMenu id="tipoDeTurno" value="#{turnoController.selected.tipoDeTurno}" editable="true" effect="fold" >
+                                                        <f:selectItem itemLabel="PRESENCIAL" itemValue="PRESENCIAL" />
+                                                        <f:selectItem itemLabel="TELEFÓNICO" itemValue="TELEFÓNICO" />
+                                    </p:selectOneMenu>
+
+                            
                             </h:panelGrid>
                             <p:commandButton class="createButtonAgenda hoverBlue" actionListener="#{turnoController.createConNombreYApellido(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.telefono)}" value="Guardar Turno" onclick="ExpedienteViewDialogParaTurno.hide()"/>
+                        
                         </p:fieldset> 
                     </div>
                     <p:commandButton value="#{bundle.Close}" onclick="ExpedienteViewDialogParaTurno.hide()" class="botonCrearAgenda hoverGreen" style="float: right"/>

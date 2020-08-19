@@ -5,40 +5,55 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-
+    
     <ui:composition>
 
         <p:dialog id="TurnoCreateDlg" widgetVar="TurnoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTurnoTitle}">
             <h:form id="TurnoCreateForm">
                 <h:panelGroup id="display">
-                        <p:outputLabel value="día y hora:" for="horaYDia" /><br></br>
+                    <h:panelGrid columns="4">
+                    
+                        <p:outputLabel value="día y hora:" for="horaYDia" style="font-weight: bold"/><br></br>
                         <p:calendar autocomplete="off" id="horaYDia"  pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" showOn="false"/><br></br><br></br>
  
-                        <p:outputLabel value="#{bundle.CreateTurnoLabel_apellido}" for="apellido" /><br></br>
+                        <p:outputLabel value="#{bundle.CreateTurnoLabel_apellido}" for="apellido" style="font-weight: bold"/><br></br>
                         <p:inputText id="apellido" value="#{turnoController.selected.apellido}" title="#{bundle.CreateTurnoTitle_apellido}" /><br></br><br></br>
                         
-                        <p:outputLabel value="#{bundle.CreateTurnoLabel_nombre}" for="nombre" /><br></br>
+                        <p:outputLabel value="#{bundle.CreateTurnoLabel_nombre}" for="nombre" style="font-weight: bold"/><br></br>
                         <p:inputText id="nombre" value="#{turnoController.selected.nombre}" title="nombre" /><br></br><br></br>
                         
                         
-                        <p:outputLabel value="#{bundle.CreateTurnoLabel_nroDeTelefono}" for="nroDeTelefono" /><br></br>
+                        <p:outputLabel value="#{bundle.CreateTurnoLabel_nroDeTelefono}" for="nroDeTelefono" style="font-weight: bold" /><br></br>
                         <p:inputText id="nroDeTelefono" value="#{turnoController.selected.nroDeTelefono}" title="#{bundle.CreateTurnoTitle_nroDeTelefono}" /><br></br><br></br>
                         
-                        <p:outputLabel value="#{bundle.CreateTurnoLabel_procedencia}" for="procedencia" /><br></br>
+                        <p:outputLabel value="#{bundle.CreateTurnoLabel_procedencia}" for="procedencia" style="font-weight: bold"/><br></br>
                         
                         <p:selectOneMenu  id="procedencia" value="#{turnoController.selected.procedencia}"  editable="true">
                             <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.getNombreProcedencia()}" itemValue="#{procedencia.getNombreProcedencia()}" />
                         </p:selectOneMenu><br></br><br></br>
                         
-                        <p:outputLabel value="#{bundle.CreateTurnoLabel_observacion}" for="observacion" /><br></br>
+                        <p:outputLabel value="#{bundle.CreateTurnoLabel_observacion}" for="observacion" style="font-weight: bold"/><br></br>
                         <p:inputTextarea cols="33" rows="10" autoResize="false" id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.CreateTurnoTitle_observacion}" /><br></br><br></br>
                         
-                        <p:outputLabel value="Responsable" for="responsable" /><br></br>
+                        <p:outputLabel value="Responsable:" for="responsable" style="font-weight: bold"/><br></br>
                         <p:selectOneMenu  id="responsable" value="#{turnoController.selected.responsable}"  >
                               <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
                         </p:selectOneMenu><br></br><br></br>
                         
-                        
+                        <p:outputLabel value="Oficina:" for="oficina" style="font-weight: bold" /><br></br>
+
+                        <p:selectOneMenu id="oficina" value="#{turnoController.selected.oficina}" editable="true" effect="fold" >
+                                            <f:selectItem itemLabel="CERRO" itemValue="CERRO" />
+                                            <f:selectItem itemLabel="CENTRO" itemValue="CENTRO" />
+                        </p:selectOneMenu><br></br><br></br>
+
+                        <p:outputLabel value="Tipo de Turno:" for="tipoDeTurno" style="font-weight: bold" /><br></br>
+
+                        <p:selectOneMenu id="tipoDeTurno" value="#{turnoController.selected.tipoDeTurno}" editable="true" effect="fold" >
+                                            <f:selectItem itemLabel="PRESENCIAL" itemValue="PRESENCIAL" />
+                                            <f:selectItem itemLabel="TELEFÓNICO" itemValue="TELEFÓNICO" />
+                        </p:selectOneMenu><br></br><br></br>
+                            </h:panelGrid>
                         <p:commandButton actionListener="#{turnoController.create}" class="botonCrear" value="#{bundle.Save}" update="display,:TurnoListForm:datalist,:growl"   oncomplete="handleSubmit(args,'TurnoCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TurnoCreateDialog.hide()"/>
                 </h:panelGroup>

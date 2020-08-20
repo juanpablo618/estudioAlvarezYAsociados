@@ -396,3 +396,11 @@ div[id="AgendaListForm:datalist"] thead {
     padding-bottom: 2.5%;
     padding-top: 1.5%;
 }
+
+#j_idt18\:j_idt19 > ul > li.ui-widget-header.ui-corner-all{
+    background-color: #123A6D;
+}
+
+#j_idt14-resizer{
+    background-color: #123A6D;
+}

@@ -16,15 +16,15 @@
     <h:body class="fondo">
         <h:form>
             <p:growl id="messages1" showDetail="true" sticky="true" />
-            <p:idleMonitor timeout="240000">
+            <p:idleMonitor timeout="900000">
                 <p:ajax event="idle" listener="#{login.onIdle}" update="messages1" />
             </p:idleMonitor>
         </h:form>
          <p:growl id="growl" life="3000" />
         <p:layout fullPage="true" style="background: #123a6d;">
             <p:layoutUnit position="north" class="bordersn maxwidth" style="margin: 0 !important; padding: 0 !important;">
-                <center style="background-color: white;">
-                    <h:graphicImage value="../faces/resources/images/Navbar.png" style="width: 90%; margin-bottom: 0% !important;"/>
+                <center style="background-color: #123a6d;">
+                    <h:graphicImage value="../faces/resources/images/Alvarezyasociados.png" style="width: 30%; margin-bottom: 0% !important;"/>
                 </center>
             </p:layoutUnit>
             <p:layoutUnit position="west" id="menuLeft" style="background: #123a6d;">

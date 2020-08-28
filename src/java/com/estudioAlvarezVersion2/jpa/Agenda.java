@@ -130,7 +130,12 @@ public class Agenda implements Serializable {
     }
 
     public Integer getOrden() {
-        return orden;
+        
+        if(orden != null){
+        return orden;}
+        else{
+            return 0;
+        }
     }
 
     public void setOrden(Integer orden) {

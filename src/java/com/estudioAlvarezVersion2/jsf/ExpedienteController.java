@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.el.ELException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -38,6 +39,9 @@ public class ExpedienteController implements Serializable {
     private List<Expediente> items = null;
     private Expediente selected;
 
+    private Expediente selectedParaVerExp;
+
+    
     private String estadoDelTramiteSelected;
 
     private List<Expediente> filteredExpedientes;
@@ -93,6 +97,16 @@ public class ExpedienteController implements Serializable {
         return ejbFacade;
     }
 
+    public Expediente getSelectedParaVerExp() {
+        return selectedParaVerExp;
+    }
+
+    public void setSelectedParaVerExp(Expediente selectedParaVerExp) {
+        this.selectedParaVerExp = selectedParaVerExp;
+    }
+    
+    
+
     public Expediente prepareCreateExpAdministrativo() {
         selected = new Expediente();
         selected.setTipoDeExpediente("administrativo");
@@ -137,7 +151,199 @@ public class ExpedienteController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    
+    //no se usaría más fué el 1er approach
+    public Expediente prepareViewParaExpedientePorNombreYApellido(Agenda agendaAnterior) {
+        selectedParaVerExp = new Expediente();
+        System.out.println("ACA Apellido: "+agendaAnterior.getApellido());
+        System.out.println("ACA Nombre: "+agendaAnterior.getNombre());
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        
+        for(Expediente expediente: expedienteControllerBean.getItems()){
+                System.out.println("Apellido: "+expediente.getApellido() + " Nombre: "+expediente.getNombre());
+                        
+            if(expediente.getApellido()!= null && expediente.getNombre() != null){
+                
+                    if(expediente.getApellido().equals(agendaAnterior.getApellido()) && expediente.getNombre().equals(agendaAnterior.getNombre())){
+                        System.out.println("expediente apellido: "+expediente.getApellido());
+                        System.out.println("expediente Nombre: "+expediente.getNombre());
+                        
+                            System.out.println("LLEGO ACA"+ expediente.toStringWithDatosPersonalesYDelExp());
+                            selectedParaVerExp = expediente;
+                            return selectedParaVerExp;
+                        
+                    }
+            }        
+        }
+        initializeEmbeddableKey();
+        return selectedParaVerExp;
+    }
+    
+    
+    
+    /* 
+            Dejo esto por que fué el 1er approach que funcionó luego borrar
+        selectedParaVerExp = new Expediente();
+        System.out.println("ACA: "+agendaAnterior.getOrden());
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        
+        for(Expediente expediente: expedienteControllerBean.getItems()){
+            if(expediente.getOrden() != null){
+                    if(Integer.compare(expediente.getOrden(), agendaAnterior.getOrden()) == 0){
+                        
+                        if(expediente.getOrden() !=null){
+                            System.out.println("LLEGO ACA"+expediente.toStringWithDatosPersonalesYDelExp());
+                            selectedParaVerExp = expediente;
+                            return selectedParaVerExp;
+                        }else{
+                            return selectedParaVerExp;
+                        }
+                    }
+            }        
+        }
+        initializeEmbeddableKey();
+        return selectedParaVerExp;
+        */
+    
+    public Expediente prepareViewParaExpediente(Agenda agendaAnterior) {
+       
+       try{
+       if(agendaAnterior == null){
+           return selectedParaVerExp;
+       }else{
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        selectedParaVerExp = new Expediente();
+        
+        if(agendaAnterior.getOrden() != null && agendaAnterior.getOrden() != 0){
+            for(Expediente expediente: expedienteControllerBean.getItems()){
+                        
+                if(expediente.getOrden()!= null ){
+                        if(Integer.compare(expediente.getOrden(), agendaAnterior.getOrden()) == 0){
+                                selectedParaVerExp = expediente;
+                        }
+                }        
+            }
+        }else{
+             if( (agendaAnterior.getApellido() != null && agendaAnterior.getNombre()  != null) &&
+                     ( agendaAnterior.getOrden() == null || agendaAnterior.getOrden() == 0)){
+                 
+                     for(Expediente expediente: expedienteControllerBean.getItems()){
+                        if(expediente.getApellido() != null && expediente.getNombre() != null){
+                                if( expediente.getApellido().equals(agendaAnterior.getApellido()) && expediente.getNombre().equals(agendaAnterior.getNombre()) ){
+                                            selectedParaVerExp = expediente;
 
+                                }
+                        }        
+                    }
+             }
+        
+        }
+        initializeEmbeddableKey();
+        return selectedParaVerExp;
+        
+        }}catch(ELException e){
+            System.out.println("error en el metodo prepareViewParaExpediente en expedienteController: " + e.getMessage());
+        }
+        return null;
+    }
+
+    /*
+        este metodo va a devolver
+        administrativo
+        judicial
+        sin carpeta
+            para poder luego hacer un view dependiendo del tipo de Exp
+    */
+    public String buscarTipoDeExpediente(Agenda agendaAnterior) {
+       
+        if (agendaAnterior == null ){
+            // esto lo hago por que la 1ra vez q se renderiza la pagina agendas y turnos , no hay un obj. "agendaAnterior" de agendas seleccionado
+            return "AgendaSinExpAsociado";
+        }else{
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        String tipoDeExp = "AgendaSinExpAsociado";
+        
+        
+            if(  agendaAnterior.getOrden() != null && agendaAnterior.getOrden() != 0){
+                
+                    for(Expediente expediente: expedienteControllerBean.getItems()){
+
+                        if(expediente.getOrden()!= null ){
+                                if(Integer.compare(expediente.getOrden(), agendaAnterior.getOrden()) == 0){
+                                        System.out.println("LLEGO ACA 1 por ORDEN");
+                                        System.out.println("expediente.getTipoDeExpediente() : "+expediente.getTipoDeExpediente());
+                                        
+                                        tipoDeExp = expediente.getTipoDeExpediente();
+                                }
+
+                        }        
+                    }
+                
+            }else{
+                 if( (agendaAnterior.getApellido() != null && agendaAnterior.getNombre()  != null) &&
+                         ( agendaAnterior.getOrden() == null || agendaAnterior.getOrden() == 0)){
+
+                         for(Expediente expediente: expedienteControllerBean.getItems()){
+                            if(expediente.getApellido() != null && expediente.getNombre() != null){
+                                    if( expediente.getApellido().equals(agendaAnterior.getApellido()) && expediente.getNombre().equals(agendaAnterior.getNombre()) ){
+                                        System.out.println("LLEGO ACA 2 por apellido y nombre");
+                                        System.out.println("expediente.getTipoDeExpediente() : "+expediente.getTipoDeExpediente());
+                                            
+                                        tipoDeExp = expediente.getTipoDeExpediente();
+                                    }
+
+                            }        
+                        }
+                 }
+                return tipoDeExp;
+            }
+        
+       
+       
+        initializeEmbeddableKey();
+        return tipoDeExp;
+        }
+    }
+    
+    
+      public String verDatosPersonalesYDelExp(int orden){
+        System.out.println("ACA: "+orden);
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        
+        String datosExp = null;
+        
+        for(Expediente expediente: expedienteControllerBean.getItems()){
+            if(expediente.getOrden() != null){
+                    if(Integer.compare(expediente.getOrden(), orden) == 0){
+                        
+                        if(expediente.toString() !=null){
+                            System.out.println("LLEGO ACA"+expediente.toStringWithDatosPersonalesYDelExp());
+        
+                            datosExp = expediente.toStringWithDatosPersonalesYDelExp();
+                            return datosExp;
+                            
+                        }else{
+                            datosExp = "no posee datos";
+                            return datosExp;
+                            
+                        }
+                    }
+            }        
+        }
+        return datosExp;
+    }
+    
+    
+    
+    
     public void create() {
 
         ingresarEdad();

@@ -672,5 +672,16 @@ public class Expediente implements Serializable {
     public String toString() {
         return idExpediente.toString() ;
     }
+    
+    public String toStringWithAllData() {
+        return "Expediente{" + "orden=" + orden + ", cuit=" + cuit + ", dni=" + dni + ", nombre=" + nombre + ", tipoDeDocumento=" + tipoDeDocumento + ", sexo=" + sexo + ", apellido=" + apellido + ", direccion=" + direccion + ", nroDeAltura=" + nroDeAltura + ", piso=" + piso + ", depto=" + depto + ", barrio=" + barrio + ", telefono=" + telefono + ", fechaDeNacimiento=" + fechaDeNacimiento + ", edad=" + edad + ", claveSeguridadSocial=" + claveSeguridadSocial + ", claveFiscal=" + claveFiscal + ", claveCidi=" + claveCidi + ", cobraBeneficio=" + cobraBeneficio + ", fechaDeAltaDeExpediente=" + fechaDeAltaDeExpediente + ", codigoPostal=" + codigoPostal + ", localidad=" + localidad + ", tipoDeTramite=" + tipoDeTramite + ", procedencia=" + procedencia + ", estadoDelTramite=" + estadoDelTramite + ", fechaDeCobro=" + fechaDeCobro + ", nacionalidad=" + nacionalidad + ", tipoDeExpediente=" + tipoDeExpediente + ", caratula=" + caratula + ", nroDeExpediente=" + nroDeExpediente + ", juzgadoODependencia=" + juzgadoODependencia + ", observaciones=" + observaciones + ", comunicaciones=" + comunicaciones + ", fechaDeAtencion=" + fechaDeAtencion + ", convenioDeHonorarios=" + convenioDeHonorarios + ", poderFirmado=" + poderFirmado + ", etapaProcesal=" + etapaProcesal + ", jurisdiccion=" + jurisdiccion + ", tipo=" + tipo + ", detalleDeEstadoDeTramite=" + detalleDeEstadoDeTramite + ", tablaDeHonorariosYGastos=" + tablaDeHonorariosYGastos + '}';
+    }
 
+    public String toStringWithDatosPersonalesYDelExp() {
+        return "orden=" + orden + "\n, cuit=" + cuit + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido +", tipo de documento=" + tipoDeDocumento + ", sexo=" + sexo + ", direccion=" + direccion + ", nro de altura=" + nroDeAltura + ", piso=" + piso + ", depto=" + depto + ", barrio=" + barrio + ", telefono=" + telefono + ", fecha de nacimiento=" + fechaDeNacimiento + ", edad=" + edad + ", cobraBeneficio=" + cobraBeneficio + ", fecha de alta del Expediente=" + fechaDeAltaDeExpediente + ", codigo postal=" + codigoPostal + ", localidad=" + localidad + ", tipo de tramite=" + tipoDeTramite + ", procedencia=" + procedencia + ", estadoDelTramite=" + estadoDelTramite + ", fechaDeCobro=" + fechaDeCobro + ", nacionalidad=" + nacionalidad + ", tipoDeExpediente=" + tipoDeExpediente + ", caratula=" + caratula + ", nroDeExpediente=" + nroDeExpediente + ", juzgadoODependencia=" + juzgadoODependencia + ", observaciones=" + observaciones + ", comunicaciones=" + comunicaciones + ", fechaDeAtencion=" + fechaDeAtencion + ", convenioDeHonorarios=" + convenioDeHonorarios + ", poderFirmado=" + poderFirmado + ", etapaProcesal=" + etapaProcesal + ", jurisdiccion=" + jurisdiccion + ", tipo=" + tipo + ", detalle De estado de tramite=" + detalleDeEstadoDeTramite + ", tabla de honorarios y gastos=" + tablaDeHonorariosYGastos + '}';
+    }
+    
+    
+    
+    
 }

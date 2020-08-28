@@ -207,7 +207,6 @@ public class AgendaController implements Serializable {
             items = null; 
             //filteredAgendas = null;    // Invalidate list of items to trigger re-query.  BASICAMENTE ELIMINE ESTo PARA Q LUEGO DE QUE EL USUARIO HAGA UN UPDATE NO PIERDA LA LISTA FILTRADA EN LA TABLA
         }
-        System.out.println(" 222 Dentro de update filteredAgendas tamaño: "+filteredAgendas.size());
         
     }
 
@@ -380,7 +379,6 @@ public class AgendaController implements Serializable {
         for(Expediente expediente: expedienteControllerBean.getItems()){
             if(expediente.getOrden() != null){
                     if(Integer.compare(expediente.getOrden(), orden) == 0){
-                        
                         if(expediente.getClaveCidi() !=null){
                             return expediente.getClaveCidi();
                         }else{
@@ -390,6 +388,33 @@ public class AgendaController implements Serializable {
             }        
         }
         return "no posee clave CIDI";
+    }
+    
+    public String verDatosPersonalesYDelExp(int orden){
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        
+        String datosExp = null;
+        
+        for(Expediente expediente: expedienteControllerBean.getItems()){
+            if(expediente.getOrden() != null){
+                    if(Integer.compare(expediente.getOrden(), orden) == 0){
+                        
+                        if(expediente.toString() !=null){
+        
+                            datosExp = expediente.toStringWithDatosPersonalesYDelExp();
+                            return datosExp;
+                            
+                        }else{
+                            datosExp = "no posee datos";
+                            return datosExp;
+                            
+                        }
+                    }
+            }        
+        }
+        return datosExp;
     }
     
     public String verNroDeCuil(int orden){

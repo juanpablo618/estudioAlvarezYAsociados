@@ -24,7 +24,7 @@
                     <h:outputText value=" "/>
                     <h:outputText value="#{expedienteController.selected.nombre}"/>
                     <h:outputText value=" "/>
-                    <h:outputText value="#{expedienteController.selected.orden}"/>
+                    <h:outputText style="font-size: 32px" value="#{expedienteController.selected.orden}"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ExpedienteEditDialog.hide()" class="botonCrearAgenda hoverGreen" style="float: right !important; margin-top: 0% !important;" />
                     <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.update}" class="botonCrearAgenda hoverGreen" value="#{bundle.Save}"
                                      style="float: right !important; margin-top: 0% !important;" update=":ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
@@ -40,7 +40,7 @@
                         </h:panelGroup >
 
                         <p:tab title="Datos Personales / Expediente">
-                            <div class="w48 float-l" >
+                            <div class="w48 float-r" >
                                 <p:outputLabel value="Tipo de expediente" style="font-weight: bold" for="tipoDeExpediente"  /><br></br>
                                 <p:selectOneMenu id="tipoDeExpediente" style="width: 50%" value="#{expedienteController.selected.tipoDeExpediente}" editable="false" >
                                     <f:selectItem itemLabel="administrativo" itemValue="administrativo" />
@@ -85,7 +85,7 @@
 
                                 <br></br>
                                 <div>
-                                    <div style="float: left" >
+                                    <div style="float: right" >
                                         <p:outputLabel value="Fecha de cobro:" for="fechaDeCobro" style="font-weight: bold" rendered="#{expedienteController.selected.estadoDelTramite eq 'RESUELTO FAVORABLE.'}" /><br></br>
                                         <p:calendar style="width: 112px;" id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" rendered="#{expedienteController.selected.estadoDelTramite eq 'RESUELTO FAVORABLE.'}" />
                                     </div>
@@ -103,10 +103,10 @@
                                 <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
                                 <p:inputTextarea rows="5" cols="65" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
                             </div>
-                            <div class="width50 float-l">
+                            <div class="width50 float-r">
                                 <h:panelGrid columns="4" cellspacing="5">
                                     <p:outputLabel value="Orden:"  style="font-weight: bold" />
-                                    <p:inputText onchange="myFunction()" id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" style="float: right;"/>
+                                    <p:inputText onchange="myFunction()" id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" style="float: left;"/>
 
                                     <p:outputLabel value="Fecha de atención:" for="fechaDeAtencion" style="font-weight: bold;" />
                                     <p:calendar style="width: 100px; margin-left: 3%" class="inputFechaDeAtencion" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion">

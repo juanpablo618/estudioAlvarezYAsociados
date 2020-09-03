@@ -90,7 +90,6 @@ boto.fondo {
 .mgr-left-40{margin-left: 40%;}
 .width80{width: 80%;}
 .width50{width: 52%;}
-.float-l{float: left;}
 .w48{width: 48%;}
 
 .btnDelete{background-color: red !important; }
@@ -184,6 +183,7 @@ boto.fondo {
 }
 
 .float-r{float: right;}
+.float-l{float: left;}
 
 .createButtonAgenda{
     margin-left: 10% !important; 

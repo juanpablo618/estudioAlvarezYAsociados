@@ -16,7 +16,7 @@
                     <h:outputText value=" "/>
                     <h:outputText value="#{expedienteController.selectedParaVerExp.nombre}"/>
                     <h:outputText value=" "/>
-                    <h:outputText value="#{expedienteController.selectedParaVerExp.orden}"/>
+                    <h:outputText style="font-size: 32px" value="#{expedienteController.selectedParaVerExp.orden}"/>
                     
                 </div>
 
@@ -29,7 +29,7 @@
 
                         </h:panelGroup>
                         <p:tab title="Datos Personales / Expediente">
-                            <div class="w48 float-l" >
+                            <div class="w48 float-r" >
                                 <h:panelGrid columns="4" cellspacing="5">
                                     <p:outputLabel value="Tipo:" for="tipo" style="font-weight: bold"/>
                                     <p:selectOneMenu id="tipo" style="margin-left: 3%" value="#{expedienteController.selectedParaVerExp.tipo}" >
@@ -83,44 +83,44 @@
                                 <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
                                 <p:inputTextarea rows="7" cols="55" autoResize="false"  id="observaciones" value="#{expedienteController.selectedParaVerExp.observaciones}" title="observaciones"/>
                             </div>
-                            <div class="width50 float-l">
+                            <div class="width50 float-r">
                                 <h:panelGrid columns="4" cellspacing="5">
-                                    <p:outputLabel value="Orden:"  style="font-weight: bold" class="float-r"/>
+                                    <p:outputLabel value="Orden:"  style="font-weight: bold" class="float-l"/>
                                     <p:inputText onchange="myFunction()" id="orden" value="#{expedienteController.selectedParaVerExp.orden}" title="#{bundle.EditExpedienteTitle_orden}" />
 
-                                    <p:outputLabel value="Fecha de atención:" for="fechaDeAtencion" style="font-weight: bold;" class="float-r"/>
+                                    <p:outputLabel value="Fecha de atención:" for="fechaDeAtencion" style="font-weight: bold;" class="float-l"/>
                                     <p:calendar style="width: 100px; margin-left: 3%" class="inputFechaDeAtencion" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selectedParaVerExp.fechaDeAtencion}" title="fechaDeAtencion">
                                     </p:calendar>
 
-                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_apellido}" for="apellido" style="font-weight: bold" class="float-r"/>
+                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_apellido}" for="apellido" style="font-weight: bold" class="float-l"/>
                                     <p:inputText id="apellido" value="#{expedienteController.selectedParaVerExp.apellido}" title="#{bundle.EditExpedienteTitle_apellido}" />
 
-                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_nombre}" for="nombre" style="font-weight: bold" class="float-r"/>
+                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_nombre}" for="nombre" style="font-weight: bold" class="float-l"/>
                                     <p:inputText id="nombre" value="#{expedienteController.selectedParaVerExp.nombre}" style="margin-left: 3%" title="#{bundle.EditExpedienteTitle_nombre}" />
 
-                                    <p:outputLabel value="Cuit:" for="cuit" style="font-weight: bold" class="float-r"/>
+                                    <p:outputLabel value="Cuit:" for="cuit" style="font-weight: bold" class="float-l"/>
                                     <p:inputText required="true" requiredMessage="CUIT NO INGRESADO" id="cuit" value="#{expedienteController.selectedParaVerExp.cuit}"  title="#{bundle.EditExpedienteTitle_cuit}" />
 
-                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_telefono}"  for="telefono" style="font-weight: bold" class="float-r"/>
+                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_telefono}"  for="telefono" style="font-weight: bold" class="float-l"/>
                                     <p:inputText id="telefono" value="#{expedienteController.selectedParaVerExp.telefono}" style="margin-left: 3%" title="#{bundle.EditExpedienteTitle_telefono}" />
                                 </h:panelGrid>    
 
                                 <h:panelGrid columns="2" cellspacing="5" cellpadding="1" style="margin-top: 3%;">      
-                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_edad}" for="edad" style="font-weight: bold" class="float-r"/>
+                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_edad}" for="edad" style="font-weight: bold" class="float-l"/>
                                     <p:outputLabel id="edad" value="#{expedienteController.selectedParaVerExp.edad}"  title="#{bundle.EditExpedienteTitle_edad}"  style="font-weight: bold; margin-right: 30%;"/>
                                 </h:panelGrid>
                                 <h:panelGrid columns="2" cellspacing="5" cellpadding="1">                                  
-                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento" style="font-weight: bold" class="float-r"/>
+                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento" style="font-weight: bold" class="float-l"/>
                                     <p:calendar required="true" requiredMessage="fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy"  value="#{expedienteController.selectedParaVerExp.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}"  showOn="button"/><br></br>
                                 </h:panelGrid>
                                 <h:panelGrid columns="6" cellspacing="5" >        
-                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_sexo}" for="sexo" style="font-weight: bold" class="float-r"/>
+                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_sexo}" for="sexo" style="font-weight: bold" class="float-l"/>
                                     <p:selectOneMenu style="margin-left: 3%" id="sexo" value="#{expedienteController.selectedParaVerExp.sexo}" >
                                         <f:selectItem itemLabel="Masculino" itemValue="masculino" />
                                         <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
                                     </p:selectOneMenu>
 
-                                    <p:outputLabel value="Nacionalidad:" for="nacionalidad" style="font-weight: bold" class="float-r"/>
+                                    <p:outputLabel value="Nacionalidad:" for="nacionalidad" style="font-weight: bold" class="float-l"/>
                                     <p:selectOneMenu id="nacionalidad" value="#{expedienteController.selectedParaVerExp.nacionalidad}" style="margin-left: 3%" >
                                         <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
                                         <f:selectItem itemLabel="Extranjero" itemValue="Extranjero" />

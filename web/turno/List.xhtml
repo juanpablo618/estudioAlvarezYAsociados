@@ -26,7 +26,8 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No existen turnos"
                                  filteredValue="#{turnoController.filteredturnos}"
-
+                                 sortBy="#{item.horaYDia}"
+                                 sortOrder="DESCENDING"
                                  >
 
                         <p:ajax event="rowSelect"   update="createButton "/>
@@ -34,7 +35,7 @@
 
                         <p:growl  id="message" showDetail="true" />
  
-                        <p:column style="text-align: center; width: 10%" sortBy="#{item.horaYDia}" filterBy="#{item.horaYDia}" filterMatchMode="contains" headerText="Filtro solo con el día del mes">
+                        <p:column style="text-align: center; width: 10%" sortBy="#{item.horaYDia}"  filterBy="#{item.horaYDia}" filterMatchMode="contains" headerText="Filtro solo con el día del mes" >
                         
                             <h:outputText value="#{item.horaYDia}" >
                                 <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />

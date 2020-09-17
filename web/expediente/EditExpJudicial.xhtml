@@ -190,8 +190,7 @@
                         <p:tab title="Documentos">
 
                             <div>
-                                <h:commandButton value="Imprimir Convenio" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion, expedienteController.selected.nroDeAltura, expedienteController.selected.barrio)}" />
-
+                                
                                 <p:commandButton value="C. de Aportes" ajax="false">
                                     <p:fileDownload value="#{fileBean.file3}"/>
                                 </p:commandButton>
@@ -229,12 +228,16 @@
                                     </p:fieldset>
                                 </div>
                                 <div>
-                                    <p:commandButton id="createButton" class="createButtonAgenda hoverBlue" value="Crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteJudicialEditDialog').hide()" />
+                                    <p:commandButton id="createButton" class="createButtonAgenda hoverBlue" value="Crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteJudicialEditDialog').show()" />
                                 </div>
                             </div>
                         </p:tab>
 
                         <p:tab title="Honorarios y Gastos">
+                            <div>
+                                <h:commandButton value="Imprimir Convenio" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion, expedienteController.selected.nroDeAltura, expedienteController.selected.barrio)}" />
+
+                            </div><br></br>
                             <div>
                                 <p:outputLabel value="convenio de honorarios" style="font-weight: bold" for="convenioDeHonorarios" />
                                 <p:selectOneMenu style="margin-left: 3%" id="convenioDeHonorarios" value="#{expedienteController.selected.convenioDeHonorarios}" editable="true" effect="fold" >

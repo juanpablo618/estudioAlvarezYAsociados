@@ -135,15 +135,11 @@ public class AgendaController implements Serializable {
         
         if(agendaController.getSelected().getApellido() != null){
             idExpediente = Integer.parseInt(agendaController.getSelected().getApellido());
-             System.out.println("EN createAgendaConFiltroPorNombreYApellido METODO idExpediente: "+idExpediente);
          
              agendaController.getSelected().setApellido(expedienteController.getExpediente(idExpediente).getApellido());
              agendaController.getSelected().setNombre(expedienteController.getExpediente(idExpediente).getNombre());
              
         }
-        
-        
-       System.out.println("EN createAgendaConFiltroPorNombreYApellido METODO: "+agendaController.getSelected().toString());
         
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreated"));
         if (!JsfUtil.isValidationFailed()) {

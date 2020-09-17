@@ -134,9 +134,9 @@
                                     <p:calendar id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" />
 
                                     <p:outputLabel value="Cobra Beneficio" for="cobraBeneficio" style="margin-left: 3%;font-weight: bold" />
-                                    <p:selectOneMenu style="margin-left: 3% ; width: 30%" id="cobraBeneficio" value="#{expedienteController.selected.cobraBeneficio}" editable="true" >
-                                        <f:selectItem itemLabel="No" itemValue="No" />
-                                        <f:selectItem itemLabel="Si" itemValue="Si" />
+                                    <p:selectOneMenu style="margin-left: 3% ; width: 100%" id="cobraBeneficio" value="#{expedienteController.selected.cobraBeneficio}" editable="true" >
+                                        <f:selectItem itemLabel="No"  />
+                                        <f:selectItem itemLabel="Si"  />
                                     </p:selectOneMenu>
 
                                     <p:outputLabel value="Procedencia:" for="procedencia" style="font-weight: bold" />

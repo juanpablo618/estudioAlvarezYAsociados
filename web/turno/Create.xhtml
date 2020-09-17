@@ -14,7 +14,7 @@
                     <h:panelGrid columns="4">
                     
                         <p:outputLabel value="día y hora:" for="horaYDia" style="font-weight: bold"/><br></br>
-                        <p:calendar autocomplete="off" id="horaYDia"  pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" showOn="false"/><br></br><br></br>
+                        <p:calendar placeholder="dd/MM/yyyy HH:mm" autocomplete="off" id="horaYDia"  pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" showOn="false"/><br></br><br></br>
  
                         <p:outputLabel value="#{bundle.CreateTurnoLabel_apellido}" for="apellido" style="font-weight: bold"/><br></br>
                         <p:inputText id="apellido" value="#{turnoController.selected.apellido}" title="#{bundle.CreateTurnoTitle_apellido}" /><br></br><br></br>

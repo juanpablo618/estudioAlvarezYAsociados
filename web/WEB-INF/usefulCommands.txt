@@ -153,3 +153,9 @@ Osea, en en un ejemplo posta usando el master y origin como remote.
 
 git fetch origin master
 git reset --hard origin/master
+
+
+
+// asi se hacen 2 acciones para abrir o cerrar pantallas
+oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteEditDialog').hide()"
+

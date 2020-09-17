@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog position="center top" id="ExpedienteViewDialogParaAgenda" widgetVar="ExpedienteViewDialogParaAgenda" modal="true" resizable="false" appendTo="@(body)" header="Ver Expediente" style="margin-top: 1%;">
+        <p:dialog position="center top" id="ExpedienteViewDlgParaAgenda" widgetVar="ExpedienteViewDialogParaAgenda" modal="true" resizable="false" appendTo="@(body)" header="Ver Expediente para agregar agenda" style="margin-top: 1%;">
 
             <h:form id="ExpedienteViewFormParaAgenda" >
                 <h:panelGroup id="display">
@@ -83,13 +83,14 @@
                                 </p:selectOneMenu>
 
                             </h:panelGrid>
-                            <p:commandButton class="createButtonAgenda hoverBlue" actionListener="#{agendaController.create(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.orden)}" value="Guardar Agenda" onclick="ExpedienteViewDialog.hide()" />
+                            <p:commandButton rendered="#{expedienteController.selected.tipoDeExpediente eq 'administrativo'}"  class="createButtonAgenda hoverBlue" actionListener="#{agendaController.create(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.orden)}" value="Guardar Agenda" title="guardar para exp. administrativo" update=":ExpedienteEditForm" oncomplete="handleSubmit(args,'ExpedienteViewDialogParaAgenda');" />
 
+                            <p:commandButton rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" class="createButtonAgenda hoverBlue" actionListener="#{agendaController.create(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.orden)}" value="Guardar Agenda"  update=":ExpedienteJudicialEditForm" title="guardar para exp. judicial" oncomplete="handleSubmit(args,'ExpedienteViewDialogParaAgenda');" />
+                            
                         </p:panel>
                     </p:fieldset>
                     <p:commandButton id="editButton" class="botonCrearAgenda hoverGreen"  icon="ui-icon-pencil" value="Editar expediente" update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()" disabled="#{empty expedienteController.selected}" />
 
-                    <p:commandButton class="botonCrearAgenda hoverGreen" value="#{bundle.Close}" onclick="ExpedienteViewDialog.hide()" style="margin-left: 1%;"/>
                 </h:panelGroup>
             </h:form>
             <br></br>

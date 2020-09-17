@@ -149,14 +149,17 @@
                                         <f:selectItem itemLabel="Extranjero" itemValue="Extranjero" />
                                     </p:selectOneMenu>
 
-                                    <p:outputLabel value="Cobra Beneficio" for="cobraBeneficio" style="font-weight: bold" />
-                                    <p:selectOneMenu  id="cobraBeneficio" value="#{expedienteController.selected.cobraBeneficio}" >
-                                        <f:selectItem itemLabel="No" itemValue="No" />
-                                        <f:selectItem itemLabel="Si Jubilación" itemValue="Si Jubilación" />
-                                        <f:selectItem itemLabel="Si Pensión" itemValue="Si Pensión" />
-                                    </p:selectOneMenu>
-
+                                    
                                 </h:panelGrid>
+                                <h:panelGrid columns="2" cellspacing="5" style="margin-top: 3%;"> 
+                                
+                                    <p:outputLabel value="Cobra Beneficio" for="cobraBeneficio" style="font-weight: bold" />
+                                    <p:selectOneMenu  id="cobraBeneficio" value="#{expedienteController.selected.cobraBeneficio}" editable="true" style="width: 110%;">
+                                        <f:selectItem itemLabel="No" itemValue="No" />
+                                        <f:selectItem itemLabel="Si" itemValue="Si" />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                                
                                 <h:panelGrid columns="2" cellspacing="5" style="margin-top: 3%;"> 
                                     <p:outputLabel value="Código_Postal:" for="codigoPostal" style="font-weight: bold" />
                                     <p:inputText id="codigoPostal" value="#{expedienteController.selected.codigoPostal}" style="margin-left: 3%;width: 71%" title="codigoPostal"/>
@@ -221,8 +224,7 @@
                         <p:tab title="Documentos">
 
                             <div>
-                                <h:commandButton value="Imprimir Convenio" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion, expedienteController.selected.nroDeAltura, expedienteController.selected.barrio)}" />
-
+                             
                                 <p:commandButton value="C. de Aportes" ajax="false">
                                     <p:fileDownload value="#{fileBean.createExcel(expedienteController.selected.fechaDeNacimiento, expedienteController.selected.sexo, expedienteController.selected.nroDeExpediente, expedienteController.selected.nombre, expedienteController.selected.apellido)}"/>
                                 </p:commandButton>
@@ -266,12 +268,18 @@
                                     </p:fieldset>
                                 </div>
                                 <div>
-                                    <p:commandButton id="createButtonAgenda" class="createButtonAgenda hoverBlue" value="Crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteEditDialog').hide()" />
+                                    <p:commandButton id="createButtonAgenda" class="createButtonAgenda hoverBlue" value="Crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteEditDialog').show()" />
                                 </div>
                             </div>
                         </p:tab>
 
                         <p:tab title="Honorarios y Gastos">
+                            <div>
+                                   <h:commandButton value="Imprimir Convenio" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion, expedienteController.selected.nroDeAltura, expedienteController.selected.barrio)}" />
+
+                            </div>
+                            <br></br>
+                            
                             <div>
                                 <p:outputLabel value="convenio de honorarios" style="font-weight: bold" for="convenioDeHonorarios" />
                                 <p:selectOneMenu style="margin-left: 3%" id="convenioDeHonorarios" value="#{expedienteController.selected.convenioDeHonorarios}" editable="true" effect="fold" >

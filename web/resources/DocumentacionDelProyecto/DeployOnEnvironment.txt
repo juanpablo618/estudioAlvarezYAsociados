@@ -3,6 +3,7 @@ la versión actual es la 5.1.0
 
 Asegurarse de que exista corriendo también una base de datos mysql 
 8.0.19
+
 con versiones como la 5 también funcionó bien.
 
 luego ir al repositorio y cambiar en el archivo glashfish-resources.xml
@@ -14,4 +15,8 @@ Luego construir la aplicación con clean and build , esto tendria que generar un
 
 Luego ir a la parte de gestor de despliegue dentro de jelastic y subir el archivo war generado.
 
-1ro borrar en la parte de  despliegue 
+1ro borrar en la parte de  despliegue la aplicación corriendo actualmente
+
+luego subir al environment el wat nuevo subido en la parte de cargas.
+
+si tuviera cambio de base de datos 1ro hay q hacer el cambio desde phpmyAdmin

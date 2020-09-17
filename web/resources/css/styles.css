@@ -214,3 +214,8 @@ boto.fondo {
     width: 85% !important;
     height: 95% !important;
 }
+
+input#TurnoListForm:datalist:inputCalendar_input{
+    width: 40%;
+}
+    

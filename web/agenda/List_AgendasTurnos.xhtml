@@ -14,6 +14,7 @@
             }
 
         </script>
+    
         <ui:define name="body"  >
             <h:form id="TurnoListForm" style="background-color: #F4F8FA">
 
@@ -21,6 +22,8 @@
                     <p:commandButton id="createButton" icon="ui-icon-plus" value="NUEVA AGENDA" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
                     <p:commandButton id="createButtonTurno"  icon="ui-icon-plus" value="NUEVO TURNO" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
                     <p:commandButton id="createAgendaParaActividadButton" icon="ui-icon-plus" value="NUEVA ACTIVIDAD" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaParaActividadCreateDialog').show()"/>
+                    
+                    
                 </div>
                 <br></br>
 
@@ -35,7 +38,7 @@
 
 
                 <h:commandButton value="Imprimir Agendas" actionListener="#{downloadBean.crearDocumento( agendaController.filteredAgendas, turnoController.filteredturnos)}" class="btnPrint" />
-
+                
                 <br></br><br></br>
 
                 <p:dataTable id="datalist" value="#{turnoController.items}" var="item"
@@ -58,19 +61,13 @@
                     <p:growl  id="message" showDetail="true" />
 
                     <p:column style="text-align: center; width: 10%"  sortBy="#{item.getDiaMesAnio()}" filterBy="#{item.getDiaMesAnio()}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="startsWith" headerText="FECHA">
-                        <f:facet name="filter">
-                            <p:inputText id="inputFechaEnTurnoTable" style="width: -webkit-fill-available;" onfocus="PF('turnosTable').filter()" onblur="PF('turnosTable').filter()" onchange="PF('turnosTable').filter()"  value="#{turnoController.fechaSeleccionadaEnTurno}" >
-                                <p:ajax update=":AgendaListForm:datalist:inputFechaEnAgenda"/> 
-                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputFechaEnAgenda"/>
-                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
-                                <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
-
-
-                            </p:inputText>
-                        </f:facet>
-                        <h:outputText style="width: 10%" value="#{item.horaYDia}">
-                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-                        </h:outputText>
+                        <f:facet name="filter" >
+                            <p:calendar id="inputCalendar" locale="es" pattern="dd/MM/yyyy" mode="popup"  >
+                                <p:ajax event="dateSelect" oncomplete="PF('turnosTable').filter()" update="datalist"/>
+                                <p:ajax event="change" oncomplete="PF('turnosTable').filter()" update="datalist"/>
+                            </p:calendar>
+			</f:facet>
+                        <h:outputText value="#{item.getDiaMesAnio()}"/>
                     </p:column>
 
                     <p:column filterBy="#{item.apellido}"  style="width: 7%" headerText="ORDEN" styleClass="centeredColumnContent#{item.getRealizado()}">

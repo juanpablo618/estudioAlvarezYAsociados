@@ -159,3 +159,6 @@ git reset --hard origin/master
 // asi se hacen 2 acciones para abrir o cerrar pantallas
 oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteEditDialog').hide()"
 
+// problemas con el fileUpload ?
+
+https://stackoverflow.com/questions/8875818/how-to-use-primefaces-pfileupload-listener-method-is-never-invoked-or-uploaded/8880083#8880083

@@ -1,5 +1,6 @@
 package com.estudioAlvarezVersion2.jpa;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;

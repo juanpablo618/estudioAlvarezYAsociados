@@ -18,7 +18,7 @@
         </script>
 
         <p:dialog id="ExpedienteEditDlg" class="editDialogExpediente" widgetVar="ExpedienteEditDialog" modal="true" resizable="true" appendTo="@(body)" width="100" style="overflow-y:auto">
-            <h:form id="ExpedienteEditForm">
+            <h:form id="ExpedienteEditForm" enctype="multipart/form-data" >
 
                 <div style="font-weight: bold; float: left; width: 100%; ">
                     <h:outputText value="#{expedienteController.selected.apellido}" />
@@ -244,7 +244,17 @@
                                 </p:commandButton>
 
                             </div>
-
+                            <br></br>
+                            <div>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.file}" mode="simple"/>
+                                
+                                <p:commandButton icon="fa-upload" value="Subir" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.upload(expedienteController.selected.orden)}" ajax="false" />
+                            
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar archivo" actionListener="#{fileDownloadBean.download(expedienteController.selected.orden)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.file}" />
+                                </p:commandButton>
+                            </div>
                             <br></br>
                             <br></br>
                         </p:tab>
@@ -305,10 +315,9 @@
                             <br></br>
                             <br></br>
                             <p:editor width="700" value="#{expedienteController.selected.tablaDeHonorariosYGastos}"></p:editor>
-                        </p:tab> 
-
-
-                    </p:tabView>      
+                        </p:tab>
+                        
+                    </p:tabView>
                 </div>
             </h:form>
         </p:dialog>

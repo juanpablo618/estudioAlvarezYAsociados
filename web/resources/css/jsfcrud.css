@@ -206,7 +206,16 @@ table.dataTable.nowrap td{white-space:nowrap}
     color: #FFFFFF !important;
     letter-spacing: 0.93px !important;
     text-shadow:unset !important;
-} 
+}
+
+.botonSubir{
+    background-color: #3485AC !important;
+    background: #3485AC !important;
+    font-size: 13px !important; 
+    color: #FFFFFF !important;
+    letter-spacing: 0.93px !important;
+    text-shadow:unset !important;
+}
 
 .editDialogExpediente{
     width: 93% !important;

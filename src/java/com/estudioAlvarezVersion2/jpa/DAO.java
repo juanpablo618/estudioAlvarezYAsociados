@@ -27,13 +27,11 @@ private Connection cn;
     }
 
     public void Cerrar() throws SQLException{
-        
         if(cn != null){
             if(cn.isClosed() == false){
                 cn.close();
             }
         }
-
     }
     
     public static Connection getConnection() {

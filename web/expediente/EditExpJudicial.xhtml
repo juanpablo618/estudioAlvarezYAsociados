@@ -9,7 +9,7 @@
     <ui:composition>
 
         <p:dialog id="ExpedienteJudicialEditDlg" widgetVar="ExpedienteJudicialEditDialog" class="editarExpedienteJudicial" modal="true" resizable="false" appendTo="@(body)" >
-            <h:form id="ExpedienteJudicialEditForm">
+            <h:form id="ExpedienteJudicialEditForm" enctype="multipart/form-data"  >
 
                 <div style="font-weight: bold; float: left; width: 100%; ">
                     <h:outputText value="#{expedienteController.selected.apellido}" />
@@ -33,10 +33,10 @@
                             <div class="w48 float-r" >
                                 <h:panelGrid columns="4" cellspacing="5">
                                     <p:outputLabel value="Tipo:" for="tipo" style="font-weight: bold"/>
-                                    <p:selectOneMenu id="tipo" style="margin-left: 3%" value="#{expedienteController.selected.tipo}" >
+                                    <p:selectOneMenu editable="true" id="tipo" style="margin-left: 3%" value="#{expedienteController.selected.tipo}" >
                                         <f:selectItem itemLabel="Reajuste°" itemValue="Reajuste" />
                                         <f:selectItem itemLabel="Amparo" itemValue="Amparo" />
-                                        <f:selectItem itemLabel="Pensión" itemValue="Pensión" />
+                                        <f:selectItem itemLabel="Pension" itemValue="Pension" />
                                         <f:selectItem itemLabel="Ganancias" itemValue="Ganancias" />
                                         <f:selectItem itemLabel="DDHH" itemValue="DDHH" />
                                         <f:selectItem itemLabel="Laboral" itemValue="Laboral" />
@@ -66,13 +66,13 @@
                                     <p:selectOneMenu id="etapaProcesal" editable="true" style="margin-left: 3%" value="#{expedienteController.selected.etapaProcesal}" >
                                         <f:selectItem itemLabel="Preparación de Demanda" itemValue="Preparación de Demanda" />
                                         <f:selectItem itemLabel="DDA iniciada" itemValue="DDA iniciada" />
-                                        <f:selectItem itemLabel="Contestación" itemValue="Contestación" />
+                                        <f:selectItem itemLabel="Contestacion" itemValue="Contestacion" />
                                         <f:selectItem itemLabel="Prueba" itemValue="Prueba" />
                                         <f:selectItem itemLabel="Alegatos" itemValue="Alegatos" />
                                         <f:selectItem itemLabel="Sentencia" itemValue="Sentencia" />
-                                        <f:selectItem itemLabel="Apelación" itemValue="Apelación" />
+                                        <f:selectItem itemLabel="Apelacion" itemValue="Apelacion" />
                                         <f:selectItem itemLabel="Sentencia definitiva" itemValue="Sentencia definitiva" />
-                                        <f:selectItem itemLabel="Ejecución" itemValue="Ejecución" />
+                                        <f:selectItem itemLabel="Ejecucion" itemValue="Ejecucion" />
                                     </p:selectOneMenu>
 
                                     <p:outputLabel value="Procedencia:" for="procedencia" style="font-weight: bold" />
@@ -183,18 +183,15 @@
                                 <p:outputLabel value="#{expedienteController.selected.cuit}" style="font-weight: bold" /><br></br>
                             </div>
 
-
                             <br></br>
                             <br></br>
                         </p:tab>
                         <p:tab title="Documentos">
 
                             <div>
-                                
                                 <p:commandButton value="C. de Aportes" ajax="false">
                                     <p:fileDownload value="#{fileBean.file3}"/>
                                 </p:commandButton>
-
 
                             </div>
                             <br></br>
@@ -202,16 +199,24 @@
                                 <p:commandButton value="Carta Poder" ajax="false">
                                     <p:fileDownload value="#{fileBean.file}"/>
                                 </p:commandButton>
-
                             </div>
                             <br></br>
                             <div>
                                 <p:commandButton value="Solicitud de prestaciones previsionales" ajax="false">
                                     <p:fileDownload value="#{fileBean.file2}"/>
                                 </p:commandButton>
-
                             </div>
-
+                            <br></br>
+                            <div>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload value="#{fileUploadBean.file}" mode="simple"/>
+                                <p:commandButton icon="fa-upload" value="Subir" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.upload(expedienteController.selected.orden)}" ajax="false" />
+                            
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar archivo" actionListener="#{fileDownloadBean.download(expedienteController.selected.orden)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.file}" />
+                                </p:commandButton>
+                            </div>
+                            
                             <br></br>
                             <br></br>
                         </p:tab>

@@ -105,8 +105,7 @@ public class ExpedienteController implements Serializable {
         this.selectedParaVerExp = selectedParaVerExp;
     }
     
-    
-
+   
     public Expediente prepareCreateExpAdministrativo() {
         selected = new Expediente();
         selected.setTipoDeExpediente("administrativo");
@@ -511,6 +510,7 @@ public class ExpedienteController implements Serializable {
                     JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
                 }
             } catch (Exception ex) {
+                System.out.println("vino hasta el exception de exp. controller");
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
                 JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }

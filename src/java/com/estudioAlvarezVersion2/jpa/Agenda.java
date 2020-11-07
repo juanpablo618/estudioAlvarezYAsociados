@@ -61,7 +61,6 @@ public class Agenda implements Serializable {
     @Column(name = "realizado")
     private String realizado;
 
-    
     public Agenda() {
     }
 
@@ -119,7 +118,6 @@ public class Agenda implements Serializable {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-
     
     public String getResponsable() {
         return responsable;
@@ -160,7 +158,6 @@ public class Agenda implements Serializable {
         
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -181,16 +178,9 @@ public class Agenda implements Serializable {
         return true;
     }
 
-    //@Override
-    //public String toString() {
-    //    return "fecha=" + fecha + ", descripcion=" + descripcion ;
-    //}
-
     @Override
     public String toString() {
         return "Agenda{" + "idAgenda=" + idAgenda + ", fecha=" + fecha + ", descripcion=" + descripcion + ", nombre=" + nombre + ", apellido=" + apellido + ", responsable=" + responsable + ", orden=" + orden + ", realizado=" + realizado + '}';
     }
-    
-    
 
 }

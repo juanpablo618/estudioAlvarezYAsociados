@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ExpedienteViewDocumentosDialog" widgetVar="ExpedienteViewDocumentosDialog" modal="true" width="100%" appendTo="@(body)" resizable="true"
+                   class="editDialogExpediente"   style="overflow-y:auto">
+            
+            
+            <h:form id="ExpedienteViewDocumentosForm" enctype="multipart/form-data">
+                
+                 <div style="font-weight: bold; float: left; width: 100%; ">
+                     <u> <h:outputText value="Documentos de:" />
+                    <h:outputText value=" "/>
+                    
+                     <h:outputText value="#{expedienteController.selected.apellido}" />
+                    <h:outputText value=" "/>
+                    <h:outputText value="#{expedienteController.selected.nombre}"/>
+                    <h:outputText value=" "/>
+                    <h:outputText style="font-size: 32px" value="#{expedienteController.selected.orden}"/></u>
+                </div>
+                <br></br><br></br>
+                <h:panelGroup id="display">
+                </h:panelGroup>
+                
+                        <div style="float:right ;width: 48%">
+                            <div>
+                                <p:commandButton value="C. de Aportes" ajax="false">
+                                    <p:fileDownload value="#{fileBean.createExcel(expedienteController.selected.fechaDeNacimiento, expedienteController.selected.sexo, expedienteController.selected.nroDeExpediente, expedienteController.selected.nombre, expedienteController.selected.apellido)}"/>
+                                </p:commandButton>
+                            </div>
+
+                            <br></br>
+                            <div>
+                                <p:commandButton value="Carta Poder" ajax="false">
+                                    <p:fileDownload value="#{fileBean.file}"/>
+                                </p:commandButton>
+
+                            </div>
+                            <br></br>
+                            <div>
+                                <p:commandButton value="Solicitud de prestaciones previsionales" ajax="false">
+                                    <p:fileDownload value="#{fileBean.file2}"/>
+                                </p:commandButton>
+
+                            </div>
+                            <br></br>
+                            <div > <p:outputLabel value="Documento PDF Uno:"  style="font-weight: bold"/><br></br>
+                                
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.filePdf}" mode="simple"/>
+                                
+                                <p:commandButton icon="fa-upload" value="Subir PDF" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadPDF(expedienteController.selected.orden)}" ajax="false" />
+
+                                <br></br><br></br>
+                                
+                                <p:outputLabel value="Nombre del archivo PDF Uno:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDF(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar archivo PDF" actionListener="#{fileDownloadBean.downloadPDF(expedienteController.selected.orden)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.filePdf}" />
+                                </p:commandButton>
+                                </div>
+                                <br></br>
+
+                                <div > <p:outputLabel value="Documento PDF Dos:"  style="font-weight: bold"/><br></br>
+                                
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.filePdfDos}" mode="simple"/>
+                                
+                                <p:commandButton icon="fa-upload" value="Subir PDF Dos" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadPDFDos(expedienteController.selected.orden)}" ajax="false" />
+
+                                <br></br>
+                                
+                                <p:outputLabel value="Nombre del archivo PDF Dos:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFDos(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar archivo PDF Dos" actionListener="#{fileDownloadBean.downloadPDFDos(expedienteController.selected.orden)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.filePdfDos}" />
+                                </p:commandButton>
+                                </div>
+                                <br></br>
+
+                                <div > <p:outputLabel value="Documento PDF Tres:"  style="font-weight: bold"/><br></br>
+                                
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.filePdfTres}" mode="simple"/>
+                                
+                                <p:commandButton icon="fa-upload" value="Subir PDF Tres" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadPDFTres(expedienteController.selected.orden)}" ajax="false" />
+
+                                <br></br>
+                                
+                                <p:outputLabel value="Nombre del archivo PDF Tres:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFTres(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar archivo PDF Tres" actionListener="#{fileDownloadBean.downloadPDFTres(expedienteController.selected.orden)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.filePdfTres}" />
+                                </p:commandButton>
+                                </div>
+                                <br></br>
+
+                                <div > <p:outputLabel value="Documento PDF Cuatro:"  style="font-weight: bold"/><br></br>
+                                
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.filePdfCuatro}" mode="simple"/>
+                                
+                                <p:commandButton icon="fa-upload" value="Subir PDF Cuatro" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadPDFCuatro(expedienteController.selected.orden)}" ajax="false" />
+
+                                <br></br>
+                                
+                                <p:outputLabel value="Nombre del archivo PDF Cuatro:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFCuatro(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar archivo PDF Cuatro" actionListener="#{fileDownloadBean.downloadPDFCuatro(expedienteController.selected.orden)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.filePdfCuatro}" />
+                                </p:commandButton>
+                                </div>
+                                <br></br>
+
+                                <div > <p:outputLabel value="Documento PDF Cinco:"  style="font-weight: bold"/><br></br>
+                                
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.filePdfCinco}" mode="simple"/>
+                                
+                                <p:commandButton icon="fa-upload" value="Subir PDF Cinco" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadPDFCinco(expedienteController.selected.orden)}" ajax="false" />
+
+                                <br></br>
+                                
+                                <p:outputLabel value="Nombre del archivo PDF Cinco:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFCinco(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar archivo PDF Cinco" actionListener="#{fileDownloadBean.downloadPDFCinco(expedienteController.selected.orden)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.filePdfCinco}" />
+                                </p:commandButton>
+                                </div>
+                                
+                            
+                                </div>                            
+                            <br></br>
+                        <div class="width50" style="float:right;">
+                            <div>
+                                <p:outputLabel value="Imagen JPG Uno:"  style="font-weight: bold"/><br></br>
+                                                                
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.file}" mode="simple"/>
+                                
+                                <p:commandButton icon="fa-upload" value="Subir imagen Uno" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadJPG(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br>
+                                
+                                <p:outputLabel value="Nombre del archivo JPG:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPG(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar archivo JPG Uno" actionListener="#{fileDownloadBean.downloadJPG(expedienteController.selected.orden)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.file}" />
+                                </p:commandButton>
+                                
+                                <br></br>
+                                <br></br>
+                                <p:outputLabel value="Imagen JPG Dos:"  style="font-weight: bold"/><br></br>
+                                                                
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileDos}" mode="simple"/>
+                                
+                                <p:commandButton icon="fa-upload" value="Subir imagen Dos" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadJPGDos(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br>
+                                
+                                <p:outputLabel value="Nombre del archivo JPG Dos:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGDos(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar archivo JPG Dos" actionListener="#{fileDownloadBean.downloadJPGDos(expedienteController.selected.orden)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileDos}" />
+                                </p:commandButton>
+
+
+                                <br></br>
+                                <br></br>
+    
+                                <p:outputLabel value="Imagen JPG Tres:"  style="font-weight: bold"/><br></br>
+                                                                
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileTres}" mode="simple"/>
+                                
+                                <p:commandButton icon="fa-upload" value="Subir imagen Tres" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadJPGTres(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br><br></br>
+                                
+                                <p:outputLabel value="Nombre del archivo JPG Tres:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGTres(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar archivo JPG Tres" actionListener="#{fileDownloadBean.downloadJPGTres(expedienteController.selected.orden)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileTres}" />
+                                </p:commandButton>
+                                
+                                <br></br>
+                                <br></br>
+    
+                                <p:outputLabel value="Imagen JPG Cuatro:"  style="font-weight: bold"/><br></br>
+                                                                
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileCuatro}" mode="simple"/>
+                                
+                                <p:commandButton icon="fa-upload" value="Subir imagen Cuatro" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadJPGCuatro(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br><br></br>
+                                
+                                <p:outputLabel value="Nombre del archivo JPG Cuatro:" style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGCuatro(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar archivo JPG Cuatro" actionListener="#{fileDownloadBean.downloadJPGCuatro(expedienteController.selected.orden)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileCuatro}" />
+                                </p:commandButton>
+                                
+                                <br></br>
+                                <br></br>
+    
+                                <p:outputLabel value="Imagen JPG Cinco:"  style="font-weight: bold"/><br></br>
+                                                                
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileCinco}" mode="simple"/>
+                                
+                                <p:commandButton icon="fa-upload" value="Subir imagen Cinco" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadJPGCinco(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br><br></br>
+                                
+                                <p:outputLabel value="Nombre del archivo JPG Cinco:" style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGCinco(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar archivo JPG Cinco" actionListener="#{fileDownloadBean.downloadJPGCinco(expedienteController.selected.orden)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileCinco}" />
+                                </p:commandButton>
+                                
+                            </div>
+ </div>     
+                            <br></br>
+                            <br></br>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

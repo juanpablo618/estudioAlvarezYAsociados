@@ -43,10 +43,8 @@ public class Empleado implements Serializable {
     @Size(max = 100)
     @Column(name = "Cargo")
     private String cargo;
-
     @Column(name = "password")
     private String password;
-
     
     public Empleado() {
     }
@@ -62,8 +60,6 @@ public class Empleado implements Serializable {
         this.cargo = cargo;
         this.password = password;
     }
-
-    
     
     public Integer getIdEmpleado() {
         return idEmpleado;
@@ -109,9 +105,6 @@ public class Empleado implements Serializable {
         this.password = password;
     }
 
-    
-    
-    
     @Override
     public int hashCode() {
         int hash = 0;

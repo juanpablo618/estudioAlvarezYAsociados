@@ -162,3 +162,10 @@ oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteEditDialo
 // problemas con el fileUpload ?
 
 https://stackoverflow.com/questions/8875818/how-to-use-primefaces-pfileupload-listener-method-is-never-invoked-or-uploaded/8880083#8880083
+
+
+
+
+// PARA SOLUCIONAR BUG DE PODER BUSCAR APELLIDO Y NOMBRE CON MAYUSCULA Y MINUSCULA.
+
+https://stackoverflow.com/questions/23936614/primefaces-5-0-datatable-filter-case-sensitive

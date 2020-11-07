@@ -73,7 +73,7 @@
                         </center>
                     </p:column>
 
-                    <p:column style="width: 40% !important;" filterBy="#{item.apellidoYNombre}"  styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
+                    <p:column style="width: 35% !important;" filterBy="#{item.apellidoYNombre}" filterFunction="#{expedienteController.filterByApellidoYNombre}"  styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
                         <f:facet name="header" >
                             <h:outputText  value="APELLIDO Y NOMBRE"/>
                         </f:facet>
@@ -91,12 +91,16 @@
                         </center>
                     </p:column>
 
-                    <p:column style="width: 10% !important;text-align: center; " styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" exportable="false">
+                    <p:column style="width: 15% !important;text-align: center; " styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" exportable="false">
 
                         <f:facet name="header">
                             <h:outputText value="ACCIONES"/>
                         </f:facet>
 
+                        <p:commandButton class="linea btnKey"  update=":ExpedienteViewDocumentosForm" rendered="#{item.tipoDeExpediente eq 'judicial' or item.tipoDeExpediente eq 'administrativo'}" oncomplete="PF('ExpedienteViewDocumentosDialog').show()" icon="ui-icon-folder-open" title="Documentos">
+                            <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
+                        </p:commandButton>
+                        
                         <p:commandButton class="linea btnKey"  update=":ExpedienteViewClavesForm2" oncomplete="PF('ExpedienteViewClavesDialog2').show()" icon="ui-icon-locked" title="Claves">
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
@@ -146,6 +150,8 @@
             <ui:include src="EditExpJudicial.xhtml"/>
             <ui:include src="ViewParaAgenda.xhtml"/>
             <ui:include src="View_1.xhtml"/>
+            <ui:include src="ViewDocumentos.xhtml"/>
+            
             <ui:include src="ViewExpJudicial.xhtml"/>
             <ui:include src="ViewParaTurno.xhtml"/>
         </ui:define>

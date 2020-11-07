@@ -1,6 +1,5 @@
 package com.estudioAlvarezVersion2.jpa;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -186,7 +185,6 @@ public class Expediente implements Serializable {
     @Column(name = "comunicaciones")
     private String comunicaciones;
 
-
     @Basic(optional = false)
     @Column(name = "fechaDeAtencion")
     @Temporal(TemporalType.TIMESTAMP)
@@ -211,7 +209,6 @@ public class Expediente implements Serializable {
     @Basic(optional = false)
     @Column(name = "tipo")
     private String tipo;
-
     
     @Basic(optional = false)
     @Column(name = "detalleDeEstadoDeTramite")
@@ -220,7 +217,6 @@ public class Expediente implements Serializable {
     @Basic(optional = false)
     @Column(name = "tablaDeHonorariosYGastos")
     private String tablaDeHonorariosYGastos;
-    
     
     public Expediente() {
     }
@@ -275,7 +271,6 @@ public class Expediente implements Serializable {
         this.juzgadoODependencia = juzgadoODependencia;
         this.observaciones = observaciones;
         this.comunicaciones = comunicaciones;
-        
         this.fechaDeAtencion = fechaDeAtencion;
         this.convenioDeHonorarios = convenioDeHonorarios;
         this.poderFirmado = poderFirmado;
@@ -362,8 +357,8 @@ public class Expediente implements Serializable {
         if(apellido != null && nombre !=null){
         return apellido.concat(" ").concat(nombre);
         }else{
-                return null;
-                }
+            return null;
+        }
     }
        
     public void setApellido(String apellido) {
@@ -681,8 +676,5 @@ public class Expediente implements Serializable {
     public String toStringWithDatosPersonalesYDelExp() {
         return "orden=" + orden + "\n, cuit=" + cuit + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido +", tipo de documento=" + tipoDeDocumento + ", sexo=" + sexo + ", direccion=" + direccion + ", nro de altura=" + nroDeAltura + ", piso=" + piso + ", depto=" + depto + ", barrio=" + barrio + ", telefono=" + telefono + ", fecha de nacimiento=" + fechaDeNacimiento + ", edad=" + edad + ", cobraBeneficio=" + cobraBeneficio + ", fecha de alta del Expediente=" + fechaDeAltaDeExpediente + ", codigo postal=" + codigoPostal + ", localidad=" + localidad + ", tipo de tramite=" + tipoDeTramite + ", procedencia=" + procedencia + ", estadoDelTramite=" + estadoDelTramite + ", fechaDeCobro=" + fechaDeCobro + ", nacionalidad=" + nacionalidad + ", tipoDeExpediente=" + tipoDeExpediente + ", caratula=" + caratula + ", nroDeExpediente=" + nroDeExpediente + ", juzgadoODependencia=" + juzgadoODependencia + ", observaciones=" + observaciones + ", comunicaciones=" + comunicaciones + ", fechaDeAtencion=" + fechaDeAtencion + ", convenioDeHonorarios=" + convenioDeHonorarios + ", poderFirmado=" + poderFirmado + ", etapaProcesal=" + etapaProcesal + ", jurisdiccion=" + jurisdiccion + ", tipo=" + tipo + ", detalle De estado de tramite=" + detalleDeEstadoDeTramite + ", tabla de honorarios y gastos=" + tablaDeHonorariosYGastos + '}';
     }
-    
-    
-    
     
 }

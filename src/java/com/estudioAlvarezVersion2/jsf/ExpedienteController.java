@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 import static java.util.Objects.nonNull;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -339,9 +340,6 @@ public class ExpedienteController implements Serializable {
         }
         return datosExp;
     }
-    
-    
-    
     
     public void create() {
 
@@ -688,7 +686,7 @@ public class ExpedienteController implements Serializable {
     }
 
     public String verClaveDeSeguridadSocial(int orden) {
-
+        System.out.println("ACAA: "+orden);
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
 
@@ -756,4 +754,25 @@ public class ExpedienteController implements Serializable {
         }
     }
 
+    
+    public boolean filterByApellidoYNombre(Object value, Object filter, Locale locale) {
+    String filterText = (filter == null) ? null : filter.toString().trim();
+    if (filterText == null || filterText.equals("")) {
+        return true;
+    }
+
+    if (value == null) {
+        return false;
+    }
+
+    String apellidoYNombre = value.toString().toUpperCase();
+    filterText = filterText.toUpperCase();
+
+    if (apellidoYNombre.contains(filterText)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+    
 }

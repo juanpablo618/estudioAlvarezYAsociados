@@ -18,10 +18,21 @@
                 </p:selectOneMenu><br></br>
                 <h:commandButton class="hoverBlue" value="Filtrar por Est. del tramite" actionListener="#{expedienteController.filtrarPorEstadoDelTramite(expedienteController.getEstadoDelTramiteSelected())}"
                                  style="width: 82%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 10px;" />
-                <h:commandButton class="hoverBlue" value="Limpiar filtros" onclick="PF('expedientesTable').clearFilters()" 
+                <h:commandButton class="hoverBlue" value="Limpiar filtros" actionListener="#{expedienteController.limpiarDosFiltros()}" onclick="PF('expedientesTable').clearFilters()" 
                                  style="width: 82%;margin-top: .5%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 3%;"/>
             </h:form>
 
+            <h:form style="float: right; background-color: #F4F8FA;margin-top: 1%;" class="mrgBtn">    
+                <p:inputText id="fechaDeCumple" value="#{expedienteController.fechaDeCumpleSelected}" placeholder="solo colocar día y mes = dd/MM" style="margin-left: 3%;width: 80%;" title="#{bundle.CreateExpedienteTitle_nombre}" />
+
+                <br></br>
+                <h:commandButton class="hoverBlue" value="Filtrar por Fecha de Cumpleaños" actionListener="#{expedienteController.filtrarPorFechaDeCumple(expedienteController.getFechaDeCumpleSelected())}"
+                                 style="width: 82%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 10px;" />
+                <h:commandButton class="hoverBlue" value="Limpiar filtros" onclick="PF('expedientesTable').clearFilters()" actionListener="#{expedienteController.limpiarDosFiltros()}"
+                                 style="width: 82%;margin-top: .5%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 3%;"/>
+            </h:form>
+
+            
             <h:form id="ExpedienteListForm" style=" background-color: #F4F8FA;">
 
                 <div style="width: 100%"> 

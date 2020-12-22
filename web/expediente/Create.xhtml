@@ -140,7 +140,8 @@
                                     </p:selectOneMenu>
 
                                     <p:outputLabel value="Procedencia:" for="procedencia" style="font-weight: bold" />
-                                    <p:selectOneMenu  id="procedencia" value="#{expedienteController.selected.procedencia}"  >
+                                    <p:selectOneMenu editable="true" id="procedencia" value="#{expedienteController.selected.procedencia}"  >
+                                        <f:selectItem itemLabel="" itemValue="" />
                                         <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.nombreProcedencia}" itemValue="#{procedencia.nombreProcedencia}" />
                                     </p:selectOneMenu>
                                 </h:panelGrid>

@@ -363,8 +363,7 @@ public class AgendaController implements Serializable {
     }
     
     public void handleDateSelect(SelectEvent event) {
-        System.out.println("paso por el handle Date Selec de angenda controller");
-    RequestContext.getCurrentInstance().execute("PF('agendasTable').filter()");
+        RequestContext.getCurrentInstance().execute("PF('agendasTable').filter()");
     }
     
     public String verClaveCidi(int orden){
@@ -539,13 +538,11 @@ public class AgendaController implements Serializable {
         
         if(agendaController.getSelected().getApellido() != null){
          idExpediente = Integer.parseInt(agendaController.getSelected().getApellido());
-          System.out.println("EN TRANSFERIR METODO idExpediente: "+idExpediente);
          agendaController.getSelected().setNombre(expedienteController.getExpediente(idExpediente).getNombre());
          agendaController.getSelected().setOrden(expedienteController.getExpediente(idExpediente).getOrden());
          agendaController.getSelected().setApellido(expedienteController.getExpediente(idExpediente).getApellido());
         }
         
-       System.out.println("EN TRANSFERIR METODO: "+agendaController.getSelected().getApellido());
     }
     
 }

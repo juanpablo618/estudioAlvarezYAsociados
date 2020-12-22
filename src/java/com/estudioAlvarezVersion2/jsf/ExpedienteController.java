@@ -8,6 +8,7 @@ import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.ExpedienteFacade;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,14 +40,10 @@ public class ExpedienteController implements Serializable {
     private com.estudioAlvarezVersion2.jpacontroller.ExpedienteFacade ejbFacade;
     private List<Expediente> items = null;
     private Expediente selected;
-
     private Expediente selectedParaVerExp;
-
-    
     private String estadoDelTramiteSelected;
-
+    private String fechaDeCumpleSelected;
     private List<Expediente> filteredExpedientes;
-
     private Date dateSelected;
 
     public Date getDateSelected() {
@@ -105,6 +102,14 @@ public class ExpedienteController implements Serializable {
     public void setSelectedParaVerExp(Expediente selectedParaVerExp) {
         this.selectedParaVerExp = selectedParaVerExp;
     }
+
+    public String getFechaDeCumpleSelected() {
+        return fechaDeCumpleSelected;
+    }
+
+    public void setFechaDeCumpleSelected(String fechaDeCumpleSelected) {
+        this.fechaDeCumpleSelected = fechaDeCumpleSelected;
+    }
     
    
     public Expediente prepareCreateExpAdministrativo() {
@@ -155,22 +160,16 @@ public class ExpedienteController implements Serializable {
     //no se usaría más fué el 1er approach
     public Expediente prepareViewParaExpedientePorNombreYApellido(Agenda agendaAnterior) {
         selectedParaVerExp = new Expediente();
-        System.out.println("ACA Apellido: "+agendaAnterior.getApellido());
-        System.out.println("ACA Nombre: "+agendaAnterior.getNombre());
         
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
         
         for(Expediente expediente: expedienteControllerBean.getItems()){
-                System.out.println("Apellido: "+expediente.getApellido() + " Nombre: "+expediente.getNombre());
                         
             if(expediente.getApellido()!= null && expediente.getNombre() != null){
                 
                     if(expediente.getApellido().equals(agendaAnterior.getApellido()) && expediente.getNombre().equals(agendaAnterior.getNombre())){
-                        System.out.println("expediente apellido: "+expediente.getApellido());
-                        System.out.println("expediente Nombre: "+expediente.getNombre());
                         
-                            System.out.println("LLEGO ACA"+ expediente.toStringWithDatosPersonalesYDelExp());
                             selectedParaVerExp = expediente;
                             return selectedParaVerExp;
                         
@@ -276,8 +275,6 @@ public class ExpedienteController implements Serializable {
 
                         if(expediente.getOrden()!= null ){
                                 if(Integer.compare(expediente.getOrden(), agendaAnterior.getOrden()) == 0){
-                                        System.out.println("LLEGO ACA 1 por ORDEN");
-                                        System.out.println("expediente.getTipoDeExpediente() : "+expediente.getTipoDeExpediente());
                                         
                                         tipoDeExp = expediente.getTipoDeExpediente();
                                 }
@@ -292,8 +289,6 @@ public class ExpedienteController implements Serializable {
                          for(Expediente expediente: expedienteControllerBean.getItems()){
                             if(expediente.getApellido() != null && expediente.getNombre() != null){
                                     if( expediente.getApellido().equals(agendaAnterior.getApellido()) && expediente.getNombre().equals(agendaAnterior.getNombre()) ){
-                                        System.out.println("LLEGO ACA 2 por apellido y nombre");
-                                        System.out.println("expediente.getTipoDeExpediente() : "+expediente.getTipoDeExpediente());
                                             
                                         tipoDeExp = expediente.getTipoDeExpediente();
                                     }
@@ -313,7 +308,6 @@ public class ExpedienteController implements Serializable {
     
     
       public String verDatosPersonalesYDelExp(int orden){
-        System.out.println("ACA: "+orden);
         
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
@@ -325,7 +319,6 @@ public class ExpedienteController implements Serializable {
                     if(Integer.compare(expediente.getOrden(), orden) == 0){
                         
                         if(expediente.toString() !=null){
-                            System.out.println("LLEGO ACA"+expediente.toStringWithDatosPersonalesYDelExp());
         
                             datosExp = expediente.toStringWithDatosPersonalesYDelExp();
                             return datosExp;
@@ -429,11 +422,9 @@ public class ExpedienteController implements Serializable {
         }
         
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteUpdated"));
-                System.out.println("ACA UPDATE ");
     }
 
     public void update2() {
-        System.out.println("ACA UPDATE 2");
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteUpdated"));
     }
 
@@ -451,10 +442,7 @@ public class ExpedienteController implements Serializable {
         int añoActual = fecha.get(Calendar.YEAR);
 
         for (Expediente ex : items) {
-            System.out.println("entro al for");
             if (nonNull(ex.getFechaDeNacimiento())) {
-                System.out.println("entro al if");
-                System.out.println("Orden: " + ex.getOrden());
 
                 int añoDeNacimiento = ex.getFechaDeNacimiento().getYear();
 
@@ -508,7 +496,6 @@ public class ExpedienteController implements Serializable {
                     JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
                 }
             } catch (Exception ex) {
-                System.out.println("vino hasta el exception de exp. controller");
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
                 JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
@@ -686,7 +673,6 @@ public class ExpedienteController implements Serializable {
     }
 
     public String verClaveDeSeguridadSocial(int orden) {
-        System.out.println("ACAA: "+orden);
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
 
@@ -716,7 +702,6 @@ public class ExpedienteController implements Serializable {
                 break;
             }
         }
-        System.out.println("orden: " + orden);
         return orden;
     }
 
@@ -728,7 +713,6 @@ public class ExpedienteController implements Serializable {
 
         int orden = expedienteControllerBean.getItemsAvailableSelectOne().get(expedienteControllerBean.getItemsAvailableSelectOne().size() - 1).getOrden() + 1;
 
-        System.out.println("orden: " + orden);
 
         return orden;
     }
@@ -738,15 +722,46 @@ public class ExpedienteController implements Serializable {
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.execute("PF('expedientesTable').clearFilters()");
     }
+    
+    public void limpiarDosFiltros() {
+
+        this.fechaDeCumpleSelected=null;
+        this.estadoDelTramiteSelected=null;
+        
+        
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("PF('expedientesTable').clearFilters()");
+    }
 
     public void filtrarPorEstadoDelTramite(String estadoDelTramiteSelected) {
         this.filteredExpedientes = new ArrayList<Expediente>();
         if (estadoDelTramiteSelected != null) {
-            System.out.print("getItems(): " + getItems().size());
             for (Expediente expediente : getItems()) {
-                System.out.print("expediente: " + expediente.getEstadoDelTramite());
                 if (expediente.getEstadoDelTramite() != null) {
                     if (expediente.getEstadoDelTramite().equals(estadoDelTramiteSelected)) {
+                        filteredExpedientes.add(expediente);
+                    }
+                }
+            }
+        }
+    }
+    
+    public void filtrarPorFechaDeCumple(String fechaDeCumpleSelected) {
+        System.out.println("fechaDeCumpleSelected: "+fechaDeCumpleSelected);
+        
+        this.filteredExpedientes = new ArrayList<Expediente>();
+        
+        if (fechaDeCumpleSelected != null) {
+            for (Expediente expediente : getItems()) {
+                if (expediente.getFechaDeNacimiento() != null) {
+                    Date date = expediente.getFechaDeNacimiento();  
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
+                    String strDate = dateFormat.format(date); 
+                    
+                    String sSubCadena = strDate.substring(0,5);
+                    System.out.println("sSubCadena: "+sSubCadena);
+                    
+                    if (sSubCadena.equals(fechaDeCumpleSelected)) {
                         filteredExpedientes.add(expediente);
                     }
                 }
@@ -768,11 +783,7 @@ public class ExpedienteController implements Serializable {
     String apellidoYNombre = value.toString().toUpperCase();
     filterText = filterText.toUpperCase();
 
-    if (apellidoYNombre.contains(filterText)) {
-        return true;
-    } else {
-        return false;
-    }
+        return apellidoYNombre.contains(filterText);
 }
     
 }

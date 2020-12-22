@@ -253,7 +253,6 @@ public class TurnoController implements Serializable {
             String date = sdf.format(dateSelected); 
         
                 for(Turno turno:getItems()){
-                        System.out.println(turno.getHoraYDia());
                         SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
                         String date2 = sdf2.format(turno.getHoraYDia()); 
 

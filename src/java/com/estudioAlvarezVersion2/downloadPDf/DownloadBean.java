@@ -78,38 +78,58 @@ public void crearConvenioDeHonorarios(String nombre, String apellido, String dni
     if(nombre == null) {
       FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay nombre para imprimir"));
     }else{
-            
-        Date date = new Date();
-        //Caso 1: obtener la hora y salida por pantalla con formato:
-        DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
-        System.out.println("Hora: "+hourFormat.format(date));
-        //Caso 2: obtener la fecha y salida por pantalla con formato:
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        
-        System.out.println("Fecha: "+dateFormat.format(date));
-        //Caso 3: obtenerhora y fecha y salida por pantalla con formato:
-        DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
-        System.out.println("Hora y fecha: "+hourdateFormat.format(date));
-    
-            String fechaYHoraActual = hourdateFormat.format(date).toString();
+        if(apellido == null ){
+              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay Apellido para imprimir"));
+        }else{   
+            if(dni == null){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay dni para imprimir"));
+            }else{
+                if(direccion == null){
+                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay dni para imprimir"));
+                }
+                else{
+                   if(nroDeAltura == null){
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay nro De Altura de la dirección para imprimir"));
+                   }else{ 
+                       if(barrio == null){
+                             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay barrio de la dirección para imprimir"));
+                       }else{
+                        Date date = new Date();
+                        //Caso 1: obtener la hora y salida por pantalla con formato:
+                        DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
+                        System.out.println("Hora: "+hourFormat.format(date));
+                        //Caso 2: obtener la fecha y salida por pantalla con formato:
+                        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-                fechaYHoraActual = fechaYHoraActual.replace(" ","");
-                fechaYHoraActual = fechaYHoraActual.replace(":","");
-                
-                String nombreDelDocumento = new String();
+                        System.out.println("Fecha: "+dateFormat.format(date));
+                        //Caso 3: obtenerhora y fecha y salida por pantalla con formato:
+                        DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+                        System.out.println("Hora y fecha: "+hourdateFormat.format(date));
 
-                nombreDelDocumento = "ConvenioDeHonorariosPara_".concat(nombre).concat(fechaYHoraActual);
-                nombreDelDocumento = nombreDelDocumento.replace(" ","");
-                nombreDelDocumento = nombreDelDocumento.replace(":","");
-                nombreDelDocumento = nombreDelDocumento.replace("/","");
-                
-                MembretePresupuesto doc = new MembretePresupuesto();
-                  
-                 doc.createPdfConvenioDeHonorarios(nombreDelDocumento, nombre, apellido, dni, direccion, nroDeAltura, barrio);
-                
-                downloadPdf(nombreDelDocumento);
-                
-                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Impresion exitosa del convenio de Honorarios"));
+                            String fechaYHoraActual = hourdateFormat.format(date).toString();
+
+                                fechaYHoraActual = fechaYHoraActual.replace(" ","");
+                                fechaYHoraActual = fechaYHoraActual.replace(":","");
+
+                                String nombreDelDocumento = new String();
+
+                                nombreDelDocumento = "ConvenioDeHonorariosPara_".concat(nombre).concat(fechaYHoraActual);
+                                nombreDelDocumento = nombreDelDocumento.replace(" ","");
+                                nombreDelDocumento = nombreDelDocumento.replace(":","");
+                                nombreDelDocumento = nombreDelDocumento.replace("/","");
+
+                                MembretePresupuesto doc = new MembretePresupuesto();
+
+                                 doc.createPdfConvenioDeHonorarios(nombreDelDocumento, nombre, apellido, dni, direccion, nroDeAltura, barrio);
+
+                                downloadPdf(nombreDelDocumento);
+
+                                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Impresion exitosa del convenio de Honorarios"));
+                            }      
+                        }
+                    }
+                }
+            }
         }
     }
 

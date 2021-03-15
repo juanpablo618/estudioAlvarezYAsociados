@@ -104,7 +104,13 @@ public class Turno implements Serializable {
 
     public String getDiaMesAnio() {
         DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        
+        if(horaYDia != null){
         return formatoFecha.format(horaYDia);
+        }
+        else{
+            return "";
+        }
     }
 
     public void setHoraYDia(Date horaYDia) {

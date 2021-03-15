@@ -96,6 +96,7 @@
 
                                 <p:outputLabel value="Procedencia:" for="procedencia" style="font-weight: bold" /><br></br>
                                 <p:selectOneMenu  id="procedencia" value="#{expedienteController.selected.procedencia}"  >
+                                    <f:selectItem itemLabel=" -- Procedencia --"  noSelectionOption="true"/>
                                     <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.nombreProcedencia}" itemValue="#{procedencia.nombreProcedencia}" />
                                 </p:selectOneMenu>
 

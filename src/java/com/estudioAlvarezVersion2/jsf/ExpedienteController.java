@@ -10,6 +10,9 @@ import com.estudioAlvarezVersion2.jpacontroller.ExpedienteFacade;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,6 +49,11 @@ public class ExpedienteController implements Serializable {
     private List<Expediente> filteredExpedientes;
     private Date dateSelected;
 
+    private static final String ADMINISTRATIVO = "administrativo";
+    private static final String JUDICIAL = "judicial";
+    private static final String SIN_CARPETA = "sin carpeta";
+    
+    
     public Date getDateSelected() {
         return dateSelected;
     }
@@ -114,25 +122,29 @@ public class ExpedienteController implements Serializable {
    
     public Expediente prepareCreateExpAdministrativo() {
         selected = new Expediente();
-        selected.setTipoDeExpediente("administrativo");
+        selected.setTipoDeExpediente(ADMINISTRATIVO);
         Date date = new Date();
         selected.setFechaDeAtencion(date);
         //ingresarOrdenAutoincremental();
+       //ingresarOrdenAutoincrementalSaltandoExpedientesSinCarpeta();
+        
        selected.setTablaDeHonorariosYGastos("fecha | concepto | debe | haber | saldo |");
 
-        ingresarOrdenAutoincrementalSaltandoExpedientesSinCarpeta();
+       selected.setOrden(buscarMayorIdAdmOrJudicial());
 
         initializeEmbeddableKey();
         return selected;
     }
-
+    
     public Expediente prepareCreateExpJudicial() {
         selected = new Expediente();
-        selected.setTipoDeExpediente("judicial");
+        selected.setTipoDeExpediente(JUDICIAL);
         Date date = new Date();
         selected.setFechaDeAtencion(date);
         //ingresarOrdenAutoincremental();
-        ingresarOrdenAutoincrementalSaltandoExpedientesSinCarpeta();
+        //ingresarOrdenAutoincrementalSaltandoExpedientesSinCarpeta();
+        selected.setOrden(buscarMayorIdAdmOrJudicial());
+
         selected.setTablaDeHonorariosYGastos("fecha | concepto | debe | haber | saldo |");
 
         initializeEmbeddableKey();
@@ -141,7 +153,7 @@ public class ExpedienteController implements Serializable {
 
     public Expediente prepareCreateExpSinCarpeta() {
         selected = new Expediente();
-        selected.setTipoDeExpediente("sin carpeta");
+        selected.setTipoDeExpediente(SIN_CARPETA);
         Date date = new Date();
         selected.setFechaDeAtencion(date);
         selected.setOrden(null);
@@ -340,13 +352,17 @@ public class ExpedienteController implements Serializable {
 
         ingresarDni();
 
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteCreated").concat(selected.getTipoDeExpediente()));
+        String successMessage = "Expediente del tipo: ".concat(selected.getTipoDeExpediente().toUpperCase()).concat(" creado exitosamente");
+        
+        if(selected.getTipoDeExpediente() == null ? SIN_CARPETA != null : !selected.getTipoDeExpediente().equals(SIN_CARPETA)) successMessage = "Expediente del tipo: ".concat(selected.getTipoDeExpediente().toUpperCase()).concat(" creado exitosamente").concat(" con el nro de Orden: ") + selected.getOrden();
+        
+        persist(PersistAction.CREATE, successMessage);
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
-    public void ingresarEdad() {
+    
+    /*public void ingresarEdad() {
         if (selected.getFechaDeNacimiento() != null) {
             Calendar fecha = new GregorianCalendar();
             int añoActual = fecha.get(Calendar.YEAR);
@@ -355,7 +371,7 @@ public class ExpedienteController implements Serializable {
 
             añoDeNacimiento = añoDeNacimiento + 1900;
 
-            int edad = 0;
+            int edad = 0; 
 
             edad = añoActual - añoDeNacimiento;
 
@@ -365,14 +381,28 @@ public class ExpedienteController implements Serializable {
             }else{
             selected.setEdad(edad);
             }
+        } else {
+            //TODO: review this code to drop off a notificacion We need to give an avise that date is not been setted!
+            selected.setEdad(0);
+        }
+
+    }*/
+    
+    public void ingresarEdad(){
+      if (selected.getFechaDeNacimiento() != null) {
+            Date fechaAntigua = selected.getFechaDeNacimiento();
+            LocalDate fechaNueva = fechaAntigua.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate start = fechaNueva;
+            LocalDate end = LocalDate.now(); // use for age-calculation: LocalDate.now()
+            long years = ChronoUnit.YEARS.between(start, end);
+        selected.setEdad(Math.toIntExact(years));
             
         } else {
             //TODO: review this code to drop off a notificacion We need to give an avise that date is not been setted!
             selected.setEdad(0);
-
         }
-
     }
+           
 
     public void ingresarDni() {
 
@@ -390,10 +420,7 @@ public class ExpedienteController implements Serializable {
         }
     }
 
-    public void ingresarOrdenAutoincrementalSaltandoExpedientesSinCarpeta() {
-        selected.setOrden(autoIncrementarOrdenSaltandoExpedientesSinCarpeta());
-
-    }
+    
 
     public void ingresarOrdenAutoincremental() {
 
@@ -402,28 +429,110 @@ public class ExpedienteController implements Serializable {
 
     public void update() {
 
-        Calendar fecha = new GregorianCalendar();
-        int añoActual = fecha.get(Calendar.YEAR);
+        //Calendar fecha = new GregorianCalendar();
+        //int añoActual = fecha.get(Calendar.YEAR);
+        //  int añoDeNacimiento = selected.getFechaDeNacimiento().getYear();
+        //    añoDeNacimiento = añoDeNacimiento + 1900;
+        //      int edad = 0;
+        //        edad = añoActual - añoDeNacimiento;
+        //selected.setEdad(edad);
+        
+            Date fechaAntigua = new Date();
+            
+            if(selected.getFechaDeNacimiento() != null){
+                fechaAntigua = selected.getFechaDeNacimiento();
+            }
+                    
+            LocalDate fechaNueva = fechaAntigua.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate start = fechaNueva;
+            LocalDate end = LocalDate.now(); // use for age-calculation: LocalDate.now()
+            long years = ChronoUnit.YEARS.between(start, end);
+            selected.setEdad(Math.toIntExact(years));
+        
+        if(selected.getCuit() != null){
+            String cuit = selected.getCuit();
+            cuit = cuit.substring(2, 9);
+            selected.setDni(cuit);
+        }
+     
+        String successMessage = "Expediente actualizado exitosamente";
 
-        int añoDeNacimiento = selected.getFechaDeNacimiento().getYear();
+        if(selected.getTipoDeExpediente() != null) successMessage = "Expediente ".concat(selected.getTipoDeExpediente().toUpperCase()).concat(" actualizado exitosamente.");
+        
+        persist(PersistAction.UPDATE, successMessage);
+    }
 
-        añoDeNacimiento = añoDeNacimiento + 1900;
-
-        int edad = 0;
-
-        edad = añoActual - añoDeNacimiento;
-
-        selected.setEdad(edad);
-
+    
+    public void updateConCambioParaAdministrativo() {
+        
+            Date fechaAntigua = new Date();
+            
+            if(selected.getFechaDeNacimiento() != null){
+                fechaAntigua = selected.getFechaDeNacimiento();
+            }
+                    
+            LocalDate fechaNueva = fechaAntigua.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate start = fechaNueva;
+            LocalDate end = LocalDate.now(); // use for age-calculation: LocalDate.now()
+            long years = ChronoUnit.YEARS.between(start, end);
+            selected.setEdad(Math.toIntExact(years));
+        
         if(selected.getCuit() != null){
             String cuit = selected.getCuit();
             cuit = cuit.substring(2, 9);
             selected.setDni(cuit);
         }
         
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteUpdated"));
+        int mayorOrden = buscarMayorIdAdmOrJudicial();
+        
+        selected.setOrden(mayorOrden);
+        selected.setTipoDeExpediente(ADMINISTRATIVO);
+                
+        persist(PersistAction.UPDATE, "Expediente transformado a ADMINISTRATIVO con el nro de orden: "+ mayorOrden);
+    }
+    
+    public void updateConCambioParaJudicial() {
+        
+            Date fechaAntigua = new Date();
+            
+            if(selected.getFechaDeNacimiento() != null){
+                fechaAntigua = selected.getFechaDeNacimiento();
+            }
+                    
+            LocalDate fechaNueva = fechaAntigua.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate start = fechaNueva;
+            LocalDate end = LocalDate.now(); // use for age-calculation: LocalDate.now()
+            long years = ChronoUnit.YEARS.between(start, end);
+            selected.setEdad(Math.toIntExact(years));
+        
+        if(selected.getCuit() != null){
+            String cuit = selected.getCuit();
+            cuit = cuit.substring(2, 9);
+            selected.setDni(cuit);
+        }
+        
+        int mayorOrden = buscarMayorIdAdmOrJudicial();
+        
+        selected.setOrden(mayorOrden);
+        selected.setTipoDeExpediente(JUDICIAL);
+                
+        persist(PersistAction.UPDATE, "Expediente transformado a JUDICIAL con el nro de orden: "+ mayorOrden);
     }
 
+    public int buscarMayorIdAdmOrJudicial(){
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        int orden = 0;
+        
+        for (Expediente expediente : expedienteControllerBean.getItems()) {
+            if (expediente.getOrden() != null) {
+                    if(expediente.getOrden() > orden) orden = expediente.getOrden();
+            }
+        }
+        return orden+1 ;
+    }
+    
     public void update2() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteUpdated"));
     }
@@ -434,37 +543,6 @@ public class ExpedienteController implements Serializable {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
-    }
-
-    //TODO : this method is not been used, then remove
-    public void calcularEdades() {
-        Calendar fecha = new GregorianCalendar();
-        int añoActual = fecha.get(Calendar.YEAR);
-
-        for (Expediente ex : items) {
-            if (nonNull(ex.getFechaDeNacimiento())) {
-
-                int añoDeNacimiento = ex.getFechaDeNacimiento().getYear();
-
-                añoDeNacimiento = añoDeNacimiento + 1900;
-
-                int edad = 0;
-
-                edad = añoActual - añoDeNacimiento;
-
-                int mesDeNacimiento = ex.getFechaDeNacimiento().getMonth();
-                if (mesDeNacimiento > 6) {
-                    ex.setEdad(edad - 1);
-                    selected = ex;
-                    update2();
-                } else {
-                    ex.setEdad(edad);
-                    selected = ex;
-                    update2();
-                }
-            }
-        }
-
     }
 
     public List<Expediente> getItems() {
@@ -553,7 +631,7 @@ public class ExpedienteController implements Serializable {
             }
         }
     }
-
+    
     public String getNombreYApellidoPorOrden(int orden) {
 
         String nombreYApellidoBuscado = null;
@@ -697,7 +775,7 @@ public class ExpedienteController implements Serializable {
         int orden = 0;
 
         for (int i = 1; i <= expedienteControllerBean.getItemsAvailableSelectOne().size(); i++) {
-            if (expedienteControllerBean.getItemsAvailableSelectOne().get(expedienteControllerBean.getItemsAvailableSelectOne().size() - i).getTipoDeExpediente().equalsIgnoreCase("administrativo") || expedienteControllerBean.getItemsAvailableSelectOne().get(expedienteControllerBean.getItemsAvailableSelectOne().size() - i).getTipoDeExpediente().equalsIgnoreCase("judicial")) {
+            if (expedienteControllerBean.getItemsAvailableSelectOne().get(expedienteControllerBean.getItemsAvailableSelectOne().size() - i).getTipoDeExpediente().equalsIgnoreCase(ADMINISTRATIVO) || expedienteControllerBean.getItemsAvailableSelectOne().get(expedienteControllerBean.getItemsAvailableSelectOne().size() - i).getTipoDeExpediente().equalsIgnoreCase(JUDICIAL)) {
                 orden = expedienteControllerBean.getItemsAvailableSelectOne().get(expedienteControllerBean.getItemsAvailableSelectOne().size() - i).getOrden() + 1;
                 break;
             }

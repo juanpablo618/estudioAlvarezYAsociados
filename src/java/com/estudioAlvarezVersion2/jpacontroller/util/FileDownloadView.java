@@ -6,25 +6,24 @@
 package com.estudioAlvarezVersion2.jpacontroller.util;
 
 import com.estudioAlvarezVersion2.downloadPDf.ConfiguracionesGeneralesController;
+import com.sun.media.sound.InvalidFormatException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.activation.MimetypesFileTypeMap;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import org.apache.commons.compress.archivers.dump.InvalidFormatException;
+//import org.apache.commons.compress.archivers.dump.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+//import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -57,7 +56,7 @@ public class FileDownloadView {
         return file3;
     }
 
-    public StreamedContent createExcel(Date fechaDeNacimiento, String sexo, String nroDeExpediente, String nombre, String apellido) throws FileNotFoundException, IOException, InvalidFormatException, org.apache.poi.openxml4j.exceptions.InvalidFormatException {
+    public StreamedContent createExcel(Date fechaDeNacimiento, String sexo, String nroDeExpediente, String nombre, String apellido) throws FileNotFoundException, IOException, InvalidFormatException {
     
         String fecha = "##/##/####";
         String sexoParaReporte = "NN";

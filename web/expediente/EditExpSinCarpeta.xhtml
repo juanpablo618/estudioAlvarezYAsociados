@@ -103,6 +103,15 @@
                                 <br></br><br></br>
                                 <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
                                 <p:inputTextarea rows="5" cols="65" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
+                                <br></br>
+
+                                <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.updateConCambioParaAdministrativo()}" class="botonCrearAgenda hoverGreen" value="Cambiar a Administrativo"
+                                     style="float: right !important; margin-top: 0% !important;" update=":ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
+
+                                <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.updateConCambioParaJudicial()}" class="botonCrearAgenda hoverGreen" value="Cambiar a Judicial"
+                                     style="float: right !important; margin-top: 0% !important;" update=":ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
+
+                                
                             </div>
                             <div class="width50 float-r">
                                 <h:panelGrid columns="4" cellspacing="5">

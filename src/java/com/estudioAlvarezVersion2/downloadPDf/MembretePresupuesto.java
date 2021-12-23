@@ -2,6 +2,7 @@ package com.estudioAlvarezVersion2.downloadPDf;
 
 import com.estudioAlvarezVersion2.jpa.Agenda;
 import com.estudioAlvarezVersion2.jpa.Turno;
+import com.estudioAlvarezVersion2.jsf.TurnoController;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -33,8 +34,8 @@ public class MembretePresupuesto {
      * @param turnosFiltrados
      *
      */
-    public void createPdf(String filename , ArrayList<Agenda> agendasFiltradas , ArrayList<Turno> turnosFiltrados ) throws IOException, DocumentException {
-        
+    public void createPdf(String filename  ) throws IOException, DocumentException {
+        System.out.println("Entro al createPdf !!!");
         Document document = new Document(PageSize.LETTER, 36, 36, 140, 36);
         
         // Date fechaDiaria = Calendar.getInstance().getTime();
@@ -43,6 +44,7 @@ public class MembretePresupuesto {
        ConfiguracionesGeneralesController configuracionesGeneralesController = 
                context.getApplication().evaluateExpressionGet(context, 
                        "#{configuracionesGeneralesController}", ConfiguracionesGeneralesController.class);
+       
        
        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(configuracionesGeneralesController.getConfiguracionesGenerales(1).getCarpetaDePresupuestos().concat(filename).concat(".pdf")));
 
@@ -81,11 +83,11 @@ public class MembretePresupuesto {
         //table.addCell("Nombre y Apellido");
         //table.addCell("Descripción:");
         
-        for (Agenda agenda : agendasFiltradas) {
-
+        /*for (Agenda agenda : agendasFiltradas) {
+        
             Font font1 = new Font(Font.TIMES_ROMAN, 10, Font.BOLD);
             Font boldFont = new Font(Font.TIMES_ROMAN, 18, Font.BOLD);
-
+        
                 Phrase firstLine = null;
                 
             if (agenda.getApellido() != null && agenda.getNombre() != null) {
@@ -114,23 +116,68 @@ public class MembretePresupuesto {
             table.addCell(cell);
             }
                        
-        }
+        }*/
         
-        PdfPTable table2 = new PdfPTable(2);
+        PdfPTable table2 = new PdfPTable(31);
         
-        float[] medidaCeldas2 = {0.55f, 2.25f};
+        float[] medidaCeldas2 = {0.55f,0.55f, 0.55f, 2.25f, 0.55f, 0.55f, 2.25f, 0.55f, 0.55f, 2.25f, 0.55f, 0.55f, 2.25f, 0.55f, 0.55f, 2.25f, 0.55f, 0.55f, 2.25f, 0.55f, 0.55f, 2.25f, 0.55f, 0.55f, 2.25f, 0.55f, 0.55f, 2.25f, 0.55f, 0.55f, 2.25f};
 
         // ASIGNAS LAS MEDIDAS A LA TABLA (ANCHO)
         table2.setWidths(medidaCeldas2);
         
-        table2.addCell("Nombre y Apellido");
-        table2.addCell("Observación:");
+        table2.addCell("Responsable");
         
-        for (Turno turno : turnosFiltrados) {
+        table2.addCell("dia 1");
+        table2.addCell("día 2");
+        table2.addCell("día 3");
+        table2.addCell("día 4");
+        table2.addCell("día 5");
+        table2.addCell("día 6");
+        table2.addCell("día 7");
+        table2.addCell("día 8");
+        table2.addCell("día 9");
+        table2.addCell("día 10");
+        table2.addCell("día 11");
+        table2.addCell("día 12");
+        table2.addCell("día 13");
+        table2.addCell("día 14");
+        table2.addCell("día 15");
+        
+        table2.addCell("dia 16");
+        table2.addCell("día 17");
+        table2.addCell("día 18");
+        table2.addCell("día 19");
+        table2.addCell("día 20");
+        table2.addCell("día 21");
+        table2.addCell("día 22");
+        table2.addCell("día 23");
+        table2.addCell("día 24");
+        table2.addCell("día 25");
+        table2.addCell("día 26");
+        table2.addCell("día 27");
+        table2.addCell("día 28");
+        table2.addCell("día 29");
+        table2.addCell("día 30");
+        table2.addCell("día 31");
+        
+       TurnoController turnoController = 
+               context.getApplication().evaluateExpressionGet(context, 
+                       "#{turnoController}", TurnoController.class);
+       
+        
+        
+        for (Turno turno : turnoController.getItems()) {
+        
+             PdfPCell cell3 = new PdfPCell(new Paragraph(turno.getResponsable()));
 
+            cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
+            
+            table2.addCell(cell3);
+           
+            
             PdfPCell cell = new PdfPCell(new Paragraph(turno.getApellido()
                     .concat(" ").concat(turno.getApellido())));
-            
+
             cell.setHorizontalAlignment(Element.ALIGN_CENTER);
             
             table2.addCell(cell);
@@ -141,7 +188,7 @@ public class MembretePresupuesto {
             cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
             
             table2.addCell(cell2);
-            
+            break;
         }
 
         document.add(table);

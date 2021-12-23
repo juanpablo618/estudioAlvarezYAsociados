@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="ExpedienteJudicialEditDlg" widgetVar="ExpedienteJudicialEditDialog" class="editarExpedienteJudicial" modal="true" resizable="false" appendTo="@(body)" >
+        <p:dialog id="ExpedienteJudicialEditDlg" class="editarExpedienteJudicial" widgetVar="ExpedienteJudicialEditDialog"  modal="true" resizable="true" appendTo="@(body)" width="100" style="overflow-y:auto" >
             <h:form id="ExpedienteJudicialEditForm">
 
                 <div style="font-weight: bold; float: left; width: 100%; ">
@@ -81,7 +81,11 @@
                                         <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.nombreProcedencia}" itemValue="#{procedencia.nombreProcedencia}" />
                                     </p:selectOneMenu>
                                 </h:panelGrid>
-                                <br></br>
+                                <br></br><br></br>
+                                <p:outputLabel class="float-l" value="Apoderado:" for="apoderado" style="font-weight: bold"/><br></br>
+                                <p:inputText   id="apoderado" value="#{expedienteController.selected.apoderado}" title="apoderado"/>
+
+                                <br></br><br></br>
                                 <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
                                 <p:inputTextarea rows="7" cols="55" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
                             </div>
@@ -189,94 +193,104 @@
                         </p:tab>
                         
                         <p:tab title="Documentos" >
-                        <div style="float:right ;width: 48%">
-                            <div>
-                                <p:commandButton value="C. de Aportes" ajax="false">
-                                    <p:fileDownload value="#{fileBean.createExcel(expedienteController.selected.fechaDeNacimiento, expedienteController.selected.sexo, expedienteController.selected.nroDeExpediente, expedienteController.selected.nombre, expedienteController.selected.apellido)}"/>
-                                </p:commandButton>
-                            </div>
-                            <br></br>
-                            <div>
-                                <p:commandButton value="Carta Poder" ajax="false">
-                                    <p:fileDownload value="#{fileBean.file}"/>
-                                </p:commandButton>
-                            </div>
-                            <br></br>
-                            <div>
-                                <p:commandButton value="Solicitud de prestaciones previsionales" ajax="false">
-                                    <p:fileDownload value="#{fileBean.file2}"/>
-                                </p:commandButton>
-                            </div>
-                            <br></br>
-                            <div > <p:outputLabel value="Documento PDF Uno:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel value="Nombre del archivo PDF Uno:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDF(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                        <div style="float:right ;width: 48%;  margin-top: 2%;">
+                                <div>
+                                    <p:panel id="panelCronoDeAportes" header="Crono. de Aportes" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px;">
+                                    <p:outputLabel value="Nombre del archivo Crono. de Aportes:"  style="font-weight: bold"/><br></br>
+                                    <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoCronoDeAportes(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                    </p:panel>
+                                </div>
                                 
-                            </div>
+                            <br></br>
+                            <p:panel id="panelPartidas" header="Partidas" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            
+                                <p:outputLabel value="Partida Uno:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="Nombre del archivo JPG/PDF:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPG(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
                                 <br></br>
-                                <div > <p:outputLabel value="Documento PDF Dos:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="Partida Dos:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="Nombre del archivo JPG/PDF 2:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGDos(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
                                 <br></br>
-                                <p:outputLabel value="Nombre del archivo PDF Dos:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="Partida Tres:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="Nombre del archivo JPG/PDF 3:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGTres(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <br></br>
+                                <p:outputLabel value="Partida Cuatro:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="Nombre del archivo JPG/PDF 4:" style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGCuatro(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <br></br>
+                            
+                                <p:outputLabel value="Partida Cinco:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="Nombre del archivo JPG/PDF 5:" style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGCinco(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                
+                                <br></br>
+                            
+                                <div > <p:outputLabel value="Partida Seis:"  style="font-weight: bold"/><br></br>
+                                    <p:outputLabel value="Nombre del archivo JPG/PDF 6:"  style="font-weight: bold"/><br></br>
+                                    <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDF(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                </div>
+                                
+                                <br></br>
+                                                                                                
+                                <div > <p:outputLabel value="Partida Siete:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="Nombre del archivo JPG/PDF 7:"  style="font-weight: bold"/><br></br>
                                 <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFDos(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
                                 </div>
                                 <br></br>
-                                <div > <p:outputLabel value="Documento PDF Tres:"  style="font-weight: bold"/><br></br>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo PDF Tres:"  style="font-weight: bold"/><br></br>
+                                <div > <p:outputLabel value="Partida Ocho:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="Nombre del archivo JPG/PDF 8:"  style="font-weight: bold"/><br></br>
                                 <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFTres(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
                                 </div>
                                 <br></br>
-                                <div > <p:outputLabel value="Documento PDF Cuatro:"  style="font-weight: bold"/><br></br>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo PDF Cuatro:"  style="font-weight: bold"/><br></br>
+                                <div > <p:outputLabel value="Partida Nieve:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="Nombre del archivo JPG/PDF 9:"  style="font-weight: bold"/><br></br>
                                 <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFCuatro(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
                                 </div>
                                 <br></br>
-                                <div > <p:outputLabel value="Documento PDF Cinco:"  style="font-weight: bold"/><br></br>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo PDF Cinco:"  style="font-weight: bold"/><br></br>
+                                <div > <p:outputLabel value="Partida Diez:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="Nombre del archivo JPG/PDF 10:"  style="font-weight: bold"/><br></br>
                                 <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFCinco(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
                                 </div>
-                                </div>                            
+                        </p:panel>
+                        </div>                            
                             <br></br>
+                              
                         <div class="width50" style="float:right;">
                             <div>
-                                <p:outputLabel value="Imagen JPG Uno:"  style="font-weight: bold"/><br></br>
                                 <br></br>
-                                <p:outputLabel value="Nombre del archivo JPG:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPG(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                            <p:panel id="panelFrenteDni" header="Frente DNI" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                                                        
+                                <div > <p:outputLabel value="Frente DNI:"  style="font-weight: bold"/><br></br>
+                                    <p:outputLabel value="Nombre del archivo Frente DNI:"  style="font-weight: bold"/><br></br>
+                                    <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoFrenteDni(expedienteController.selected.orden)}" style="font-weight: bold;color: #123A6D"/><br></br>
+                                    
+                                </div>
+                            </p:panel>
                                 <br></br>
-                                <br></br>
-                                <p:outputLabel value="Imagen JPG Dos:"  style="font-weight: bold"/><br></br>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo JPG Dos:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGDos(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                <br></br>
-                                <br></br>
-                                <p:outputLabel value="Imagen JPG Tres:"  style="font-weight: bold"/><br></br>
-                                <br></br>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo JPG Tres:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGTres(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                <br></br>
-                                <br></br>
-                                <p:outputLabel value="Imagen JPG Cuatro:"  style="font-weight: bold"/><br></br>
-                                <br></br>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo JPG Cuatro:" style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGCuatro(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                <br></br>
-                                <br></br>
-                                <p:outputLabel value="Imagen JPG Cinco:"  style="font-weight: bold"/><br></br>
-                                <br></br>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo JPG Cinco:" style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGCinco(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                            <p:panel id="panelDorsoDni" header="Dorso DNI" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            
+                                <div > 
+                                    <p:outputLabel value="Dorso DNI:"  style="font-weight: bold"/><br></br>
+                                    <p:outputLabel value="Nombre del archivo Dorso DNI:"  style="font-weight: bold"/><br></br>
+                                    <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoDorsoDni(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+
+                                </div>
+                            </p:panel>
+                                    <br></br>
+                            <p:panel id="panelOtraDocumentacion" header="Otra Documentación" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
                                 
+                                <p:outputLabel value="Nombre del archivo Otra Documentación:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                
+                            </p:panel>
+                            
                             </div>
- </div>     
+                        </div>     
                             <br></br>
                             <br></br>
+                        
                         </p:tab>
 
                         
@@ -292,6 +306,33 @@
                                         <p:outputLabel value="#{expedienteController.verProximaAgenda(expedienteController.selected.orden)}" style="font-weight: bold" /><br></br>
                                     </p:fieldset>
                                 </div>
+                                <div>
+                                    <p:fieldset legend="AGENDAS FUTURAS" toggleable="true" toggleSpeed="500">
+                                        
+                                <p:dataTable id="datalist2" value="#{expedienteController.verProximasAgendasPorNroDeOrden(expedienteController.selected.orden)}" var="item"
+                                 paginator="true"
+                                 rows="20"
+                                 widgetVar="agendasTable2"
+                                 rowsPerPageTemplate="100,200,500"
+                                 emptyMessage="no hay agendas futuras agregadas" 
+                                 rendered="true"  
+                                 >
+
+                        <p:column style="width: 23%" styleClass="centeredColumnContent"  headerText="FECHA">
+                            <h:outputText value="#{item.fecha}"  style="color: #151717; " >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column  style="width: 9%" styleClass="centeredColumnContent" headerText="RESPONSABLE">
+                            <h:outputText value="#{item.responsable}" style="color: #151717" />
+                        </p:column>
+                        <p:column  headerText="DESCRIPCIÓN">
+                            <h:outputText value="#{item.descripcion}" style="color: #151717" />
+                        </p:column>
+                    </p:dataTable>
+                  </p:fieldset>
+                  </div>
+                                
                                 <div>
                                     <p:commandButton id="createButton" class="createButtonAgenda hoverBlue" value="Crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteJudicialEditDialog').show()" />
                                 </div>

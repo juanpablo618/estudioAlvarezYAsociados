@@ -182,6 +182,10 @@ public class Expediente implements Serializable {
     private String observaciones;
     
     @Basic(optional = false)
+    @Column(name = "apoderado")
+    private String apoderado;
+    
+    @Basic(optional = false)
     @Column(name = "comunicaciones")
     private String comunicaciones;
 
@@ -234,7 +238,7 @@ public class Expediente implements Serializable {
             String localidad, String tipoDeTramite, String procedencia,
             String estadoDelTramite, Date fechaDeCobro, String nacionalidad,
             String tipoDeExpediente, String caratula, String nroDeExpediente,
-            String juzgadoODependencia, String observaciones, String comunicaciones, Date fechaDeAtencion,
+            String juzgadoODependencia, String observaciones, String apoderado, String comunicaciones, Date fechaDeAtencion,
             String convenioDeHonorarios, String jurisdiccion, String poderFirmado,
             String tipo, String etapaProcesal, String detalleDeEstadoDeTramite, String tablaDeHonorariosYGastos) {
         this.idExpediente = idExpediente;
@@ -270,6 +274,7 @@ public class Expediente implements Serializable {
         this.nroDeExpediente = nroDeExpediente;
         this.juzgadoODependencia = juzgadoODependencia;
         this.observaciones = observaciones;
+        this.apoderado = apoderado;
         this.comunicaciones = comunicaciones;
         this.fechaDeAtencion = fechaDeAtencion;
         this.convenioDeHonorarios = convenioDeHonorarios;
@@ -299,7 +304,10 @@ public class Expediente implements Serializable {
     }
 
     public String getCuit() {
-        return cuit;
+        if(cuit != null){
+            return cuit;
+        }
+        return "0";
     }
 
     public void setCuit(String cuit) {
@@ -581,6 +589,14 @@ public class Expediente implements Serializable {
         this.observaciones = observaciones;
     }
 
+    public String getApoderado() {
+        return apoderado;
+    }
+
+    public void setApoderado(String apoderado) {
+        this.apoderado = apoderado;
+    }
+    
     public String getComunicaciones() {
         return comunicaciones;
     }

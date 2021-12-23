@@ -4,7 +4,6 @@ package com.estudioAlvarezVersion2.jpacontroller.util;
  *
  * @author cuello.juanpablo@gmail.com
  */
-
 import com.estudioAlvarezVersion2.jpa.DAO;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -21,23 +20,30 @@ import org.primefaces.model.StreamedContent;
 
 @ManagedBean
 @SessionScoped
-public class FileDownloadBean  implements Serializable{
- 
-    private static final long serialVersionUID = 626953318628565453L;
+public class FileDownloadBean implements Serializable {
 
-    private StreamedContent filePdf;    
-    private StreamedContent filePdfDos;    
-    private StreamedContent filePdfTres;    
-    private StreamedContent filePdfCuatro;    
-    private StreamedContent filePdfCinco;    
-        
+    private static final long serialVersionUID = 626953318628565453L;
+    private static final String APPLICATION_PDF = "application/pdf";
+    private static final String IMAGE_JPEG = "image/jpeg";
+
+    private StreamedContent filePdf;
+    private StreamedContent filePdfDos;
+    private StreamedContent filePdfTres;
+    private StreamedContent filePdfCuatro;
+    private StreamedContent filePdfCinco;
+
     private StreamedContent file;
     private StreamedContent fileDos;
     private StreamedContent fileTres;
     private StreamedContent fileCuatro;
     private StreamedContent fileCinco;
+
+    private StreamedContent fileFrenteDni;
+    private StreamedContent fileDorsoDni;
+    private StreamedContent fileOtraDocumentacion;
+    private StreamedContent fileCronoDeAportes;
     
-    
+
     private int codigo;
 
     public StreamedContent getFile() {
@@ -127,670 +133,997 @@ public class FileDownloadBean  implements Serializable{
     public void setFileCinco(StreamedContent fileCinco) {
         this.fileCinco = fileCinco;
     }
-    
-    
-    
-    
-    /*
-        no estamos usando este metodo luego borrar.
-    public void download(){
-        Connection con = null;
-	PreparedStatement ps = null;
 
-        try {
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT documento FROM documentos WHERE nroDeOrden = (?)");
-			ps.setInt(1, codigo);
+    public StreamedContent getFileFrenteDni() {
+        return fileFrenteDni;
+    }
 
-			ResultSet rs = ps.executeQuery();
+    public void setFileFrenteDni(StreamedContent fileFrenteDni) {
+        this.fileFrenteDni = fileFrenteDni;
+    }
 
-			while (rs.next()) {
-                                InputStream stream = rs.getBinaryStream("documento");
-                                file = new DefaultStreamedContent(stream, "application/pdf", "documento.pdf");
-			}
-                        con.close();
-                        FacesMessage msg = new FacesMessage("Exito", "archivo descargado exitosamente.");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-        } catch (Exception e) {
-                   FacesMessage msg = new FacesMessage("Mal", "Fichero no descargado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    }*/
+    public StreamedContent getFileDorsoDni() {
+        return fileDorsoDni;
+    }
 
-    public void downloadPDF(int orden){
-        Connection con = null;
-	PreparedStatement ps = null;
-        try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT documento FROM documentos WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        while (rs.next()) {
-                                InputStream stream = rs.getBinaryStream("documento");
-                                filePdf = new DefaultStreamedContent(stream, "application/pdf", "documento.pdf");
-                        }
-                        con.close();
-                        if(filePdf != null){
-                            FacesMessage msg = new FacesMessage("Exito", "archivo PDF 1 descargado exitosamente.");
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
+    public void setFileDorsoDni(StreamedContent fileDorsoDni) {
+        this.fileDorsoDni = fileDorsoDni;
+    }
 
-                        }else{
-                            FacesMessage msg = new FacesMessage("Error", "No existe archivo PDF 1 para este nro de orden: "+orden);
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
-                        }
-			
-            }else{
-                FacesMessage msg = new FacesMessage("Error", "no se encontro documento pdf 1 con ese nro de orden.");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-            }
-            
-        } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("Error", "Fichero PDF 1 no descargado");
-                   FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
+    public StreamedContent getFileOtraDocumentacion() {
+        return fileOtraDocumentacion;
+    }
+
+    public void setFileOtraDocumentacion(StreamedContent fileOtraDocumentacion) {
+        this.fileOtraDocumentacion = fileOtraDocumentacion;
+    }
+
+    public StreamedContent getFileCronoDeAportes() {
+        return fileCronoDeAportes;
+    }
+
+    public void setFileCronoDeAportes(StreamedContent fileCronoDeAportes) {
+        this.fileCronoDeAportes = fileCronoDeAportes;
     }
     
-    public void downloadPDFDos(int orden){
+    public void downloadPDF(int orden) {
         Connection con = null;
-	PreparedStatement ps = null;
+        PreparedStatement ps = null;
         try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT documento FROM documentos2 WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        while (rs.next()) {
-                                InputStream stream = rs.getBinaryStream("documento");
-                                filePdfDos = new DefaultStreamedContent(stream, "application/pdf", "documento.pdf");
-                        }
-                        con.close();
-                        if(filePdfDos != null){
-                            FacesMessage msg = new FacesMessage("Exito", "archivo PDF 2 descargado exitosamente.");
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
-                        }else{
-                            FacesMessage msg = new FacesMessage("Error", "No existe archivo PDF 2 para este nro de orden: "+orden);
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
-                        }
-            }else{
-                FacesMessage msg = new FacesMessage("Error", "no se encontro documento pdf 2 con ese nro de orden.");
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentos WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        filePdf = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        filePdf = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+
+                }
+                con.close();
+                if (filePdf != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo PDF 1 descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                } else {
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo PDF 1 para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+
+            } else {
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro documento pdf 1 con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
+
         } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("Error", "Fichero PDF 2 no descargado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero JPG O PDF 1 no descargado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    
-    public void downloadPDFTres(int orden){
+
+    public void downloadPDFDos(int orden) {
         Connection con = null;
-	PreparedStatement ps = null;
+        PreparedStatement ps = null;
         try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT documento FROM documentos3 WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        while (rs.next()) {
-                                InputStream stream = rs.getBinaryStream("documento");
-                                filePdfTres = new DefaultStreamedContent(stream, "application/pdf", "documento.pdf");
-                        }
-                        
-                        con.close();
-                        if(filePdfTres != null){
-                            FacesMessage msg = new FacesMessage("Exito", "archivo PDF 3 descargado exitosamente.");
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
-                        }else{
-                            FacesMessage msg = new FacesMessage("Error", "No existe archivo PDF 3 para este nro de orden: "+orden);
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
-                        }
-            }else{
-                FacesMessage msg = new FacesMessage("Error", "no se encontro documento pdf 3 con ese nro de orden.");
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentos2 WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        filePdfDos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        filePdfDos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+
+                }
+                con.close();
+                if (filePdfDos != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo PDF 2 descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                } else {
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo PDF 2 para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+            } else {
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro documento pdf 2 con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("Error", "Fichero PDF 3 no descargado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero JPG O PDF 2 no descargado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    
-    public void downloadPDFCuatro(int orden){
-        Connection con = null;
-	PreparedStatement ps = null;
-        try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT documento FROM documentos4 WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        while (rs.next()) {
-                                InputStream stream = rs.getBinaryStream("documento");
-                                filePdfCuatro = new DefaultStreamedContent(stream, "application/pdf", "documento.pdf");
-                        }
-                        
-                        con.close();
-                        if(filePdfCuatro != null){
-                            FacesMessage msg = new FacesMessage("Exito", "archivo PDF 4 descargado exitosamente.");
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
-                        }else{
-                            FacesMessage msg = new FacesMessage("Error", "No existe archivo PDF 4 para este nro de orden: "+orden);
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
-                        }
-            }else{
-                FacesMessage msg = new FacesMessage("Error", "no se encontro documento pdf 4 con ese nro de orden.");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-            }
-        } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("Error", "Fichero PDF 4 no descargado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    }
-    
-    public void downloadPDFCinco(int orden){
-        Connection con = null;
-	PreparedStatement ps = null;
-        try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT documento FROM documentos5 WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        while (rs.next()) {
-                                InputStream stream = rs.getBinaryStream("documento");
-                                filePdfCinco = new DefaultStreamedContent(stream, "application/pdf", "documento.pdf");
-                        }
-                        con.close();
-                        if(filePdfCinco != null){
-                            FacesMessage msg = new FacesMessage("Exito", "archivo PDF 5 descargado exitosamente.");
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
-                        }else{
-                            FacesMessage msg = new FacesMessage("Error", "No existe archivo PDF 5 para este nro de orden: "+orden);
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
-                        }
-            }else{
-                FacesMessage msg = new FacesMessage("Error", "no se encontro documento pdf 5 con ese nro de orden.");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-            }
-        } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("Error", "Fichero PDF 5 no descargado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    }
-    
-    public String buscarNombreDeArchivoPDF(int orden){
-        Connection con = null;
-	PreparedStatement ps = null;
-        String nombre = "";
-        try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentos WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        
-                        while (rs.next()) {
-                            nombre = rs.getString(1);
-                        }
-                        con.close();
-            }
-        } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo pdf no encontrado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-        if("".equals(nombre)){
-            return "no existe pdf Uno para este expediente";
-        }else{
-        return nombre;
-    
-        }
-    }
-    
-    public String buscarNombreDeArchivoPDFDos(int orden){
-        Connection con = null;
-	PreparedStatement ps = null;
-        String nombre = "";
-        try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentos2 WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        
-                        while (rs.next()) {
-                            nombre = rs.getString(1);
-                        }
-                        con.close();
-            }
-        } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo pdf dos no encontrado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-        if("".equals(nombre)){
-            return "no existe pdf Dos para este expediente";
-        }else{
-        return nombre;
-    
-        }
-    }
-    
-    public String buscarNombreDeArchivoPDFTres(int orden){
-        Connection con = null;
-	PreparedStatement ps = null;
-        String nombre = "";
-        try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentos3 WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        
-                        while (rs.next()) {
-                            nombre = rs.getString(1);
-                        }
-                        con.close();
-            }
-        } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo pdf tres no encontrado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-        if("".equals(nombre)){
-            return "no existe pdf Tres para este expediente";
-        }else{
-        return nombre;
-    
-        }
-    }
-    
-    public String buscarNombreDeArchivoPDFCuatro(int orden){
-        Connection con = null;
-	PreparedStatement ps = null;
-        String nombre = "";
-        try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentos4 WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        
-                        while (rs.next()) {
-                            nombre = rs.getString(1);
-                        }
-                        con.close();
-            }
-        } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo pdf cuatro no encontrado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-        if("".equals(nombre)){
-            return "no existe pdf Cuatro para este expediente";
-        }else{
-        return nombre;
-        }
-    }
-    
-    public String buscarNombreDeArchivoPDFCinco(int orden){
-        Connection con = null;
-	PreparedStatement ps = null;
-        String nombre = "";
-        try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentos5 WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        
-                        while (rs.next()) {
-                            nombre = rs.getString(1);
-                        }
-                        con.close();
-            }
-        } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo pdf cinco no encontrado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-        if("".equals(nombre)){
-            return "no existe pdf Cinco para este expediente";
-        }else{
-        return nombre;
-        }
-    }
-    
-    
-    
-    public void downloadJPG(int orden){
-        Connection con = null;
-	PreparedStatement ps = null;
-        try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT documento FROM documentosjpg WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        while (rs.next()) {
-                                InputStream stream = rs.getBinaryStream("documento");
-                                file = new DefaultStreamedContent(stream, "image/jpeg", "imagen.jpg");
-                        }
-                        
-                        con.close();
-                        if(file != null){
-                            FacesMessage msg = new FacesMessage("Exito", "archivo JPG uno descargado exitosamente.");
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
 
-                        }else{
-                            FacesMessage msg = new FacesMessage("ERROR", "No existe archivo JPG uno para este nro de orden: "+orden);
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
-                        }
-			
-            }else{
+    public void downloadPDFTres(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentos3 WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        filePdfTres = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        filePdfTres = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+
+                }
+
+                con.close();
+                if (filePdfTres != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo PDF 3 descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                } else {
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo PDF 3 para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+            } else {
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro documento JPG O PDF 3 con ese nro de orden.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero JPG O PDF 3 no descargado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+
+    public void downloadPDFCuatro(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentos4 WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        filePdfCuatro = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        filePdfCuatro = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+
+                }
+
+                con.close();
+                if (filePdfCuatro != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo JPG O PDF 4 descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                } else {
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo JPG O PDF 4 para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+            } else {
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro documento JPG o PDF 4 con ese nro de orden.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero PDF/JPG 4 no descargado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+
+    public void downloadPDFCinco(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentos5 WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        filePdfCinco = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        filePdfCinco = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+                }
+                con.close();
+                if (filePdfCinco != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo PDF 5 descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                } else {
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo PDF 5 para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+            } else {
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro documento pdf 5 con ese nro de orden.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero PDF 5 no descargado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+    private static final String ERROR = "Error";
+
+    public String buscarNombreDeArchivoPDF(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        String nombre = "";
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentos WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo pdf no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe archivo 1 para este expediente";
+        } else {
+            return nombre;
+
+        }
+    }
+
+    public String buscarNombreDeArchivoPDFDos(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        String nombre = "";
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentos2 WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo pdf 2 no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe archivo 2 para este expediente";
+        } else {
+            return nombre;
+
+        }
+    }
+
+    public String buscarNombreDeArchivoPDFTres(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        String nombre = "";
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentos3 WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo pdf 3 no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe archivo 3 para este expediente";
+        } else {
+            return nombre;
+
+        }
+    }
+
+    public String buscarNombreDeArchivoPDFCuatro(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        String nombre = "";
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentos4 WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo 4 no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe archivo 4 para este expediente";
+        } else {
+            return nombre;
+        }
+    }
+
+    public String buscarNombreDeArchivoPDFCinco(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        String nombre = "";
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentos5 WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo pdf cinco no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe archivo 5 para este expediente";
+        } else {
+            return nombre;
+        }
+    }
+
+    public void downloadCronoDeAportes(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentoscronodeaportes WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".xls")) {
+                        fileCronoDeAportes = new DefaultStreamedContent(stream, "application/vnd.ms-excel", rs.getString("nombreDelDocumento"));
+                    } else {
+                        fileCronoDeAportes = new DefaultStreamedContent(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", rs.getString("nombreDelDocumento"));
+                    }
+
+                }
+
+                con.close();
+                if (fileCronoDeAportes != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo Crono. de aportes descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                } else {
+                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo Crono. de aportes para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+
+            } else {
+                FacesMessage msg = new FacesMessage("ERROR", "no se encontro Crono. de aportes con ese nro de orden.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Fichero Crono. de aportes no descargado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+    
+    public void downloadJPG(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosjpg WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        file = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        file = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+
+                }
+
+                con.close();
+                if (file != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo JPG uno descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                } else {
+                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo JPG uno para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+
+            } else {
                 FacesMessage msg = new FacesMessage("ERROR", "no se encontro imagen JPG(1) con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
-            
+
         } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("ERROR", "Fichero JPG(1) uno no descargado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage("ERROR", "Fichero JPG(1) uno no descargado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    
-    public void downloadJPGDos(int orden){
-        Connection con = null;
-	PreparedStatement ps = null;
-        try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT documento FROM documentosjpg2 WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        while (rs.next()) {
-                                InputStream stream = rs.getBinaryStream("documento");
-                                fileDos = new DefaultStreamedContent(stream, "image/jpeg", "imagen.jpg");
-                        }
-                        
-                        con.close();
-                        if(fileDos != null){
-                            FacesMessage msg = new FacesMessage("Exito", "archivo JPG dos descargado exitosamente.");
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
 
-                        }else{
-                            FacesMessage msg = new FacesMessage("ERROR", "No existe archivo JPG dos para este nro de orden: "+orden);
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
-                        }
-			
-            }else{
+    public void downloadJPGDos(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosjpg2 WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        fileDos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        fileDos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+
+                }
+
+                con.close();
+                if (fileDos != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo JPG dos descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                } else {
+                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo JPG dos para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+
+            } else {
                 FacesMessage msg = new FacesMessage("ERROR", "no se encontro imagen JPG(2) con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
-            
+
         } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("ERROR", "Fichero JPG(2) uno no descargado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage("ERROR", "Fichero JPG(2) uno no descargado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    
-    public void downloadJPGTres(int orden){
-        Connection con = null;
-	PreparedStatement ps = null;
-        try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT documento FROM documentosjpg3 WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        while (rs.next()) {
-                                InputStream stream = rs.getBinaryStream("documento");
-                                fileTres = new DefaultStreamedContent(stream, "image/jpeg", "imagen.jpg");
-                        }
-                        
-                        con.close();
-                        if(fileTres != null){
-                            FacesMessage msg = new FacesMessage("Exito", "archivo JPG tres descargado exitosamente.");
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
 
-                        }else{
-                            FacesMessage msg = new FacesMessage("ERROR", "No existe archivo JPG tres para este nro de orden: "+orden);
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
-                        }
-			
-            }else{
+    public void downloadJPGTres(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosjpg3 WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        fileTres = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        fileTres = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+
+                }
+
+                con.close();
+                if (fileTres != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo JPG tres descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                } else {
+                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo JPG tres para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+
+            } else {
                 FacesMessage msg = new FacesMessage("ERROR", "no se encontro imagen JPG(3) con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
-            
+
         } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("ERROR", "Fichero JPG(3) uno no descargado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage("ERROR", "Fichero JPG(3) uno no descargado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    
-    public void downloadJPGCuatro(int orden){
-        Connection con = null;
-	PreparedStatement ps = null;
-        try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT documento FROM documentosjpg4 WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        while (rs.next()) {
-                                InputStream stream = rs.getBinaryStream("documento");
-                                fileCuatro = new DefaultStreamedContent(stream, "image/jpeg", "imagen.jpg");
-                        }
-                        
-                        con.close();
-                        if(fileCuatro != null){
-                            FacesMessage msg = new FacesMessage("Exito", "archivo JPG cuatro descargado exitosamente.");
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
 
-                        }else{
-                            FacesMessage msg = new FacesMessage("ERROR", "No existe archivo JPG cuatro para este nro de orden: "+orden);
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
-                        }
-			
-            }else{
-                FacesMessage msg = new FacesMessage("ERROR", "no se encontro imagen JPG(4) con ese nro de orden.");
+    public void downloadJPGCuatro(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosjpg4 WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        fileCuatro = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        fileCuatro = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+                }
+
+                con.close();
+                if (fileCuatro != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo cuatro descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                } else {
+                    FacesMessage msg = new FacesMessage("ERROR", "No existe Archivo cuatro para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+
+            } else {
+                FacesMessage msg = new FacesMessage("ERROR", "no se encontro Archivo JPG O PDF 4 con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
-            
+
         } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("ERROR", "Fichero JPG(4) uno no descargado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage("ERROR", "Fichero JPG O PDF 4 no descargado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    
-    public void downloadJPGCinco(int orden){
-        Connection con = null;
-	PreparedStatement ps = null;
-        try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT documento FROM documentosjpg5 WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        while (rs.next()) {
-                                InputStream stream = rs.getBinaryStream("documento");
-                                fileCinco = new DefaultStreamedContent(stream, "image/jpeg", "imagen.jpg");
-                        }
-                        
-                        con.close();
-                        if(fileCinco != null){
-                            FacesMessage msg = new FacesMessage("Exito", "archivo JPG cinco descargado exitosamente.");
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
 
-                        }else{
-                            FacesMessage msg = new FacesMessage("ERROR", "No existe archivo JPG cinco para este nro de orden: "+orden);
-                             FacesContext.getCurrentInstance().addMessage(null, msg);
-                        }
-			
-            }else{
+    public void downloadJPGCinco(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosjpg5 WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        fileCinco = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        fileCinco = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+                }
+
+                con.close();
+                if (fileCinco != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo JPG cinco descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                } else {
+                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo JPG cinco para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+
+            } else {
                 FacesMessage msg = new FacesMessage("ERROR", "no se encontro imagen JPG(5) con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
-            
+
         } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("ERROR", "Fichero JPG cinco no descargado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage("ERROR", "Fichero JPG cinco no descargado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    
-    
-    public String buscarNombreDeArchivoJPG(int orden){
+
+    public void downloadFrenteDni(int orden) {
         Connection con = null;
-	PreparedStatement ps = null;
+        PreparedStatement ps = null;
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosFrenteDni WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        fileFrenteDni = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        fileFrenteDni = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+                }
+
+                con.close();
+                if (fileFrenteDni != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo JPG uno descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                } else {
+                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo JPG uno para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+
+            } else {
+                FacesMessage msg = new FacesMessage("ERROR", "no se encontro imagen JPG(1) con ese nro de orden.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Fichero JPG(1) uno no descargado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+
+    public void downloadDorsoDni(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosDorsoDni WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        fileDorsoDni = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        fileDorsoDni = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+
+                }
+
+                con.close();
+                if (fileDorsoDni != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo Dorso DNI descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                } else {
+                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo Dorso DNI para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+
+            } else {
+                FacesMessage msg = new FacesMessage("ERROR", "no se encontro Dorso DNI con ese nro de orden.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Fichero Dorso DNI no descargado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+
+    public void downloadOtraDocumentacion(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosOtraDocumentacion WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        fileOtraDocumentacion = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        fileOtraDocumentacion = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+
+                }
+
+                con.close();
+                if (fileOtraDocumentacion != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo Otra Documentación descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                } else {
+                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo Otra Documentación para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+
+            } else {
+                FacesMessage msg = new FacesMessage("ERROR", "no se encontro Otra Documentación con ese nro de orden.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Fichero Otra Documentación no descargada");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+
+    public String buscarNombreDeArchivoCronoDeAportes(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
         String nombre = "";
         try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosjpg WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        
-                        while (rs.next()) {
-                            nombre = rs.getString(1);
-                        }
-                        con.close();
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentoscronodeaportes WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
             }
         } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG uno no encontrado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo Crono. de aportes no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-        if("".equals(nombre)){
-            return "no existe imagen uno para este expediente";
-        }else{
-        return nombre;
-    
+        if ("".equals(nombre)) {
+            return "no existe archivo Crono. de aportes para este expediente";
+        } else {
+            return nombre;
         }
     }
     
-    public String buscarNombreDeArchivoJPGDos(int orden){
+    public String buscarNombreDeArchivoJPG(int orden) {
         Connection con = null;
-	PreparedStatement ps = null;
+        PreparedStatement ps = null;
         String nombre = "";
         try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosjpg2 WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        
-                        while (rs.next()) {
-                            nombre = rs.getString(1);
-                        }
-                        con.close();
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosjpg WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
             }
         } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG Dos no encontrado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG uno no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-        if("".equals(nombre)){
-            return "no existe imagen Dos para este expediente";
-        }else{
-        return nombre;
-    
+        if ("".equals(nombre)) {
+            return "no existe archivo uno para este expediente";
+        } else {
+            return nombre;
+
         }
     }
-    
-    public String buscarNombreDeArchivoJPGTres(int orden){
+
+    public String buscarNombreDeArchivoJPGDos(int orden) {
         Connection con = null;
-	PreparedStatement ps = null;
+        PreparedStatement ps = null;
         String nombre = "";
         try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosjpg3 WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        
-                        while (rs.next()) {
-                            nombre = rs.getString(1);
-                        }
-                        con.close();
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosjpg2 WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
             }
         } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG Tres no encontrado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG Dos no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-        if("".equals(nombre)){
-            return "no existe imagen Tres para este expediente";
-        }else{
-        return nombre;
-    
+        if ("".equals(nombre)) {
+            return "no existe archivo 2 para este expediente";
+        } else {
+            return nombre;
+
         }
     }
-    
-    public String buscarNombreDeArchivoJPGCuatro(int orden){
+
+    public String buscarNombreDeArchivoJPGTres(int orden) {
         Connection con = null;
-	PreparedStatement ps = null;
+        PreparedStatement ps = null;
         String nombre = "";
         try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosjpg4 WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        
-                        while (rs.next()) {
-                            nombre = rs.getString(1);
-                        }
-                        con.close();
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosjpg3 WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
             }
         } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG Cuatro no encontrado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG Tres no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-        if("".equals(nombre)){
-            return "no existe imagen Cuatro para este expediente";
-        }else{
-        return nombre;
-    
+        if ("".equals(nombre)) {
+            return "no existe archivo 3 para este expediente";
+        } else {
+            return nombre;
+
         }
     }
-    
-    public String buscarNombreDeArchivoJPGCinco(int orden){
+
+    public String buscarNombreDeArchivoJPGCuatro(int orden) {
         Connection con = null;
-	PreparedStatement ps = null;
+        PreparedStatement ps = null;
         String nombre = "";
         try {
-            if(orden != 0){
-            con = DAO.getConnection();
-			ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosjpg5 WHERE nroDeOrden = (?);");
-			ps.setInt(1, orden);
-                        
-			ResultSet rs = ps.executeQuery();
-                        
-                        while (rs.next()) {
-                            nombre = rs.getString(1);
-                        }
-                        con.close();
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosjpg4 WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
             }
         } catch (SQLException e) {
-                   FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG Cinco no encontrado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG Cuatro no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-        if("".equals(nombre)){
-            return "no existe imagen Cinco para este expediente";
-        }else{
-        return nombre;
-    
+        if ("".equals(nombre)) {
+            return "no existe archivo 4 para este expediente";
+        } else {
+            return nombre;
+
         }
     }
-    
+
+    public String buscarNombreDeArchivoJPGCinco(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        String nombre = "";
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosjpg5 WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG Cinco no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe archivo 5 para este expediente";
+        } else {
+            return nombre;
+
+        }
+    }
+
+    public String buscarNombreDeArchivoFrenteDni(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        String nombre = "";
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosFrenteDni WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG uno no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe archivo frente de dni";
+        } else {
+            return nombre;
+
+        }
+    }
+
+    public String buscarNombreDeArchivoDorsoDni(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        String nombre = "";
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosDorsoDni WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG uno no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe archivo dorso de dni";
+        } else {
+            return nombre;
+
+        }
+    }
+
+    public String buscarNombreDeArchivoOtraDocumentacion(int orden) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        String nombre = "";
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosOtraDocumentacion WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG uno no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe archivo para Otra Documentación";
+        } else {
+            return nombre;
+
+        }
+    }
+
 }

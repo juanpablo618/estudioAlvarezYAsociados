@@ -8,6 +8,8 @@ import com.estudioAlvarezVersion2.jpacontroller.TurnoFacade;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -41,6 +43,18 @@ public class TurnoController implements Serializable {
     private List<Turno> filteredturnos;
     private Date dateSelected;
     
+    private String nombreResponsableSelected;
+
+    public String getNombreResponsableSelected() {
+        return nombreResponsableSelected;
+    }
+
+    public void setNombreResponsableSelected(String nombreResponsableSelected) {
+        this.nombreResponsableSelected = nombreResponsableSelected;
+    }
+    
+    
+    
     public Date getDateSelected() {
         return dateSelected;
     }
@@ -61,7 +75,31 @@ public class TurnoController implements Serializable {
     }
 
     public List<Turno> getFilteredturnos() {
-        return filteredturnos;
+      List<Turno> cloned_list = null;
+              
+        if(this.filteredturnos != null){
+            cloned_list = new ArrayList<Turno>(this.filteredturnos);
+            Collections.sort(cloned_list, new SortByDate());
+        
+        }
+        
+        return cloned_list;
+    }
+    
+    static class SortByDate implements Comparator<Turno> {
+        @Override
+        public int compare(Turno a, Turno b) {
+            if(a.getHoraYDia() == null && b.getHoraYDia() == null){
+                return 0;
+            }else if(a.getHoraYDia() != null && b.getHoraYDia() != null){
+                        if(a.getHoraYDia().compareTo(b.getHoraYDia()) > 0){
+                            return 1;
+                        }
+            }else{
+                return -1;
+            }
+            return 0;
+        }
     }
 
     public void setFilteredturnos(List<Turno> filteredturnos) {

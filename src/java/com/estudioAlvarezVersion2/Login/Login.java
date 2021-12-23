@@ -63,8 +63,6 @@ public class Login implements Serializable {
         if (valid) {
             HttpSession session = SessionUtils.getSession();
             session.setAttribute("username", user);
-
-            System.out.println("is valid");
             return "expediente/List.xhtml";
         } else {
             FacesContext.getCurrentInstance().addMessage(
@@ -72,7 +70,6 @@ public class Login implements Serializable {
                     new FacesMessage(FacesMessage.SEVERITY_WARN,
                             "Password o Usuario incorrecto",
                             "Por favor ingrese bien su usuario y password"));
-            System.out.println("is not valid");
             return "login";
         }
     }

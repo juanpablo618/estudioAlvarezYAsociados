@@ -23,7 +23,7 @@
                     <p:commandButton id="createAgendaParaActividadButton" icon="ui-icon-plus" value="NUEVA ACTIVIDAD" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaParaActividadCreateDialog').show()"/>
                 </div>
                 <br></br>
-
+                    
                 <h:commandLink style="float: right;margin-right: 1%;" title="Exportar Filtradas.">
                     <h:graphicImage value="../faces/resources/images/pdficon2.png" width="50px"/>
                     <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="true" />
@@ -34,8 +34,7 @@
                 </h:commandLink>
 
                 
-                <h:commandButton value="Imprimir Agendas" actionListener="#{downloadBean.crearDocumento( agendaController.filteredAgendas, turnoController.filteredturnos)}" class="btnPrint" />
-
+                
                 <br></br><br></br>
 
                 <p:dataTable id="datalist" value="#{turnoController.items}" var="item"
@@ -43,8 +42,8 @@
                              paginator="true"
                              rowKey="#{item.idTurno}"
                              widgetVar="turnosTable"
-                             rows="10"
-                             rowsPerPageTemplate="10,20,30,40,50"
+                             rows="20"
+                             rowsPerPageTemplate="20,40,80"
                              emptyMessage="No existen turnos"
                              filteredValue="#{turnoController.filteredturnos}"
                              paginatorPosition="top" 
@@ -210,7 +209,7 @@
                             <h:outputText value="ACCIONES"/>
                         </f:facet>
 
-                        <p:commandButton class="linea btnKey"  update=":AgendaViewClavesForm" oncomplete="PF('AgendaViewClavesDialog').show()" icon="ui-icon-locked" title="Claves">
+                        <p:commandButton rendered="#{item.orden > 0 }" class="linea btnKey"  update=":AgendaViewClavesForm" oncomplete="PF('AgendaViewClavesDialog').show()" icon="ui-icon-locked" title="Claves">
                             <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
                         </p:commandButton>
 

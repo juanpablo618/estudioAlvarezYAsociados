@@ -9,107 +9,79 @@
     <ui:composition template="/template.xhtml">
 
         <ui:define name="body">
-            <h:form id="TurnoListForm" style="background-color: #F4F8FA">
-                
-                <div style="float: left"><p:commandButton id="createButton"  icon="ui-icon-plus" value="CREAR TURNO" class="botonCrearAgenda" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
-                </div>
-                <br></br>
-                <br></br>
-                <br></br>
-                
-                    <p:dataTable id="datalist" value="#{turnoController.items}" var="item"
-                                 selectionMode="single" selection="#{turnoController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idTurno}"
-                                 widgetVar="turnosTable"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 emptyMessage="No existen turnos"
-                                 filteredValue="#{turnoController.filteredturnos}"
-
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton "/>
-                        <p:ajax event="rowUnselect" update="createButton "/>
-
-                        <p:growl  id="message" showDetail="true" />
- 
-                        <p:column style="text-align: center; width: 10%" sortBy="#{item.horaYDia}" filterBy="#{item.horaYDia}" filterMatchMode="contains" headerText="Filtro solo con el día del mes">
-                        
-                            <h:outputText value="#{item.horaYDia}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-                            </h:outputText>
-                        </p:column>
-                        
-                        <p:column  filterBy="#{item.apellido} #{item.nombre}"  styleClass="centeredColumnContent" filterMatchMode="contains">
-                            <f:facet name="header">
-                                <h:outputText value="Nombre y Apellido"/>
-                            </f:facet>
-                            <h:outputText  id="JuanCuello" value="#{ item.apellido} #{ item.nombre}"/>
-                        </p:column>
-                        
-                        
-                        <p:column style="text-align: center; width: 6%">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTurnoTitle_nroDeTelefono}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nroDeTelefono}"/>
-                        </p:column>
-                        <p:column style="text-align: center;">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTurnoTitle_procedencia}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.procedencia}"/>
-                        </p:column>
-                        <p:column style="text-align: center;">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTurnoTitle_observacion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.observacion}"/>
-                        </p:column>
-                        
-                        <p:column style="text-align: center; width: 9%" filterBy="#{item.responsable}"  filterMatchMode="contains">
-                            <f:facet name="header">
-                                <h:outputText value="responsable"/>
-                            </f:facet>
-                            <h:outputText value="#{item.responsable}"/>
-                        </p:column>
-                        
-                        <p:column style="text-align: center; width: 8%">
-                            
-                            <f:facet name="header">
-                                <h:outputText value="ACCIONES"/>
-                            </f:facet>
-                             
-                            
-                            <p:commandButton class="linea"  update=":TurnoEditForm" oncomplete="PF('TurnoEditDialog').show()" icon="ui-icon-search" title="Ver">
-                                   <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
-                            </p:commandButton>
-                            
-                            <p:commandButton class="linea" update=":growl,datalist, message" actionListener="#{turnoController.destroy}"  icon="ui-icon-circle-close" title="borrar">
-                                <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
-                                <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
-                            </p:commandButton>
-
-                            <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton update=":TurnoListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-                                <p:commandButton update=":TurnoListForm" value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
-                            </p:confirmDialog>
-                            
-                        </p:column>
-                        
-                        
-                        
-                        <f:facet name="footer" rendered="false">
-                            <p:commandButton rendered="false" id="createButton" icon="ui-icon-plus" value="#{bundle.Create}" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
-                        </f:facet>
-                    </p:dataTable>
             
-            </h:form>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
+            
+            
+            <h:form id="TurnoScheduleForm" >
+    <p:growl id="messages" showDetail="true" />
+ 
+    <h:panelGrid columnClasses="value" style="width: 100% ">
+        <p:schedule id="dataschedule" locale="es"  value="#{scheduleView.eventModel}" widgetVar="myschedule" timeZone="GMT-3">
+ 
+            <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+            <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+            <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" update="messages" />
+            <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" update="messages" />
+ 
+        </p:schedule>
+ 
+        
+    </h:panelGrid>
+ 
+    <p:dialog widgetVar="eventDialog"  header="Detalles del turno" showEffect="clip" hideEffect="clip" style="#{scheduleView.event.styleClass}">
+        <h:panelGrid id="eventDetails" columns="2">
+            <p:outputLabel for="title" value="Detalles:" />
+            <p:inputTextarea  id="title" value="#{scheduleView.event.title}" required="true" />
+ 
+            <p:outputLabel for="from" value="Desde:" />
+            <p:calendar id="from" value="#{scheduleView.event.startDate}" timeZone="GMT-3" pattern="dd/MM/yyyy HH:mm"/>
+ 
+            <p:outputLabel for="to" value="Hasta:" />
+            <p:calendar id="to" value="#{scheduleView.event.endDate}" timeZone="GMT-3"  pattern="dd/MM/yyyy HH:mm"/>
+ 
+        </h:panelGrid>
+    </p:dialog>    
+</h:form>
+ 
+<script type="text/javascript">
+    PrimeFaces.locales["es"] = {
+    closeText: "Cerrar",
+    prevText: "Anterior",
+    nextText: "Siguiente",
+    monthNames: ["Enero","Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+    monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+    dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+    dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+    dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+    weekHeader: "Semana",
+    firstDay: 0,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: "",
+    timeOnlyTitle: "Solo hora",
+    timeText: "Tiempo",
+    hourText: "Hora",
+    minuteText: "Minuto",
+    secondText: "Segundo",
+    currentText: "Fecha actual",
+    ampm: false,
+    month: "Mes",
+    week: "Semana",
+    day: "Día",
+    allDayText : "Todo el día"
+};
+</script>
+<style type="text/css">
+    .value {
+        width: 1000px;
+    }
+</style>
+            
+            
+            
+            
+            
         </ui:define>
     </ui:composition>
 

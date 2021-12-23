@@ -24,7 +24,7 @@
         <p:layout fullPage="true" style="background: #123a6d;">
             <p:layoutUnit position="north" class="bordersn maxwidth" style="margin: 0 !important; padding: 0 !important;">
                 <center style="background-color: #123a6d;">
-                    <h:graphicImage value="../faces/resources/images/Alvarezyasociados.png" style="width: 30%; margin-bottom: 0% !important;"/>
+                    <h:graphicImage value="../faces/resources/images/Alvarezyasociados.svg" style="width: 30%; margin-bottom: 0% !important;"/>
                 </center>
             </p:layoutUnit>
             <p:layoutUnit position="west" id="menuLeft" style="background: #123a6d;">
@@ -40,7 +40,11 @@
                             <p:separator class="separador"/>
                             <p:menuitem outcome="/estadoDelTramite/List_EstadoDelTramiteYProcedencias" class="fa fa-file-archive fa-3x btnMenuLeft" title="Estados del tramite y Procedencias"/>
                             <p:separator class="separador"/>
+                            <p:menuitem outcome="/turno/List" class="fa fa-calendar-alt fa-3x btnMenuLeft" title="Turnos" />
+                            
+                            <p:separator class="separador"/>
                             <p:menuitem outcome="/login.xhtml" class="fa fa-user-circle fa-3x btnMenuLeft" title="Salir"/>
+                            
                         </p:submenu>
                     </p:menu>
                 </h:form>

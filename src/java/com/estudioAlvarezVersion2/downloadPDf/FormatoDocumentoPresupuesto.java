@@ -54,15 +54,5 @@ public class FormatoDocumentoPresupuesto extends PdfPageEventHelper
     /**
      * Manejador del evento onEndPage, usado para generar el encabezado
      */
-    public void onEndPage(PdfWriter writer, Document document) {
-
-        try{            
-            document.add(imagen);
-            table.writeSelectedRows(0, -1, 140f, 700f, writer.getDirectContent());
-            
-         }catch(Exception doc)
-         {
-             doc.printStackTrace();
-         }         
-     }
+   
 }

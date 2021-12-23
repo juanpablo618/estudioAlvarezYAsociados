@@ -23,6 +23,9 @@ import org.primefaces.model.UploadedFile;
 public class FileUploadBean implements Serializable{
 	
 	private static final long serialVersionUID = 4352236420460919694L;
+        private static final String APPLICATION_PDF = "application/pdf";
+        private static final String IMAGE_JPEG = "image/jpeg";
+    
         private UploadedFile filePdf;  
         private UploadedFile filePdfDos;  
         private UploadedFile filePdfTres;  
@@ -35,6 +38,10 @@ public class FileUploadBean implements Serializable{
         private UploadedFile fileCuatro;  
         private UploadedFile fileCinco;  
         
+        private UploadedFile fileFrenteDni;  
+        private UploadedFile fileDorsoDni;  
+        private UploadedFile fileOtraDocumentacion;  
+        private UploadedFile fileCronoDeAportes;  
         
         
         
@@ -117,10 +124,91 @@ public class FileUploadBean implements Serializable{
     public void setFileCinco(UploadedFile fileCinco) {
         this.fileCinco = fileCinco;
     }
-    
-    
-    
 
+    public UploadedFile getFileFrenteDni() {
+        return fileFrenteDni;
+    }
+
+    public void setFileFrenteDni(UploadedFile fileFrenteDni) {
+        this.fileFrenteDni = fileFrenteDni;
+    }
+
+    public UploadedFile getFileDorsoDni() {
+        return fileDorsoDni;
+    }
+
+    public void setFileDorsoDni(UploadedFile fileDorsoDni) {
+        this.fileDorsoDni = fileDorsoDni;
+    }
+
+    public UploadedFile getFileOtraDocumentacion() {
+        return fileOtraDocumentacion;
+    }
+
+    public void setFileOtraDocumentacion(UploadedFile fileOtraDocumentacion) {
+        this.fileOtraDocumentacion = fileOtraDocumentacion;
+    }
+
+    public UploadedFile getFileCronoDeAportes() {
+        return fileCronoDeAportes;
+    }
+
+    public void setFileCronoDeAportes(UploadedFile fileCronoDeAportes) {
+        this.fileCronoDeAportes = fileCronoDeAportes;
+    }
+    
+    
+    
+// El nuevo requerimiento indica que se puedan subir JPG o PDF indistintamente 
+// desde cualquier parte , las tablas de la DB NO van a cambiar los nombres.    
+// Todas las tablas van a guardar jpg o pdf.
+    
+    public void uploadCronoDeAportes(int orden) {  
+                    
+        try {
+            Connection con = null;
+		PreparedStatement ps = null;
+
+            if(fileCronoDeAportes != null){
+                    System.out.println("ACAAA: "+fileCronoDeAportes.getContentType());
+                    if(fileCronoDeAportes.getContentType().equalsIgnoreCase("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") || fileCronoDeAportes.getContentType().equalsIgnoreCase("application/vnd.ms-excel")){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO documentoscronodeaportes (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) " 
+                                );
+
+                        ps.setBinaryStream(1, fileCronoDeAportes.getInputstream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, fileCronoDeAportes.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage("Ok", "Fichero " + fileCronoDeAportes.getFileName() + " subido correctamente. Con nro de Orden: "+orden);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                        
+                    
+                    }else{
+                        FacesMessage msg = new FacesMessage("Error", "Fichero " + fileCronoDeAportes.getFileName() + " no es un archivo xls/xlsx o no seleccionó un archivo");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    }
+                    
+            }
+            
+        } catch (IOException | SQLException e) {
+            System.out.println("ERROR: "+e.toString());
+                        FacesMessage msg = new FacesMessage("Error", " Fichero demasiado grande " + fileCronoDeAportes.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        }
+        
+    }  
+
+    
     public void uploadPDF(int orden) {  
                     
         try {
@@ -129,7 +217,7 @@ public class FileUploadBean implements Serializable{
 
             if(filePdf != null){
                     
-                    if(filePdf.getContentType().equalsIgnoreCase("application/pdf")){
+                    if(filePdf.getContentType().equalsIgnoreCase(APPLICATION_PDF) || filePdf.getContentType().equalsIgnoreCase(IMAGE_JPEG)){
                         con = DAO.getConnection();
                         ps = con.prepareStatement("INSERT INTO documentos (documento, nroDeOrden, nombreDelDocumento) " +
                         "VALUES (?, ?, ?) " +
@@ -174,7 +262,7 @@ public class FileUploadBean implements Serializable{
 
             if(filePdfDos != null){
                     
-                    if(filePdfDos.getContentType().equalsIgnoreCase("application/pdf")){
+                    if(filePdfDos.getContentType().equalsIgnoreCase(APPLICATION_PDF) || filePdfDos.getContentType().equalsIgnoreCase(IMAGE_JPEG)){
                         con = DAO.getConnection();
                         ps = con.prepareStatement("INSERT INTO documentos2 (documento, nroDeOrden, nombreDelDocumento) " +
                         "VALUES (?, ?, ?) " +
@@ -216,7 +304,7 @@ public class FileUploadBean implements Serializable{
 
             if(filePdfTres != null){
                     
-                    if(filePdfTres.getContentType().equalsIgnoreCase("application/pdf")){
+                    if(filePdfTres.getContentType().equalsIgnoreCase(APPLICATION_PDF) || filePdfTres.getContentType().equalsIgnoreCase(IMAGE_JPEG)){
                         con = DAO.getConnection();
                         ps = con.prepareStatement("INSERT INTO documentos3 (documento, nroDeOrden, nombreDelDocumento) " +
                         "VALUES (?, ?, ?) " +
@@ -258,7 +346,7 @@ public class FileUploadBean implements Serializable{
 
             if(filePdfCuatro != null){
                     
-                    if(filePdfCuatro.getContentType().equalsIgnoreCase("application/pdf")){
+                    if(filePdfCuatro.getContentType().equalsIgnoreCase(APPLICATION_PDF) || filePdfCuatro.getContentType().equalsIgnoreCase(IMAGE_JPEG)){
                         con = DAO.getConnection();
                         ps = con.prepareStatement("INSERT INTO documentos4 (documento, nroDeOrden, nombreDelDocumento) " +
                         "VALUES (?, ?, ?) " +
@@ -299,7 +387,7 @@ public class FileUploadBean implements Serializable{
 
             if(filePdfCinco != null){
                     
-                    if(filePdfCinco.getContentType().equalsIgnoreCase("application/pdf")){
+                    if(filePdfCinco.getContentType().equalsIgnoreCase(APPLICATION_PDF) || filePdfCinco.getContentType().equalsIgnoreCase(IMAGE_JPEG)){
                         con = DAO.getConnection();
                         ps = con.prepareStatement("INSERT INTO documentos5 (documento, nroDeOrden, nombreDelDocumento) " +
                         "VALUES (?, ?, ?) " +
@@ -333,6 +421,150 @@ public class FileUploadBean implements Serializable{
     }  
     
     
+    public void uploadDorsoDni(int orden) {  
+                    
+        try {
+            Connection con = null;
+		PreparedStatement ps = null;
+
+            if(fileDorsoDni != null){
+                    
+                    if(fileDorsoDni.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileDorsoDni.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO documentosDorsoDni (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, fileDorsoDni.getInputstream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, fileDorsoDni.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage("Ok", "Fichero " + fileDorsoDni.getFileName() + " subido correctamente. Con nro de Orden: "+orden);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    
+                    }else{
+                        if(!"".equals(fileDorsoDni.getFileName())){
+                            FacesMessage msg = new FacesMessage("Error", "no selecciono un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }else{
+                            FacesMessage msg = new FacesMessage("Error", "Fichero " + fileDorsoDni.getFileName() + " no es un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+                    
+            }
+            
+        } catch (IOException | SQLException e) {
+            System.out.println("ERROR: "+e.toString());
+                        FacesMessage msg = new FacesMessage("Error", " Fichero demasiado grande " + fileDorsoDni.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
+    
+    public void uploadFrenteDni(int orden) {  
+                    
+        try {
+            Connection con = null;
+		PreparedStatement ps = null;
+
+            if(fileFrenteDni != null){
+                    
+                    if(fileFrenteDni.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileFrenteDni.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO documentosFrenteDni (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, fileFrenteDni.getInputstream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, fileFrenteDni.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage("Ok", "Fichero " + fileFrenteDni.getFileName() + " subido correctamente. Con nro de Orden: "+orden);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    
+                    }else{
+                        if(!"".equals(fileFrenteDni.getFileName())){
+                            FacesMessage msg = new FacesMessage("Error", "no selecciono un archivo JPG o PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }else{
+                            FacesMessage msg = new FacesMessage("Error", "Fichero " + fileFrenteDni.getFileName() + " no es un archivo JPG o PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+                    
+            }
+            
+        } catch (IOException | SQLException e) {
+            System.out.println("ERROR: "+e.toString());
+                        FacesMessage msg = new FacesMessage("Error", " Fichero demasiado grande " + fileFrenteDni.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
+    
+    public void uploadOtraDocumentacion(int orden) {  
+                    
+        try {
+            Connection con = null;
+		PreparedStatement ps = null;
+
+            if(fileOtraDocumentacion != null){
+                    
+                    if(fileOtraDocumentacion.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileOtraDocumentacion.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO documentosOtraDocumentacion (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, fileOtraDocumentacion.getInputstream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, fileOtraDocumentacion.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage("Ok", "Fichero " + fileOtraDocumentacion.getFileName() + " subido correctamente. Con nro de Orden: "+orden);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    
+                    }else{
+                        if(!"".equals(fileOtraDocumentacion.getFileName())){
+                            FacesMessage msg = new FacesMessage("Error", "no selecciono un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }else{
+                            FacesMessage msg = new FacesMessage("Error", "Fichero " + fileOtraDocumentacion.getFileName() + " no es un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+                    
+            }
+            
+        } catch (IOException | SQLException e) {
+            System.out.println("ERROR: "+e.toString());
+                        FacesMessage msg = new FacesMessage("Error", " Fichero demasiado grande " + file.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
+    
     public void uploadJPG(int orden) {  
                     
         try {
@@ -341,7 +573,7 @@ public class FileUploadBean implements Serializable{
 
             if(file != null){
                     
-                    if(file.getContentType().equalsIgnoreCase("image/jpeg")){
+                    if(file.getContentType().equalsIgnoreCase(IMAGE_JPEG) || file.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
                         con = DAO.getConnection();
                         ps = con.prepareStatement("INSERT INTO documentosjpg (documento, nroDeOrden, nombreDelDocumento) " +
                         "VALUES (?, ?, ?) " +
@@ -363,10 +595,10 @@ public class FileUploadBean implements Serializable{
                     
                     }else{
                         if(!"".equals(file.getFileName())){
-                            FacesMessage msg = new FacesMessage("Error", "no selecciono un archivo JPG");
+                            FacesMessage msg = new FacesMessage("Error", "no selecciono un archivo JPG O PDF");
                             FacesContext.getCurrentInstance().addMessage(null, msg);
                         }else{
-                            FacesMessage msg = new FacesMessage("Error", "Fichero " + file.getFileName() + " no es un archivo JPG");
+                            FacesMessage msg = new FacesMessage("Error", "Fichero " + file.getFileName() + " no es un archivo JPG O PDF");
                             FacesContext.getCurrentInstance().addMessage(null, msg);
                         }
                     }
@@ -389,7 +621,7 @@ public class FileUploadBean implements Serializable{
 
             if(fileDos != null){
                     
-                    if(fileDos.getContentType().equalsIgnoreCase("image/jpeg")){
+                    if(fileDos.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileDos.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
                         con = DAO.getConnection();
                         ps = con.prepareStatement("INSERT INTO documentosjpg2 (documento, nroDeOrden, nombreDelDocumento) " +
                         "VALUES (?, ?, ?) " +
@@ -411,10 +643,10 @@ public class FileUploadBean implements Serializable{
                     
                     }else{
                         if(!"".equals(fileDos.getFileName())){
-                            FacesMessage msg = new FacesMessage("Error", "no selecciono un archivo JPG");
+                            FacesMessage msg = new FacesMessage("Error", "no selecciono un archivo JPG O PDF");
                             FacesContext.getCurrentInstance().addMessage(null, msg);
                         }else{
-                            FacesMessage msg = new FacesMessage("Error", "Fichero " + fileDos.getFileName() + " no es un archivo JPG");
+                            FacesMessage msg = new FacesMessage("Error", "Fichero " + fileDos.getFileName() + " no es un archivo JPG O PDF");
                             FacesContext.getCurrentInstance().addMessage(null, msg);
                         }
                     }
@@ -437,7 +669,7 @@ public class FileUploadBean implements Serializable{
 
             if(fileTres != null){
                     
-                    if(fileTres.getContentType().equalsIgnoreCase("image/jpeg")){
+                    if(fileTres.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileTres.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
                         con = DAO.getConnection();
                         ps = con.prepareStatement("INSERT INTO documentosjpg3 (documento, nroDeOrden, nombreDelDocumento) " +
                         "VALUES (?, ?, ?) " +
@@ -459,10 +691,10 @@ public class FileUploadBean implements Serializable{
                     
                     }else{
                         if(!"".equals(fileTres.getFileName())){
-                            FacesMessage msg = new FacesMessage("Error", "no selecciono un archivo JPG");
+                            FacesMessage msg = new FacesMessage("Error", "no selecciono un archivo JPG O PDF");
                             FacesContext.getCurrentInstance().addMessage(null, msg);
                         }else{
-                            FacesMessage msg = new FacesMessage("Error", "Fichero " + fileTres.getFileName() + " no es un archivo JPG");
+                            FacesMessage msg = new FacesMessage("Error", "Fichero " + fileTres.getFileName() + " no es un archivo JPG O PDF");
                             FacesContext.getCurrentInstance().addMessage(null, msg);
                         }
                     }
@@ -485,7 +717,7 @@ public class FileUploadBean implements Serializable{
 
             if(fileCuatro != null){
                     
-                    if(fileCuatro.getContentType().equalsIgnoreCase("image/jpeg")){
+                    if(fileCuatro.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileCuatro.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
                         con = DAO.getConnection();
                         ps = con.prepareStatement("INSERT INTO documentosjpg4 (documento, nroDeOrden, nombreDelDocumento) " +
                         "VALUES (?, ?, ?) " +
@@ -507,10 +739,10 @@ public class FileUploadBean implements Serializable{
                     
                     }else{
                         if(!"".equals(fileCuatro.getFileName())){
-                            FacesMessage msg = new FacesMessage("Error", "no selecciono un archivo JPG");
+                            FacesMessage msg = new FacesMessage("Error", "no selecciono un archivo JPG O PDF");
                             FacesContext.getCurrentInstance().addMessage(null, msg);
                         }else{
-                            FacesMessage msg = new FacesMessage("Error", "Fichero " + fileCuatro.getFileName() + " no es un archivo JPG");
+                            FacesMessage msg = new FacesMessage("Error", "Fichero " + fileCuatro.getFileName() + " no es un archivo JPG O PDF");
                             FacesContext.getCurrentInstance().addMessage(null, msg);
                         }
                     }
@@ -533,7 +765,7 @@ public class FileUploadBean implements Serializable{
 
             if(fileCinco != null){
                     
-                    if(fileCinco.getContentType().equalsIgnoreCase("image/jpeg")){
+                    if(fileCinco.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileCinco.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
                         con = DAO.getConnection();
                         ps = con.prepareStatement("INSERT INTO documentosjpg5 (documento, nroDeOrden, nombreDelDocumento) " +
                         "VALUES (?, ?, ?) " +
@@ -555,10 +787,10 @@ public class FileUploadBean implements Serializable{
                     
                     }else{
                         if(!"".equals(fileCinco.getFileName())){
-                            FacesMessage msg = new FacesMessage("Error", "no selecciono un archivo JPG");
+                            FacesMessage msg = new FacesMessage("Error", "no selecciono un archivo JPG O PDF");
                             FacesContext.getCurrentInstance().addMessage(null, msg);
                         }else{
-                            FacesMessage msg = new FacesMessage("Error", "Fichero " + fileCinco.getFileName() + " no es un archivo JPG");
+                            FacesMessage msg = new FacesMessage("Error", "Fichero " + fileCinco.getFileName() + " no es un archivo JPG O PDF");
                             FacesContext.getCurrentInstance().addMessage(null, msg);
                         }
                     }
@@ -573,4 +805,4 @@ public class FileUploadBean implements Serializable{
         
     }  
     
-}
+ }

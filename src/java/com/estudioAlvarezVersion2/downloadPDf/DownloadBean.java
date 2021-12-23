@@ -30,15 +30,10 @@ private static final long serialVersionUID = 626953318628565053L;
 
 //private final  String PDF_URL = ConfiguracionesGenerales.getPDF_URL();
 
-public void crearDocumento(ArrayList<Agenda> agendasFiltradas , ArrayList<Turno> turnosFiltrados ) throws IOException, DocumentException, InterruptedException{
-
-    if(agendasFiltradas == null || agendasFiltradas.isEmpty()) {
-      FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay Agendas filtradas para imprimir"));
-    }else{
-        if(turnosFiltrados == null || turnosFiltrados.isEmpty()){
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay Turnos filtrados para imprimir"));
-        }else{
-            
+public void crearDocumento( ) throws IOException, DocumentException, InterruptedException{
+    
+    System.out.println("entro al crear Documento !!");
+        
         Date date = new Date();
         //Caso 1: obtener la hora y salida por pantalla con formato:
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
@@ -50,7 +45,7 @@ public void crearDocumento(ArrayList<Agenda> agendasFiltradas , ArrayList<Turno>
         DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         System.out.println("Hora y fecha: "+hourdateFormat.format(date));
     
-            String fechaYHoraActual = hourdateFormat.format(date).toString();
+            String fechaYHoraActual = hourdateFormat.format(date);
 
                 fechaYHoraActual = fechaYHoraActual.replace(" ","");
                 fechaYHoraActual = fechaYHoraActual.replace(":","");
@@ -64,14 +59,14 @@ public void crearDocumento(ArrayList<Agenda> agendasFiltradas , ArrayList<Turno>
                 
                   MembretePresupuesto doc = new MembretePresupuesto();
                   
-                  doc.createPdf(nombreDelDocumento, agendasFiltradas, turnosFiltrados);
+                  doc.createPdf(nombreDelDocumento);
                   
                   downloadPdf(nombreDelDocumento);
                   
                   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Impresion exitosa"));
-        }
-        }
     }
+        
+    
 
 public void crearConvenioDeHonorarios(String nombre, String apellido, String dni, String direccion, String nroDeAltura, String barrio) throws IOException, DocumentException, InterruptedException{
 
@@ -202,6 +197,9 @@ OutputStream responseOutputStream = response.getOutputStream();
  FacesContext context = FacesContext.getCurrentInstance();
  ConfiguracionesGeneralesController configuracionesGeneralesController = context.getApplication().evaluateExpressionGet(context, "#{configuracionesGeneralesController}", ConfiguracionesGeneralesController.class);
       
+ 
+ System.out.println(configuracionesGeneralesController.getConfiguracionesGenerales(1).getPdfUrl());
+ 
 // Read PDF contents
 URL url = new URL(configuracionesGeneralesController.getConfiguracionesGenerales(1).getPdfUrl().concat(nombreDelDocumento).concat(".pdf"));
 InputStream pdfInputStream = url.openStream();

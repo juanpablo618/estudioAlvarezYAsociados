@@ -14,12 +14,10 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
-import static java.util.Objects.nonNull;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,6 +44,11 @@ public class ExpedienteController implements Serializable {
     private Expediente selectedParaVerExp;
     private String estadoDelTramiteSelected;
     private String fechaDeCumpleSelected;
+    private String apoderadoSelected;
+    private String tipoDeExpedienteSelected;
+    private String sexoSelected;
+    private String tipoDeTramiteSelected;
+    
     private List<Expediente> filteredExpedientes;
     private Date dateSelected;
 
@@ -118,8 +121,39 @@ public class ExpedienteController implements Serializable {
     public void setFechaDeCumpleSelected(String fechaDeCumpleSelected) {
         this.fechaDeCumpleSelected = fechaDeCumpleSelected;
     }
+
+    public String getApoderadoSelected() {
+        return apoderadoSelected;
+    }
+
+    public void setApoderadoSelected(String apoderado) {
+        this.apoderadoSelected = apoderado;
+    }
+
+    public String getTipoDeExpedienteSelected() {
+        return tipoDeExpedienteSelected;
+    }
+
+    public void setTipoDeExpedienteSelected(String tipoDeExpedienteSelected) {
+        this.tipoDeExpedienteSelected = tipoDeExpedienteSelected;
+    }
+
+    public String getSexoSelected() {
+        return sexoSelected;
+    }
+
+    public void setSexoSelected(String sexoSelected) {
+        this.sexoSelected = sexoSelected;
+    }
+
+    public String getTipoDeTramiteSelected() {
+        return tipoDeTramiteSelected;
+    }
+
+    public void setTipoDeTramiteSelected(String tipoDeTramiteSelected) {
+        this.tipoDeTramiteSelected = tipoDeTramiteSelected;
+    }
     
-   
     public Expediente prepareCreateExpAdministrativo() {
         selected = new Expediente();
         selected.setTipoDeExpediente(ADMINISTRATIVO);
@@ -192,33 +226,6 @@ public class ExpedienteController implements Serializable {
         return selectedParaVerExp;
     }
     
-    
-    
-    /* 
-            Dejo esto por que fué el 1er approach que funcionó luego borrar
-        selectedParaVerExp = new Expediente();
-        System.out.println("ACA: "+agendaAnterior.getOrden());
-        
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        
-        for(Expediente expediente: expedienteControllerBean.getItems()){
-            if(expediente.getOrden() != null){
-                    if(Integer.compare(expediente.getOrden(), agendaAnterior.getOrden()) == 0){
-                        
-                        if(expediente.getOrden() !=null){
-                            System.out.println("LLEGO ACA"+expediente.toStringWithDatosPersonalesYDelExp());
-                            selectedParaVerExp = expediente;
-                            return selectedParaVerExp;
-                        }else{
-                            return selectedParaVerExp;
-                        }
-                    }
-            }        
-        }
-        initializeEmbeddableKey();
-        return selectedParaVerExp;
-        */
     
     public Expediente prepareViewParaExpediente(Agenda agendaAnterior) {
        
@@ -699,11 +706,15 @@ public class ExpedienteController implements Serializable {
 
         for (Agenda agenda : agendaControllerBean.getItems()) {
             if (orden != null) {
-                if (agenda.getOrden() == orden) {
-                    String date2 = sdf.format(agenda.getFecha());
+                if(agenda.getOrden() !=null){
+                    if (Objects.equals(agenda.getOrden(), orden)) {
+                        if(agenda.getFecha() != null){
+                            String date2 = sdf.format(agenda.getFecha());
 
-                    if (date.equals(date2)) {
-                        return agenda.toString();
+                            if (date.equals(date2)) {
+                                return agenda.toString();
+                            }
+                        }
                     }
                 }
             }
@@ -712,6 +723,33 @@ public class ExpedienteController implements Serializable {
         return "no existen agendas para hoy";
     }
 
+    public List verProximasAgendasPorNroDeOrden(Integer orden) {
+            
+        List<Agenda> proximasAgendas = new ArrayList<Agenda>();
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        
+        Date date = new Date();
+                
+        for (Agenda agenda : agendaControllerBean.getItems()) {
+            if (orden != null) {
+                if(agenda.getOrden() != null){
+                    if (Objects.equals(agenda.getOrden(), orden)) {
+                        if(agenda.getFecha() != null){    
+                            if (agenda.getFecha().after(date)) {
+                                proximasAgendas.add(agenda);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return proximasAgendas ;
+    }
+
+    
     public String verClaveCidi(int orden) {
 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -797,20 +835,89 @@ public class ExpedienteController implements Serializable {
 
     public void limpiarFiltros() {
 
-        RequestContext requestContext = RequestContext.getCurrentInstance();
-        requestContext.execute("PF('expedientesTable').clearFilters()");
-    }
-    
-    public void limpiarDosFiltros() {
-
         this.fechaDeCumpleSelected=null;
         this.estadoDelTramiteSelected=null;
+        this.apoderadoSelected=null;
+        this.tipoDeTramiteSelected=null;
+        this.tipoDeExpedienteSelected=null;
         
-        
+                
+                
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.execute("PF('expedientesTable').clearFilters()");
     }
 
+    public void filtrarPorTipoDeTramite(String tipoDeTramiteSelected) {
+       System.out.println("tipoDeExpedienteSelected: "+tipoDeTramiteSelected);
+
+       this.filteredExpedientes = new ArrayList<Expediente>();
+        
+        if (tipoDeTramiteSelected != null) {
+            for (Expediente expediente : getItems()) {
+                if (expediente.getTipoDeTramite()!= null) {
+                    
+                    if (expediente.getTipoDeTramite().equals(tipoDeTramiteSelected)) {
+                        filteredExpedientes.add(expediente);
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    public void filtrarPorSexo(String sexoSelected) {
+       System.out.println("tipoDeExpedienteSelected: "+sexoSelected);
+
+       this.filteredExpedientes = new ArrayList<Expediente>();
+        
+        if (sexoSelected != null) {
+            for (Expediente expediente : getItems()) {
+                if (expediente.getSexo()!= null) {
+                    
+                    if (expediente.getSexo().equals(sexoSelected)) {
+                        filteredExpedientes.add(expediente);
+                    }
+                }
+            }
+        }
+    }
+    
+    public void filtrarPorTipoDeExpediente(String tipoDeExpedienteSelected) {
+       System.out.println("tipoDeExpedienteSelected: "+tipoDeExpedienteSelected);
+
+       this.filteredExpedientes = new ArrayList<Expediente>();
+        
+        if (tipoDeExpedienteSelected != null) {
+            for (Expediente expediente : getItems()) {
+                if (expediente.getTipoDeExpediente()!= null) {
+                    
+                    if (expediente.getTipoDeExpediente().equals(tipoDeExpedienteSelected)) {
+                        filteredExpedientes.add(expediente);
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    public void filtrarPorApoderado(String estadoDelTramiteSelected) {
+    
+       System.out.println("apoderadoSelected: "+apoderadoSelected);
+        
+        this.filteredExpedientes = new ArrayList<Expediente>();
+        
+        if (apoderadoSelected != null) {
+            for (Expediente expediente : getItems()) {
+                if (expediente.getApoderado() != null) {
+                    
+                    if (expediente.getApoderado().equals(apoderadoSelected)) {
+                        filteredExpedientes.add(expediente);
+                    }
+                }
+            }
+        }
+    }
+    
     public void filtrarPorEstadoDelTramite(String estadoDelTramiteSelected) {
         this.filteredExpedientes = new ArrayList<Expediente>();
         if (estadoDelTramiteSelected != null) {
@@ -826,7 +933,7 @@ public class ExpedienteController implements Serializable {
     
     public void filtrarPorFechaDeCumple(String fechaDeCumpleSelected) {
         System.out.println("fechaDeCumpleSelected: "+fechaDeCumpleSelected);
-        
+    
         this.filteredExpedientes = new ArrayList<Expediente>();
         
         if (fechaDeCumpleSelected != null) {

@@ -86,8 +86,8 @@
                                 <br></br>
                                 <div>
                                     <div style="float: right" >
-                                        <p:outputLabel value="Fecha de cobro:" for="fechaDeCobro" style="font-weight: bold" rendered="#{expedienteController.selected.estadoDelTramite eq 'RESUELTO FAVORABLE.'}" /><br></br>
-                                        <p:calendar style="width: 112px;" id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" rendered="#{expedienteController.selected.estadoDelTramite eq 'RESUELTO FAVORABLE.'}" />
+                                        <p:outputLabel value="Fecha de cobro:" for="fechaDeCobro" style="font-weight: bold" rendered="#{expedienteController.selected.estadoDelTramite eq 'FECHA DE COBRO.'}" /><br></br>
+                                        <p:calendar style="width: 112px;" id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" rendered="#{expedienteController.selected.estadoDelTramite eq 'FECHA DE COBRO.'}" />
                                     </div>
                                     <br></br>
 
@@ -99,7 +99,9 @@
                                     <f:selectItem itemLabel=" -- Procedencia --"  noSelectionOption="true"/>
                                     <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.nombreProcedencia}" itemValue="#{procedencia.nombreProcedencia}" />
                                 </p:selectOneMenu>
-
+                                <br></br><br></br>
+                                <p:outputLabel class="float-l" value="Apoderado:" for="apoderado" style="font-weight: bold"/><br></br>
+                                <p:inputText   id="apoderado" value="#{expedienteController.selected.apoderado}" title="apoderado"/>
                                 <br></br><br></br>
                                 <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
                                 <p:inputTextarea rows="5" cols="65" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
@@ -229,15 +231,7 @@
                         </p:tab>
 
                         <p:tab title="Documentos">
-
-                            <div>
                                 
-                                <p:commandButton value="C. de Aportes" ajax="false">
-                                    <p:fileDownload value="#{fileBean.createExcel(expedienteController.selected.fechaDeNacimiento, expedienteController.selected.sexo, expedienteController.selected.nroDeExpediente, expedienteController.selected.nombre, expedienteController.selected.apellido)}"/>
-                                </p:commandButton>
-                            </div>
-
-                            <br></br>
                             <div>
                                 <p:commandButton value="Carta Poder" ajax="false">
                                     <p:fileDownload value="#{fileBean.file}"/>

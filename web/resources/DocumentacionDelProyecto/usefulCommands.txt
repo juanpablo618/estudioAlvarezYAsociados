@@ -36,7 +36,7 @@ para sacar los nombres:
 
 download para maquina con windows:
 
-C:\Users\juan.cuello\Documents\Downloads
+C:\Users\juanp\Documents\Downloads
 
 con linux
 /home/jelastic/Documents
@@ -174,3 +174,6 @@ https://stackoverflow.com/questions/8875818/how-to-use-primefaces-pfileupload-li
 // PARA SOLUCIONAR BUG DE PODER BUSCAR APELLIDO Y NOMBRE CON MAYUSCULA Y MINUSCULA.
 
 https://stackoverflow.com/questions/23936614/primefaces-5-0-datatable-filter-case-sensitive
+
+
+//  siempre fijarse a la hora de crear una tabla para pdf o jpg que tengo llave primaria nroDeOrden.

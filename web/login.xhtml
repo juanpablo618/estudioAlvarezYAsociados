@@ -36,16 +36,16 @@
     <p:growl id="mensajes" showDetail="true" life="2500" autoUpdate="true" />
 
     <center>
-        <h:graphicImage value="resources/images/2019-10-29.png" style="width: 30%;"/>
+        <h:graphicImage value="resources/images/Alvarezyasociados.svg" style="width: 30%; margin-bottom: 8%; margin-top: 4%;"/>
 
-        <p:panel header="INGRESA TUS DATOS POR FAVOR" style="text-align: center; background-color: darkkhaki;border: none; width: 30%;">
+        <p:panel header="INGRESA TUS DATOS POR FAVOR" style=" background-color: darkkhaki;border: none; width: 30%; font-weight: bold;">
             <h:form>
                 <h:panelGrid columns="2" cellpadding="5">
-                    <h:outputText value="USUARIO" style="color: black; font-size: 1em" />
+                    <h:outputText value="USUARIO:" style="color: black; font-size: 1em; font-weight: bold;" />
                     <p:inputText id="username" value="#{login.user}" required="true" label="Usuario"   ></p:inputText>
 
-                    <h:outputText value="CLAVE" style="color: black; "/>
-                    <h:inputSecret id="password" value="#{login.pwd}" style=" color: black; focus: none !important; " ></h:inputSecret>
+                    <h:outputText value="CLAVE:" style="color: black; font-weight: bold;"/>
+                    <h:inputSecret id="password" value="#{login.pwd}" style=" color: black;" ></h:inputSecret>
                     <h:message for="username"></h:message>
                     <h:message for="password"></h:message>
                 </h:panelGrid>

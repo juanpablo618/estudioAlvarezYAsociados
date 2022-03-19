@@ -182,8 +182,8 @@ public class Expediente implements Serializable {
     private String observaciones;
     
     @Basic(optional = false)
-    @Column(name = "apoderado")
-    private String apoderado;
+    @Column(name = "responsable")
+    private String responsable;
     
     @Basic(optional = false)
     @Column(name = "comunicaciones")
@@ -238,7 +238,7 @@ public class Expediente implements Serializable {
             String localidad, String tipoDeTramite, String procedencia,
             String estadoDelTramite, Date fechaDeCobro, String nacionalidad,
             String tipoDeExpediente, String caratula, String nroDeExpediente,
-            String juzgadoODependencia, String observaciones, String apoderado, String comunicaciones, Date fechaDeAtencion,
+            String juzgadoODependencia, String observaciones, String responsable, String comunicaciones, Date fechaDeAtencion,
             String convenioDeHonorarios, String jurisdiccion, String poderFirmado,
             String tipo, String etapaProcesal, String detalleDeEstadoDeTramite, String tablaDeHonorariosYGastos) {
         this.idExpediente = idExpediente;
@@ -274,7 +274,7 @@ public class Expediente implements Serializable {
         this.nroDeExpediente = nroDeExpediente;
         this.juzgadoODependencia = juzgadoODependencia;
         this.observaciones = observaciones;
-        this.apoderado = apoderado;
+        this.responsable = responsable;
         this.comunicaciones = comunicaciones;
         this.fechaDeAtencion = fechaDeAtencion;
         this.convenioDeHonorarios = convenioDeHonorarios;
@@ -589,12 +589,12 @@ public class Expediente implements Serializable {
         this.observaciones = observaciones;
     }
 
-    public String getApoderado() {
-        return apoderado;
+    public String getResponsable() {
+        return responsable;
     }
 
-    public void setApoderado(String apoderado) {
-        this.apoderado = apoderado;
+    public void setResponsable(String responsable) {
+        this.responsable = responsable;
     }
     
     public String getComunicaciones() {

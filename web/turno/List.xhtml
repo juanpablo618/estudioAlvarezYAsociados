@@ -17,7 +17,7 @@
     <p:growl id="messages" showDetail="true" />
  
     <h:panelGrid columnClasses="value" style="width: 100% ">
-        <p:schedule id="dataschedule" locale="es"  value="#{scheduleView.eventModel}" widgetVar="myschedule" timeZone="GMT-3">
+        <p:schedule id="dataschedule" locale="es"  value="#{scheduleView.eventModel}" widgetVar="myschedule" >
  
             <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
             <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
@@ -35,10 +35,10 @@
             <p:inputTextarea  id="title" value="#{scheduleView.event.title}" required="true" />
  
             <p:outputLabel for="from" value="Desde:" />
-            <p:calendar id="from" value="#{scheduleView.event.startDate}" timeZone="GMT-3" pattern="dd/MM/yyyy HH:mm"/>
+            <p:calendar id="from" value="#{scheduleView.event.startDate}"  pattern="dd/MM/yyyy HH:mm"/>
  
             <p:outputLabel for="to" value="Hasta:" />
-            <p:calendar id="to" value="#{scheduleView.event.endDate}" timeZone="GMT-3"  pattern="dd/MM/yyyy HH:mm"/>
+            <p:calendar id="to" value="#{scheduleView.event.endDate}"  pattern="dd/MM/yyyy HH:mm"/>
  
         </h:panelGrid>
     </p:dialog>    

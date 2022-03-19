@@ -177,3 +177,6 @@ https://stackoverflow.com/questions/23936614/primefaces-5-0-datatable-filter-cas
 
 
 //  siempre fijarse a la hora de crear una tabla para pdf o jpg que tengo llave primaria nroDeOrden.
+
+
+//timeZone="GMT-3"

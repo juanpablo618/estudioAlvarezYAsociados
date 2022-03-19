@@ -6,6 +6,7 @@ import com.estudioAlvarezVersion2.jpa.ExpedienteDAO;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.ExpedienteFacade;
+import com.estudioAlvarezVersion2.jpacontroller.util.ExpedienteUtils;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -19,8 +20,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.el.ELException;
@@ -44,19 +47,18 @@ public class ExpedienteController implements Serializable {
     private Expediente selectedParaVerExp;
     private String estadoDelTramiteSelected;
     private String fechaDeCumpleSelected;
-    private String apoderadoSelected;
+    private String responsableSelected;
     private String tipoDeExpedienteSelected;
     private String sexoSelected;
     private String tipoDeTramiteSelected;
-    
+
     private List<Expediente> filteredExpedientes;
     private Date dateSelected;
 
     private static final String ADMINISTRATIVO = "administrativo";
     private static final String JUDICIAL = "judicial";
     private static final String SIN_CARPETA = "sin carpeta";
-    
-    
+
     public Date getDateSelected() {
         return dateSelected;
     }
@@ -122,12 +124,12 @@ public class ExpedienteController implements Serializable {
         this.fechaDeCumpleSelected = fechaDeCumpleSelected;
     }
 
-    public String getApoderadoSelected() {
-        return apoderadoSelected;
+    public String getResponsableSelected() {
+        return responsableSelected;
     }
 
-    public void setApoderadoSelected(String apoderado) {
-        this.apoderadoSelected = apoderado;
+    public void setResponsableSelected(String responsable) {
+        this.responsableSelected = responsable;
     }
 
     public String getTipoDeExpedienteSelected() {
@@ -153,23 +155,23 @@ public class ExpedienteController implements Serializable {
     public void setTipoDeTramiteSelected(String tipoDeTramiteSelected) {
         this.tipoDeTramiteSelected = tipoDeTramiteSelected;
     }
-    
+
     public Expediente prepareCreateExpAdministrativo() {
         selected = new Expediente();
         selected.setTipoDeExpediente(ADMINISTRATIVO);
         Date date = new Date();
         selected.setFechaDeAtencion(date);
         //ingresarOrdenAutoincremental();
-       //ingresarOrdenAutoincrementalSaltandoExpedientesSinCarpeta();
-        
-       selected.setTablaDeHonorariosYGastos("fecha | concepto | debe | haber | saldo |");
+        //ingresarOrdenAutoincrementalSaltandoExpedientesSinCarpeta();
 
-       selected.setOrden(buscarMayorIdAdmOrJudicial());
+        selected.setTablaDeHonorariosYGastos("fecha | concepto | debe | haber | saldo |");
+
+        selected.setOrden(buscarMayorIdAdmOrJudicial());
 
         initializeEmbeddableKey();
         return selected;
     }
-    
+
     public Expediente prepareCreateExpJudicial() {
         selected = new Expediente();
         selected.setTipoDeExpediente(JUDICIAL);
@@ -202,69 +204,69 @@ public class ExpedienteController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-    
+
     //no se usaría más fué el 1er approach
     public Expediente prepareViewParaExpedientePorNombreYApellido(Agenda agendaAnterior) {
         selectedParaVerExp = new Expediente();
-        
+
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        
-        for(Expediente expediente: expedienteControllerBean.getItems()){
-                        
-            if(expediente.getApellido()!= null && expediente.getNombre() != null){
-                
-                    if(expediente.getApellido().equals(agendaAnterior.getApellido()) && expediente.getNombre().equals(agendaAnterior.getNombre())){
-                        
-                            selectedParaVerExp = expediente;
-                            return selectedParaVerExp;
-                        
-                    }
-            }        
+
+        for (Expediente expediente : expedienteControllerBean.getItems()) {
+
+            if (expediente.getApellido() != null && expediente.getNombre() != null) {
+
+                if (expediente.getApellido().equals(agendaAnterior.getApellido()) && expediente.getNombre().equals(agendaAnterior.getNombre())) {
+
+                    selectedParaVerExp = expediente;
+                    return selectedParaVerExp;
+
+                }
+            }
         }
         initializeEmbeddableKey();
         return selectedParaVerExp;
     }
-    
-    
+
     public Expediente prepareViewParaExpediente(Agenda agendaAnterior) {
-       
-       try{
-       if(agendaAnterior == null){
-           return selectedParaVerExp;
-       }else{
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        selectedParaVerExp = new Expediente();
-        
-        if(agendaAnterior.getOrden() != null && agendaAnterior.getOrden() != 0){
-            for(Expediente expediente: expedienteControllerBean.getItems()){
-                        
-                if(expediente.getOrden()!= null ){
-                        if(Integer.compare(expediente.getOrden(), agendaAnterior.getOrden()) == 0){
+
+        try {
+            if (agendaAnterior == null) {
+                return selectedParaVerExp;
+            } else {
+                FacesContext context = FacesContext.getCurrentInstance();
+                ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+                selectedParaVerExp = new Expediente();
+
+                if (agendaAnterior.getOrden() != null && agendaAnterior.getOrden() != 0) {
+                    for (Expediente expediente : expedienteControllerBean.getItems()) {
+
+                        if (expediente.getOrden() != null) {
+                            if (Integer.compare(expediente.getOrden(), agendaAnterior.getOrden()) == 0) {
                                 selectedParaVerExp = expediente;
+                            }
                         }
-                }        
-            }
-        }else{
-             if( (agendaAnterior.getApellido() != null && agendaAnterior.getNombre()  != null) &&
-                     ( agendaAnterior.getOrden() == null || agendaAnterior.getOrden() == 0)){
-                 
-                     for(Expediente expediente: expedienteControllerBean.getItems()){
-                        if(expediente.getApellido() != null && expediente.getNombre() != null){
-                                if( expediente.getApellido().equals(agendaAnterior.getApellido()) && expediente.getNombre().equals(agendaAnterior.getNombre()) ){
-                                            selectedParaVerExp = expediente;
+                    }
+                } else {
+                    if ((agendaAnterior.getApellido() != null && agendaAnterior.getNombre() != null)
+                            && (agendaAnterior.getOrden() == null || agendaAnterior.getOrden() == 0)) {
+
+                        for (Expediente expediente : expedienteControllerBean.getItems()) {
+                            if (expediente.getApellido() != null && expediente.getNombre() != null) {
+                                if (expediente.getApellido().equals(agendaAnterior.getApellido()) && expediente.getNombre().equals(agendaAnterior.getNombre())) {
+                                    selectedParaVerExp = expediente;
 
                                 }
-                        }        
+                            }
+                        }
                     }
-             }
-        
-        }
-        initializeEmbeddableKey();
-        return selectedParaVerExp;
-        
-        }}catch(ELException e){
+
+                }
+                initializeEmbeddableKey();
+                return selectedParaVerExp;
+
+            }
+        } catch (ELException e) {
             System.out.println("error en el metodo prepareViewParaExpediente en expedienteController: " + e.getMessage());
         }
         return null;
@@ -276,83 +278,79 @@ public class ExpedienteController implements Serializable {
         judicial
         sin carpeta
             para poder luego hacer un view dependiendo del tipo de Exp
-    */
+     */
     public String buscarTipoDeExpediente(Agenda agendaAnterior) {
-       
-        if (agendaAnterior == null ){
+
+        if (agendaAnterior == null) {
             // esto lo hago por que la 1ra vez q se renderiza la pagina agendas y turnos , no hay un obj. "agendaAnterior" de agendas seleccionado
             return "AgendaSinExpAsociado";
-        }else{
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        String tipoDeExp = "AgendaSinExpAsociado";
-        
-        
-            if(  agendaAnterior.getOrden() != null && agendaAnterior.getOrden() != 0){
-                
-                    for(Expediente expediente: expedienteControllerBean.getItems()){
+        } else {
+            FacesContext context = FacesContext.getCurrentInstance();
+            ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+            String tipoDeExp = "AgendaSinExpAsociado";
 
-                        if(expediente.getOrden()!= null ){
-                                if(Integer.compare(expediente.getOrden(), agendaAnterior.getOrden()) == 0){
-                                        
-                                        tipoDeExp = expediente.getTipoDeExpediente();
-                                }
+            if (agendaAnterior.getOrden() != null && agendaAnterior.getOrden() != 0) {
 
-                        }        
-                    }
-                
-            }else{
-                 if( (agendaAnterior.getApellido() != null && agendaAnterior.getNombre()  != null) &&
-                         ( agendaAnterior.getOrden() == null || agendaAnterior.getOrden() == 0)){
+                for (Expediente expediente : expedienteControllerBean.getItems()) {
 
-                         for(Expediente expediente: expedienteControllerBean.getItems()){
-                            if(expediente.getApellido() != null && expediente.getNombre() != null){
-                                    if( expediente.getApellido().equals(agendaAnterior.getApellido()) && expediente.getNombre().equals(agendaAnterior.getNombre()) ){
-                                            
-                                        tipoDeExp = expediente.getTipoDeExpediente();
-                                    }
+                    if (expediente.getOrden() != null) {
+                        if (Integer.compare(expediente.getOrden(), agendaAnterior.getOrden()) == 0) {
 
-                            }        
+                            tipoDeExp = expediente.getTipoDeExpediente();
                         }
-                 }
+
+                    }
+                }
+
+            } else {
+                if ((agendaAnterior.getApellido() != null && agendaAnterior.getNombre() != null)
+                        && (agendaAnterior.getOrden() == null || agendaAnterior.getOrden() == 0)) {
+
+                    for (Expediente expediente : expedienteControllerBean.getItems()) {
+                        if (expediente.getApellido() != null && expediente.getNombre() != null) {
+                            if (expediente.getApellido().equals(agendaAnterior.getApellido()) && expediente.getNombre().equals(agendaAnterior.getNombre())) {
+
+                                tipoDeExp = expediente.getTipoDeExpediente();
+                            }
+
+                        }
+                    }
+                }
                 return tipoDeExp;
             }
-        
-       
-       
-        initializeEmbeddableKey();
-        return tipoDeExp;
+
+            initializeEmbeddableKey();
+            return tipoDeExp;
         }
     }
-    
-    
-      public String verDatosPersonalesYDelExp(int orden){
-        
+
+    public String verDatosPersonalesYDelExp(int orden) {
+
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        
+
         String datosExp = null;
-        
-        for(Expediente expediente: expedienteControllerBean.getItems()){
-            if(expediente.getOrden() != null){
-                    if(Integer.compare(expediente.getOrden(), orden) == 0){
-                        
-                        if(expediente.toString() !=null){
-        
-                            datosExp = expediente.toStringWithDatosPersonalesYDelExp();
-                            return datosExp;
-                            
-                        }else{
-                            datosExp = "no posee datos";
-                            return datosExp;
-                            
-                        }
+
+        for (Expediente expediente : expedienteControllerBean.getItems()) {
+            if (expediente.getOrden() != null) {
+                if (Integer.compare(expediente.getOrden(), orden) == 0) {
+
+                    if (expediente.toString() != null) {
+
+                        datosExp = expediente.toStringWithDatosPersonalesYDelExp();
+                        return datosExp;
+
+                    } else {
+                        datosExp = "no posee datos";
+                        return datosExp;
+
                     }
-            }        
+                }
+            }
         }
         return datosExp;
     }
-    
+
     public void create() {
 
         ingresarEdad();
@@ -360,15 +358,17 @@ public class ExpedienteController implements Serializable {
         ingresarDni();
 
         String successMessage = "Expediente del tipo: ".concat(selected.getTipoDeExpediente().toUpperCase()).concat(" creado exitosamente");
-        
-        if(selected.getTipoDeExpediente() == null ? SIN_CARPETA != null : !selected.getTipoDeExpediente().equals(SIN_CARPETA)) successMessage = "Expediente del tipo: ".concat(selected.getTipoDeExpediente().toUpperCase()).concat(" creado exitosamente").concat(" con el nro de Orden: ") + selected.getOrden();
-        
+
+        if (selected.getTipoDeExpediente() == null ? SIN_CARPETA != null : !selected.getTipoDeExpediente().equals(SIN_CARPETA)) {
+            successMessage = "Expediente del tipo: ".concat(selected.getTipoDeExpediente().toUpperCase()).concat(" creado exitosamente").concat(" con el nro de Orden: ") + selected.getOrden();
+        }
+
         persist(PersistAction.CREATE, successMessage);
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    
+
     /*public void ingresarEdad() {
         if (selected.getFechaDeNacimiento() != null) {
             Calendar fecha = new GregorianCalendar();
@@ -394,22 +394,20 @@ public class ExpedienteController implements Serializable {
         }
 
     }*/
-    
-    public void ingresarEdad(){
-      if (selected.getFechaDeNacimiento() != null) {
+    public void ingresarEdad() {
+        if (selected.getFechaDeNacimiento() != null) {
             Date fechaAntigua = selected.getFechaDeNacimiento();
             LocalDate fechaNueva = fechaAntigua.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate start = fechaNueva;
             LocalDate end = LocalDate.now(); // use for age-calculation: LocalDate.now()
             long years = ChronoUnit.YEARS.between(start, end);
-        selected.setEdad(Math.toIntExact(years));
-            
+            selected.setEdad(Math.toIntExact(years));
+
         } else {
             //TODO: review this code to drop off a notificacion We need to give an avise that date is not been setted!
             selected.setEdad(0);
         }
     }
-           
 
     public void ingresarDni() {
 
@@ -427,8 +425,6 @@ public class ExpedienteController implements Serializable {
         }
     }
 
-    
-
     public void ingresarOrdenAutoincremental() {
 
         selected.setOrden(autoIncrementarOrden());
@@ -443,103 +439,105 @@ public class ExpedienteController implements Serializable {
         //      int edad = 0;
         //        edad = añoActual - añoDeNacimiento;
         //selected.setEdad(edad);
-        
-            Date fechaAntigua = new Date();
-            
-            if(selected.getFechaDeNacimiento() != null){
-                fechaAntigua = selected.getFechaDeNacimiento();
-            }
-                    
-            LocalDate fechaNueva = fechaAntigua.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate start = fechaNueva;
-            LocalDate end = LocalDate.now(); // use for age-calculation: LocalDate.now()
-            long years = ChronoUnit.YEARS.between(start, end);
-            selected.setEdad(Math.toIntExact(years));
-        
-        if(selected.getCuit() != null){
+        Date fechaAntigua = new Date();
+
+        if (selected.getFechaDeNacimiento() != null) {
+            fechaAntigua = selected.getFechaDeNacimiento();
+        }
+
+        LocalDate fechaNueva = fechaAntigua.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate start = fechaNueva;
+        LocalDate end = LocalDate.now(); // use for age-calculation: LocalDate.now()
+        long years = ChronoUnit.YEARS.between(start, end);
+        selected.setEdad(Math.toIntExact(years));
+
+        if (selected.getCuit() != null) {
             String cuit = selected.getCuit();
             cuit = cuit.substring(2, 9);
             selected.setDni(cuit);
         }
-     
+
         String successMessage = "Expediente actualizado exitosamente";
 
-        if(selected.getTipoDeExpediente() != null) successMessage = "Expediente ".concat(selected.getTipoDeExpediente().toUpperCase()).concat(" actualizado exitosamente.");
-        
+        if (selected.getTipoDeExpediente() != null) {
+            successMessage = "Expediente ".concat(selected.getTipoDeExpediente().toUpperCase()).concat(" actualizado exitosamente.");
+        }
+
         persist(PersistAction.UPDATE, successMessage);
     }
 
-    
     public void updateConCambioParaAdministrativo() {
-        
-            Date fechaAntigua = new Date();
-            
-            if(selected.getFechaDeNacimiento() != null){
-                fechaAntigua = selected.getFechaDeNacimiento();
-            }
-                    
-            LocalDate fechaNueva = fechaAntigua.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate start = fechaNueva;
-            LocalDate end = LocalDate.now(); // use for age-calculation: LocalDate.now()
-            long years = ChronoUnit.YEARS.between(start, end);
-            selected.setEdad(Math.toIntExact(years));
-        
-        if(selected.getCuit() != null){
+
+        Date fechaAntigua = new Date();
+
+        if (selected.getFechaDeNacimiento() != null) {
+            fechaAntigua = selected.getFechaDeNacimiento();
+        }
+
+        LocalDate fechaNueva = fechaAntigua.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate start = fechaNueva;
+        LocalDate end = LocalDate.now(); // use for age-calculation: LocalDate.now()
+        long years = ChronoUnit.YEARS.between(start, end);
+        selected.setEdad(Math.toIntExact(years));
+
+        if (selected.getCuit() != null) {
             String cuit = selected.getCuit();
             cuit = cuit.substring(2, 9);
             selected.setDni(cuit);
         }
-        
+
         int mayorOrden = buscarMayorIdAdmOrJudicial();
-        
+
         selected.setOrden(mayorOrden);
         selected.setTipoDeExpediente(ADMINISTRATIVO);
-                
-        persist(PersistAction.UPDATE, "Expediente transformado a ADMINISTRATIVO con el nro de orden: "+ mayorOrden);
+
+        persist(PersistAction.UPDATE, "Expediente transformado a ADMINISTRATIVO con el nro de orden: " + mayorOrden);
     }
-    
+
     public void updateConCambioParaJudicial() {
-        
-            Date fechaAntigua = new Date();
-            
-            if(selected.getFechaDeNacimiento() != null){
-                fechaAntigua = selected.getFechaDeNacimiento();
-            }
-                    
-            LocalDate fechaNueva = fechaAntigua.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate start = fechaNueva;
-            LocalDate end = LocalDate.now(); // use for age-calculation: LocalDate.now()
-            long years = ChronoUnit.YEARS.between(start, end);
-            selected.setEdad(Math.toIntExact(years));
-        
-        if(selected.getCuit() != null){
+
+        Date fechaAntigua = new Date();
+
+        if (selected.getFechaDeNacimiento() != null) {
+            fechaAntigua = selected.getFechaDeNacimiento();
+        }
+
+        LocalDate fechaNueva = fechaAntigua.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate start = fechaNueva;
+        LocalDate end = LocalDate.now(); // use for age-calculation: LocalDate.now()
+        long years = ChronoUnit.YEARS.between(start, end);
+        selected.setEdad(Math.toIntExact(years));
+
+        if (selected.getCuit() != null) {
             String cuit = selected.getCuit();
             cuit = cuit.substring(2, 9);
             selected.setDni(cuit);
         }
-        
+
         int mayorOrden = buscarMayorIdAdmOrJudicial();
-        
+
         selected.setOrden(mayorOrden);
         selected.setTipoDeExpediente(JUDICIAL);
-                
-        persist(PersistAction.UPDATE, "Expediente transformado a JUDICIAL con el nro de orden: "+ mayorOrden);
+
+        persist(PersistAction.UPDATE, "Expediente transformado a JUDICIAL con el nro de orden: " + mayorOrden);
     }
 
-    public int buscarMayorIdAdmOrJudicial(){
-        
+    public int buscarMayorIdAdmOrJudicial() {
+
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
         int orden = 0;
-        
+
         for (Expediente expediente : expedienteControllerBean.getItems()) {
             if (expediente.getOrden() != null) {
-                    if(expediente.getOrden() > orden) orden = expediente.getOrden();
+                if (expediente.getOrden() > orden) {
+                    orden = expediente.getOrden();
+                }
             }
         }
-        return orden+1 ;
+        return orden + 1;
     }
-    
+
     public void update2() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteUpdated"));
     }
@@ -638,7 +636,7 @@ public class ExpedienteController implements Serializable {
             }
         }
     }
-    
+
     public String getNombreYApellidoPorOrden(int orden) {
 
         String nombreYApellidoBuscado = null;
@@ -706,9 +704,9 @@ public class ExpedienteController implements Serializable {
 
         for (Agenda agenda : agendaControllerBean.getItems()) {
             if (orden != null) {
-                if(agenda.getOrden() !=null){
+                if (agenda.getOrden() != null) {
                     if (Objects.equals(agenda.getOrden(), orden)) {
-                        if(agenda.getFecha() != null){
+                        if (agenda.getFecha() != null) {
                             String date2 = sdf.format(agenda.getFecha());
 
                             if (date.equals(date2)) {
@@ -724,19 +722,19 @@ public class ExpedienteController implements Serializable {
     }
 
     public List verProximasAgendasPorNroDeOrden(Integer orden) {
-            
+
         List<Agenda> proximasAgendas = new ArrayList<Agenda>();
 
         FacesContext context = FacesContext.getCurrentInstance();
         AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
-        
+
         Date date = new Date();
-                
+
         for (Agenda agenda : agendaControllerBean.getItems()) {
             if (orden != null) {
-                if(agenda.getOrden() != null){
+                if (agenda.getOrden() != null) {
                     if (Objects.equals(agenda.getOrden(), orden)) {
-                        if(agenda.getFecha() != null){    
+                        if (agenda.getFecha() != null) {
                             if (agenda.getFecha().after(date)) {
                                 proximasAgendas.add(agenda);
                             }
@@ -746,10 +744,9 @@ public class ExpedienteController implements Serializable {
             }
         }
 
-        return proximasAgendas ;
+        return proximasAgendas;
     }
 
-    
     public String verClaveCidi(int orden) {
 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -829,33 +826,31 @@ public class ExpedienteController implements Serializable {
 
         int orden = expedienteControllerBean.getItemsAvailableSelectOne().get(expedienteControllerBean.getItemsAvailableSelectOne().size() - 1).getOrden() + 1;
 
-
         return orden;
     }
 
     public void limpiarFiltros() {
 
-        this.fechaDeCumpleSelected=null;
-        this.estadoDelTramiteSelected=null;
-        this.apoderadoSelected=null;
-        this.tipoDeTramiteSelected=null;
-        this.tipoDeExpedienteSelected=null;
-        
-                
-                
+        this.fechaDeCumpleSelected = null;
+        this.estadoDelTramiteSelected = null;
+        this.responsableSelected = null;
+        this.tipoDeTramiteSelected = null;
+        this.tipoDeExpedienteSelected = null;
+        this.sexoSelected = null;
+
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.execute("PF('expedientesTable').clearFilters()");
     }
 
     public void filtrarPorTipoDeTramite(String tipoDeTramiteSelected) {
-       System.out.println("tipoDeExpedienteSelected: "+tipoDeTramiteSelected);
+        System.out.println("tipoDeExpedienteSelected: " + tipoDeTramiteSelected);
 
-       this.filteredExpedientes = new ArrayList<Expediente>();
-        
+        this.filteredExpedientes = new ArrayList<Expediente>();
+
         if (tipoDeTramiteSelected != null) {
             for (Expediente expediente : getItems()) {
-                if (expediente.getTipoDeTramite()!= null) {
-                    
+                if (expediente.getTipoDeTramite() != null) {
+
                     if (expediente.getTipoDeTramite().equals(tipoDeTramiteSelected)) {
                         filteredExpedientes.add(expediente);
                     }
@@ -865,15 +860,45 @@ public class ExpedienteController implements Serializable {
     }
     
     
-    public void filtrarPorSexo(String sexoSelected) {
-       System.out.println("tipoDeExpedienteSelected: "+sexoSelected);
+    public void filtroCompuesto(String tipoDeTramiteSelected,
+            String tipoDeExpedienteSelected,
+            String responsableSelected,
+            String estadoDelTramiteSelected,
+            String fechaDeCumpleSelected,
+            String sexoSelected) {
 
-       this.filteredExpedientes = new ArrayList<Expediente>();
+        System.out.println("´variables: " + 
+                " tipoDeTramiteSelected: " +tipoDeTramiteSelected
+                + " tipoDeExpedienteSelected: " + tipoDeExpedienteSelected
+                + " responsableSelected: " + responsableSelected
+                + " estadoDelTramiteSelected: " + estadoDelTramiteSelected + 
+                " fechaDeCumpleSelected: "+ fechaDeCumpleSelected 
+                + " sexoSelected " + sexoSelected);
+
+
+         this.filteredExpedientes = getItems().stream()
+                 .filter(ExpedienteUtils.filtroTipoDeTramite(tipoDeTramiteSelected))
+                 .filter(ExpedienteUtils.filtroTipoDeExpediente(tipoDeExpedienteSelected))
+                 .filter(ExpedienteUtils.filtroResponsable(responsableSelected))
+                 .filter(ExpedienteUtils.filtroEstadoDelTramite(estadoDelTramiteSelected))
+                 .filter(ExpedienteUtils.filtroFechaDeCumple(fechaDeCumpleSelected))
+                 .filter(ExpedienteUtils.filtroSexo(sexoSelected))
+                 .collect(Collectors.toList());
         
+
+        JsfUtil.addSuccessMessage("Cantidad de ocurrencias: "+this.filteredExpedientes.size());
+        
+    }
+
+    public void filtrarPorSexo(String sexoSelected) {
+        System.out.println("tipoDeExpedienteSelected: " + sexoSelected);
+
+        this.filteredExpedientes = new ArrayList<Expediente>();
+
         if (sexoSelected != null) {
             for (Expediente expediente : getItems()) {
-                if (expediente.getSexo()!= null) {
-                    
+                if (expediente.getSexo() != null) {
+
                     if (expediente.getSexo().equals(sexoSelected)) {
                         filteredExpedientes.add(expediente);
                     }
@@ -881,16 +906,16 @@ public class ExpedienteController implements Serializable {
             }
         }
     }
-    
-    public void filtrarPorTipoDeExpediente(String tipoDeExpedienteSelected) {
-       System.out.println("tipoDeExpedienteSelected: "+tipoDeExpedienteSelected);
 
-       this.filteredExpedientes = new ArrayList<Expediente>();
-        
+    public void filtrarPorTipoDeExpediente(String tipoDeExpedienteSelected) {
+        System.out.println("tipoDeExpedienteSelected: " + tipoDeExpedienteSelected);
+
+        this.filteredExpedientes = new ArrayList<Expediente>();
+
         if (tipoDeExpedienteSelected != null) {
             for (Expediente expediente : getItems()) {
-                if (expediente.getTipoDeExpediente()!= null) {
-                    
+                if (expediente.getTipoDeExpediente() != null) {
+
                     if (expediente.getTipoDeExpediente().equals(tipoDeExpedienteSelected)) {
                         filteredExpedientes.add(expediente);
                     }
@@ -898,26 +923,25 @@ public class ExpedienteController implements Serializable {
             }
         }
     }
-    
-    
-    public void filtrarPorApoderado(String estadoDelTramiteSelected) {
-    
-       System.out.println("apoderadoSelected: "+apoderadoSelected);
-        
+
+    public void filtrarPorResponsable(String estadoDelTramiteSelected) {
+
+        System.out.println("responsableSelected: " + responsableSelected);
+
         this.filteredExpedientes = new ArrayList<Expediente>();
-        
-        if (apoderadoSelected != null) {
+
+        if (responsableSelected != null) {
             for (Expediente expediente : getItems()) {
-                if (expediente.getApoderado() != null) {
-                    
-                    if (expediente.getApoderado().equals(apoderadoSelected)) {
+                if (expediente.getResponsable()!= null) {
+
+                    if (expediente.getResponsable().equals(responsableSelected)) {
                         filteredExpedientes.add(expediente);
                     }
                 }
             }
         }
     }
-    
+
     public void filtrarPorEstadoDelTramite(String estadoDelTramiteSelected) {
         this.filteredExpedientes = new ArrayList<Expediente>();
         if (estadoDelTramiteSelected != null) {
@@ -930,22 +954,22 @@ public class ExpedienteController implements Serializable {
             }
         }
     }
-    
+
     public void filtrarPorFechaDeCumple(String fechaDeCumpleSelected) {
-        System.out.println("fechaDeCumpleSelected: "+fechaDeCumpleSelected);
-    
+        System.out.println("fechaDeCumpleSelected: " + fechaDeCumpleSelected);
+
         this.filteredExpedientes = new ArrayList<Expediente>();
-        
+
         if (fechaDeCumpleSelected != null) {
             for (Expediente expediente : getItems()) {
                 if (expediente.getFechaDeNacimiento() != null) {
-                    Date date = expediente.getFechaDeNacimiento();  
-                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
-                    String strDate = dateFormat.format(date); 
-                    
-                    String sSubCadena = strDate.substring(0,5);
-                    System.out.println("sSubCadena: "+sSubCadena);
-                    
+                    Date date = expediente.getFechaDeNacimiento();
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    String strDate = dateFormat.format(date);
+
+                    String sSubCadena = strDate.substring(0, 5);
+                    System.out.println("sSubCadena: " + sSubCadena);
+
                     if (sSubCadena.equals(fechaDeCumpleSelected)) {
                         filteredExpedientes.add(expediente);
                     }
@@ -954,21 +978,20 @@ public class ExpedienteController implements Serializable {
         }
     }
 
-    
     public boolean filterByApellidoYNombre(Object value, Object filter, Locale locale) {
-    String filterText = (filter == null) ? null : filter.toString().trim();
-    if (filterText == null || filterText.equals("")) {
-        return true;
-    }
+        String filterText = (filter == null) ? null : filter.toString().trim();
+        if (filterText == null || filterText.equals("")) {
+            return true;
+        }
 
-    if (value == null) {
-        return false;
-    }
+        if (value == null) {
+            return false;
+        }
 
-    String apellidoYNombre = value.toString().toUpperCase();
-    filterText = filterText.toUpperCase();
+        String apellidoYNombre = value.toString().toUpperCase();
+        filterText = filterText.toUpperCase();
 
         return apellidoYNombre.contains(filterText);
-}
-    
+    }
+
 }

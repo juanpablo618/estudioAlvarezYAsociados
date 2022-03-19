@@ -15,6 +15,7 @@ import com.estudioAlvarezVersion2.jsf.TurnoController;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -44,6 +45,8 @@ public class ScheduleView implements Serializable {
  
     @PostConstruct
     public void init() {
+        
+        System.out.println("ACA TIMEZONE: "+TimeZone.getDefault());
         
                FacesContext context = FacesContext.getCurrentInstance();
                

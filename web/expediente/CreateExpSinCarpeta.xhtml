@@ -122,6 +122,13 @@
                                         <f:selectItem itemLabel="" itemValue="" />
                                         <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.nombreProcedencia}" itemValue="#{procedencia.nombreProcedencia}" />
                                     </p:selectOneMenu>
+                                    
+                                    <p:outputLabel class="float-l" value="Responsable:" for="responsable" style="font-weight: bold"/>
+                                <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" requiredMessage="debe seleccionar un responsable correcto" id="responsable" value="#{expedienteController.selected.responsable}">
+                                    <f:selectItem itemLabel=" -- Elige un Responsable --"  noSelectionOption="true"  />
+                                    <f:selectItems value="#{empleadoController.items}" var="empleado" itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}" />
+                                </p:selectOneMenu>
+                                    
                                 </h:panelGrid>
                                 <br></br>    
 

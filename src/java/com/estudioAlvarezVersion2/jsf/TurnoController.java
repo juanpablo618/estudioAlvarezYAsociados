@@ -89,16 +89,36 @@ public class TurnoController implements Serializable {
     static class SortByDate implements Comparator<Turno> {
         @Override
         public int compare(Turno a, Turno b) {
-            if(a.getHoraYDia() == null && b.getHoraYDia() == null){
+            /*if(a.getHoraYDia() == null && b.getHoraYDia() == null){
                 return 0;
             }else if(a.getHoraYDia() != null && b.getHoraYDia() != null){
-                        if(a.getHoraYDia().compareTo(b.getHoraYDia()) > 0){
+                        if(a.getHoraYDia().compareTo(b.getHoraYDia()) >= 0){
                             return 1;
                         }
             }else{
                 return -1;
             }
-            return 0;
+            return 0;*/
+            
+            if (a.getHoraYDia() == null) {
+                return 1;
+            }
+
+            if (b.getHoraYDia() == null) {
+                return -1;
+            }
+            
+            if(a.getHoraYDia() == null && b.getHoraYDia() == null){
+                return 0;
+            }
+                    
+
+            if (a.getHoraYDia().equals(b.getHoraYDia())) {
+                return a.getHoraYDia().compareTo(b.getHoraYDia());
+            }
+
+            return a.getHoraYDia().compareTo(b.getHoraYDia());
+            
         }
     }
 

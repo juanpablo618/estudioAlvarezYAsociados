@@ -34,7 +34,7 @@
                         </h:panelGrid>
                         <h:panelGrid columns="2" cellspacing="5" cellpadding="1">
                             <p:outputLabel value="#{bundle.EditExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento" style="font-weight: bold" />
-                            <p:calendar id="fechaDeNacimiento" pattern="dd/MM/yyyy"  value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" required="true" requiredMessage="fecha de nacimiento es requerido" showOn="button"/>
+                            <p:calendar  id="fechaDeNacimiento" pattern="dd/MM/yyyy"  value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" required="true" requiredMessage="fecha de nacimiento es requerido" showOn="button"/>
                         </h:panelGrid>
                         <h:panelGrid columns="6" cellspacing="5" >
                             <p:outputLabel value="#{bundle.EditExpedienteLabel_sexo}" for="sexo" style="margin-left: 3%;font-weight: bold" />
@@ -79,13 +79,11 @@
                             <h:panelGrid columns="2" cellspacing="5">
                                 <p:outputLabel value="Tipo:" for="tipo" style="font-weight: bold"/>
                                 <p:selectOneMenu id="tipo" style="margin-left: 3%" value="#{expedienteController.selected.tipo}" >
-                                    <f:selectItem itemLabel="Reajuste°" itemValue="Reajuste" />
-                                    <f:selectItem itemLabel="Amparo" itemValue="Amparo" />
-                                    <f:selectItem itemLabel="Pension" itemValue="Pension" />
-                                    <f:selectItem itemLabel="Ganancias" itemValue="Ganancias" />
-                                    <f:selectItem itemLabel="DDHH" itemValue="DDHH" />
-                                    <f:selectItem itemLabel="Laboral" itemValue="Laboral" />
-                                    <f:selectItem itemLabel="Otros" itemValue="Otros" />
+                                        <f:selectItem itemLabel="Reajustes" itemValue="Reajuste" />
+                                        <f:selectItem itemLabel="Pensiones" itemValue="Pensiones" />
+                                        <f:selectItem itemLabel="Amparos" itemValue="Amparos" />
+                                        <f:selectItem itemLabel="Otros" itemValue="Otros" />
+                                        <f:selectItem itemLabel="Provincia" itemValue="Provincia" />
                                 </p:selectOneMenu>
                             </h:panelGrid>
                             <h:panelGrid columns="4" cellspacing="5">

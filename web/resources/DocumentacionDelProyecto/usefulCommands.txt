@@ -180,3 +180,53 @@ https://stackoverflow.com/questions/23936614/primefaces-5-0-datatable-filter-cas
 
 
 //timeZone="GMT-3"
+
+
+
+
+
+                                    <h:selectManyListbox value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Reajustes'}">
+                                            <f:selectItem itemValue="PBU - Quiroga" itemLabel="PBU - Quiroga" />
+                                            <f:selectItem itemValue="Eliff (actualización de rem)" itemLabel="Eliff (actualización de rem)" />
+                                            <f:selectItem itemValue="Badaro (movilidad 2002-2009)" itemLabel="Badaro (movilidad 2002-2009)" />
+                                            <f:selectItem itemValue="Sánchez (movilidad hasta año 2002)" itemLabel="Sánchez (movilidad hasta año 2002)" />
+                                            <f:selectItem itemValue="Topes (Actis Caporale): ver en especificaciones cuales" itemLabel="Topes (Actis Caporale): ver en especificaciones cuales" />
+                                            <f:selectItem itemValue="Movilidad 2° semestre 2017 (Fernández Pastor)" itemLabel="Movilidad 2° semestre 2017 (Fernández Pastor" />
+                                            <f:selectItem itemValue="Movilidad por Decretos 2020 (Caliva)" itemLabel="Movilidad por Decretos 2020 (Caliva))" />
+                                            <f:selectItem itemValue="Autónomo (Volonte/Mackler/Rodríguez, Emilio)" itemLabel="Autónomo (Volonte/Mackler/Rodríguez, Emilio)" />
+                                            <f:selectItem itemValue="Otros" itemLabel="Otros" />
+                                    </h:selectManyListbox>
+
+                                    <h:selectManyListbox value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Pensiones'}">
+                                            <f:selectItem itemValue="Separación de hecho (de Seta de Mazzucco)" itemLabel="Separación de hecho (de Seta de Mazzucco)" />
+                                            <f:selectItem itemValue="Convivientes sin prueba suficiente" itemLabel="Convivientes sin prueba suficiente" />
+                                            <f:selectItem itemValue="Proporcionalidad (Pinto)" itemLabel="Proporcionalidad (Pinto)" />
+                                            <f:selectItem itemValue="Fallec. En actividad sin regularidad (Tarditti)" itemLabel="Fallec. En actividad sin regularidad (Tarditti)" />
+                                            <f:selectItem itemValue="Autónomo sin inscripción (Núñez Piedad)" itemLabel="Autónomo sin inscripción (Núñez Piedad)" />
+                                            <f:selectItem itemValue="Autónomo pagos fuera de termino (Puebla)" itemLabel="Autónomo pagos fuera de termino (Puebla)" />
+                                            <f:selectItem itemValue="Otros (DDJJ de Salud) (hijo incapacitado)" itemLabel="Otros (DDJJ de Salud) (hijo incapacitado)" />
+                                    </h:selectManyListbox>
+
+                                    <h:selectManyListbox value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Amparos'}">
+                                            <f:selectItem itemValue="Hombres – Ley 26.970" itemLabel="Hombres – Ley 26.970" />
+                                            <f:selectItem itemValue="DD.JJ. de Salud sin presentar en RTI" itemLabel="DD.JJ. de Salud sin presentar en RTI" />
+                                            <f:selectItem itemValue="RVP" itemLabel="RVP" />
+                                            <f:selectItem itemValue="Pensionadas (24476)" itemLabel="Pensionadas (24476)" />
+                                            <f:selectItem itemValue="Socioeconómico 24476" itemLabel="Socioeconómico 24476" />
+                                            <f:selectItem itemValue="Otros" itemLabel="Otros" />
+                                    </h:selectManyListbox>
+                                    
+                                    <h:selectManyListbox value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Otros'}">
+                                            <f:selectItem itemValue="Imp. Ganancias" itemLabel="Imp. Ganancias" />
+                                            <f:selectItem itemValue="Apelación dictamen CMC" itemLabel="Apelación dictamen CMC" />
+                                            <f:selectItem itemValue="Laboral" itemLabel="Laboral" />
+                                    </h:selectManyListbox>
+                                    
+                                    <h:selectManyListbox value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Provincia'}">
+                                            <f:selectItem itemValue="DD.HH" itemLabel="DD.HH" />
+                                            <f:selectItem itemValue="A.R.T" itemLabel="A.R.T" />
+                                            <f:selectItem itemValue="Despido" itemLabel="Despido" />
+                                            <f:selectItem itemValue="Otros" itemLabel="otros" />
+                                    </h:selectManyListbox>
+                                    
+

@@ -1,7 +1,10 @@
 package com.estudioAlvarezVersion2.jpa;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import javax.json.Json;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -186,6 +189,10 @@ public class Expediente implements Serializable {
     private String responsable;
     
     @Basic(optional = false)
+    @Column(name = "apoderado")
+    private String apoderado;
+
+    @Basic(optional = false)
     @Column(name = "comunicaciones")
     private String comunicaciones;
 
@@ -222,6 +229,9 @@ public class Expediente implements Serializable {
     @Column(name = "tablaDeHonorariosYGastos")
     private String tablaDeHonorariosYGastos;
     
+    @Column(name = "subCategoriasDeTipo")
+    private String[]  subCategoriasDeTipo;
+    
     public Expediente() {
     }
 
@@ -238,9 +248,9 @@ public class Expediente implements Serializable {
             String localidad, String tipoDeTramite, String procedencia,
             String estadoDelTramite, Date fechaDeCobro, String nacionalidad,
             String tipoDeExpediente, String caratula, String nroDeExpediente,
-            String juzgadoODependencia, String observaciones, String responsable, String comunicaciones, Date fechaDeAtencion,
+            String juzgadoODependencia, String observaciones, String responsable, String apoderado, String comunicaciones, Date fechaDeAtencion,
             String convenioDeHonorarios, String jurisdiccion, String poderFirmado,
-            String tipo, String etapaProcesal, String detalleDeEstadoDeTramite, String tablaDeHonorariosYGastos) {
+            String tipo, String etapaProcesal, String detalleDeEstadoDeTramite, String tablaDeHonorariosYGastos, String[]  subCategoriasDeTipo) {
         this.idExpediente = idExpediente;
         this.orden = orden;
         this.cuit = cuit;
@@ -275,6 +285,7 @@ public class Expediente implements Serializable {
         this.juzgadoODependencia = juzgadoODependencia;
         this.observaciones = observaciones;
         this.responsable = responsable;
+        this.apoderado = apoderado;
         this.comunicaciones = comunicaciones;
         this.fechaDeAtencion = fechaDeAtencion;
         this.convenioDeHonorarios = convenioDeHonorarios;
@@ -284,9 +295,30 @@ public class Expediente implements Serializable {
         this.etapaProcesal = etapaProcesal;
         this.detalleDeEstadoDeTramite = detalleDeEstadoDeTramite;
         this.tablaDeHonorariosYGastos = tablaDeHonorariosYGastos;
+        this.subCategoriasDeTipo = subCategoriasDeTipo;
 
     }
+    
+    public String[]  getSubCategoriasDeTipo() {
+        return  subCategoriasDeTipo;
+    }
 
+    public void setSubCategoriasDeTipo(String[]  subCategoriasDeTipo) {
+        this.subCategoriasDeTipo = subCategoriasDeTipo;
+    }
+    
+    public String getSelectedValueString() {
+          return Arrays.toString(subCategoriasDeTipo);
+        }
+
+    public String getApoderado() {
+        return apoderado;
+    }
+
+    public void setApoderado(String apoderado) {
+        this.apoderado = apoderado;
+    }
+    
     public Integer getIdExpediente() {
         return idExpediente;
     }
@@ -307,7 +339,7 @@ public class Expediente implements Serializable {
         if(cuit != null){
             return cuit;
         }
-        return "0";
+        return "";
     }
 
     public void setCuit(String cuit) {

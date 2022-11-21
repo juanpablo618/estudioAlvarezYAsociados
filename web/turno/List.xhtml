@@ -35,10 +35,10 @@
             <p:inputTextarea  id="title" value="#{scheduleView.event.title}" required="true" />
  
             <p:outputLabel for="from" value="Desde:" />
-            <p:calendar id="from" value="#{scheduleView.event.startDate}"  pattern="dd/MM/yyyy HH:mm"/>
+            <p:calendar id="from" value="#{scheduleView.event.startDate}"  disabledWeekends="true" pattern="dd/MM/yyyy HH:mm"/>
  
             <p:outputLabel for="to" value="Hasta:" />
-            <p:calendar id="to" value="#{scheduleView.event.endDate}"  pattern="dd/MM/yyyy HH:mm"/>
+            <p:calendar id="to" value="#{scheduleView.event.endDate}"  disabledWeekends="true" pattern="dd/MM/yyyy HH:mm"/>
  
         </h:panelGrid>
     </p:dialog>    

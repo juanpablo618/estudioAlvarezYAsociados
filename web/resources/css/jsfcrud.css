@@ -365,6 +365,19 @@ div[id="AgendaListForm:datalist"] thead {
     text-shadow: none !important;
 }
 
+.ui-fieldset-toggleable-lila .ui-fieldset-legend {
+    background: #ca4fe1 !important; 
+    color: white !important;
+    text-shadow: none !important;
+}
+
+.ui-fieldset-toggleable-verde .ui-fieldset-legend {
+    background: #32b9a9 !important; 
+    color: white !important;
+    text-shadow: none !important;
+}
+
+
 .ui-fieldset-toggleable .ui-fieldset-legend:hover{
     background-color: #2a55aa !important;
 }   

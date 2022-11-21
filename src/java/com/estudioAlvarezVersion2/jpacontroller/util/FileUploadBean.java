@@ -7,14 +7,18 @@ package com.estudioAlvarezVersion2.jpacontroller.util;
 
 import com.estudioAlvarezVersion2.jpa.DAO;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 import org.primefaces.model.UploadedFile;
 
@@ -42,9 +46,48 @@ public class FileUploadBean implements Serializable{
         private UploadedFile fileDorsoDni;  
         private UploadedFile fileOtraDocumentacion;  
         private UploadedFile fileCronoDeAportes;  
+        private UploadedFile frenteDniExpSinCarpeta;  
+        private UploadedFile dorsoDniExpSinCarpeta;  
+
+        private StreamedContent frenteDniExpSinCarpetaTransfer;
+        private StreamedContent dorsoDniExpSinCarpetaTransfer;
+
+    public StreamedContent getFrenteDniExpSinCarpetaTransfer() {
+        return frenteDniExpSinCarpetaTransfer;
+    }
+
+    public void setFrenteDniExpSinCarpetaTransfer(StreamedContent frenteDniExpSinCarpetaTransfer) {
+        this.frenteDniExpSinCarpetaTransfer = frenteDniExpSinCarpetaTransfer;
+    }
+
+    public StreamedContent getDorsoDniExpSinCarpetaTransfer() {
+        return dorsoDniExpSinCarpetaTransfer;
+    }
+
+    public void setDorsoDniExpSinCarpetaTransfer(StreamedContent dorsoDniExpSinCarpetaTransfer) {
+        this.dorsoDniExpSinCarpetaTransfer = dorsoDniExpSinCarpetaTransfer;
+    }
+    
         
         
         
+    public UploadedFile getFrenteDniExpSinCarpeta() {
+        return frenteDniExpSinCarpeta;
+    }
+
+    public void setFrenteDniExpSinCarpeta(UploadedFile frenteDniExpSinCarpeta) {
+        this.frenteDniExpSinCarpeta = frenteDniExpSinCarpeta;
+    }
+
+    public UploadedFile getDorsoDniExpSinCarpeta() {
+        return dorsoDniExpSinCarpeta;
+    }
+
+    public void setDorsoDniExpSinCarpeta(UploadedFile dorsoDniExpSinCarpeta) {
+        this.dorsoDniExpSinCarpeta = dorsoDniExpSinCarpeta;
+    }
+
+    
     public UploadedFile getFile() {  
         return file;  
     }  
@@ -517,6 +560,60 @@ public class FileUploadBean implements Serializable{
         
     }  
     
+    public void uploadFrenteDni(int orden, String cuit ) {  
+                    
+        try {
+            
+            long cuitLong = 0;
+            
+            if (!"0".equals(cuit) && cuit != null && !"".equals(cuit))  {
+                cuitLong = Long.parseLong(cuit);
+            } 
+            
+            Connection con = null;
+		PreparedStatement ps = null;
+
+                        con = DAO.getConnection();
+                        
+                        ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM frenteDniExpSinCarpeta WHERE nroDeCuit = (?);");
+                ps.setLong(1, cuitLong);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        frenteDniExpSinCarpetaTransfer = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        frenteDniExpSinCarpetaTransfer = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+
+                }
+
+                        ps = con.prepareStatement("INSERT INTO documentosFrenteDni (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, frenteDniExpSinCarpetaTransfer.getStream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, frenteDniExpSinCarpetaTransfer.getName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                    
+        } catch (SQLException e) {
+            System.out.println("ERROR: "+e.toString());
+                        FacesMessage msg = new FacesMessage("Error", " Fichero demasiado grande " + frenteDniExpSinCarpetaTransfer.getName()+ " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
+    
+    
     public void uploadOtraDocumentacion(int orden) {  
                     
         try {
@@ -565,6 +662,116 @@ public class FileUploadBean implements Serializable{
         
     }  
     
+    public void uploadFrenteDniParaExpSinCarpeta(String cuit) {  
+                    
+        try {
+            Connection con = null;
+		PreparedStatement ps = null;
+
+                
+            long cuitLong = 0;
+            
+            if (!"0".equals(cuit) && cuit != null && !"".equals(cuit))  {
+                cuitLong = Long.parseLong(cuit);
+            }  
+                
+            if(frenteDniExpSinCarpeta != null){
+                    
+                    if(frenteDniExpSinCarpeta.getContentType().equalsIgnoreCase(IMAGE_JPEG) || frenteDniExpSinCarpeta.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO frenteDniExpSinCarpeta (documento, nroDeCuit, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeCuit = LAST_INSERT_ID(nroDeCuit),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, frenteDniExpSinCarpeta.getInputstream());
+                        ps.setLong(2, cuitLong);
+                        ps.setString(3, frenteDniExpSinCarpeta.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage("Ok", "Fichero " + frenteDniExpSinCarpeta.getFileName() + " subido correctamente. Con nro de cuit: "+cuitLong);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    
+                    }else{
+                        if(!"".equals(frenteDniExpSinCarpeta.getFileName())){
+                            FacesMessage msg = new FacesMessage("Error", "no selecciono un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }else{
+                            FacesMessage msg = new FacesMessage("Error", "Fichero " + frenteDniExpSinCarpeta.getFileName() + " no es un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+                    
+            }
+            
+        } catch (IOException | SQLException e) {
+            System.out.println("ERROR: "+e.toString());
+                        FacesMessage msg = new FacesMessage("Error", " Fichero demasiado grande " + frenteDniExpSinCarpeta.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
+    
+    public void uploadDorsoDniParaExpSinCarpeta(String cuit) {  
+                    
+        try {
+            Connection con = null;
+		PreparedStatement ps = null;
+
+                
+            long cuitLong = 0;
+            
+            if (!"0".equals(cuit) && cuit != null && !"".equals(cuit))  {
+                cuitLong = Long.parseLong(cuit);
+            }  
+                
+            if(dorsoDniExpSinCarpeta != null){
+                    
+                    if(dorsoDniExpSinCarpeta.getContentType().equalsIgnoreCase(IMAGE_JPEG) || dorsoDniExpSinCarpeta.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO dorsoDniExpSinCarpeta (documento, nroDeCuit, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeCuit = LAST_INSERT_ID(nroDeCuit),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, dorsoDniExpSinCarpeta.getInputstream());
+                        ps.setLong(2, cuitLong);
+                        ps.setString(3, dorsoDniExpSinCarpeta.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage("Ok", "Fichero " + dorsoDniExpSinCarpeta.getFileName() + " subido correctamente. Con nro de cuit: "+cuitLong);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    
+                    }else{
+                        if(!"".equals(dorsoDniExpSinCarpeta.getFileName())){
+                            FacesMessage msg = new FacesMessage("Error", "no selecciono un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }else{
+                            FacesMessage msg = new FacesMessage("Error", "Fichero " + dorsoDniExpSinCarpeta.getFileName() + " no es un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+                    
+            }
+            
+        } catch (IOException | SQLException e) {
+            System.out.println("ERROR: "+e.toString());
+                        FacesMessage msg = new FacesMessage("Error", " Fichero demasiado grande " + dorsoDniExpSinCarpeta.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
+   
     public void uploadJPG(int orden) {  
                     
         try {

@@ -180,7 +180,7 @@ public class Agenda implements Serializable {
 
     @Override
     public String toString() {
-        return "Agenda{" + "idAgenda=" + idAgenda + ", fecha=" + fecha + ", descripcion=" + descripcion + ", nombre=" + nombre + ", apellido=" + apellido + ", responsable=" + responsable + ", orden=" + orden + ", realizado=" + realizado + '}';
+        return "Agenda{" + ", fecha=" + fecha + ", descripcion=" + descripcion + ", apellido=" + apellido + ", nombre=" + nombre + ", responsable=" + responsable + ", orden=" + orden + ", realizado=" + realizado + '}';
     }
-
+    
 }

@@ -16,7 +16,7 @@
     <h:body class="fondo">
         <h:form>
             <p:growl id="messages1" showDetail="true" sticky="true" />
-            <p:idleMonitor timeout="900000">
+            <p:idleMonitor timeout="3600000">
                 <p:ajax event="idle" listener="#{login.onIdle}" update="messages1" />
             </p:idleMonitor>
         </h:form>
@@ -28,7 +28,6 @@
                 </center>
             </p:layoutUnit>
             <p:layoutUnit position="west" id="menuLeft" style="background: #123a6d;">
-
                 <h:form class="menuForm" style="background: #123a6d !important;">
                     <p:menu style="width: auto !important;background: #123a6d !important;">
                         <p:submenu> 
@@ -41,10 +40,8 @@
                             <p:menuitem outcome="/estadoDelTramite/List_EstadoDelTramiteYProcedencias" class="fa fa-file-archive fa-3x btnMenuLeft" title="Estados del tramite y Procedencias"/>
                             <p:separator class="separador"/>
                             <p:menuitem outcome="/turno/List" class="fa fa-calendar-alt fa-3x btnMenuLeft" title="Turnos" />
-                            
                             <p:separator class="separador"/>
                             <p:menuitem outcome="/login.xhtml" class="fa fa-user-circle fa-3x btnMenuLeft" title="Salir"/>
-                            
                         </p:submenu>
                     </p:menu>
                 </h:form>
@@ -53,7 +50,6 @@
                 <ui:insert name="body"  />
             </p:layoutUnit>
         </p:layout>
-
     </h:body>
 
 </html>

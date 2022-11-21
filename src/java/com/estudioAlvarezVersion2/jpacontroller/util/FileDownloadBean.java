@@ -42,6 +42,8 @@ public class FileDownloadBean implements Serializable {
     private StreamedContent fileDorsoDni;
     private StreamedContent fileOtraDocumentacion;
     private StreamedContent fileCronoDeAportes;
+    private StreamedContent frenteDniExpSinCarpeta;
+    private StreamedContent dorsoDniExpSinCarpeta;
     
 
     private int codigo;
@@ -165,6 +167,25 @@ public class FileDownloadBean implements Serializable {
     public void setFileCronoDeAportes(StreamedContent fileCronoDeAportes) {
         this.fileCronoDeAportes = fileCronoDeAportes;
     }
+
+    public StreamedContent getFrenteDniExpSinCarpeta() {
+        return frenteDniExpSinCarpeta;
+    }
+
+    public void setFrenteDniExpSinCarpeta(StreamedContent frenteDniExpSinCarpeta) {
+        this.frenteDniExpSinCarpeta = frenteDniExpSinCarpeta;
+    }
+
+    public StreamedContent getDorsoDniExpSinCarpeta() {
+        return dorsoDniExpSinCarpeta;
+    }
+
+    public void setDorsoDniExpSinCarpeta(StreamedContent dorsoDniExpSinCarpeta) {
+        this.dorsoDniExpSinCarpeta = dorsoDniExpSinCarpeta;
+    }
+
+   
+    
     
     public void downloadPDF(int orden) {
         Connection con = null;
@@ -541,6 +562,102 @@ public class FileDownloadBean implements Serializable {
         }
     }
     
+    public void downloadFrenteDnideExpSinCarpeta(String cuit) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            long cuitLong = 0;
+            
+            if (!"0".equals(cuit) && cuit != null && !"".equals(cuit))  {
+                cuitLong = Long.parseLong(cuit);
+            }  
+        
+            
+            if (cuitLong != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM frenteDniExpSinCarpeta WHERE nroDeCuit = (?);");
+                ps.setLong(1, cuitLong);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        frenteDniExpSinCarpeta = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        frenteDniExpSinCarpeta = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+
+                }
+
+                con.close();
+                if (frenteDniExpSinCarpeta != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo frente dni de exp sin carpeta descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                } else {
+                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo frente dni de exp. sin carpeta para este nro de cuit: " + cuitLong);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+
+            } else {
+                FacesMessage msg = new FacesMessage("ERROR", "no se encontro imagen frente dni(de exp. sin carpeta) con ese nro de cuit.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Fichero frente dni(de exp. sin carpeta) uno no descargado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+
+    public void downloadDorsoDnideExpSinCarpeta(String cuit) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            long cuitLong = 0;
+            
+            if (!"0".equals(cuit) && cuit != null && !"".equals(cuit))  {
+                cuitLong = Long.parseLong(cuit);
+            }  
+        
+            
+            if (cuitLong != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM dorsoDniExpSinCarpeta WHERE nroDeCuit = (?);");
+                ps.setLong(1, cuitLong);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        dorsoDniExpSinCarpeta = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        dorsoDniExpSinCarpeta = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+
+                }
+
+                con.close();
+                if (dorsoDniExpSinCarpeta != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo dorso dni de exp sin carpeta descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                } else {
+                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo dorso dni de exp. sin carpeta para este nro de cuit: " + cuitLong);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+
+            } else {
+                FacesMessage msg = new FacesMessage("ERROR", "no se encontro imagen dorso dni(de exp. sin carpeta) con ese nro de cuit.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Fichero dorso dni(de exp. sin carpeta) uno no descargado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+
     public void downloadJPG(int orden) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -923,6 +1040,81 @@ public class FileDownloadBean implements Serializable {
         }
     }
 
+    public String buscarFrenteDniParaExpSinCarpeta(String cuit) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        String nombre = "";
+        
+        long cuitLong = 0;
+            
+            if (!"0".equals(cuit) && cuit != null && !"".equals(cuit))  {
+                cuitLong = Long.parseLong(cuit);
+            }  
+            
+        
+        try {
+            if (cuitLong != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM frenteDniExpSinCarpeta WHERE nroDeCuit = (?);");
+                ps.setLong(1, cuitLong);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre frente dni para exp. sin carpeta no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe frente dni para este expediente sin carpeta";
+        } else {
+            return nombre;
+
+        }
+    }
+
+    public String buscarDorsoDniParaExpSinCarpeta(String cuit) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        String nombre = "";
+        
+        long cuitLong = 0;
+            
+            if (!"0".equals(cuit) && cuit != null && !"".equals(cuit))  {
+                cuitLong = Long.parseLong(cuit);
+            }  
+            
+        
+        try {
+            if (cuitLong != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM dorsoDniExpSinCarpeta WHERE nroDeCuit = (?);");
+                ps.setLong(1, cuitLong);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo dorso dni para exp. sin carpeta no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe dorso dni para este expediente sin carpeta";
+        } else {
+            return nombre;
+
+        }
+    }
+
+    
     public String buscarNombreDeArchivoJPGDos(int orden) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -1124,6 +1316,79 @@ public class FileDownloadBean implements Serializable {
             return nombre;
 
         }
+    }
+
+    public String buscarNombreFrenteDniParaExpSinCarpeta(String cuit) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        String nombre = "";
+         long cuitLong = 0;
+            
+            if (!"0".equals(cuit) && cuit != null && !"".equals(cuit))  {
+                cuitLong = Long.parseLong(cuit);
+            } 
+
+        try {       
+            if (!"0".equals(cuit)) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM frenteDniExpSinCarpeta WHERE nroDeCuit = (?);");
+                ps.setLong(1, cuitLong);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo frente dni exp. sin Carpeta no enontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe archivo para exp. sin carpeta frente dni";
+        } else {
+            return nombre;
+
+        }
+    
+    }
+
+    
+    public String buscarNombreDorsoDniParaExpSinCarpeta(String cuit) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        String nombre = "";
+         long cuitLong = 0;
+            
+            if (!"0".equals(cuit) && cuit != null && !"".equals(cuit))  {
+                cuitLong = Long.parseLong(cuit);
+            } 
+
+        try {       
+            if (!"0".equals(cuit)) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM dorsoDniExpSinCarpeta WHERE nroDeCuit = (?);");
+                ps.setLong(1, cuitLong);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo dorso dni exp. sin Carpeta no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe archivo para dorso dni de exp. sin carpeta";
+        } else {
+            return nombre;
+
+        }
+    
     }
 
 }

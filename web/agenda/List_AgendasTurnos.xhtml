@@ -33,8 +33,6 @@
                     <p:dataExporter type="pdf" target="datalist" fileName="AgendasFiltradas" pageOnly="false" />
                 </h:commandLink>
 
-                
-                
                 <br></br><br></br>
 
                 <p:dataTable id="datalist" value="#{turnoController.items}" var="item"
@@ -47,6 +45,7 @@
                              emptyMessage="No existen turnos"
                              filteredValue="#{turnoController.filteredturnos}"
                              paginatorPosition="top" 
+                             rendered="true"
                              >
 
                     <p:ajax event="rowSelect"   update="createButton "/>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <ui:composition>
+
+        <p:dialog id="MovimientoCreateDlg" widgetVar="MovimientoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Movimiento Nuevo">
+            <h:form id="MovimientoCreateForm">
+                <h:panelGroup id="display">
+                    <h:panelGrid columns="4">
+                     
+                        <p:outputLabel value="Fecha:" for="fecha" style="font-weight: bold"/><br></br>
+                        <p:calendar disabledWeekends="true"  placeholder="dd/MM/yyyy" autocomplete="off" id="fecha"  mode="inline" pattern="dd/MM/yyyy" value="#{movimientoController.selectedParaMovimientoNuevo.fecha}" title="fecha de movimiento" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button" /><br></br><br></br>
+                              
+                        <p:outputLabel value="movimiento" for="movimiento" style="font-weight: bold"/><br></br>
+                          <p:inputTextarea id="movimiento" value="#{movimientoController.selectedParaMovimientoNuevo.movimiento}" title="inserte movimiento" /><br></br><br></br>
+                        
+                        <p:outputLabel value="Orden:" for="orden" style="font-weight: bold"/><br></br>
+                        <p:inputText id="orden" value="#{movimientoController.selectedParaMovimientoNuevo.orden}" readonly="true" title="nombre" /><br></br><br></br>
+                        
+                          <h:outputText value="Realizado: " /><br></br>
+
+                            <p:selectOneMenu id="realizado" value="#{movimientoController.selectedParaMovimientoNuevo.realizado}" editable="false">
+                                <f:selectItem itemLabel="Si" itemValue="Si" />
+                                <f:selectItem itemLabel="No" itemValue="No" />
+                                <f:selectItem itemLabel="Reagendada" itemValue="Reagendada" />
+
+                            </p:selectOneMenu>
+                        
+                     </h:panelGrid>
+                        <p:commandButton actionListener="#{movimientoController.createMovimiento(movimientoController.selectedParaMovimientoNuevo.fecha, movimientoController.selectedParaMovimientoNuevo.movimiento, movimientoController.selectedParaMovimientoNuevo.orden, movimientoController.selectedParaMovimientoNuevo.realizado)}"
+                                         class="botonCrear" value="#{bundle.Save}" oncomplete="handleSubmit(args,'MovimientoCreateDialog');"   update="display,:ExpedienteJudicialEditForm:j_idt832:datalist3,:growl"/>
+                  
+                        <p:commandButton value="#{bundle.Cancel}" onclick="TurnoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

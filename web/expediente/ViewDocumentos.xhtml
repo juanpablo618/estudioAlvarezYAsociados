@@ -22,14 +22,22 @@
                     <h:outputText value=" "/>
                     <h:outputText value="#{expedienteController.selected.nombre}"/>
                     <h:outputText value=" "/>
-                    <h:outputText style="font-size: 32px" value="#{expedienteController.selected.orden}"/></u>
+                    <h:outputText style="font-size: 32px" value="#{expedienteController.selected.orden}"/>
+                    
+                    <h:outputText value="cuit :  " rendered="#{expedienteController.selected.tipoDeExpediente eq 'sin carpeta'}"  />
+                    <h:outputText style="font-size: 32px" value="#{expedienteController.selected.cuit}" rendered="#{expedienteController.selected.tipoDeExpediente eq 'sin carpeta'}"/>
+                    
+                    
+                     </u>
                 </div>
                 <br></br><br></br>
                 <h:panelGroup id="display">
                 </h:panelGroup>
                 
-                        <div style="float:right ;width: 48%; margin-top: 1%;">
-                            <p:panel id="toggleable" header="PARTIDAS" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
+                        <div style="float:right ;width: 48%; margin-top: 1%;" >
+                            
+                            
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="toggleable" header="PARTIDAS" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
                            
                             <div>
                                 <p:outputLabel value="Archivo JPG o PDF 1"  style="font-weight: bold"/><br></br>
@@ -216,7 +224,53 @@
                             <br></br>
                         <div class="width50" style="float:right;">
                             <div>
-                                <p:panel id="cronoDeAportes" header="Crono. de aportes" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'sin carpeta'}" id="frenteDniExpSinCarpeta" header="Archivos frente y dorso dni para Exp. Sin Carpeta" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            
+                                <p:outputLabel value="Frente dni para exp. sin carpeta:"  style="font-weight: bold"/><br></br>
+                                                                
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.frenteDniExpSinCarpeta}" mode="simple"/>
+                                
+                                <p:commandButton icon="fa-upload" value="Subir frente dni" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadFrenteDniParaExpSinCarpeta(expedienteController.selected.cuit)}" ajax="false" />
+                                <br></br>
+                                
+                                <p:outputLabel value="frente dni para Exp. Sin Carpeta:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarFrenteDniParaExpSinCarpeta(expedienteController.selected.cuit)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar frente dni exp. sin carpeta" actionListener="#{fileDownloadBean.downloadFrenteDnideExpSinCarpeta(expedienteController.selected.cuit)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.frenteDniExpSinCarpeta}" />
+                                </p:commandButton>
+                               
+                                
+                                <br></br>
+                                <br></br>
+                                
+                                 <p:outputLabel value="Dorso dni para exp. sin carpeta:"  style="font-weight: bold"/><br></br>
+                                                                
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.dorsoDniExpSinCarpeta}" mode="simple"/>
+                                
+                                <p:commandButton icon="fa-upload" value="Subir dorso dni" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadDorsoDniParaExpSinCarpeta(expedienteController.selected.cuit)}" ajax="false" />
+                                <br></br>
+                                
+                                <p:outputLabel value="Dorso dni para Exp. Sin Carpeta:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarDorsoDniParaExpSinCarpeta(expedienteController.selected.cuit)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar dorso dni exp. sin carpeta" actionListener="#{fileDownloadBean.downloadDorsoDnideExpSinCarpeta(expedienteController.selected.cuit)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.dorsoDniExpSinCarpeta}" />
+                                </p:commandButton>
+                               
+                                
+                                
+                                
+                            </p:panel>
+                            </div>
+                            <br></br>
+                            
+                            
+                            <div>
+                                <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="cronoDeAportes" header="Crono. de aportes" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
                             
                             <p:outputLabel value="Crono. de aportes:"  style="font-weight: bold"/><br></br>
                                                                 
@@ -237,7 +291,7 @@
                             </div>
                             <br></br>
                             
-                            <p:panel id="panelFrenteDni" header="Frente DNI" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="panelFrenteDni" header="Frente DNI" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
                             
                             <p:outputLabel value="Frente DNI:"  style="font-weight: bold"/><br></br>
                                                                 
@@ -258,7 +312,7 @@
                                 <br></br>
                                 <br></br>
                             
-                            <p:panel id="panelDorsoDni" header="Dorso DNI" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="panelDorsoDni" header="Dorso DNI" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
                                
                             <p:outputLabel value="Dorso DNI:"  style="font-weight: bold"/><br></br>
                                                                 
@@ -278,7 +332,7 @@
                                 <br></br>
                                 <br></br>
                             
-                            <p:panel id="panelOtraDocumentacion" header="Otra Documentación" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="panelOtraDocumentacion" header="Otra Documentación" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
                                 
                                 <p:outputLabel value="Otra Documentación:"  style="font-weight: bold"/><br></br>
                                                                 

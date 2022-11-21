@@ -72,7 +72,7 @@
                             <h:panelGrid columns="2" rendered="#{expedienteController.selected != null}">
 
                                 <p:outputLabel value="#{bundle.CreateAgendaLabel_fecha}" for="fecha" style="font-weight: bold" />
-                                <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" title="#{bundle.EditAgendaTitle_fecha}" showOn="button"/>
+                                <p:calendar mindate="today" disabledWeekends="true" id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" title="#{bundle.EditAgendaTitle_fecha}" showOn="button"/>
                             
                                 <p:outputLabel value="Actividad:" for="descripcion" style="font-weight: bold" />
                                 <p:inputTextarea rows="5" cols="50" id="descripcion" value="#{agendaController.selected.descripcion}" title="#{bundle.CreateAgendaTitle_descripcion}" />

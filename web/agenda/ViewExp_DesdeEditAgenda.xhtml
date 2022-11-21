@@ -37,7 +37,7 @@
                                 <p:inputText readonly="true" onchange="myFunction()" id="orden" value="#{expedienteController.selectedParaVerExp.orden}" title="#{bundle.EditExpedienteTitle_orden}" style="float: right;"/>
 
                                 <p:outputLabel value="Fecha de Atención:" for="fechaDeAtencion" style="font-weight: bold;" class="float-r" />
-                                <p:calendar  readonly="true" style="width: 100px; margin-left: 3%;" class="inputFechaDeAtencion" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selectedParaVerExp.fechaDeAtencion}" title="fechaDeAtencion">
+                                <p:calendar disabledWeekends="true" readonly="true" style="width: 100px; margin-left: 3%;" class="inputFechaDeAtencion" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selectedParaVerExp.fechaDeAtencion}" title="fechaDeAtencion">
                                 </p:calendar>
 
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_apellido}" for="apellido" style="font-weight: bold" class="float-r"/>
@@ -59,7 +59,7 @@
                             </h:panelGrid>
                             <h:panelGrid columns="2" cellspacing="5" cellpadding="1">            
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_fechaDeNacimiento}" style="font-weight: bold" for="fechaDeNacimiento" class="float-r"/>
-                                <p:calendar readonly="true" required="true" requiredMessage="Fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selectedParaVerExp.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" showOn="button">
+                                <p:calendar  disabledWeekends="true" readonly="true" required="true" requiredMessage="Fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selectedParaVerExp.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" showOn="button">
                                 </p:calendar>
                             </h:panelGrid>
                             <h:panelGrid columns="6" cellspacing="5" >        
@@ -158,7 +158,7 @@
                                 <div>
                                     <div style="float: left" >
                                         <p:outputLabel value="Fecha de cobro:" for="fechaDeCobro" style="font-weight: bold" rendered="#{expedienteController.selectedParaVerExp.estadoDelTramite eq 'FECHA DE COBRO.'}" /><br></br>
-                                        <p:calendar style="width: 112px;" id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selectedParaVerExp.fechaDeCobro}" title="fechaDeCobro" rendered="#{expedienteController.selectedParaVerExp.estadoDelTramite eq 'FECHA DE COBRO.'}" />
+                                        <p:calendar   disabledWeekends="true" style="width: 112px;" id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selectedParaVerExp.fechaDeCobro}" title="fechaDeCobro" rendered="#{expedienteController.selectedParaVerExp.estadoDelTramite eq 'FECHA DE COBRO.'}" />
                                     </div>
                                     
                                 </div>

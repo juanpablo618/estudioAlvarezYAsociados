@@ -16,7 +16,7 @@
                         <div class="hijo">
                         
                                 <p:outputLabel value="#{bundle.CreateAgendaLabel_fecha}" for="fecha" />
-                                <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selectedParaCrearUnaNueva.fecha}" mode="inline" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
+                                <p:calendar  mindate="today" disabledWeekends="true" id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selectedParaCrearUnaNueva.fecha}" mode="inline" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
                     </div>
                     
                     <div class="hijo">

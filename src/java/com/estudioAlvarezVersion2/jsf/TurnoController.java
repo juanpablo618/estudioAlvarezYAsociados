@@ -74,7 +74,7 @@ public class TurnoController implements Serializable {
         this.selected = selected;
     }
 
-    public List<Turno> getFilteredturnos() {
+    public List<Turno> getFilteredturnos() {    
       List<Turno> cloned_list = null;
               
         if(this.filteredturnos != null){
@@ -207,10 +207,19 @@ public class TurnoController implements Serializable {
     }
 
     public List<Turno> getItems() {
+        
         if (items == null) {
             items = getFacade().findAll();
         }
-        return items;
+           List<Turno> cloned_list = null;
+      
+        
+             cloned_list = new ArrayList<Turno>(this.items);
+            Collections.sort(cloned_list, new SortByDate());
+        
+        return cloned_list;
+        
+  
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

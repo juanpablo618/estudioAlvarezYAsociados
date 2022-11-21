@@ -1,11 +1,10 @@
 package com.estudioAlvarezVersion2.jsf;
 
-import com.estudioAlvarezVersion2.jpa.Agenda;
 import com.estudioAlvarezVersion2.jpa.Expediente;
-import com.estudioAlvarezVersion2.jpa.Turno;
+import com.estudioAlvarezVersion2.jpa.Movimiento;
+import com.estudioAlvarezVersion2.jpacontroller.MovimientoFacade;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
-import com.estudioAlvarezVersion2.jpacontroller.AgendaFacade;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -15,14 +14,9 @@ import java.io.File;
 import java.io.IOException;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,31 +24,30 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.servlet.ServletContext;
-import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-@Named("agendaController")
+@Named("movimientoController")
 @SessionScoped
-public class AgendaController implements Serializable {
+public class MovimientoController implements Serializable {
 
     @EJB
-    private com.estudioAlvarezVersion2.jpacontroller.AgendaFacade ejbFacade;
-    private List<Agenda> items = null;
+    private com.estudioAlvarezVersion2.jpacontroller.MovimientoFacade ejbFacade;
+    private List<Movimiento> items = null;
     private List ItemsTODOS = null;
     
-    private Agenda selected;
-    private Agenda selectedParaCrearUnaNueva;
-    private Date fechaParaFiltrar = new Date();
-    private List<Agenda> filteredAgendas;
+    private Movimiento selected;
+    private Movimiento selectedParaMovimientoNuevo;
     
-    public AgendaController() {
+    private Date fechaParaFiltrar = new Date();
+    private List<Movimiento> filteredMovimientos;
+    
+    public MovimientoController() {
     }
 
     public Date getFechaParaFiltrar() {
@@ -65,21 +58,22 @@ public class AgendaController implements Serializable {
         this.fechaParaFiltrar = fechaParaFiltrar;
     }
     
-    public Agenda getSelected() {
+    public Movimiento getSelected() {
         return selected;
     }
 
-    public void setSelected(Agenda selected) {
+    public void setSelected(Movimiento selected) {
         this.selected = selected;
     }
 
-    public Agenda getSelectedParaCrearUnaNueva() {
-        return selectedParaCrearUnaNueva;
+    public Movimiento getSelectedParaMovimientoNuevo() {
+        return selectedParaMovimientoNuevo;
     }
 
-    public void setSelectedParaCrearUnaNueva(Agenda selectedParaCrearUnaNueva) {
-        this.selectedParaCrearUnaNueva = selectedParaCrearUnaNueva;
+    public void setSelectedParaMovimientoNuevo(Movimiento selectedParaMovimientoNuevo) {
+        this.selectedParaMovimientoNuevo = selectedParaMovimientoNuevo;
     }
+
     
     protected void setEmbeddableKeys() {
     }
@@ -87,113 +81,51 @@ public class AgendaController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private AgendaFacade getFacade() {
+    private MovimientoFacade getFacade() {
         return ejbFacade;
     }
 
-    public Agenda prepareCreate() {
-        selected = new Agenda();
-        selected.setRealizado("No");
+    public Movimiento prepareCreate() {
+        selected = new Movimiento();
         initializeEmbeddableKey();
         return selected;
     }
     
-    public Agenda prepareReagendar(Agenda agendaAnterior) {
-        selectedParaCrearUnaNueva = new Agenda();
-        
-        selectedParaCrearUnaNueva.setNombre(agendaAnterior.getNombre());
-        selectedParaCrearUnaNueva.setApellido(agendaAnterior.getApellido());
-        selectedParaCrearUnaNueva.setDescripcion(agendaAnterior.getDescripcion());
-        selectedParaCrearUnaNueva.setFecha(agendaAnterior.getFecha());
-        selectedParaCrearUnaNueva.setOrden(agendaAnterior.getOrden());
-        selectedParaCrearUnaNueva.setRealizado("No");
-        selectedParaCrearUnaNueva.setResponsable(agendaAnterior.getResponsable());
-        
+    public Movimiento prepareCreateMovimiento(int orden) {
+        selectedParaMovimientoNuevo = new Movimiento();
+        selectedParaMovimientoNuevo.setOrden(orden);
         initializeEmbeddableKey();
-        return selectedParaCrearUnaNueva;
-    }
-    
-    public Agenda prepareCreateConApellidoYNombre(String nombreYapellido) {
-        selected = new Agenda();
-        selected.setNombre(nombreYapellido);
-        initializeEmbeddableKey();
-        return selected;
-    }
 
-    
-    public void createParaActividad() {
-        
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreatedParaActividad"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
-        }
+        return selectedParaMovimientoNuevo;
     }
     
-    public void createAgendaConFiltroPorNombreYApellido() {
-        
-        FacesContext context = FacesContext.getCurrentInstance();
-        AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
-        ExpedienteController expedienteController = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        
-        Integer idExpediente = null;
-        
-        if(agendaController.getSelected().getApellido() != null){
-            idExpediente = Integer.parseInt(agendaController.getSelected().getApellido());
-         
-             agendaController.getSelected().setApellido(expedienteController.getExpediente(idExpediente).getApellido());
-             agendaController.getSelected().setNombre(expedienteController.getExpediente(idExpediente).getNombre());
-             
-        }
-        
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
-        }
-    }
+    
     
     public void create() {
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MovimientoCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    
+    public void createMovimiento(Date fecha, String movimiento, int orden, String realizado) {
         
-        FacesContext context = FacesContext.getCurrentInstance();
-        AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        selectedParaMovimientoNuevo.setFecha(fecha);
+        selectedParaMovimientoNuevo.setMovimiento(movimiento);
+        selectedParaMovimientoNuevo.setOrden(orden);
+        selectedParaMovimientoNuevo.setRealizado(realizado);
         
-        ExpedienteController expedienteController = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
         
-        Integer idExpediente = null;
-                
-        if(agendaController.getSelected().getApellido() != null){
-            idExpediente = Integer.parseInt(agendaController.getSelected().getApellido());
-            agendaController.getSelected().setApellido(expedienteController.getExpediente(idExpediente).getApellido());
-         }
-                       
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreated"));
+        persistParaMovimientoNuevo(PersistAction.CREATE, "Movimiento creado exitosamente para el nro de orden:"+ orden);
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
     
     public void create(String nombre, String apellido, int orden) {
-        selected.setNombre(nombre);
-        selected.setApellido(apellido);
         selected.setOrden(orden);
         
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
-        }
-    }
-    
-    public void createReagendado(String nombre, String apellido, String responsable, String realizado, Integer orden, Date fecha, String descripcion ) {
-        
-        selectedParaCrearUnaNueva.setNombre(nombre);
-        selectedParaCrearUnaNueva.setApellido(apellido);
-        selectedParaCrearUnaNueva.setOrden(orden);
-        selectedParaCrearUnaNueva.setDescripcion(descripcion);
-        selectedParaCrearUnaNueva.setFecha(fecha);
-        selectedParaCrearUnaNueva.setOrden(orden);
-        selectedParaCrearUnaNueva.setRealizado(realizado);
-        selectedParaCrearUnaNueva.setResponsable(responsable);
-                
-        persistReagendado(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreatedReagendada"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MovimientoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
@@ -205,87 +137,26 @@ public class AgendaController implements Serializable {
         
         if (!JsfUtil.isValidationFailed()) {
             items = null; 
-            //filteredAgendas = null;    // Invalidate list of items to trigger re-query.  BASICAMENTE ELIMINE ESTo PARA Q LUEGO DE QUE EL USUARIO HAGA UN UPDATE NO PIERDA LA LISTA FILTRADA EN LA TABLA
         }
         
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("AgendaDeleted"));
-        
+        persist(PersistAction.DELETE, "Movimiento borrado exitosamente");
         if (!JsfUtil.isValidationFailed()) {
-
-                    for(int i = 0 ; i< filteredAgendas.size();i++){
-                        if(selected != null){
-                            if(Objects.equals(filteredAgendas.get(i).getIdAgenda(), selected.getIdAgenda())){
-                                filteredAgendas.remove(i);
-                            }
-                        }else{
-                          FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "No seleccionó ninguna fila", "debe seleccionar alguno");
-                            FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
-                        }
-                    }
-                    
             selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.  
+            items = null;    // Invalidate list of items to trigger re-query.
         }
-        
     }
 
-    public List<Agenda> getItems() {
+    public List<Movimiento> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
-           List<Agenda> cloned_list = null;
-      
-        
-             cloned_list = new ArrayList<Agenda>(this.items);
-            Collections.sort(cloned_list, new SortByDate());
-        
-        return cloned_list;
-        
-       /*
-         List<Agenda> cloned_list = null;
-        
-        if (items == null) {
-            items = getFacade().findAll();
-        
-             cloned_list = new ArrayList<Agenda>(this.items);
-            Collections.sort(cloned_list, new SortByDate());
-        
-        }
-        return cloned_list;  
-*/
+        return items;
     }
     
-    static class SortByDate implements Comparator<Agenda> {
-        @Override
-        public int compare(Agenda a, Agenda b) {
-            
-            if (a.getFecha() == null) {
-                return 1;
-            }
-
-            if (b.getFecha() == null) {
-                return -1;
-            }
-            
-            if(a.getFecha() == null && b.getFecha() == null){
-                return 0;
-            }
-
-            if (a.getFecha().equals(b.getFecha())) {
-                return a.getFecha().compareTo(b.getFecha());
-            }
-
-            return a.getFecha().compareTo(b.getFecha());
-            
-        }
-    }
-
-    
-    
-    public List<Agenda> getItemsTODOS() {
+    public List<Movimiento> getItemsTODOS() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -328,14 +199,14 @@ public class AgendaController implements Serializable {
         }
     }
     
-    private void persistReagendado(PersistAction persistAction, String successMessage) {
-        if (selectedParaCrearUnaNueva != null) {
+    private void persistParaMovimientoNuevo(PersistAction persistAction, String successMessage) {
+        if (selectedParaMovimientoNuevo != null) {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selectedParaCrearUnaNueva);
+                    getFacade().edit(selectedParaMovimientoNuevo);
                 } else {
-                    getFacade().remove(selectedParaCrearUnaNueva);
+                    getFacade().remove(selectedParaMovimientoNuevo);
                 }
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
@@ -356,29 +227,29 @@ public class AgendaController implements Serializable {
         }
     }
 
-    public Agenda getAgenda(java.lang.Integer id) {
+    public Movimiento getMovimiento(java.lang.Integer id) {
         return getFacade().find(id);
     }
 
-    public List<Agenda> getItemsAvailableSelectMany() {
+    public List<Movimiento> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Agenda> getItemsAvailableSelectOne() {
+    public List<Movimiento> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Agenda.class)
-    public static class AgendaControllerConverter implements Converter {
+    @FacesConverter(forClass = Movimiento.class)
+    public static class MovimientoControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            AgendaController controller = (AgendaController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "agendaController");
-            return controller.getAgenda(getKey(value));
+            MovimientoController controller = (MovimientoController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "movimientoController");
+            return controller.getMovimiento(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -398,27 +269,27 @@ public class AgendaController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Agenda) {
-                Agenda o = (Agenda) object;
-                return getStringKey(o.getIdAgenda());
+            if (object instanceof Movimiento) {
+                Movimiento o = (Movimiento) object;
+                return getStringKey(o.getIdMovimiento());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Agenda.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Movimiento.class.getName()});
                 return null;
             }
         }
 
     }
 
-    public List<Agenda> getFilteredAgendas() {
-        return filteredAgendas;
+    public List<Movimiento> getFilteredMovimientos() {
+        return filteredMovimientos;
     }
 
-    public void setFilteredAgendas(List<Agenda> filteredAgendas) {
-        this.filteredAgendas = filteredAgendas;
+    public void setFilteredMovimientos(List<Movimiento> filteredMovimientos) {
+        this.filteredMovimientos = filteredMovimientos;
     }
     
     public void handleDateSelect(SelectEvent event) {
-        RequestContext.getCurrentInstance().execute("PF('agendasTable').filter()");
+        RequestContext.getCurrentInstance().execute("PF('movimientosTable').filter()");
     }
     
     public String verClaveCidi(int orden){
@@ -550,14 +421,14 @@ public class AgendaController implements Serializable {
     
 }
     
-    public void filtrarPorFecha(Date fechaParaFiltrar){
-        this.filteredAgendas = new ArrayList<Agenda>();
+   /* public void filtrarPorFecha(Date fechaParaFiltrar){
+        this.filteredMovimientos = new ArrayList<Movimiento>();
                 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String date = sdf.format(fechaParaFiltrar); 
         
         FacesContext context = FacesContext.getCurrentInstance();
-        AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        MovimientoController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", MovimientoController.class);
 
         if(fechaParaFiltrar != null){
                 for(Agenda agenda: agendaControllerBean.getItems()){
@@ -586,7 +457,7 @@ public class AgendaController implements Serializable {
     
         FacesContext context = FacesContext.getCurrentInstance();
         
-        AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        MovimientoController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", MovimientoController.class);
         ExpedienteController expedienteController = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
         
         Integer idExpediente = null;
@@ -598,6 +469,6 @@ public class AgendaController implements Serializable {
          agendaController.getSelected().setApellido(expedienteController.getExpediente(idExpediente).getApellido());
         }
         
-    }
+    }*/
     
 }

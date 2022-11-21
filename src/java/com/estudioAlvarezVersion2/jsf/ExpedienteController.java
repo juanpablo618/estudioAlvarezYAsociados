@@ -1,26 +1,32 @@
 package com.estudioAlvarezVersion2.jsf;
 
 import com.estudioAlvarezVersion2.jpa.Agenda;
+import com.estudioAlvarezVersion2.jpa.DAO;
 import com.estudioAlvarezVersion2.jpa.Expediente;
 import com.estudioAlvarezVersion2.jpa.ExpedienteDAO;
+import com.estudioAlvarezVersion2.jpa.Movimiento;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.ExpedienteFacade;
 import com.estudioAlvarezVersion2.jpacontroller.util.ExpedienteUtils;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -29,10 +35,12 @@ import javax.ejb.EJBException;
 import javax.el.ELException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.AjaxBehaviorEvent;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -53,8 +61,13 @@ public class ExpedienteController implements Serializable {
     private String tipoDeTramiteSelected;
 
     private List<Expediente> filteredExpedientes;
+    private List<Agenda> filteredAgendasParaHoy;
+    private List<Agenda> filteredAgendasAnteriores;
+    private List<Agenda> filteredAgendasFuturas;
+    private List<Movimiento> filteredMovimientosPorNroDeOrden;
+    
     private Date dateSelected;
-
+    
     private static final String ADMINISTRATIVO = "administrativo";
     private static final String JUDICIAL = "judicial";
     private static final String SIN_CARPETA = "sin carpeta";
@@ -88,6 +101,38 @@ public class ExpedienteController implements Serializable {
 
     public void setFilteredExpedientes(List<Expediente> filteredExpedientes) {
         this.filteredExpedientes = filteredExpedientes;
+    }
+
+    public List<Agenda> getFilteredAgendasParaHoy() {
+        return filteredAgendasParaHoy;
+    }
+
+    public void setFilteredAgendasParaHoy(List<Agenda> filteredAgendasParaHoy) {
+        this.filteredAgendasParaHoy = filteredAgendasParaHoy;
+    }
+
+    public List<Agenda> getFilteredAgendasAnteriores() {
+            return filteredAgendasAnteriores;
+    }
+
+    public void setFilteredAgendasAnteriores(List<Agenda> filteredAgendasAnteriores) {
+        this.filteredAgendasAnteriores = filteredAgendasAnteriores;
+    }
+
+    public List<Agenda> getFilteredAgendasFuturas() {
+        return filteredAgendasFuturas;
+    }
+
+    public void setFilteredAgendasFuturas(List<Agenda> filteredAgendasFuturas) {
+        this.filteredAgendasFuturas = filteredAgendasFuturas;
+    }
+
+    public List<Movimiento> getFilteredMovimientosPorNroDeOrden() {
+        return filteredMovimientosPorNroDeOrden;
+    }
+
+    public void setFilteredMovimientosPorNroDeOrden(List<Movimiento> filteredMovimientosPorNroDeOrden) {
+        this.filteredMovimientosPorNroDeOrden = filteredMovimientosPorNroDeOrden;
     }
 
     public void setSelected(Expediente selected) {
@@ -362,38 +407,13 @@ public class ExpedienteController implements Serializable {
         if (selected.getTipoDeExpediente() == null ? SIN_CARPETA != null : !selected.getTipoDeExpediente().equals(SIN_CARPETA)) {
             successMessage = "Expediente del tipo: ".concat(selected.getTipoDeExpediente().toUpperCase()).concat(" creado exitosamente").concat(" con el nro de Orden: ") + selected.getOrden();
         }
-
+        
         persist(PersistAction.CREATE, successMessage);
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    /*public void ingresarEdad() {
-        if (selected.getFechaDeNacimiento() != null) {
-            Calendar fecha = new GregorianCalendar();
-            int añoActual = fecha.get(Calendar.YEAR);
-
-            int añoDeNacimiento = selected.getFechaDeNacimiento().getYear();
-
-            añoDeNacimiento = añoDeNacimiento + 1900;
-
-            int edad = 0; 
-
-            edad = añoActual - añoDeNacimiento;
-
-            int mesDeNacimiento = selected.getFechaDeNacimiento().getMonth();
-            if (mesDeNacimiento > 6) {
-            selected.setEdad(edad-1);
-            }else{
-            selected.setEdad(edad);
-            }
-        } else {
-            //TODO: review this code to drop off a notificacion We need to give an avise that date is not been setted!
-            selected.setEdad(0);
-        }
-
-    }*/
     public void ingresarEdad() {
         if (selected.getFechaDeNacimiento() != null) {
             Date fechaAntigua = selected.getFechaDeNacimiento();
@@ -491,11 +511,44 @@ public class ExpedienteController implements Serializable {
         selected.setOrden(mayorOrden);
         selected.setTipoDeExpediente(ADMINISTRATIVO);
 
+        Connection con = null;
+        PreparedStatement ps = null;
+            
+        try {       
+            
+            long cuitLong = 0;
+            
+            if (!"0".equals(selected.getCuit()) && selected.getCuit() != null && !"".equals(selected.getCuit()))  {
+                cuitLong = Long.parseLong(selected.getCuit());
+            } 
+            
+                con = DAO.getConnection();
+                ps = con.prepareStatement("INSERT INTO documentosFrenteDni (documento, nroDeOrden, nombreDelDocumento) SELECT  documento, ?, nombreDelDocumento from frenteDniExpSinCarpeta where nroDeCuit = ? ;");
+                ps.setInt(1, selected.getOrden());
+                ps.setLong(2, cuitLong);
+                
+                ps.execute();
+
+                ps = con.prepareStatement("INSERT INTO documentosDorsoDni (documento, nroDeOrden, nombreDelDocumento) SELECT  documento, ?, nombreDelDocumento from dorsoDniExpSinCarpeta where nroDeCuit = ? ;");
+                ps.setInt(1, selected.getOrden());
+                ps.setLong(2, cuitLong);
+                
+                
+                ps.execute();
+
+                con.close();
+
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage("ERROR", "no se pudo transpasar frente y dorso de dni de este exp. transformando a administrativo");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
         persist(PersistAction.UPDATE, "Expediente transformado a ADMINISTRATIVO con el nro de orden: " + mayorOrden);
     }
 
+   
     public void updateConCambioParaJudicial() {
-
+            
         Date fechaAntigua = new Date();
 
         if (selected.getFechaDeNacimiento() != null) {
@@ -518,10 +571,51 @@ public class ExpedienteController implements Serializable {
 
         selected.setOrden(mayorOrden);
         selected.setTipoDeExpediente(JUDICIAL);
+        
+        Connection con = null;
+        PreparedStatement ps = null;
+            
+        try {       
+            
+            long cuitLong = 0;
+            
+            if (!"0".equals(selected.getCuit()) && selected.getCuit() != null && !"".equals(selected.getCuit()))  {
+                cuitLong = Long.parseLong(selected.getCuit());
+            } 
+            
+                con = DAO.getConnection();
+                ps = con.prepareStatement("INSERT INTO documentosFrenteDni (documento, nroDeOrden, nombreDelDocumento) SELECT  documento, ?, nombreDelDocumento from frenteDniExpSinCarpeta where nroDeCuit = ? ;");
+                ps.setInt(1, selected.getOrden());
+                ps.setLong(2, cuitLong);
 
+                System.out.println("PS: "+ps.toString());
+                
+                ps.execute();
+
+                ps = con.prepareStatement("INSERT INTO documentosDorsoDni (documento, nroDeOrden, nombreDelDocumento) SELECT  documento, ?, nombreDelDocumento from dorsoDniExpSinCarpeta where nroDeCuit = ? ;");
+                ps.setInt(1, selected.getOrden());
+                ps.setLong(2, cuitLong);
+
+                System.out.println("PS: "+ps.toString());
+                
+                ps.execute();
+
+                
+                con.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            FacesMessage msg = new FacesMessage("ERROR", "no se pudo transpasar frente y dorso de dni de este exp.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+        
         persist(PersistAction.UPDATE, "Expediente transformado a JUDICIAL con el nro de orden: " + mayorOrden);
     }
 
+    
+    
+    
     public int buscarMayorIdAdmOrJudicial() {
 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -708,7 +802,6 @@ public class ExpedienteController implements Serializable {
                     if (Objects.equals(agenda.getOrden(), orden)) {
                         if (agenda.getFecha() != null) {
                             String date2 = sdf.format(agenda.getFecha());
-
                             if (date.equals(date2)) {
                                 return agenda.toString();
                             }
@@ -721,9 +814,38 @@ public class ExpedienteController implements Serializable {
         return "no existen agendas para hoy";
     }
 
-    public List verProximasAgendasPorNroDeOrden(Integer orden) {
+     public List verAgendasParaHoyPorNroDeOrden(Integer orden) {
+      List<Agenda> agendasParaHoy = new ArrayList<Agenda>();
+      
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
 
-        List<Agenda> proximasAgendas = new ArrayList<Agenda>();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String date = sdf.format(new Date());
+
+        for (Agenda agenda : agendaControllerBean.getItems()) {
+            if (orden != null) {
+                if (agenda.getOrden() != null) {
+                    if (Objects.equals(agenda.getOrden(), orden)) {
+                        if (agenda.getFecha() != null) {
+                            String date2 = sdf.format(agenda.getFecha());
+                            if (date.equals(date2)) {
+                                agendasParaHoy.add(agenda);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return agendasParaHoy;
+      
+     }
+    
+    
+    public List verAgendasFuturasPorNroDeOrden(Integer orden) {
+
+        List<Agenda> verAgendasFuturas = new ArrayList<Agenda>();
 
         FacesContext context = FacesContext.getCurrentInstance();
         AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
@@ -736,7 +858,7 @@ public class ExpedienteController implements Serializable {
                     if (Objects.equals(agenda.getOrden(), orden)) {
                         if (agenda.getFecha() != null) {
                             if (agenda.getFecha().after(date)) {
-                                proximasAgendas.add(agenda);
+                                verAgendasFuturas.add(agenda);
                             }
                         }
                     }
@@ -744,9 +866,73 @@ public class ExpedienteController implements Serializable {
             }
         }
 
-        return proximasAgendas;
+        return verAgendasFuturas;
     }
 
+    public List verAgendasPasadasPorNroDeOrden(Integer orden) {
+
+        List<Agenda> verAgendasPasadas = new ArrayList<Agenda>();
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+
+        Date date = new Date();
+
+        for (Agenda agenda : agendaControllerBean.getItems()) {
+            if (orden != null) {
+                if (agenda.getOrden() != null) {
+                    if (Objects.equals(agenda.getOrden(), orden)) {
+                        if (agenda.getFecha() != null) {
+                            if (agenda.getFecha().before(date)) {
+                                verAgendasPasadas.add(agenda);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+//        Collections.sort(verAgendasPasadas, new Comparator<Agenda>() {
+//            public int compare(Agenda o1, Agenda o2) {
+//                return o1.getFecha().compareTo(o2.getFecha());
+//            }
+//          });
+
+        Collections.reverse(verAgendasPasadas);
+        
+        return verAgendasPasadas;
+    }
+    
+    
+
+    public List verMovimientosPorNroDeOrden(Integer orden) {
+
+        
+        System.out.println("entro por el verMovimientosPorNroDeOrden");
+        
+        List<Movimiento> movimientos = new ArrayList<Movimiento>();
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        MovimientoController movimientoControllerBean = context.getApplication().evaluateExpressionGet(context, "#{movimientoController}", MovimientoController.class);
+            
+        System.out.println("movimientoControllerBean.getItems(): "+movimientoControllerBean.getItems().size());
+        
+        for (Movimiento movimiento : movimientoControllerBean.getItems()) {
+            if (orden != null) {
+                if (movimiento.getOrden() != null) {
+                    if (Objects.equals(movimiento.getOrden(), orden)) {
+                                movimientos.add(movimiento);
+                            }
+                        }
+                    }
+        }
+        
+        Collections.sort(movimientos, (Movimiento o1, Movimiento o2) -> o1.getFecha().compareTo(o2.getFecha()));
+        
+        return movimientos;
+    }
+
+    
     public String verClaveCidi(int orden) {
 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -993,5 +1179,5 @@ public class ExpedienteController implements Serializable {
 
         return apellidoYNombre.contains(filterText);
     }
-
+    
 }

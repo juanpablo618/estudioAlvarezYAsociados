@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.estudioAlvarezVersion2.jpacontroller;
 
 /**
  *
- * @author juanp
+ * @author cuello.juanpablo@gmail.com,  github = juanpablo618
  */
 import com.estudioAlvarezVersion2.jpa.EventoParaTurno;
 import com.estudioAlvarezVersion2.jpa.Turno;
@@ -22,7 +17,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-
  
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
@@ -54,25 +48,17 @@ public class ScheduleView implements Serializable {
                context.getApplication().evaluateExpressionGet(context, 
                        "#{turnoController}", TurnoController.class);
        
-        
         eventModel = new DefaultScheduleModel();
        
         for (Turno turno : turnoController.getItems()) {
             if(turno.getObservacion() != null && turno.getHoraYDia() != null && turno.getApellido() != null && turno.getNombre() != null && turno.getResponsable() != null){
                 eventModel.addEvent(new DefaultScheduleEvent(
-                        "Apellido y Nombre: "+turno.getApellido().concat(" ").concat(turno.getNombre())+
-                        "\n \n Observación: "+turno.getObservacion()+ "\n \n Responsable: ".concat(turno.getResponsable()), turno.getHoraYDia() , agregarMediaHora(turno.getHoraYDia()), turno.getResponsable().replace(" ", "")));
+                        turno.getApellido().concat(" ").concat(turno.getNombre())+
+                        "\n \n "+turno.getObservacion()+ "\n \n ".concat(turno.getResponsable()), turno.getHoraYDia() , agregarMediaHora(turno.getHoraYDia()), turno.getResponsable().replace(" ", "")));
 
             }
             
-            
         }
-        
-        
-        /*eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
-        eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am()));
-        eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm()));
-         */
         
         lazyEventModel = new LazyScheduleModel() {
              

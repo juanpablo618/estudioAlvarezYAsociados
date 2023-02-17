@@ -1,10 +1,11 @@
 package com.estudioAlvarezVersion2.jsf;
 
+import com.estudioAlvarezVersion2.Login.SessionUtils;
 import com.estudioAlvarezVersion2.jpa.Agenda;
 import com.estudioAlvarezVersion2.jpa.DAO;
 import com.estudioAlvarezVersion2.jpa.Expediente;
 import com.estudioAlvarezVersion2.jpa.ExpedienteDAO;
-import com.estudioAlvarezVersion2.jpa.Movimiento;
+import com.estudioAlvarezVersion2.jpa.Comunicacion;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.ExpedienteFacade;
@@ -41,6 +42,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -64,7 +66,7 @@ public class ExpedienteController implements Serializable {
     private List<Agenda> filteredAgendasParaHoy;
     private List<Agenda> filteredAgendasAnteriores;
     private List<Agenda> filteredAgendasFuturas;
-    private List<Movimiento> filteredMovimientosPorNroDeOrden;
+    private List<Comunicacion> filteredComunicacionesPorNroDeOrden;
     
     private Date dateSelected;
     
@@ -127,12 +129,12 @@ public class ExpedienteController implements Serializable {
         this.filteredAgendasFuturas = filteredAgendasFuturas;
     }
 
-    public List<Movimiento> getFilteredMovimientosPorNroDeOrden() {
-        return filteredMovimientosPorNroDeOrden;
+    public List<Comunicacion> getFilteredComunicacionesPorNroDeOrden() {
+        return filteredComunicacionesPorNroDeOrden;
     }
 
-    public void setFilteredMovimientosPorNroDeOrden(List<Movimiento> filteredMovimientosPorNroDeOrden) {
-        this.filteredMovimientosPorNroDeOrden = filteredMovimientosPorNroDeOrden;
+    public void setFilteredComunicacionesPorNroDeOrden(List<Comunicacion> filteredComunicacionesPorNroDeOrden) {
+        this.filteredComunicacionesPorNroDeOrden = filteredComunicacionesPorNroDeOrden;
     }
 
     public void setSelected(Expediente selected) {
@@ -637,6 +639,13 @@ public class ExpedienteController implements Serializable {
     }
 
     public void destroy() {
+        
+        HttpSession session = SessionUtils.getSession();
+        
+        if(selected.getOrden() != null) System.out.println("nro de orden: "+selected.getOrden()+"borrado por: "+ session.getAttribute("username"));
+        
+        
+        
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
@@ -903,36 +912,24 @@ public class ExpedienteController implements Serializable {
         return verAgendasPasadas;
     }
     
-    
-
-    public List verMovimientosPorNroDeOrden(Integer orden) {
+    public List verComunicacionesPorNroDeOrden(Integer orden) {
 
         
-        System.out.println("entro por el verMovimientosPorNroDeOrden");
-        
-        List<Movimiento> movimientos = new ArrayList<Movimiento>();
+        List<Comunicacion> comunicaciones;
+        comunicaciones = new ArrayList<>();
 
         FacesContext context = FacesContext.getCurrentInstance();
-        MovimientoController movimientoControllerBean = context.getApplication().evaluateExpressionGet(context, "#{movimientoController}", MovimientoController.class);
+        ComunicacionController comunicacionControllerBean = context.getApplication().evaluateExpressionGet(context, "#{comunicacionController}", ComunicacionController.class);
             
-        System.out.println("movimientoControllerBean.getItems(): "+movimientoControllerBean.getItems().size());
+        comunicacionControllerBean.getItems().stream().filter(Comunicacion -> (orden != null)).filter(Comunicacion -> (Comunicacion.getOrden() != null)).filter(Comunicacion -> (Objects.equals(Comunicacion.getOrden(), orden))).forEachOrdered(Comunicacion -> {
+            comunicaciones.add(Comunicacion);
+        });
         
-        for (Movimiento movimiento : movimientoControllerBean.getItems()) {
-            if (orden != null) {
-                if (movimiento.getOrden() != null) {
-                    if (Objects.equals(movimiento.getOrden(), orden)) {
-                                movimientos.add(movimiento);
-                            }
-                        }
-                    }
-        }
+        Collections.sort(comunicaciones, (Comunicacion o1, Comunicacion o2) -> o1.getFecha().compareTo(o2.getFecha()));
         
-        Collections.sort(movimientos, (Movimiento o1, Movimiento o2) -> o1.getFecha().compareTo(o2.getFecha()));
-        
-        return movimientos;
+        return comunicaciones;
     }
 
-    
     public String verClaveCidi(int orden) {
 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -1045,7 +1042,6 @@ public class ExpedienteController implements Serializable {
         }
     }
     
-    
     public void filtroCompuesto(String tipoDeTramiteSelected,
             String tipoDeExpedienteSelected,
             String responsableSelected,
@@ -1112,7 +1108,6 @@ public class ExpedienteController implements Serializable {
 
     public void filtrarPorResponsable(String estadoDelTramiteSelected) {
 
-        System.out.println("responsableSelected: " + responsableSelected);
 
         this.filteredExpedientes = new ArrayList<Expediente>();
 
@@ -1142,7 +1137,6 @@ public class ExpedienteController implements Serializable {
     }
 
     public void filtrarPorFechaDeCumple(String fechaDeCumpleSelected) {
-        System.out.println("fechaDeCumpleSelected: " + fechaDeCumpleSelected);
 
         this.filteredExpedientes = new ArrayList<Expediente>();
 

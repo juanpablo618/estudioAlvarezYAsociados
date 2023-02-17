@@ -13,26 +13,16 @@ import java.util.function.Predicate;
 public class ExpedienteUtils {
 
     public static Predicate<Expediente> filtroTipoDeTramite(String tipoDeTramiteSelected) {
-        System.out.println("entro al predicate filtroTipoDeTramite");
-        System.out.println("tipoDeTramiteSelected: "+ tipoDeTramiteSelected);
         
         if (tipoDeTramiteSelected != null && !"".equals(tipoDeTramiteSelected)) {
             return (Expediente l) -> {
                 if (l.getTipoDeTramite() != null) {
-                    //System.out.println("entro al ultimo if de filtroTipoDeTramite");
-//System.out.println("l.getTipoDeTramite(): "+l.getTipoDeTramite());
-//System.out.println("tipoDeTramiteSelected.: "+ tipoDeTramiteSelected);
-//System.out.println("resultado : "+ l.getTipoDeTramite().equalsIgnoreCase(tipoDeTramiteSelected));
-
 
         
         if(l.getTipoDeTramite().equalsIgnoreCase("Jubilación Ordinaria")) {
             l.setTipoDeTramite("JUBILACION ORDINARIA") ; 
         }
-  //      System.out.println("l.getTipoDeTramite(): "+l.getTipoDeTramite());
-//System.out.println("tipoDeTramiteSelected.: "+ tipoDeTramiteSelected);
-//System.out.println("resultado : "+ l.getTipoDeTramite().equalsIgnoreCase(tipoDeTramiteSelected));
-
+ 
                     return l.getTipoDeTramite().equalsIgnoreCase(tipoDeTramiteSelected) ;
                 } else {
                     return false;

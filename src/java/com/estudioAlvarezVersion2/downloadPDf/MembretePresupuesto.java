@@ -35,7 +35,6 @@ public class MembretePresupuesto {
      *
      */
     public void createPdf(String filename  ) throws IOException, DocumentException {
-        System.out.println("Entro al createPdf !!!");
         Document document = new Document(PageSize.LETTER, 36, 36, 140, 36);
         
         // Date fechaDiaria = Calendar.getInstance().getTime();

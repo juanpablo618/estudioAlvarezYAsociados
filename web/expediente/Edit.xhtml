@@ -338,10 +338,57 @@
                         </p:tab>
 
                         <p:tab title="Comunicaciones">
-                            <div>
-                                <p:outputLabel value="Comunicaciones" for="comunicaciones" style="font-weight: bold"/><br></br>
-                                <p:editor width="700" id="comunicaciones" value="#{expedienteController.selected.comunicaciones}"  ></p:editor>
-                            </div>
+                                    <p:dataTable id="datalist4" value="#{expedienteController.verComunicacionesPorNroDeOrden(expedienteController.selected.orden)}" var="item"
+                                                     selectionMode="single"
+                                                     selection="#{comunicacionController.selected}"
+                                                     rowKey="#{item.idComunicacion}"
+                                                     paginator="true"
+                                                     rows="10"
+                                                     widgetVar="comunicacionesTable2"
+                                                     rowsPerPageTemplate="100,200,500"
+                                                     emptyMessage="no hay comunicaciones agregadas" 
+                                                     rendered="true"  
+                                                     >
+                                            
+                                            <p:column sortBy="#{item.fecha}" style="width: 10%" styleClass="centeredColumnContent"  headerText="FECHA">
+                                                <h:outputText value="#{item.fecha}"  >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column  style="width: 40%" styleClass="centeredColumnContent" headerText="DESCRIPCIÓN">
+                                                <h:outputText value="#{item.descripcion}"  />
+                                            </p:column>
+                                        
+                                             <p:column  style="width: 40%" styleClass="centeredColumnContent" headerText="RESPONSABLE">
+                                                <h:outputText value="#{item.responsable}"  />
+                                            </p:column>
+                                            
+                                            <p:column style="width: 10% !important;text-align: center; "  exportable="false">
+
+                                                <f:facet name="header">
+                                                    <h:outputText value="ACCIONES"/>
+                                                </f:facet>
+
+                                               <p:commandButton class="linea btnDelete" update=":growl,datalist4" oncomplete="PF('expedientesTable').clearFilters()" actionListener="#{comunicacionController.destroy}"  icon="ui-icon-trash" title="Eliminar">
+                                                    <f:setPropertyActionListener value="#{item}" target="#{comunicacionController.selected}" />
+                                                    <p:confirm header="Confirmación" message="¿Estas seguro?"  icon="ui-icon-alert"/>
+                                                </p:commandButton> 
+                                                
+                                            </p:column>    
+
+                                        </p:dataTable>
+                            
+                                <div >
+                                <p:commandButton  class="botonEditarAgendaEsteBotonNoSirveMasPeroLoNecesitaLaUI botonCrear hoverGreen"
+                                actionListener="#{comunicacionController.prepareCreateComunicacion(expedienteController.selected.orden)}"  value="crear comunicación" 
+                                 update=":ComunicacionCreateFormExpAdm" oncomplete="PF('ComunicacionCreateDialogExpAdm').show()" />
+                                </div>     
+         
+                                <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton update=":ExpedienteListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;" />
+                                    <p:commandButton update=":ExpedienteListForm" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;" />
+                                </p:confirmDialog> 
+                            
                             <br></br>
                             <br></br>
                         </p:tab>
@@ -349,7 +396,12 @@
                             <div style="width: 90%">
                                 <div>
                                     <p:fieldset class="ui-fieldset-toggleable-lila" legend="AGENDAS ANTERIORES" toggleable="true"  collapsed="true" toggleSpeed="500">
-                                        <p:dataTable id="datalist3" value="#{expedienteController.verAgendasPasadasPorNroDeOrden(expedienteController.selected.orden)}" var="item"
+                                        <p:dataTable id="datalist3" 
+                                                     value="#{expedienteController.verAgendasPasadasPorNroDeOrden(expedienteController.selected.orden)}"
+                                                     var="item"
+                                                     selectionMode="single"
+                                                     selection="#{agendaController.selectedAgendaPasada}"
+                                                     rowKey="#{item.idAgenda}"
                                                      paginator="true"
                                                      rows="20"
                                                      rendered="true"
@@ -357,18 +409,42 @@
                                                      emptyMessage="no hay agendas Pasadas agregadas" 
                                                      filteredValue="#{expedienteController.filteredAgendasAnteriores}"
                                                      >
+                                            <p:ajax event="rowSelect"  />
+                                            <p:ajax event="rowUnselect" />
+                                            <p:growl  id="message3"  sticky="true" />
 
-                                            <p:column sortBy="#{item.fecha}" style="width: 23%"  styleClass="centeredColumnContent#{item.realizado}"    headerText="FECHA">
-                                                <h:outputText value="#{item.fecha}"  style="color: #151717; " >
+                                            <p:column sortBy="#{item.fecha}" style="width: 10%"  styleClass="centeredColumnContent#{item.realizado}" headerText="FECHA">
+                                                <h:outputText value="#{item.fecha}"  >
                                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                                 </h:outputText>
                                             </p:column>
-                                            <p:column  style="width: 9%"  styleClass="centeredColumnContent#{item.realizado}" headerText="RESPONSABLE">
-                                                <h:outputText value="#{item.responsable}" style="color: #151717" />
+                                            <p:column  style="width: 10%"  styleClass="centeredColumnContent#{item.realizado}" headerText="RESPONSABLE">
+                                                <h:outputText value="#{item.responsable}" />
                                             </p:column>
                                             <p:column  headerText="DESCRIPCIÓN"  styleClass="centeredColumnContent#{item.realizado}">
-                                                <h:outputText value="#{item.descripcion}" style="color: #151717" styleClass="centeredColumnContent#{item.realizado}"/>
+                                                <h:outputText value="#{item.descripcion}" styleClass="centeredColumnContent#{item.realizado}"/>
                                             </p:column>
+                                          
+                                            <p:column styleClass="centeredColumnContent#{item.realizado}" style="text-align: center; width: 10%" headerText="ACCIONES">
+                                               
+                                                <p:commandButton class="linea btnSearch"  update=":AgendaPasadaEditForm" oncomplete="PF('AgendaPasadaEditDialog').show()" icon="ui-icon-search" title="Ver">
+                                                    <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaPasada}" />
+                                                </p:commandButton>
+
+                                                
+                                                <p:commandButton class="linea btnDelete" update=":growl,:ExpedienteEditForm:j_idt432:datalist3, message3"  actionListener="#{agendaController.destroyAgendaPasada()}"  icon="ui-icon-trash" title="Eliminar">
+                                                    <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaPasada}" />
+                                                    <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert"/>
+                                                </p:commandButton>
+                                                
+                                                <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
+                                                    <p:commandButton  update=":ExpedienteEditForm:j_idt432:datalist3"  value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;"/>
+                                                    <p:commandButton update="@all" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
+                                                </p:confirmDialog> 
+                                            </p:column>
+                                            
+                                            
+                                            
                                         </p:dataTable>
                                     </p:fieldset>
                                 </div>
@@ -376,7 +452,12 @@
                                 <div>
                                     <p:fieldset legend="AGENDAS FUTURAS" toggleable="true"  collapsed="true" toggleSpeed="500">
 
-                                        <p:dataTable id="datalist2" value="#{expedienteController.verAgendasFuturasPorNroDeOrden(expedienteController.selected.orden)}" var="item"
+                                        <p:dataTable id="datalist2" 
+                                                     value="#{expedienteController.verAgendasFuturasPorNroDeOrden(expedienteController.selected.orden)}" 
+                                                     var="item"
+                                                     selectionMode="single"
+                                                     selection="#{agendaController.selectedAgendaFutura}"
+                                                     rowKey="#{item.idAgenda}"
                                                      paginator="true"
                                                      rows="20"
                                                      rendered="true"
@@ -384,24 +465,43 @@
                                                      emptyMessage="no hay agendas futuras agregadas" 
                                                      filteredValue="#{expedienteController.filteredAgendasFuturas}"
                                                      >
+                                             <p:ajax event="rowSelect"  />
+                                            <p:ajax event="rowUnselect" />
+                                            <p:growl  id="message4" showDetail="true" />
 
-                                            <p:column  sortBy="#{item.fecha}" filterMatchMode="exact" style="width: 23%" styleClass="centeredColumnContent#{item.realizado}"  headerText="FECHA">
-                                                <h:outputText value="#{item.fecha}"  style="color: #151717; " >
+                                            <p:column  style="width: 23%" styleClass="centeredColumnContent#{item.realizado}"  headerText="FECHA">
+                                                <h:outputText value="#{item.fecha}"   >
                                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                                 </h:outputText>
                                             </p:column>
                                             <p:column  style="width: 9%" headerText="RESPONSABLE" styleClass="centeredColumnContent#{item.realizado}">
-                                                <h:outputText value="#{item.responsable}" style="color: #151717" />
+                                                <h:outputText value="#{item.responsable}"  />
                                             </p:column>
                                             <p:column  headerText="DESCRIPCIÓN" styleClass="centeredColumnContent#{item.realizado}">
-                                                <h:outputText value="#{item.descripcion}" style="color: #151717" />
+                                                <h:outputText value="#{item.descripcion}"  />
+                                            </p:column>
+                                            <p:column styleClass="centeredColumnContent#{item.realizado}" style="text-align: center; width: 10%" headerText="ACCIONES">
+                                                
+                                                <p:commandButton class="linea btnSearch"  update=":AgendaFuturaEditForm" oncomplete="PF('AgendaFuturaEditDialog').show()" icon="ui-icon-search" title="Ver">
+                                                    <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaFutura}" />
+                                                </p:commandButton>
+
+                                                <p:commandButton class="linea btnDelete" update=":growl,:ExpedienteEditForm:j_idt432:datalist2, message4"  actionListener="#{agendaController.destroyAgendaFutura()}"  icon="ui-icon-trash" title="Eliminar">
+                                                    <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaFutura}" />
+                                                    <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert"/>
+                                                </p:commandButton>
+                                                
+                                                <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
+                                                    <p:commandButton  update=":ExpedienteEditForm:j_idt432:datalist2"  value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;"/>
+                                                    <p:commandButton update="@all" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
+                                                </p:confirmDialog> 
                                             </p:column>
                                         </p:dataTable>
                                     </p:fieldset>
                                 </div>
                                
                                 <div>
-                                    <p:commandButton id="createButtonAgenda" class="createButtonAgenda hoverBlue" value="Crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteEditDialog').show()" />
+                                    <p:commandButton id="createButtonAgenda" class="createButtonAgenda hoverBlue" value="Crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda,:growl" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteEditDialog').show()" />
                                 </div>
 
                             </div>
@@ -445,6 +545,9 @@
                 </div>
             </h:form>    
         </p:dialog>
-
+      <ui:include src="../comunicacion/CreateComunicacionParaExpAdministrativo.xhtml"/>
+        <ui:include src="../agenda/EditAgendaPasada.xhtml"/>
+        <ui:include src="../agenda/EditAgendaFutura.xhtml"/>
+            
     </ui:composition>
 </html>

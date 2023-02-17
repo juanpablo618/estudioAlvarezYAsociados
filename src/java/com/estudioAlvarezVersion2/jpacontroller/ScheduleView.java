@@ -40,8 +40,6 @@ public class ScheduleView implements Serializable {
     @PostConstruct
     public void init() {
         
-        System.out.println("ACA TIMEZONE: "+TimeZone.getDefault());
-        
                FacesContext context = FacesContext.getCurrentInstance();
                
        TurnoController turnoController = 

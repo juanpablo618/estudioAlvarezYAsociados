@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <ui:composition>
+
+        <p:dialog id="ComunicacionCreateDlgExpAdm" widgetVar="ComunicacionCreateDialogExpAdm" modal="true" resizable="false" appendTo="@(body)" header="Crear Comunicación Nueva">
+            <h:form id="ComunicacionCreateFormExpAdm">
+                <h:panelGroup id="display">
+                    <h:panelGrid columns="4">
+                     
+                        <p:outputLabel value="Fecha:" for="fecha" style="font-weight: bold"/><br></br>
+                        <p:calendar disabledWeekends="true"  placeholder="dd/MM/yyyy" autocomplete="off" id="fecha"  mode="inline" pattern="dd/MM/yyyy" value="#{comunicacionController.selectedParaComunicacionNuevo.fecha}" title="fecha de comunicación" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button" /><br></br><br></br>
+                              
+                        <p:outputLabel value="descripción" for="descripcion" style="font-weight: bold"/><br></br>
+                          <p:inputTextarea id="descripcion" value="#{comunicacionController.selectedParaComunicacionNuevo.descripcion}" title="inserte descripcion" /><br></br><br></br>
+                        
+                        
+                        <p:outputLabel value="Responsable:" for="responsable" style="font-weight: bold"/><br></br>
+
+                            <p:selectOneMenu  id="responsable" value="#{comunicacionController.selectedParaComunicacionNuevo.responsable}"  >
+                                <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
+                            </p:selectOneMenu>
+                            <br></br>  
+                          
+                        <p:outputLabel value="Orden:" for="orden" style="font-weight: bold"/><br></br>
+                        <p:inputText id="orden" value="#{comunicacionController.selectedParaComunicacionNuevo.orden}" readonly="true" title="orden" /><br></br><br></br>
+                        
+                     </h:panelGrid>
+                    <p:commandButton actionListener="#{comunicacionController.createComunicacion(comunicacionController.selectedParaComunicacionNuevo.fecha, comunicacionController.selectedParaComunicacionNuevo.descripcion,comunicacionController.selectedParaComunicacionNuevo.responsable ,comunicacionController.selectedParaComunicacionNuevo.orden)}"
+                                         class="botonCrear" value="#{bundle.Save}" oncomplete="handleSubmit(args,'ComunicacionCreateDialogExpAdm');"   update="display,:ExpedienteEditForm:j_idt432:datalist4,:growl"/>
+                  
+                        <p:commandButton value="#{bundle.Cancel}" onclick="TurnoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

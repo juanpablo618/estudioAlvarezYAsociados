@@ -83,9 +83,9 @@
                                 </p:selectOneMenu>
 
                             </h:panelGrid>
-                            <p:commandButton rendered="#{expedienteController.selected.tipoDeExpediente eq 'administrativo'}"  class="createButtonAgenda hoverBlue" actionListener="#{agendaController.create(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.orden)}" value="Guardar Agenda" title="guardar para exp. administrativo" update=":ExpedienteEditForm" oncomplete="handleSubmit(args,'ExpedienteViewDialogParaAgenda');" />
+                            <p:commandButton rendered="#{expedienteController.selected.tipoDeExpediente eq 'administrativo'}"  class="createButtonAgenda hoverBlue" actionListener="#{agendaController.create(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.orden)}" value="Guardar Agenda" title="guardar para exp. administrativo" update=":ExpedienteEditForm,:growl" oncomplete="handleSubmit(args,'ExpedienteViewDialogParaAgenda');" />
 
-                            <p:commandButton rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" class="createButtonAgenda hoverBlue" actionListener="#{agendaController.create(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.orden)}" value="Guardar Agenda"  update=":ExpedienteJudicialEditForm" title="guardar para exp. judicial" oncomplete="handleSubmit(args,'ExpedienteViewDialogParaAgenda');" />
+                            <p:commandButton rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial'}" class="createButtonAgenda hoverBlue" actionListener="#{agendaController.create(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.orden)}" value="Guardar Agenda"  update=":ExpedienteJudicialEditForm,:growl" title="guardar para exp. judicial" oncomplete="handleSubmit(args,'ExpedienteViewDialogParaAgenda');" />
                             
                         </p:panel>
                     </p:fieldset>

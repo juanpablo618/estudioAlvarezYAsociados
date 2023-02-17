@@ -7,4 +7,32 @@ select *
  limit 1;
 
 
+28/11/2023
+SELECT COUNT(idAgenda) FROM `Agenda` WHERE fecha >= '2022-01-01'
 
+agendas totales = 117615
+
+fecha >= '2022-01-01'
+54188
+
+ <= '2022-01-01'
+63427
+
+
+SELECT COUNT(idAgenda) FROM `Agenda` WHERE fecha >= '2022-01-01' AND fecha <= '2023-01-01'
+53978
+
+
+SELECT COUNT(idAgenda) FROM `Agenda` WHERE fecha >= '2022-01-01'
+54707
+
+
+Showing rows 0 - 24 (63426 total, Query took 0.0003 seconds.)
+SELECT * FROM `Agenda` WHERE `fecha` <= '2022-01-01'
+
+en local
+ Mostrando filas 0 - 24 (total de 63426, La consulta tardó 0,0025 segundos.)
+SELECT * FROM `agenda` WHERE `fecha` <= '2022-01-01'
+
+DELETE FROM `agenda` WHERE `fecha` <= '2022-01-01'
+ 63426 filas afectadas. (La consulta tardó 0,5646 segundos.)

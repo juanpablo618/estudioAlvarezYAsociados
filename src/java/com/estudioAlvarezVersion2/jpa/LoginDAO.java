@@ -35,7 +35,6 @@ public class LoginDAO {
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-                                System.out.println("entrando al login");
                                 return true;
 
 			}

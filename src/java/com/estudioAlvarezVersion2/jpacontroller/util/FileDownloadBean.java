@@ -25,7 +25,8 @@ public class FileDownloadBean implements Serializable {
     private static final long serialVersionUID = 626953318628565453L;
     private static final String APPLICATION_PDF = "application/pdf";
     private static final String IMAGE_JPEG = "image/jpeg";
-
+    private static final String ERROR = "Error";
+    
     private StreamedContent filePdf;
     private StreamedContent filePdfDos;
     private StreamedContent filePdfTres;
@@ -41,6 +42,12 @@ public class FileDownloadBean implements Serializable {
     private StreamedContent fileFrenteDni;
     private StreamedContent fileDorsoDni;
     private StreamedContent fileOtraDocumentacion;
+    private StreamedContent fileCartaPoder;
+    private StreamedContent fileExpAdministrativo;
+    private StreamedContent fileRecibos;
+    private StreamedContent fileLiquidacionBlueCorp;
+    private StreamedContent fileResolucionDenegatoria;
+    
     private StreamedContent fileCronoDeAportes;
     private StreamedContent frenteDniExpSinCarpeta;
     private StreamedContent dorsoDniExpSinCarpeta;
@@ -184,12 +191,49 @@ public class FileDownloadBean implements Serializable {
         this.dorsoDniExpSinCarpeta = dorsoDniExpSinCarpeta;
     }
 
-   
-    
+    public StreamedContent getFileCartaPoder() {
+        return fileCartaPoder;
+    }
+
+    public void setFileCartaPoder(StreamedContent fileCartaPoder) {
+        this.fileCartaPoder = fileCartaPoder;
+    }
+
+    public StreamedContent getFileExpAdministrativo() {
+        return fileExpAdministrativo;
+    }
+
+    public void setFileExpAdministrativo(StreamedContent fileExpAdministrativo) {
+        this.fileExpAdministrativo = fileExpAdministrativo;
+    }
+
+    public StreamedContent getFileRecibos() {
+        return fileRecibos;
+    }
+
+    public void setFileRecibos(StreamedContent fileRecibos) {
+        this.fileRecibos = fileRecibos;
+    }
+
+    public StreamedContent getFileLiquidacionBlueCorp() {
+        return fileLiquidacionBlueCorp;
+    }
+
+    public void setFileLiquidacionBlueCorp(StreamedContent fileLiquidacionBlueCorp) {
+        this.fileLiquidacionBlueCorp = fileLiquidacionBlueCorp;
+    }
+
+    public StreamedContent getFileResolucionDenegatoria() {
+        return fileResolucionDenegatoria;
+    }
+
+    public void setFileResolucionDenegatoria(StreamedContent fileResolucionDenegatoria) {
+        this.fileResolucionDenegatoria = fileResolucionDenegatoria;
+    }
     
     public void downloadPDF(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
@@ -210,12 +254,12 @@ public class FileDownloadBean implements Serializable {
                 con.close();
                 if (filePdf != null) {
                     FacesMessage msg = new FacesMessage("Exito", "archivo PDF 1 descargado exitosamente.");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
 
                 } else {
                     FacesMessage msg = new FacesMessage(ERROR, "No existe archivo PDF 1 para este nro de orden: " + orden);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
-                }
+        }
 
             } else {
                 FacesMessage msg = new FacesMessage(ERROR, "no se encontro documento pdf 1 con ese nro de orden.");
@@ -229,8 +273,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public void downloadPDFDos(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
@@ -266,8 +310,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public void downloadPDFTres(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
@@ -304,8 +348,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public void downloadPDFCuatro(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
@@ -342,8 +386,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public void downloadPDFCinco(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
@@ -376,11 +420,10 @@ public class FileDownloadBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    private static final String ERROR = "Error";
 
     public String buscarNombreDeArchivoPDF(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
         try {
             if (orden != 0) {
@@ -408,8 +451,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public String buscarNombreDeArchivoPDFDos(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
         try {
             if (orden != 0) {
@@ -437,8 +480,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public String buscarNombreDeArchivoPDFTres(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
         try {
             if (orden != 0) {
@@ -466,8 +509,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public String buscarNombreDeArchivoPDFCuatro(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
         try {
             if (orden != 0) {
@@ -483,7 +526,7 @@ public class FileDownloadBean implements Serializable {
                 con.close();
             }
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo 4 no encontrado");
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo 4 no encontrado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         if ("".equals(nombre)) {
@@ -494,8 +537,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public String buscarNombreDeArchivoPDFCinco(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
         try {
             if (orden != 0) {
@@ -511,7 +554,7 @@ public class FileDownloadBean implements Serializable {
                 con.close();
             }
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo pdf cinco no encontrado");
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo pdf cinco no encontrado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         if ("".equals(nombre)) {
@@ -522,8 +565,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public void downloadCronoDeAportes(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
@@ -547,24 +590,24 @@ public class FileDownloadBean implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
 
                 } else {
-                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo Crono. de aportes para este nro de orden: " + orden);
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo Crono. de aportes para este nro de orden: " + orden);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
 
             } else {
-                FacesMessage msg = new FacesMessage("ERROR", "no se encontro Crono. de aportes con ese nro de orden.");
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro Crono. de aportes con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
 
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Fichero Crono. de aportes no descargado");
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero Crono. de aportes no descargado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
     
     public void downloadFrenteDnideExpSinCarpeta(String cuit) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         try {
             long cuitLong = 0;
             
@@ -595,24 +638,24 @@ public class FileDownloadBean implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
 
                 } else {
-                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo frente dni de exp. sin carpeta para este nro de cuit: " + cuitLong);
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo frente dni de exp. sin carpeta para este nro de cuit: " + cuitLong);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
 
             } else {
-                FacesMessage msg = new FacesMessage("ERROR", "no se encontro imagen frente dni(de exp. sin carpeta) con ese nro de cuit.");
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro imagen frente dni(de exp. sin carpeta) con ese nro de cuit.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
 
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Fichero frente dni(de exp. sin carpeta) uno no descargado");
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero frente dni(de exp. sin carpeta) uno no descargado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
 
     public void downloadDorsoDnideExpSinCarpeta(String cuit) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         try {
             long cuitLong = 0;
             
@@ -643,24 +686,24 @@ public class FileDownloadBean implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
 
                 } else {
-                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo dorso dni de exp. sin carpeta para este nro de cuit: " + cuitLong);
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo dorso dni de exp. sin carpeta para este nro de cuit: " + cuitLong);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
 
             } else {
-                FacesMessage msg = new FacesMessage("ERROR", "no se encontro imagen dorso dni(de exp. sin carpeta) con ese nro de cuit.");
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro imagen dorso dni(de exp. sin carpeta) con ese nro de cuit.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
 
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Fichero dorso dni(de exp. sin carpeta) uno no descargado");
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero dorso dni(de exp. sin carpeta) uno no descargado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
 
     public void downloadJPG(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
@@ -684,24 +727,24 @@ public class FileDownloadBean implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
 
                 } else {
-                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo JPG uno para este nro de orden: " + orden);
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo JPG uno para este nro de orden: " + orden);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
 
             } else {
-                FacesMessage msg = new FacesMessage("ERROR", "no se encontro imagen JPG(1) con ese nro de orden.");
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro imagen JPG(1) con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
 
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Fichero JPG(1) uno no descargado");
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero JPG(1) uno no descargado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
 
     public void downloadJPGDos(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
@@ -725,24 +768,24 @@ public class FileDownloadBean implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
 
                 } else {
-                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo JPG dos para este nro de orden: " + orden);
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo JPG dos para este nro de orden: " + orden);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
 
             } else {
-                FacesMessage msg = new FacesMessage("ERROR", "no se encontro imagen JPG(2) con ese nro de orden.");
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro imagen JPG(2) con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
 
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Fichero JPG(2) uno no descargado");
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero JPG(2) uno no descargado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
 
     public void downloadJPGTres(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
@@ -766,24 +809,24 @@ public class FileDownloadBean implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
 
                 } else {
-                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo JPG tres para este nro de orden: " + orden);
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo JPG tres para este nro de orden: " + orden);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
 
             } else {
-                FacesMessage msg = new FacesMessage("ERROR", "no se encontro imagen JPG(3) con ese nro de orden.");
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro imagen JPG(3) con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
 
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Fichero JPG(3) uno no descargado");
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero JPG(3) uno no descargado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
 
     public void downloadJPGCuatro(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
@@ -806,24 +849,24 @@ public class FileDownloadBean implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
 
                 } else {
-                    FacesMessage msg = new FacesMessage("ERROR", "No existe Archivo cuatro para este nro de orden: " + orden);
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe Archivo cuatro para este nro de orden: " + orden);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
 
             } else {
-                FacesMessage msg = new FacesMessage("ERROR", "no se encontro Archivo JPG O PDF 4 con ese nro de orden.");
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro Archivo JPG O PDF 4 con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
 
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Fichero JPG O PDF 4 no descargado");
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero JPG O PDF 4 no descargado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
 
     public void downloadJPGCinco(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
@@ -846,24 +889,24 @@ public class FileDownloadBean implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
 
                 } else {
-                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo JPG cinco para este nro de orden: " + orden);
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo JPG cinco para este nro de orden: " + orden);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
 
             } else {
-                FacesMessage msg = new FacesMessage("ERROR", "no se encontro imagen JPG(5) con ese nro de orden.");
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro imagen JPG(5) con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
 
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Fichero JPG cinco no descargado");
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero JPG cinco no descargado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
 
     public void downloadFrenteDni(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
@@ -886,24 +929,24 @@ public class FileDownloadBean implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
 
                 } else {
-                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo JPG uno para este nro de orden: " + orden);
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo JPG uno para este nro de orden: " + orden);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
 
             } else {
-                FacesMessage msg = new FacesMessage("ERROR", "no se encontro imagen JPG(1) con ese nro de orden.");
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro imagen JPG(1) con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
 
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Fichero JPG(1) uno no descargado");
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero JPG(1) uno no descargado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
 
     public void downloadDorsoDni(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
@@ -927,24 +970,24 @@ public class FileDownloadBean implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
 
                 } else {
-                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo Dorso DNI para este nro de orden: " + orden);
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo Dorso DNI para este nro de orden: " + orden);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
 
             } else {
-                FacesMessage msg = new FacesMessage("ERROR", "no se encontro Dorso DNI con ese nro de orden.");
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro Dorso DNI con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
 
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Fichero Dorso DNI no descargado");
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero Dorso DNI no descargado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
 
     public void downloadOtraDocumentacion(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
@@ -968,24 +1011,114 @@ public class FileDownloadBean implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
 
                 } else {
-                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo Otra Documentación para este nro de orden: " + orden);
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo Otra Documentación para este nro de orden: " + orden);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
 
             } else {
-                FacesMessage msg = new FacesMessage("ERROR", "no se encontro Otra Documentación con ese nro de orden.");
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro Otra Documentación con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
 
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Fichero Otra Documentación no descargada");
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero Otra Documentación no descargada");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
+    
+    public void downloadDocumentoPorNombre(int orden, String nombre) {
+        Connection con;
+        PreparedStatement ps;
+        StreamedContent fileAlmacenado = null;
+                       
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentos"+nombre+" WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
 
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        
+                         
+                        switch(nombre){
+                            case "CartaPoder":
+                                fileCartaPoder = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileCartaPoder;
+                                break;
+                            case "ExpAdministrativo":
+                                fileExpAdministrativo = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileExpAdministrativo;
+                                break;
+                            case "Recibos":
+                                fileRecibos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileRecibos;
+                                break;
+                            case "LiquidacionBlueCorp":
+                                fileLiquidacionBlueCorp = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileLiquidacionBlueCorp;
+                                break;
+                            case "ResolucionDenegatoria":
+                                fileResolucionDenegatoria = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileResolucionDenegatoria;
+                                break;
+                        }
+                        
+                    } else {
+                        
+                        switch(nombre){
+                            case "CartaPoder":
+                                fileCartaPoder = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileCartaPoder;
+                                break;
+                            case "ExpAdministrativo":
+                                fileExpAdministrativo = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileExpAdministrativo;
+                                break;
+                            case "Recibos":
+                                fileRecibos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileRecibos;
+                                break;
+                            case "LiquidacionBlueCorp":
+                                fileLiquidacionBlueCorp = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileLiquidacionBlueCorp;
+                                break;
+                            case "ResolucionDenegatoria":
+                                fileResolucionDenegatoria = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileResolucionDenegatoria;
+                                break;
+                        }
+                        
+                    }
+
+                }
+
+                con.close();
+                if (fileAlmacenado != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo "+nombre+" descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                } else {
+                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo "+nombre+" para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+
+            } else {
+                FacesMessage msg = new FacesMessage("ERROR", "no se encontro "+nombre+" con ese nro de orden.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero "+nombre+" no descargada");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+    
     public String buscarNombreDeArchivoCronoDeAportes(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
         try {
             if (orden != 0) {
@@ -1001,7 +1134,7 @@ public class FileDownloadBean implements Serializable {
                 con.close();
             }
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo Crono. de aportes no encontrado");
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo Crono. de aportes no encontrado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         if ("".equals(nombre)) {
@@ -1012,8 +1145,8 @@ public class FileDownloadBean implements Serializable {
     }
     
     public String buscarNombreDeArchivoJPG(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
         try {
             if (orden != 0) {
@@ -1041,8 +1174,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public String buscarFrenteDniParaExpSinCarpeta(String cuit) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
         
         long cuitLong = 0;
@@ -1066,7 +1199,7 @@ public class FileDownloadBean implements Serializable {
                 con.close();
             }
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Nombre frente dni para exp. sin carpeta no encontrado");
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre frente dni para exp. sin carpeta no encontrado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         if ("".equals(nombre)) {
@@ -1078,8 +1211,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public String buscarDorsoDniParaExpSinCarpeta(String cuit) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
         
         long cuitLong = 0;
@@ -1103,7 +1236,7 @@ public class FileDownloadBean implements Serializable {
                 con.close();
             }
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo dorso dni para exp. sin carpeta no encontrado");
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo dorso dni para exp. sin carpeta no encontrado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         if ("".equals(nombre)) {
@@ -1114,10 +1247,9 @@ public class FileDownloadBean implements Serializable {
         }
     }
 
-    
     public String buscarNombreDeArchivoJPGDos(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
         try {
             if (orden != 0) {
@@ -1133,7 +1265,7 @@ public class FileDownloadBean implements Serializable {
                 con.close();
             }
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG Dos no encontrado");
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo JPG Dos no encontrado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         if ("".equals(nombre)) {
@@ -1145,8 +1277,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public String buscarNombreDeArchivoJPGTres(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
         try {
             if (orden != 0) {
@@ -1162,7 +1294,7 @@ public class FileDownloadBean implements Serializable {
                 con.close();
             }
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG Tres no encontrado");
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo JPG Tres no encontrado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         if ("".equals(nombre)) {
@@ -1174,8 +1306,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public String buscarNombreDeArchivoJPGCuatro(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
         try {
             if (orden != 0) {
@@ -1191,7 +1323,7 @@ public class FileDownloadBean implements Serializable {
                 con.close();
             }
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG Cuatro no encontrado");
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo JPG Cuatro no encontrado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         if ("".equals(nombre)) {
@@ -1203,8 +1335,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public String buscarNombreDeArchivoJPGCinco(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
         try {
             if (orden != 0) {
@@ -1220,7 +1352,7 @@ public class FileDownloadBean implements Serializable {
                 con.close();
             }
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG Cinco no encontrado");
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo JPG Cinco no encontrado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         if ("".equals(nombre)) {
@@ -1232,8 +1364,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public String buscarNombreDeArchivoFrenteDni(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
         try {
             if (orden != 0) {
@@ -1249,7 +1381,7 @@ public class FileDownloadBean implements Serializable {
                 con.close();
             }
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG uno no encontrado");
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo JPG uno no encontrado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         if ("".equals(nombre)) {
@@ -1261,8 +1393,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public String buscarNombreDeArchivoDorsoDni(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
         try {
             if (orden != 0) {
@@ -1278,7 +1410,7 @@ public class FileDownloadBean implements Serializable {
                 con.close();
             }
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG uno no encontrado");
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo JPG uno no encontrado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         if ("".equals(nombre)) {
@@ -1290,8 +1422,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public String buscarNombreDeArchivoOtraDocumentacion(int orden) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
         try {
             if (orden != 0) {
@@ -1307,7 +1439,7 @@ public class FileDownloadBean implements Serializable {
                 con.close();
             }
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo JPG uno no encontrado");
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo otra documentación uno no encontrado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         if ("".equals(nombre)) {
@@ -1319,8 +1451,8 @@ public class FileDownloadBean implements Serializable {
     }
 
     public String buscarNombreFrenteDniParaExpSinCarpeta(String cuit) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
          long cuitLong = 0;
             
@@ -1342,7 +1474,7 @@ public class FileDownloadBean implements Serializable {
                 con.close();
             }
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo frente dni exp. sin Carpeta no enontrado");
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo frente dni exp. sin Carpeta no enontrado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         if ("".equals(nombre)) {
@@ -1354,10 +1486,9 @@ public class FileDownloadBean implements Serializable {
     
     }
 
-    
     public String buscarNombreDorsoDniParaExpSinCarpeta(String cuit) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        Connection con;
+        PreparedStatement ps;
         String nombre = "";
          long cuitLong = 0;
             
@@ -1379,7 +1510,7 @@ public class FileDownloadBean implements Serializable {
                 con.close();
             }
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage("ERROR", "Nombre del archivo dorso dni exp. sin Carpeta no encontrado");
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo dorso dni exp. sin Carpeta no encontrado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         if ("".equals(nombre)) {
@@ -1389,6 +1520,37 @@ public class FileDownloadBean implements Serializable {
 
         }
     
+    }
+    
+    public String buscarNombreDeArchivo(int orden, String nombreDeArchivo) {
+        Connection con;
+        PreparedStatement ps;
+        String nombre = "";
+       
+                    try {
+                        if (orden != 0) {
+                            con = DAO.getConnection();
+                            ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentos"+nombreDeArchivo+" WHERE nroDeOrden = (?);");
+                            ps.setInt(1, orden);
+
+                            ResultSet rs = ps.executeQuery();
+
+                            while (rs.next()) {
+                                nombre = rs.getString(1);
+                            }
+                            con.close();
+                        }
+                    } catch (SQLException e) {
+                        FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo "+nombreDeArchivo+" no encontrado");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    }
+                    if ("".equals(nombre)) {
+                        return "no existe archivo para "+nombreDeArchivo;
+                    } else {
+                        return nombre;
+
+                    }
+        
     }
 
 }

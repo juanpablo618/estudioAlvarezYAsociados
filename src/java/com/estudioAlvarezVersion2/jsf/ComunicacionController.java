@@ -1,8 +1,8 @@
 package com.estudioAlvarezVersion2.jsf;
 
 import com.estudioAlvarezVersion2.jpa.Expediente;
-import com.estudioAlvarezVersion2.jpa.Movimiento;
-import com.estudioAlvarezVersion2.jpacontroller.MovimientoFacade;
+import com.estudioAlvarezVersion2.jpa.Comunicacion;
+import com.estudioAlvarezVersion2.jpacontroller.ComunicacionFacade;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.lowagie.text.BadElementException;
@@ -32,22 +32,22 @@ import javax.servlet.ServletContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-@Named("movimientoController")
+@Named("comunicacionController")
 @SessionScoped
-public class MovimientoController implements Serializable {
+public class ComunicacionController implements Serializable {
 
     @EJB
-    private com.estudioAlvarezVersion2.jpacontroller.MovimientoFacade ejbFacade;
-    private List<Movimiento> items = null;
+    private com.estudioAlvarezVersion2.jpacontroller.ComunicacionFacade ejbFacade;
+    private List<Comunicacion> items = null;
     private List ItemsTODOS = null;
     
-    private Movimiento selected;
-    private Movimiento selectedParaMovimientoNuevo;
+    private Comunicacion selected;
+    private Comunicacion selectedParaComunicacionNuevo;
     
     private Date fechaParaFiltrar = new Date();
-    private List<Movimiento> filteredMovimientos;
+    private List<Comunicacion> filteredComunicaciones;
     
-    public MovimientoController() {
+    public ComunicacionController() {
     }
 
     public Date getFechaParaFiltrar() {
@@ -58,20 +58,20 @@ public class MovimientoController implements Serializable {
         this.fechaParaFiltrar = fechaParaFiltrar;
     }
     
-    public Movimiento getSelected() {
+    public Comunicacion getSelected() {
         return selected;
     }
 
-    public void setSelected(Movimiento selected) {
+    public void setSelected(Comunicacion selected) {
         this.selected = selected;
     }
 
-    public Movimiento getSelectedParaMovimientoNuevo() {
-        return selectedParaMovimientoNuevo;
+    public Comunicacion getSelectedParaComunicacionNuevo() {
+        return selectedParaComunicacionNuevo;
     }
 
-    public void setSelectedParaMovimientoNuevo(Movimiento selectedParaMovimientoNuevo) {
-        this.selectedParaMovimientoNuevo = selectedParaMovimientoNuevo;
+    public void setSelectedParaComunicacionNuevo(Comunicacion selectedParaComunicacionNuevo) {
+        this.selectedParaComunicacionNuevo = selectedParaComunicacionNuevo;
     }
 
     
@@ -81,42 +81,42 @@ public class MovimientoController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private MovimientoFacade getFacade() {
+    private ComunicacionFacade getFacade() {
         return ejbFacade;
     }
 
-    public Movimiento prepareCreate() {
-        selected = new Movimiento();
+    public Comunicacion prepareCreate() {
+        selected = new Comunicacion();
         initializeEmbeddableKey();
         return selected;
     }
     
-    public Movimiento prepareCreateMovimiento(int orden) {
-        selectedParaMovimientoNuevo = new Movimiento();
-        selectedParaMovimientoNuevo.setOrden(orden);
+    public Comunicacion prepareCreateComunicacion(int orden) {
+        selectedParaComunicacionNuevo = new Comunicacion();
+        selectedParaComunicacionNuevo.setOrden(orden);
         initializeEmbeddableKey();
 
-        return selectedParaMovimientoNuevo;
+        return selectedParaComunicacionNuevo;
     }
     
     
     
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MovimientoCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ComunicacionCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
     
-    public void createMovimiento(Date fecha, String movimiento, int orden, String realizado) {
+    public void createComunicacion(Date fecha, String descripcion, String responsable, int orden) {
         
-        selectedParaMovimientoNuevo.setFecha(fecha);
-        selectedParaMovimientoNuevo.setMovimiento(movimiento);
-        selectedParaMovimientoNuevo.setOrden(orden);
-        selectedParaMovimientoNuevo.setRealizado(realizado);
+        selectedParaComunicacionNuevo.setFecha(fecha);
+        selectedParaComunicacionNuevo.setDescripcion(descripcion);
+        selectedParaComunicacionNuevo.setResponsable(responsable);
+        selectedParaComunicacionNuevo.setOrden(orden);
         
         
-        persistParaMovimientoNuevo(PersistAction.CREATE, "Movimiento creado exitosamente para el nro de orden:"+ orden);
+        persistParaComunicacionNuevo(PersistAction.CREATE, "Comunicación creada exitosamente para el nro de orden:"+ orden);
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
@@ -125,7 +125,7 @@ public class MovimientoController implements Serializable {
     public void create(String nombre, String apellido, int orden) {
         selected.setOrden(orden);
         
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MovimientoCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ComunicacionCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
@@ -133,7 +133,7 @@ public class MovimientoController implements Serializable {
     
     public void update() {
         
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AgendaUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ComunicacionUpdated"));
         
         if (!JsfUtil.isValidationFailed()) {
             items = null; 
@@ -142,21 +142,21 @@ public class MovimientoController implements Serializable {
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, "Movimiento borrado exitosamente");
+        persist(PersistAction.DELETE, "Comunicación borrada exitosamente");
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Movimiento> getItems() {
+    public List<Comunicacion> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
         return items;
     }
     
-    public List<Movimiento> getItemsTODOS() {
+    public List<Comunicacion> getItemsTODOS() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -199,14 +199,14 @@ public class MovimientoController implements Serializable {
         }
     }
     
-    private void persistParaMovimientoNuevo(PersistAction persistAction, String successMessage) {
-        if (selectedParaMovimientoNuevo != null) {
+    private void persistParaComunicacionNuevo(PersistAction persistAction, String successMessage) {
+        if (selectedParaComunicacionNuevo != null) {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selectedParaMovimientoNuevo);
+                    getFacade().edit(selectedParaComunicacionNuevo);
                 } else {
-                    getFacade().remove(selectedParaMovimientoNuevo);
+                    getFacade().remove(selectedParaComunicacionNuevo);
                 }
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
@@ -227,29 +227,29 @@ public class MovimientoController implements Serializable {
         }
     }
 
-    public Movimiento getMovimiento(java.lang.Integer id) {
+    public Comunicacion getComunicacion(java.lang.Integer id) {
         return getFacade().find(id);
     }
 
-    public List<Movimiento> getItemsAvailableSelectMany() {
+    public List<Comunicacion> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Movimiento> getItemsAvailableSelectOne() {
+    public List<Comunicacion> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Movimiento.class)
-    public static class MovimientoControllerConverter implements Converter {
+    @FacesConverter(forClass = Comunicacion.class)
+    public static class ComunicacionControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            MovimientoController controller = (MovimientoController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "movimientoController");
-            return controller.getMovimiento(getKey(value));
+            ComunicacionController controller = (ComunicacionController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "comunicacionController");
+            return controller.getComunicacion(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -269,27 +269,27 @@ public class MovimientoController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Movimiento) {
-                Movimiento o = (Movimiento) object;
-                return getStringKey(o.getIdMovimiento());
+            if (object instanceof Comunicacion) {
+                Comunicacion o = (Comunicacion) object;
+                return getStringKey(o.getIdComunicacion());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Movimiento.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Comunicacion.class.getName()});
                 return null;
             }
         }
 
     }
 
-    public List<Movimiento> getFilteredMovimientos() {
-        return filteredMovimientos;
+    public List<Comunicacion> getFilteredComunicacion() {
+        return filteredComunicaciones;
     }
 
-    public void setFilteredMovimientos(List<Movimiento> filteredMovimientos) {
-        this.filteredMovimientos = filteredMovimientos;
+    public void setFilteredComunicaciones(List<Comunicacion> filteredComunicaciones) {
+        this.filteredComunicaciones = filteredComunicaciones;
     }
     
     public void handleDateSelect(SelectEvent event) {
-        RequestContext.getCurrentInstance().execute("PF('movimientosTable').filter()");
+        RequestContext.getCurrentInstance().execute("PF('ComunicacionesTable').filter()");
     }
     
     public String verClaveCidi(int orden){
@@ -421,54 +421,5 @@ public class MovimientoController implements Serializable {
     
 }
     
-   /* public void filtrarPorFecha(Date fechaParaFiltrar){
-        this.filteredMovimientos = new ArrayList<Movimiento>();
-                
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String date = sdf.format(fechaParaFiltrar); 
-        
-        FacesContext context = FacesContext.getCurrentInstance();
-        MovimientoController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", MovimientoController.class);
-
-        if(fechaParaFiltrar != null){
-                for(Agenda agenda: agendaControllerBean.getItems()){
-                    if(agenda.getFecha() != null){
-                        String date2 = sdf.format(agenda.getFecha()); 
-                        if(date.equals(date2)){
-                                        agendaControllerBean.getFilteredAgendas().add(agenda);
-                        }
-                    }
-                }
-            }        
-    }
-    
-    public void clearAllFilters() {
-
-    DataTable dataTable = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent(":AgendaListForm:datalist");
-    if (!dataTable.getFilters().isEmpty()) {
-        dataTable.reset();
-
-        RequestContext requestContext = RequestContext.getCurrentInstance();
-        requestContext.update(":AgendaListForm:datalist");
-    }
-}
-    
-    public void transferir(){
-    
-        FacesContext context = FacesContext.getCurrentInstance();
-        
-        MovimientoController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", MovimientoController.class);
-        ExpedienteController expedienteController = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        
-        Integer idExpediente = null;
-        
-        if(agendaController.getSelected().getApellido() != null){
-         idExpediente = Integer.parseInt(agendaController.getSelected().getApellido());
-         agendaController.getSelected().setNombre(expedienteController.getExpediente(idExpediente).getNombre());
-         agendaController.getSelected().setOrden(expedienteController.getExpediente(idExpediente).getOrden());
-         agendaController.getSelected().setApellido(expedienteController.getExpediente(idExpediente).getApellido());
-        }
-        
-    }*/
     
 }

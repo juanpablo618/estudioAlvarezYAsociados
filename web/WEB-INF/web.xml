@@ -32,4 +32,9 @@
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
         
+   <mime-mapping>
+        <extension>otf</extension>
+        <mime-type>fonts/Gotham-BookItalic.otf</mime-type>
+    </mime-mapping>     
+        
 </web-app>

@@ -349,6 +349,77 @@
                                     <p:fileDownload value="#{fileDownloadBean.fileOtraDocumentacion}" />
                                 </p:commandButton>
                             </p:panel>
+                                <br></br>
+                                <br></br>
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="panelCartaPoder" header="Carta Poder" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                                <p:outputLabel value="Carta Poder:"  style="font-weight: bold"/><br></br>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileCartaPoder}" mode="simple"/>
+                                <p:commandButton icon="fa-upload" value="Subir Carta Poder" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadCartaPoder(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br>
+                                <p:outputLabel value="Nombre del archivo Carta Poder:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'CartaPoder')}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar Carta Poder" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'CartaPoder')}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileCartaPoder}" />
+                                </p:commandButton>
+                            </p:panel>
+                            <br></br>
+                            <br></br>
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="panelExpAdministrativo" header="Exp Administrativo" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                                <p:outputLabel value="Exp Administrativo:"  style="font-weight: bold"/><br></br>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileExpAdministrativo}" mode="simple"/>
+                                <p:commandButton icon="fa-upload" value="Subir Exp Administrativo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadExpAdministrativo(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br>
+                                <p:outputLabel value="Nombre del archivo Exp Administrativo:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ExpAdministrativo')}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar Exp. Administrativo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'ExpAdministrativo')}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileExpAdministrativo}" />
+                                </p:commandButton>
+                            </p:panel>
+                            <br></br>
+                            <br></br>
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="recibos" header="Recibos" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                                <p:outputLabel value="archivos Recibos:"  style="font-weight: bold"/><br></br>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileRecibos}" mode="simple"/>
+                                <p:commandButton icon="fa-upload" value="Subir Recibos" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'Recibos')}" ajax="false" />
+                                <br></br>
+                                <p:outputLabel value="Nombre del archivo Recibos:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Recibos')}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar Recibos" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'Recibos')}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileRecibos}" />
+                                </p:commandButton>
+                            </p:panel>
+                            <br></br>
+                            <br></br>
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="liquidacionBlueCorp" header="Liquidación BlueCorp" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                                <p:outputLabel value="archivos Recibos:"  style="font-weight: bold"/><br></br>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorp}" mode="simple"/>
+                                <p:commandButton icon="fa-upload" value="Subir Liquidación BlueCorp" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'LiquidacionBlueCorp')}" ajax="false" />
+                                <br></br>
+                                <p:outputLabel value="Nombre del archivo Liquidación BlueCorp"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'LiquidacionBlueCorp')}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar Liquidación BlueCorp" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'LiquidacionBlueCorp')}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileLiquidacionBlueCorp}" />
+                                </p:commandButton>
+                            </p:panel>
+                            <br></br>
+                            <br></br>
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="resolucionDenegatoria" header="Resolución Denegatoria" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                                <p:outputLabel value="archivos Resolución Denegatoria"  style="font-weight: bold"/><br></br>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileResolucionDenegatoria}" mode="simple"/>
+                                <p:commandButton icon="fa-upload" value="Subir Resolución Denegatoria" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'ResolucionDenegatoria')}" ajax="false" />
+                                <br></br>
+                                <p:outputLabel value="Nombre del archivo Resolución Denegatoria"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ResolucionDenegatoria')}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar Resolución Denegatoria" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'ResolucionDenegatoria')}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileResolucionDenegatoria}" />
+                                </p:commandButton>
+                            </p:panel>
+                            
  </div>     
                             <br></br>
                             <br></br>

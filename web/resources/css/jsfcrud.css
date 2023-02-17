@@ -90,7 +90,6 @@ tr.ui-datatable-odd:hover td.centeredColumnContentadministrativo {
     color: white !important;
 }
 
-
 td.centeredColumnContentsincarpeta{
     text-align: center;
     background-color: burlywood !important;
@@ -112,15 +111,12 @@ td.centeredColumnContentsincarpeta{
     color: white !important;
 }
 
-
 .ui-datatable tbody tr.ui-state-highlight td {
     background-color: #123a6d;
     color: white;
 }
 
-
 table.dataTable.nowrap td{white-space:nowrap}
-
 
 .ui-widget {
     font-size: 15px !important;
@@ -298,12 +294,10 @@ table.dataTable.nowrap td{white-space:nowrap}
     width: 100px !important;
 }
 
-
 div.ui-layout-unit-content {
     background-color: #123a6d !important;
 
 }
-
 
 .ui-datatable .ui-column-filter{
     width: 80% !important;
@@ -343,7 +337,6 @@ div[id="AgendaListForm:datalist"] thead {
  color:#000000 !important;
 }
 
-
 .ui-datepicker .ui-datepicker-header {
  background:#a69753 !important;
 }
@@ -376,7 +369,6 @@ div[id="AgendaListForm:datalist"] thead {
     color: white !important;
     text-shadow: none !important;
 }
-
 
 .ui-fieldset-toggleable .ui-fieldset-legend:hover{
     background-color: #2a55aa !important;
@@ -438,4 +430,10 @@ background-color: #af3535 !important;
 
 .fc-header-title{
    color: white;
+}
+
+div.ui-growl {
+   left: 50%;
+   right: 0;
+   margin-left:-150px;
 }

@@ -5,7 +5,7 @@
  */
 package com.estudioAlvarezVersion2.jpacontroller;
 
-import com.estudioAlvarezVersion2.jpa.Movimiento;
+import com.estudioAlvarezVersion2.jpa.Comunicacion;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author cuello.juanpablo@gmail.com
  */
 @Stateless
-public class MovimientoFacade extends AbstractFacade<Movimiento> {
+public class ComunicacionFacade extends AbstractFacade<Comunicacion> {
 
     @PersistenceContext(unitName = "EstudioAlvarezVersion2PU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class MovimientoFacade extends AbstractFacade<Movimiento> {
         return em;
     }
 
-    public MovimientoFacade() {
-        super(Movimiento.class);
+    public ComunicacionFacade() {
+        super(Comunicacion.class);
     }
     
 }

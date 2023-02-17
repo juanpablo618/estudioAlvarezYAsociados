@@ -111,11 +111,32 @@
                         <h:outputText value="#{item.responsable}"/>
                     </p:column>
 
-                    <p:column style="text-align: center; width: 28%;" styleClass="centeredColumnContent#{item.getRealizado()}">
+                    <p:column style="text-align: center; width: 18%;" styleClass="centeredColumnContent#{item.getRealizado()}">
                         <f:facet name="header">
                             <h:outputText value="DESCRIPCIÓN"/>
                         </f:facet>
                         <h:outputText value="#{item.observacion}"/>
+                    </p:column>
+                    
+                    <p:column filterBy="#{item.realizado}" style="text-align: center; width: 10%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                        <f:facet name="header">
+                            <h:outputText value="REALIZADO"/>
+                        </f:facet>
+                        <f:facet name="filter">
+                            <p:selectOneMenu  onchange="PF('turnosTable').filter()"  value="#{turnoController.realizadoSeleccionadoEnTurno}"  styleClass="custom-filter">
+                                <f:selectItem itemLabel="Seleccionar Todos" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Si" itemValue="Si" />
+                                <f:selectItem itemLabel="No" itemValue="No" />
+                                <f:selectItem itemLabel="Reagendada" itemValue="Reagendada" />
+                                
+                                <p:ajax update=":AgendaListForm:datalist:inputRealizadoEnAgenda"/> 
+                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputRealizadoEnAgenda"/>
+                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
+                                <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
+                            </p:selectOneMenu>
+                        </f:facet>
+                        
+                        <h:outputText value="#{item.realizado}"/>
                     </p:column>
 
                     <p:column style="text-align: center; width: 15%" styleClass="centeredColumnContent#{item.getRealizado()}">
@@ -201,7 +222,13 @@
                         <h:outputText value="#{item.descripcion}"  />
                     </p:column>
 
-                   
+                   <p:column style="text-align: center; width: 28%;" filterBy="#{item.realizado}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                        <f:facet name="filter" >
+                            <p:inputText id="inputRealizadoEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.realizadoSeleccionadoEnTurno}" />
+                        </f:facet>
+                       <h:outputText value="#{item.realizado}"/>
+                    </p:column>
+                    
                     <p:column styleClass="centeredColumnContent#{item.realizado}" style="text-align: center; width: 15% ">
 
                         <f:facet name="header">

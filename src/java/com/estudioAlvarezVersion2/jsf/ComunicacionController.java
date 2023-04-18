@@ -132,8 +132,7 @@ public class ComunicacionController implements Serializable {
     }
     
     public void update() {
-        
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ComunicacionUpdated"));
+        persist(PersistAction.UPDATE, "comunicación actualizada correctamente");
         
         if (!JsfUtil.isValidationFailed()) {
             items = null; 

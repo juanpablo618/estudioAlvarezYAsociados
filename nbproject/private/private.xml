@@ -3,12 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/WEB-INF/glassfish-resources.xml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/downloadPDf/DownloadBean.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/EditAgendaPasada.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/EditAgendaFutura.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/downloadPDf/MembretePresupuesto.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/EditExpSinCarpeta.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/EditExpJudicial.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/ViewDocumentos.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpacontroller/util/FileUploadBean.java</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/List_AgendasTurnos.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/downloadPDf/FormatoDocumentoConvenioDeHonorarios.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/DAO.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/CreateExpSinCarpeta.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/Create.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/login.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/Edit.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/AgendaController.java</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpacontroller/util/FileDownloadBean.java</file>
         </group>
     </open-files>
 </project-private>

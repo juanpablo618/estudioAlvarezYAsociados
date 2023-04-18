@@ -1,5 +1,6 @@
 package com.estudioAlvarezVersion2.jsf;
 
+import com.estudioAlvarezVersion2.Login.SessionUtils;
 import com.estudioAlvarezVersion2.jpa.Turno;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
@@ -25,6 +26,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -181,6 +183,11 @@ public class TurnoController implements Serializable {
         return ejbFacade;
     }
     
+    public String getUserName(){
+        HttpSession session = SessionUtils.getSession();
+        return (String) session.getAttribute("username");            
+    }
+    
      private Boolean validateHolidays(String date) {
         //lista sacada de https://www.argentina.gob.ar/interior/feriados-nacionales-2023
         String feriadosArg[] = {"20/02/2023", "21/02/2023", "24/03/2023", "02/04/2023", "07/04/2023",
@@ -262,10 +269,9 @@ public class TurnoController implements Serializable {
         if (items == null) {
             items = getFacade().findAll();
         }
-           List<Turno> cloned_list = null;
-      
+           List<Turno> cloned_list;
         
-             cloned_list = new ArrayList<Turno>(this.items);
+            cloned_list = new ArrayList<>(this.items);
             Collections.sort(cloned_list, new SortByDate());
             //Collections.sort(cloned_list, (Turno o1, Turno o2) -> o1.getHoraYDia().compareTo(o2.getHoraYDia()));
 

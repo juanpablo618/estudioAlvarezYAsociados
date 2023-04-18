@@ -1,14 +1,12 @@
 package com.estudioAlvarezVersion2.downloadPDf;
 
-import com.estudioAlvarezVersion2.jpa.Agenda;
-import com.estudioAlvarezVersion2.jpa.Turno;
+import static com.estudioAlvarezVersion2.jpa.Expediente_.sexo;
 import com.lowagie.text.DocumentException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.URL;
-import java.util.ArrayList;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -101,7 +99,7 @@ public void crearConvenioDeHonorarios(String nombre, String apellido, String dni
                         DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
                         System.out.println("Hora y fecha: "+hourdateFormat.format(date));
 
-                            String fechaYHoraActual = hourdateFormat.format(date).toString();
+                            String fechaYHoraActual = hourdateFormat.format(date);
 
                                 fechaYHoraActual = fechaYHoraActual.replace(" ","");
                                 fechaYHoraActual = fechaYHoraActual.replace(":","");
@@ -128,6 +126,76 @@ public void crearConvenioDeHonorarios(String nombre, String apellido, String dni
         }
     }
 
+public void crearPdfDeCaratula(String nombre, String apellido, String dni, String direccion, String nroDeAltura, String barrio, String apoderado,
+        Date fechaDeAtencion, String sexo, String telefono, String cuit, Date fechaDeNacimiento, int edad,
+        String cobraBeneficio, String tipoDeBeneficio,String aportes, String trabajando, String inscripcionAut,
+        String estadoCivil, String cantidadDeHijos, String obraSocial, String claveCidi, String claveFiscal, String claveSeguridadSocial
+                
+        ) throws IOException, DocumentException, InterruptedException{
+
+    if(nombre == null) {
+      FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay nombre para imprimir"));
+    }else{
+        if(apellido == null ){
+              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay Apellido para imprimir"));
+        }else{   
+            if(dni == null){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay dni para imprimir"));
+            }else{
+                if(direccion == null){
+                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay dni para imprimir"));
+                }
+                else{
+                   if(nroDeAltura == null){
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay nro De Altura de la dirección para imprimir"));
+                   }else{ 
+                       if(barrio == null){
+                             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("no hay barrio de la dirección para imprimir"));
+                       }else{
+                        Date date = new Date();
+                        //Caso 1: obtener la hora y salida por pantalla con formato:
+                        DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
+                        System.out.println("Hora: "+hourFormat.format(date));
+                        //Caso 2: obtener la fecha y salida por pantalla con formato:
+                        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+                        System.out.println("Fecha: "+dateFormat.format(date));
+                        //Caso 3: obtenerhora y fecha y salida por pantalla con formato:
+                        DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+                        System.out.println("Hora y fecha: "+hourdateFormat.format(date));
+
+                            String fechaYHoraActual = hourdateFormat.format(date);
+
+                                fechaYHoraActual = fechaYHoraActual.replace(" ","");
+                                fechaYHoraActual = fechaYHoraActual.replace(":","");
+
+                                String nombreDelDocumento = new String();
+
+                                nombreDelDocumento = "PdfPara_".concat(nombre).concat(fechaYHoraActual);
+                                nombreDelDocumento = nombreDelDocumento.replace(" ","");
+                                nombreDelDocumento = nombreDelDocumento.replace(":","");
+                                nombreDelDocumento = nombreDelDocumento.replace("/","");
+
+                                MembretePresupuesto doc = new MembretePresupuesto();
+
+                                 doc.createPdfDeCaratula(nombreDelDocumento, nombre, apellido, dni, direccion, nroDeAltura,
+                                        barrio, apoderado, fechaDeAtencion, sexo, telefono, cuit, fechaDeNacimiento, edad,
+                                        cobraBeneficio,  tipoDeBeneficio,  aportes,  trabajando,  inscripcionAut,  estadoCivil,
+                                        cantidadDeHijos, obraSocial, claveCidi, claveFiscal, claveSeguridadSocial
+                                 );
+
+                                downloadPdf(nombreDelDocumento);
+
+                                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Impresion exitosa delPdf"));
+                            }      
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
 public void crearCronologicoDeAportes(String nombre ) throws IOException, DocumentException, InterruptedException{
 
     if(nombre == null) {
@@ -145,7 +213,7 @@ public void crearCronologicoDeAportes(String nombre ) throws IOException, Docume
         DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         System.out.println("Hora y fecha: "+hourdateFormat.format(date));
     
-            String fechaYHoraActual = hourdateFormat.format(date).toString();
+            String fechaYHoraActual = hourdateFormat.format(date);
 
                 fechaYHoraActual = fechaYHoraActual.replace(" ","");
                 fechaYHoraActual = fechaYHoraActual.replace(":","");
@@ -168,9 +236,10 @@ public void crearCronologicoDeAportes(String nombre ) throws IOException, Docume
         }
 
 /**
-     * This method reads PDF from the URL and writes it back as a response. 
-     * @throws IOException 
-     * @param nombreDelDocumento */
+     * This method reads PDF from the URL and writes it back as a response.     * @throws IOException  
+     * @param nombreDelDocumento 
+     * @throws java.io.IOException
+     * @throws java.lang.InterruptedException*/
 public void downloadPdf(String nombreDelDocumento) throws IOException, InterruptedException {
     System.err.println("");    
     System.err.println("");

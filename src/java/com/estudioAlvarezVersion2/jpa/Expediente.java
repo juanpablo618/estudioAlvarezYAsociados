@@ -232,6 +232,46 @@ public class Expediente implements Serializable {
     @Column(name = "subCategoriasDeTipo")
     private String[]  subCategoriasDeTipo;
     
+    @Column(name = "cantidadDeHijos")
+    private int  cantidadDeHijos;
+    
+    @Column(name = "cantidadDeHijosConDiscapacidad")
+    private int  cantidadDeHijosConDiscapacidad;
+    
+    @Column(name = "cantidadDeHijosAdoptivos")
+    private int  cantidadDeHijosAdoptivos;
+    
+    @Column(name = "cantidadDeHijosPercibioAuh")
+    private int  cantidadDeHijosPercibioAuh;
+    
+    @Column(name = "estadoCivil")
+    private String  estadoCivil;
+
+    @Column(name = "datosDelConyuge")    
+    private String datosDelConyuge;
+    
+    @Column(name = "tipoDeBeneficio")    
+    private String tipoDeBeneficio;
+    
+    @Column(name = "aportes")    
+    private String aportes;
+    
+    @Column(name = "detalleDeAportes")    
+    private String detalleDeAportes;
+    
+    @Column(name = "trabajando")    
+    private String trabajando;
+    
+    @Column(name = "obraSocial")    
+    private String obraSocial;
+    
+    @Column(name = "inscripcionAut")    
+    private String inscripcionAut;
+    
+    @Column(name = "reclamoArt")    
+    private String reclamoArt;
+    
+    
     public Expediente() {
     }
 
@@ -248,9 +288,18 @@ public class Expediente implements Serializable {
             String localidad, String tipoDeTramite, String procedencia,
             String estadoDelTramite, Date fechaDeCobro, String nacionalidad,
             String tipoDeExpediente, String caratula, String nroDeExpediente,
-            String juzgadoODependencia, String observaciones, String responsable, String apoderado, String comunicaciones, Date fechaDeAtencion,
+            String juzgadoODependencia, String observaciones, String responsable, 
+            String apoderado, String comunicaciones, Date fechaDeAtencion,
             String convenioDeHonorarios, String jurisdiccion, String poderFirmado,
-            String tipo, String etapaProcesal, String detalleDeEstadoDeTramite, String tablaDeHonorariosYGastos, String[]  subCategoriasDeTipo) {
+            String tipo, String etapaProcesal, String detalleDeEstadoDeTramite, 
+            String tablaDeHonorariosYGastos, String[]  subCategoriasDeTipo,
+            int cantidadDeHijos, int cantidadDeHijosConDiscapacidad,
+            int cantidadDeHijosAdoptivos, int cantidadDeHijosPercibioAuh,
+            String estadoCivil, String datosDelConyuge, String tipoDeBeneficio,
+            String aportes, String detalleDeAportes, String trabajando, 
+            String obraSocial, String inscripcionAut, String reclamoArt
+    
+    ) {
         this.idExpediente = idExpediente;
         this.orden = orden;
         this.cuit = cuit;
@@ -296,7 +345,21 @@ public class Expediente implements Serializable {
         this.detalleDeEstadoDeTramite = detalleDeEstadoDeTramite;
         this.tablaDeHonorariosYGastos = tablaDeHonorariosYGastos;
         this.subCategoriasDeTipo = subCategoriasDeTipo;
-
+        this.cantidadDeHijos = cantidadDeHijos;
+        this.cantidadDeHijosConDiscapacidad = cantidadDeHijosConDiscapacidad;
+        this.cantidadDeHijosAdoptivos = cantidadDeHijosAdoptivos;
+        this.cantidadDeHijosPercibioAuh = cantidadDeHijosPercibioAuh;
+        this.estadoCivil = estadoCivil;
+        this.datosDelConyuge = datosDelConyuge;
+        this.tipoDeBeneficio = tipoDeBeneficio;
+        this.aportes = aportes;
+        
+        this.detalleDeAportes = detalleDeAportes;
+        this.trabajando = trabajando;
+        this.obraSocial = obraSocial;
+        this.inscripcionAut = inscripcionAut;
+        this.reclamoArt = reclamoArt;
+        
     }
     
     public String[]  getSubCategoriasDeTipo() {
@@ -700,7 +763,110 @@ public class Expediente implements Serializable {
         this.tipo = tipo;
     }
 
-    @Override
+    public int getCantidadDeHijos() {
+        return cantidadDeHijos;
+    }
+
+    public void setCantidadDeHijos(int cantidadDeHijos) {
+        this.cantidadDeHijos = cantidadDeHijos;
+    }
+
+    public int getCantidadDeHijosConDiscapacidad() {
+        return cantidadDeHijosConDiscapacidad;
+    }
+
+    public void setCantidadDeHijosConDiscapacidad(int cantidadDeHijosConDiscapacidad) {
+        this.cantidadDeHijosConDiscapacidad = cantidadDeHijosConDiscapacidad;
+    }
+
+    public int getCantidadDeHijosAdoptivos() {
+        return cantidadDeHijosAdoptivos;
+    }
+
+    public void setCantidadDeHijosAdoptivos(int cantidadDeHijosAdoptivos) {
+        this.cantidadDeHijosAdoptivos = cantidadDeHijosAdoptivos;
+    }
+
+    public int getCantidadDeHijosPercibioAuh() {
+        return cantidadDeHijosPercibioAuh;
+    }
+
+    public void setCantidadDeHijosPercibioAuh(int cantidadDeHijosPercibioAuh) {
+        this.cantidadDeHijosPercibioAuh = cantidadDeHijosPercibioAuh;
+    }
+
+    public String getEstadoCivil() {
+        return estadoCivil;
+    }
+
+    public void setEstadoCivil(String estadoCivil) {
+        this.estadoCivil = estadoCivil;
+    }
+
+    public String getDatosDelConyuge() {
+        return datosDelConyuge;
+    }
+
+    public void setDatosDelConyuge(String datosDelConyuge) {
+        this.datosDelConyuge = datosDelConyuge;
+    }
+
+    public String getTipoDeBeneficio() {
+        return tipoDeBeneficio;
+    }
+
+    public void setTipoDeBeneficio(String tipoDeBeneficio) {
+        this.tipoDeBeneficio = tipoDeBeneficio;
+    }
+
+    public String getAportes() {
+        return aportes;
+    }
+
+    public void setAportes(String aportes) {
+        this.aportes = aportes;
+    }
+
+    public String getDetalleDeAportes() {
+        return detalleDeAportes;
+    }
+
+    public void setDetalleDeAportes(String detalleDeAportes) {
+        this.detalleDeAportes = detalleDeAportes;
+    }
+
+    public String getTrabajando() {
+        return trabajando;
+    }
+
+    public void setTrabajando(String trabajando) {
+        this.trabajando = trabajando;
+    }
+
+    public String getObraSocial() {
+        return obraSocial;
+    }
+
+    public void setObraSocial(String obraSocial) {
+        this.obraSocial = obraSocial;
+    }
+
+    public String getInscripcionAut() {
+        return inscripcionAut;
+    }
+
+    public void setInscripcionAut(String inscripcionAut) {
+        this.inscripcionAut = inscripcionAut;
+    }
+
+    public String getReclamoArt() {
+        return reclamoArt;
+    }
+
+    public void setReclamoArt(String reclamoArt) {
+        this.reclamoArt = reclamoArt;
+    }
+    
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Expediente)) {

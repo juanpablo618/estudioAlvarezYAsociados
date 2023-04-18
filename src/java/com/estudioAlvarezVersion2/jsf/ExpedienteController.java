@@ -41,7 +41,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
@@ -652,8 +651,8 @@ public class ExpedienteController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
-    public List<Expediente> getItems() {
+    
+   public List<Expediente> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }

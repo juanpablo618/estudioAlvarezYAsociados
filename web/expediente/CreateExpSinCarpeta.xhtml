@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="ExpedienteSinCarpetaCreateDlg" class="crearExpediente" widgetVar="ExpedienteSinCarpetaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear expediente Sin Carpeta">
+        <p:dialog id="ExpedienteSinCarpetaCreateDlg" class="crearExpediente" widgetVar="ExpedienteSinCarpetaCreateDialog" modal="true" appendTo="@(body)" header="Crear expediente Sin Carpeta" resizable="true"  width="100" style="overflow-y:auto">
             <h:form id="ExpedienteSinCarpetaCreateForm">
                 <p:commandButton actionListener="#{expedienteController.create}" value="Crear" class="botonCrearAgenda hoverGreen" update=":ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ExpedienteSinCarpetaCreateDialog');"
                                  style="float: right !important; margin-top: 0% !important;"/>
@@ -32,24 +32,54 @@
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="margin-left: 3%;font-weight: bold" />
                                 <p:inputText id="telefono" value="#{expedienteController.selected.telefono}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_telefono}" />
                             </h:panelGrid>
-                            <h:panelGrid columns="2" cellspacing="5" cellpadding="1"> 
+                            <h:panelGrid columns="4" cellspacing="5" cellpadding="1">
                                 <p:outputLabel value="Fecha de Nacimiento:" style="font-weight: bold" for="fechaDeNacimiento" />
-                                <p:calendar required="true" requiredMessage="Fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" showOn="button">
-                                </p:calendar>
-                            </h:panelGrid>
-                            <h:panelGrid columns="6" cellspacing="5" >    
-                                <p:outputLabel value="#{bundle.CreateExpedienteLabel_sexo}" for="sexo" style="margin-left: 3%;font-weight: bold" />
-                                <p:selectOneMenu style="margin-left: 3%" id="sexo" value="#{expedienteController.selected.sexo}" >
-                                    <f:selectItem itemLabel="Masculino" itemValue="masculino" />
-                                    <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
-                                </p:selectOneMenu>
-
+                                <p:calendar  required="true" requiredMessage="Fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" showOn="button">
+                                </p:calendar> 
                                 <p:outputLabel value="Nacionalidad:" for="nacionalidad" style="margin-left: 3%;font-weight: bold" />
                                 <p:selectOneMenu id="nacionalidad" value="#{expedienteController.selected.nacionalidad}" style="margin-left: 3%" >
                                     <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
                                     <f:selectItem itemLabel="Extranjero" itemValue="Extranjero" />
                                 </p:selectOneMenu>
                             </h:panelGrid>
+                            <h:panelGrid columns="6" cellspacing="5" >
+                                <p:outputLabel value="#{bundle.CreateExpedienteLabel_sexo}" for="sexo" style="margin-left: 3%;font-weight: bold" />
+                                <p:selectOneMenu style="margin-left: 3%" id="sexo" value="#{expedienteController.selected.sexo}" >
+                                    <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+                                    <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
+                                    <p:ajax update="inputPanelCantHijos" />
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                            <h:panelGrid  columns="4" cellspacing="5" id="inputPanelCantHijos">
+                                <p:outputLabel value="Número total de Hijos:" rendered="#{expedienteController.selected.sexo == 'Femenino'}" />
+                                <p:inputText rendered="#{expedienteController.selected.sexo == 'Femenino'}" value="#{expedienteController.selected.cantidadDeHijos}" />
+
+                                <p:outputLabel value="Hijos con discapacidad:" rendered="#{expedienteController.selected.sexo == 'Femenino'}" />
+                                <p:inputText rendered="#{expedienteController.selected.sexo == 'Femenino'}" value="#{expedienteController.selected.cantidadDeHijosConDiscapacidad}" />
+
+                                <p:outputLabel value="Hijos adoptivos:" rendered="#{expedienteController.selected.sexo == 'Femenino'}" />
+                                <p:inputText    rendered="#{expedienteController.selected.sexo == 'Femenino'}" value="#{expedienteController.selected.cantidadDeHijosAdoptivos}" />
+
+                                <p:outputLabel value="Hijos por los que percibió AUH:" rendered="#{expedienteController.selected.sexo == 'Femenino'}" />
+                                <p:inputText rendered="#{expedienteController.selected.sexo == 'Femenino'}" value="#{expedienteController.selected.cantidadDeHijosPercibioAuh}" />
+                            </h:panelGrid>
+                            <h:panelGrid columns="6" cellspacing="5" style="margin-top: 2%;">
+                                <p:outputLabel value="Estado Civil:" for="estadoCivil" style="margin-left: 3%;font-weight: bold" />
+                                <p:selectOneMenu id="estadoCivil" value="#{expedienteController.selected.estadoCivil}" style="margin-left: 3%" >
+                                    <f:selectItem itemLabel="SOLTERO" itemValue="SOLTERO" />
+                                    <f:selectItem itemLabel="CASADO" itemValue="CASADO" />
+                                    <f:selectItem itemLabel="SEPARADO DE HECHO" itemValue="SEPARADO DE HECHO" />
+                                    <f:selectItem itemLabel="DIVORCIADO" itemValue="DIVORCIADO" />
+                                    <f:selectItem itemLabel="VIUDO" itemValue="VIUDO" />
+                                    <p:ajax update="inputDatosDelConyuge" />
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                            <h:panelGrid id="inputDatosDelConyuge" columns="6" cellspacing="5" style="margin-top: 2%;">
+                                <!-- DATOS CONYUGE -->
+                                <p:outputLabel value="Datos Del conyuge:" rendered="#{expedienteController.selected.estadoCivil == 'CASADO' or expedienteController.selected.estadoCivil == 'SEPARADO DE HECHO' or expedienteController.selected.estadoCivil == 'DIVORCIADO' or expedienteController.selected.estadoCivil == 'VIUDO'}" />
+                                <p:inputTextarea rendered="#{expedienteController.selected.estadoCivil == 'CASADO' or expedienteController.selected.estadoCivil == 'SEPARADO DE HECHO' or expedienteController.selected.estadoCivil == 'DIVORCIADO' or expedienteController.selected.estadoCivil == 'VIUDO'}" value="#{expedienteController.selected.datosDelConyuge}" />
+                            </h:panelGrid>
+                            
                             <h:panelGrid columns="6" cellspacing="5" style="margin-top: 2%;">     
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_direccion}" for="direccion" style="font-weight: bold" />
                                 <p:inputText id="direccion" value="#{expedienteController.selected.direccion}" title="#{bundle.CreateExpedienteTitle_direccion}" />
@@ -124,10 +154,11 @@
                                     <p:outputLabel value="Fecha de cobro:" for="fechaDeCobro" style="font-weight: bold" />
                                     <p:calendar style="width: 112px;" id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeCobro}" title="fechaDeCobro" />
 
-                                    <p:outputLabel value="Cobra Beneficio" for="cobraBeneficio" style="margin-left: 3%;font-weight: bold" />
-                                    <p:selectOneMenu style="margin-left: 3% ; width: 30%" id="cobraBeneficio" value="#{expedienteController.selected.cobraBeneficio}" editable="true" >
-                                        <f:selectItem itemLabel="No" itemValue="No" />
-                                        <f:selectItem itemLabel="Si" itemValue="Si" />
+                                    <p:outputLabel class="float-l" value="Apoderado:" for="apoderado" style="font-weight: bold"/>
+                                    <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" requiredMessage="debe seleccionar un apoderado correcto" id="apoderado" value="#{expedienteController.selected.apoderado}">
+                                        <f:selectItem itemLabel=" -- Elige un Apoderado --"  noSelectionOption="true"  />
+                                        <f:selectItem itemLabel="Mateo Francisco Alvarez" itemValue="Mateo Francisco Alvarez" />
+                                        <f:selectItem itemLabel="Campos María Emilia" itemValue="Campos María Emilia" />
                                     </p:selectOneMenu>
 
                                     <p:outputLabel value="Procedencia:" for="procedencia" style="font-weight: bold" />
@@ -142,13 +173,62 @@
                                     <f:selectItems value="#{empleadoController.items}" var="empleado" itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}" />
                                 </p:selectOneMenu>
                                     
+                                   <p:outputLabel value="Cobra Beneficio" for="cobraBeneficio" style="margin-left: 3%;font-weight: bold" />
+                                    <p:selectOneMenu style="margin-left: 3% ; width: 100%" id="cobraBeneficio" value="#{expedienteController.selected.cobraBeneficio}" editable="true" >
+                                        <f:selectItem itemLabel="NO" itemValue="NO"  />
+                                        <f:selectItem itemLabel="SI" itemValue="SI" />
+                                        <p:ajax update="inputTipoDeBeneficio" />
+                                    </p:selectOneMenu>
+                                    
                                 </h:panelGrid>
-                                <br></br>    
+                                <br></br> 
+                                <p:panel id="inputTipoDeBeneficio">
+                                    <p:outputLabel rendered="#{expedienteController.selected.cobraBeneficio == 'SI'}" value="Tipo de Beneficio:" for="tipoDeBeneficio" style="font-weight: bold" />
+                                    <p:inputText rendered="#{expedienteController.selected.cobraBeneficio == 'SI'}" id="tipoDeBeneficio" value="#{expedienteController.selected.tipoDeBeneficio}" title="tipoDeBeneficio" style="margin-left: 3%;"/>
 
+                                </p:panel>
+                                <br></br>
                                 <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
                                 <p:inputTextarea rows="7" cols="55" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
 
                             </div>
+                            <h:panelGrid columns="2" cellspacing="5" >
+                                <p:outputLabel value="Tiene aportes: "  style="margin-left: 3%;font-weight: bold" />
+                                <p:selectOneMenu style="margin-left: 3%" id="aportes" value="#{expedienteController.selected.aportes}" >
+                                    <f:selectItem itemLabel="NO" itemValue="NO" />
+                                    <f:selectItem itemLabel="SI" itemValue="SI" />
+                                    <p:ajax update="inputAportes" />
+                                </p:selectOneMenu>   
+                            </h:panelGrid>
+                            <h:panelGrid id="inputAportes" columns="2" cellspacing="5" >
+                                <p:outputLabel rendered="#{expedienteController.selected.aportes == 'SI'}" value="detalle de aportes:" for="detalleDeAportes" style="font-weight: bold"/><br></br>
+                                <p:inputTextarea rendered="#{expedienteController.selected.aportes == 'SI'}" rows="7" cols="55" autoResize="false"  id="detalleDeAportes" value="#{expedienteController.selected.detalleDeAportes}" title="detalle de aportes"/><br></br>
+
+                                <p:outputLabel rendered="#{expedienteController.selected.aportes == 'SI'}" value="Esta trabajando actualmente? : " for="trabajando" style="font-weight: bold"/><br></br>
+
+                                <p:selectOneMenu rendered="#{expedienteController.selected.aportes == 'SI'}" style="margin-left: 3%" id="trabajando" value="#{expedienteController.selected.trabajando}" >
+                                    <f:selectItem itemLabel="NO" itemValue="NO" />
+                                    <f:selectItem itemLabel="SI" itemValue="SI" />
+                                    <p:ajax update="inputObraSocial" />
+                                </p:selectOneMenu>   <br></br>
+
+                            </h:panelGrid  ><br></br>
+                            <h:panelGrid id="inputObraSocial">
+                                <p:outputLabel rendered="#{expedienteController.selected.trabajando == 'SI'}" value="Obra social: " for="obraSocial" style="font-weight: bold"/><br></br>
+                                <p:inputText rendered="#{expedienteController.selected.trabajando == 'SI'}" id="obraSocial" value="#{expedienteController.selected.obraSocial}" title="obraSocial"/><br></br>
+
+                            </h:panelGrid>
+                            <p:outputLabel  value="Tiene inscripción AUT/MT: " for="inscripcionAut" style="font-weight: bold"/><br></br>
+                            <p:selectOneMenu style="margin-left: 3%"  id="inscripcionAut" value="#{expedienteController.selected.inscripcionAut}" >
+                                <f:selectItem itemLabel="SI" itemValue="SI" />
+                                <f:selectItem itemLabel="NO" itemValue="NO" />
+                            </p:selectOneMenu>   <br></br><br></br>
+
+                            <p:outputLabel  value="Posible Reclamo ART: " for="reclamoArt" style="font-weight: bold"/><br></br>
+                            <p:selectOneMenu style="margin-left: 3%" id="reclamoArt" value="#{expedienteController.selected.reclamoArt}" >
+                                <f:selectItem itemLabel="SI" itemValue="SI" />
+                                <f:selectItem itemLabel="NO" itemValue="NO" />
+                            </p:selectOneMenu>
                         </p:tab>
                         <p:tab title="Claves">
                             <div>

@@ -38,14 +38,14 @@
     <center>
         <h:graphicImage value="resources/images/Alvarezyasociados.svg" style="width: 30%; margin-bottom: 8%; margin-top: 4%;"/>
 
-        <p:panel header="INGRESA TUS DATOS POR FAVOR" style=" background-color: darkkhaki;border: none; width: 30%; font-weight: bold;">
+        <p:panel header="INGRESA TUS DATOS POR FAVOR" style=" border-radius: 5px ;background-color: darkkhaki;border: none; width: 30%; font-weight: bold;">
             <h:form>
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputText value="USUARIO:" style="color: black; font-size: 1em; font-weight: bold;" />
-                    <p:inputText id="username" value="#{login.user}" required="true" label="Usuario"   ></p:inputText>
+                    <p:inputText id="username" value="#{login.user}" required="true" label="Usuario" style="border-radius: 5px;"  />
 
                     <h:outputText value="CLAVE:" style="color: black; font-weight: bold;"/>
-                    <h:inputSecret id="password" value="#{login.pwd}" style=" color: black;" ></h:inputSecret>
+                    <p:password  id="password" value="#{login.pwd}" style=" color: black; border-radius: 5px;" />
                     <h:message for="username"></h:message>
                     <h:message for="password"></h:message>
                 </h:panelGrid>
@@ -54,7 +54,7 @@
                         <center>
                             <h:commandButton id="botonIniciarSesion" class="hover" action="#{login.validateUsernamePassword}"
                                              value="INICIAR SESIÓN" style="margin-top: 5%;
-                                             color: black; padding: 3% 20% 3% 20%;width: 100%; " >
+                                             color: black; padding: 3% 20% 3% 20%;width: 100%; border-radius: 5px; " >
                             </h:commandButton>
                         </center>
                     </f:facet>        

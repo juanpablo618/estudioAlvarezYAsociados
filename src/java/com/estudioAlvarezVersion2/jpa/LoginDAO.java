@@ -24,7 +24,7 @@ public class LoginDAO {
     
 	public static boolean validate(String nombre, String password) {
 		Connection con = null;
-		PreparedStatement ps = null;
+		PreparedStatement ps;
 
 		try {
 			con = DAO.getConnection();

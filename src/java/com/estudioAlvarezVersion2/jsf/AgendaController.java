@@ -1,5 +1,6 @@
 package com.estudioAlvarezVersion2.jsf;
 
+import com.estudioAlvarezVersion2.Login.SessionUtils;
 import com.estudioAlvarezVersion2.jpa.Agenda;
 import com.estudioAlvarezVersion2.jpa.Expediente;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
@@ -35,6 +36,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
@@ -375,9 +377,9 @@ public class AgendaController implements Serializable {
         if (items == null) {
             items = getFacade().findAll();
         }
-        List<Agenda> cloned_list = null;
+        List<Agenda> cloned_list;
 
-        cloned_list = new ArrayList<Agenda>(this.items);
+        cloned_list = new ArrayList<>(this.items);
         Collections.sort(cloned_list, new SortByDate());
 
         //Collections.sort(cloned_list, (o1, o2) -> o1.getFecha().compareTo(o2.getFecha()));

@@ -437,3 +437,13 @@ div.ui-growl {
    right: 0;
    margin-left:-150px;
 }
+
+.ui-messages-warn{
+        animation: showWarnMessage 15s ease-in-out; /* Ajusta el tiempo (15s) según tus necesidades */
+
+}
+
+.ui-messages-info{
+        animation: showWarnMessage 15s ease-in-out; /* Ajusta el tiempo (15s) según tus necesidades */
+
+}

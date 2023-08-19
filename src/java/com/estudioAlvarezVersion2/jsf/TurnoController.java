@@ -7,9 +7,11 @@ import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.TurnoFacade;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -38,7 +40,7 @@ public class TurnoController implements Serializable {
     private com.estudioAlvarezVersion2.jpacontroller.TurnoFacade ejbFacade;
     private List<Turno> items = null;
     private Turno selected;
-    
+
     private static final String DD_MM_YYYY = "dd/MM/yyyy";
     private static final String LA_FECHA_SELECCIONADA_NO_ES_VALIDA = "la fecha selecionada no es válida";
     private static final String POR_SER_FERIADO = " por ser feriado";
@@ -48,10 +50,13 @@ public class TurnoController implements Serializable {
     private String apellidoYNombreSeleccionadoEnTurno;
     private String fechaSeleccionadaEnTurno;
     private String ordenSeleccionadoEnTurno;
-    
+    private String fechaParaFiltrar;
+
     private List<Turno> filteredturnos;
-    private Date dateSelected;
+    private List<Turno> filteredTurnosConSesion;
     
+    private Date dateSelected;
+
     private String nombreResponsableSelected;
 
     public String getNombreResponsableSelected() {
@@ -69,7 +74,7 @@ public class TurnoController implements Serializable {
     public void setRealizadoSeleccionadoEnTurno(String realizadoSeleccionadoEnTurno) {
         this.realizadoSeleccionadoEnTurno = realizadoSeleccionadoEnTurno;
     }
-    
+
     public Date getDateSelected() {
         return dateSelected;
     }
@@ -77,7 +82,7 @@ public class TurnoController implements Serializable {
     public void setDateSelected(Date dateSelected) {
         this.dateSelected = dateSelected;
     }
-    
+
     public TurnoController() {
     }
 
@@ -89,20 +94,37 @@ public class TurnoController implements Serializable {
         this.selected = selected;
     }
 
-    public List<Turno> getFilteredturnos() {    
-      List<Turno> cloned_list = null;
-              
-        if(this.filteredturnos != null){
+    public String getFechaParaFiltrar() {
+        return fechaParaFiltrar;
+    }
+
+    public void setFechaParaFiltrar(String fechaParaFiltrarNueva) {
+        this.fechaParaFiltrar = fechaParaFiltrarNueva;
+    }
+
+    public List<Turno> getFilteredTurnosConSesion() {
+        return filteredTurnosConSesion;
+    }
+
+    public void setFilteredTurnosConSesion(List<Turno> filteredTurnosConSesion) {
+        this.filteredTurnosConSesion = filteredTurnosConSesion;
+    }
+
+    public List<Turno> getFilteredturnos() {
+        List<Turno> cloned_list = null;
+
+        if (this.filteredturnos != null) {
             cloned_list = new ArrayList<Turno>(this.filteredturnos);
             Collections.sort(cloned_list, new SortByDate());
-              //Collections.sort(cloned_list, (Turno o1, Turno o2) -> o1.getHoraYDia().compareTo(o2.getHoraYDia()));
+            //Collections.sort(cloned_list, (Turno o1, Turno o2) -> o1.getHoraYDia().compareTo(o2.getHoraYDia()));
 
         }
-        
+
         return cloned_list;
     }
-    
+
     static class SortByDate implements Comparator<Turno> {
+
         @Override
         public int compare(Turno a, Turno b) {
             /*if(a.getHoraYDia() == null && b.getHoraYDia() == null){
@@ -115,7 +137,7 @@ public class TurnoController implements Serializable {
                 return -1;
             }
             return 0;*/
-            
+
             if (a.getHoraYDia() == null) {
                 return 1;
             }
@@ -123,17 +145,17 @@ public class TurnoController implements Serializable {
             if (b.getHoraYDia() == null) {
                 return -1;
             }
-            
-            if(a.getHoraYDia() == null && b.getHoraYDia() == null){
+
+            if (a.getHoraYDia() == null && b.getHoraYDia() == null) {
                 return 0;
             }
-                    
+
             if (a.getHoraYDia().equals(b.getHoraYDia())) {
                 return a.getHoraYDia().compareTo(b.getHoraYDia());
             }
 
             return a.getHoraYDia().compareTo(b.getHoraYDia());
-            
+
         }
     }
 
@@ -172,7 +194,7 @@ public class TurnoController implements Serializable {
     public void setOrdenSeleccionadoEnTurno(String ordenSeleccionadoEnTurno) {
         this.ordenSeleccionadoEnTurno = ordenSeleccionadoEnTurno;
     }
-    
+
     protected void setEmbeddableKeys() {
     }
 
@@ -182,20 +204,20 @@ public class TurnoController implements Serializable {
     private TurnoFacade getFacade() {
         return ejbFacade;
     }
-    
-    public String getUserName(){
+
+    public String getUserName() {
         HttpSession session = SessionUtils.getSession();
-        return (String) session.getAttribute("username");            
+        return (String) session.getAttribute("username");
     }
-    
-     private Boolean validateHolidays(String date) {
+
+    private Boolean validateHolidays(String date) {
         //lista sacada de https://www.argentina.gob.ar/interior/feriados-nacionales-2023
         String feriadosArg[] = {"20/02/2023", "21/02/2023", "24/03/2023", "02/04/2023", "07/04/2023",
             "01/05/2023", "25/05/2023", "20/06/2023", "09/07/2023", "08/12/2023", "25/12/2023", "17/06/2023", "21/08/2023", "16/10/2023", "22/11/2023"};
 
         return Arrays.asList(feriadosArg).contains(date);
     }
-    
+
     public Turno prepareCreate() {
         selected = new Turno();
         selected.setRealizado("No");
@@ -212,20 +234,20 @@ public class TurnoController implements Serializable {
             FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
             items = null;
         } else {
-        
+
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TurnoCreated"));
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
             }
         }
     }
-    
+
     public void createConNombreYApellido(String nombre, String apellido, String telefono) {
-        
+
         selected.setNombre(nombre);
         selected.setApellido(apellido);
         selected.setNroDeTelefono(telefono);
-        
+
         SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
         String date = sdf.format(selected.getHoraYDia());
 
@@ -234,7 +256,7 @@ public class TurnoController implements Serializable {
             FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
             items = null;
         } else {
-        
+
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TurnoCreated"));
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
@@ -251,7 +273,7 @@ public class TurnoController implements Serializable {
             FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
             items = null;
         } else {
-        
+
             persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("TurnoUpdated"));
         }
     }
@@ -265,19 +287,76 @@ public class TurnoController implements Serializable {
     }
 
     public List<Turno> getItems() {
-        
+
         if (items == null) {
             items = getFacade().findAll();
         }
-           List<Turno> cloned_list;
-        
-            cloned_list = new ArrayList<>(this.items);
-            Collections.sort(cloned_list, new SortByDate());
-            //Collections.sort(cloned_list, (Turno o1, Turno o2) -> o1.getHoraYDia().compareTo(o2.getHoraYDia()));
+        List<Turno> cloned_list;
+
+        cloned_list = new ArrayList<>(this.items);
+        Collections.sort(cloned_list, new SortByDate());
+        //Collections.sort(cloned_list, (Turno o1, Turno o2) -> o1.getHoraYDia().compareTo(o2.getHoraYDia()));
 
         return cloned_list;
+
+    }
+    
+    public void cambiarFiltroIzquierda(String userNombreCompleto){
+         System.out.println("Cambiar filtro derecha");
+
+    // Obtener el valor actual de fechaParaFiltrar
+    String fechaActual = getFechaParaFiltrar();
+
+    // Concatenar "+1" al valor actual
+    String nuevoValor = fechaActual + "-11";
+
+    // Actualizar fechaParaFiltrar con el nuevo valor
+    setFechaParaFiltrar(nuevoValor);
+
+    System.out.println(getFechaParaFiltrar());
+    }
+    
+    public void cambiarFiltroDerecha(String userNombreCompleto) throws ParseException {
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+    Date fecha = formato.parse(fechaParaFiltrar);
+
+    if (fecha != null) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        fecha = calendar.getTime();
+    }
+
+    String fechaString = formato.format(fecha);
+    this.fechaParaFiltrar = fechaString;
+
+    System.out.println("fecha: " + fechaParaFiltrar);
+
+    this.getItemsBySessionUser(userNombreCompleto, fechaParaFiltrar);
+}
+
+    public List<Turno> getItemsBySessionUser(String userNombreCompleto, String date) {
+        if (items == null) {
+            items = getFacade().findAll();
+        }
+        List<Turno> cloned_list;
+        setFechaParaFiltrar(date);
         
-  
+        cloned_list = new ArrayList<>(this.items);
+        Collections.sort(cloned_list, new SortByDate());
+
+        List<Turno> resultados = new ArrayList<>();
+
+        for (Turno turno : cloned_list) {
+            String nombreCompletoResponsable = turno.getResponsable();
+
+            if (nombreCompletoResponsable.equals(userNombreCompleto) && turno.getDiaMesAnio().equals(date)) {
+                resultados.add(turno);
+            }
+        }
+            
+        return resultados;
+
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
@@ -360,33 +439,33 @@ public class TurnoController implements Serializable {
         }
 
     }
-    
+
     public void handleDateSelect(SelectEvent event) {
         RequestContext.getCurrentInstance().execute("PF('turnosTable').filter()");
     }
 
-    public void filtrarAgendasYTurnos(Date dateSelected){
-            this.filteredturnos = new ArrayList<Turno>();
-        
-            FacesContext context = FacesContext.getCurrentInstance();
-            AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
-           
-            agendaController.filtrarPorFecha(dateSelected);
-            
-        if(dateSelected != null){
-            SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-            String date = sdf.format(dateSelected); 
-        
-                for(Turno turno:getItems()){
-                        SimpleDateFormat sdf2 = new SimpleDateFormat(DD_MM_YYYY);
-                        String date2 = sdf2.format(turno.getHoraYDia()); 
+    public void filtrarAgendasYTurnos(Date dateSelected) {
+        this.filteredturnos = new ArrayList<Turno>();
 
-                    if(date2.equals(date)){
-                            filteredturnos.add(turno);
-                    }
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+
+        agendaController.filtrarPorFecha(dateSelected);
+
+        if (dateSelected != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
+            String date = sdf.format(dateSelected);
+
+            for (Turno turno : getItems()) {
+                SimpleDateFormat sdf2 = new SimpleDateFormat(DD_MM_YYYY);
+                String date2 = sdf2.format(turno.getHoraYDia());
+
+                if (date2.equals(date)) {
+                    filteredturnos.add(turno);
                 }
+            }
         }
         this.dateSelected = null;
     }
-    
+
 }

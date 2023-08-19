@@ -41,9 +41,14 @@
         <p:panel header="INGRESA TUS DATOS POR FAVOR" style=" border-radius: 5px ;background-color: darkkhaki;border: none; width: 30%; font-weight: bold;">
             <h:form>
                 <h:panelGrid columns="2" cellpadding="5">
+                    
                     <h:outputText value="USUARIO:" style="color: black; font-size: 1em; font-weight: bold;" />
-                    <p:inputText id="username" value="#{login.user}" required="true" label="Usuario" style="border-radius: 5px;"  />
-
+                    <p:selectOneMenu id="username" value="#{login.user}" style="border-radius: 5px;" >
+                        <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.nombre}" />
+                    </p:selectOneMenu>    
+                    
+                   
+                                 
                     <h:outputText value="CLAVE:" style="color: black; font-weight: bold;"/>
                     <p:password  id="password" value="#{login.pwd}" style=" color: black; border-radius: 5px;" />
                     <h:message for="username"></h:message>

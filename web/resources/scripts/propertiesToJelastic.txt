@@ -6,7 +6,7 @@
         <property name="portNumber" value="3306"/>
         <property name="databaseName" value="estudioAlvarez"/>
         <property name="User" value="root"/>
-        <property name="Password" value="TQMisk14912"/>
+        <property name="Password" value=""/>
         <property name="URL" value="jdbc:mysql://10.70.35.148:3306/estudioAlvarez?zeroDateTimeBehavior=convertToNull&amp;useSSL=false"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
@@ -31,7 +31,7 @@ Ejemplo de como poner la conexión fijarse que tiene q llevar  "?useSSL=false"
         <property name="portNumber" value="3306"/>
         <property name="databaseName" value="estudioAlvarez"/>
         <property name="User" value="root"/>
-        <property name="Password" value="TQMisk14912"/>
+        <property name="Password" value=""/>
         <property name="URL" value="jdbc:mysql://10.100.26.28:3306/estudioAlvarez?zeroDateTimeBehavior=convertToNull&amp;useSSL=false"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>

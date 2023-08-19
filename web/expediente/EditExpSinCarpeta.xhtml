@@ -52,27 +52,9 @@
                                 <div> 
                                     <div>
                                         <p:outputLabel value="Tipo de Tramite:" for="tipoDeTramite" style="font-weight: bold" /><br></br>
-                                        <p:selectOneMenu id="tipoDeTramite" value="#{expedienteController.selected.tipoDeTramite}" editable="true" effect="fold" >
-                                            <f:selectItem itemLabel="JUBILACION ORDINARIA" itemValue="JUBILACION ORDINARIA" />
-                                            <f:selectItem itemLabel="JUBILACION C/MORATORIA LEY. 24476" itemValue="JUBILACION C/MORATORIA LEY. 24476" />
-                                            <f:selectItem itemLabel="JUBILACION C/MORATORIA LEY. 24476 Y APORTES SDM" itemValue="JUBILACION C/MORATORIA LEY. 24476 Y APORTES SDM" />
-                                            <f:selectItem itemLabel="JUBILACION C/NUEVA MORATORIA (LEY 26.970)" itemValue="JUBILACION C/NUEVA MORATORIA (LEY 26.970)" />
-                                            <f:selectItem itemLabel="JUBILACION C/NUEVA MORATORIA (LEY 26.970) Y APORTES SDM" itemValue="JUBILACION C/NUEVA MORATORIA (LEY 26.970) Y APORTES SDM" />
-                                            <f:selectItem itemLabel="RETIRO POR INVALIDEZ" itemValue="RETIRO POR INVALIDEZ" />
-                                            <f:selectItem itemLabel="RETIRO POR INVALIDEZ CON APORTES SDM" itemValue="RETIRO POR INVALIDEZ CON APORTES SDM" />
-                                            <f:selectItem itemLabel="RETIRO POR INVALIDEZ C/MORATORIA 24476" itemValue="RETIRO POR INVALIDEZ C/MORATORIA 24476" />
-                                            <f:selectItem itemLabel="RETIRO POR INVALIDEZ C/MORATORIA 24476 + APORTES SDM" itemValue="RETIRO POR INVALIDEZ C/MORATORIA 24476 + APORTES SDM" />
-                                            <f:selectItem itemLabel="RECONOCIMIENTO DE SERVICIOS" itemValue="RECONOCIMIENTO DE SERVICIOS" />
-                                            <f:selectItem itemLabel="RECONOCIMIENTO DE SERVICIOS CON APORTES SDM" itemValue="RECONOCIMIENTO DE SERVICIOS CON APORTES SDM" />
-                                            <f:selectItem itemLabel="PUAM" itemValue="PUAM" />
-                                            <f:selectItem itemLabel="PENSION DIRECTA" itemValue="PENSION DIRECTA" />
-                                            <f:selectItem itemLabel="PENSION DIRECTA CON APORTES SDM DE CAUSANTE" itemValue="PENSION DIRECTA CON APORTES SDM DE CAUSANTE" />
-                                            <f:selectItem itemLabel="PENSION DIRECTA C/MORATORIA 24476" itemValue="PENSION DIRECTA C/MORATORIA 24476" />
-                                            <f:selectItem itemLabel="PENSION DIRECTA C/MORATORIA 24476 Y APORTES SDM CAUSANTE" itemValue="PENSION DIRECTA C/MORATORIA 24476 Y APORTES SDM CAUSANTE" />
-                                            <f:selectItem itemLabel="PENSION DERIVADA" itemValue="PENSION DERIVADA" />
-                                            <f:selectItem itemLabel="PENSION DERIVADA HIJO CON DISCAPACIDAD" itemValue="PENSION DERIVADA HIJO CON DISCAPACIDAD" />
-                                            <f:selectItem itemLabel="REAJUSTE" itemValue="REAJUSTE" />
-                                            <f:selectItem itemLabel="OTRO" itemValue="OTRO" />
+                                        <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" requiredMessage="debe seleccionar un tipo de trámite correcto" id="tipoDeTramite" editable="true" effect="fold" value="#{expedienteController.selected.tipoDeTramite}">
+                                            <f:selectItem itemLabel=" -- Elige un típo de trámite --"  noSelectionOption="true"  />
+                                            <f:selectItems value="#{tipoDeTramiteController.items}" var="tipoDeTramite" itemLabel="#{tipoDeTramite.estado}" itemValue="#{tipoDeTramite.estado}" />
                                         </p:selectOneMenu>
                                     </div>
                                 </div>
@@ -111,7 +93,34 @@
                                 <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
                                 <p:inputTextarea rows="5" cols="65" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
                                 <br></br>
+                                <div>
+                                <h:commandButton onclick="form.target='_blank';" value="Imprimir Carátula" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearPdfDeCaratula(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion,
+                                                                                                                                        expedienteController.selected.nroDeAltura, expedienteController.selected.barrio,
+                                                                                                                                        expedienteController.selected.apoderado,
+                                                                                                                                        expedienteController.selected.fechaDeAtencion,
+                                                                                                                                        expedienteController.selected.sexo,
+                                                                                                                                        expedienteController.selected.telefono,
+                                                                                                                                        expedienteController.selected.cuit,
+                                                                                                                                        expedienteController.selected.fechaDeNacimiento,
+                                                                                                                                        expedienteController.selected.edad, 
+                                                                                                                                        expedienteController.selected.cobraBeneficio,
+                                                                                                                                        expedienteController.selected.tipoDeBeneficio,
+                                                                                                                                        expedienteController.selected.aportes,
+                                                                                                                                        expedienteController.selected.trabajando,
+                                                                                                                                        expedienteController.selected.inscripcionAut,
+                                                                                                                                        expedienteController.selected.estadoCivil,
+                                                                                                                                        expedienteController.selected.cantidadDeHijos,
+                                                                                                                                        expedienteController.selected.obraSocial,
+                                                                                                                                        expedienteController.selected.claveCidi,
+                                                                                                                                        expedienteController.selected.claveFiscal,
+                                                                                                                                        expedienteController.selected.claveSeguridadSocial
+                                                                                                                                        )}" />
 
+                            </div>
+                            <br></br>
+                            
+                                
+                                
                                 <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.updateConCambioParaAdministrativo()}" class="botonCrearAgenda hoverGreen" value="Cambiar a Administrativo"
                                      style="float: right !important; margin-top: 0% !important;" update=":ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
 
@@ -352,33 +361,6 @@
                                 <h:commandButton value="Imprimir Convenio" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion, expedienteController.selected.nroDeAltura, expedienteController.selected.barrio)}" />
 
                             </div><br></br>
-                            <div>
-                                <h:commandButton value="Imprimir Carátula" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearPdfDeCaratula(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion,
-                                                                                                                                        expedienteController.selected.nroDeAltura, expedienteController.selected.barrio,
-                                                                                                                                        expedienteController.selected.apoderado,
-                                                                                                                                        expedienteController.selected.fechaDeAtencion,
-                                                                                                                                        expedienteController.selected.sexo,
-                                                                                                                                        expedienteController.selected.telefono,
-                                                                                                                                        expedienteController.selected.cuit,
-                                                                                                                                        expedienteController.selected.fechaDeNacimiento,
-                                                                                                                                        expedienteController.selected.edad, 
-                                                                                                                                        expedienteController.selected.cobraBeneficio,
-                                                                                                                                        expedienteController.selected.tipoDeBeneficio,
-                                                                                                                                        expedienteController.selected.aportes,
-                                                                                                                                        expedienteController.selected.trabajando,
-                                                                                                                                        expedienteController.selected.inscripcionAut,
-                                                                                                                                        expedienteController.selected.estadoCivil,
-                                                                                                                                        expedienteController.selected.cantidadDeHijos,
-                                                                                                                                        expedienteController.selected.obraSocial,
-                                                                                                                                        
-                                                                                                                                        expedienteController.selected.claveCidi,
-                                                                                                                                        expedienteController.selected.claveFiscal,
-                                                                                                                                        expedienteController.selected.claveSeguridadSocial
-                                                                                                                                        
-                                                                                                                                        
-                                                                                                                                        )}" />
-
-                            </div>
                             <br></br>
                             
                             

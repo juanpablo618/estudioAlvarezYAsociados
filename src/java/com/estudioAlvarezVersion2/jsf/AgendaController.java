@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -35,6 +36,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.primefaces.component.datatable.DataTable;
@@ -47,6 +51,10 @@ public class AgendaController implements Serializable {
 
     @EJB
     private com.estudioAlvarezVersion2.jpacontroller.AgendaFacade ejbFacade;
+    
+    @PersistenceContext(unitName = "EstudioAlvarezVersion2PU")
+    private EntityManager em;
+
     private List<Agenda> items = null;
     private List ItemsTODOS = null;
     private static final String DD_MM_YYYY = "dd/MM/yyyy";
@@ -54,20 +62,23 @@ public class AgendaController implements Serializable {
     private static final String POR_SER_FERIADO = " por ser feriado";
 
     private Agenda selected;
+    private Agenda selectedActividad;
     private Agenda selectedAgendaPasada;
     private Agenda selectedAgendaFutura;
 
     private Agenda selectedParaCrearUnaNueva;
     private Date fechaParaFiltrar = new Date();
     private List<Agenda> filteredAgendas;
-
+    private List<Agenda> filteredAgendasConSesion;
+    
     public AgendaController() {
     }
 
     public Date getFechaParaFiltrar() {
         return fechaParaFiltrar;
     }
-
+    
+    
     public void setFechaParaFiltrar(Date fechaParaFiltrar) {
         this.fechaParaFiltrar = fechaParaFiltrar;
     }
@@ -120,7 +131,31 @@ public class AgendaController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    
+    public Agenda prepareCreateActividad() {
+        System.out.println("paso por el prepareCreateActividad!!!! ");
+        selectedActividad = new Agenda();
+        selectedActividad.setRealizado("No");
+        initializeEmbeddableKey();
+        return selectedActividad;
+    }
 
+    public Agenda getSelectedActividad() {
+        return selectedActividad;
+    }
+
+    public void setSelectedActividad(Agenda selectedActividad) {
+        this.selectedActividad = selectedActividad;
+    }
+    
+    public List<Agenda> getFilteredAgendasConSesion() {
+        return filteredAgendasConSesion;
+    }
+
+    public void setFilteredAgendasConSesion(List<Agenda> filteredAgendasConSesion) {
+        this.filteredAgendasConSesion = filteredAgendasConSesion;
+    }
+    
     public Agenda prepareReagendar(Agenda agendaAnterior) {
         selectedParaCrearUnaNueva = new Agenda();
 
@@ -146,14 +181,16 @@ public class AgendaController implements Serializable {
     private Boolean validateHolidays(String date) {
         //lista sacada de https://www.argentina.gob.ar/interior/feriados-nacionales-2023
         String feriadosArg[] = {"20/02/2023", "21/02/2023", "24/03/2023", "02/04/2023", "07/04/2023",
-            "01/05/2023", "25/05/2023", "20/06/2023", "09/07/2023", "08/12/2023", "25/12/2023", "17/06/2023", "21/08/2023", "16/10/2023", "22/11/2023"};
+            "01/05/2023", "25/05/2023", "20/06/2023", "09/07/2023", "08/12/2023", "25/12/2023", "17/06/2023", "21/08/2023", "16/10/2023", "20/11/2023"
+            , "26/05/2023", "19/06/2023"
+        };
 
         return Arrays.asList(feriadosArg).contains(date);
     }
 
     public void createParaActividad() {
         SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String date = sdf.format(selected.getFecha());
+        String date = sdf.format(selectedActividad.getFecha());
 
         if (validateHolidays(date)) {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
@@ -161,7 +198,7 @@ public class AgendaController implements Serializable {
             items = null;
         } else {
 
-            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreatedParaActividad"));
+            persistActividad(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreatedParaActividad"));
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
             }
@@ -186,12 +223,19 @@ public class AgendaController implements Serializable {
 
         SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
         String date = sdf.format(agendaController.getSelected().getFecha());
-
+        
         if (validateHolidays(date)) {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
         } else {
+            
+            if (validateAmountOfAgendas(agendaController.getSelected().getResponsable(), agendaController.getSelected().getFecha())) {
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Esta persona para este dia ya tiene 40 o más agendas ", "");
+            FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+            
+            }
+            
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreated"));
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
@@ -221,6 +265,12 @@ public class AgendaController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
         } else {
+            
+            if (validateAmountOfAgendas(agendaController.getSelected().getResponsable(), agendaController.getSelected().getFecha())) {
+                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Esta persona para este dia ya tiene 40 o más agendas ", "");
+                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+            }
+            
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreated"));
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
@@ -235,12 +285,21 @@ public class AgendaController implements Serializable {
 
         SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
         String date = sdf.format(selected.getFecha());
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
 
         if (validateHolidays(date)) {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
         } else {
+            
+            if (validateAmountOfAgendas(agendaController.getSelected().getResponsable(), agendaController.getSelected().getFecha())) {
+                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Esta persona para este dia ya tiene 40 o más agendas ", "");
+                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+            }
+            
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreated"));
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
@@ -261,12 +320,22 @@ public class AgendaController implements Serializable {
 
         SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
         String date = sdf.format(selectedParaCrearUnaNueva.getFecha());
-
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        
+        
         if (validateHolidays(date)) {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
         } else {
+            
+            if (validateAmountOfAgendas(agendaController.getSelected().getResponsable(), agendaController.getSelected().getFecha())) {
+                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Esta persona para este dia ya tiene 40 o más agendas ", "");
+                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+            }
+            
             persistReagendado(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreatedReagendada"));
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
@@ -382,21 +451,52 @@ public class AgendaController implements Serializable {
         cloned_list = new ArrayList<>(this.items);
         Collections.sort(cloned_list, new SortByDate());
 
-        //Collections.sort(cloned_list, (o1, o2) -> o1.getFecha().compareTo(o2.getFecha()));
         return cloned_list;
 
-        /*
-         List<Agenda> cloned_list = null;
-        
+    }
+    
+    public List<Agenda> getItemsBySessionUser(String userNombreCompleto, String date) {
         if (items == null) {
             items = getFacade().findAll();
-        
-             cloned_list = new ArrayList<Agenda>(this.items);
-            Collections.sort(cloned_list, new SortByDate());
-        
         }
-        return cloned_list;  
-         */
+        List<Agenda> cloned_list;
+
+        cloned_list = new ArrayList<>(this.items);
+        Collections.sort(cloned_list, new SortByDate());
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+        
+        
+        List<Agenda> resultados = new ArrayList<>();
+
+        for (Agenda agenda : cloned_list) {
+            String nombreCompletoResponsable = agenda.getResponsable();
+                
+            if (nombreCompletoResponsable.equals(userNombreCompleto) && agenda.getDiaMesAnio().equals(date)) {
+                resultados.add(agenda);
+            }
+        }
+        
+        return resultados;
+
+       
+    }
+
+    private boolean validateAmountOfAgendas(String responsable, Date fecha) {
+        
+        String consulta = "SELECT COUNT(a) FROM Agenda a WHERE a.responsable = :responsable AND a.fecha = :fecha";
+        TypedQuery<Long> query = em.createQuery(consulta, Long.class);
+        query.setParameter("responsable", responsable);
+        query.setParameter("fecha", fecha);
+
+        Long cantidadDeAgendasPorDia = query.getSingleResult();
+        System.out.println("Cantidad de agendas: " + cantidadDeAgendasPorDia);
+        
+        if(cantidadDeAgendasPorDia>=40){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     static class SortByDate implements Comparator<Agenda> {
@@ -446,6 +546,34 @@ public class AgendaController implements Serializable {
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);
+                }
+                JsfUtil.addSuccessMessage(successMessage);
+            } catch (EJBException ex) {
+                String msg = "";
+                Throwable cause = ex.getCause();
+                if (cause != null) {
+                    msg = cause.getLocalizedMessage();
+                }
+                if (msg.length() > 0) {
+                    JsfUtil.addErrorMessage(msg);
+                } else {
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
+    
+    private void persistActividad(PersistAction persistAction, String successMessage) {
+        if (selectedActividad != null) {
+            setEmbeddableKeys();
+            try {
+                if (persistAction != PersistAction.DELETE) {
+                    getFacade().edit(selectedActividad);
+                } else {
+                    getFacade().remove(selectedActividad);
                 }
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
@@ -772,6 +900,16 @@ public class AgendaController implements Serializable {
             RequestContext requestContext = RequestContext.getCurrentInstance();
             requestContext.update(":AgendaListForm:datalist");
         }
+        
+        dataTable = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent(":AgendaListForm:datalistAgenda");
+        if (!dataTable.getFilters().isEmpty()) {
+            dataTable.reset();
+
+            RequestContext requestContext = RequestContext.getCurrentInstance();
+            requestContext.update(":AgendaListForm:datalistAgenda");
+        }
+        
+        
     }
 
     public void transferir() {

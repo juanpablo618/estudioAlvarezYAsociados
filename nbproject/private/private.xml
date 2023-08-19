@@ -4,19 +4,54 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/WEB-INF/glassfish-resources.xml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/downloadPDf/DownloadBean.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpacontroller/ScheduleView.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/EmpleadoController.java</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/EditAgendaPasada.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/EditAgendaFutura.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/downloadPDf/MembretePresupuesto.java</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/EditExpSinCarpeta.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/EditExpJudicial.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/downloadPDf/FormatoDocumentoConvenioDeHonorarios.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/ViewParaAgenda.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/comunicacion/CreateComunicacionParaExpJudicial.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/List_AgendasTurnos.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/tipoDeTramite/Create.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/Create.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/estadoDelTramite/List_EstadoDelTramiteYProcedencias.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Turno.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/comunicacion/CreateComunicacionParaExpAdministrativo.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/procedencia/List.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/TipoDeTramite.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/tipoDeTramite/Edit.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/CreateExpJudicial.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/ExpedienteController.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/TipoDeTramiteController.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpacontroller/TipoDeTramiteFacade.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/EstadoDelTramite.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/ComunicacionController.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/downloadPDf/DownloadBean.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/util/JsfUtil.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/EstadoDelTramiteController.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpacontroller/EstadoDelTramiteFacade.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/template.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/DAO.java</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/CreateExpSinCarpeta.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/Create.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/login.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/Edit.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/ProcedenciaController.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/nbproject/build-impl.xml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/AgendaController.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/CounterView.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/downloadPDf/MembretePresupuesto.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/CreateExpSinCarpeta.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/List.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/resources/DocumentacionDelProyecto/usefulCommands.txt</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/downloadPDf/ConfiguracionesGeneralesFacade.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/login.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/CreateAgendaParaActividad.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/Edit.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/Login/Login.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/EditAgendaFutura.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/EditExpSinCarpeta.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Agenda.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/EditExpJudicial.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/List_AgendasTurnosWithSession.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/Create.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/LoginDAO.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/TurnoController.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Empleado.java</file>
         </group>
     </open-files>
 </project-private>

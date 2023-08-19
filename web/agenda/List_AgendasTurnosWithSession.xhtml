@@ -15,33 +15,21 @@
 
         </script>
         <ui:define name="body"  >
+            <h:form>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText style="color: white;" value="Filtrar por fecha: " />
+                    <h:outputText style="color: white;" id="output" value="#{counterView.number}" />
+                </h:panelGrid>
+
+              <p:commandButton value="←" action="#{counterView.decrementDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
+              <p:commandButton value="hoy" action="#{counterView.actualDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
+              <p:commandButton value="→" action="#{counterView.incrementDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
+           
+            </h:form>
             <h:form id="TurnoListForm" style="background-color: #F4F8FA">
 
-                <div style="float: left;width: 100%;">
-                    <p:commandButton id="createButton" icon="ui-icon-plus" value="NUEVA AGENDA" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
-                    <p:commandButton id="createButtonTurno"  icon="ui-icon-plus" value="NUEVO TURNO" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
-                    <p:commandButton id="createAgendaParaActividadButton" icon="ui-icon-plus" value="NUEVA ACTIVIDAD" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{agendaController.prepareCreateActividad()}" update=":AgendaParaActividadCreateForm" oncomplete="PF('AgendaParaActividadCreateDialog').show()"/>
-                </div>
-                <br></br>
-                            
-                <h:commandLink style="float: right;margin-right: 1%;" title="Exportar Filtradas.">
-                    <h:graphicImage value="../faces/resources/images/pdficon2.png" width="50px"/>
-                    <p:dataExporter type="pdf" target=":AgendaListForm:datalist" fileName="AgendasFiltradas" pageOnly="true" />
-                </h:commandLink>  
-               
-                <h:commandLink style="float: right;margin-right: 1%;" title="Exportar Filtradas.">
-                    <h:graphicImage value="../faces/resources/images/excel-icon-12.png" width="50px"/>
-                    <p:dataExporter type="csv" target=":AgendaListForm:datalist" fileName="AgendasFiltradas" pageOnly="true" />
-                </h:commandLink>  
                 
-                <h:commandLink style="float: right;margin-right: 1%;" title="Exportar Filtradas.">
-                    <h:graphicImage value="../faces/resources/images/excel-icon-12.png" width="50px"/>
-                    <p:dataExporter type="xls" target=":AgendaListForm:datalist" fileName="AgendasFiltradas" pageOnly="true" />
-                </h:commandLink>  
-                
-                <br></br><br></br>
-
-                <p:dataTable id="datalist" value="#{turnoController.items}" var="item"
+                <p:dataTable id="datalist" value="#{turnoController.getItemsBySessionUser(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" var="item"
                              selectionMode="single" selection="#{turnoController.selected}"
                              paginator="true"
                              rowKey="#{item.idTurno}"
@@ -49,9 +37,10 @@
                              rows="20"
                              rowsPerPageTemplate="20,40,80"
                              emptyMessage="No existen turnos"
-                             filteredValue="#{turnoController.filteredturnos}"
                              paginatorPosition="top" 
                              rendered="true"
+                             filteredValue="#{turnoController.filteredTurnosConSesion}"
+                             
                              >
 
                     <p:ajax event="rowSelect"   update="createButton "/>
@@ -59,17 +48,8 @@
 
                     <p:growl  id="message" showDetail="true" />
 
-                    <p:column style="text-align: center; width: 10%"  sortBy="#{item.getDiaMesAnio()}" filterBy="#{item.getDiaMesAnio()}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="startsWith" headerText="FECHA">
-                        <f:facet name="filter">
-                            <p:inputText id="inputFechaEnTurnoTable" style="width: -webkit-fill-available;" onfocus="PF('turnosTable').filter()" onblur="PF('turnosTable').filter()" onchange="PF('turnosTable').filter()"  value="#{turnoController.fechaSeleccionadaEnTurno}" >
-                                <p:ajax update=":AgendaListForm:datalist:inputFechaEnAgenda"/> 
-                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputFechaEnAgenda"/>
-                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
-                                <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
-
-
-                            </p:inputText>
-                        </f:facet>
+                    <p:column style="text-align: center; width: 10%" styleClass="centeredColumnContent#{item.getRealizado()}" headerText="FECHA">
+                        
                         <h:outputText style="width: 10%" value="#{item.horaYDia}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                         </h:outputText>
@@ -103,15 +83,13 @@
 
                     <p:column filterBy="#{item.responsable}" headerText="RESPONSABLE" style="text-align: center;width: 20%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
                         <f:facet name="filter"  >
-                            <p:selectOneMenu  onchange="PF('turnosTable').filter()"  value="#{turnoController.responsableSeleccionadoEnTurno}"  styleClass="custom-filter">
-                                <f:selectItem itemLabel="Seleccionar Todos" itemValue="#{null}" noSelectionOption="true" />
-                                <f:selectItems  value="#{empleadoController.itemsAvailableSelectOne}" />
+                            <p:inputText readonly="true" onfocus="PF('turnosTable').filter()" onchange="PF('turnosTable').filter()"  value="#{session.getAttribute('userNombreCompleto')}"  styleClass="custom-filter">
                                 <p:ajax update=":AgendaListForm:datalist:inputEnAgenda"/> 
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputEnAgenda"/>
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
                                 <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
 
-                            </p:selectOneMenu>
+                            </p:inputText>
 
                         </f:facet>
                         <h:outputText value="#{item.responsable}"/>
@@ -124,22 +102,9 @@
                         <h:outputText value="#{item.observacion}"/>
                     </p:column>
                     
-                    <p:column filterBy="#{item.realizado}" style="text-align: center; width: 10%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                    <p:column  style="text-align: center; width: 10%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
                         <f:facet name="header">
                             <h:outputText value="REALIZADO"/>
-                        </f:facet>
-                        <f:facet name="filter">
-                            <p:selectOneMenu  onchange="PF('turnosTable').filter()"  value="#{turnoController.realizadoSeleccionadoEnTurno}"  styleClass="custom-filter">
-                                <f:selectItem itemLabel="Seleccionar Todos" itemValue="#{null}" noSelectionOption="true" />
-                                <f:selectItem itemLabel="Si" itemValue="Si" />
-                                <f:selectItem itemLabel="No" itemValue="No" />
-                                <f:selectItem itemLabel="Reagendada" itemValue="Reagendada" />
-                                
-                                <p:ajax update=":AgendaListForm:datalist:inputRealizadoEnAgenda"/> 
-                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputRealizadoEnAgenda"/>
-                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
-                                <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
-                            </p:selectOneMenu>
                         </f:facet>
                         
                         <h:outputText value="#{item.realizado}"/>
@@ -172,17 +137,18 @@
        
             <h:form id="AgendaListForm" style="background-color: #F4F8FA">
 
-                <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
+                <p:dataTable id="datalist" value="#{agendaController.getItemsBySessionUser(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday') )}" var="item"
                              selectionMode="single" selection="#{agendaController.selected}"
                              rowKey="#{item.idAgenda}"
                              paginator="true"
                              rows="50"
                              widgetVar="agendasTable"
                              rowsPerPageTemplate="100,200,500"
-                             filteredValue="#{agendaController.filteredAgendas}"
                              emptyMessage="no hay agendas agregadas para esa fecha" 
                              rendered="true"  
                              paginatorPosition="bottom"
+                             filteredValue="#{agendaController.filteredAgendasConSesion}"
+                             
                              >
                     <p:poll interval="2" update="datalist" />
                     <p:ajax event="rowSelect"   update="createButton "/>
@@ -191,9 +157,6 @@
                     <p:growl  id="message2" showDetail="true" />
 
                     <p:column style="width: 10%" styleClass="centeredColumnContent#{item.realizado}" sortBy="#{item.getDiaMesAnio()}" filterBy="#{item.getDiaMesAnio()}" filterMatchMode="exact" >
-                        <f:facet name="filter">
-                            <p:inputText id="inputFechaEnAgenda" onchange="PF('agendasTable').filter()" value="#{turnoController.fechaSeleccionadaEnTurno}" />
-                        </f:facet>
                         <h:outputText  value="#{item.fecha}"   >
                             <f:convertDateTime pattern="dd/MM/yyyy"  />
                         </h:outputText>

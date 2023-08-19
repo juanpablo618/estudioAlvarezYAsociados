@@ -41,6 +41,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
@@ -51,6 +53,10 @@ public class ExpedienteController implements Serializable {
 
     @EJB
     private com.estudioAlvarezVersion2.jpacontroller.ExpedienteFacade ejbFacade;
+    
+    @PersistenceContext(unitName = "EstudioAlvarezVersion2PU")
+    private EntityManager em;
+
     private List<Expediente> items = null;
     private Expediente selected;
     private Expediente selectedParaVerExp;
@@ -619,7 +625,7 @@ public class ExpedienteController implements Serializable {
     
     public int buscarMayorIdAdmOrJudicial() {
 
-        FacesContext context = FacesContext.getCurrentInstance();
+        /*FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
         int orden = 0;
 
@@ -630,7 +636,21 @@ public class ExpedienteController implements Serializable {
                 }
             }
         }
-        return orden + 1;
+        return orden + 1;*/
+        
+         Integer maxOrden = em.createQuery("SELECT MAX(e.orden) FROM Expediente e", Integer.class)
+            .getSingleResult();
+        
+        // Si no hay expedientes en la base de datos, el máximo valor será null
+        // En ese caso, asignar el valor 1 para el primer expediente
+        if (maxOrden == null) {
+            return 0;
+        }
+        
+        // Agregar 1 al máximo valor para generar un nuevo valor único
+        return maxOrden + 1;
+        
+        
     }
 
     public void update2() {

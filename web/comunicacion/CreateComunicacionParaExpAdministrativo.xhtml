@@ -32,7 +32,7 @@
                         
                      </h:panelGrid>
                     <p:commandButton actionListener="#{comunicacionController.createComunicacion(comunicacionController.selectedParaComunicacionNuevo.fecha, comunicacionController.selectedParaComunicacionNuevo.descripcion,comunicacionController.selectedParaComunicacionNuevo.responsable ,comunicacionController.selectedParaComunicacionNuevo.orden)}"
-                                         class="botonCrear" value="#{bundle.Save}" oncomplete="handleSubmit(args,'ComunicacionCreateDialogExpAdm');"   update="display,,:growl"/>
+                                         class="botonCrear" value="#{bundle.Save}" oncomplete="handleSubmit(args,'ComunicacionCreateDialogExpAdm');"   update="display,:ExpedienteEditForm:j_idt472,:growl"/>
                   
                         <p:commandButton value="#{bundle.Cancel}" onclick="TurnoCreateDialog.hide()"/>
                 </h:panelGroup>

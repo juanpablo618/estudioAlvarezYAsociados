@@ -1,8 +1,14 @@
 package com.estudioAlvarezVersion2.Login;
 
+import com.estudioAlvarezVersion2.jpa.Empleado;
 import com.estudioAlvarezVersion2.jpa.LoginDAO;
+import com.estudioAlvarezVersion2.jsf.EmpleadoController;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -60,7 +66,26 @@ public class Login implements Serializable {
         boolean valid = LoginDAO.validate(user, pwd);
         if (valid) {
             HttpSession session = SessionUtils.getSession();
-            session.setAttribute("username", user);
+            
+            FacesContext context = FacesContext.getCurrentInstance();
+            EmpleadoController empleadoController = context.getApplication().evaluateExpressionGet(context, "#{empleadoController}", EmpleadoController.class);
+
+            for (Empleado empleado : empleadoController.getItems()) {
+                if (empleado.getNombre() == null ? user == null : empleado.getNombre().equals(user)) {
+                    session.setAttribute("userNombreCompleto", empleado.getNombre() + " " + empleado.getApellido());
+                }
+            }
+            
+            LocalDate fechaHoy = LocalDate.now();
+        
+            // Formatear la fecha como una cadena en formato dd/MM/YYYY
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String fechaFormateada = fechaHoy.format(formato);
+
+            
+            session.setAttribute("dateToday", fechaFormateada);
+
+
             return "expediente/List.xhtml";
         } else {
             FacesContext.getCurrentInstance().addMessage(

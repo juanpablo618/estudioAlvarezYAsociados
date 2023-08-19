@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog style="width: 15% !important;left: 42% !important; top: 40% !important"  id="TipoDeTramiteEditDlg" widgetVar="TipoDeTramiteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar tipo de tramite">
+            <h:form id="TipoDeTramiteEditForm">
+                <h:panelGroup id="display">
+                        <p:outputLabel value="Tipo de tramite" for="estado" /><br></br>
+                        <p:inputText id="estado" value="#{tipoDeTramiteController.selected.estado}" title="tipo de tramite" required="true" requiredMessage="tipo de tramite es requerido"/><br></br><br></br>
+                        <p:commandButton class="botonCrear" onclick="TipoDeTramiteViewDialog.hide()" actionListener="#{tipoDeTramiteController.update}" value="#{bundle.Save}" update="display,:TipoDeTramiteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EstadoDelTramiteEditDialog');"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

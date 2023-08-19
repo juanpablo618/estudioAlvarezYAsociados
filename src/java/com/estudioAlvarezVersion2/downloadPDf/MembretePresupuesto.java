@@ -336,16 +336,6 @@ public class MembretePresupuesto {
         opciones2.setAlignment(Element.ALIGN_LEFT);
 
         
-        Chunk nuevaMoratoria = new Chunk(" Nueva Moratoria", font1);
-        Chunk ley24476 = new Chunk(" Ley 24476", font1);
-        Chunk otros = new Chunk("Otros …………………", font1);
-
-        opciones.add(nuevaMoratoria);
-        opciones.add(Chunk.NEWLINE);
-        opciones.add(ley24476);
-        opciones.add(Chunk.NEWLINE);
-        opciones.add(otros);
-        
         opciones2.add(new Chunk("APODERADO: ",font));
         opciones2.add(new Chunk(apoderado));
         opciones2.add("\n");
@@ -408,7 +398,6 @@ public class MembretePresupuesto {
         nroDeAltura = validateNullOrEmpty(nroDeAltura);
         barrio = validateNullOrEmpty(barrio);
 
-        telefono = validateNullOrEmpty(telefono);
         cuit = validateNullOrEmpty(cuit);
         
         claveCidi= validateNullOrEmpty(claveCidi);
@@ -456,17 +445,17 @@ public class MembretePresupuesto {
         Paragraph parrafo13 = new Paragraph();
         parrafo13.setAlignment(Element.ALIGN_LEFT);
 
-        Chunk chunk10 = new Chunk("TELEFONO: ", font);
+        Chunk chunk10 = new Chunk("TELÉFONO: ", font);
         Chunk chunk11 = new Chunk(telefono);
         chunk11.setUnderline(0.1f, -2f);
-        Chunk chunk12 = new Chunk("CUIL: ", font);
+        Chunk chunk12 = new Chunk("          CUIL: ", font);
         Chunk chunk13 = new Chunk(cuit);
         chunk13.setUnderline(0.1f, -2f);
 
-        parrafo12.add(chunk10);
-        parrafo12.add(chunk11);
-        parrafo12.add(chunk12);
-        parrafo12.add(chunk13);
+        parrafo13.add(chunk10);
+        parrafo13.add(chunk11);
+        parrafo13.add(chunk12);
+        parrafo13.add(chunk13);
         document.add(parrafo13);
 
         Paragraph parrafo14 = new Paragraph();

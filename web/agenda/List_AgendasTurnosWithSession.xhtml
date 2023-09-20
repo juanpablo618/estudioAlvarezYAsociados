@@ -20,10 +20,10 @@
                     <h:outputText style="color: white;" value="Filtrar por fecha: " />
                     <h:outputText style="color: white;" id="output" value="#{counterView.number}" />
                 </h:panelGrid>
-
-              <p:commandButton value="←" action="#{counterView.decrementDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
-              <p:commandButton value="hoy" action="#{counterView.actualDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
-              <p:commandButton value="→" action="#{counterView.incrementDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
+                
+             <p:commandButton value="←" action="#{counterView.decrementDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
+             <p:commandButton value="hoy" action="#{counterView.actualDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
+             <p:commandButton value="→" action="#{counterView.incrementDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
            
             </h:form>
             <h:form id="TurnoListForm" style="background-color: #F4F8FA">

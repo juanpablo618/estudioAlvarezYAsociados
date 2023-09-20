@@ -127,6 +127,11 @@
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
                         
+                        <p:commandButton class="linea btnSearch"  update=":ExpedienteJudicialEditForm" oncomplete="PF('HonorariosListDialog').show()" rendered="#{item.tipoDeExpediente eq 'judicial'}" icon="ui-icon-pencil" title="Ver Honorarios">
+                            <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
+                        </p:commandButton>
+
+                        
                         <p:commandButton class="linea btnKey"  update=":ExpedienteViewClavesForm2" oncomplete="PF('ExpedienteViewClavesDialog2').show()" icon="ui-icon-locked" rendered="#{item.tipoDeExpediente eq 'judicial' or item.tipoDeExpediente eq 'administrativo'}" title="Claves">
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
@@ -171,6 +176,7 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="CreateExpJudicial.xhtml"/>
             <ui:include src="CreateExpSinCarpeta.xhtml"/>
+            <ui:include src="../honorario/List_By_Expediente.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="EditExpSinCarpeta.xhtml"/>
             <ui:include src="EditExpJudicial.xhtml"/>

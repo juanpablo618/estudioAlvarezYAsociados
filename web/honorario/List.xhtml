@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="body">
+            
+            
+            <h:form id="HonorarioListForm">
+                <div style="float: left;width: 100%;">
+                    <p:commandButton id="createButton" icon="ui-icon-plus" value="NUEVO HONORARIO" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{honorarioController.prepareCreate}" update=":HonorarioCreateForm" oncomplete="PF('HonorarioCreateDialog').show()"/>
+                </div>
+            
+                
+                
+                <h:panelGroup id="display">
+                    
+                   <p:dataTable id="datalist" value="#{honorarioController.getItems()}" var="item"
+                             selectionMode="single" selection="#{honorarioController.selected}"
+                             paginator="true"
+                             rowKey="#{item.idHonorario}"
+                             widgetVar="honorariosTable"
+                             rows="20"
+                             rowsPerPageTemplate="20,40,80"
+                             emptyMessage="No existen Honorarios"
+                             paginatorPosition="top" 
+                             rendered="true"
+                             filteredValue="#{honorarioController.filteredHonorarios}"
+                             
+                             >
+
+                        <p:ajax event="rowSelect"   update="createButton "/>
+                        <p:ajax event="rowUnselect" update="createButton "/>
+
+                        <p:growl  id="message" showDetail="true" />
+ 
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="Apellido y Nombre"/>
+                            </f:facet>
+                            <h:outputText value="#{item.apellido} #{item.nombre}"/>
+                        </p:column>
+                        
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="Orden"/>
+                            </f:facet>
+                            <h:outputText value="#{item.orden}"/>
+                        </p:column>
+                        
+                        
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="juzgado federal"/>
+                            </f:facet>
+                            <h:outputText value="#{item.juzgadoFederal}"/>
+                        </p:column>
+                        
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="Tipo de honorario"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipoDeHonorario}"/>
+                        </p:column>
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="a nombre de quien"/>
+                            </f:facet>
+                            <h:outputText value="#{item.anombreDeQuien}"/>
+                        </p:column>
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="estado"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estado}"/>
+                        </p:column>
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="fecha de regulación"/>
+                            </f:facet>
+                            <h:outputText  value="#{item.fechaRegulacion}"   >
+                            <f:convertDateTime pattern="dd/MM/yyyy"  />
+                        </h:outputText>
+                        </p:column>
+                        
+                        <p:column style="text-align: center; ">
+                            
+                            <f:facet name="header">
+                                <h:outputText value="ACCIONES"/>
+                            </f:facet>
+                            
+                            <p:commandButton class="linea btnDelete" update=":growl,datalist, message" oncomplete="PF('honorariosTable').clearFilters()" actionListener="#{honorarioController.destroy}"  icon="ui-icon-trash" title="Eliminar">
+                            <f:setPropertyActionListener value="#{item}" target="#{honorarioController.selected}" />
+                            <p:confirm header="Confirmación" message="¿Estas seguro?"  icon="ui-icon-alert"/>
+                        </p:commandButton>
+
+                        <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton update=":HonorarioListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;" />
+                            <p:commandButton update=":HonorarioListForm" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;" />
+                        </p:confirmDialog> 
+                        </p:column>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton rendered="false" id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{honorarioController.prepareCreate}" update=":HonorarioCreateForm" oncomplete="PF('HonorarioCreateDialog').show()"/>
+                        </f:facet>
+                    </p:dataTable>
+                
+                </h:panelGroup>
+            </h:form>
+            
+         <ui:include src="Create.xhtml"/>
+               
+        </ui:define>
+    </ui:composition>
+
+</html>

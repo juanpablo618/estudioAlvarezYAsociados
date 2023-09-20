@@ -249,3 +249,8 @@ https://stackoverflow.com/questions/23936614/primefaces-5-0-datatable-filter-cas
 para la parte de días a la hora de crear turnos y actividades masivamente vamos a usar esto para calcular:                    
 https://www.diainternacionalde.com/sumar-restar-dias-fecha
 
+
+
+aca están los iconos que con primefaces se pueden usar:
+
+https://api.jqueryui.com/resources/icons-list.html

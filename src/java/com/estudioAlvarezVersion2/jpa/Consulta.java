@@ -23,34 +23,34 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author cuello.juanpablo@gmail.com
  */
 @Entity
-@Table(name = "Expediente")
+@Table(name = "Consulta")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Expediente.findAll", query = "SELECT e FROM Expediente e")
-    , @NamedQuery(name = "Expediente.findByIdExpediente", query = "SELECT e FROM Expediente e WHERE e.idExpediente = :idExpediente")
-    , @NamedQuery(name = "Expediente.findByOrden", query = "SELECT e FROM Expediente e WHERE e.orden = :orden")
-    , @NamedQuery(name = "Expediente.findByCuit", query = "SELECT e FROM Expediente e WHERE e.cuit = :cuit")
-    , @NamedQuery(name = "Expediente.findByDni", query = "SELECT e FROM Expediente e WHERE e.cuit = :dni")
-    , @NamedQuery(name = "Expediente.findByNombre", query = "SELECT e FROM Expediente e WHERE e.nombre = :nombre")
-    , @NamedQuery(name = "Expediente.findByTipoDeDocumento", query = "SELECT e FROM Expediente e WHERE e.tipoDeDocumento = :tipoDeDocumento")
-    , @NamedQuery(name = "Expediente.findBySexo", query = "SELECT e FROM Expediente e WHERE e.sexo = :sexo")
-    , @NamedQuery(name = "Expediente.findByApellido", query = "SELECT e FROM Expediente e WHERE e.apellido = :apellido")
-    , @NamedQuery(name = "Expediente.findByDireccion", query = "SELECT e FROM Expediente e WHERE e.direccion = :direccion")
-    , @NamedQuery(name = "Expediente.findByNroDeAltura", query = "SELECT e FROM Expediente e WHERE e.nroDeAltura = :nroDeAltura")
-    , @NamedQuery(name = "Expediente.findByPiso", query = "SELECT e FROM Expediente e WHERE e.piso = :piso")
-    , @NamedQuery(name = "Expediente.findByDepto", query = "SELECT e FROM Expediente e WHERE e.depto = :depto")
-    , @NamedQuery(name = "Expediente.findByBarrio", query = "SELECT e FROM Expediente e WHERE e.barrio = :barrio")
-    , @NamedQuery(name = "Expediente.findByTelefono", query = "SELECT e FROM Expediente e WHERE e.telefono = :telefono")
-    , @NamedQuery(name = "Expediente.findByFechaDeNacimiento", query = "SELECT e FROM Expediente e WHERE e.fechaDeNacimiento = :fechaDeNacimiento")
-    , @NamedQuery(name = "Expediente.findByEdad", query = "SELECT e FROM Expediente e WHERE e.edad = :edad")})
-public class Expediente implements Serializable {
+    @NamedQuery(name = "Consulta.findAll", query = "SELECT e FROM Consulta e")
+    , @NamedQuery(name = "Consulta.findByIdConsulta", query = "SELECT e FROM Consulta e WHERE e.idConsulta = :idConsulta")
+    , @NamedQuery(name = "Consulta.findByOrden", query = "SELECT e FROM Consulta e WHERE e.orden = :orden")
+    , @NamedQuery(name = "Consulta.findByCuit", query = "SELECT e FROM Consulta e WHERE e.cuit = :cuit")
+    , @NamedQuery(name = "Consulta.findByDni", query = "SELECT e FROM Consulta e WHERE e.cuit = :dni")
+    , @NamedQuery(name = "Consulta.findByNombre", query = "SELECT e FROM Consulta e WHERE e.nombre = :nombre")
+    , @NamedQuery(name = "Consulta.findByTipoDeDocumento", query = "SELECT e FROM Consulta e WHERE e.tipoDeDocumento = :tipoDeDocumento")
+    , @NamedQuery(name = "Consulta.findBySexo", query = "SELECT e FROM Consulta e WHERE e.sexo = :sexo")
+    , @NamedQuery(name = "Consulta.findByApellido", query = "SELECT e FROM Consulta e WHERE e.apellido = :apellido")
+    , @NamedQuery(name = "Consulta.findByDireccion", query = "SELECT e FROM Consulta e WHERE e.direccion = :direccion")
+    , @NamedQuery(name = "Consulta.findByNroDeAltura", query = "SELECT e FROM Consulta e WHERE e.nroDeAltura = :nroDeAltura")
+    , @NamedQuery(name = "Consulta.findByPiso", query = "SELECT e FROM Consulta e WHERE e.piso = :piso")
+    , @NamedQuery(name = "Consulta.findByDepto", query = "SELECT e FROM Consulta e WHERE e.depto = :depto")
+    , @NamedQuery(name = "Consulta.findByBarrio", query = "SELECT e FROM Consulta e WHERE e.barrio = :barrio")
+    , @NamedQuery(name = "Consulta.findByTelefono", query = "SELECT e FROM Consulta e WHERE e.telefono = :telefono")
+    , @NamedQuery(name = "Consulta.findByFechaDeNacimiento", query = "SELECT e FROM Consulta e WHERE e.fechaDeNacimiento = :fechaDeNacimiento")
+    , @NamedQuery(name = "Consulta.findByEdad", query = "SELECT e FROM Consulta e WHERE e.edad = :edad")})
+public class Consulta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idExpediente")
-    private Integer idExpediente;
+    @Column(name = "idConsulta")
+    private Integer idConsulta;
     
     @Basic(optional = false)
     @Column(name = "orden")
@@ -130,9 +130,9 @@ public class Expediente implements Serializable {
     private String cobraBeneficio;
 
     @Basic(optional = false)
-    @Column(name = "fechaDeAltaDeExpediente")
+    @Column(name = "fechaDeAltaDeConsulta")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaDeAltaDeExpediente;
+    private Date fechaDeAltaDeConsulta;
 
     @Basic(optional = false)
     @Column(name = "codigoPostal")
@@ -164,16 +164,12 @@ public class Expediente implements Serializable {
     private String nacionalidad;
 
     @Basic(optional = false)
-    @Column(name = "tipoDeExpediente")
-    private String tipoDeExpediente;
-
-    @Basic(optional = false)
     @Column(name = "caratula")
     private String caratula;
 
     @Basic(optional = false)
-    @Column(name = "nroDeExpediente")
-    private String nroDeExpediente;
+    @Column(name = "nroDeConsulta")
+    private String nroDeConsulta;
 
     @Basic(optional = false)
     @Column(name = "juzgadoODependencia")
@@ -271,22 +267,22 @@ public class Expediente implements Serializable {
     private String reclamoArt;
     
     
-    public Expediente() {
+    public Consulta() {
     }
 
-    public Expediente(Integer idExpediente) {
-        this.idExpediente = idExpediente;
+    public Consulta(Integer idConsulta) {
+        this.idConsulta = idConsulta;
     }
 
-    public Expediente(Integer idExpediente, int orden, String cuit, String dni,
+    public Consulta(Integer idConsulta, int orden, String cuit, String dni,
             String nombre, String tipoDeDocumento, String sexo, String apellido,
             String direccion, int nroDeAltura, String piso, String depto,
             String barrio, String telefono, Date fechaDeNacimiento, int edad,
             String claveSeguridadSocial, String claveFiscal, String claveCidi,
-            String cobraBeneficio, Date fechaDeAltaDeExpediente, String codigoPostal,
+            String cobraBeneficio, Date fechaDeAltaDeConsulta, String codigoPostal,
             String localidad, String tipoDeTramite, String procedencia,
             String estadoDelTramite, Date fechaDeCobro, String nacionalidad,
-            String tipoDeExpediente, String caratula, String nroDeExpediente,
+            String tipoDeConsulta, String caratula, String nroDeConsulta,
             String juzgadoODependencia, String observaciones, String responsable, 
             String apoderado, String comunicaciones, Date fechaDeAtencion,
             String convenioDeHonorarios, String jurisdiccion, String poderFirmado,
@@ -299,7 +295,7 @@ public class Expediente implements Serializable {
             String obraSocial, String inscripcionAut, String reclamoArt
     
     ) {
-        this.idExpediente = idExpediente;
+        this.idConsulta = idConsulta;
         this.orden = orden;
         this.cuit = cuit;
         this.dni = dni;
@@ -319,7 +315,7 @@ public class Expediente implements Serializable {
         this.claveFiscal = claveFiscal;
         this.claveCidi = claveCidi;
         this.cobraBeneficio = cobraBeneficio;
-        this.fechaDeAltaDeExpediente = fechaDeAltaDeExpediente;
+        this.fechaDeAltaDeConsulta = fechaDeAltaDeConsulta;
         this.codigoPostal = codigoPostal;
         this.localidad = localidad;
         this.tipoDeTramite = tipoDeTramite;
@@ -327,9 +323,8 @@ public class Expediente implements Serializable {
         this.estadoDelTramite = estadoDelTramite;
         this.fechaDeCobro = fechaDeCobro;
         this.nacionalidad = nacionalidad;
-        this.tipoDeExpediente = tipoDeExpediente;
         this.caratula = caratula;
-        this.nroDeExpediente = nroDeExpediente;
+        this.nroDeConsulta = nroDeConsulta;
         this.juzgadoODependencia = juzgadoODependencia;
         this.observaciones = observaciones;
         this.responsable = responsable;
@@ -381,12 +376,12 @@ public class Expediente implements Serializable {
         this.apoderado = apoderado;
     }
     
-    public Integer getIdExpediente() {
-        return idExpediente;
+    public Integer getIdConsulta() {
+        return idConsulta;
     }
 
-    public void setIdExpediente(Integer idExpediente) {
-        this.idExpediente = idExpediente;
+    public void setIdConsulta(Integer idConsulta) {
+        this.idConsulta = idConsulta;
     }
 
     public Integer getOrden() {
@@ -563,12 +558,12 @@ public class Expediente implements Serializable {
         this.cobraBeneficio = cobraBeneficio;
     }
 
-    public Date getFechaDeAltaDeExpediente() {
-        return fechaDeAltaDeExpediente;
+    public Date getFechaDeAltaDeConsulta() {
+        return fechaDeAltaDeConsulta;
     }
 
-    public void setFechaDeAltaDeExpediente(Date fechaDeAltaDeExpediente) {
-        this.fechaDeAltaDeExpediente = fechaDeAltaDeExpediente;
+    public void setFechaDeAltaDeConsulta(Date fechaDeAltaDeConsulta) {
+        this.fechaDeAltaDeConsulta = fechaDeAltaDeConsulta;
     }
 
     public String getCodigoPostal() {
@@ -627,9 +622,7 @@ public class Expediente implements Serializable {
         this.nacionalidad = nacionalidad;
     }
 
-    public String getTipoDeExpediente() {
-        return tipoDeExpediente;
-    }
+    
 
     public String getTablaDeHonorariosYGastos() {
         return tablaDeHonorariosYGastos;
@@ -637,18 +630,6 @@ public class Expediente implements Serializable {
 
     public void setTablaDeHonorariosYGastos(String tablaDeHonorariosYGastos) {
         this.tablaDeHonorariosYGastos = tablaDeHonorariosYGastos;
-    }
-    
-    public String getTipoDeExpedienteParaEstilo() {
-        String tipoDeExpedienteParaEstilo = "no tiene tipo de exp.";
-        if(tipoDeExpediente != null){
-         tipoDeExpedienteParaEstilo = tipoDeExpediente.replace(" ", "");
-        }
-        return tipoDeExpedienteParaEstilo;
-    }
-
-    public void setTipoDeExpediente(String tipoDeExpediente) {
-        this.tipoDeExpediente = tipoDeExpediente;
     }
 
     public String getCaratula() {
@@ -659,12 +640,12 @@ public class Expediente implements Serializable {
         this.caratula = caratula;
     }
 
-    public String getNroDeExpediente() {
-        return nroDeExpediente;
+    public String getNroDeConsulta() {
+        return nroDeConsulta;
     }
 
-    public void setNroDeExpediente(String nroDeExpediente) {
-        this.nroDeExpediente = nroDeExpediente;
+    public void setNroDeConsulta(String nroDeConsulta) {
+        this.nroDeConsulta = nroDeConsulta;
     }
 
     public String getJuzgadoODependencia() {
@@ -710,7 +691,7 @@ public class Expediente implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idExpediente != null ? idExpediente.hashCode() : 0);
+        hash += (idConsulta != null ? idConsulta.hashCode() : 0);
         return hash;
     }
 
@@ -868,26 +849,14 @@ public class Expediente implements Serializable {
     
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Expediente)) {
+        if (!(object instanceof Consulta)) {
             return false;
         }
-        Expediente other = (Expediente) object;
-        if ((this.idExpediente == null && other.idExpediente != null) || (this.idExpediente != null && !this.idExpediente.equals(other.idExpediente))) {
+        Consulta other = (Consulta) object;
+        if ((this.idConsulta == null && other.idConsulta != null) || (this.idConsulta != null && !this.idConsulta.equals(other.idConsulta))) {
             return false;
         }
         return true;
-    }
-
-    public String toString() {
-        return idExpediente.toString() ;
-    }
-    
-    public String toStringWithAllData() {
-        return "Expediente{" + "orden=" + orden + ", cuit=" + cuit + ", dni=" + dni + ", nombre=" + nombre + ", tipoDeDocumento=" + tipoDeDocumento + ", sexo=" + sexo + ", apellido=" + apellido + ", direccion=" + direccion + ", nroDeAltura=" + nroDeAltura + ", piso=" + piso + ", depto=" + depto + ", barrio=" + barrio + ", telefono=" + telefono + ", fechaDeNacimiento=" + fechaDeNacimiento + ", edad=" + edad + ", claveSeguridadSocial=" + claveSeguridadSocial + ", claveFiscal=" + claveFiscal + ", claveCidi=" + claveCidi + ", cobraBeneficio=" + cobraBeneficio + ", fechaDeAltaDeExpediente=" + fechaDeAltaDeExpediente + ", codigoPostal=" + codigoPostal + ", localidad=" + localidad + ", tipoDeTramite=" + tipoDeTramite + ", procedencia=" + procedencia + ", estadoDelTramite=" + estadoDelTramite + ", fechaDeCobro=" + fechaDeCobro + ", nacionalidad=" + nacionalidad + ", tipoDeExpediente=" + tipoDeExpediente + ", caratula=" + caratula + ", nroDeExpediente=" + nroDeExpediente + ", juzgadoODependencia=" + juzgadoODependencia + ", observaciones=" + observaciones + ", comunicaciones=" + comunicaciones + ", fechaDeAtencion=" + fechaDeAtencion + ", convenioDeHonorarios=" + convenioDeHonorarios + ", poderFirmado=" + poderFirmado + ", etapaProcesal=" + etapaProcesal + ", jurisdiccion=" + jurisdiccion + ", tipo=" + tipo + ", detalleDeEstadoDeTramite=" + detalleDeEstadoDeTramite + ", tablaDeHonorariosYGastos=" + tablaDeHonorariosYGastos + '}';
-    }
-
-    public String toStringWithDatosPersonalesYDelExp() {
-        return "orden=" + orden + "\n, cuit=" + cuit + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido +", tipo de documento=" + tipoDeDocumento + ", sexo=" + sexo + ", direccion=" + direccion + ", nro de altura=" + nroDeAltura + ", piso=" + piso + ", depto=" + depto + ", barrio=" + barrio + ", telefono=" + telefono + ", fecha de nacimiento=" + fechaDeNacimiento + ", edad=" + edad + ", cobraBeneficio=" + cobraBeneficio + ", fecha de alta del Expediente=" + fechaDeAltaDeExpediente + ", codigo postal=" + codigoPostal + ", localidad=" + localidad + ", tipo de tramite=" + tipoDeTramite + ", procedencia=" + procedencia + ", estadoDelTramite=" + estadoDelTramite + ", fechaDeCobro=" + fechaDeCobro + ", nacionalidad=" + nacionalidad + ", tipoDeExpediente=" + tipoDeExpediente + ", caratula=" + caratula + ", nroDeExpediente=" + nroDeExpediente + ", juzgadoODependencia=" + juzgadoODependencia + ", observaciones=" + observaciones + ", comunicaciones=" + comunicaciones + ", fechaDeAtencion=" + fechaDeAtencion + ", convenioDeHonorarios=" + convenioDeHonorarios + ", poderFirmado=" + poderFirmado + ", etapaProcesal=" + etapaProcesal + ", jurisdiccion=" + jurisdiccion + ", tipo=" + tipo + ", detalle De estado de tramite=" + detalleDeEstadoDeTramite + ", tabla de honorarios y gastos=" + tablaDeHonorariosYGastos + '}';
     }
     
 }

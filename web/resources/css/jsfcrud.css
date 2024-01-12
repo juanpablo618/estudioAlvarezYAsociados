@@ -213,7 +213,7 @@ table.dataTable.nowrap td{white-space:nowrap}
     text-shadow:unset !important;
 }
 
-.editDialogExpediente{
+.editDialogExpediente, .editDialogConsulta{
     width: 93% !important;
     height: 95% !important;
     top: 2% !important;
@@ -244,7 +244,7 @@ table.dataTable.nowrap td{white-space:nowrap}
     background-color: #9db7e8 !important;
 }
 
-.crearExpediente{
+.crearExpediente, .crearConsulta{
     width: 90% !important;
     height: 90% !important;
     left: 5% !important;
@@ -439,11 +439,33 @@ div.ui-growl {
 }
 
 .ui-messages-warn{
-        animation: showWarnMessage 15s ease-in-out; /* Ajusta el tiempo (15s) según tus necesidades */
+        animation: showWarnMessage 25s ease-in-out; /* Ajusta el tiempo (15s) según tus necesidades */
 
 }
 
 .ui-messages-info{
-        animation: showWarnMessage 15s ease-in-out; /* Ajusta el tiempo (15s) según tus necesidades */
+        animation: showWarnMessage 25s ease-in-out; /* Ajusta el tiempo (15s) según tus necesidades */
 
+}
+
+/* Agrega este estilo a tu archivo CSS o en la página XHTML dentro de una etiqueta <style> */
+.filtro-form {
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+    
+}
+
+.filtro-item {
+    margin-right: 10px;
+    margin-left: 15px;
+        font-size: 15px !important;
+    margin-bottom: 10px;
+}
+.filtro-item-resultado {
+    margin-right: 10px;
+    margin-left: 15px;
+        font-size: 25px !important;
+
+    margin-bottom: 10px;
 }

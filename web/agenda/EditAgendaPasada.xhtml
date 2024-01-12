@@ -51,10 +51,9 @@
                             <div>
                                 <p:commandButton 
                                                  class="createButtonAgenda hoverBlue" actionListener="#{agendaController.updateAgendaPasada()}" 
-                                                 value="Actualizar Agenda" update="display,,:growl, ,:growl"
+                                                 value="Actualizar Agenda" 
+                                                 update="display,:ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist4,:growl,:ExpedienteEditForm:tabViewEditExpAdm:datalist3 ,:growl"
                                                  oncomplete="handleSubmit(args, 'AgendaPasadaEditDialog');"  />
-                                
-                                
                             </div>     
                             <div>
                             </div>        

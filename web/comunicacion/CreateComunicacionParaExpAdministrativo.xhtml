@@ -11,7 +11,7 @@
         <p:dialog id="ComunicacionCreateDlgExpAdm" widgetVar="ComunicacionCreateDialogExpAdm" modal="true" resizable="false" appendTo="@(body)" header="Crear Comunicación Nueva">
             <h:form id="ComunicacionCreateFormExpAdm">
                 <h:panelGroup id="display">
-                    <h:panelGrid columns="4">
+                    <h:panelGrid id="panelGridComunicacionCreateFormExpAdm" columns="4">
                      
                         <p:outputLabel value="Fecha:" for="fecha" style="font-weight: bold"/><br></br>
                         <p:calendar disabledWeekends="true"  placeholder="dd/MM/yyyy" autocomplete="off" id="fecha"  mode="inline" pattern="dd/MM/yyyy" value="#{comunicacionController.selectedParaComunicacionNuevo.fecha}" title="fecha de comunicación" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button" /><br></br><br></br>
@@ -32,7 +32,9 @@
                         
                      </h:panelGrid>
                     <p:commandButton actionListener="#{comunicacionController.createComunicacion(comunicacionController.selectedParaComunicacionNuevo.fecha, comunicacionController.selectedParaComunicacionNuevo.descripcion,comunicacionController.selectedParaComunicacionNuevo.responsable ,comunicacionController.selectedParaComunicacionNuevo.orden)}"
-                                         class="botonCrear" value="#{bundle.Save}" oncomplete="handleSubmit(args,'ComunicacionCreateDialogExpAdm');"   update="display,,:growl"/>
+                                         class="botonCrear" value="#{bundle.Save}" 
+                                         oncomplete="handleSubmit(args,'ComunicacionCreateDialogExpAdm');"  
+                                         update="display,:ExpedienteEditForm:tabViewEditExpAdm,:growl"/>
                   
                         <p:commandButton value="#{bundle.Cancel}" onclick="TurnoCreateDialog.hide()"/>
                 </h:panelGroup>

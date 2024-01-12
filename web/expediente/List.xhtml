@@ -56,9 +56,7 @@
             
             </h:form>
           </p:fieldset>  
-  
             <h:form id="ExpedienteListForm" style=" background-color: #F4F8FA;">
-
                 <div style="width: 100%"> 
                     <p:splitButton value="CREAR EXPEDIENTE" class="btmMarginLeft" style="border-bottom-left-radius: 20px;border-top-left-radius: 20px;border-bottom-right-radius: 0px;border-top-right-radius: 0px; padding: 2%; color: white; font-family: gotham Logo; " >
                         <p:menuitem class="subMenu" style="background-color: #38978c !important; " value="Administrativo " actionListener="#{expedienteController.prepareCreateExpAdministrativo()}" update=":ExpedienteCreateForm" oncomplete="PF('ExpedienteCreateDialog').show()"  />
@@ -67,8 +65,6 @@
                         <p:separator />
                         <p:menuitem class="subMenu" style="background-color: #38978c !important" value="Sin carpeta " actionListener="#{expedienteController.prepareCreateExpSinCarpeta()}" update=":ExpedienteSinCarpetaCreateForm" oncomplete="PF('ExpedienteSinCarpetaCreateDialog').show()" />
                     </p:splitButton>
-
-
                 </div>
                 <br></br>
 
@@ -127,10 +123,9 @@
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
                         
-                        <p:commandButton class="linea btnSearch"  update=":ExpedienteJudicialEditForm" oncomplete="PF('HonorariosListDialog').show()" rendered="#{item.tipoDeExpediente eq 'judicial'}" icon="ui-icon-pencil" title="Ver Honorarios">
+                        <p:commandButton class="linea btnSearchYellow"  update=":HonorarioListFormDesdeExp" oncomplete="PF('HonorariosListDialog').show()" rendered="#{item.tipoDeExpediente eq 'judicial'}" icon="ui-icon-pencil" title="Ver Honorarios">
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
-
                         
                         <p:commandButton class="linea btnKey"  update=":ExpedienteViewClavesForm2" oncomplete="PF('ExpedienteViewClavesDialog2').show()" icon="ui-icon-locked" rendered="#{item.tipoDeExpediente eq 'judicial' or item.tipoDeExpediente eq 'administrativo'}" title="Claves">
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
@@ -146,11 +141,6 @@
 
                         <p:commandButton class="linea btnSearch"  update=":ExpedienteJudicialEditForm" oncomplete="PF('ExpedienteJudicialEditDialog').show()" rendered="#{item.tipoDeExpediente eq 'judicial'}" icon="ui-icon-search" title="Ver exp. Judicial">
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
-                        </p:commandButton>
-
-                        <p:commandButton class="linea btnDelete" update=":growl,datalist, message" oncomplete="PF('expedientesTable').clearFilters()" actionListener="#{expedienteController.destroy}"  icon="ui-icon-trash" title="Eliminar">
-                            <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
-                            <p:confirm header="Confirmación" message="¿Estas seguro?"  icon="ui-icon-alert"/>
                         </p:commandButton>
 
                         <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
@@ -183,7 +173,6 @@
             <ui:include src="ViewParaAgenda.xhtml"/>
             <ui:include src="View_1.xhtml"/>
             <ui:include src="ViewDocumentos.xhtml"/>
-            
             <ui:include src="ViewExpJudicial.xhtml"/>
             <ui:include src="ViewParaTurno.xhtml"/>
 

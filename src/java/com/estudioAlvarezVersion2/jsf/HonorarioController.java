@@ -18,6 +18,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -37,7 +38,13 @@ public class HonorarioController implements Serializable {
     
     @PersistenceContext(unitName = "EstudioAlvarezVersion2PU")
     private EntityManager em;
-
+    
+    private static final String NO_ES_POSIBLE_CREAR_HONORARIO = "no es posible crear Honorario";
+    
+    private String aNombreDeQuienEnTable;
+    private String estadoDeHonorarioSeleccionado;
+    
+    
     private List<Honorario> items = null;
     
     private Honorario selected;
@@ -45,9 +52,44 @@ public class HonorarioController implements Serializable {
     private Date fechaParaFiltrar = new Date();
     private List<Honorario> filteredHonorarios;
     
+    private String tipoDeHonorarioSeleccionado;
+    private String nombreDeQuienSeleccionado;
+    
     public HonorarioController() {
     }
 
+    public String getaNombreDeQuienEnTable() {
+        return aNombreDeQuienEnTable;
+    }
+
+    public void setaNombreDeQuienEnTable(String aNombreDeQuienEnTable) {
+        this.aNombreDeQuienEnTable = aNombreDeQuienEnTable;
+    }
+
+    public String getTipoDeHonorarioSeleccionado() {
+        return tipoDeHonorarioSeleccionado;
+    }
+
+    public void setTipoDeHonorarioSeleccionado(String tipoDeHonorarioSeleccionado) {
+        this.tipoDeHonorarioSeleccionado = tipoDeHonorarioSeleccionado;
+    }
+
+    public String getEstadoDeHonorarioSeleccionado() {
+        return estadoDeHonorarioSeleccionado;
+    }
+
+    public void setEstadoDeHonorarioSeleccionado(String estadoDeHonorarioSeleccionado) {
+        this.estadoDeHonorarioSeleccionado = estadoDeHonorarioSeleccionado;
+    }
+
+    public String getNombreDeQuienSeleccionado() {
+        return nombreDeQuienSeleccionado;
+    }
+
+    public void setNombreDeQuienSeleccionado(String nombreDeQuienSeleccionado) {
+        this.nombreDeQuienSeleccionado = nombreDeQuienSeleccionado;
+    }
+    
     public Date getFechaParaFiltrar() {
         return fechaParaFiltrar;
     }
@@ -81,11 +123,47 @@ public class HonorarioController implements Serializable {
     }
     
     public void create() {
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+            
+            boolean isNotJudicial = false;
+            
+            for(Expediente expedienteDeLista: expedienteControllerBean.getItems()){
 
-            persist(PersistAction.CREATE, "Honorario creado exitosamente");
-            if (!JsfUtil.isValidationFailed()) {
-                items = null;    // Invalidate list of items to trigger re-query.
+                if(expedienteDeLista.getOrden() != null && expedienteDeLista.getOrden() != 0){
+
+                    System.out.println("selected.getOrden(): "+selected.getOrden());
+
+                    if(expedienteDeLista.getOrden() == selected.getOrden()){
+                        selected.setApellido(expedienteDeLista.getApellido());
+                        selected.setNombre(expedienteDeLista.getNombre());
+                    
+                        if(!"judicial".equals(expedienteDeLista.getTipoDeExpediente())){
+                            isNotJudicial = true;
+                        }
+                    }
+                }
             }
+             if(isNotJudicial){
+                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Orden no es judicial", NO_ES_POSIBLE_CREAR_HONORARIO);
+                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+                 
+             }else if("".equals(selected.getApellido()) || selected.getApellido() == null){
+                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "orden no posee apellido", NO_ES_POSIBLE_CREAR_HONORARIO);
+                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+                
+            }else if("".equals(selected.getNombre()) || selected.getNombre() == null){
+                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "orden no posee nombre", NO_ES_POSIBLE_CREAR_HONORARIO);
+                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+                
+            }else{
+                persist(PersistAction.CREATE, "Honorario creado exitosamente");
+                if (!JsfUtil.isValidationFailed()) {
+                    items = null;    // Invalidate list of items to trigger re-query.
+                }
+            }
+            
         }
     
     public void update() {
@@ -98,7 +176,7 @@ public class HonorarioController implements Serializable {
         }
 
     public void destroy() {
-        persist(PersistAction.DELETE, "Honorario no borrado exitosamente");
+        persist(PersistAction.DELETE, "Honorario borrado exitosamente");
 
         if (!JsfUtil.isValidationFailed()) {
 
@@ -232,7 +310,9 @@ public class HonorarioController implements Serializable {
     
     
     public List<Honorario> getItemsBySelectedExp(int orden){
-        System.out.println("getItemsBySelectedExp: "+orden);
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -243,13 +323,33 @@ public class HonorarioController implements Serializable {
         List<Honorario> resultados = new ArrayList<>();
 
         for (Honorario honorario : cloned_list) {
-
+        
             if (orden == honorario.getOrden() ) {
                 resultados.add(honorario);
             }
         }
             
         return resultados;
+    }
+    
+        public void transferir() {
+                
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        HonorarioController honorarioController = context.getApplication().evaluateExpressionGet(context, "#{honorarioController}", HonorarioController.class);
+        ExpedienteController expedienteController = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+
+        Integer idExpediente;
+            
+        if (honorarioController.getSelected().getApellido() != null) {
+            
+            idExpediente = Integer.parseInt(honorarioController.getSelected().getApellido());
+            
+            honorarioController.getSelected().setNombre(expedienteController.getExpediente(idExpediente).getNombre());
+            honorarioController.getSelected().setOrden(expedienteController.getExpediente(idExpediente).getOrden());
+            honorarioController.getSelected().setApellido(expedienteController.getExpediente(idExpediente).getApellido());
+        }
+
     }
 
 }

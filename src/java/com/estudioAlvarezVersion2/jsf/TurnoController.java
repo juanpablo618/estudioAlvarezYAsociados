@@ -47,6 +47,8 @@ public class TurnoController implements Serializable {
 
     private String responsableSeleccionadoEnTurno;
     private String realizadoSeleccionadoEnTurno;
+    private String realizadoSeleccionadoEnTurnoWithSession;
+    
     private String apellidoYNombreSeleccionadoEnTurno;
     private String fechaSeleccionadaEnTurno;
     private String ordenSeleccionadoEnTurno;
@@ -110,6 +112,14 @@ public class TurnoController implements Serializable {
         this.filteredTurnosConSesion = filteredTurnosConSesion;
     }
 
+    public String getRealizadoSeleccionadoEnTurnoWithSession() {
+        return realizadoSeleccionadoEnTurnoWithSession;
+    }
+
+    public void setRealizadoSeleccionadoEnTurnoWithSession(String realizadoSeleccionadoEnTurnoWithSession) {
+        this.realizadoSeleccionadoEnTurnoWithSession = realizadoSeleccionadoEnTurnoWithSession;
+    }
+    
     public List<Turno> getFilteredturnos() {
         List<Turno> cloned_list = null;
 
@@ -212,9 +222,10 @@ public class TurnoController implements Serializable {
 
     private Boolean validateHolidays(String date) {
         //lista sacada de https://www.argentina.gob.ar/interior/feriados-nacionales-2023
-        String feriadosArg[] = {"20/02/2023", "21/02/2023", "24/03/2023", "02/04/2023", "07/04/2023",
-            "01/05/2023", "25/05/2023", "20/06/2023", "09/07/2023", "08/12/2023", "25/12/2023", "17/06/2023", "21/08/2023", "16/10/2023", "22/11/2023"};
-
+        //https://www.lanacion.com.ar/feriados/2024/
+        String feriadosArg[] = {"01/01/2024", "12/02/2024", "13/02/2024", "24/03/2024", "29/04/2024", "02/04/2024", "01/05/2024", "25/05/2024", "20/06/2024",
+            "09/07/2024", "17/08/2024", "12/10/2024", "20/11/2024", "08/12/2024", "25/12/2024"    
+        };
         return Arrays.asList(feriadosArg).contains(date);
     }
 

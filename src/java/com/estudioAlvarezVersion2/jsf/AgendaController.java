@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,6 +69,11 @@ public class AgendaController implements Serializable {
     private List<Agenda> filteredAgendas;
     private List<Agenda> filteredAgendasConSesion;
     
+    private String responsable;
+    private Date fechaDesde;
+    private Date fechaHasta;
+    private String realizado;
+    
     public AgendaController() {
     }
 
@@ -99,7 +105,7 @@ public class AgendaController implements Serializable {
     public Agenda getSelectedAgendaFutura() {
         return selectedAgendaFutura;
     }
-
+    
     public void setSelectedAgendaFutura(Agenda selectedAgendaFutura) {
         this.selectedAgendaFutura = selectedAgendaFutura;
     }
@@ -112,6 +118,38 @@ public class AgendaController implements Serializable {
         this.selectedParaCrearUnaNueva = selectedParaCrearUnaNueva;
     }
 
+    public String getRealizado() {
+        return realizado;
+    }
+
+    public void setRealizado(String realizado) {
+        this.realizado = realizado;
+    }
+    
+    public String getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(String responsable) {
+        this.responsable = responsable;
+    }
+
+    public Date getFechaDesde() {
+        return fechaDesde;
+    }
+
+    public void setFechaDesde(Date fechaDesde) {
+        this.fechaDesde = fechaDesde;
+    }
+
+    public Date getFechaHasta() {
+        return fechaHasta;
+    }
+
+    public void setFechaHasta(Date fechaHasta) {
+        this.fechaHasta = fechaHasta;
+    }
+    
     protected void setEmbeddableKeys() {
     }
 
@@ -177,9 +215,9 @@ public class AgendaController implements Serializable {
 
     private Boolean validateHolidays(String date) {
         //lista sacada de https://www.argentina.gob.ar/interior/feriados-nacionales-2023
-        String feriadosArg[] = {"20/02/2023", "21/02/2023", "24/03/2023", "02/04/2023", "07/04/2023",
-            "01/05/2023", "25/05/2023", "20/06/2023", "09/07/2023", "08/12/2023", "25/12/2023", "17/06/2023", "21/08/2023", "16/10/2023", "20/11/2023"
-            , "26/05/2023", "19/06/2023"
+        //https://www.lanacion.com.ar/feriados/2024/
+        String feriadosArg[] = {"01/01/2024", "12/02/2024", "13/02/2024", "24/03/2024", "29/04/2024", "02/04/2024", "01/05/2024", "25/05/2024", "20/06/2024",
+            "09/07/2024", "17/08/2024", "12/10/2024", "20/11/2024", "08/12/2024", "25/12/2024"    
         };
 
         return Arrays.asList(feriadosArg).contains(date);

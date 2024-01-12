@@ -15,17 +15,18 @@
 
         </script>
         <ui:define name="body"  >
-            <h:form>
+            <h:form id="formBotones">
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputText style="color: white;" value="Filtrar por fecha: " />
                     <h:outputText style="color: white;" id="output" value="#{counterView.number}" />
                 </h:panelGrid>
                 
              <p:commandButton value="←" action="#{counterView.decrementDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
-             <p:commandButton value="hoy" action="#{counterView.actualDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
+             <p:commandButton id="botonHoy" value="hoy" action="#{counterView.actualDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
              <p:commandButton value="→" action="#{counterView.incrementDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
            
             </h:form>
+            
             <h:form id="TurnoListForm" style="background-color: #F4F8FA">
 
                 
@@ -102,9 +103,23 @@
                         <h:outputText value="#{item.observacion}"/>
                     </p:column>
                     
-                    <p:column  style="text-align: center; width: 10%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                    <p:column filterBy="#{item.realizado}" style="text-align: center; width: 10%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
                         <f:facet name="header">
                             <h:outputText value="REALIZADO"/>
+                        </f:facet>
+                        <f:facet name="filter">
+                            <p:selectOneMenu  onchange="PF('turnosTable').filter()"  value="#{turnoController.realizadoSeleccionadoEnTurnoWithSession}"  styleClass="custom-filter">
+                                <f:selectItem itemLabel="Seleccionar Todos" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Si" itemValue="Si" />
+                                <f:selectItem itemLabel="No" itemValue="No" />
+                                <f:selectItem itemLabel="Reagendada" itemValue="Reagendada" />
+                                
+                                <p:ajax update=":AgendaListForm:datalist:inputRealizadoEnAgenda"/> 
+                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputRealizadoEnAgenda"/>
+                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
+                                <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
+                            
+                            </p:selectOneMenu>
                         </f:facet>
                         
                         <h:outputText value="#{item.realizado}"/>
@@ -229,6 +244,22 @@
                 </p:dataTable>
             </h:form>
 
+            <script type="text/javascript">
+                    // Función para activar el botón cuando la página se ha renderizado
+                    function activarBoton() {
+                            PF('turnosTable').filter(); // Reemplaza 'tuWidgetVarDeLaTabla' con el widgetVar de tu tabla
+                            document.getElementById('formBotones:botonHoy').click();
+                        
+                    }
+
+                    // Llama a la función para activar el botón
+                    activarBoton();
+                    
+                    window.onload = activarBoton;
+    
+            </script>
+    
+            
             <ui:include src="Create.xhtml"/>
             <ui:include src="CreateAgendaParaActividad.xhtml"/>
             <ui:include src="Create_1.xhtml"/>

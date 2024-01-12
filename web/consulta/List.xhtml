@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="body">
+            <h:form id="ConsultaListForm" style="background-color: #F4F8FA">
+                <div style="float: left;margin-left: .5%;"><p:commandButton id="createButton"  icon="ui-icon-plus" value="NUEVA CONSULTA" class="botonCrearAgenda  borderRd mrgTB2 hoverGreen" actionListener="#{consultaController.prepareCreate}" update=":ConsultaCreateForm" oncomplete="PF('ConsultaCreateDialog').show()"/>
+                </div>
+                <br></br>
+                <br></br>
+                <br></br>
+                
+                <p:dataTable id="datalist" value="#{consultaController.items}" var="item"
+                                 selectionMode="single" selection="#{consultaController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idConsulta}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No existen consultas"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton  "/>
+                        <p:ajax event="rowUnselect" update="createButton  "/>
+
+                       <p:growl  id="message" showDetail="true" />
+ 
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="nombre y apellido"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre} #{item.apellido}"/>
+                        </p:column>
+                       
+                       <p:column filterBy="#{item.telefono}" style="text-align: center;" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="teléfono"/>
+                            </f:facet>
+                            <h:outputText value="#{item.telefono}"/>
+                        </p:column>
+                        
+                       <p:column style="text-align: center;width: 10%; ">
+                            
+                            <f:facet name="header">
+                                <h:outputText value="ACCIONES"/>
+                            </f:facet>
+                            
+                            <p:commandButton class="linea btnSearch"  update=":ConsultaEditForm" oncomplete="PF('ConsultaEditDialog').show()" icon="ui-icon-search" title="Ver">
+                                   <f:setPropertyActionListener value="#{item}" target="#{consultaController.selected}" />
+                            </p:commandButton>
+                            
+                            <p:commandButton class="linea btnDelete" update=":growl,datalist, message" actionListener="#{consultaController.destroy}"  icon="ui-icon-trash" title="Eliminar">
+                                <f:setPropertyActionListener value="#{item}" target="#{consultaController.selected}" />
+                                <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert"  />
+                            </p:commandButton>
+
+                            <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton update=":ConsultaListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;"/>
+                                <p:commandButton update=":ConsultaListForm" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
+                            </p:confirmDialog> 
+                            
+                        </p:column>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton"  rendered="false" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{consultaController.prepareCreate}" update=":ConsultaCreateForm" oncomplete="PF('ConsultaCreateDialog').show()"/>
+                        </f:facet>
+                    </p:dataTable>
+           </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

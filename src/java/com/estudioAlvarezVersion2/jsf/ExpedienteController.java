@@ -58,6 +58,8 @@ public class ExpedienteController implements Serializable {
 
     private List<Expediente> items = null;
     private Expediente selected;
+    private Expediente selectedParaHonorarios;
+    
     private Expediente selectedParaVerExp;
     private String estadoDelTramiteSelected;
     private String fechaDeCumpleSelected;
@@ -91,6 +93,14 @@ public class ExpedienteController implements Serializable {
 
     public Expediente getSelected() {
         return selected;
+    }
+
+    public Expediente getSelectedParaHonorarios() {
+        return selectedParaHonorarios;
+    }
+
+    public void setSelectedParaHonorarios(Expediente selectedParaHonorarios) {
+        this.selectedParaHonorarios = selectedParaHonorarios;
     }
 
     public List<Expediente> getFilteredExpedientes() {
@@ -552,7 +562,6 @@ public class ExpedienteController implements Serializable {
         persist(PersistAction.UPDATE, "Expediente transformado a ADMINISTRATIVO con el nro de orden: " + mayorOrden);
     }
 
-   
     public void updateConCambioParaJudicial() {
             
         Date fechaAntigua = new Date();
@@ -619,9 +628,6 @@ public class ExpedienteController implements Serializable {
         persist(PersistAction.UPDATE, "Expediente transformado a JUDICIAL con el nro de orden: " + mayorOrden);
     }
 
-    
-    
-    
     public int buscarMayorIdAdmOrJudicial() {
 
         /*FacesContext context = FacesContext.getCurrentInstance();
@@ -716,6 +722,19 @@ public class ExpedienteController implements Serializable {
 
     public List<Expediente> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+    public List<Expediente> getItemsAvailableSelectOneOnlyJudiciales() {
+        List<Expediente> expedientes = getFacade().findAll();
+        List<Expediente> expedientesJudiciales = new ArrayList<>();
+
+        for (Expediente expediente : expedientes) {
+            if ("judicial".equalsIgnoreCase(expediente.getTipoDeExpediente())) {
+                expedientesJudiciales.add(expediente);
+            }
+        }
+
+        return expedientesJudiciales;
     }
 
     @FacesConverter(forClass = Expediente.class)
@@ -868,7 +887,6 @@ public class ExpedienteController implements Serializable {
         return agendasParaHoy;
       
      }
-    
     
     public List verAgendasFuturasPorNroDeOrden(Integer orden) {
 

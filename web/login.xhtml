@@ -37,22 +37,23 @@
 
     <center>
         <h:graphicImage value="resources/images/Alvarezyasociados.svg" style="width: 30%; margin-bottom: 8%; margin-top: 4%;"/>
-
-        <p:panel header="INGRESA TUS DATOS POR FAVOR" style=" border-radius: 5px ;background-color: darkkhaki;border: none; width: 30%; font-weight: bold;">
+        
+        <p:panel header="INGRESA TUS DATOS" style=" border-radius: 5px ;background-color: darkkhaki;border: none; width: 30%; font-weight: bold;">
             <h:form>
                 <h:panelGrid columns="2" cellpadding="5">
                     
-                    <h:outputText value="USUARIO:" style="color: black; font-size: 1em; font-weight: bold;" />
-                    <p:selectOneMenu id="username" value="#{login.user}" style="border-radius: 5px;" >
+                    <label for="username">Usuario:</label>
+                    <p:selectOneMenu id="username" value="#{login.user}" style="border-radius: 5px;">
                         <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.nombre}" />
-                    </p:selectOneMenu>    
+                    </p:selectOneMenu>
+
+                    <label for="password">Clave:</label>
+                    <p:password id="password" value="#{login.pwd}" style="color: black; border-radius: 5px;" />
+
                     
-                   
-                                 
-                    <h:outputText value="CLAVE:" style="color: black; font-weight: bold;"/>
-                    <p:password  id="password" value="#{login.pwd}" style=" color: black; border-radius: 5px;" />
-                    <h:message for="username"></h:message>
-                    <h:message for="password"></h:message>
+                    <h:message for="username" styleClass="error-message" />
+                    <h:message for="password" styleClass="error-message" />
+
                 </h:panelGrid>
                 <h:panelGrid width="100%">
                     <f:facet name="footer">   

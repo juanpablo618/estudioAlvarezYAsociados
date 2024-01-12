@@ -7,11 +7,20 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-
-        <p:dialog id="HonorarioEditDlg" widgetVar="HonorariosListDialog" modal="true" resizable="false" appendTo="@(body)" header="Honorarios de exp #{expedienteController.selected.orden}">
-            <h:form id="HonorarioEditForm">
+        <p:dialog id="HonorarioEditDlg" widgetVar="HonorariosListDialog" modal="true" resizable="false" appendTo="@(body)" header="Honorarios de exp. Judicial">
+            <h:form id="HonorarioListFormDesdeExp">
+                <div style="font-weight: bold; float: left; width: 100%; ">
+                     <u> <h:outputText value="Honorarios de:" />
+                    <h:outputText value=" "/>
+                     <h:outputText value="#{expedienteController.selected.apellido}" />
+                    <h:outputText value=" "/>
+                    <h:outputText value="#{expedienteController.selected.nombre}"/>
+                    <h:outputText value=" "/>
+                    <h:outputText style="font-size: 32px" value="#{expedienteController.selected.orden}"/>
+                     </u>
+                </div>
+                <br></br><br></br><br></br>
                 <h:panelGroup id="display">
-                    
                    <p:dataTable id="datalist" value="#{honorarioController.getItemsBySelectedExp(expedienteController.selected.orden)}" var="item"
                              selectionMode="single" selection="#{honorarioController.selected}"
                              paginator="true"
@@ -20,14 +29,13 @@
                              rows="20"
                              rowsPerPageTemplate="20,40,80"
                              emptyMessage="No existen Honorarios"
-                             paginatorPosition="top" 
+                             paginatorPosition="bottom" 
                              rendered="true"
                              filteredValue="#{honorarioController.filteredHonorarios}"
-                             
                              >
 
-                        <p:ajax event="rowSelect"   update="createButton "/>
-                        <p:ajax event="rowUnselect" update="createButton "/>
+                        <p:ajax event="rowSelect"   />
+                        <p:ajax event="rowUnselect" />
 
                         <p:growl  id="message" showDetail="true" />
  
@@ -71,34 +79,10 @@
                             <f:convertDateTime pattern="dd/MM/yyyy"  />
                         </h:outputText>
                         </p:column>
-                        
-                        <p:column style="text-align: center; ">
-                            
-                            <f:facet name="header">
-                                <h:outputText value="ACCIONES"/>
-                            </f:facet>
-                            
-                            <p:commandButton class="linea" update=":growl,datalist, message" actionListener="#{procedenciaController.destroy}"  icon="ui-icon-circle-close" title="borrar">
-                                <f:setPropertyActionListener value="#{item}" target="#{procedenciaController.selected}" />
-                                <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert" />
-                            </p:commandButton>
-
-                            <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton update=":ProcedenciaListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;"/>
-                                <p:commandButton update=":ProcedenciaListForm" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
-                            </p:confirmDialog> 
-                            
-                        </p:column>
-                        
-                        <f:facet name="footer">
-                            <p:commandButton rendered="false" id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{procedenciaController.prepareCreate}" update=":ProcedenciaCreateForm" oncomplete="PF('ProcedenciaCreateDialog').show()"/>
-                        </f:facet>
                     </p:dataTable>
-                
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ProcedenciaEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="HonorariosListDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-
     </ui:composition>
 </html>

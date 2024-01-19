@@ -6,6 +6,7 @@ import com.estudioAlvarezVersion2.jpa.DAO;
 import com.estudioAlvarezVersion2.jpa.Expediente;
 import com.estudioAlvarezVersion2.jpa.ExpedienteDAO;
 import com.estudioAlvarezVersion2.jpa.Comunicacion;
+import com.estudioAlvarezVersion2.jpa.Consulta;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.ExpedienteFacade;
@@ -561,7 +562,7 @@ public class ExpedienteController implements Serializable {
         
         persist(PersistAction.UPDATE, "Expediente transformado a ADMINISTRATIVO con el nro de orden: " + mayorOrden);
     }
-
+    
     public void updateConCambioParaJudicial() {
             
         Date fechaAntigua = new Date();
@@ -1085,15 +1086,6 @@ public class ExpedienteController implements Serializable {
             String fechaDeCumpleSelected,
             String sexoSelected) {
 
-        System.out.println("´variables: " + 
-                " tipoDeTramiteSelected: " +tipoDeTramiteSelected
-                + " tipoDeExpedienteSelected: " + tipoDeExpedienteSelected
-                + " responsableSelected: " + responsableSelected
-                + " estadoDelTramiteSelected: " + estadoDelTramiteSelected + 
-                " fechaDeCumpleSelected: "+ fechaDeCumpleSelected 
-                + " sexoSelected " + sexoSelected);
-
-
          this.filteredExpedientes = getItems().stream()
                  .filter(ExpedienteUtils.filtroTipoDeTramite(tipoDeTramiteSelected))
                  .filter(ExpedienteUtils.filtroTipoDeExpediente(tipoDeExpedienteSelected))
@@ -1143,7 +1135,6 @@ public class ExpedienteController implements Serializable {
     }
 
     public void filtrarPorResponsable(String estadoDelTramiteSelected) {
-
 
         this.filteredExpedientes = new ArrayList<Expediente>();
 
@@ -1210,4 +1201,120 @@ public class ExpedienteController implements Serializable {
         return apellidoYNombre.contains(filterText);
     }
     
+    
+    public void cambiarConsultaAExpAdm(Consulta consultaSelected) {
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        
+        ConsultaController consultaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{consultaController}", ConsultaController.class);
+        
+        Expediente expAInsertar = prepareCreateExpAdministrativo();
+        
+        Date fechaAntigua = new Date();
+        
+        System.out.println("consultaSelected.getFechaDeNacimiento(): "+ consultaSelected.getFechaDeNacimiento());
+        
+        if (consultaSelected.getFechaDeNacimiento() != null) {
+            fechaAntigua = consultaSelected.getFechaDeNacimiento();
+        }
+
+        LocalDate fechaNueva = fechaAntigua.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate start = fechaNueva;
+        LocalDate end = LocalDate.now(); // use for age-calculation: LocalDate.now()
+        long years = ChronoUnit.YEARS.between(start, end);
+        
+        expAInsertar.setEdad(Math.toIntExact(years));
+        
+        if ("0".equals(consultaSelected.getCuit()) || consultaSelected.getCuit() == null || "".equals(consultaSelected.getCuit()) || consultaSelected.getCuit().isEmpty() )  {
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Esta consulta no tiene cuit", "no es posible pasarla a exp. administrativo");
+            FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+        }else{
+            
+            if (consultaSelected.getCuit() != null) {
+                
+                String cuit = consultaSelected.getCuit();
+                cuit = cuit.substring(2, 9);
+                expAInsertar.setDni(cuit);
+                expAInsertar.setCuit(consultaSelected.getCuit());
+            }
+        
+        
+        expAInsertar.setNombre(consultaSelected.getNombre());
+        
+        expAInsertar.setTipoDeDocumento(consultaSelected.getTipoDeDocumento());
+        
+
+        expAInsertar.setSexo(consultaSelected.getSexo());
+        
+        expAInsertar.setApellido(consultaSelected.getApellido());
+        
+        expAInsertar.setDireccion(consultaSelected.getDireccion());
+        
+        expAInsertar.setNroDeAltura(consultaSelected.getNroDeAltura());
+        
+        expAInsertar.setPiso(consultaSelected.getPiso());
+        
+        expAInsertar.setDepto(consultaSelected.getDepto());
+        
+        expAInsertar.setBarrio(consultaSelected.getBarrio());
+        
+        expAInsertar.setTelefono(consultaSelected.getTelefono());
+        
+        expAInsertar.setFechaDeNacimiento(consultaSelected.getFechaDeNacimiento());
+
+
+        expAInsertar.setClaveSeguridadSocial(consultaSelected.getClaveSeguridadSocial());
+        
+        expAInsertar.setClaveFiscal(consultaSelected.getClaveFiscal());
+        
+        expAInsertar.setClaveCidi(consultaSelected.getClaveCidi());
+
+        expAInsertar.setCobraBeneficio(consultaSelected.getCobraBeneficio());
+        expAInsertar.setCodigoPostal(consultaSelected.getCodigoPostal());
+        expAInsertar.setLocalidad(consultaSelected.getLocalidad());
+        expAInsertar.setTipoDeTramite(consultaSelected.getTipoDeTramite());
+        expAInsertar.setProcedencia(consultaSelected.getProcedencia());
+        expAInsertar.setEstadoDelTramite(consultaSelected.getEstadoDelTramite());
+        expAInsertar.setFechaDeCobro(consultaSelected.getFechaDeCobro());
+        expAInsertar.setNacionalidad(consultaSelected.getNacionalidad());
+        expAInsertar.setCaratula(consultaSelected.getCaratula());
+        expAInsertar.setJuzgadoODependencia(consultaSelected.getJuzgadoODependencia());
+        expAInsertar.setObservaciones(consultaSelected.getObservaciones());
+        expAInsertar.setResponsable(consultaSelected.getResponsable());
+        expAInsertar.setApoderado(consultaSelected.getApoderado());
+        expAInsertar.setComunicaciones(consultaSelected.getComunicaciones());
+        expAInsertar.setFechaDeAtencion(consultaSelected.getFechaDeAtencion());
+        expAInsertar.setFechaDeAltaDeExpediente(fechaAntigua);
+        expAInsertar.setConvenioDeHonorarios(consultaSelected.getConvenioDeHonorarios());
+        expAInsertar.setPoderFirmado(consultaSelected.getPoderFirmado());
+        expAInsertar.setTipo(consultaSelected.getTipo());
+        expAInsertar.setJurisdiccion(consultaSelected.getJurisdiccion());
+        expAInsertar.setEtapaProcesal(consultaSelected.getEtapaProcesal());
+        expAInsertar.setDetalleDeEstadoDeTramite(consultaSelected.getDetalleDeEstadoDeTramite());
+        expAInsertar.setTablaDeHonorariosYGastos(consultaSelected.getTablaDeHonorariosYGastos());
+        expAInsertar.setSubCategoriasDeTipo(consultaSelected.getSubCategoriasDeTipo());
+        expAInsertar.setCantidadDeHijos(consultaSelected.getCantidadDeHijos());
+        expAInsertar.setCantidadDeHijosConDiscapacidad(consultaSelected.getCantidadDeHijosConDiscapacidad());
+        expAInsertar.setCantidadDeHijosAdoptivos(consultaSelected.getCantidadDeHijosAdoptivos());
+        expAInsertar.setCantidadDeHijosPercibioAuh(consultaSelected.getCantidadDeHijosPercibioAuh());
+        expAInsertar.setEstadoCivil(consultaSelected.getEstadoCivil());
+        expAInsertar.setDatosDelConyuge(consultaSelected.getDatosDelConyuge());
+        expAInsertar.setTipoDeBeneficio(consultaSelected.getTipoDeBeneficio());
+        expAInsertar.setAportes(consultaSelected.getAportes());
+
+        expAInsertar.setDetalleDeAportes(consultaSelected.getDetalleDeAportes());
+        expAInsertar.setTrabajando(consultaSelected.getTrabajando());
+        expAInsertar.setObraSocial(consultaSelected.getObraSocial());
+        expAInsertar.setInscripcionAut(consultaSelected.getInscripcionAut());
+        expAInsertar.setReclamoArt(consultaSelected.getReclamoArt());
+    
+        consultaControllerBean.destroy();
+
+        persist(JsfUtil.PersistAction.CREATE, "Consulta transformada a ADMINISTRATIVO con el nro de orden: " + expAInsertar.getOrden());
+
+        
+        }
+        
+    }
+
 }

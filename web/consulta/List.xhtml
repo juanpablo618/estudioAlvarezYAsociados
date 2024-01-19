@@ -21,8 +21,11 @@
                                  paginator="true"
                                  rowKey="#{item.idConsulta}"
                                  rows="10"
+                                 widgetVar="consultasTable"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No existen consultas"
+                                 filteredValue="#{consultaController.filteredConsultas}"
+                             
                                  >
 
                         <p:ajax event="rowSelect"   update="createButton  "/>
@@ -30,11 +33,11 @@
 
                        <p:growl  id="message" showDetail="true" />
  
-                        <p:column style="text-align: center;">
+                        <p:column filterBy="#{item.apellido}"  style="text-align: center;" filterMatchMode="contains">
                             <f:facet name="header">
-                                <h:outputText value="nombre y apellido"/>
+                                <h:outputText value="Apellido y Nombre"/>
                             </f:facet>
-                            <h:outputText value="#{item.nombre} #{item.apellido}"/>
+                            <h:outputText value="#{item.apellido} #{item.nombre}"/>
                         </p:column>
                        
                        <p:column filterBy="#{item.telefono}" style="text-align: center;" filterMatchMode="contains">
@@ -43,7 +46,38 @@
                             </f:facet>
                             <h:outputText value="#{item.telefono}"/>
                         </p:column>
+                       
+                       
+                    <p:column style="text-align: center; width: 10%"  sortBy="#{item.getDiaMesAnioParaFechaDeAtencion()}" filterBy="#{item.getDiaMesAnioParaFechaDeAtencion()}" filterMatchMode="startsWith" headerText="FECHA">
+                        <f:facet name="filter">
+                            <p:inputText id="inputFechaEnConsultaTable" style="width: -webkit-fill-available;" onfocus="PF('consultasTable').filter()" onblur="PF('consultasTable').filter()" onchange="PF('consultasTable').filter()"  value="#{consultaController.fechaSeleccionadaEnConsultaTable}" >
+                            </p:inputText>
+                        </f:facet>
+                        <h:outputText style="width: 10%" value="#{item.fechaDeAtencion}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+
+
+                       
+                       
+                       
+                       <p:column filterBy="#{item.estadoConsulta}" filterMatchMode="exact" style="text-align: center;" >
+                            <f:facet name="header">
+                                <h:outputText value="estado"/>
+                            </f:facet>
+                            <f:facet name="filter">
+                                    <p:selectOneMenu  onchange="PF('consultasTable').filter()" value="#{consultaController.estadoSeleccionadoEnTabla}"   styleClass="custom-filter">
+                                        <f:selectItem itemLabel="Seleccionar Todos" itemValue="#{null}" noSelectionOption="true" />
+                                        <f:selectItem itemLabel="PRIMER CONTACTO" itemValue="PRIMER CONTACTO" />
+                                        <f:selectItem itemLabel="ESPERANDO DOCUMENTACIÓN" itemValue="ESPERANDO DOCUMENTACIÓN" />
+                                        <f:selectItem itemLabel="ARCHIVADO / DESISTIDO" itemValue="ARCHIVADO / DESISTIDO" />
+                                    </p:selectOneMenu>
+                            </f:facet>
+                           <h:outputText value="#{item.estadoConsulta}"/>
+                        </p:column>
                         
+                       
                        <p:column style="text-align: center;width: 10%; ">
                             
                             <f:facet name="header">
@@ -54,7 +88,7 @@
                                    <f:setPropertyActionListener value="#{item}" target="#{consultaController.selected}" />
                             </p:commandButton>
                             
-                            <p:commandButton class="linea btnDelete" update=":growl,datalist, message" actionListener="#{consultaController.destroy}"  icon="ui-icon-trash" title="Eliminar">
+                            <p:commandButton oncomplete="PF('consultasTable').clearFilters()" class="linea btnDelete" update=":growl,datalist, message" actionListener="#{consultaController.destroy}"  icon="ui-icon-trash" title="Eliminar">
                                 <f:setPropertyActionListener value="#{item}" target="#{consultaController.selected}" />
                                 <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert"  />
                             </p:commandButton>

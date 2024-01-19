@@ -11,7 +11,7 @@
         <p:dialog id="ConsultaCreateDlg" class="crearConsulta" widgetVar="ConsultaCreateDialog" modal="true" resizable="true" appendTo="@(body)" header="Crear Consulta" width="100" style="overflow-y:auto">
             <h:form id="ConsultaCreateForm">
 
-                <p:commandButton actionListener="#{consultaController.create}" value="Crear" class="botonCrearAgenda hoverGreen" update=":ConsultaListForm:datalist,:growl" oncomplete="handleSubmit(args,'ConsultaCreateDialog');"
+                <p:commandButton actionListener="#{consultaController.create}" value="Crear" class="botonCrearAgenda hoverGreen" update=":ConsultaListForm:datalist,:growl"   oncomplete="handleSubmit(args,'ConsultaCreateDialog');PF('consultasTable').clearFilters()"
                                  style="float: right !important; margin-top: 0% !important;"/>
 
                 <div style="float: left;width: 100%">   
@@ -32,6 +32,14 @@
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="margin-left: 3%;font-weight: bold" />
                                 <p:inputText id="telefono" required="true" requiredMessage="teléfono es necesario" value="#{consultaController.selected.telefono}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_telefono}" />
 
+                                <p:outputLabel value="Estado de la consulta" for="estadoConsulta" style="margin-left: 3%;font-weight: bold" />
+                                <p:selectOneMenu id="estadoConsulta" value="#{consultaController.selected.estadoConsulta}" style="margin-left: 3%" >
+                                    <f:selectItem itemLabel="PRIMER CONTACTO" itemValue="PRIMER CONTACTO" />
+                                    <f:selectItem itemLabel="ESPERANDO DOCUMENTACIÓN" itemValue="ESPERANDO DOCUMENTACIÓN" />
+                                    <f:selectItem itemLabel="ARCHIVADO / DESISTIDO" itemValue="ARCHIVADO / DESISTIDO" />
+                                </p:selectOneMenu>    
+                                
+                                
                             </h:panelGrid>
                             <h:panelGrid columns="4" cellspacing="5" cellpadding="1">
                                 <p:outputLabel value="Fecha de Nacimiento:" style="font-weight: bold" for="fechaDeNacimiento" />
@@ -112,7 +120,7 @@
                                 <h:panelGrid columns="4" cellspacing="5">
                                     
                                     <p:outputLabel value="Fecha de Atención:" for="fechaDeAtencion" style="font-weight: bold" />
-                                    <p:calendar   readonly="true" style="width: 100px" class="inputFechaDeAtencion" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{consultaController.selected.fechaDeAtencion}" title="fechaDeAtencion">
+                                    <p:calendar  required="true" requiredMessage="fecha de atención es requerida"  style="width: 100px" class="inputFechaDeAtencion" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{consultaController.selected.fechaDeAtencion}" title="fechaDeAtencion">
                                     </p:calendar>
                                 </h:panelGrid>
 

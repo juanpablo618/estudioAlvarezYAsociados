@@ -1,6 +1,8 @@
 package com.estudioAlvarezVersion2.jpa;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -266,6 +268,9 @@ public class Consulta implements Serializable {
     @Column(name = "reclamoArt")    
     private String reclamoArt;
     
+    @Column(name = "estadoConsulta")    
+    private String estadoConsulta;
+    
     
     public Consulta() {
     }
@@ -292,7 +297,8 @@ public class Consulta implements Serializable {
             int cantidadDeHijosAdoptivos, int cantidadDeHijosPercibioAuh,
             String estadoCivil, String datosDelConyuge, String tipoDeBeneficio,
             String aportes, String detalleDeAportes, String trabajando, 
-            String obraSocial, String inscripcionAut, String reclamoArt
+            String obraSocial, String inscripcionAut, String reclamoArt,
+            String estadoConsulta
     
     ) {
         this.idConsulta = idConsulta;
@@ -353,6 +359,7 @@ public class Consulta implements Serializable {
         this.obraSocial = obraSocial;
         this.inscripcionAut = inscripcionAut;
         this.reclamoArt = reclamoArt;
+        this.estadoConsulta = estadoConsulta;
         
     }
     
@@ -622,8 +629,6 @@ public class Consulta implements Serializable {
         this.nacionalidad = nacionalidad;
     }
 
-    
-
     public String getTablaDeHonorariosYGastos() {
         return tablaDeHonorariosYGastos;
     }
@@ -688,6 +693,14 @@ public class Consulta implements Serializable {
         this.detalleDeEstadoDeTramite = detalleDeEstadoDeTramite;
     }
 
+    public String getEstadoConsulta() {
+        return estadoConsulta;
+    }
+
+    public void setEstadoConsulta(String estadoConsulta) {
+        this.estadoConsulta = estadoConsulta;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -697,6 +710,16 @@ public class Consulta implements Serializable {
 
     public Date getFechaDeAtencion() {
         return fechaDeAtencion;
+    }
+    
+    public String getDiaMesAnioParaFechaDeAtencion() {
+        
+        if(fechaDeAtencion != null){
+        DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        return formatoFecha.format(fechaDeAtencion);
+        }
+        return "";
+        
     }
 
     public void setFechaDeAtencion(Date fechaDeAtencion) {

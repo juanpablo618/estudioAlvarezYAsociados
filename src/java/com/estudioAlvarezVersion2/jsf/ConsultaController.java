@@ -2,11 +2,16 @@
 package com.estudioAlvarezVersion2.jsf;
 
 import com.estudioAlvarezVersion2.jpa.Consulta;
+import com.estudioAlvarezVersion2.jpa.DAO;
+import com.estudioAlvarezVersion2.jpa.Expediente;
 import com.estudioAlvarezVersion2.jpacontroller.ConsultaFacade;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -19,6 +24,8 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 /**
@@ -39,6 +46,10 @@ public class ConsultaController implements Serializable {
     private Consulta selected;
     private List<Consulta> filteredConsultas;
 
+    //para filtros en tablas
+    private String estadoSeleccionadoEnTabla;
+    private String fechaSeleccionadaEnConsultaTable;
+    
     public ConsultaController() {
     }
 
@@ -49,6 +60,16 @@ public class ConsultaController implements Serializable {
         return items;
     }
 
+    public String getFechaSeleccionadaEnConsultaTable() {
+        return fechaSeleccionadaEnConsultaTable;
+    }
+
+    public void setFechaSeleccionadaEnConsultaTable(String fechaSeleccionadaEnConsultaTable) {
+        this.fechaSeleccionadaEnConsultaTable = fechaSeleccionadaEnConsultaTable;
+    }
+
+    
+    
     public void setItems(List<Consulta> items) {
         this.items = items;
     }
@@ -69,13 +90,21 @@ public class ConsultaController implements Serializable {
         this.filteredConsultas = filteredConsultas;
     }
     
-      public Consulta prepareCreate() {
+    public Consulta prepareCreate() {
         selected = new Consulta();
         
         initializeEmbeddableKey();
         return selected;
     }
-      
+
+    public String getEstadoSeleccionadoEnTabla() {
+        return estadoSeleccionadoEnTabla;
+    }
+
+    public void setEstadoSeleccionadoEnTabla(String estadoSeleccionadoEnTabla) {
+        this.estadoSeleccionadoEnTabla = estadoSeleccionadoEnTabla;
+    }
+    
     protected void initializeEmbeddableKey() {
     }
     
@@ -139,5 +168,4 @@ public class ConsultaController implements Serializable {
     }
 
 
-    
 }

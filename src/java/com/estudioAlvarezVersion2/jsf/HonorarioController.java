@@ -10,6 +10,7 @@ import com.estudioAlvarezVersion2.jpacontroller.HonorarioFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -133,8 +134,7 @@ public class HonorarioController implements Serializable {
 
                 if(expedienteDeLista.getOrden() != null && expedienteDeLista.getOrden() != 0){
 
-                    System.out.println("selected.getOrden(): "+selected.getOrden());
-
+                    
                     if(expedienteDeLista.getOrden() == selected.getOrden()){
                         selected.setApellido(expedienteDeLista.getApellido());
                         selected.setNombre(expedienteDeLista.getNombre());
@@ -192,6 +192,15 @@ public class HonorarioController implements Serializable {
         }
         return items;
 
+    }
+    
+    public List<Honorario> getItemsOrdenadosAlfabeticamente() {
+        if (items == null) {
+            items = getFacade().findAll();
+            // Ordenar la lista utilizando el comparador personalizado
+            Collections.sort(items, new HonorarioComparator());
+        }
+        return items;
     }
     
     private void persist(PersistAction persistAction, String successMessage) {
@@ -311,8 +320,6 @@ public class HonorarioController implements Serializable {
     
     public List<Honorario> getItemsBySelectedExp(int orden){
         
-        FacesContext context = FacesContext.getCurrentInstance();
-
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -352,4 +359,27 @@ public class HonorarioController implements Serializable {
 
     }
 
+}
+
+ class HonorarioComparator implements Comparator<Honorario> {
+    @Override
+    public int compare(Honorario h1, Honorario h2) {
+        // Verificar si alguno de los apellidos es nulo para evitar errores
+        if (h1.getApellido() == null && h2.getApellido() == null) {
+            return 0;
+        } else if (h1.getApellido() == null) {
+            return 1;
+        } else if (h2.getApellido() == null) {
+            return -1;
+        }
+
+        // Comparar por apellido
+        int comparacionApellido = h1.getApellido().compareTo(h2.getApellido());
+        if (comparacionApellido != 0) {
+            return comparacionApellido;
+        } else {
+            // Si los apellidos son iguales, comparar por nombre
+            return h1.getNombre().compareTo(h2.getNombre());
+        }
+    }
 }

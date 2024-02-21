@@ -17,7 +17,7 @@
                 <p:inputText readonly="true" id="orden" value="#{honorarioController.selected.orden}" style="margin-left: 3%" title="Orden" />
                 
                 <p:outputLabel value="#{bundle.EditAgendaLabel_fecha}" for="fecha" />
-                <p:calendar  mindate="today" disabledWeekends="true" id="fecha" mode="inline" pattern="dd/MM/yyyy" value="#{honorarioController.selected.fechaRegulacion}" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
+                <p:calendar  disabledWeekends="true" id="fecha" mode="inline" pattern="dd/MM/yyyy" value="#{honorarioController.selected.fechaRegulacion}" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
 
                 <p:outputLabel value="Juzgado federal" for="juzgadoFederal" style="margin-left: 3%;font-weight: bold" />
                 <p:selectOneMenu editable="true" style="margin-left: 1%; margin-right: 1%" requiredMessage="debe colocar un juzgado federal correcto" id="juzgadoFederal" value="#{honorarioController.selected.juzgadoFederal}">

@@ -14,10 +14,12 @@ import java.io.File;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -73,6 +75,25 @@ public class AgendaController implements Serializable {
     private Date fechaDesde;
     private Date fechaHasta;
     private String realizado;
+    private List<Agenda> selectedItems;
+
+    public List<Agenda> getSelectedItems() {
+        return selectedItems;
+    }
+
+    public void setSelectedItems(List<Agenda> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
+
+    private String selectionMode = "single"; // Por defecto, modo de selección único
+
+    public String getSelectionMode() {
+        return selectionMode;
+    }
+
+    public void setSelectionMode(String selectionMode) {
+        this.selectionMode = selectionMode;
+    }
     
     public AgendaController() {
     }
@@ -80,7 +101,7 @@ public class AgendaController implements Serializable {
     public Date getFechaParaFiltrar() {
         return fechaParaFiltrar;
     }
-    
+
     
     public void setFechaParaFiltrar(Date fechaParaFiltrar) {
         this.fechaParaFiltrar = fechaParaFiltrar;
@@ -168,7 +189,6 @@ public class AgendaController implements Serializable {
     }
     
     public Agenda prepareCreateActividad() {
-        System.out.println("paso por el prepareCreateActividad!!!! ");
         selectedActividad = new Agenda();
         selectedActividad.setRealizado("No");
         initializeEmbeddableKey();
@@ -216,7 +236,7 @@ public class AgendaController implements Serializable {
     private Boolean validateHolidays(String date) {
         //lista sacada de https://www.argentina.gob.ar/interior/feriados-nacionales-2023
         //https://www.lanacion.com.ar/feriados/2024/
-        String feriadosArg[] = {"01/01/2024", "12/02/2024", "13/02/2024", "24/03/2024", "29/04/2024", "02/04/2024", "01/05/2024", "25/05/2024", "20/06/2024",
+        String feriadosArg[] = {"01/01/2024", "12/02/2024", "13/02/2024", "24/03/2024", "29/03/2024", "02/04/2024", "01/05/2024", "25/05/2024", "20/06/2024",
             "09/07/2024", "17/08/2024", "12/10/2024", "20/11/2024", "08/12/2024", "25/12/2024"    
         };
 
@@ -437,6 +457,55 @@ public class AgendaController implements Serializable {
 
     }
 
+    public void marcarComoRealizadaSi() {
+       
+        selected.setRealizado("Si");
+        
+        this.update();
+    }
+    
+    
+    /*
+    el botón amarillo debe:
+
+    a la agenda seleccionada = pasarla a reagendada
+
+    y debe crear una agenda nueva con todos los mismos datos que la anterior
+    solo que realizado = no
+    y fecha = 1 día hábil màs q la actual (seleccionada)
+    
+    */
+    public void reagendarProximoDiaHabil() {
+       
+        selected.setRealizado("Reagendada");
+        
+        this.prepareReagendar(selected);
+        
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(selected.getFecha());
+
+        // Sumamos un día
+        calendar.add(Calendar.DAY_OF_WEEK, 1);
+
+        // Verificamos si es sábado
+        if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+            // Sumamos dos días para llegar al lunes
+            calendar.add(Calendar.DAY_OF_WEEK, 2);
+        }
+
+        selectedParaCrearUnaNueva.setFecha(calendar.getTime());
+        
+        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
+        String dateReagendada = sdf.format(selectedParaCrearUnaNueva.getFecha());
+
+        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "agenda reagendada para el día "+dateReagendada, " ");
+        FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+                    
+        this.update();
+        this.createReagendado(selected.getNombre(), selected.getApellido(), selected.getResponsable(),
+                selectedParaCrearUnaNueva.getRealizado(), selected.getOrden(), selectedParaCrearUnaNueva.getFecha(), selected.getDescripcion());
+    }
+    
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("AgendaDeleted"));
 
@@ -525,7 +594,6 @@ public class AgendaController implements Serializable {
         query.setParameter("fecha", fecha);
 
         Long cantidadDeAgendasPorDia = query.getSingleResult();
-        System.out.println("Cantidad de agendas: " + cantidadDeAgendasPorDia);
         
         if(cantidadDeAgendasPorDia>=40){
             return true;
@@ -965,4 +1033,16 @@ public class AgendaController implements Serializable {
 
     }
 
+    
+    public void toggleSelectionMode() {
+        if (selectionMode.equals("single")) {
+           selectionMode = "multiple";
+           selectedItems = new ArrayList<>(); 
+       } else {
+           selectionMode = "single";
+       }
+    }
+    
+    
+    
 }

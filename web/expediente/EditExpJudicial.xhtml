@@ -21,7 +21,7 @@
                     <h:outputText style="color: green; font-size: 32px" value="#{expedienteController.selected.tipoDeExpediente}"/>
                     <h:outputText value=" //  "/>
                     <h:outputLink value="http://scw.pjn.gov.ar/scw/home.seam" target="_blank">
-                        SCW
+                        Sistema de consulta web
                     </h:outputLink>
                     <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.update}" class="botonCrearAgenda hoverGreen" value="#{bundle.Save}"
                                      style="float: right !important; margin-top: 0% !important;" update=":ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteJudicialEditDialog');"/>
@@ -300,7 +300,9 @@
                         <p:tab title="Documentos" >
                             <div style="float:right ;width: 48%;  margin-top: 2%;">
                                 <div>
-                                    <p:panel id="panelCronoDeAportes" header="Crono. de Aportes" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px;">
+                                    <p:panel 
+                                        style="margin-bottom:20px; #{fileDownloadBean.fileCronoDeAportes != null ? 'background-color: #FF0000;' : 'background-color: #00FF00;'} margin-bottom:20px;"
+                                        id="panelCronoDeAportes" header="Crono. de Aportes" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  >
                                         <p:outputLabel value="Nombre del archivo Crono. de Aportes:"  style="font-weight: bold"/><br></br>
                                         <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoCronoDeAportes(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
                                     </p:panel>
@@ -360,14 +362,19 @@
                             <div class="width50" style="float:right;">
                                 <div>
                                     <br></br>
-                                    <p:panel id="panelFrenteDni" header="Frente DNI" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                                    <p:panel
+                                        style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivoFrenteDni(expedienteController.selected.orden).toString().contains('no') ? 'background-color: #FF0000;' : 'background-color: #00FF00;'} margin-bottom:20px;"
+                                        id="panelFrenteDni" header="Frente DNI" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  >
                                         <div > <p:outputLabel value="Frente DNI:"  style="font-weight: bold"/><br></br>
                                             <p:outputLabel value="Nombre del archivo Frente DNI:"  style="font-weight: bold"/><br></br>
                                             <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoFrenteDni(expedienteController.selected.orden)}" style="font-weight: bold;color: #123A6D"/><br></br>
                                         </div>
                                     </p:panel>
                                     <br></br>
-                                    <p:panel id="panelDorsoDni" header="Dorso DNI" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                                    <p:panel 
+                                        style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivoDorsoDni(expedienteController.selected.orden).toString().contains('no') ? 'background-color: #FF0000;' : 'background-color: #00FF00;'} margin-bottom:20px;"
+                                        
+                                        id="panelDorsoDni" header="Dorso DNI" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500">
                                         <div > 
                                             <p:outputLabel value="Dorso DNI:"  style="font-weight: bold"/><br></br>
                                             <p:outputLabel value="Nombre del archivo Dorso DNI:"  style="font-weight: bold"/><br></br>
@@ -377,34 +384,85 @@
                                     </p:panel>
                                     <br></br>
                                     <p:panel id="panelOtraDocumentacion" header="Otra Documentación" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                                        
                                         <p:outputLabel value="Nombre del archivo Otra Documentación:"  style="font-weight: bold"/><br></br>
                                         <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                    
+                                        <p:outputLabel value="Nombre del archivo Otra Documentación 2:"  style="font-weight: bold"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionDos(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                    
+                                            <p:outputLabel value="Nombre del archivo Otra Documentación 3:"  style="font-weight: bold"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionTres(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                    
+                                    
                                     </p:panel>
                                     <br></br>
-                                    <p:panel id="panelCartaPoder" header="Carta Poder" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                                    <p:panel 
+                                        style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'CartaPoder').toString().contains('no') ? 'background-color: #FF0000;' : 'background-color: #00FF00;'} margin-bottom:20px;"
+                                        
+                                        id="panelCartaPoder" header="Carta Poder" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  >
                                         <p:outputLabel value="Nombre del archivo Carta Poder:"  style="font-weight: bold"/><br></br>
                                         <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'CartaPoder')}"  style="font-weight: bold;color: #123A6D" /><br></br>
                                     </p:panel>
                                     <br></br>
-                                    <p:panel id="paneldocumentoExpAdministrativo" header="Exp. Administrativo" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                                    <p:panel
+                                        style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ExpAdministrativo').toString().contains('no') ? 'background-color: #FF0000;' : 'background-color: #00FF00;'} margin-bottom:20px;"
+                                        
+                                        id="paneldocumentoExpAdministrativo" header="Exp. Administrativo" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500">
                                         <p:outputLabel value="Nombre del archivo Exp. Administrativo:"  style="font-weight: bold"/><br></br>
                                         <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ExpAdministrativo')}"  style="font-weight: bold;color: #123A6D"/><br></br>
                                     </p:panel>
                                      <br></br>
-                                    <p:panel id="paneldocumentoRecibos" header="Recibos:" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                                    <p:panel
+                                        style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Recibos').toString().contains('no') ? 'background-color: #FF0000;' : 'background-color: #00FF00;'} margin-bottom:20px;"
+                                        
+                                        id="paneldocumentoRecibos" header="Recibos:" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  >
                                         <p:outputLabel value="Nombre del archivo Recibos:"  style="font-weight: bold"/><br></br>
                                         <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Recibos')}"  style="font-weight: bold;color: #123A6D"/><br></br>
                                     </p:panel>
                                      <br></br>
                                     <p:panel id="paneldocumentoLiquidacionBluecorp" header="Liquidación Bluecorp:" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
                                         <p:outputLabel value="Nombre del archivo Liquidación BlueCorp:"  style="font-weight: bold"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'LiquidacionBlueCorp')}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorp(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                        <br></br>
+                                    
+                                        <p:outputLabel value="Nombre del archivo Liquidación BlueCorp 2:"  style="font-weight: bold"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorpDos(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                        <br></br>
+                                    
+                                        <p:outputLabel value="Nombre del archivo Liquidación BlueCorp 3:"  style="font-weight: bold"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorpTres(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                        <br></br>
+                                    
+                                    
                                     </p:panel>
                                        <br></br>
-                                    <p:panel id="paneldocumentoResolucionDenegatoria" header="Resolución Denegatoria:" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                                    <p:panel
+                                        style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ResolucionDenegatoria').toString().contains('no') ? 'background-color: #FF0000;' : 'background-color: #00FF00;'} margin-bottom:20px;"
+                                        
+                                        id="paneldocumentoResolucionDenegatoria" header="Resolución Denegatoria:" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500">
                                         <p:outputLabel value="Nombre del archivo Resolución Denegatoria:"  style="font-weight: bold"/><br></br>
                                         <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ResolucionDenegatoria')}"  style="font-weight: bold;color: #123A6D"/><br></br>
                                     </p:panel>
+                                       
+                            <br></br>
+                            <br></br>
+                            <p:panel 
+                                style="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios').toString().contains('no') ? 'background-color: #FF0000;' : 'background-color: #00FF00;'} margin-bottom:20px;"
+                                        
+                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"  header="Convenio de honorarios" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500">
+                                <p:outputLabel value="Nombre del archivo Convenio de honorarios"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios')}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                            </p:panel>
+                            <br></br>
+                            <br></br>
+                            <p:panel 
+                                style="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu').toString().contains('no') ? 'background-color: #FF0000;' : 'background-color: #00FF00;'} margin-bottom:20px;"
+                                
+                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="constanciaDeCbu" header="Constancia de CBU" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500">
+                                <p:outputLabel value="Nombre del archivo Constancia de cbu"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu')}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                            </p:panel>
 
                                 </div>
                             </div>     

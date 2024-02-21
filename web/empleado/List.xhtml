@@ -43,12 +43,6 @@
                             <h:outputText value="#{item.apellido}"/>
                         </p:column>
                         
-                        <p:column style="text-align: center;">
-                            <f:facet name="header">
-                                <h:outputText value="PASSWORD"/>
-                            </f:facet>
-                            <h:outputText value="#{item.password}"/>
-                        </p:column>
                         
                         <p:column style="text-align: center;">
                             <f:facet name="header">
@@ -57,13 +51,13 @@
                             <h:outputText value="#{item.cargo}"/>
                         </p:column>
                         
-                        <p:column style="text-align: center;width: 10%; ">
+                        <p:column rendered="#{session.getAttribute('userNombreCompleto') eq 'Mateo Francisco Alvarez' or session.getAttribute('userNombreCompleto') eq 'María Emilia Campos'}" style="text-align: center;width: 10%; ">
                             
                             <f:facet name="header">
                                 <h:outputText value="ACCIONES"/>
                             </f:facet>
                             
-                            <p:commandButton class="linea btnSearch"  update=":EmpleadoEditForm" oncomplete="PF('EmpleadoEditDialog').show()" icon="ui-icon-search" title="Ver">
+                            <p:commandButton  class="linea btnSearch"  update=":EmpleadoEditForm" oncomplete="PF('EmpleadoEditDialog').show()" icon="ui-icon-search" title="Ver">
                                    <f:setPropertyActionListener value="#{item}" target="#{empleadoController.selected}" />
                             </p:commandButton>
                             

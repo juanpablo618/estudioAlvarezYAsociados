@@ -98,6 +98,9 @@ boto.fondo {
 
 .btnKey{background-color:  #3485ac  !important; }
 
+.btnKeyYellow{background-color:  #FFFF00  !important; }
+.btnKeyGreen{background-color:  #00FF00  !important; }
+
 
 .CIDI{background-image:  url("#{resources['images/CIDI.png']}");}
 

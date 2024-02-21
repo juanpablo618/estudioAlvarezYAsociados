@@ -39,18 +39,15 @@ public class ExpedienteUtils {
     }
 
     public static Predicate<Expediente> filtroFechaDeCumple(String fechaDeCumpleSelected) {
-        System.out.println("ACA!!!: "+fechaDeCumpleSelected);
         if (fechaDeCumpleSelected != null && !"".equals(fechaDeCumpleSelected)) {
             return (Expediente l) -> {
                 if (l.getFechaDeNacimiento() != null) {
-                    System.out.println("entro al ultimo if de filtroFechaDeCumple");
 
                     Date date = l.getFechaDeNacimiento();
                     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                     String strDate = dateFormat.format(date);
 
                     String sSubCadena = strDate.substring(0, 5);
-                    System.out.println("sSubCadena: " + sSubCadena);
 
                     return sSubCadena.equals(fechaDeCumpleSelected);
                 } else {
@@ -68,7 +65,6 @@ public class ExpedienteUtils {
         if (estadoDelTramiteSelected != null && !"".equals(estadoDelTramiteSelected)) {
             return (Expediente l) -> {
                 if (l.getEstadoDelTramite() != null) {
-                    System.out.println("entro al ultimo if de filtroEstadoDelTramite");
 
                     return l.getEstadoDelTramite().equals(estadoDelTramiteSelected);
 
@@ -84,13 +80,10 @@ public class ExpedienteUtils {
     }
 
     public static Predicate<Expediente> filtroResponsable(String responsableSelected) {
-       System.out.println("entro al predicate filtroResponsable");
-       System.out.println("ACA responsableSelected: "+responsableSelected);
 
         if (responsableSelected != null && !"".equals(responsableSelected)) {
             return (Expediente l) -> {
                 if (l.getResponsable()!= null) {
-                    System.out.println("entro al ultimo if de filtroApoderado");
 
                     return l.getResponsable().equals(responsableSelected);
 
@@ -109,7 +102,6 @@ public class ExpedienteUtils {
             return (Expediente l) -> {
                 if (l.getTipoDeExpediente() != null) {
 
-                    System.out.println("entro al ultimo if de filtroTipoDeExpediente");
 
                     return l.getTipoDeExpediente().equals(tipoDeExpedienteSelected);
                 } else {
@@ -126,7 +118,6 @@ public class ExpedienteUtils {
         if (sexoSelected != null && !"".equals(sexoSelected)) {
             return (Expediente l) -> {
                 if (l.getSexo() != null) {
-                    System.out.println("entro al ultimo if de filtroSexo");
 
                     return l.getSexo().equals(sexoSelected);
 

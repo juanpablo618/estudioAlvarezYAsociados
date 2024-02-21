@@ -338,15 +338,47 @@
                                 <p:growl showDetail="true"/>
                                 <p:fileUpload  value="#{fileUploadBean.fileOtraDocumentacion}" mode="simple"/>
                                 
-                                <p:commandButton icon="fa-upload" value="Subir Otra Documentación" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadOtraDocumentacion(expedienteController.selected.orden)}" ajax="false" />
+                                <p:commandButton icon="fa-upload" value="Subir Otra Documentación 1" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadOtraDocumentacion(expedienteController.selected.orden)}" ajax="false" />
                                 <br></br>
                                 
-                                <p:outputLabel value="Nombre del archivo Otra Documentación:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="Nombre del archivo Otra Documentación 1:"  style="font-weight: bold"/><br></br>
                                 <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
                                 
-                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar Otra Documentación" actionListener="#{fileDownloadBean.downloadOtraDocumentacion(expedienteController.selected.orden)}" ajax="false">
+                                <p:commandButton  class="botonCrearAgenda hoverBlue" value="Descargar Otra Documentación 1" actionListener="#{fileDownloadBean.downloadOtraDocumentacion(expedienteController.selected.orden)}" ajax="false">
                                     <p:fileDownload value="#{fileDownloadBean.fileOtraDocumentacion}" />
                                 </p:commandButton>
+                                <br></br>
+                                <br></br>
+                                <p:outputLabel value="Otra Documentación 2:"  style="font-weight: bold"/><br></br>
+                                             <br></br>                   
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileOtraDocumentacionDos}" mode="simple"/>
+                                
+                                <p:commandButton icon="fa-upload" value="Subir Otra Documentación 2" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadOtraDocumentacionDos(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br>
+                                <br></br>
+                                <p:outputLabel value="Nombre del archivo Otra Documentación 2:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionDos(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                
+                                <p:commandButton  class="botonCrearAgenda hoverBlue" value="Descargar Otra Documentación 2" actionListener="#{fileDownloadBean.downloadOtraDocumentacionDos(expedienteController.selected.orden)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileOtraDocumentacionDos}" />
+                                </p:commandButton>
+                                <br></br><br></br>
+                                <p:outputLabel value="Otra Documentación 3:"  style="font-weight: bold"/><br></br>
+                                                                
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileOtraDocumentacionTres}" mode="simple"/>
+                                
+                                <p:commandButton icon="fa-upload" value="Subir Otra Documentación 3" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadOtraDocumentacionTres(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br>
+                                
+                                <p:outputLabel value="Nombre del archivo Otra Documentación 3:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionTres(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                
+                                <p:commandButton  class="botonCrearAgenda hoverBlue" value="Descargar Otra Documentación 3" actionListener="#{fileDownloadBean.downloadOtraDocumentacionTres(expedienteController.selected.orden)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileOtraDocumentacionTres}" />
+                                </p:commandButton>
+                                
                             </p:panel>
                                 <br></br>
                                 <br></br>
@@ -393,16 +425,42 @@
                             <br></br>
                             <br></br>
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="liquidacionBlueCorp" header="Liquidación BlueCorp" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
-                                <p:outputLabel value="archivos Recibos:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="BlueCorp 1:"  style="font-weight: bold"/><br></br>
                                 <p:growl showDetail="true"/>
                                 <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorp}" mode="simple"/>
-                                <p:commandButton icon="fa-upload" value="Subir Liquidación BlueCorp" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'LiquidacionBlueCorp')}" ajax="false" />
+                                <p:commandButton icon="fa-upload" value="Subir Liquidación BlueCorp" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadBlueCorp(expedienteController.selected.orden)}" ajax="false" />
                                 <br></br>
                                 <p:outputLabel value="Nombre del archivo Liquidación BlueCorp"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'LiquidacionBlueCorp')}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar Liquidación BlueCorp" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'LiquidacionBlueCorp')}" ajax="false">
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorp(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar Liquidación BlueCorp 1" actionListener="#{fileDownloadBean.downloadBlueCorp(expedienteController.selected.orden)}" ajax="false">
                                     <p:fileDownload value="#{fileDownloadBean.fileLiquidacionBlueCorp}" />
                                 </p:commandButton>
+                                <br></br>
+                            
+                                <p:outputLabel value="BlueCorp 2:"  style="font-weight: bold"/><br></br>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorpDos}" mode="simple"/>
+                                <p:commandButton icon="fa-upload" value="Subir Liquidación BlueCorp 2" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadBlueCorpDos(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br>
+                                <p:outputLabel value="Nombre del archivo Liquidación BlueCorp 2"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorpDos(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar Liquidación BlueCorp 2" actionListener="#{fileDownloadBean.downloadBlueCorpDos(expedienteController.selected.orden)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileLiquidacionBlueCorpDos}" />
+                                </p:commandButton>
+                                <br></br>
+                            
+                                <p:outputLabel value="BlueCorp 3:"  style="font-weight: bold"/><br></br>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorpTres}" mode="simple"/>
+                                <p:commandButton icon="fa-upload" value="Subir Liquidación BlueCorp 3" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadBlueCorpTres(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br>
+                                <p:outputLabel value="Nombre del archivo Liquidación BlueCorp 3"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorpTres(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <p:commandButton  class="botonCrearAgenda hoverBlue" value="Descargar Liquidación BlueCorp 3" actionListener="#{fileDownloadBean.downloadBlueCorpTres(expedienteController.selected.orden)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileLiquidacionBlueCorpTres}" />
+                                </p:commandButton>
+                                <br></br>
+                            
                             </p:panel>
                             <br></br>
                             <br></br>
@@ -416,6 +474,34 @@
                                 <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ResolucionDenegatoria')}"  style="font-weight: bold;color: #123A6D"/><br></br>
                                 <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar Resolución Denegatoria" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'ResolucionDenegatoria')}" ajax="false">
                                     <p:fileDownload value="#{fileDownloadBean.fileResolucionDenegatoria}" />
+                                </p:commandButton>
+                            </p:panel>
+                            <br></br>
+                            <br></br>
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="convenioDeHonorarios" header="Convenio de honorarios" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                                <p:outputLabel value="Convenio de honorarios"  style="font-weight: bold"/><br></br>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileConvenioDeHonorarios}" mode="simple"/>
+                                <p:commandButton icon="fa-upload" value="Subir Convenio de honorarios" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'ConvenioDeHonorarios')}" ajax="false" />
+                                <br></br>
+                                <p:outputLabel value="Nombre del archivo Convenio de honorarios"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios')}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <p:commandButton  class="botonCrearAgenda hoverBlue" value="Descargar Convenio de honorarios" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'ConvenioDeHonorarios')}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileConvenioDeHonorarios}" />
+                                </p:commandButton>
+                            </p:panel>
+                            <br></br>
+                            <br></br>
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="constanciaDeCbu" header="Constancia de CBU" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                                <p:outputLabel value="Constancia de CBU"  style="font-weight: bold"/><br></br>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileConstanciaDeCbu}" mode="simple"/>
+                                <p:commandButton icon="fa-upload" value="Subir Constancia de CBU" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'ConstanciaDeCbu')}" ajax="false" />
+                                <br></br>
+                                <p:outputLabel value="Nombre del archivo Constancia de cbu"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu')}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar Constancia de cbu" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'ConstanciaDeCbu')}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileConstanciaDeCbu}" />
                                 </p:commandButton>
                             </p:panel>
                             

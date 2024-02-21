@@ -604,7 +604,6 @@ public class ExpedienteController implements Serializable {
                 ps.setInt(1, selected.getOrden());
                 ps.setLong(2, cuitLong);
 
-                System.out.println("PS: "+ps.toString());
                 
                 ps.execute();
 
@@ -612,7 +611,6 @@ public class ExpedienteController implements Serializable {
                 ps.setInt(1, selected.getOrden());
                 ps.setLong(2, cuitLong);
 
-                System.out.println("PS: "+ps.toString());
                 
                 ps.execute();
 
@@ -1063,8 +1061,7 @@ public class ExpedienteController implements Serializable {
     }
 
     public void filtrarPorTipoDeTramite(String tipoDeTramiteSelected) {
-        System.out.println("tipoDeExpedienteSelected: " + tipoDeTramiteSelected);
-
+        
         this.filteredExpedientes = new ArrayList<Expediente>();
 
         if (tipoDeTramiteSelected != null) {
@@ -1101,8 +1098,7 @@ public class ExpedienteController implements Serializable {
     }
 
     public void filtrarPorSexo(String sexoSelected) {
-        System.out.println("tipoDeExpedienteSelected: " + sexoSelected);
-
+        
         this.filteredExpedientes = new ArrayList<Expediente>();
 
         if (sexoSelected != null) {
@@ -1118,8 +1114,7 @@ public class ExpedienteController implements Serializable {
     }
 
     public void filtrarPorTipoDeExpediente(String tipoDeExpedienteSelected) {
-        System.out.println("tipoDeExpedienteSelected: " + tipoDeExpedienteSelected);
-
+        
         this.filteredExpedientes = new ArrayList<Expediente>();
 
         if (tipoDeExpedienteSelected != null) {
@@ -1175,8 +1170,7 @@ public class ExpedienteController implements Serializable {
                     String strDate = dateFormat.format(date);
 
                     String sSubCadena = strDate.substring(0, 5);
-                    System.out.println("sSubCadena: " + sSubCadena);
-
+                    
                     if (sSubCadena.equals(fechaDeCumpleSelected)) {
                         filteredExpedientes.add(expediente);
                     }
@@ -1212,7 +1206,6 @@ public class ExpedienteController implements Serializable {
         
         Date fechaAntigua = new Date();
         
-        System.out.println("consultaSelected.getFechaDeNacimiento(): "+ consultaSelected.getFechaDeNacimiento());
         
         if (consultaSelected.getFechaDeNacimiento() != null) {
             fechaAntigua = consultaSelected.getFechaDeNacimiento();

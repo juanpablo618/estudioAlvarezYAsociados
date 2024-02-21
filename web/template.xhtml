@@ -16,11 +16,11 @@
     <h:body class="fondo">
         <h:form>
             <p:growl id="messages1" showDetail="true" sticky="true" />
-            <p:idleMonitor timeout="3600000">
+            <p:idleMonitor timeout="900000">
                 <p:ajax event="idle" listener="#{login.onIdle}" update="messages1" />
             </p:idleMonitor>
         </h:form>
-         <p:growl id="growl" life="3000" />
+         <p:growl id="growl" life="5000" />
         <p:layout fullPage="true" style="background: #123a6d;">
             <p:layoutUnit position="north" class="bordersn maxwidth" style="margin: 0 !important; padding: 0 !important;">
                 <center style="background-color: #123a6d;">
@@ -49,7 +49,7 @@
                             <p:separator class="separador"/>
                             <p:menuitem outcome="/consulta/List" class="fa fa-laptop fa-3x btnMenuLeft" title="Consultas"/>
                             <p:separator class="separador"/>
-                            <p:menuitem outcome="/estadisticas/List" rendered="#{session.getAttribute('userNombreCompleto') eq 'Mateo Francisco Alvarez'}" class="fa fa-address-book fa-3x btnMenuLeft" title="Estadisticas" />
+                            <p:menuitem outcome="/estadisticas/List" rendered="#{session.getAttribute('userNombreCompleto') eq 'Mateo Francisco Alvarez' or session.getAttribute('userNombreCompleto') eq 'María Emilia Campos'}" class="fa fa-address-book fa-3x btnMenuLeft" title="Estadisticas" />
                             <p:separator class="separador" rendered="#{session.getAttribute('userNombreCompleto') eq 'Mateo Francisco Alvarez'}"  />
                             
                             

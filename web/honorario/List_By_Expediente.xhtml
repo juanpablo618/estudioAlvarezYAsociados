@@ -31,7 +31,6 @@
                              emptyMessage="No existen Honorarios"
                              paginatorPosition="bottom" 
                              rendered="true"
-                             filteredValue="#{honorarioController.filteredHonorarios}"
                              >
 
                         <p:ajax event="rowSelect"   />
@@ -71,6 +70,13 @@
                             </f:facet>
                             <h:outputText value="#{item.estado}"/>
                         </p:column>
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="Costas"/>
+                            </f:facet>
+                            <h:outputText value="#{item.costas}"/>
+                        </p:column>
+                        
                         <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="fecha de regulación"/>

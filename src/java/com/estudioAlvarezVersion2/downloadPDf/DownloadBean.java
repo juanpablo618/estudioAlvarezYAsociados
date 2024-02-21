@@ -30,18 +30,13 @@ private static final long serialVersionUID = 626953318628565053L;
 
 public void crearDocumento( ) throws IOException, DocumentException, InterruptedException{
     
-    System.out.println("entro al crear Documento !!");
-        
         Date date = new Date();
         //Caso 1: obtener la hora y salida por pantalla con formato:
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
-        System.out.println("Hora: "+hourFormat.format(date));
         //Caso 2: obtener la fecha y salida por pantalla con formato:
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        System.out.println("Fecha: "+dateFormat.format(date));
         //Caso 3: obtenerhora y fecha y salida por pantalla con formato:
         DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
-        System.out.println("Hora y fecha: "+hourdateFormat.format(date));
     
             String fechaYHoraActual = hourdateFormat.format(date);
 
@@ -90,14 +85,11 @@ public void crearConvenioDeHonorarios(String nombre, String apellido, String dni
                         Date date = new Date();
                         //Caso 1: obtener la hora y salida por pantalla con formato:
                         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
-                        System.out.println("Hora: "+hourFormat.format(date));
                         //Caso 2: obtener la fecha y salida por pantalla con formato:
                         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-                        System.out.println("Fecha: "+dateFormat.format(date));
                         //Caso 3: obtenerhora y fecha y salida por pantalla con formato:
                         DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
-                        System.out.println("Hora y fecha: "+hourdateFormat.format(date));
 
                             String fechaYHoraActual = hourdateFormat.format(date);
 
@@ -155,14 +147,11 @@ public void crearPdfDeCaratula(String nombre, String apellido, String dni, Strin
                         Date date = new Date();
                         //Caso 1: obtener la hora y salida por pantalla con formato:
                         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
-                        System.out.println("Hora: "+hourFormat.format(date));
                         //Caso 2: obtener la fecha y salida por pantalla con formato:
                         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-                        System.out.println("Fecha: "+dateFormat.format(date));
                         //Caso 3: obtenerhora y fecha y salida por pantalla con formato:
                         DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
-                        System.out.println("Hora y fecha: "+hourdateFormat.format(date));
 
                             String fechaYHoraActual = hourdateFormat.format(date);
 
@@ -205,13 +194,10 @@ public void crearCronologicoDeAportes(String nombre ) throws IOException, Docume
         Date date = new Date();
         //Caso 1: obtener la hora y salida por pantalla con formato:
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
-        System.out.println("Hora: "+hourFormat.format(date));
         //Caso 2: obtener la fecha y salida por pantalla con formato:
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        System.out.println("Fecha: "+dateFormat.format(date));
         //Caso 3: obtenerhora y fecha y salida por pantalla con formato:
         DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
-        System.out.println("Hora y fecha: "+hourdateFormat.format(date));
     
             String fechaYHoraActual = hourdateFormat.format(date);
 
@@ -241,9 +227,6 @@ public void crearCronologicoDeAportes(String nombre ) throws IOException, Docume
      * @throws java.io.IOException
      * @throws java.lang.InterruptedException*/
 public void downloadPdf(String nombreDelDocumento) throws IOException, InterruptedException {
-    System.err.println("");    
-    System.err.println("");
-    System.err.println("nombreDelDocumento: " + nombreDelDocumento.toString());
     
     Thread.sleep(2000);
     
@@ -266,8 +249,6 @@ OutputStream responseOutputStream = response.getOutputStream();
  FacesContext context = FacesContext.getCurrentInstance();
  ConfiguracionesGeneralesController configuracionesGeneralesController = context.getApplication().evaluateExpressionGet(context, "#{configuracionesGeneralesController}", ConfiguracionesGeneralesController.class);
       
- 
- System.out.println(configuracionesGeneralesController.getConfiguracionesGenerales(1).getPdfUrl());
  
 // Read PDF contents
 URL url = new URL(configuracionesGeneralesController.getConfiguracionesGenerales(1).getPdfUrl().concat(nombreDelDocumento).concat(".pdf"));
@@ -298,10 +279,6 @@ facesContext.responseComplete();
 }
 
 public void downloadCsv(String nombreDelDocumento) throws IOException, InterruptedException {
-    System.err.println("");    
-    System.err.println("");
-    System.err.println("nombreDelDocumento: " + nombreDelDocumento.toString());
-    
     Thread.sleep(2000);
     
 // Get the FacesContext
@@ -341,13 +318,8 @@ responseOutputStream.flush();
 pdfInputStream.close();
 responseOutputStream.close();
 
-// JSF doc: 
-// Signal the JavaServer Faces implementation that the HTTP response for this request has already been generated 
-// (such as an HTTP redirect), and that the request processing lifecycle should be terminated
-// as soon as the current phase is completed.
 facesContext.responseComplete();
 
-//FacesContext context = FacesContext.getCurrentInstance();
 
 }
 

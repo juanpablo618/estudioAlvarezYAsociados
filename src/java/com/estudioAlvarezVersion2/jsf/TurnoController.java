@@ -223,7 +223,7 @@ public class TurnoController implements Serializable {
     private Boolean validateHolidays(String date) {
         //lista sacada de https://www.argentina.gob.ar/interior/feriados-nacionales-2023
         //https://www.lanacion.com.ar/feriados/2024/
-        String feriadosArg[] = {"01/01/2024", "12/02/2024", "13/02/2024", "24/03/2024", "29/04/2024", "02/04/2024", "01/05/2024", "25/05/2024", "20/06/2024",
+        String feriadosArg[] = {"01/01/2024", "12/02/2024", "13/02/2024", "24/03/2024", "29/03/2024", "02/04/2024", "01/05/2024", "25/05/2024", "20/06/2024",
             "09/07/2024", "17/08/2024", "12/10/2024", "20/11/2024", "08/12/2024", "25/12/2024"    
         };
         return Arrays.asList(feriadosArg).contains(date);
@@ -313,8 +313,7 @@ public class TurnoController implements Serializable {
     }
     
     public void cambiarFiltroIzquierda(String userNombreCompleto){
-         System.out.println("Cambiar filtro derecha");
-
+         
     // Obtener el valor actual de fechaParaFiltrar
     String fechaActual = getFechaParaFiltrar();
 
@@ -324,7 +323,6 @@ public class TurnoController implements Serializable {
     // Actualizar fechaParaFiltrar con el nuevo valor
     setFechaParaFiltrar(nuevoValor);
 
-    System.out.println(getFechaParaFiltrar());
     }
     
     public void cambiarFiltroDerecha(String userNombreCompleto) throws ParseException {
@@ -340,8 +338,6 @@ public class TurnoController implements Serializable {
 
     String fechaString = formato.format(fecha);
     this.fechaParaFiltrar = fechaString;
-
-    System.out.println("fecha: " + fechaParaFiltrar);
 
     this.getItemsBySessionUser(userNombreCompleto, fechaParaFiltrar);
 }

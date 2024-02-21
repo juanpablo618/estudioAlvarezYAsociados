@@ -22,7 +22,7 @@
                                        
                         
                 <p:outputLabel value="Orden" for="orden" style="margin-left: 3%;font-weight: bold" />
-                <p:inputText readonly="true" id="orden" value="#{honorarioController.selected.orden}" style="margin-left: 3%" title="Orden" />
+                <p:inputText readonly="true" id="orden" value="#{honorarioController.selected.orden}"  title="Orden" />
                 
                 <p:outputLabel value="#{bundle.EditAgendaLabel_fecha}" for="fecha" />
                 <p:calendar disabledWeekends="true" id="fecha" mask="true"  pattern="dd/MM/yyyy" value="#{honorarioController.selected.fechaRegulacion}" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>

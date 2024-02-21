@@ -189,7 +189,7 @@
                     <p:ajax event="rowUnselect" update="createButton "/>
 
                     <p:growl  id="message2" showDetail="true" />
-
+        
                     <p:column style="width: 10%" styleClass="centeredColumnContent#{item.realizado}" sortBy="#{item.getDiaMesAnio()}" filterBy="#{item.getDiaMesAnio()}" filterMatchMode="exact" >
                         <f:facet name="filter">
                             <p:inputText id="inputFechaEnAgenda" onchange="PF('agendasTable').filter()" value="#{turnoController.fechaSeleccionadaEnTurno}" />

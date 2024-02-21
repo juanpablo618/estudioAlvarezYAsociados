@@ -16,7 +16,7 @@
             
                 <h:panelGroup id="display">
                     
-                   <p:dataTable id="datalist" value="#{honorarioController.getItems()}" var="item"
+                   <p:dataTable id="datalist" value="#{honorarioController.getItemsOrdenadosAlfabeticamente()}" var="item"
                              selectionMode="single" selection="#{honorarioController.selected}"
                              paginator="true"
                              rowKey="#{item.idHonorario}"
@@ -34,7 +34,7 @@
 
                         <p:growl  id="message" showDetail="true" />
  
-                        <p:column style="text-align: center;">
+                        <p:column filterBy="#{item.apellido}"  style="text-align: center;" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="Apellido y Nombre"/>
                             </f:facet>
@@ -120,9 +120,6 @@
                                             <f:ajax event="change" listener="#{honorarioController.handleDateSelect(event)}" />
                                         </p:selectOneMenu>
                                 </f:facet>
-                                
-                                    
-                            
                             
                             <h:outputText value="#{item.estado}"/>
                         </p:column>
@@ -133,6 +130,12 @@
                             <h:outputText  value="#{item.fechaRegulacion}"   >
                             <f:convertDateTime pattern="dd/MM/yyyy"  />
                         </h:outputText>
+                        </p:column>
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="Costas"/>
+                            </f:facet>
+                            <h:outputText value="#{item.costas}"/>
                         </p:column>
                         
                         <p:column style="text-align: center; ">

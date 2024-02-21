@@ -48,12 +48,20 @@ public class FileUploadBean implements Serializable{
         
         private UploadedFile fileFrenteDni;  
         private UploadedFile fileDorsoDni;  
-        private UploadedFile fileOtraDocumentacion;  
+        private UploadedFile fileOtraDocumentacion; 
+        private UploadedFile fileOtraDocumentacionDos; 
+        private UploadedFile fileOtraDocumentacionTres; 
+        
         private UploadedFile fileCartaPoder;  
         private UploadedFile fileExpAdministrativo;
         private UploadedFile fileRecibos;
         private UploadedFile fileLiquidacionBlueCorp;
+        private UploadedFile fileLiquidacionBlueCorpDos;
+        private UploadedFile fileLiquidacionBlueCorpTres;
+        
         private UploadedFile fileResolucionDenegatoria;
+        private UploadedFile fileConvenioDeHonorarios;
+        private UploadedFile fileConstanciaDeCbu;
         
         private UploadedFile fileCronoDeAportes;  
         private UploadedFile frenteDniExpSinCarpeta;  
@@ -245,7 +253,54 @@ public class FileUploadBean implements Serializable{
     public void setFileCronoDeAportes(UploadedFile fileCronoDeAportes) {
         this.fileCronoDeAportes = fileCronoDeAportes;
     }
-    
+
+    public UploadedFile getFileOtraDocumentacionDos() {
+        return fileOtraDocumentacionDos;
+    }
+
+    public void setFileOtraDocumentacionDos(UploadedFile fileOtraDocumentacionDos) {
+        this.fileOtraDocumentacionDos = fileOtraDocumentacionDos;
+    }
+
+    public UploadedFile getFileOtraDocumentacionTres() {
+        return fileOtraDocumentacionTres;
+    }
+
+    public void setFileOtraDocumentacionTres(UploadedFile fileOtraDocumentacionTres) {
+        this.fileOtraDocumentacionTres = fileOtraDocumentacionTres;
+    }
+
+    public UploadedFile getFileConvenioDeHonorarios() {
+        return fileConvenioDeHonorarios;
+    }
+
+    public void setFileConvenioDeHonorarios(UploadedFile fileConvenioDeHonorarios) {
+        this.fileConvenioDeHonorarios = fileConvenioDeHonorarios;
+    }
+
+    public UploadedFile getFileConstanciaDeCbu() {
+        return fileConstanciaDeCbu;
+    }
+
+    public void setFileConstanciaDeCbu(UploadedFile fileConstanciaDeCbu) {
+        this.fileConstanciaDeCbu = fileConstanciaDeCbu;
+    }
+
+    public UploadedFile getFileLiquidacionBlueCorpDos() {
+        return fileLiquidacionBlueCorpDos;
+    }
+
+    public void setFileLiquidacionBlueCorpDos(UploadedFile fileLiquidacionBlueCorpDos) {
+        this.fileLiquidacionBlueCorpDos = fileLiquidacionBlueCorpDos;
+    }
+
+    public UploadedFile getFileLiquidacionBlueCorpTres() {
+        return fileLiquidacionBlueCorpTres;
+    }
+
+    public void setFileLiquidacionBlueCorpTres(UploadedFile fileLiquidacionBlueCorpTres) {
+        this.fileLiquidacionBlueCorpTres = fileLiquidacionBlueCorpTres;
+    }
     
     
 // El nuevo requerimiento indica que se puedan subir JPG o PDF indistintamente 
@@ -288,7 +343,6 @@ public class FileUploadBean implements Serializable{
             }
             
         } catch (IOException | SQLException e) {
-            System.out.println(ERROR+e.toString());
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileCronoDeAportes.getFileName() + " por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
 
@@ -334,7 +388,6 @@ public class FileUploadBean implements Serializable{
             }
             
         } catch (IOException | SQLException e) {
-            System.out.println("ERROR: "+e.toString());
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + filePdf.getFileName() + " por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
 
@@ -378,7 +431,6 @@ public class FileUploadBean implements Serializable{
             }
             
         } catch (IOException | SQLException e) {
-            System.out.println(ERROR+e.toString());
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + filePdfDos.getFileName() + " por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -420,7 +472,6 @@ public class FileUploadBean implements Serializable{
             }
             
         } catch (IOException | SQLException e) {
-            System.out.println(ERROR+e.toString());
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + filePdfTres.getFileName() + " por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -549,7 +600,6 @@ public class FileUploadBean implements Serializable{
             }
             
         } catch (IOException | SQLException e) {
-            System.out.println(ERROR+e.toString());
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileDorsoDni.getFileName() + " por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -597,7 +647,6 @@ public class FileUploadBean implements Serializable{
             }
             
         } catch (IOException | SQLException e) {
-            System.out.println(ERROR+e.toString());
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileFrenteDni.getFileName() + " por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -650,18 +699,164 @@ public class FileUploadBean implements Serializable{
                                             
                     
         } catch (SQLException e) {
-            System.out.println(ERROR+e.toString());
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + frenteDniExpSinCarpetaTransfer.getName()+ " por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         
     }  
     
+    public void uploadOtraDocumentacion(int orden, int numeroDocumento) {
+    Connection con = null;
+    PreparedStatement ps = null;
+    UploadedFile currentFile = null ;
+
+    try {
+        
+        
+        switch (numeroDocumento) {
+            case 1:
+                currentFile = fileOtraDocumentacion;
+                break;
+            case 2:
+                currentFile = fileOtraDocumentacionDos;
+                break;
+            case 3:
+                currentFile = fileOtraDocumentacionTres;
+                break;
+            default:
+                // Manejar el caso en el que el número de documento no sea válido
+                FacesMessage msg = new FacesMessage(ERROR, "Número de documento no válido: " + numeroDocumento);
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                return;
+        }
+        
+        if (currentFile != null && numeroDocumento >= 1 && numeroDocumento <= 3) {
+            if (currentFile.getContentType().equalsIgnoreCase(IMAGE_JPEG) || currentFile.getContentType().equalsIgnoreCase(APPLICATION_PDF)) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("INSERT INTO documentosOtraDocumentacion (documento, nroDeOrden, nombreDelDocumento, numeroDocumento) " +
+                        "VALUES (?, ?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                        "documento = VALUES(documento), " +
+                        "nroDeOrden = LAST_INSERT_ID(nroDeOrden)," +
+                        "nombreDelDocumento = VALUES(nombreDelDocumento), " +
+                        "numeroDocumento = VALUES(numeroDocumento)"
+                );
+
+                ps.setBinaryStream(1, currentFile.getInputstream());
+                ps.setInt(2, orden);
+                ps.setString(3, currentFile.getFileName());
+                ps.setInt(4, numeroDocumento);
+
+                ps.executeUpdate();
+                FacesMessage msg = new FacesMessage(OK, "Fichero " + currentFile.getFileName() + SUBIDO_CORRECTAMENTE__CON_NRO_DE__ORDEN + orden + " y Número de Documento " + numeroDocumento);
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            } else {
+                if (!"".equals(currentFile.getFileName())) {
+                    FacesMessage msg = new FacesMessage(ERROR, "No seleccionó un archivo JPG o PDF para el documento " + numeroDocumento);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                } else {
+                    FacesMessage msg = new FacesMessage(ERROR, "Fichero " + currentFile.getFileName() + " no es un archivo JPG o PDF para el documento " + numeroDocumento);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+            }
+        }
+    } catch (IOException | SQLException e) {
+        FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + currentFile.getFileName() + " por favor seleccione otro.");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    } finally {
+        try {
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException e) {
+            // Manejar la excepción al cerrar la conexión
+            e.printStackTrace();
+        }
+    }
+}
+
+    /*public void uploadBlueCorp(int orden, int numeroDocumento) {
+    Connection con = null;
+    PreparedStatement ps = null;
+    UploadedFile currentFile = null;
+
+    try {
+        
+         
+        switch (numeroDocumento) {
+            case 1:
+                currentFile = fileLiquidacionBlueCorp;
+                break;
+            case 2:
+                currentFile = fileLiquidacionBlueCorpDos;
+                break;
+            case 3:
+                currentFile = fileLiquidacionBlueCorpTres;
+                break;
+            default:
+                // Manejar el caso en el que el número de documento no sea válido
+                FacesMessage msg = new FacesMessage(ERROR, "Número de documento no válido: " + numeroDocumento);
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                return;
+        }
+        
+        if (currentFile != null && numeroDocumento >= 1 && numeroDocumento <= 3) {
+            if (currentFile.getContentType().equalsIgnoreCase(IMAGE_JPEG) || currentFile.getContentType().equalsIgnoreCase(APPLICATION_PDF)) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("INSERT INTO documentosliquidacionbluecorp (documento, nroDeOrden, nombreDelDocumento, numeroDocumento) " +
+                        "VALUES (?, ?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                        "documento = VALUES(documento), " +
+                        "nroDeOrden = LAST_INSERT_ID(nroDeOrden)," +
+                        "nombreDelDocumento = VALUES(nombreDelDocumento), " +
+                        "numeroDocumento = VALUES(numeroDocumento)"
+                );
+
+                ps.setBinaryStream(1, currentFile.getInputstream());
+                ps.setInt(2, orden);
+                ps.setString(3, currentFile.getFileName());
+                ps.setInt(4, numeroDocumento);
+
+                ps.executeUpdate();
+                FacesMessage msg = new FacesMessage(OK, "Fichero " + currentFile.getFileName() + SUBIDO_CORRECTAMENTE__CON_NRO_DE__ORDEN + orden + " y Número de Documento " + numeroDocumento);
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            } else {
+                if (!"".equals(currentFile.getFileName())) {
+                    FacesMessage msg = new FacesMessage(ERROR, "No seleccionó un archivo JPG o PDF para el documento " + numeroDocumento);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                } else {
+                    FacesMessage msg = new FacesMessage(ERROR, "Fichero " + currentFile.getFileName() + " no es un archivo JPG o PDF para el documento " + numeroDocumento);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+            }
+        }
+    } catch (IOException | SQLException e) {
+            FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + currentFile.getFileName() + " por favor seleccione otro.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+    } finally {
+        try {
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException e) {
+            // Manejar la excepción al cerrar la conexión
+            e.printStackTrace();
+        }
+    }
+}*/
+
+    
     public void uploadOtraDocumentacion(int orden) {  
                     
         try {
             Connection con;
-		PreparedStatement ps;
+            PreparedStatement ps;
 
             if(fileOtraDocumentacion != null){
                     
@@ -698,12 +893,106 @@ public class FileUploadBean implements Serializable{
             }
             
         } catch (IOException | SQLException e) {
-            System.out.println(ERROR+e.toString());
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileOtraDocumentacion.getFileName() + " por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         
     }  
+    
+    public void uploadOtraDocumentacionDos(int orden) {  
+                    
+        try {
+            Connection con;
+            PreparedStatement ps;
+
+            if(fileOtraDocumentacionDos != null){
+                    
+                    if(fileOtraDocumentacionDos.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileOtraDocumentacionDos.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO documentosOtraDocumentacionDos (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, fileOtraDocumentacionDos.getInputstream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, fileOtraDocumentacionDos.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage(OK, "Fichero " + fileOtraDocumentacionDos.getFileName() + SUBIDO_CORRECTAMENTE__CON_NRO_DE__ORDEN+orden);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    
+                    }else{
+                        if(!"".equals(fileOtraDocumentacionDos.getFileName())){
+                            FacesMessage msg = new FacesMessage(ERROR, "no selecciono un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }else{
+                            FacesMessage msg = new FacesMessage(ERROR, "Fichero " + fileOtraDocumentacionDos.getFileName() + " no es un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+                    
+            }
+            
+        } catch (IOException | SQLException e) {
+                        FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileOtraDocumentacionDos.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
+    
+    public void uploadOtraDocumentacionTres(int orden) {  
+                    
+        try {
+            Connection con;
+            PreparedStatement ps;
+
+            if(fileOtraDocumentacionTres != null){
+                    
+                    if(fileOtraDocumentacionTres.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileOtraDocumentacionTres.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO documentosOtraDocumentacionTres (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, fileOtraDocumentacionTres.getInputstream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, fileOtraDocumentacionTres.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage(OK, "Fichero " + fileOtraDocumentacionTres.getFileName() + SUBIDO_CORRECTAMENTE__CON_NRO_DE__ORDEN+orden);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    
+                    }else{
+                        if(!"".equals(fileOtraDocumentacionTres.getFileName())){
+                            FacesMessage msg = new FacesMessage(ERROR, "no selecciono un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }else{
+                            FacesMessage msg = new FacesMessage(ERROR, "Fichero " + fileOtraDocumentacionTres.getFileName() + " no es un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+                    
+            }
+            
+        } catch (IOException | SQLException e) {
+                        FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileOtraDocumentacionTres.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
+    
     
     public void uploadCartaPoder(int orden) {  
                     
@@ -746,7 +1035,6 @@ public class FileUploadBean implements Serializable{
             }
             
         } catch (IOException | SQLException e) {
-            System.out.println(ERROR+e.toString());
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileCartaPoder.getFileName() + " por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -794,7 +1082,6 @@ public class FileUploadBean implements Serializable{
             }
             
         } catch (IOException | SQLException e) {
-            System.out.println(ERROR+e.toString());
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileExpAdministrativo.getFileName() + " por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -813,6 +1100,12 @@ public class FileUploadBean implements Serializable{
                  break;     
             case "ResolucionDenegatoria":
                  fileParaSubir = fileResolucionDenegatoria;
+                 break;     
+            case "ConvenioDeHonorarios":
+                 fileParaSubir = fileConvenioDeHonorarios;
+                 break;     
+            case "ConstanciaDeCbu":
+                 fileParaSubir = fileConstanciaDeCbu;
                  break;     
                  
          }
@@ -856,8 +1149,7 @@ public class FileUploadBean implements Serializable{
             }
             
         } catch (IOException | SQLException e) {
-            System.out.println(ERROR+e.toString());
-                        FacesMessage msg = new FacesMessage(ERROR, " Fichero demasiado grande recibo/LiquidacionBlueCorp/ResoluciónDenegatoria por favor seleccione otro.");
+                        FacesMessage msg = new FacesMessage(ERROR, " Fichero demasiado grande por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         
@@ -911,7 +1203,6 @@ public class FileUploadBean implements Serializable{
             }
             
         } catch (IOException | SQLException e) {
-            System.out.println(ERROR+e.toString());
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + frenteDniExpSinCarpeta.getFileName() + " por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -967,7 +1258,6 @@ public class FileUploadBean implements Serializable{
             }
             
         } catch (IOException | SQLException e) {
-            System.out.println(ERROR+e.toString());
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + dorsoDniExpSinCarpeta.getFileName() + " por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -1015,7 +1305,6 @@ public class FileUploadBean implements Serializable{
             }
             
         } catch (IOException | SQLException e) {
-            System.out.println(ERROR+e.toString());
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + file.getFileName() + " por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -1063,7 +1352,6 @@ public class FileUploadBean implements Serializable{
             }
             
         } catch (IOException | SQLException e) {
-            System.out.println(ERROR+e.toString());
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileDos.getFileName() + " por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -1111,7 +1399,6 @@ public class FileUploadBean implements Serializable{
             }
             
         } catch (IOException | SQLException e) {
-            System.out.println(ERROR+e.toString());
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileTres.getFileName() + " por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -1159,7 +1446,6 @@ public class FileUploadBean implements Serializable{
             }
             
         } catch (IOException | SQLException e) {
-            System.out.println(ERROR+e.toString());
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileCuatro.getFileName() + " por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -1207,8 +1493,148 @@ public class FileUploadBean implements Serializable{
             }
             
         } catch (IOException | SQLException e) {
-            System.out.println(ERROR+e.toString());
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileCinco.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
+    
+    public void uploadBlueCorp(int orden) {  
+                    
+        try {
+            Connection con;
+		PreparedStatement ps;
+
+            if(fileLiquidacionBlueCorp != null){
+                    
+                    if(fileLiquidacionBlueCorp.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileLiquidacionBlueCorp.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO documentosLiquidacionBlueCorp (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, fileLiquidacionBlueCorp.getInputstream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, fileLiquidacionBlueCorp.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage(OK, "Fichero " + fileLiquidacionBlueCorp.getFileName() + SUBIDO_CORRECTAMENTE__CON_NRO_DE__ORDEN+orden);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    
+                    }else{
+                        if(!"".equals(fileLiquidacionBlueCorp.getFileName())){
+                            FacesMessage msg = new FacesMessage(ERROR, "no selecciono un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }else{
+                            FacesMessage msg = new FacesMessage(ERROR, "Fichero " + fileLiquidacionBlueCorp.getFileName() + " no es un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+                    
+            }
+            
+        } catch (IOException | SQLException e) {
+                        FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileLiquidacionBlueCorp.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
+    
+    public void uploadBlueCorpDos(int orden) {  
+                    
+        try {
+            Connection con;
+		PreparedStatement ps;
+
+            if(fileLiquidacionBlueCorpDos != null){
+                    
+                    if(fileLiquidacionBlueCorpDos.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileLiquidacionBlueCorpDos.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO documentosLiquidacionBlueCorpDos (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, fileLiquidacionBlueCorpDos.getInputstream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, fileLiquidacionBlueCorpDos.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage(OK, "Fichero " + fileLiquidacionBlueCorpDos.getFileName() + SUBIDO_CORRECTAMENTE__CON_NRO_DE__ORDEN+orden);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    
+                    }else{
+                        if(!"".equals(fileLiquidacionBlueCorpDos.getFileName())){
+                            FacesMessage msg = new FacesMessage(ERROR, "no selecciono un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }else{
+                            FacesMessage msg = new FacesMessage(ERROR, "Fichero " + fileLiquidacionBlueCorpDos.getFileName() + " no es un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+                    
+            }
+            
+        } catch (IOException | SQLException e) {
+                        FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileLiquidacionBlueCorpDos.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
+    
+    public void uploadBlueCorpTres(int orden) {  
+                    
+        try {
+            Connection con;
+		PreparedStatement ps;
+
+            if(fileLiquidacionBlueCorpTres != null){
+                    
+                    if(fileLiquidacionBlueCorpTres.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileLiquidacionBlueCorpTres.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO documentosLiquidacionBlueCorpTres (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, fileLiquidacionBlueCorpTres.getInputstream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, fileLiquidacionBlueCorpTres.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage(OK, "Fichero " + fileLiquidacionBlueCorpTres.getFileName() + SUBIDO_CORRECTAMENTE__CON_NRO_DE__ORDEN+orden);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    
+                    }else{
+                        if(!"".equals(fileLiquidacionBlueCorpTres.getFileName())){
+                            FacesMessage msg = new FacesMessage(ERROR, "no selecciono un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }else{
+                            FacesMessage msg = new FacesMessage(ERROR, "Fichero " + fileLiquidacionBlueCorpTres.getFileName() + " no es un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+                    
+            }
+            
+        } catch (IOException | SQLException e) {
+                        FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileLiquidacionBlueCorpTres.getFileName() + " por favor seleccione otro.");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         

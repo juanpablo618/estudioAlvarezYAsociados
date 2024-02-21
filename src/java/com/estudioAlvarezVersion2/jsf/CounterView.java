@@ -306,10 +306,6 @@ public class CounterView implements Serializable {
         // Luego, actualiza la propiedad cantAgendasPorEmpleadoFiltradas
         FacesContext context = FacesContext.getCurrentInstance();
         AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
-        System.out.println("hola1"+agendaController.getResponsable());
-        System.out.println("hola2"+agendaController.getFechaDesde());
-        System.out.println("hola3"+agendaController.getFechaHasta());
-        System.out.println("hola4"+agendaController.getRealizado());
         
         
         int cantidadAgendasFiltradas = 0;
@@ -334,13 +330,12 @@ public class CounterView implements Serializable {
 
         // Verifica el filtro por fecha desde
         if (fechaDesdeFiltro != null) {
-            System.out.println("agenda.getFecha(): "+agenda.getFecha());
-            cumpleFiltros = cumpleFiltros && agenda.getFecha().after(fechaDesdeFiltro);
+            cumpleFiltros = cumpleFiltros && (agenda.getFecha().equals(fechaDesdeFiltro) || agenda.getFecha().after(fechaDesdeFiltro));
         }
 
         // Verifica el filtro por fecha hasta
         if (fechaHastaFiltro != null) {
-            cumpleFiltros = cumpleFiltros && agenda.getFecha().before(fechaHastaFiltro);
+            cumpleFiltros = cumpleFiltros && (agenda.getFecha().equals(fechaHastaFiltro) || agenda.getFecha().before(fechaHastaFiltro));
         }
         
         // Verifica el filtro por realizado
@@ -354,7 +349,6 @@ public class CounterView implements Serializable {
         }
     }
 
-    System.out.println("cantidadAgendasFiltradas: "+cantidadAgendasFiltradas);
     // Actualiza la propiedad en tu bean con la cantidad de agendas filtradas
     setCantAgendasPorEmpleadoFiltradas(cantidadAgendasFiltradas);
         

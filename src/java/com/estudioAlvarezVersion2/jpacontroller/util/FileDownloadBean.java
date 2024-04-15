@@ -57,6 +57,8 @@ public class FileDownloadBean implements Serializable {
     private StreamedContent fileConstanciaDeCbu;
     
     private StreamedContent fileCronoDeAportes;
+    private StreamedContent fileCronoDeAportesDos;
+    
     private StreamedContent frenteDniExpSinCarpeta;
     private StreamedContent dorsoDniExpSinCarpeta;
     
@@ -183,6 +185,14 @@ public class FileDownloadBean implements Serializable {
         this.fileCronoDeAportes = fileCronoDeAportes;
     }
 
+    public StreamedContent getFileCronoDeAportesDos() {
+        return fileCronoDeAportesDos;
+    }
+
+    public void setFileCronoDeAportesDos(StreamedContent fileCronoDeAportesDos) {
+        this.fileCronoDeAportesDos = fileCronoDeAportesDos;
+    }
+    
     public StreamedContent getFrenteDniExpSinCarpeta() {
         return frenteDniExpSinCarpeta;
     }
@@ -633,13 +643,15 @@ public class FileDownloadBean implements Serializable {
 
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    InputStream stream = rs.getBinaryStream("documento");
-                    if (rs.getString("nombreDelDocumento").contains(".xls")) {
-                        fileCronoDeAportes = new DefaultStreamedContent(stream, "application/vnd.ms-excel", rs.getString("nombreDelDocumento"));
+                   InputStream stream = rs.getBinaryStream("documento");
+                    String nombreDelDocumento = rs.getString("nombreDelDocumento");
+                    if (nombreDelDocumento.contains(".xls")) {
+                        fileCronoDeAportes = new DefaultStreamedContent(stream, "application/vnd.ms-excel", nombreDelDocumento);
+                    } else if (nombreDelDocumento.contains(".xlsm")) {
+                        fileCronoDeAportes = new DefaultStreamedContent(stream, "application/vnd.ms-excel.sheet.macroEnabled.12", nombreDelDocumento);
                     } else {
-                        fileCronoDeAportes = new DefaultStreamedContent(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", rs.getString("nombreDelDocumento"));
+                        fileCronoDeAportes = new DefaultStreamedContent(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", nombreDelDocumento);
                     }
-
                 }
 
                 con.close();
@@ -662,6 +674,51 @@ public class FileDownloadBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
+    
+    public void downloadCronoDeAportesDos(int orden) {
+        Connection con;
+        PreparedStatement ps;
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentoscronodeaportesdos WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    String nombreDelDocumento = rs.getString("nombreDelDocumento");
+                    if (nombreDelDocumento.contains(".xls")) {
+                        fileCronoDeAportesDos = new DefaultStreamedContent(stream, "application/vnd.ms-excel", nombreDelDocumento);
+                    } else if (nombreDelDocumento.contains(".xlsm")) {
+                        fileCronoDeAportesDos = new DefaultStreamedContent(stream, "application/vnd.ms-excel.sheet.macroEnabled.12", nombreDelDocumento);
+                    } else {
+                        fileCronoDeAportesDos = new DefaultStreamedContent(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", nombreDelDocumento);
+                    }
+
+                }
+
+                con.close();
+                if (fileCronoDeAportesDos != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo Crono. de aportes 2 descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                } else {
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo Crono. de aportes 2 para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+
+            } else {
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro Crono. de aportes 2 con ese nro de orden.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero Crono. de aportes 2 no descargado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+    
     
     public void downloadFrenteDnideExpSinCarpeta(String cuit) {
         Connection con;
@@ -1612,6 +1669,34 @@ public class FileDownloadBean implements Serializable {
         }
         if ("".equals(nombre)) {
             return "no existe archivo Crono. de aportes para este expediente";
+        } else {
+            return nombre;
+        }
+    }
+    
+    public String buscarNombreDeArchivoCronoDeAportesDos(int orden) {
+        Connection con;
+        PreparedStatement ps;
+        String nombre = "";
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentoscronodeaportesdos WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo Crono. de aportes dos no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe archivo Crono. de aportes dos para este expediente";
         } else {
             return nombre;
         }

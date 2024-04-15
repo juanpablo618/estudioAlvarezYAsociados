@@ -219,16 +219,85 @@
                             <p:editor width="700" id="comunicaciones" value="#{expedienteController.selectedParaVerExp.comunicaciones}"  ></p:editor>
 
                         </p:tab>
-                        <p:tab title="Agenda">
-                            <div style="width: 40%"> 
-                                <div>
-                                    <p:fieldset legend="AGENDA PARA HOY" toggleable="true" toggleSpeed="500">
-                                        <p:outputLabel value="#{expedienteController.verProximaAgenda(expedienteController.selectedParaVerExp.orden)}" style="font-weight: bold" /><br></br>
-                                    </p:fieldset>
-                                </div>
-                                
+                        <p:tab id="tabAgendaAnterior" title="Agendas">
+                            <div>
+                                <p:fieldset id="fieldSetAgendaAnterior" class="ui-fieldset-toggleable-lila" legend="AGENDAS ANTERIORES" toggleable="true"  collapsed="true" toggleSpeed="500">
+                                    <p:dataTable id="datalist4" 
+                                                 value="#{expedienteController.verAgendasPasadasPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}" 
+                                                 var="item"
+                                                 selectionMode="single"
+                                                 selection="#{agendaController.selectedAgendaPasada}"
+                                                 rowKey="#{item.idAgenda}"
+                                                 paginator="true"
+                                                 rows="20"
+                                                 rendered="true"
+                                                 rowsPerPageTemplate="20,30,40,50"
+                                                 emptyMessage="no hay agendas Pasadas agregadas" 
+                                                 filteredValue="#{expedienteController.filteredAgendasAnteriores}"
+                                                 >
+
+                                        <p:ajax event="rowSelect"  />
+                                        <p:ajax event="rowUnselect" />
+                                        <p:growl  id="message5" showDetail="true" />
+
+
+                                        <p:column  style="width: 23%" styleClass="centeredColumnContent#{item.realizado}"  headerText="FECHA">
+                                            <h:outputText value="#{item.fecha}"  >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:column  style="width: 9%" styleClass="centeredColumnContent#{item.realizado}" headerText="RESPONSABLE">
+                                            <h:outputText value="#{item.responsable}"  />
+                                        </p:column>
+
+                                        <p:column  styleClass="centeredColumnContent#{item.realizado}" headerText="DESCRIPCIÓN">
+                                            <h:outputText value="#{item.descripcion}" />
+                                        </p:column>
+
+                                    </p:dataTable>
+                                </p:fieldset>
+                            </div>
+
+                            <div>
+                                <p:fieldset legend="AGENDAS FUTURAS" toggleable="true" collapsed="true" toggleSpeed="500">
+
+                                    <p:dataTable id="datalist5" 
+                                                 value="#{expedienteController.verAgendasFuturasPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}" 
+                                                 var="item"
+                                                 selectionMode="single"
+                                                 selection="#{agendaController.selectedAgendaFutura}"
+                                                 rowKey="#{item.idAgenda}"
+                                                 paginator="true"
+                                                 rows="20"
+                                                 rendered="true"
+                                                 rowsPerPageTemplate="20,30,40,50"
+                                                 emptyMessage="no hay agendas futuras agregadas" 
+                                                 filteredValue="#{expedienteController.filteredAgendasFuturas}"
+                                                 >
+
+                                        <p:ajax event="rowSelect"  />
+                                        <p:ajax event="rowUnselect" />
+                                        <p:growl  id="message6" showDetail="true" />
+
+
+                                        <p:column style="width: 23%" styleClass="centeredColumnContent#{item.realizado}"  headerText="FECHA">
+                                            <h:outputText value="#{item.fecha}"   >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column  style="width: 9%" styleClass="centeredColumnContent#{item.realizado}" headerText="RESPONSABLE">
+                                            <h:outputText value="#{item.responsable}"  />
+                                        </p:column>
+                                        <p:column styleClass="centeredColumnContent#{item.realizado}" headerText="DESCRIPCIÓN">
+                                            <h:outputText value="#{item.descripcion}" />
+                                        </p:column>
+                                        
+                                    </p:dataTable>
+                                </p:fieldset>
                             </div>
                         </p:tab>
+
 
                         <p:tab title="Honorarios y Gastos">
                             <div>

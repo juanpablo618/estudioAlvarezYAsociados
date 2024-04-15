@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,7 +13,6 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
@@ -352,8 +350,6 @@ public class CounterView implements Serializable {
     // Actualiza la propiedad en tu bean con la cantidad de agendas filtradas
     setCantAgendasPorEmpleadoFiltradas(cantidadAgendasFiltradas);
         
-        
-        
     }
 
     public int getCantAgendasPorEmpleadoFiltradas() {
@@ -364,6 +360,5 @@ public class CounterView implements Serializable {
     private void setCantAgendasPorEmpleadoFiltradas(int cantidadAgendasFiltradas) {
         cantAgendasPorEmpleadoPorFechas = cantidadAgendasFiltradas;
     }
-    
     
    }

@@ -60,6 +60,7 @@ public class ExpedienteController implements Serializable {
     private List<Expediente> items = null;
     private Expediente selected;
     private Expediente selectedParaHonorarios;
+    private Expediente selectedDesdeWithSession;
     
     private Expediente selectedParaVerExp;
     private String estadoDelTramiteSelected;
@@ -100,6 +101,14 @@ public class ExpedienteController implements Serializable {
         return selectedParaHonorarios;
     }
 
+    public Expediente getSelectedDesdeWithSession() {
+        return selectedDesdeWithSession;
+    }
+
+    public void setSelectedDesdeWithSession(Expediente selectedDesdeWithSession) {
+        this.selectedDesdeWithSession = selectedDesdeWithSession;
+    }
+    
     public void setSelectedParaHonorarios(Expediente selectedParaHonorarios) {
         this.selectedParaHonorarios = selectedParaHonorarios;
     }
@@ -290,32 +299,32 @@ public class ExpedienteController implements Serializable {
         return selectedParaVerExp;
     }
 
-    public Expediente prepareViewParaExpediente(Agenda agendaAnterior) {
+    public Expediente prepareViewParaExpediente(Agenda agenda) {
 
         try {
-            if (agendaAnterior == null) {
+            if (agenda == null) {
                 return selectedParaVerExp;
             } else {
                 FacesContext context = FacesContext.getCurrentInstance();
                 ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
                 selectedParaVerExp = new Expediente();
 
-                if (agendaAnterior.getOrden() != null && agendaAnterior.getOrden() != 0) {
+                if (agenda.getOrden() != null && agenda.getOrden() != 0) {
                     for (Expediente expediente : expedienteControllerBean.getItems()) {
 
                         if (expediente.getOrden() != null) {
-                            if (Integer.compare(expediente.getOrden(), agendaAnterior.getOrden()) == 0) {
+                            if (Integer.compare(expediente.getOrden(), agenda.getOrden()) == 0) {
                                 selectedParaVerExp = expediente;
                             }
                         }
                     }
                 } else {
-                    if ((agendaAnterior.getApellido() != null && agendaAnterior.getNombre() != null)
-                            && (agendaAnterior.getOrden() == null || agendaAnterior.getOrden() == 0)) {
+                    if ((agenda.getApellido() != null && agenda.getNombre() != null)
+                            && (agenda.getOrden() == null || agenda.getOrden() == 0)) {
 
                         for (Expediente expediente : expedienteControllerBean.getItems()) {
                             if (expediente.getApellido() != null && expediente.getNombre() != null) {
-                                if (expediente.getApellido().equals(agendaAnterior.getApellido()) && expediente.getNombre().equals(agendaAnterior.getNombre())) {
+                                if (expediente.getApellido().equals(agenda.getApellido()) && expediente.getNombre().equals(agenda.getNombre())) {
                                     selectedParaVerExp = expediente;
 
                                 }
@@ -333,7 +342,7 @@ public class ExpedienteController implements Serializable {
         }
         return null;
     }
-
+    
     /*
         este metodo va a devolver
         administrativo
@@ -341,22 +350,22 @@ public class ExpedienteController implements Serializable {
         sin carpeta
             para poder luego hacer un view dependiendo del tipo de Exp
      */
-    public String buscarTipoDeExpediente(Agenda agendaAnterior) {
+    public String buscarTipoDeExpediente(Agenda agenda) {
 
-        if (agendaAnterior == null) {
-            // esto lo hago por que la 1ra vez q se renderiza la pagina agendas y turnos , no hay un obj. "agendaAnterior" de agendas seleccionado
+        if (agenda == null) {
+            // esto lo hago por que la 1ra vez q se renderiza la pagina agendas y turnos , no hay un obj. "agenda" de agendas seleccionado
             return "AgendaSinExpAsociado";
         } else {
             FacesContext context = FacesContext.getCurrentInstance();
             ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
             String tipoDeExp = "AgendaSinExpAsociado";
 
-            if (agendaAnterior.getOrden() != null && agendaAnterior.getOrden() != 0) {
+            if (agenda.getOrden() != null && agenda.getOrden() != 0) {
 
                 for (Expediente expediente : expedienteControllerBean.getItems()) {
 
                     if (expediente.getOrden() != null) {
-                        if (Integer.compare(expediente.getOrden(), agendaAnterior.getOrden()) == 0) {
+                        if (Integer.compare(expediente.getOrden(), agenda.getOrden()) == 0) {
 
                             tipoDeExp = expediente.getTipoDeExpediente();
                         }
@@ -365,12 +374,12 @@ public class ExpedienteController implements Serializable {
                 }
 
             } else {
-                if ((agendaAnterior.getApellido() != null && agendaAnterior.getNombre() != null)
-                        && (agendaAnterior.getOrden() == null || agendaAnterior.getOrden() == 0)) {
+                if ((agenda.getApellido() != null && agenda.getNombre() != null)
+                        && (agenda.getOrden() == null || agenda.getOrden() == 0)) {
 
                     for (Expediente expediente : expedienteControllerBean.getItems()) {
                         if (expediente.getApellido() != null && expediente.getNombre() != null) {
-                            if (expediente.getApellido().equals(agendaAnterior.getApellido()) && expediente.getNombre().equals(agendaAnterior.getNombre())) {
+                            if (expediente.getApellido().equals(agenda.getApellido()) && expediente.getNombre().equals(agenda.getNombre())) {
 
                                 tipoDeExp = expediente.getTipoDeExpediente();
                             }
@@ -714,6 +723,17 @@ public class ExpedienteController implements Serializable {
     public Expediente getExpediente(java.lang.Integer id) {
         return getFacade().find(id);
     }
+    
+    public Expediente getExpedienteByOrden(java.lang.Integer orden) {
+         List<Expediente> listExpedientes = getItemsAvailableSelectMany();
+         
+        for(int i = 0; i< listExpedientes.size(); i++){
+            if(listExpedientes.get(i).getOrden() != null){
+                if(listExpedientes.get(i).getOrden().equals(orden)) return listExpedientes.get(i);
+            }
+         }
+         return null;
+    }
 
     public List<Expediente> getItemsAvailableSelectMany() {
         return getFacade().findAll();
@@ -966,9 +986,9 @@ public class ExpedienteController implements Serializable {
     }
 
     public String verClaveCidi(int orden) {
-
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        String noPoseeClave = "no posee clave CIDI";
 
         for (Expediente expediente : expedienteControllerBean.getItems()) {
             if (expediente.getOrden() != null) {
@@ -976,18 +996,18 @@ public class ExpedienteController implements Serializable {
                     if (expediente.getClaveCidi() != null) {
                         return expediente.getClaveCidi();
                     } else {
-                        return "no posee clave CIDI";
+                        return noPoseeClave;
                     }
                 }
             }
         }
-        return "no posee clave CIDI";
+        return noPoseeClave;
     }
 
     public String verClaveFiscal(int orden) {
-
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        String noPoseeClaveFiscal = "no posee clave FISCAL";
 
         for (Expediente expediente : expedienteControllerBean.getItems()) {
             if (expediente.getOrden() != null) {
@@ -995,17 +1015,19 @@ public class ExpedienteController implements Serializable {
                     if (expediente.getClaveFiscal() != null) {
                         return expediente.getClaveFiscal();
                     } else {
-                        return "no posee clave FISCAL";
+                        return noPoseeClaveFiscal;
                     }
                 }
             }
         }
-        return "no posee clave FISCAL";
+        return noPoseeClaveFiscal;
     }
+
 
     public String verClaveDeSeguridadSocial(int orden) {
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        String noPoseeClave = "no posee clave de Seguridad Social";
 
         for (Expediente expediente : expedienteControllerBean.getItems()) {
             if (expediente.getOrden() != null) {
@@ -1013,12 +1035,12 @@ public class ExpedienteController implements Serializable {
                     if (expediente.getClaveSeguridadSocial() != null) {
                         return expediente.getClaveSeguridadSocial();
                     } else {
-                        return "no posee clave de Seguridad Social";
+                        return noPoseeClave;
                     }
                 }
             }
         }
-        return "no posee clave de Seguridad Social";
+        return noPoseeClave;
     }
 
     public int autoIncrementarOrdenSaltandoExpedientesSinCarpeta() {

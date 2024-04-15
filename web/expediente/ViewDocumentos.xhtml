@@ -223,8 +223,15 @@
                             <br></br>
                         <div class="width50" style="float:right;">
                             <div>
-                            
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'sin carpeta'}" id="frenteDniExpSinCarpeta" header="Archivos frente y dorso dni para Exp. Sin Carpeta" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'sin carpeta'}"
+                                     id="frenteDniExpSinCarpeta" header="Archivos frente y dorso dni para Exp. Sin Carpeta" 
+                                     toggleable="true" 
+                                     closable="false" 
+                                     collapsed="true"
+                                     toggleSpeed="500"
+                                     closeSpeed="500"
+                                     style="margin-bottom:20px"
+                                     >
                             
                                 <p:outputLabel value="Frente dni para exp. sin carpeta:"  style="font-weight: bold"/><br></br>
                                                                 
@@ -260,16 +267,21 @@
                                     <p:fileDownload value="#{fileDownloadBean.dorsoDniExpSinCarpeta}" />
                                 </p:commandButton>
                                
-                                
-                                
-                                
                             </p:panel>
                             </div>
                             <br></br>
-                            
-                            
+                            <br></br>
                             <div>
-                                <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="cronoDeAportes" header="Crono. de aportes" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                                <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
+                                         id="cronoDeAportes" 
+                                         header="Crono. de aportes"
+                                         toggleable="true"
+                                         closable="false"
+                                         collapsed="true"
+                                         toggleSpeed="500"
+                                         closeSpeed="500" 
+                                         style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivoCronoDeAportes(expedienteController.selected.orden).toString().contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                         >
                             
                             <p:outputLabel value="Crono. de aportes:"  style="font-weight: bold"/><br></br>
                                                                 
@@ -285,12 +297,34 @@
                                 <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar Crono. de aportes" actionListener="#{fileDownloadBean.downloadCronoDeAportes(expedienteController.selected.orden)}" ajax="false">
                                     <p:fileDownload value="#{fileDownloadBean.fileCronoDeAportes}" />
                                 </p:commandButton>
+                                <br></br>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileCronoDeAportesDos}" mode="simple"/>
+                                
+                                <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadCronoDeAportesDos(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br>
+                                
+                                <p:outputLabel value="Nombre del archivo Crono. de aportes Dos:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoCronoDeAportesDos(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar Crono. de aportes Dos" actionListener="#{fileDownloadBean.downloadCronoDeAportesDos(expedienteController.selected.orden)}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileCronoDeAportesDos}" />
+                                </p:commandButton>
                                 
                             </p:panel>
                             </div>
                             <br></br>
-                            
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="panelFrenteDni" header="Frente DNI" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            <br></br>
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
+                                     id="panelFrenteDni"
+                                     header="Frente DNI"
+                                     toggleable="true"
+                                     closable="false" 
+                                     collapsed="true" 
+                                     toggleSpeed="500"
+                                     closeSpeed="500" 
+                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivoFrenteDni(expedienteController.selected.orden).toString().contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                     >
                             
                             <p:outputLabel value="Frente DNI:"  style="font-weight: bold"/><br></br>
                                                                 
@@ -310,8 +344,16 @@
                             </p:panel>
                                 <br></br>
                                 <br></br>
-                            
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="panelDorsoDni" header="Dorso DNI" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
+                                     id="panelDorsoDni" 
+                                     header="Dorso DNI"
+                                     toggleable="true"
+                                     closable="false" 
+                                     collapsed="true" 
+                                     toggleSpeed="500" 
+                                     closeSpeed="500"  
+                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivoDorsoDni(expedienteController.selected.orden).toString().contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                     >
                                
                             <p:outputLabel value="Dorso DNI:"  style="font-weight: bold"/><br></br>
                                                                 
@@ -330,8 +372,15 @@
                             </p:panel>    
                                 <br></br>
                                 <br></br>
-                            
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="panelOtraDocumentacion" header="Otra Documentación" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
+                                     id="panelOtraDocumentacion" 
+                                     header="Otra Documentación" 
+                                     toggleable="true" 
+                                     closable="false" 
+                                     collapsed="true"
+                                     toggleSpeed="500"
+                                     closeSpeed="500"  
+                                     style="margin-bottom:20px">
                                 
                                 <p:outputLabel value="Otra Documentación:"  style="font-weight: bold"/><br></br>
                                                                 
@@ -382,7 +431,17 @@
                             </p:panel>
                                 <br></br>
                                 <br></br>
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="panelCartaPoder" header="Carta Poder" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            <p:panel
+                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
+                                id="panelCartaPoder"
+                                header="Carta Poder"
+                                toggleable="true"
+                                closable="false"
+                                collapsed="true"
+                                toggleSpeed="500"
+                                closeSpeed="500"
+                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'CartaPoder').contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                >
                                 <p:outputLabel value="Carta Poder:"  style="font-weight: bold"/><br></br>
                                 <p:growl showDetail="true"/>
                                 <p:fileUpload  value="#{fileUploadBean.fileCartaPoder}" mode="simple"/>
@@ -396,7 +455,17 @@
                             </p:panel>
                             <br></br>
                             <br></br>
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="panelExpAdministrativo" header="Exp Administrativo" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            <p:panel
+                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
+                                id="panelExpAdministrativo" 
+                                header="Exp Administrativo" 
+                                toggleable="true"
+                                closable="false" 
+                                collapsed="true" 
+                                toggleSpeed="500" 
+                                closeSpeed="500"  
+                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ExpAdministrativo').contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                >
                                 <p:outputLabel value="Exp Administrativo:"  style="font-weight: bold"/><br></br>
                                 <p:growl showDetail="true"/>
                                 <p:fileUpload  value="#{fileUploadBean.fileExpAdministrativo}" mode="simple"/>
@@ -410,7 +479,17 @@
                             </p:panel>
                             <br></br>
                             <br></br>
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="recibos" header="Recibos" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            <p:panel 
+                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
+                                id="recibos"
+                                header="Recibos" 
+                                toggleable="true"
+                                closable="false" 
+                                collapsed="true" 
+                                toggleSpeed="500"
+                                closeSpeed="500" 
+                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Recibos').contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                >
                                 <p:outputLabel value="archivos Recibos:"  style="font-weight: bold"/><br></br>
                                 <p:growl showDetail="true"/>
                                 <p:fileUpload  value="#{fileUploadBean.fileRecibos}" mode="simple"/>
@@ -424,7 +503,17 @@
                             </p:panel>
                             <br></br>
                             <br></br>
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="liquidacionBlueCorp" header="Liquidación BlueCorp" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            <p:panel 
+                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
+                                id="liquidacionBlueCorp" 
+                                header="Liquidación BlueCorp" 
+                                toggleable="true" 
+                                closable="false"
+                                collapsed="true"
+                                toggleSpeed="500" 
+                                closeSpeed="500" 
+                                style="margin-bottom:20px"
+                                >
                                 <p:outputLabel value="BlueCorp 1:"  style="font-weight: bold"/><br></br>
                                 <p:growl showDetail="true"/>
                                 <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorp}" mode="simple"/>
@@ -464,7 +553,16 @@
                             </p:panel>
                             <br></br>
                             <br></br>
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="resolucionDenegatoria" header="Resolución Denegatoria" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            <p:panel 
+                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
+                                id="resolucionDenegatoria" header="Resolución Denegatoria"
+                                toggleable="true"
+                                closable="false"
+                                collapsed="true"
+                                toggleSpeed="500"
+                                closeSpeed="500" 
+                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ResolucionDenegatoria').contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                >
                                 <p:outputLabel value="archivos Resolución Denegatoria"  style="font-weight: bold"/><br></br>
                                 <p:growl showDetail="true"/>
                                 <p:fileUpload  value="#{fileUploadBean.fileResolucionDenegatoria}" mode="simple"/>
@@ -478,7 +576,17 @@
                             </p:panel>
                             <br></br>
                             <br></br>
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="convenioDeHonorarios" header="Convenio de honorarios" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            <p:panel
+                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
+                                id="convenioDeHonorarios" 
+                                header="Convenio de honorarios" 
+                                toggleable="true" 
+                                closable="false" 
+                                collapsed="true" 
+                                toggleSpeed="500" 
+                                closeSpeed="500"  
+                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios').contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                >
                                 <p:outputLabel value="Convenio de honorarios"  style="font-weight: bold"/><br></br>
                                 <p:growl showDetail="true"/>
                                 <p:fileUpload  value="#{fileUploadBean.fileConvenioDeHonorarios}" mode="simple"/>
@@ -492,7 +600,17 @@
                             </p:panel>
                             <br></br>
                             <br></br>
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="constanciaDeCbu" header="Constancia de CBU" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                            <p:panel 
+                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
+                                id="constanciaDeCbu" 
+                                header="Constancia de CBU" 
+                                toggleable="true"
+                                closable="false" 
+                                collapsed="true" 
+                                toggleSpeed="500"
+                                closeSpeed="500" 
+                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu').contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                >
                                 <p:outputLabel value="Constancia de CBU"  style="font-weight: bold"/><br></br>
                                 <p:growl showDetail="true"/>
                                 <p:fileUpload  value="#{fileUploadBean.fileConstanciaDeCbu}" mode="simple"/>

@@ -14,15 +14,14 @@
                     
                     <div class="padre">
                         <div class="hijo">
-                        
                                 <p:outputLabel value="#{bundle.CreateAgendaLabel_fecha}" for="fecha" style="font-weight: bold"/>
                                 <p:calendar  widgetVar="testCalendar" mindate="today" disabledWeekends="true" id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" mode="inline" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
-                    </div>
+                        </div>
                     
-                    <div class="hijo">
-                        <p:outputLabel value="Descripción:" for="descripcion" style="font-weight: bold"/><br></br>
-                        <p:inputTextarea  id="descripcion" rows="10" cols="33" autoResize="false" value="#{agendaController.selected.descripcion}" title="Descripcion"/>
-                    </div>
+                        <div class="hijo">
+                            <p:outputLabel value="Descripción:" for="descripcion" style="font-weight: bold"/><br></br>
+                            <p:inputTextarea  id="descripcion" rows="10" cols="33" autoResize="false" value="#{agendaController.selected.descripcion}" title="Descripcion"/>
+                        </div>
                         
                     <div class="hijo">
                             
@@ -44,7 +43,11 @@
                                 </p:selectOneMenu>
                                 <br></br>
                                 <div>
-                                    <p:commandButton actionListener="#{agendaController.createAgendaConFiltroPorNombreYApellido}" class="botonCrear hoverGreen" value="#{bundle.Save}" update="display,:AgendaListForm:datalist,:growl"  oncomplete="handleSubmit(args,'AgendaCreateDialog');PF('agendasTable').clearFilters()"/>
+                                    <p:commandButton actionListener="#{agendaController.createAgendaConFiltroPorNombreYApellido}"
+                                                     class="botonCrear hoverGreen" 
+                                                     value="#{bundle.Save}" 
+                                                     update="display,:AgendaListForm:datalist,:growl"  
+                                                     oncomplete="handleSubmit(args,'AgendaCreateDialog');PF('agendasTable').clearFilters()"/>
                                 </div>
                         </div>
                     </div>

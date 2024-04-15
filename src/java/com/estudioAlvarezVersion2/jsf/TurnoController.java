@@ -249,6 +249,8 @@ public class TurnoController implements Serializable {
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TurnoCreated"));
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
+                filteredTurnosConSesion = null;
+                filteredturnos = null;
             }
         }
     }
@@ -294,6 +296,8 @@ public class TurnoController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
+             filteredTurnosConSesion = null;
+             filteredturnos = null;
         }
     }
 

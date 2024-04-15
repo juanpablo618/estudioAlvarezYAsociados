@@ -247,26 +247,123 @@
                         </p:tab>
 
                         <p:tab title="Comunicaciones">
+                                    <p:dataTable id="datalist4"
+                                                 value="#{expedienteController.verComunicacionesPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}"
+                                                 var="item"
+                                                     selectionMode="single"
+                                                     selection="#{comunicacionController.selected}"
+                                                     rowKey="#{item.idComunicacion}"
+                                                     paginator="true"
+                                                     rows="10"
+                                                     rendered="true"
+                                                     rowsPerPageTemplate="10,20,50"
+                                                     emptyMessage="no hay comunicaciones agregadas" 
+                                                     >
+                                        
+                                            <p:ajax event="rowSelect"  />
+                                            <p:ajax event="rowUnselect" />
+                                            
+                                            <p:column sortBy="#{item.fecha}" style="width: 10%" styleClass="centeredColumnContent"  headerText="FECHA">
+                                                <h:outputText value="#{item.fecha}"  >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column  style="width: 40%" styleClass="centeredColumnContent" headerText="DESCRIPCIÓN">
+                                                <h:outputText value="#{item.descripcion}"  />
+                                            </p:column>
+                                        
+                                             <p:column  style="width: 40%" styleClass="centeredColumnContent" headerText="RESPONSABLE">
+                                                <h:outputText value="#{item.responsable}"  />
+                                            </p:column>
+                                            
+                                              
 
-                            <div>
-                                <p:outputLabel value="Comunicaciones" for="comunicaciones" style="font-weight: bold"/><br></br>
-                                <p:editor width="700" id="comunicaciones" value="#{expedienteController.selectedParaVerExp.comunicaciones}"  ></p:editor>
-
-                            </div>
-
+                                        </p:dataTable>
+                            
+                                    <div >
+                                </div>     
+         
                             <br></br>
                             <br></br>
                         </p:tab>
+                        
                         <p:tab title="Agenda">
-                            <div style="width: 40%">
+                            <div style="width: 90%">
                                 <div>
-                                    <p:fieldset legend="AGENDA PARA HOY" toggleable="true" toggleSpeed="500">
-                                        <p:outputLabel value="#{expedienteController.verProximaAgenda(expedienteController.selectedParaVerExp.orden)}" /><br></br>
+                                    <p:fieldset class="ui-fieldset-toggleable-lila" legend="AGENDAS ANTERIORES" toggleable="true"  collapsed="true" toggleSpeed="500">
+                                        <p:dataTable id="datalist3" 
+                                                     value="#{expedienteController.verAgendasPasadasPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}"
+                                                     var="item"
+                                                     selectionMode="single"
+                                                     selection="#{agendaController.selectedAgendaPasada}"
+                                                     rowKey="#{item.idAgenda}"
+                                                     paginator="true"
+                                                     rows="20"
+                                                     rendered="true"
+                                                     rowsPerPageTemplate="20,30,40,50"
+                                                     emptyMessage="no hay agendas Pasadas agregadas" 
+                                                     filteredValue="#{expedienteController.filteredAgendasAnteriores}"
+                                                     >
+                                            <p:ajax event="rowSelect"  />
+                                            <p:ajax event="rowUnselect" />
+                                            <p:growl  id="message3"  sticky="true" />
+
+                                            <p:column sortBy="#{item.fecha}" style="width: 10%"  styleClass="centeredColumnContent#{item.realizado}" headerText="FECHA">
+                                                <h:outputText value="#{item.fecha}"  >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column  style="width: 10%"  styleClass="centeredColumnContent#{item.realizado}" headerText="RESPONSABLE">
+                                                <h:outputText value="#{item.responsable}" />
+                                            </p:column>
+                                            <p:column  headerText="DESCRIPCIÓN"  styleClass="centeredColumnContent#{item.realizado}">
+                                                <h:outputText value="#{item.descripcion}" styleClass="centeredColumnContent#{item.realizado}"/>
+                                            </p:column>
+                                          
+                                        </p:dataTable>
                                     </p:fieldset>
                                 </div>
                                 
+                                <div>
+                                    <p:fieldset legend="AGENDAS FUTURAS" toggleable="true"  collapsed="true" toggleSpeed="500">
+
+                                        <p:dataTable id="datalist2" 
+                                                     value="#{expedienteController.verAgendasFuturasPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}" 
+                                                     var="item"
+                                                     selectionMode="single"
+                                                     selection="#{agendaController.selectedAgendaFutura}"
+                                                     rowKey="#{item.idAgenda}"
+                                                     paginator="true"
+                                                     rows="20"
+                                                     rendered="true"
+                                                     rowsPerPageTemplate="20,30,40,50"
+                                                     emptyMessage="no hay agendas futuras agregadas" 
+                                                     filteredValue="#{expedienteController.filteredAgendasFuturas}"
+                                                     >
+                                             <p:ajax event="rowSelect"  />
+                                            <p:ajax event="rowUnselect" />
+                                            <p:growl  id="message4" showDetail="true" />
+
+                                            <p:column  style="width: 23%" styleClass="centeredColumnContent#{item.realizado}"  headerText="FECHA">
+                                                <h:outputText value="#{item.fecha}"   >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column  style="width: 9%" headerText="RESPONSABLE" styleClass="centeredColumnContent#{item.realizado}">
+                                                <h:outputText value="#{item.responsable}"  />
+                                            </p:column>
+                                            <p:column  headerText="DESCRIPCIÓN" styleClass="centeredColumnContent#{item.realizado}">
+                                                <h:outputText value="#{item.descripcion}"  />
+                                            </p:column>
+                                            
+                                        </p:dataTable>
+                                    </p:fieldset>
+                                </div>
+                               
+                                
                             </div>
                         </p:tab>
+
 
                         <p:tab title="Honorarios y Gastos">
                             <div>
@@ -305,6 +402,6 @@
             </h:form>
             
         </p:dialog>
-
+        
     </ui:composition>
 </html>

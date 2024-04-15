@@ -152,10 +152,14 @@
                         <p:commandButton class="linea btnSearch"  update=":TurnoEditForm" oncomplete="PF('TurnoEditDialog').show()" icon="ui-icon-search" title="Ver">
                             <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
                         </p:commandButton>
-                        <p:commandButton class="linea btnDelete" update=":growl,datalist, message"  oncomplete="PF('turnosTable').clearFilters()"  actionListener="#{turnoController.destroy}"  icon="ui-icon-trash" title="Eliminar">
+                        <p:commandButton class="linea btnDelete" 
+                                         update=":growl,datalist, message"
+                                         oncomplete="PF('turnosTable').clearFilters()"
+                                         actionListener="#{turnoController.destroy}"  icon="ui-icon-trash" title="Eliminar">
                             <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
                             <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert"/>
                         </p:commandButton>
+                        
                         <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
                             <p:commandButton update=":TurnoListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;"/>
                             <p:commandButton update=":TurnoListForm" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
@@ -184,7 +188,6 @@
                              rendered="true"  
                              paginatorPosition="bottom"
                              >
-                    <p:poll interval="2" update="datalist" />
                     <p:ajax event="rowSelect"   update="createButton "/>
                     <p:ajax event="rowUnselect" update="createButton "/>
 
@@ -245,7 +248,6 @@
                         <p:commandButton class="linea btnSearch"  update=":AgendaEditForm" oncomplete="PF('AgendaEditDialog').show()" icon="ui-icon-search" title="Ver">
                             <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
                         </p:commandButton>
-
 
                         <p:commandButton class="linea btnDelete" update=":growl,datalist, message2" oncomplete="PF('agendasTable').clearFilters()" actionListener="#{agendaController.destroy}"  icon="ui-icon-trash" title="Eliminar">
                             <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />

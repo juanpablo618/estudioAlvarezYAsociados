@@ -54,8 +54,14 @@
                                             <f:selectItem itemLabel="TELEFÓNICO" itemValue="TELEFÓNICO" />
                         </p:selectOneMenu><br></br><br></br>
                             </h:panelGrid>
-                        <p:commandButton actionListener="#{turnoController.create}" class="botonCrear" value="#{bundle.Save}" update="display,:TurnoListForm:datalist,:growl"   oncomplete="handleSubmit(args,'TurnoCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="TurnoCreateDialog.hide()"/>
+                        
+                        <p:commandButton actionListener="#{turnoController.create}"
+                                         class="botonCrear"
+                                         value="#{bundle.Save}"
+                                         update="display,:TurnoListForm:datalist,:growl"
+                                         oncomplete="handleSubmit(args,'TurnoCreateDialog');PF('turnosTable').clearFilters()"/>
+                    
+                        <p:commandButton value="#{bundle.Cancel}" onclick="TurnoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

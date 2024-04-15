@@ -14,8 +14,6 @@ import java.io.File;
 import java.io.IOException;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,7 +58,8 @@ public class AgendaController implements Serializable {
     private static final String DD_MM_YYYY = "dd/MM/yyyy";
     private static final String LA_FECHA_SELECCIONADA_NO_ES_VALIDA = "la fecha selecionada no es válida";
     private static final String POR_SER_FERIADO = " por ser feriado";
-
+    private static final String SI = "Si";
+    
     private Agenda selected;
     private Agenda selectedActividad;
     private Agenda selectedAgendaPasada;
@@ -232,30 +231,39 @@ public class AgendaController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    
+    public void actualizarTodasLasAgendas(){
+        items = null;
+    }
 
-    private Boolean validateHolidays(String date) {
-        //lista sacada de https://www.argentina.gob.ar/interior/feriados-nacionales-2023
-        //https://www.lanacion.com.ar/feriados/2024/
+    private Boolean validateHolidays(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
+        String dateString = sdf.format(date);
+
+        // Lista de feriados en Argentina
         String feriadosArg[] = {"01/01/2024", "12/02/2024", "13/02/2024", "24/03/2024", "29/03/2024", "02/04/2024", "01/05/2024", "25/05/2024", "20/06/2024",
             "09/07/2024", "17/08/2024", "12/10/2024", "20/11/2024", "08/12/2024", "25/12/2024"    
         };
 
-        return Arrays.asList(feriadosArg).contains(date);
+        return Arrays.asList(feriadosArg).contains(dateString);
     }
-
+    
     public void createParaActividad() {
-        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String date = sdf.format(selectedActividad.getFecha());
-
-        if (validateHolidays(date)) {
+        
+        if (validateHolidays(selectedActividad.getFecha())) {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
+            filteredAgendas = null;
+            filteredAgendasConSesion = null; 
         } else {
 
             persistActividad(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreatedParaActividad"));
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
+                filteredAgendas = null;
+                filteredAgendasConSesion = null; 
+
             }
         }
     }
@@ -276,10 +284,7 @@ public class AgendaController implements Serializable {
 
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String date = sdf.format(agendaController.getSelected().getFecha());
-        
-        if (validateHolidays(date)) {
+        if (validateHolidays(agendaController.getSelected().getFecha())) {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
@@ -312,10 +317,7 @@ public class AgendaController implements Serializable {
             agendaController.getSelected().setApellido(expedienteController.getExpediente(idExpediente).getApellido());
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String date = sdf.format(agendaController.getSelected().getFecha());
-
-        if (validateHolidays(date)) {
+        if (validateHolidays(agendaController.getSelected().getFecha())) {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
@@ -338,13 +340,10 @@ public class AgendaController implements Serializable {
         selected.setApellido(apellido);
         selected.setOrden(orden);
 
-        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String date = sdf.format(selected.getFecha());
-        
         FacesContext context = FacesContext.getCurrentInstance();
         AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
 
-        if (validateHolidays(date)) {
+        if (validateHolidays(selected.getFecha())) {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
@@ -373,14 +372,10 @@ public class AgendaController implements Serializable {
         selectedParaCrearUnaNueva.setRealizado(realizado);
         selectedParaCrearUnaNueva.setResponsable(responsable);
 
-        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String date = sdf.format(selectedParaCrearUnaNueva.getFecha());
-        
         FacesContext context = FacesContext.getCurrentInstance();
         AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
         
-        
-        if (validateHolidays(date)) {
+        if (validateHolidays(selectedParaCrearUnaNueva.getFecha())) {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
@@ -399,91 +394,90 @@ public class AgendaController implements Serializable {
     }
 
     public void update() {
-        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String date = sdf.format(selected.getFecha());
 
-        if (validateHolidays(date)) {
+        if (validateHolidays(selected.getFecha())) {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
+            filteredAgendas = null;
         } else {
 
             persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AgendaUpdated"));
 
             if (!JsfUtil.isValidationFailed()) {
                 items = null;
-                //filteredAgendas = null;    // Invalidate list of items to trigger re-query.  BASICAMENTE ELIMINE ESTO PARA Q LUEGO DE QUE EL USUARIO HAGA UN UPDATE NO PIERDA LA LISTA FILTRADA EN LA TABLA
+                filteredAgendas = null;    // Invalidate list of items to trigger re-query.
             }
         }
     }
 
     public void updateAgendaPasada() {
-        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String date = sdf.format(selectedAgendaPasada.getFecha());
 
-        if (validateHolidays(date)) {
+        if (validateHolidays(selectedAgendaPasada.getFecha())) {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
+            filteredAgendas = null;
         } else {
 
             persistAgendaPasada(PersistAction.UPDATE, "Agenda pasada actualizada exitosamente");
 
             if (!JsfUtil.isValidationFailed()) {
                 items = null;
-                //filteredAgendas = null;    // Invalidate list of items to trigger re-query.  BASICAMENTE ELIMINE ESTO PARA Q LUEGO DE QUE EL USUARIO HAGA UN UPDATE NO PIERDA LA LISTA FILTRADA EN LA TABLA
+                filteredAgendas = null;    // Invalidate list of items to trigger re-query.  
             }
         }
     }
 
     public void updateAgendaFutura() {
 
-        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String date = sdf.format(selectedAgendaFutura.getFecha());
-
-        if (validateHolidays(date)) {
+        if (validateHolidays(selectedAgendaFutura.getFecha())) {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
+            filteredAgendas = null;
         } else {
 
             persistAgendaFutura(PersistAction.UPDATE, "Agenda futura actualizada exitosamente");
 
             if (!JsfUtil.isValidationFailed()) {
                 items = null;
-                //filteredAgendas = null;    // Invalidate list of items to trigger re-query.  BASICAMENTE ELIMINE ESTo PARA Q LUEGO DE QUE EL USUARIO HAGA UN UPDATE NO PIERDA LA LISTA FILTRADA EN LA TABLA
+                filteredAgendas = null;    // Invalidate list of items to trigger re-query.  BASICAMENTE ELIMINE ESTo PARA Q LUEGO DE QUE EL USUARIO HAGA UN UPDATE NO PIERDA LA LISTA FILTRADA EN LA TABLA
             }
         }
 
     }
 
     public void marcarComoRealizadaSi() {
-       
-        selected.setRealizado("Si");
-        
+        selected.setRealizado(SI);
         this.update();
     }
     
+    public void marcarComoRealizadaSiAgendaPasada() {
+        selectedAgendaPasada.setRealizado(SI);
+        this.updateAgendaPasada();
+    }
+    
+    public void marcarComoRealizadaSiAgendaFutura() {
+        selectedAgendaFutura.setRealizado(SI);
+        this.updateAgendaFutura();
+    }
     
     /*
     el botón amarillo debe:
-
-    a la agenda seleccionada = pasarla a reagendada
-
-    y debe crear una agenda nueva con todos los mismos datos que la anterior
-    solo que realizado = no
-    y fecha = 1 día hábil màs q la actual (seleccionada)
-    
+        1)a la agenda seleccionada = pasarla a reagendada
+        2) debe crear una agenda nueva con todos los mismos datos que la anterior
+        solo que realizado = no
+        3) fecha = 1 día hábil màs q la actual (seleccionada)    
     */
     public void reagendarProximoDiaHabil() {
-       
-        selected.setRealizado("Reagendada");
-        
-        this.prepareReagendar(selected);
-        
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(selected.getFecha());
+    selected.setRealizado("Reagendada");
+    this.prepareReagendar(selected);
+    
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(selected.getFecha());
 
+    do {
         // Sumamos un día
         calendar.add(Calendar.DAY_OF_WEEK, 1);
 
@@ -492,19 +486,21 @@ public class AgendaController implements Serializable {
             // Sumamos dos días para llegar al lunes
             calendar.add(Calendar.DAY_OF_WEEK, 2);
         }
-
-        selectedParaCrearUnaNueva.setFecha(calendar.getTime());
         
-        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String dateReagendada = sdf.format(selectedParaCrearUnaNueva.getFecha());
+    } while (validateHolidays(calendar.getTime()));
 
-        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "agenda reagendada para el día "+dateReagendada, " ");
-        FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-                    
-        this.update();
-        this.createReagendado(selected.getNombre(), selected.getApellido(), selected.getResponsable(),
-                selectedParaCrearUnaNueva.getRealizado(), selected.getOrden(), selectedParaCrearUnaNueva.getFecha(), selected.getDescripcion());
-    }
+    selectedParaCrearUnaNueva.setFecha(calendar.getTime());
+
+    SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
+    String dateReagendada = sdf.format(selectedParaCrearUnaNueva.getFecha());
+
+    FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "agenda reagendada para el día " + dateReagendada, " ");
+    FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+
+    this.update();
+    this.createReagendado(selected.getNombre(), selected.getApellido(), selected.getResponsable(),
+            selectedParaCrearUnaNueva.getRealizado(), selected.getOrden(), selectedParaCrearUnaNueva.getFecha(), selected.getDescripcion());
+}
     
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("AgendaDeleted"));
@@ -1043,6 +1039,9 @@ public class AgendaController implements Serializable {
        }
     }
     
-    
+    public void refreshTable() {
+        // Aquí puedes realizar las acciones necesarias para refrescar la tabla
+        items = getFacade().findAll();
+    }
     
 }

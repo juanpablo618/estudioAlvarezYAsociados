@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  *
  * @author cuello.juanpablo@gmail.com
+ * juanpablo618@hotmail.com
  */
 @Entity
 @Table(name = "Empleado")

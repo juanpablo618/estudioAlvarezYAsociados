@@ -2,7 +2,6 @@ ver maximo nro de orden por sql
 SELECT * FROM expediente WHERE orden = (SELECT MAX(orden) FROM expediente)
 SELECT * FROM expediente WHERE orden = (SELECT MAX(orden) FROM expediente)
 
-
 Converting all upper case to lower case in SQL 
 UPDATE expediente SET nombre = LOWER(nombre), apellido = LOWER(apellido);
 
@@ -129,7 +128,6 @@ objetivo : por alguna razon necesitamos que todos los valores de ese campo tenga
 UPDATE turno SET realizado = "No" ;
 
 
-
 //////////////////////////////////////////////////////////////////////
 
 Resetear un branch de Git al estado del Remoto
@@ -137,7 +135,6 @@ Osea, en en un ejemplo posta usando el master y origin como remote.
 
 git fetch origin master
 git reset --hard origin/master
-
 
 
 // asi se hacen 2 acciones para abrir o cerrar pantallas
@@ -148,15 +145,11 @@ oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteEditDialo
 https://stackoverflow.com/questions/8875818/how-to-use-primefaces-pfileupload-listener-method-is-never-invoked-or-uploaded/8880083#8880083
 
 
-
-
 // PARA SOLUCIONAR BUG DE PODER BUSCAR APELLIDO Y NOMBRE CON MAYUSCULA Y MINUSCULA.
 
 https://stackoverflow.com/questions/23936614/primefaces-5-0-datatable-filter-case-sensitive
 
-
 //  siempre fijarse a la hora de crear una tabla para pdf o jpg que tengo llave primaria nroDeOrden.
-
 
 //timeZone="GMT-3"
 
@@ -236,21 +229,9 @@ https://stackoverflow.com/questions/23936614/primefaces-5-0-datatable-filter-cas
                                         </p:selectOneMenu>
                    
 
-
-
-
-
-
-
-
-
-
-
 para la parte de días a la hora de crear turnos y actividades masivamente vamos a usar esto para calcular:                    
 https://www.diainternacionalde.com/sumar-restar-dias-fecha
 
 
-
 aca están los iconos que con primefaces se pueden usar:
-
 https://api.jqueryui.com/resources/icons-list.html

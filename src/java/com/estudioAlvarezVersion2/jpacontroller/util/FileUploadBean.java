@@ -63,7 +63,9 @@ public class FileUploadBean implements Serializable{
         private UploadedFile fileConvenioDeHonorarios;
         private UploadedFile fileConstanciaDeCbu;
         
-        private UploadedFile fileCronoDeAportes;  
+        private UploadedFile fileCronoDeAportes;
+        private UploadedFile fileCronoDeAportesDos;
+        
         private UploadedFile frenteDniExpSinCarpeta;  
         private UploadedFile dorsoDniExpSinCarpeta;  
 
@@ -254,6 +256,16 @@ public class FileUploadBean implements Serializable{
         this.fileCronoDeAportes = fileCronoDeAportes;
     }
 
+    public UploadedFile getFileCronoDeAportesDos() {
+        return fileCronoDeAportesDos;
+    }
+
+    public void setFileCronoDeAportesDos(UploadedFile fileCronoDeAportesDos) {
+        this.fileCronoDeAportesDos = fileCronoDeAportesDos;
+    }
+    
+    
+
     public UploadedFile getFileOtraDocumentacionDos() {
         return fileOtraDocumentacionDos;
     }
@@ -314,7 +326,10 @@ public class FileUploadBean implements Serializable{
 		PreparedStatement ps;
 
             if(fileCronoDeAportes != null){
-                    if(fileCronoDeAportes.getContentType().equalsIgnoreCase("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") || fileCronoDeAportes.getContentType().equalsIgnoreCase("application/vnd.ms-excel")){
+                    if(fileCronoDeAportes.getContentType().equalsIgnoreCase("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") ||
+                            fileCronoDeAportes.getContentType().equalsIgnoreCase("application/vnd.ms-excel")
+                            || fileCronoDeAportes.getContentType().equalsIgnoreCase("application/octet-stream")
+                            ){
                         con = DAO.getConnection();
                         ps = con.prepareStatement("INSERT INTO documentoscronodeaportes (documento, nroDeOrden, nombreDelDocumento) " +
                         "VALUES (?, ?, ?) " +
@@ -344,6 +359,53 @@ public class FileUploadBean implements Serializable{
             
         } catch (IOException | SQLException e) {
                         FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileCronoDeAportes.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        }
+        
+    }  
+
+    public void uploadCronoDeAportesDos(int orden) {  
+                    
+        try {
+            Connection con;
+		PreparedStatement ps;
+
+            if(fileCronoDeAportesDos != null){
+                //Fichero ARRIETA MONICA SILVINA.xlsm no es un archivo xls/xlsx o no seleccionó un archivo
+                    if(fileCronoDeAportesDos.getContentType().equalsIgnoreCase("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") ||
+                            fileCronoDeAportesDos.getContentType().equalsIgnoreCase("application/vnd.ms-excel")
+                            || fileCronoDeAportesDos.getContentType().equalsIgnoreCase("application/octet-stream")
+                            ){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO documentoscronodeaportesdos (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) " 
+                                );
+
+                        ps.setBinaryStream(1, fileCronoDeAportesDos.getInputstream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, fileCronoDeAportesDos.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage(OK, "Fichero " + fileCronoDeAportesDos.getFileName() + SUBIDO_CORRECTAMENTE__CON_NRO_DE__ORDEN+orden);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                        
+                    
+                    }else{
+                        FacesMessage msg = new FacesMessage(ERROR, "Fichero " + fileCronoDeAportesDos.getFileName().concat(" no es un archivo xls/xlsx o no seleccionó un archivo"));
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    }
+                    
+            }
+            
+        } catch (IOException | SQLException e) {
+                        FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileCronoDeAportesDos.getFileName().concat(" por favor seleccione otro."));
                         FacesContext.getCurrentInstance().addMessage(null, msg);
 
         }

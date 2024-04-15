@@ -13,7 +13,9 @@
                 <h:panelGroup id="display">
                    
                         
-                    
+                    <h:outputText value="CUIT:"/><br></br>
+                    <h:outputText value="#{expedienteController.selected.cuit}" class="negrita"/><br></br><br></br><br></br>
+                        
                         <h:outputText value="Clave CIDI:"/><br></br>
                         <h:outputText value="#{expedienteController.verClaveCidi(expedienteController.selected.orden)}" class="negrita"/><br></br>
                         <a href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" >
@@ -26,9 +28,6 @@
                         <a href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank" >
                             <img src="../faces/resources/images/afip.png" style="width: 80%;" ></img>
                         </a><br></br><br></br>
-                        
-                        <h:outputText value="Cuit:"/><br></br>
-                        <h:outputText value="#{expedienteController.selected.cuit}" class="negrita"/><br></br>
                         
                         <h:outputText value="Clave de Seguridad Social:"/><br></br>
                         <h:outputText value="#{expedienteController.verClaveDeSeguridadSocial(expedienteController.selected.orden)}" class="negrita"/><br></br>

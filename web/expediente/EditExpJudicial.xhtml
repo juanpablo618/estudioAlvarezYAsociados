@@ -301,10 +301,20 @@
                             <div style="float:right ;width: 48%;  margin-top: 2%;">
                                 <div>
                                     <p:panel 
-                                        style="margin-bottom:20px; #{fileDownloadBean.fileCronoDeAportes != null ? 'background-color: #FF0000;' : 'background-color: #00FF00;'} margin-bottom:20px;"
-                                        id="panelCronoDeAportes" header="Crono. de Aportes" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  >
+                                        style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivoCronoDeAportes(orden).toString().contains('no') ? 'background-color: #FF0000;' : 'background-color: #00FF00;'} margin-bottom:20px;"
+                                        id="panelCronoDeAportes" 
+                                        header="Crono. de Aportes"
+                                        toggleable="true" 
+                                        closable="false" 
+                                        collapsed="true" 
+                                        toggleSpeed="500"
+                                        closeSpeed="500"  >
                                         <p:outputLabel value="Nombre del archivo Crono. de Aportes:"  style="font-weight: bold"/><br></br>
                                         <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoCronoDeAportes(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                    
+                                        <p:outputLabel value="Nombre del archivo Crono. de Aportes Dos:"  style="font-weight: bold"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoCronoDeAportesDos(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                    
                                     </p:panel>
                                 </div>
 
@@ -383,7 +393,14 @@
                                         </div>
                                     </p:panel>
                                     <br></br>
-                                    <p:panel id="panelOtraDocumentacion" header="Otra Documentación" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500"  style="margin-bottom:20px">
+                                    <p:panel id="panelOtraDocumentacion" 
+                                             header="Otra Documentación" 
+                                             toggleable="true" 
+                                             closable="false" 
+                                             collapsed="true" 
+                                             toggleSpeed="500" 
+                                             closeSpeed="500"  
+                                             style="margin-bottom:20px">
                                         
                                         <p:outputLabel value="Nombre del archivo Otra Documentación:"  style="font-weight: bold"/><br></br>
                                         <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
@@ -528,7 +545,7 @@
                             </p:confirmDialog> 
 
                         </p:tab>
-                        <p:tab id="tabAgendaAnterior" title="Agenda">
+                        <p:tab id="tabAgendaAnterior" title="Agendas">
                             <div>
                                 <p:fieldset id="fieldSetAgendaAnterior" class="ui-fieldset-toggleable-lila" legend="AGENDAS ANTERIORES" toggleable="true"  collapsed="true" toggleSpeed="500">
                                     <p:dataTable id="datalist4" 
@@ -569,11 +586,20 @@
                                             <p:commandButton class="linea btnSearch"  update=":AgendaPasadaEditForm" oncomplete="PF('AgendaPasadaEditDialog').show()" icon="ui-icon-search" title="Ver">
                                                 <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaPasada}" />
                                             </p:commandButton>
-
+                                            
+                                            <p:commandButton class="linea btnKeyGreen"
+                                                                 update=":growl,:ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist4" 
+                                                                 actionListener="#{agendaController.marcarComoRealizadaSiAgendaPasada()}"
+                                                                 icon="ui-icon-check"
+                                                                 title="Marcar como realizado si">
+                                                    <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaPasada}" />
+                                            </p:commandButton>
 
                                             <p:commandButton class="linea btnDelete"
                                                              update=":growl,:ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist4, message5"  
-                                                             actionListener="#{agendaController.destroyAgendaPasada()}"  icon="ui-icon-trash" title="Eliminar">
+                                                             actionListener="#{agendaController.destroyAgendaPasada()}"
+                                                             icon="ui-icon-trash"
+                                                             title="Eliminar">
                                                 <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaPasada}" />
                                                 <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert"/>
                                             </p:commandButton>
@@ -624,12 +650,26 @@
                                         </p:column>
                                         <p:column styleClass="centeredColumnContent#{item.realizado}" style="text-align: center; width: 10%" headerText="ACCIONES">
 
-                                            <p:commandButton class="linea btnSearch"  update=":AgendaFuturaEditForm" oncomplete="PF('AgendaFuturaEditDialog').show()" icon="ui-icon-search" title="Ver">
+                                            <p:commandButton class="linea btnSearch"
+                                                             update=":AgendaFuturaEditForm"
+                                                             oncomplete="PF('AgendaFuturaEditDialog').show()"
+                                                             icon="ui-icon-search" title="Ver">
                                                 <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaFutura}" />
                                             </p:commandButton>
+                                            
+                                            <p:commandButton class="linea btnKeyGreen"
+                                                                 update=":growl,:ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist5"
+                                                                 actionListener="#{agendaController.marcarComoRealizadaSiAgendaFutura()}"
+                                                                 icon=" ui-icon-check"
+                                                                 title="Marcar como realizado si">
+                                                    <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaFutura}" />
+                                            </p:commandButton>
 
-                                            <p:commandButton class="linea btnDelete" update=":growl,:ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist5, message6"
-                                                             actionListener="#{agendaController.destroyAgendaFutura()}"  icon="ui-icon-trash" title="Eliminar">
+                                            <p:commandButton class="linea btnDelete"
+                                                             update=":growl,:ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist5, message6"
+                                                             actionListener="#{agendaController.destroyAgendaFutura()}"
+                                                             icon="ui-icon-trash"
+                                                             title="Eliminar">
                                                 <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaFutura}" />
                                                 <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert"/>
                                             </p:commandButton>

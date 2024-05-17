@@ -17,7 +17,7 @@ ejemplo el "filtrar las 2 tablas"
 siempre usar el sistema en 80% por que las interfaces son muy grandes.
 
 
-(1, '99999999', 'C:\\Users\\juan.cuello\\Documents\\Downloads', 'file:///C:\\Users\\juan.cuello\\Documents\\Downloads', 'http://localhost:8080/EstudioAlvarezVersion2/faces/resources/images/cutmypic.png');
+(1, '99999999', 'C:\\Users\\juan.cuello\\Documents\\Downloads', 'file:///C:\\Users\\USER\\Documents\\Downloads', 'http://localhost:8080/EstudioAlvarezVersion2/faces/resources/images/cutmypic.png');
 
 esto es para cambiar por base de datos
 /home/jelastic/documentos

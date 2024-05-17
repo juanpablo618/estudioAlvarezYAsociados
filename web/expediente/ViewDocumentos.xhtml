@@ -36,7 +36,17 @@
                         <div style="float:right ;width: 48%; margin-top: 1%;" >
                             
                             
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" id="toggleable" header="PARTIDAS" toggleable="true" closable="false" collapsed="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
+                                     id="toggleable"
+                                     header="PARTIDAS"
+                                     toggleable="true"
+                                     closable="false"
+                                     collapsed="true"
+                                     toggleSpeed="500"
+                                     closeSpeed="500"
+                                     widgetVar="panelPartidas"
+                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivoJPG(expedienteController.selected.orden).toString().contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                     >
                            
                             <div>
                                 <p:outputLabel value="Archivo JPG o PDF 1"  style="font-weight: bold"/><br></br>
@@ -218,8 +228,123 @@
                                 </div>
                                 
                             </p:panel>   
+                            
+                            <br></br>
+                            
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
+                                     id="HistorialLaboralAnses" 
+                                     header="Historial laboral ANSES" 
+                                     toggleable="true" 
+                                     closable="false" 
+                                     collapsed="true" 
+                                     toggleSpeed="500" 
+                                     closeSpeed="500" 
+                                     widgetVar="panelHistorialLaboralAnses"
+                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralAnses').toString().contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                     >
+                            
+                                <p:outputLabel value="Historial laboral ANSES:"  style="font-weight: bold"/><br></br>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileHistorialLaboralAnses}" mode="simple"/>
+                                <p:commandButton icon="fa-upload" value="Subir Historial laboral ANSES" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadHistorialLaboralAnses(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br>
+                                <p:outputLabel value="Nombre del archivo Historial laboral ANSES:"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralAnses')}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar Historial laboral ANSES" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'HistorialLaboralAnses')}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileHistorialLaboralAnses}" />
+                                </p:commandButton>
+                            </p:panel>   
                            
-                                </div>                            
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
+                                     id="HistorialLaboralOtrasCajas" 
+                                     header="HISTORIA LABORAL OTRAS CAJAS" 
+                                     toggleable="true" 
+                                     closable="false" 
+                                     collapsed="true" 
+                                     toggleSpeed="500" 
+                                     closeSpeed="500" 
+                                     widgetVar="panelHistorialLaboralOtrasCajas"
+                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralOtrasCajas').toString().contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                     >
+                            
+                            <p:outputLabel value="Historial laboral Otras Cajas:"  style="font-weight: bold"/><br></br>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileHistorialLaboralOtrasCajas}" mode="simple"/>
+                                <p:commandButton icon="fa-upload" value="Subir Historial laboral otras cajas" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadHistorialLaboralOtrasCajas(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br>
+                                <p:outputLabel value="Nombre del archivo Historial laboral Otras Cajas"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralOtrasCajas')}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar Historial laboral Otras cajas" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'HistorialLaboralOtrasCajas')}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileHistorialLaboralOtrasCajas}" />
+                                </p:commandButton>
+                            
+                            
+                            <p:outputLabel value="Historial laboral Otras Cajas dos:"  style="font-weight: bold"/><br></br>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileHistorialLaboralOtrasCajasDos}" mode="simple"/>
+                                <p:commandButton icon="fa-upload" value="Subir Historial laboral otras cajas dos" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadHistorialLaboralOtrasCajasDos(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br>
+                                <p:outputLabel value="Nombre del archivo Historial laboral Otras Cajas dos"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralOtrasCajasDos')}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar Historial laboral Otras cajas dos" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'HistorialLaboralOtrasCajasDos')}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileHistorialLaboralOtrasCajasDos}" />
+                                </p:commandButton>
+                            
+                                
+                                
+                            </p:panel>   
+                           
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
+                                     id="AfipDatosPersonalesPagosOtros" 
+                                     header="AFIP: DATOS PERSONALES / PAGOS / OTROS" 
+                                     toggleable="true" 
+                                     closable="false" 
+                                     collapsed="true" 
+                                     toggleSpeed="500" 
+                                     closeSpeed="500" 
+                                     widgetVar="panelAfipDatosPersonalesPagosOtros"
+                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros').toString().contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                     >
+                            
+                            <p:outputLabel value="AFIP: DATOS PERSONALES / PAGOS / OTROS:"  style="font-weight: bold"/><br></br>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileAfipDatosPersonalesPagosOtros}" mode="simple"/>
+                                <p:commandButton icon="fa-upload" value="Subir AfipDatosPersonalesPagosOtros" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadAfipDatosPersonalesPagosOtros(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br>
+                                <p:outputLabel value="Nombre del archivo AfipDatosPersonalesPagosOtros"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros')}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar AfipDatosPersonalesPagosOtros" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros')}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileAfipDatosPersonalesPagosOtros}" />
+                                </p:commandButton>
+                            
+                                <br></br>
+                            <p:outputLabel value="AFIP: DATOS PERSONALES / PAGOS / OTROS dos:"  style="font-weight: bold"/><br></br>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileAfipDatosPersonalesPagosOtrosDos}" mode="simple"/>
+                                <p:commandButton icon="fa-upload" value="Subir AfipDatosPersonalesPagosOtros dos" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadAfipDatosPersonalesPagosOtrosDos(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br><br></br>
+                                <p:outputLabel value="Nombre del archivo Historial laboral Otras Cajas dos"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosDos')}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar AfipDatosPersonalesPagosOtros dos" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosDos')}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileAfipDatosPersonalesPagosOtrosDos}" />
+                                </p:commandButton>
+                            <br></br><br></br>
+                           <p:outputLabel value="AFIP: DATOS PERSONALES / PAGOS / OTROS tres"  style="font-weight: bold"/><br></br>
+                                <p:growl showDetail="true"/>
+                                <p:fileUpload  value="#{fileUploadBean.fileAfipDatosPersonalesPagosOtrosTres}" mode="simple"/>
+                                <p:commandButton icon="fa-upload" value="Subir AfipDatosPersonalesPagosOtros tres" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadAfipDatosPersonalesPagosOtrosTres(expedienteController.selected.orden)}" ajax="false" />
+                                <br></br>
+                                <p:outputLabel value="Nombre del archivo Historial laboral Otras Cajas tres"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosTres')}"  style="font-weight: bold;color: #123A6D"/><br></br>
+                                <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar AfipDatosPersonalesPagosOtros tres" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosTres')}" ajax="false">
+                                    <p:fileDownload value="#{fileDownloadBean.fileAfipDatosPersonalesPagosOtrosTres}" />
+                                </p:commandButton>
+                                
+                                
+                            </p:panel>   
+                           
+                            
+                            </div>                            
                             <br></br>
                         <div class="width50" style="float:right;">
                             <div>
@@ -452,6 +577,8 @@
                                 <p:commandButton icon="download" class="botonCrearAgenda hoverBlue" value="Descargar Carta Poder" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'CartaPoder')}" ajax="false">
                                     <p:fileDownload value="#{fileDownloadBean.fileCartaPoder}" />
                                 </p:commandButton>
+                            
+                            
                             </p:panel>
                             <br></br>
                             <br></br>

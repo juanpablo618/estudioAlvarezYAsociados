@@ -226,11 +226,11 @@
                             <h:outputText value="ACCIONES"/>
                         </f:facet>
 
-                        <p:commandButton update=":growl,datalist" actionListener="#{agendaController.reagendarProximoDiaHabil()}" rendered="#{item.orden > 0 }" class="linea btnKeyYellow"  icon="ui-icon-arrowthickstop-1-e" title="reagendar para proximo día hábil">
+                        <p:commandButton update=":growl,datalist" actionListener="#{agendaController.reagendarProximoDiaHabil()}"  class="linea btnKeyYellow"  icon="ui-icon-arrowthickstop-1-e" title="reagendar para proximo día hábil">
                             <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
                         </p:commandButton>
                         
-                        <p:commandButton update=":growl,datalist" actionListener="#{agendaController.marcarComoRealizadaSi()}" rendered="#{item.orden > 0 }" class="linea btnKeyGreen"  icon=" ui-icon-check" title="Marcar como realizado si">
+                        <p:commandButton update=":growl,datalist" actionListener="#{agendaController.marcarComoRealizadaSi()}"  class="linea btnKeyGreen"  icon=" ui-icon-check" title="Marcar como realizado si">
                             <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
                         </p:commandButton>
                         

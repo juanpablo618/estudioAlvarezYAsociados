@@ -46,6 +46,14 @@ public class FileDownloadBean implements Serializable {
     private StreamedContent fileOtraDocumentacionTres;
     
     private StreamedContent fileCartaPoder;
+    private StreamedContent fileHistorialLaboralAnses;
+    private StreamedContent fileHistorialLaboralOtrasCajas;
+    private StreamedContent fileHistorialLaboralOtrasCajasDos;
+    
+    private StreamedContent fileAfipDatosPersonalesPagosOtros;
+    private StreamedContent fileAfipDatosPersonalesPagosOtrosDos;
+    private StreamedContent fileAfipDatosPersonalesPagosOtrosTres;
+    
     private StreamedContent fileExpAdministrativo;
     private StreamedContent fileRecibos;
     private StreamedContent fileLiquidacionBlueCorp;
@@ -296,7 +304,54 @@ public class FileDownloadBean implements Serializable {
     public void setFileLiquidacionBlueCorpTres(StreamedContent fileLiquidacionBlueCorpTres) {
         this.fileLiquidacionBlueCorpTres = fileLiquidacionBlueCorpTres;
     }
-    
+
+    public StreamedContent getFileHistorialLaboralAnses() {
+        return fileHistorialLaboralAnses;
+    }
+
+    public void setFileHistorialLaboralAnses(StreamedContent fileHistorialLaboralAnses) {
+        this.fileHistorialLaboralAnses = fileHistorialLaboralAnses;
+    }
+
+    public StreamedContent getFileHistorialLaboralOtrasCajas() {
+        return fileHistorialLaboralOtrasCajas;
+    }
+
+    public void setFileHistorialLaboralOtrasCajas(StreamedContent fileHistorialLaboralOtrasCajas) {
+        this.fileHistorialLaboralOtrasCajas = fileHistorialLaboralOtrasCajas;
+    }
+
+    public StreamedContent getFileHistorialLaboralOtrasCajasDos() {
+        return fileHistorialLaboralOtrasCajasDos;
+    }
+
+    public void setFileHistorialLaboralOtrasCajasDos(StreamedContent fileHistorialLaboralOtrasCajasDos) {
+        this.fileHistorialLaboralOtrasCajasDos = fileHistorialLaboralOtrasCajasDos;
+    }
+
+    public StreamedContent getFileAfipDatosPersonalesPagosOtros() {
+        return fileAfipDatosPersonalesPagosOtros;
+    }
+
+    public void setFileAfipDatosPersonalesPagosOtros(StreamedContent fileAfipDatosPersonalesPagosOtros) {
+        this.fileAfipDatosPersonalesPagosOtros = fileAfipDatosPersonalesPagosOtros;
+    }
+
+    public StreamedContent getFileAfipDatosPersonalesPagosOtrosDos() {
+        return fileAfipDatosPersonalesPagosOtrosDos;
+    }
+
+    public void setFileAfipDatosPersonalesPagosOtrosDos(StreamedContent fileAfipDatosPersonalesPagosOtrosDos) {
+        this.fileAfipDatosPersonalesPagosOtrosDos = fileAfipDatosPersonalesPagosOtrosDos;
+    }
+
+    public StreamedContent getFileAfipDatosPersonalesPagosOtrosTres() {
+        return fileAfipDatosPersonalesPagosOtrosTres;
+    }
+
+    public void setFileAfipDatosPersonalesPagosOtrosTres(StreamedContent fileAfipDatosPersonalesPagosOtrosTres) {
+        this.fileAfipDatosPersonalesPagosOtrosTres = fileAfipDatosPersonalesPagosOtrosTres;
+    }
     
     
     public void downloadPDF(int orden) {
@@ -1578,11 +1633,36 @@ public class FileDownloadBean implements Serializable {
                                 fileConvenioDeHonorarios = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileConvenioDeHonorarios;
                                 break;
-                                
                             case "ConstanciaDeCbu":
                                 fileConstanciaDeCbu = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileConstanciaDeCbu;
                                 break;
+                            case "HistorialLaboralAnses":
+                                fileHistorialLaboralAnses = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileHistorialLaboralAnses;
+                                break;
+                            case "HistorialLaboralOtrasCajas":
+                                fileHistorialLaboralOtrasCajas = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileHistorialLaboralOtrasCajas;
+                                break;
+                            case "HistorialLaboralOtrasCajasDos":
+                                fileHistorialLaboralOtrasCajasDos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileHistorialLaboralOtrasCajasDos;
+                                break;   
+                            case "AfipDatosPersonalesPagosOtros":
+                                fileAfipDatosPersonalesPagosOtros = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileAfipDatosPersonalesPagosOtros;
+                                break;   
+                            case "AfipDatosPersonalesPagosOtrosDos":
+                                fileAfipDatosPersonalesPagosOtrosDos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileAfipDatosPersonalesPagosOtrosDos;
+                                break;   
+                            case "AfipDatosPersonalesPagosOtrosTres":
+                                fileAfipDatosPersonalesPagosOtrosTres = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileAfipDatosPersonalesPagosOtrosTres;
+                                break;   
+                                
+                                
                         }
                         
                     } else {
@@ -1617,6 +1697,30 @@ public class FileDownloadBean implements Serializable {
                             case "ConstanciaDeCbu":
                                 fileConstanciaDeCbu = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileConstanciaDeCbu;
+                                break;
+                            case "HistorialLaboralAnses":
+                                fileHistorialLaboralAnses = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileHistorialLaboralAnses;
+                                break;  
+                            case "HistorialLaboralOtrasCajas":
+                                fileHistorialLaboralOtrasCajas = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileHistorialLaboralOtrasCajas;
+                                break;
+                            case "HistorialLaboralOtrasCajasDos":
+                                fileHistorialLaboralOtrasCajasDos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileHistorialLaboralOtrasCajasDos;
+                                break;    
+                            case "AfipDatosPersonalesPagosOtros":
+                                fileAfipDatosPersonalesPagosOtros = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileAfipDatosPersonalesPagosOtros;
+                                break;    
+                            case "AfipDatosPersonalesPagosOtrosDos":
+                                fileAfipDatosPersonalesPagosOtrosDos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileAfipDatosPersonalesPagosOtrosDos;
+                                break;    
+                            case "AfipDatosPersonalesPagosOtrosTres":
+                                fileAfipDatosPersonalesPagosOtrosTres = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileAfipDatosPersonalesPagosOtrosTres;
                                 break;    
                                 
                         }

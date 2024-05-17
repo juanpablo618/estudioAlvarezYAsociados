@@ -27,14 +27,14 @@
 
                         <div class="hijo" style="float:left;">
 
-                            <p:outputLabel value="Nombre"  /><br></br>
-                            <p:inputText readonly="true" value="#{agendaController.selected.nombre}" /><br></br><br></br>
+                            <p:outputLabel value="Nombre"  rendered="#{not empty agendaController.selected.nombre}"/><br></br>
+                            <p:inputText readonly="true" value="#{agendaController.selected.nombre}" rendered="#{not empty agendaController.selected.nombre}"/><br></br><br></br>
 
-                            <p:outputLabel value="Apellido"  /><br></br>
-                            <p:inputText readonly="true" value="#{agendaController.selected.apellido}"  /><br></br><br></br>
+                            <p:outputLabel value="Apellido"  rendered="#{not empty agendaController.selected.apellido}"/><br></br>
+                            <p:inputText readonly="true" value="#{agendaController.selected.apellido}" rendered="#{not empty agendaController.selected.apellido}" /><br></br><br></br>
 
-                            <p:outputLabel value="Orden" for="orden" /><br></br>
-                            <p:inputText readonly="true"  id="orden" value="#{agendaController.selected.orden}" /><br></br><br></br>
+                            <p:outputLabel value="Orden" for="orden" rendered="#{agendaController.selected.orden ne 0}"  /><br></br>
+                            <p:inputText readonly="true"  id="orden" value="#{agendaController.selected.orden}" rendered="#{agendaController.selected.orden ne 0}" /><br></br><br></br>
 
                             <p:outputLabel value="Responsable" for="responsable" /><br></br>
                             <p:selectOneMenu  id="responsable" value="#{agendaController.selected.responsable}"  >

@@ -27,7 +27,7 @@
                                 <p:inputText id="nombre" required="true" requiredMessage="nombre es necesario" value="#{consultaController.selected.nombre}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_nombre}" />
 
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_cuit}" for="cuit" style="font-weight: bold" />
-                                <p:inputText maxlength="11" id="cuit" value="#{consultaController.selected.cuit}" title="#{bundle.CreateExpedienteTitle_cuit}" />
+                                <p:inputText required="true" requiredMessage="CUIT ES REQUERIDO" maxlength="11" id="cuit" value="#{consultaController.selected.cuit}" title="#{bundle.CreateExpedienteTitle_cuit}" />
 
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="margin-left: 3%;font-weight: bold" />
                                 <p:inputText id="telefono" required="true" requiredMessage="teléfono es necesario" value="#{consultaController.selected.telefono}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_telefono}" />

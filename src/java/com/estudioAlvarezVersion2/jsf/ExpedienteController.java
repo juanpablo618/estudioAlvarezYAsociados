@@ -11,8 +11,11 @@ import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.ExpedienteFacade;
 import com.estudioAlvarezVersion2.jpacontroller.util.ExpedienteUtils;
+import java.io.IOException;
 
 import java.io.Serializable;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -38,9 +41,11 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ActionEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
@@ -1330,6 +1335,20 @@ public class ExpedienteController implements Serializable {
         
         }
         
+    }
+
+    public String abrirWhatsApp(String telefono) throws IOException {
+        if (telefono == null || telefono.isEmpty()) {
+            // Manejar el caso de teléfono nulo o vacío
+            return null;
+        }
+
+        // Eliminar espacios en blanco y caracteres no numéricos
+        telefono = telefono.replaceAll("[^0-9]", "");
+
+        // Construir la URL de WhatsApp
+        String url = "https://wa.me/" + telefono;
+        return url;
     }
 
 }

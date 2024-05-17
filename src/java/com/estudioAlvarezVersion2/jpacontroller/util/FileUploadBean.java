@@ -71,6 +71,15 @@ public class FileUploadBean implements Serializable{
 
         private StreamedContent frenteDniExpSinCarpetaTransfer;
         private StreamedContent dorsoDniExpSinCarpetaTransfer;
+        
+        private UploadedFile fileHistorialLaboralAnses ;
+        private UploadedFile fileHistorialLaboralOtrasCajas;
+        private UploadedFile fileHistorialLaboralOtrasCajasDos;
+        
+        private UploadedFile fileAfipDatosPersonalesPagosOtros ;
+        private UploadedFile fileAfipDatosPersonalesPagosOtrosDos ;
+        private UploadedFile fileAfipDatosPersonalesPagosOtrosTres ;
+        
 
     public StreamedContent getFrenteDniExpSinCarpetaTransfer() {
         return frenteDniExpSinCarpetaTransfer;
@@ -313,6 +322,56 @@ public class FileUploadBean implements Serializable{
     public void setFileLiquidacionBlueCorpTres(UploadedFile fileLiquidacionBlueCorpTres) {
         this.fileLiquidacionBlueCorpTres = fileLiquidacionBlueCorpTres;
     }
+
+    public UploadedFile getFileHistorialLaboralAnses() {
+        return fileHistorialLaboralAnses;
+    }
+
+    public void setFileHistorialLaboralAnses(UploadedFile fileHistorialLaboralAnses) {
+        this.fileHistorialLaboralAnses = fileHistorialLaboralAnses;
+    }
+
+    public UploadedFile getFileHistorialLaboralOtrasCajas() {
+        return fileHistorialLaboralOtrasCajas;
+    }
+
+    public void setFileHistorialLaboralOtrasCajas(UploadedFile fileHistorialLaboralOtrasCajas) {
+        this.fileHistorialLaboralOtrasCajas = fileHistorialLaboralOtrasCajas;
+    }
+
+    public UploadedFile getFileHistorialLaboralOtrasCajasDos() {
+        return fileHistorialLaboralOtrasCajasDos;
+    }
+
+    public void setFileHistorialLaboralOtrasCajasDos(UploadedFile fileHistorialLaboralOtrasCajasDos) {
+        this.fileHistorialLaboralOtrasCajasDos = fileHistorialLaboralOtrasCajasDos;
+    }
+
+    public UploadedFile getFileAfipDatosPersonalesPagosOtros() {
+        return fileAfipDatosPersonalesPagosOtros;
+    }
+
+    public void setFileAfipDatosPersonalesPagosOtros(UploadedFile fileAfipDatosPersonalesPagosOtros) {
+        this.fileAfipDatosPersonalesPagosOtros = fileAfipDatosPersonalesPagosOtros;
+    }
+
+    public UploadedFile getFileAfipDatosPersonalesPagosOtrosDos() {
+        return fileAfipDatosPersonalesPagosOtrosDos;
+    }
+
+    public void setFileAfipDatosPersonalesPagosOtrosDos(UploadedFile fileAfipDatosPersonalesPagosOtrosDos) {
+        this.fileAfipDatosPersonalesPagosOtrosDos = fileAfipDatosPersonalesPagosOtrosDos;
+    }
+
+    public UploadedFile getFileAfipDatosPersonalesPagosOtrosTres() {
+        return fileAfipDatosPersonalesPagosOtrosTres;
+    }
+
+    public void setFileAfipDatosPersonalesPagosOtrosTres(UploadedFile fileAfipDatosPersonalesPagosOtrosTres) {
+        this.fileAfipDatosPersonalesPagosOtrosTres = fileAfipDatosPersonalesPagosOtrosTres;
+    }
+
+    
     
     
 // El nuevo requerimiento indica que se puedan subir JPG o PDF indistintamente 
@@ -1055,7 +1114,288 @@ public class FileUploadBean implements Serializable{
         
     }  
     
+    public void uploadHistorialLaboralAnses(int orden) {  
+                    
+        try {
+            Connection con;
+		PreparedStatement ps;
+
+            if(fileHistorialLaboralAnses != null){
+                    
+                    if(fileHistorialLaboralAnses.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileHistorialLaboralAnses.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO documentosHistorialLaboralAnses (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, fileHistorialLaboralAnses.getInputstream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, fileHistorialLaboralAnses.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage(OK, "Fichero " + fileHistorialLaboralAnses.getFileName() + SUBIDO_CORRECTAMENTE__CON_NRO_DE__ORDEN+orden);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    
+                    }else{
+                        if(!"".equals(fileHistorialLaboralAnses.getFileName())){
+                            FacesMessage msg = new FacesMessage(ERROR, "no selecciono un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }else{
+                            FacesMessage msg = new FacesMessage(ERROR, "Fichero " + fileHistorialLaboralAnses.getFileName() + " no es un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+            }
+            
+        } catch (IOException | SQLException e) {
+                        FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileHistorialLaboralAnses.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
     
+    
+    public void uploadHistorialLaboralOtrasCajas(int orden) {  
+                    
+        try {
+            Connection con;
+		PreparedStatement ps;
+
+            if(fileHistorialLaboralOtrasCajas != null){
+                    
+                    if(fileHistorialLaboralOtrasCajas.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileHistorialLaboralOtrasCajas.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO documentosHistorialLaboralOtrasCajas (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, fileHistorialLaboralOtrasCajas.getInputstream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, fileHistorialLaboralOtrasCajas.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage(OK, "Fichero " + fileHistorialLaboralOtrasCajas.getFileName() + SUBIDO_CORRECTAMENTE__CON_NRO_DE__ORDEN+orden);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    
+                    }else{
+                        if(!"".equals(fileHistorialLaboralOtrasCajas.getFileName())){
+                            FacesMessage msg = new FacesMessage(ERROR, "no selecciono un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }else{
+                            FacesMessage msg = new FacesMessage(ERROR, "Fichero " + fileHistorialLaboralOtrasCajas.getFileName() + " no es un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+            }
+            
+        } catch (IOException | SQLException e) {
+                        FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileHistorialLaboralOtrasCajas.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
+    
+    public void uploadHistorialLaboralOtrasCajasDos(int orden) {  
+                    
+        try {
+            Connection con;
+		PreparedStatement ps;
+
+            if(fileHistorialLaboralOtrasCajasDos != null){
+                    
+                    if(fileHistorialLaboralOtrasCajasDos.getContentType().equalsIgnoreCase(IMAGE_JPEG) ||
+                            fileHistorialLaboralOtrasCajasDos.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO documentosHistorialLaboralOtrasCajasDos (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, fileHistorialLaboralOtrasCajasDos.getInputstream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, fileHistorialLaboralOtrasCajasDos.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage(OK, "Fichero " + fileHistorialLaboralOtrasCajasDos.getFileName() + SUBIDO_CORRECTAMENTE__CON_NRO_DE__ORDEN+orden);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    
+                    }else{
+                        if(!"".equals(fileHistorialLaboralOtrasCajasDos.getFileName())){
+                            FacesMessage msg = new FacesMessage(ERROR, "no selecciono un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }else{
+                            FacesMessage msg = new FacesMessage(ERROR, "Fichero " + fileHistorialLaboralOtrasCajasDos.getFileName() + " no es un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+            }
+            
+        } catch (IOException | SQLException e) {
+                        FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileHistorialLaboralOtrasCajasDos.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
+    
+    public void uploadAfipDatosPersonalesPagosOtros(int orden) {  
+                    
+        try {
+            Connection con;
+		PreparedStatement ps;
+
+            if(fileAfipDatosPersonalesPagosOtros != null){
+                    
+                    if(fileAfipDatosPersonalesPagosOtros.getContentType().equalsIgnoreCase(IMAGE_JPEG) ||
+                            fileAfipDatosPersonalesPagosOtros.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO documentosAfipDatosPersonalesPagosOtros (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, fileAfipDatosPersonalesPagosOtros.getInputstream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, fileAfipDatosPersonalesPagosOtros.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage(OK, "Fichero " + fileAfipDatosPersonalesPagosOtros.getFileName() + SUBIDO_CORRECTAMENTE__CON_NRO_DE__ORDEN+orden);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    
+                    }else{
+                        if(!"".equals(fileAfipDatosPersonalesPagosOtros.getFileName())){
+                            FacesMessage msg = new FacesMessage(ERROR, "no selecciono un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }else{
+                            FacesMessage msg = new FacesMessage(ERROR, "Fichero " + fileAfipDatosPersonalesPagosOtros.getFileName() + " no es un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+            }
+            
+        } catch (IOException | SQLException e) {
+                        FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileAfipDatosPersonalesPagosOtros.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
+    
+    public void uploadAfipDatosPersonalesPagosOtrosDos(int orden) {  
+                    
+        try {
+            Connection con;
+		PreparedStatement ps;
+
+            if(fileAfipDatosPersonalesPagosOtrosDos != null){
+                    
+                    if(fileAfipDatosPersonalesPagosOtrosDos.getContentType().equalsIgnoreCase(IMAGE_JPEG) ||
+                            fileAfipDatosPersonalesPagosOtrosDos.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO documentosAfipDatosPersonalesPagosOtrosDos (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, fileAfipDatosPersonalesPagosOtrosDos.getInputstream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, fileAfipDatosPersonalesPagosOtrosDos.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage(OK, "Fichero " + fileAfipDatosPersonalesPagosOtrosDos.getFileName() + SUBIDO_CORRECTAMENTE__CON_NRO_DE__ORDEN+orden);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    
+                    }else{
+                        if(!"".equals(fileAfipDatosPersonalesPagosOtrosDos.getFileName())){
+                            FacesMessage msg = new FacesMessage(ERROR, "no selecciono un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }else{
+                            FacesMessage msg = new FacesMessage(ERROR, "Fichero " + fileAfipDatosPersonalesPagosOtrosDos.getFileName() + " no es un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+            }
+            
+        } catch (IOException | SQLException e) {
+                        FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileAfipDatosPersonalesPagosOtrosDos.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
+        
+    public void uploadAfipDatosPersonalesPagosOtrosTres(int orden) {  
+                    
+        try {
+            Connection con;
+		PreparedStatement ps;
+
+            if(fileAfipDatosPersonalesPagosOtrosTres != null){
+                    
+                    if(fileAfipDatosPersonalesPagosOtrosTres.getContentType().equalsIgnoreCase(IMAGE_JPEG) ||
+                            fileAfipDatosPersonalesPagosOtrosTres.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO documentosAfipDatosPersonalesPagosOtrosTres (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, fileAfipDatosPersonalesPagosOtrosTres.getInputstream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, fileAfipDatosPersonalesPagosOtrosTres.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage(OK, "Fichero " + fileAfipDatosPersonalesPagosOtrosTres.getFileName() + SUBIDO_CORRECTAMENTE__CON_NRO_DE__ORDEN+orden);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    
+                    }else{
+                        if(!"".equals(fileAfipDatosPersonalesPagosOtrosTres.getFileName())){
+                            FacesMessage msg = new FacesMessage(ERROR, "no selecciono un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }else{
+                            FacesMessage msg = new FacesMessage(ERROR, "Fichero " + fileAfipDatosPersonalesPagosOtrosTres.getFileName() + " no es un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+            }
+            
+        } catch (IOException | SQLException e) {
+                        FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileAfipDatosPersonalesPagosOtrosTres.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
+    
+        
     public void uploadCartaPoder(int orden) {  
                     
         try {

@@ -15,6 +15,66 @@
 
         </script>
         <ui:define name="body"  >
+            <h:outputText style="color:white" value="Filtrar agendas:" /><br></br><br></br>
+        
+                <h:form styleClass="filtro-form" id="formFiltros">
+    
+                    <h:outputText value="Empleado:" />
+
+                    <div class="filtro-item">
+                        <p:selectOneMenu value="#{agendaController.responsable}">
+                            <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado"
+                                itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
+                        </p:selectOneMenu>
+                    </div>
+
+                    <h:outputText value="Fecha Desde:" />
+
+                    <div class="filtro-item">
+                        <p:calendar id="fechaDesde" value="#{agendaController.fechaDesde}" pattern="dd/MM/yyyy" placeholder="Fecha Desde" />
+                    </div>
+    
+                    <h:outputText value="Fecha Hasta:" />
+
+                    <div class="filtro-item">
+                        <p:calendar id="fechaHasta" value="#{agendaController.fechaHasta}" pattern="dd/MM/yyyy" placeholder="Fecha Hasta" />
+                    </div>
+    
+    <h:outputText value="Realizado: " />
+        
+    <div class="filtro-item">
+        <p:selectOneMenu value="#{agendaController.realizado}" editable="false">
+            <f:selectItem itemLabel="Todos" itemValue="" />
+            <f:selectItem itemLabel="Si" itemValue="Si" />
+            <f:selectItem itemLabel="No" itemValue="No" />
+            <f:selectItem itemLabel="Reagendada" itemValue="Reagendada" />
+        </p:selectOneMenu>
+    </div>
+
+                    
+    <div class="filtro-item" >
+        <p:commandButton style="margin-top: 0 !important" styleClass="botonCrearAgenda" value="Filtrar" actionListener="#{counterView.filtrarAgendasPorFiltros}" update="output4" />
+    </div>
+
+    <div class="filtro-item-resultado">
+        <h:outputText value="Cantidad: " />
+        <h:outputText style="color: white;" id="output4" value="#{counterView.cantAgendasPorEmpleadoFiltradas}" />
+    </div>
+    
+    
+    <br></br>
+    
+    <div class="filtro-item" >
+        <p:commandButton style="margin-top: 0 !important" styleClass="botonCrearAgenda" value="Filtrar con %" actionListener="#{counterView.filtrarAgendasPorFiltrosConPorcentaje}" update="output5" />
+    </div>
+
+    <div class="filtro-item-resultado">
+        <h:outputText style="color: white;" id="output5" value="#{counterView.totalAgendasParaElDia}" />
+    </div>
+    
+    
+</h:form>
+
             <h:form id="formBotones">
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputText style="color: white;" value="Filtrar por fecha: " />
@@ -29,9 +89,9 @@
                 <br></br>
                 
                 
-             <p:commandButton value="←" action="#{counterView.decrementDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
-             <p:commandButton id="botonHoy" value="hoy" action="#{counterView.actualDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
-             <p:commandButton value="→" action="#{counterView.incrementDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
+             <p:commandButton value="←" action="#{counterView.decrementDateByLeader(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
+             <p:commandButton id="botonHoy" value="hoy" action="#{counterView.actualDateByLeader(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
+             <p:commandButton value="→" action="#{counterView.incrementDateByLeader(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
            
               
             </h:form>
@@ -39,7 +99,7 @@
             <h:form id="TurnoListForm" style="background-color: #F4F8FA">
                 
                 
-                <p:dataTable id="datalist" value="#{turnoController.getItemsBySessionUser(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" var="item"
+                <p:dataTable id="datalist" value="#{turnoController.getItemsByLeader(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" var="item"
                              selectionMode="single" selection="#{turnoController.selected}"
                              paginator="true"
                              rowKey="#{item.idTurno}"
@@ -91,17 +151,7 @@
                         <h:outputText value="#{ item.apellido} #{ item.nombre}"/>
                     </p:column>
 
-                    <p:column filterBy="#{item.responsable}" headerText="RESPONSABLE" style="text-align: center;width: 20%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
-                        <f:facet name="filter"  >
-                            <p:inputText readonly="true" onfocus="PF('turnosTable').filter()" onchange="PF('turnosTable').filter()"  value="#{session.getAttribute('userNombreCompleto')}"  styleClass="custom-filter">
-                                <p:ajax update=":AgendaListForm:datalist:inputEnAgenda"/> 
-                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputEnAgenda"/>
-                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
-                                <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
-
-                            </p:inputText>
-
-                        </f:facet>
+                    <p:column  headerText="RESPONSABLE" style="text-align: center;width: 20%;" styleClass="centeredColumnContent#{item.getRealizado()}" >
                         <h:outputText value="#{item.responsable}"/>
                     </p:column>
 
@@ -162,7 +212,7 @@
        
             <h:form id="AgendaListForm" style="background-color: #F4F8FA">
 
-                <p:dataTable id="datalist" value="#{agendaController.getItemsBySessionUser(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday') )}" var="item"
+                <p:dataTable id="datalist" value="#{agendaController.getItemsByLeader(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday') )}" var="item"
                              selectionMode="single" selection="#{agendaController.selected}"
                              rowKey="#{item.idAgenda}"
                              paginator="true"
@@ -202,10 +252,7 @@
                         <h:outputText value="#{item.apellido} #{item.nombre}"/>
                     </p:column>
 
-                    <p:column id="columnToUpdate"  style="width: 20%"  filterBy="#{item.responsable}"  styleClass="centeredColumnContent#{item.realizado}"  filterMatchMode="exact">
-                        <f:facet name="filter" >
-                            <p:inputText id="inputEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.responsableSeleccionadoEnTurno}" />
-                        </f:facet>
+                    <p:column id="columnToUpdate"  style="width: 20%"  styleClass="centeredColumnContent#{item.realizado}">
                         <h:outputText value="#{item.responsable}" />
                     </p:column>
 
@@ -313,6 +360,8 @@
             <ui:include src="../expediente/viewEnAgenda/Edit.xhtml"/>
             <ui:include src="../expediente/viewEnAgenda/EditExpSinCarpeta.xhtml"/>
             <ui:include src="../expediente/viewEnAgenda/EditExpJudicial.xhtml"/>
+            
+            
             
         </ui:define>
     </ui:composition>

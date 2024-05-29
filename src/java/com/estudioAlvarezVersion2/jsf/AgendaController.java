@@ -21,9 +21,13 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -76,6 +80,31 @@ public class AgendaController implements Serializable {
     private String realizado;
     private List<Agenda> selectedItems;
 
+    // Mapa de líderes a sus respectivos empleados
+    private static final Map<String, String[]> lideresEmpleadosMap = new HashMap<>();
+    
+    static {
+        lideresEmpleadosMap.put("Mateo Francisco Alvarez", new String[]{
+            "María Emilia Campos", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
+            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
+            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+            "Pilar Boglione", "juan cuello"});
+        lideresEmpleadosMap.put("María Emilia Campos", new String[]{
+            "Mateo Francisco Alvarez", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
+            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
+            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+            "Pilar Boglione"});
+        lideresEmpleadosMap.put("Paula Alvarez", new String[]{
+            "Mateo Novau", "Natali D Agostino", "Maria Jose Alaye", 
+            "Liliana Romero", "Pilar Boglione"});
+        lideresEmpleadosMap.put("Paola Maldonado", new String[]{
+            "Carla Juez", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+            "Maria Jose Alaye"});
+        lideresEmpleadosMap.put("Ayelen Brizzio", new String[]{
+            "Mateo Novau"});
+        // Agregar más líderes y sus empleados según sea necesario
+    }
+    
     public List<Agenda> getSelectedItems() {
         return selectedItems;
     }
@@ -564,9 +593,6 @@ public class AgendaController implements Serializable {
         cloned_list = new ArrayList<>(this.items);
         Collections.sort(cloned_list, new SortByDate());
         
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
-        
-        
         List<Agenda> resultados = new ArrayList<>();
 
         for (Agenda agenda : cloned_list) {
@@ -582,6 +608,55 @@ public class AgendaController implements Serializable {
        
     }
 
+    public List<Agenda> getItemsByLeader(String userNombreCompleto, String date) {
+        if (items == null) {
+            items = getFacade().findAll();
+        }
+        List<Agenda> cloned_list = new ArrayList<>(this.items);
+        Collections.sort(cloned_list, new SortByDate());
+
+        List<Agenda> resultados = new ArrayList<>();
+        Set<String> nombresEmpleados = new HashSet<>();
+        
+        // Mapa de líderes a sus respectivos empleados
+        Map<String, String[]> lideresEmpleadosMap = new HashMap<>();
+        lideresEmpleadosMap.put("Mateo Francisco Alvarez", new String[]{
+            "María Emilia Campos", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
+            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
+            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+            "Pilar Boglione", "juan cuello"});
+        lideresEmpleadosMap.put("María Emilia Campos", new String[]{
+            "Mateo Francisco Alvarez", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
+            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
+            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+            "Pilar Boglione"});
+        lideresEmpleadosMap.put("Paula Alvarez", new String[]{
+            "Mateo Novau", "Natali D Agostino",
+            "Liliana Romero", "Pilar Boglione"});
+        lideresEmpleadosMap.put("Paola Maldonado", new String[]{
+            "Carla Juez", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+            "Maria Jose Alaye", "Natali D Agostino"});
+        lideresEmpleadosMap.put("Ayelen Brizzio", new String[]{
+            "Mateo Novau", "Natali D Agostino"});
+
+        // Obtener la lista de empleados del líder
+        if (lideresEmpleadosMap.containsKey(userNombreCompleto)) {
+            nombresEmpleados.addAll(Arrays.asList(lideresEmpleadosMap.get(userNombreCompleto)));
+        } else {
+            System.out.println("Líder no encontrado en el mapa: " + userNombreCompleto);
+        }
+        
+        for (Agenda agenda : cloned_list) {
+            String nombreCompletoResponsable = agenda.getResponsable();
+            
+            if (nombresEmpleados.contains(nombreCompletoResponsable) && agenda.getDiaMesAnio().equals(date)) {
+                resultados.add(agenda);
+            }
+        }
+            
+        return resultados;
+    }
+    
     private boolean validateAmountOfAgendas(String responsable, Date fecha) {
         
         String consulta = "SELECT COUNT(a) FROM Agenda a WHERE a.responsable = :responsable AND a.fecha = :fecha";

@@ -46,7 +46,8 @@ public class CounterView implements Serializable {
     private Date fechaHasta;
     private int cantAgendasPorEmpleadoPorFechas;
     
-    
+    private String totalAgendasParaElDia;
+
     public CounterView() {
         number = new Date();
 
@@ -250,6 +251,54 @@ public class CounterView implements Serializable {
         
     }
     
+    public void incrementDateByLeader(String leaderNombreCompleto, String dateSession) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy");
+
+        Date date = dateFormat.parse(dateSession);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        
+        calendar.setTime(number);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        number = calendar.getTime();
+        
+        String dateString = dateFormat.format(number);
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        TurnoController turnoController = context.getApplication().evaluateExpressionGet(context, "#{turnoController}", TurnoController.class);
+
+        turnoController.setFilteredTurnosConSesion(turnoController.getItemsByLeader(leaderNombreCompleto, dateString));
+        
+        agendaController.setFilteredAgendasConSesion(agendaController.getItemsByLeader(leaderNombreCompleto, dateString));
+        
+    }
+    
+    public void decrementDateByLeader(String leaderNombreCompleto, String dateSession) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy");
+
+        Date date = dateFormat.parse(dateSession);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        
+        calendar.setTime(number);
+        calendar.add(Calendar.DAY_OF_YEAR, -1);
+        number = calendar.getTime();
+        
+        String dateString = dateFormat.format(number);
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        TurnoController turnoController = context.getApplication().evaluateExpressionGet(context, "#{turnoController}", TurnoController.class);
+
+        turnoController.setFilteredTurnosConSesion(turnoController.getItemsByLeader(leaderNombreCompleto, dateString));
+        
+        agendaController.setFilteredAgendasConSesion(agendaController.getItemsByLeader(leaderNombreCompleto, dateString));
+        
+    }
+    
     public void decrementDate(String userNombreCompleto, String dateSession) throws ParseException {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy");
 
@@ -271,7 +320,6 @@ public class CounterView implements Serializable {
         turnoController.setFilteredTurnosConSesion(turnoController.getItemsBySessionUser(userNombreCompleto, dateString));
         
         agendaController.setFilteredAgendasConSesion(agendaController.getItemsBySessionUser(userNombreCompleto, dateString));
-        
         
     }
     
@@ -297,6 +345,27 @@ public class CounterView implements Serializable {
         
     }
     
+    public void actualDateByLeader(String leaderNombreCompleto, String dateSession) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy");
+
+        Date date = dateFormat.parse(dateSession);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        
+        number = calendar.getTime();
+        
+        String dateString = dateFormat.format(number);
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        TurnoController turnoController = context.getApplication().evaluateExpressionGet(context, "#{turnoController}", TurnoController.class);
+
+        turnoController.setFilteredTurnosConSesion(turnoController.getItemsByLeader(leaderNombreCompleto, dateString));
+        
+        agendaController.setFilteredAgendasConSesion(agendaController.getItemsByLeader(leaderNombreCompleto, dateString));
+        
+    }
     
     public void filtrarAgendasPorFiltros() {
         // Utiliza los valores de los filtros (responsable, fechaDesde, fechaHasta)
@@ -352,6 +421,69 @@ public class CounterView implements Serializable {
         
     }
 
+    public void filtrarAgendasPorFiltrosConPorcentaje() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        
+        int totalAgendas = 0;
+        int totalRealizadasSi = 0;
+        int totalRealizadasNo = 0;
+        int totalReagendadas = 0;
+
+        // Obtén la lista completa de agendas
+        List<Agenda> agendas = agendaController.getItems();
+
+        // Obtén los valores de los filtros
+        String responsableFiltro = agendaController.getResponsable();
+        Date fechaDesdeFiltro = agendaController.getFechaDesde();
+        Date fechaHastaFiltro = agendaController.getFechaHasta();
+        
+        // Itera sobre la lista completa y actualiza los contadores si se cumplen los filtros
+        for (Agenda agenda : agendas) {
+            boolean cumpleFiltros = true;
+
+            // Verifica el filtro por responsable
+            if (responsableFiltro != null && !responsableFiltro.isEmpty()) {
+                cumpleFiltros = cumpleFiltros && agenda.getResponsable().equalsIgnoreCase(responsableFiltro);
+            }
+
+            // Verifica el filtro por fecha desde
+            if (fechaDesdeFiltro != null) {
+                cumpleFiltros = cumpleFiltros && (agenda.getFecha().equals(fechaDesdeFiltro) || agenda.getFecha().after(fechaDesdeFiltro));
+            }
+
+            // Verifica el filtro por fecha hasta
+            if (fechaHastaFiltro != null) {
+                cumpleFiltros = cumpleFiltros && (agenda.getFecha().equals(fechaHastaFiltro) || agenda.getFecha().before(fechaHastaFiltro));
+            }
+
+            // Incrementa los contadores si la agenda cumple con todos los filtros
+            if (cumpleFiltros) {
+                totalAgendas++;
+                if ("No".equalsIgnoreCase(agenda.getRealizado())) {
+                    totalRealizadasNo++;
+                } else if ("Si".equalsIgnoreCase(agenda.getRealizado())) {
+                    totalRealizadasSi++;
+                } else if ("Reagendado".equalsIgnoreCase(agenda.getRealizado())) {
+                    totalReagendadas++;
+                }
+            }
+        }
+
+        // Calcula los porcentajes
+        double porcentajeRealizadasSi = (totalAgendas > 0) ? (totalRealizadasSi * 100.0 / totalAgendas) : 0;
+        double porcentajeRealizadasNo = (totalAgendas > 0) ? (totalRealizadasNo * 100.0 / totalAgendas) : 0;
+        double porcentajeReagendadas = (totalAgendas > 0) ? (totalReagendadas * 100.0 / totalAgendas) : 0;
+
+        // Actualiza la propiedad en tu bean con la cantidad de agendas filtradas
+        //setCantAgendasPorEmpleadoFiltradas(totalAgendas);
+        setTotalAgendasParaElDia("Total de agendas: " + totalAgendas +
+                "/  Total realizadas Si: " + totalRealizadasSi + " = " + porcentajeRealizadasSi + "%" + 
+                "/  Total realizadas No: " + totalRealizadasNo + " = " + porcentajeRealizadasNo + "%" +
+                "/  Total Reagendadas: " + totalReagendadas + " = " + porcentajeReagendadas + "%");
+        
+    }
+    
     public int getCantAgendasPorEmpleadoFiltradas() {
         // Devuelve la lista de agendas filtradas o la información que desees mostrar
         return cantAgendasPorEmpleadoPorFechas;
@@ -360,5 +492,13 @@ public class CounterView implements Serializable {
     private void setCantAgendasPorEmpleadoFiltradas(int cantidadAgendasFiltradas) {
         cantAgendasPorEmpleadoPorFechas = cantidadAgendasFiltradas;
     }
-    
+
+    public String getTotalAgendasParaElDia() {
+        return totalAgendasParaElDia;
+    }
+
+    public void setTotalAgendasParaElDia(String totalAgendasParaElDia) {
+        this.totalAgendasParaElDia = totalAgendasParaElDia;
+    }
+
    }

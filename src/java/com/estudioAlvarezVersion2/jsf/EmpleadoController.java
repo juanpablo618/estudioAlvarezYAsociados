@@ -161,5 +161,16 @@ public class EmpleadoController implements Serializable {
         }
 
     }
+    
+    public boolean isLeader(String empleadoNombreCompleto){
+        if(empleadoNombreCompleto.equalsIgnoreCase("Mateo Francisco Alvarez") ||
+                empleadoNombreCompleto.equalsIgnoreCase("María Emilia Campos") ||
+                empleadoNombreCompleto.equalsIgnoreCase("Paula Alvarez") ||
+                empleadoNombreCompleto.equalsIgnoreCase("Paola Maldonado") ||
+                empleadoNombreCompleto.equalsIgnoreCase("Ayelen Brizzio"))
+            return true;
+            
+        return false;
+    }
 
 }

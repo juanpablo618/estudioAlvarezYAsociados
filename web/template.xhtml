@@ -39,6 +39,9 @@
                             <p:menuitem outcome="/agenda/List_AgendasTurnosWithSession" class="fa fa-tasks fa-3x btnMenuLeft" title="Agendas y Turnos personales"/>
                                 <p:separator class="separador"/>
                             
+                            <p:menuitem outcome="/agenda/List_AgendasTurnosWithSessionOnlyAdminUsers" rendered="#{empleadoController.isLeader(session.getAttribute('userNombreCompleto'))}" class="fa fa-eye fa-3x btnMenuLeft" title="Agendas y Turnos"/>
+                            <p:separator class="separador" rendered="#{empleadoController.isLeader(session.getAttribute('userNombreCompleto'))}"/>
+                            
                             <p:menuitem outcome="/empleado/List" class="fa fa-id-card fa-3x btnMenuLeft" title="Empleados" />
                             <p:separator class="separador"/>
                             <p:menuitem outcome="/estadoDelTramite/List_EstadoDelTramiteYProcedencias" class="fa fa-file-archive fa-3x btnMenuLeft" title="Tipos de tramites, Estados del tramite y Procedencias"/>
@@ -50,7 +53,7 @@
                             <p:menuitem outcome="/consulta/List" class="fa fa-laptop fa-3x btnMenuLeft" title="Consultas"/>
                             <p:separator class="separador"/>
                             <p:menuitem outcome="/estadisticas/List" rendered="#{session.getAttribute('userNombreCompleto') eq 'Mateo Francisco Alvarez' or session.getAttribute('userNombreCompleto') eq 'María Emilia Campos'}" class="fa fa-address-book fa-3x btnMenuLeft" title="Estadisticas" />
-                            <p:separator class="separador" rendered="#{session.getAttribute('userNombreCompleto') eq 'Mateo Francisco Alvarez'}"  />
+                            <p:separator class="separador" rendered="#{session.getAttribute('userNombreCompleto') eq 'Mateo Francisco Alvarez' or session.getAttribute('userNombreCompleto') eq 'María Emilia Campos'}"  />
                             
                             
                             <p:menuitem outcome="/login.xhtml" class="fa fa-user-circle fa-3x btnMenuLeft" title="Salir"/>

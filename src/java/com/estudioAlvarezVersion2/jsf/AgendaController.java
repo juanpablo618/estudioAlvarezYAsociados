@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,11 +60,14 @@ public class AgendaController implements Serializable {
 
     private List<Agenda> items = null;
     private List ItemsTODOS = null;
+    
     private static final String DD_MM_YYYY = "dd/MM/yyyy";
     private static final String LA_FECHA_SELECCIONADA_NO_ES_VALIDA = "la fecha selecionada no es válida";
     private static final String POR_SER_FERIADO = " por ser feriado";
     private static final String SI = "Si";
-    
+    private static final String NO_POSEE_CLAVE_CIDI = "no posee clave CIDI";
+    private static final String ESTA_PERSONA_PARA_ESTE_DIA_YA_TIENE_40_AGENDAS = "Esta persona para este día ya tiene 40 o más agendas ";
+
     private Agenda selected;
     private Agenda selectedActividad;
     private Agenda selectedAgendaPasada;
@@ -73,6 +77,7 @@ public class AgendaController implements Serializable {
     private Date fechaParaFiltrar = new Date();
     private List<Agenda> filteredAgendas;
     private List<Agenda> filteredAgendasConSesion;
+    private List<Agenda> filteredAgendasConSesionOnlyAdminUsers;
     
     private String responsable;
     private Date fechaDesde;
@@ -130,7 +135,6 @@ public class AgendaController implements Serializable {
         return fechaParaFiltrar;
     }
 
-    
     public void setFechaParaFiltrar(Date fechaParaFiltrar) {
         this.fechaParaFiltrar = fechaParaFiltrar;
     }
@@ -238,6 +242,14 @@ public class AgendaController implements Serializable {
     public void setFilteredAgendasConSesion(List<Agenda> filteredAgendasConSesion) {
         this.filteredAgendasConSesion = filteredAgendasConSesion;
     }
+
+    public List<Agenda> getFilteredAgendasConSesionOnlyAdminUsers() {
+        return filteredAgendasConSesionOnlyAdminUsers;
+    }
+
+    public void setFilteredAgendasConSesionOnlyAdminUsers(List<Agenda> filteredAgendasConSesionOnlyAdminUsers) {
+        this.filteredAgendasConSesionOnlyAdminUsers = filteredAgendasConSesionOnlyAdminUsers;
+    }
     
     public Agenda prepareReagendar(Agenda agendaAnterior) {
         selectedParaCrearUnaNueva = new Agenda();
@@ -320,7 +332,7 @@ public class AgendaController implements Serializable {
         } else {
             
             if (validateAmountOfAgendas(agendaController.getSelected().getResponsable(), agendaController.getSelected().getFecha())) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Esta persona para este dia ya tiene 40 o más agendas ", "");
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, ESTA_PERSONA_PARA_ESTE_DIA_YA_TIENE_40_AGENDAS, "");
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             
             }
@@ -331,7 +343,7 @@ public class AgendaController implements Serializable {
             }
         }
     }
-
+    
     public void create() {
 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -353,7 +365,7 @@ public class AgendaController implements Serializable {
         } else {
             
             if (validateAmountOfAgendas(agendaController.getSelected().getResponsable(), agendaController.getSelected().getFecha())) {
-                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Esta persona para este dia ya tiene 40 o más agendas ", "");
+                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, ESTA_PERSONA_PARA_ESTE_DIA_YA_TIENE_40_AGENDAS, "");
                 FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             }
             
@@ -379,7 +391,7 @@ public class AgendaController implements Serializable {
         } else {
             
             if (validateAmountOfAgendas(agendaController.getSelected().getResponsable(), agendaController.getSelected().getFecha())) {
-                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Esta persona para este dia ya tiene 40 o más agendas ", "");
+                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, ESTA_PERSONA_PARA_ESTE_DIA_YA_TIENE_40_AGENDAS, "");
                 FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             }
             
@@ -411,7 +423,7 @@ public class AgendaController implements Serializable {
         } else {
             
             if (validateAmountOfAgendas(agendaController.getSelected().getResponsable(), agendaController.getSelected().getFecha())) {
-                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Esta persona para este dia ya tiene 40 o más agendas ", "");
+                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, ESTA_PERSONA_PARA_ESTE_DIA_YA_TIENE_40_AGENDAS, "");
                 FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             }
             
@@ -575,21 +587,30 @@ public class AgendaController implements Serializable {
         if (items == null) {
             items = getFacade().findAll();
         }
-        List<Agenda> cloned_list;
+        //List<Agenda> cloned_list;
 
-        cloned_list = new ArrayList<>(this.items);
-        Collections.sort(cloned_list, new SortByDate());
+        //cloned_list = new ArrayList<>(this.items);
+        //Collections.sort(cloned_list, new SortByDate());
 
-        return cloned_list;
-
+        return items;
     }
     
+    public List<Agenda> getItemsByOrder(Integer orden) {
+        return getFacade().getItemsByOrder(orden);
+    }
+    
+    public void ordenarListItems(List<Agenda> listaDeAgendas) {
+        Collections.sort(listaDeAgendas, new SortByDate());
+    }
+
+    /*
+    metodo viejo backup por las dudas, luego borrar 13/07/2024
     public List<Agenda> getItemsBySessionUser(String userNombreCompleto, String date) {
         if (items == null) {
             items = getFacade().findAll();
         }
         List<Agenda> cloned_list;
-
+        
         cloned_list = new ArrayList<>(this.items);
         Collections.sort(cloned_list, new SortByDate());
         
@@ -602,22 +623,38 @@ public class AgendaController implements Serializable {
                 resultados.add(agenda);
             }
         }
-        
+
         return resultados;
 
-       
+    }*/
+    
+    public List<Agenda> getItemsBySessionUser(String userNombreCompleto, String dateStr) {
+        Date date = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            date = sdf.parse(dateStr);
+        } catch (ParseException e) {
+            System.err.println("error en getItemsBySessionUser" + e);
+        }
+        
+        if (date == null) {
+            return Collections.emptyList();
+        }
+
+        items = getFacade().findByResponsableAndFecha(userNombreCompleto, date);
+
+        Collections.sort(items, new SortByDate());
+
+        return items;
     }
 
-    public List<Agenda> getItemsByLeader(String userNombreCompleto, String date) {
+
+
+    /*public List<Agenda> getItemsByLeader(String userNombreCompleto, String date) {
         if (items == null) {
             items = getFacade().findAll();
         }
-        List<Agenda> cloned_list = new ArrayList<>(this.items);
-        Collections.sort(cloned_list, new SortByDate());
 
-        List<Agenda> resultados = new ArrayList<>();
-        Set<String> nombresEmpleados = new HashSet<>();
-        
         // Mapa de líderes a sus respectivos empleados
         Map<String, String[]> lideresEmpleadosMap = new HashMap<>();
         lideresEmpleadosMap.put("Mateo Francisco Alvarez", new String[]{
@@ -640,23 +677,80 @@ public class AgendaController implements Serializable {
             "Mateo Novau", "Natali D Agostino"});
 
         // Obtener la lista de empleados del líder
+        Set<String> nombresEmpleados = new HashSet<>();
         if (lideresEmpleadosMap.containsKey(userNombreCompleto)) {
             nombresEmpleados.addAll(Arrays.asList(lideresEmpleadosMap.get(userNombreCompleto)));
         } else {
             System.out.println("Líder no encontrado en el mapa: " + userNombreCompleto);
         }
-        
-        for (Agenda agenda : cloned_list) {
+
+        // Filtrar los elementos antes de ordenar
+        List<Agenda> filteredList = new ArrayList<>();
+        for (Agenda agenda : items) {
             String nombreCompletoResponsable = agenda.getResponsable();
-            
             if (nombresEmpleados.contains(nombreCompletoResponsable) && agenda.getDiaMesAnio().equals(date)) {
-                resultados.add(agenda);
+                filteredList.add(agenda);
             }
         }
-            
-        return resultados;
-    }
+
+        // Ordenar la lista filtrada
+        Collections.sort(filteredList, new SortByDate());
+
+        return filteredList;
+    }*/
     
+    public List<Agenda> getItemsByLeader(String userNombreCompleto, String dateStr) {
+        // Obtener la lista de empleados asociados al líder
+        Set<String> nombresEmpleados = obtenerEmpleadosPorLider(userNombreCompleto);
+
+        Date date = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            date = sdf.parse(dateStr);
+        } catch (ParseException e) {
+            System.err.println("error en getItemsBySessionUser" + e);
+        }
+        
+        List<Agenda> agendas = getFacade().findByResponsablesAndFecha(nombresEmpleados, date);
+
+        // Ordenar la lista
+        Collections.sort(agendas, new SortByDate());
+
+        return agendas;
+    }
+
+    private Set<String> obtenerEmpleadosPorLider(String lider) {
+        Map<String, String[]> lideresEmpleadosMap = new HashMap<>();
+        lideresEmpleadosMap.put("Mateo Francisco Alvarez", new String[]{
+            "María Emilia Campos", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
+            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
+            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+            "Pilar Boglione", "juan cuello"});
+        lideresEmpleadosMap.put("María Emilia Campos", new String[]{
+            "Mateo Francisco Alvarez", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
+            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
+            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+            "Pilar Boglione"});
+        lideresEmpleadosMap.put("Paula Alvarez", new String[]{
+            "Mateo Novau", "Natali D Agostino", "Maria Jose Alaye", 
+            "Liliana Romero", "Pilar Boglione"});
+        lideresEmpleadosMap.put("Paola Maldonado", new String[]{
+            "Carla Juez", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+            "Maria Jose Alaye"});
+        lideresEmpleadosMap.put("Ayelen Brizzio", new String[]{
+            "Mateo Novau"});
+
+        Set<String> empleados = new HashSet<>();
+        if (lideresEmpleadosMap.containsKey(lider)) {
+            empleados.addAll(Arrays.asList(lideresEmpleadosMap.get(lider)));
+        } else {
+            System.out.println("Líder no encontrado en el mapa: " + lider);
+        }
+
+        return empleados;
+    }
+
+
     private boolean validateAmountOfAgendas(String responsable, Date fecha) {
         
         String consulta = "SELECT COUNT(a) FROM Agenda a WHERE a.responsable = :responsable AND a.fecha = :fecha";
@@ -699,7 +793,7 @@ public class AgendaController implements Serializable {
         }
     }
 
-    public List<Agenda> getItemsTODOS() {
+    /*public List<Agenda> getItemsTODOS() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -710,7 +804,7 @@ public class AgendaController implements Serializable {
         ItemsTODOS.addAll(turnoControllerBean.getItems());
 
         return items;
-    }
+    }*/
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
@@ -914,10 +1008,15 @@ public class AgendaController implements Serializable {
     }
 
     public void handleDateSelect(SelectEvent event) {
+        System.out.println("entro al handleDateSelect de agendaController");
         RequestContext.getCurrentInstance().execute("PF('agendasTable').filter()");
     }
+    
+    public void handleDateSelectWithSessionOnlyAdmin(SelectEvent event) {
+        RequestContext.getCurrentInstance().execute("PF('agendasTableWithSessionOnlyAdmin').filter()");
+    }
 
-    public String verClaveCidi(int orden) {
+    /*public String verClaveCidi(int orden) {
 
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
@@ -933,10 +1032,17 @@ public class AgendaController implements Serializable {
                 }
             }
         }
-        return "no posee clave CIDI";
-    }
+        return NO_POSEE_CLAVE_CIDI;
+    }*/
+    
+    public String verClaveCidi(int orden) {
+    FacesContext context = FacesContext.getCurrentInstance();
+    ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
 
-    public String verDatosPersonalesYDelExp(int orden) {
+    return expedienteControllerBean.verClaveCidi(orden);
+    }
+    
+    /*public String verDatosPersonalesYDelExp(int orden) {
 
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
@@ -961,28 +1067,20 @@ public class AgendaController implements Serializable {
             }
         }
         return datosExp;
-    }
+    }*/
 
     public String verNroDeCuil(int orden) {
 
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
 
-        for (Expediente expediente : expedienteControllerBean.getItems()) {
-            if (expediente.getOrden() != null) {
-                if (Integer.compare(expediente.getOrden(), orden) == 0) {
-
-                    if (expediente.getCuit() != null) {
-                        return expediente.getCuit();
-                    } else {
-                        return "No posee CUIT/CUIL";
-                    }
-                }
-            }
-        }
-        return "No posee CUIT/CUIL";
+        
+        return expedienteControllerBean.verNroDeCuil(orden);
     }
 
+    /*
+    fecha 14/06/2024 luego borrar
+    
     public String verClaveFiscal(int orden) {
 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -1003,12 +1101,24 @@ public class AgendaController implements Serializable {
         }
         return "no posee clave FISCAL";
 
-    }
+    }*/
 
+    public String verClaveFiscal(int orden) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExpedienteController expedienteControllerBean = 
+        context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        
+        return expedienteControllerBean.verClaveFiscal(orden);
+    
+    }
+    
+    /*
+    fecha 14/06/2024 luego borrar
     public String verClaveDeSeguridadSocial(int orden) {
 
         FacesContext context = FacesContext.getCurrentInstance();
-        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        ExpedienteController expedienteControllerBean = 
+        context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
 
         for (Expediente expediente : expedienteControllerBean.getItems()) {
 
@@ -1025,9 +1135,17 @@ public class AgendaController implements Serializable {
             }
         }
         return "no posee clave de Seguridad Social";
+    }*/
 
+    public String verClaveDeSeguridadSocial(int orden) {
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExpedienteController expedienteControllerBean = 
+        context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        
+        return expedienteControllerBean.verClaveDeSeguridadSocial(orden);
     }
-
+    
     public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException {
 
         Document pdf = (Document) document;
@@ -1044,7 +1162,7 @@ public class AgendaController implements Serializable {
 
     }
 
-    public void filtrarPorFecha(Date fechaParaFiltrar) {
+    /*public void filtrarPorFecha(Date fechaParaFiltrar) {
         this.filteredAgendas = new ArrayList<Agenda>();
 
         SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
@@ -1063,7 +1181,7 @@ public class AgendaController implements Serializable {
                 }
             }
         }
-    }
+    }*/
 
     public void clearAllFilters() {
 
@@ -1083,15 +1201,17 @@ public class AgendaController implements Serializable {
             requestContext.update(":AgendaListForm:datalistAgenda");
         }
         
-        
     }
 
     public void transferir() {
 
         FacesContext context = FacesContext.getCurrentInstance();
 
-        AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
-        ExpedienteController expedienteController = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+        AgendaController agendaController = 
+        context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        
+        ExpedienteController expedienteController = 
+        context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
 
         Integer idExpediente;
 
@@ -1103,7 +1223,6 @@ public class AgendaController implements Serializable {
         }
 
     }
-
     
     public void toggleSelectionMode() {
         if (selectionMode.equals("single")) {

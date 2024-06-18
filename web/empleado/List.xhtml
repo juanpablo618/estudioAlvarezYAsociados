@@ -10,7 +10,16 @@
 
         <ui:define name="body">
             <h:form id="EmpleadoListForm" style="background-color: #F4F8FA">
-                <div style="float: left;margin-left: .5%;"><p:commandButton id="createButton"  icon="ui-icon-plus" value="NUEVO EMPLEADO" class="botonCrearAgenda  borderRd mrgTB2 hoverGreen" actionListener="#{empleadoController.prepareCreate}" update=":EmpleadoCreateForm" oncomplete="PF('EmpleadoCreateDialog').show()"/>
+                <div style="float: left;margin-left: .5%;">
+                    <p:commandButton id="createButton" 
+                                     icon="ui-icon-plus"
+                                     value="NUEVO EMPLEADO"
+                                     class="botonCrearAgenda  borderRd mrgTB2 hoverGreen"
+                                     actionListener="#{empleadoController.prepareCreate}"
+                                     update=":EmpleadoCreateForm"
+                                     oncomplete="PF('EmpleadoCreateDialog').show()"
+                                     rendered="#{session.getAttribute('userNombreCompleto') eq 'Mateo Francisco Alvarez' or session.getAttribute('userNombreCompleto') eq 'María Emilia Campos'}"
+                                     />
                 </div>
                 <br></br>
                 <br></br>

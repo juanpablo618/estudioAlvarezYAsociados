@@ -220,7 +220,7 @@
                        <h:outputText value="#{item.realizado}"/>
                     </p:column>
                     
-                    <p:column exportable="false" styleClass="centeredColumnContent#{item.realizado}" style="text-align: center; width: 20% ">
+                    <p:column exportable="false" styleClass="centeredColumnContent#{item.realizado}" style="text-align: center; width: 10% ">
 
                         <f:facet name="header">
                             <h:outputText value="ACCIONES"/>
@@ -237,7 +237,7 @@
                         <p:commandButton class="linea btnSearch"  update=":AgendaEditForm" oncomplete="PF('AgendaEditDialog').show()" icon="ui-icon-search" title="Ver Agenda">
                             <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
                         </p:commandButton>
-                        
+                        <br></br>    
                         <p:commandButton rendered="#{item.orden > 0 }" class="linea btnKey"  update=":AgendaViewClavesForm" oncomplete="PF('AgendaViewClavesDialog').show()" icon="ui-icon-locked" title="Claves">
                             <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
                         </p:commandButton>
@@ -300,7 +300,6 @@
     
             </script>
     
-            
             <ui:include src="Create.xhtml"/>
             <ui:include src="CreateAgendaParaActividad.xhtml"/>
             <ui:include src="Create_1.xhtml"/>

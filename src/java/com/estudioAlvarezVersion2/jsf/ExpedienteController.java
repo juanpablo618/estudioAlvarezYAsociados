@@ -400,7 +400,7 @@ public class ExpedienteController implements Serializable {
         }
     }
 
-    public String verDatosPersonalesYDelExp(int orden) {
+    /*public String verDatosPersonalesYDelExp(int orden) {
 
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
@@ -425,7 +425,7 @@ public class ExpedienteController implements Serializable {
             }
         }
         return datosExp;
-    }
+    }*/
 
     public void create() {
 
@@ -643,19 +643,6 @@ public class ExpedienteController implements Serializable {
 
     public int buscarMayorIdAdmOrJudicial() {
 
-        /*FacesContext context = FacesContext.getCurrentInstance();
-        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        int orden = 0;
-
-        for (Expediente expediente : expedienteControllerBean.getItems()) {
-            if (expediente.getOrden() != null) {
-                if (expediente.getOrden() > orden) {
-                    orden = expediente.getOrden();
-                }
-            }
-        }
-        return orden + 1;*/
-        
          Integer maxOrden = em.createQuery("SELECT MAX(e.orden) FROM Expediente e", Integer.class)
             .getSingleResult();
         
@@ -668,7 +655,6 @@ public class ExpedienteController implements Serializable {
         // Agregar 1 al máximo valor para generar un nuevo valor único
         return maxOrden + 1;
         
-        
     }
 
     public void update2() {
@@ -680,8 +666,6 @@ public class ExpedienteController implements Serializable {
         HttpSession session = SessionUtils.getSession();
         
         if(selected.getOrden() != null) System.out.println("nro de orden: "+selected.getOrden()+"borrado por: "+ session.getAttribute("username"));
-        
-        
         
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteDeleted"));
         if (!JsfUtil.isValidationFailed()) {
@@ -934,6 +918,8 @@ public class ExpedienteController implements Serializable {
                 }
             }
         }
+        
+        agendaControllerBean.ordenarListItems(verAgendasFuturas);
 
         return verAgendasFuturas;
     }
@@ -947,33 +933,26 @@ public class ExpedienteController implements Serializable {
 
         Date date = new Date();
 
-        for (Agenda agenda : agendaControllerBean.getItems()) {
+        for (Agenda agenda : agendaControllerBean.getItemsByOrder(orden)) {
             if (orden != null) {
                 if (agenda.getOrden() != null) {
-                    if (Objects.equals(agenda.getOrden(), orden)) {
                         if (agenda.getFecha() != null) {
                             if (agenda.getFecha().before(date)) {
                                 verAgendasPasadas.add(agenda);
                             }
                         }
-                    }
                 }
             }
         }
         
-//        Collections.sort(verAgendasPasadas, new Comparator<Agenda>() {
-//            public int compare(Agenda o1, Agenda o2) {
-//                return o1.getFecha().compareTo(o2.getFecha());
-//            }
-//          });
-
+        agendaControllerBean.ordenarListItems(verAgendasPasadas);
+        
         Collections.reverse(verAgendasPasadas);
         
         return verAgendasPasadas;
     }
     
     public List verComunicacionesPorNroDeOrden(Integer orden) {
-
         
         List<Comunicacion> comunicaciones;
         comunicaciones = new ArrayList<>();
@@ -981,7 +960,11 @@ public class ExpedienteController implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         ComunicacionController comunicacionControllerBean = context.getApplication().evaluateExpressionGet(context, "#{comunicacionController}", ComunicacionController.class);
             
-        comunicacionControllerBean.getItems().stream().filter(Comunicacion -> (orden != null)).filter(Comunicacion -> (Comunicacion.getOrden() != null)).filter(Comunicacion -> (Objects.equals(Comunicacion.getOrden(), orden))).forEachOrdered(Comunicacion -> {
+        comunicacionControllerBean.getItems().stream().filter(Comunicacion ->
+                (orden != null)).filter(Comunicacion ->
+                        (Comunicacion.getOrden() != null)).filter(Comunicacion ->
+                                (Objects.equals(Comunicacion.getOrden(), orden))).forEachOrdered(Comunicacion ->
+                                {
             comunicaciones.add(Comunicacion);
         });
         
@@ -990,7 +973,7 @@ public class ExpedienteController implements Serializable {
         return comunicaciones;
     }
 
-    public String verClaveCidi(int orden) {
+    /*public String verClaveCidi(int orden) {
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
         String noPoseeClave = "no posee clave CIDI";
@@ -1007,9 +990,9 @@ public class ExpedienteController implements Serializable {
             }
         }
         return noPoseeClave;
-    }
+    }*/
 
-    public String verClaveFiscal(int orden) {
+    /*public String verClaveFiscal(int orden) {
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
         String noPoseeClaveFiscal = "no posee clave FISCAL";
@@ -1026,10 +1009,15 @@ public class ExpedienteController implements Serializable {
             }
         }
         return noPoseeClaveFiscal;
+    }*/
+    
+    public String verClaveFiscal(int orden) {
+        String claveFiscal = getFacade().findClaveFiscalByOrden(orden);
+        return claveFiscal != null ? claveFiscal : "No posee clave Fiscal";
     }
 
 
-    public String verClaveDeSeguridadSocial(int orden) {
+    /*public String verClaveDeSeguridadSocial(int orden) {
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
         String noPoseeClave = "no posee clave de Seguridad Social";
@@ -1046,6 +1034,11 @@ public class ExpedienteController implements Serializable {
             }
         }
         return noPoseeClave;
+    }*/
+    
+    public String verClaveDeSeguridadSocial(int orden) {
+        String claveSeguridadSocial = getFacade().findClaveSeguridadSocialByOrden(orden);
+        return claveSeguridadSocial != null ? claveSeguridadSocial : "No posee clave de Seguridad Social";
     }
 
     public int autoIncrementarOrdenSaltandoExpedientesSinCarpeta() {
@@ -1258,37 +1251,20 @@ public class ExpedienteController implements Serializable {
                 expAInsertar.setCuit(consultaSelected.getCuit());
             }
         
-        
         expAInsertar.setNombre(consultaSelected.getNombre());
-        
         expAInsertar.setTipoDeDocumento(consultaSelected.getTipoDeDocumento());
-        
-
         expAInsertar.setSexo(consultaSelected.getSexo());
-        
         expAInsertar.setApellido(consultaSelected.getApellido());
-        
         expAInsertar.setDireccion(consultaSelected.getDireccion());
-        
         expAInsertar.setNroDeAltura(consultaSelected.getNroDeAltura());
-        
         expAInsertar.setPiso(consultaSelected.getPiso());
-        
         expAInsertar.setDepto(consultaSelected.getDepto());
-        
         expAInsertar.setBarrio(consultaSelected.getBarrio());
-        
         expAInsertar.setTelefono(consultaSelected.getTelefono());
-        
         expAInsertar.setFechaDeNacimiento(consultaSelected.getFechaDeNacimiento());
-
-
         expAInsertar.setClaveSeguridadSocial(consultaSelected.getClaveSeguridadSocial());
-        
         expAInsertar.setClaveFiscal(consultaSelected.getClaveFiscal());
-        
         expAInsertar.setClaveCidi(consultaSelected.getClaveCidi());
-
         expAInsertar.setCobraBeneficio(consultaSelected.getCobraBeneficio());
         expAInsertar.setCodigoPostal(consultaSelected.getCodigoPostal());
         expAInsertar.setLocalidad(consultaSelected.getLocalidad());
@@ -1321,7 +1297,6 @@ public class ExpedienteController implements Serializable {
         expAInsertar.setDatosDelConyuge(consultaSelected.getDatosDelConyuge());
         expAInsertar.setTipoDeBeneficio(consultaSelected.getTipoDeBeneficio());
         expAInsertar.setAportes(consultaSelected.getAportes());
-
         expAInsertar.setDetalleDeAportes(consultaSelected.getDetalleDeAportes());
         expAInsertar.setTrabajando(consultaSelected.getTrabajando());
         expAInsertar.setObraSocial(consultaSelected.getObraSocial());
@@ -1331,7 +1306,6 @@ public class ExpedienteController implements Serializable {
         consultaControllerBean.destroy();
 
         persist(JsfUtil.PersistAction.CREATE, "Consulta transformada a ADMINISTRATIVO con el nro de orden: " + expAInsertar.getOrden());
-
         
         }
         
@@ -1350,5 +1324,15 @@ public class ExpedienteController implements Serializable {
         String url = "https://wa.me/" + telefono;
         return url;
     }
+    
+    public String verClaveCidi(int orden) {
+        String claveCidi = getFacade().findClaveCidiByOrden(orden);
+        return claveCidi != null ? claveCidi : "No posee clave CIDI";
+    }
 
+    public String verNroDeCuil(int orden) {
+        String cuit = getFacade().findCuitByOrden(orden);
+        return cuit != null ? cuit : "No posee CUIL/CUIT";
+    }
+    
 }

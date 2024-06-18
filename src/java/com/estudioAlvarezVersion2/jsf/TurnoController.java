@@ -55,6 +55,7 @@ public class TurnoController implements Serializable {
     
     private String realizadoSeleccionadoEnTurno;
     private String realizadoSeleccionadoEnTurnoWithSession;
+    private String realizadoSeleccionadoEnTurnoWithSessionOnlyAdmins;
     
     private String apellidoYNombreSeleccionadoEnTurno;
     private String fechaSeleccionadaEnTurno;
@@ -63,10 +64,18 @@ public class TurnoController implements Serializable {
 
     private List<Turno> filteredturnos;
     private List<Turno> filteredTurnosConSesion;
+    private List<Turno> filteredTurnosConSesionOnlyAdminUsers;
     
     private Date dateSelected;
-
     private String nombreResponsableSelected;
+
+    public String getRealizadoSeleccionadoEnTurnoWithSessionOnlyAdmins() {
+        return realizadoSeleccionadoEnTurnoWithSessionOnlyAdmins;
+    }
+
+    public void setRealizadoSeleccionadoEnTurnoWithSessionOnlyAdmins(String realizadoSeleccionadoEnTurnoWithSessionOnlyAdmins) {
+        this.realizadoSeleccionadoEnTurnoWithSessionOnlyAdmins = realizadoSeleccionadoEnTurnoWithSessionOnlyAdmins;
+    }
 
     public String getNombreResponsableSelected() {
         return nombreResponsableSelected;
@@ -141,6 +150,14 @@ public class TurnoController implements Serializable {
 
     public void setLiderSeleccionadoEnWithSessionOnlyAdmins(String liderSeleccionadoEnWithSessionOnlyAdmins) {
         this.liderSeleccionadoEnWithSessionOnlyAdmins = liderSeleccionadoEnWithSessionOnlyAdmins;
+    }
+
+    public List<Turno> getFilteredTurnosConSesionOnlyAdminUsers() {
+        return filteredTurnosConSesionOnlyAdminUsers;
+    }
+
+    public void setFilteredTurnosConSesionOnlyAdminUsers(List<Turno> filteredTurnosConSesionOnlyAdminUsers) {
+        this.filteredTurnosConSesionOnlyAdminUsers = filteredTurnosConSesionOnlyAdminUsers;
     }
     
     public List<Turno> getFilteredturnos() {
@@ -326,19 +343,19 @@ public class TurnoController implements Serializable {
 
     public List<Turno> getItems() {
 
-        if (items == null) {
-            items = getFacade().findAll();
-        }
-        List<Turno> cloned_list;
+    if (items == null) {
+        items = getFacade().findAll();
+    }
+    List<Turno> cloned_list;
 
-        cloned_list = new ArrayList<>(this.items);
-        Collections.sort(cloned_list, new SortByDate());
+    cloned_list = new ArrayList<>(this.items);
+    Collections.sort(cloned_list, new SortByDate());
         //Collections.sort(cloned_list, (Turno o1, Turno o2) -> o1.getHoraYDia().compareTo(o2.getHoraYDia()));
 
         return cloned_list;
 
     }
-    
+
     public void cambiarFiltroIzquierda(String userNombreCompleto){
          
     // Obtener el valor actual de fechaParaFiltrar
@@ -350,25 +367,27 @@ public class TurnoController implements Serializable {
     // Actualizar fechaParaFiltrar con el nuevo valor
     setFechaParaFiltrar(nuevoValor);
 
-    }
-    
+}
+
     public void cambiarFiltroDerecha(String userNombreCompleto) throws ParseException {
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
     Date fecha = formato.parse(fechaParaFiltrar);
-
+    
     if (fecha != null) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fecha);
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         fecha = calendar.getTime();
     }
-
+        
     String fechaString = formato.format(fecha);
     this.fechaParaFiltrar = fechaString;
-
+        
     this.getItemsBySessionUser(userNombreCompleto, fechaParaFiltrar);
 }
 
+    /*
+    por las dudas lo dejo de backup, luego borrar.
     public List<Turno> getItemsBySessionUser(String userNombreCompleto, String date) {
         if (items == null) {
             items = getFacade().findAll();
@@ -391,9 +410,28 @@ public class TurnoController implements Serializable {
             
         return resultados;
 
-    }
+    }*/
+    
+    public List<Turno> getItemsBySessionUser(String userNombreCompleto, String date) {
+        
+        List<Turno> cloned_list = getFacade().findByResponsable(userNombreCompleto);
+        
+        setFechaParaFiltrar(date);
+        
+        List<Turno> resultados = new ArrayList<>();
 
-        public List<Turno> getItemsByLeader(String userNombreCompleto, String date) {
+        for (Turno turno : cloned_list) {
+            if (turno.getDiaMesAnio().equals(date)) {
+                resultados.add(turno);
+            }
+        }
+            
+        Collections.sort(resultados, new SortByDate());
+
+        return resultados;
+    }
+    
+    /*public List<Turno> getItemsByLeader(String userNombreCompleto, String date) {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -440,7 +478,57 @@ public class TurnoController implements Serializable {
         }
 
         return resultados;
+    }*/
+    
+    public List<Turno> getItemsByLeader(String userNombreCompleto, String dateStr) {
+    
+    Set<String> nombresEmpleados = new HashSet<>();
+    // Mapa de líderes a sus respectivos empleados
+    Map<String, String[]> lideresEmpleadosMap = new HashMap<>();
+    lideresEmpleadosMap.put("Mateo Francisco Alvarez", new String[]{
+        "María Emilia Campos", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
+        "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
+        "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+        "Pilar Boglione", "juan cuello"});
+    lideresEmpleadosMap.put("María Emilia Campos", new String[]{
+        "Mateo Francisco Alvarez", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
+        "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
+        "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+        "Pilar Boglione"});
+    lideresEmpleadosMap.put("Paula Alvarez", new String[]{
+        "Mateo Novau", "Natali D Agostino", "Maria Jose Alaye", 
+        "Liliana Romero", "Pilar Boglione"});
+    lideresEmpleadosMap.put("Paola Maldonado", new String[]{
+        "Carla Juez", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+        "Maria Jose Alaye"});
+    lideresEmpleadosMap.put("Ayelen Brizzio", new String[]{
+        "Mateo Novau"});
+
+    // Obtener la lista de empleados del líder
+    if (lideresEmpleadosMap.containsKey(userNombreCompleto)) {
+        nombresEmpleados.addAll(Arrays.asList(lideresEmpleadosMap.get(userNombreCompleto)));
+    } else {
+        System.out.println("Líder no encontrado en el mapa: " + userNombreCompleto);
     }
+
+        // Consulta a la base de datos
+    List<Turno> resultados = getFacade().findByResponsables(nombresEmpleados);
+
+    List<Turno> filtrados = new ArrayList<>();
+
+    for (Turno turno : resultados) {
+
+        if (turno.getDiaMesAnio().equals(dateStr)) {
+            filtrados.add(turno);
+        }
+    }
+
+    // Ordenar la lista
+    Collections.sort(filtrados, new SortByDate());
+
+    return filtrados;
+}
+
     
     
     private void persist(PersistAction persistAction, String successMessage) {
@@ -528,7 +616,7 @@ public class TurnoController implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('turnosTable').filter()");
     }
 
-    public void filtrarAgendasYTurnos(Date dateSelected) {
+    /*public void filtrarAgendasYTurnos(Date dateSelected) {
         this.filteredturnos = new ArrayList<Turno>();
 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -550,6 +638,6 @@ public class TurnoController implements Serializable {
             }
         }
         this.dateSelected = null;
-    }
+    }*/
 
 }

@@ -505,7 +505,8 @@
                                      collapsed="true"
                                      toggleSpeed="500"
                                      closeSpeed="500"  
-                                     style="margin-bottom:20px">
+                                     style="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden).toString().contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                     >
                                 
                                 <p:outputLabel value="Otra Documentación:"  style="font-weight: bold"/><br></br>
                                                                 
@@ -639,8 +640,9 @@
                                 collapsed="true"
                                 toggleSpeed="500" 
                                 closeSpeed="500" 
-                                style="margin-bottom:20px"
+                                style="#{fileDownloadBean.buscarNombreDeArchivoBlueCorp(expedienteController.selected.orden).toString().contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                 >
+                                
                                 <p:outputLabel value="BlueCorp 1:"  style="font-weight: bold"/><br></br>
                                 <p:growl showDetail="true"/>
                                 <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorp}" mode="simple"/>

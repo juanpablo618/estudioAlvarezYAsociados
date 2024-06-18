@@ -269,9 +269,9 @@ public class CounterView implements Serializable {
         AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
         TurnoController turnoController = context.getApplication().evaluateExpressionGet(context, "#{turnoController}", TurnoController.class);
 
-        turnoController.setFilteredTurnosConSesion(turnoController.getItemsByLeader(leaderNombreCompleto, dateString));
+        turnoController.setFilteredTurnosConSesionOnlyAdminUsers(turnoController.getItemsByLeader(leaderNombreCompleto, dateString));
         
-        agendaController.setFilteredAgendasConSesion(agendaController.getItemsByLeader(leaderNombreCompleto, dateString));
+        agendaController.setFilteredAgendasConSesionOnlyAdminUsers(agendaController.getItemsByLeader(leaderNombreCompleto, dateString));
         
     }
     
@@ -293,9 +293,9 @@ public class CounterView implements Serializable {
         AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
         TurnoController turnoController = context.getApplication().evaluateExpressionGet(context, "#{turnoController}", TurnoController.class);
 
-        turnoController.setFilteredTurnosConSesion(turnoController.getItemsByLeader(leaderNombreCompleto, dateString));
+        turnoController.setFilteredTurnosConSesionOnlyAdminUsers(turnoController.getItemsByLeader(leaderNombreCompleto, dateString));
         
-        agendaController.setFilteredAgendasConSesion(agendaController.getItemsByLeader(leaderNombreCompleto, dateString));
+        agendaController.setFilteredAgendasConSesionOnlyAdminUsers(agendaController.getItemsByLeader(leaderNombreCompleto, dateString));
         
     }
     
@@ -361,9 +361,9 @@ public class CounterView implements Serializable {
         AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
         TurnoController turnoController = context.getApplication().evaluateExpressionGet(context, "#{turnoController}", TurnoController.class);
 
-        turnoController.setFilteredTurnosConSesion(turnoController.getItemsByLeader(leaderNombreCompleto, dateString));
+        turnoController.setFilteredTurnosConSesionOnlyAdminUsers(turnoController.getItemsByLeader(leaderNombreCompleto, dateString));
         
-        agendaController.setFilteredAgendasConSesion(agendaController.getItemsByLeader(leaderNombreCompleto, dateString));
+        agendaController.setFilteredAgendasConSesionOnlyAdminUsers(agendaController.getItemsByLeader(leaderNombreCompleto, dateString));
         
     }
     
@@ -478,9 +478,9 @@ public class CounterView implements Serializable {
         // Actualiza la propiedad en tu bean con la cantidad de agendas filtradas
         //setCantAgendasPorEmpleadoFiltradas(totalAgendas);
         setTotalAgendasParaElDia("Total de agendas: " + totalAgendas +
-                "/  Total realizadas Si: " + totalRealizadasSi + " = " + porcentajeRealizadasSi + "%" + 
-                "/  Total realizadas No: " + totalRealizadasNo + " = " + porcentajeRealizadasNo + "%" +
-                "/  Total Reagendadas: " + totalReagendadas + " = " + porcentajeReagendadas + "%");
+                " /  Total realizadas Si: " + totalRealizadasSi + " = " + porcentajeRealizadasSi + "%" + 
+                " /  Total realizadas No: " + totalRealizadasNo + " = " + porcentajeRealizadasNo + "%" +
+                " /  Total Reagendadas: " + totalReagendadas + " = " + porcentajeReagendadas + "%");
         
     }
     

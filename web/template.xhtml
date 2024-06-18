@@ -39,7 +39,7 @@
                             <p:menuitem outcome="/agenda/List_AgendasTurnosWithSession" class="fa fa-tasks fa-3x btnMenuLeft" title="Agendas y Turnos personales"/>
                                 <p:separator class="separador"/>
                             
-                            <p:menuitem outcome="/agenda/List_AgendasTurnosWithSessionOnlyAdminUsers" rendered="#{empleadoController.isLeader(session.getAttribute('userNombreCompleto'))}" class="fa fa-eye fa-3x btnMenuLeft" title="Agendas y Turnos"/>
+                            <p:menuitem outcome="/agenda/List_AgendasTurnosWithSessionOnlyAdminUsers" rendered="#{empleadoController.isLeader(session.getAttribute('userNombreCompleto'))}" class="fa fa-eye fa-3x btnMenuLeft" title="Agendas y Turnos de lideres"/>
                             <p:separator class="separador" rendered="#{empleadoController.isLeader(session.getAttribute('userNombreCompleto'))}"/>
                             
                             <p:menuitem outcome="/empleado/List" class="fa fa-id-card fa-3x btnMenuLeft" title="Empleados" />
@@ -54,7 +54,11 @@
                             <p:separator class="separador"/>
                             <p:menuitem outcome="/estadisticas/List" rendered="#{session.getAttribute('userNombreCompleto') eq 'Mateo Francisco Alvarez' or session.getAttribute('userNombreCompleto') eq 'María Emilia Campos'}" class="fa fa-address-book fa-3x btnMenuLeft" title="Estadisticas" />
                             <p:separator class="separador" rendered="#{session.getAttribute('userNombreCompleto') eq 'Mateo Francisco Alvarez' or session.getAttribute('userNombreCompleto') eq 'María Emilia Campos'}"  />
-                            
+                            <p:menuitem  
+                                onclick="window.open('https://wa.me/543513220999?text=hola%20necesito%20ayuda%20con%20el%20sistema%20del%20estudio%20Alvarez'); return false;"
+                                class="fa fas fa-wrench fa-3x btnMenuLeft"
+                                title="Contactar por WhatsApp" />
+                            <p:separator class="separador" />
                             
                             <p:menuitem outcome="/login.xhtml" class="fa fa-user-circle fa-3x btnMenuLeft" title="Salir"/>
                         </p:submenu>

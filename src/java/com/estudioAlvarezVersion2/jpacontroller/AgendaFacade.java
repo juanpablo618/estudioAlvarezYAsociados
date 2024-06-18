@@ -1,18 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.estudioAlvarezVersion2.jpacontroller;
 
 import com.estudioAlvarezVersion2.jpa.Agenda;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
- * @author developer
+ * @author juanpablo618@hotmail.com
  */
 @Stateless
 public class AgendaFacade extends AbstractFacade<Agenda> {
@@ -27,6 +26,26 @@ public class AgendaFacade extends AbstractFacade<Agenda> {
 
     public AgendaFacade() {
         super(Agenda.class);
+    }
+    
+    public List<Agenda> findByResponsableAndFecha(String responsable, Date fecha) {
+        return getEntityManager().createNamedQuery("Agenda.findByResponsableAndFecha", Agenda.class)
+                             .setParameter("responsable", responsable)
+                             .setParameter("fecha", fecha)
+                             .getResultList();
+    }
+    
+    public List<Agenda> getItemsByOrder(Integer orden) {
+        TypedQuery<Agenda> query = em.createNamedQuery("Agenda.findByOrder", Agenda.class);
+        query.setParameter("orden", orden);
+        return query.getResultList();
+    }
+    
+    public List<Agenda> findByResponsablesAndFecha(Set<String> responsables, Date fecha) {
+        return em.createNamedQuery("Agenda.findByResponsablesAndFecha", Agenda.class)
+             .setParameter("responsables", responsables)
+             .setParameter("fecha", fecha)
+             .getResultList();
     }
     
 }

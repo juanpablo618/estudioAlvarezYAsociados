@@ -110,9 +110,7 @@
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputEnAgenda"/>
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
                                 <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
-
                             </p:selectOneMenu>
-
                         </f:facet>
                         <h:outputText value="#{item.responsable}"/>
                     </p:column>
@@ -230,7 +228,7 @@
 
                    <p:column style="text-align: center; width: 28%;" filterBy="#{item.realizado}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
                         <f:facet name="filter" >
-                            <p:inputText id="inputRealizadoEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.realizadoSeleccionadoEnTurno}" />
+                            <p:inputText id="inputRealizadoEnAgenda"  onchange="PF('agendasTable').filter()" value="#{turnoController.realizadoSeleccionadoEnTurno}" />
                         </f:facet>
                        <h:outputText value="#{item.realizado}"/>
                     </p:column>

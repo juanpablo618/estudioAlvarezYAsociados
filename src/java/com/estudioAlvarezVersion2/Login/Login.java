@@ -5,8 +5,6 @@ import com.estudioAlvarezVersion2.jpa.LoginDAO;
 import com.estudioAlvarezVersion2.jsf.EmpleadoController;
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
@@ -86,7 +84,7 @@ public class Login implements Serializable {
             session.setAttribute("dateToday", fechaFormateada);
 
 
-            return "expediente/List.xhtml";
+            return "agenda/List_AgendasTurnosWithSession.xhtml";
         } else {
             FacesContext.getCurrentInstance().addMessage(
                     null,

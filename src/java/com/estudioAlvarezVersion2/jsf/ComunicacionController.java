@@ -155,7 +155,7 @@ public class ComunicacionController implements Serializable {
         return items;
     }
     
-    public List<Comunicacion> getItemsTODOS() {
+    /*public List<Comunicacion> getItemsTODOS() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -167,7 +167,7 @@ public class ComunicacionController implements Serializable {
         
         
         return items;
-    }
+    }*/
     
     
     private void persist(PersistAction persistAction, String successMessage) {
@@ -310,7 +310,7 @@ public class ComunicacionController implements Serializable {
         return "no posee clave CIDI";
     }
     
-    public String verDatosPersonalesYDelExp(int orden){
+    /*public String verDatosPersonalesYDelExp(int orden){
         
         FacesContext context = FacesContext.getCurrentInstance();
         ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
@@ -335,26 +335,13 @@ public class ComunicacionController implements Serializable {
             }        
         }
         return datosExp;
-    }
+    }*/
     
     public String verNroDeCuil(int orden){
         
         FacesContext context = FacesContext.getCurrentInstance();
-        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        
-        for(Expediente expediente: expedienteControllerBean.getItems()){
-            if(expediente.getOrden() != null){
-                    if(Integer.compare(expediente.getOrden(), orden) == 0){
-                        
-                        if(expediente.getCuit() !=null){
-                            return expediente.getCuit();
-                        }else{
-                            return "No posee CUIT/CUIL";
-                        }
-                    }
-            }        
-        }
-        return "No posee CUIT/CUIL";
+        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);        
+        return expedienteControllerBean.verNroDeCuil(orden);
     }
     
     

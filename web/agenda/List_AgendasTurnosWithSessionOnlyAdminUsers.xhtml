@@ -15,9 +15,11 @@
 
         </script>
         <ui:define name="body"  >
-            <h:outputText style="color:white" value="Filtrar agendas:" /><br></br><br></br>
+            <p:fieldset class="ui-fieldset-toggleable-verde" style="background-color: #123a6d" legend="Filtros por persona" toggleable="true"  collapsed="true" toggleSpeed="500">
+            
+                <h:outputText style="color:white" value="Filtra solo agendas:" /><br></br><br></br>
         
-                <h:form styleClass="filtro-form" id="formFiltros">
+                    <h:form styleClass="filtro-form" id="formFiltros">
     
                     <h:outputText value="Empleado:" />
 
@@ -74,7 +76,7 @@
     
     
 </h:form>
-
+            </p:fieldset>
             <h:form id="formBotones">
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputText style="color: white;" value="Filtrar por fecha: " />
@@ -109,7 +111,7 @@
                              emptyMessage="No existen turnos"
                              paginatorPosition="top" 
                              rendered="true"
-                             filteredValue="#{turnoController.filteredTurnosConSesion}"
+                             filteredValue="#{turnoController.filteredTurnosConSesionOnlyAdminUsers}"
                              
                              >
 
@@ -151,7 +153,17 @@
                         <h:outputText value="#{ item.apellido} #{ item.nombre}"/>
                     </p:column>
 
-                    <p:column  headerText="RESPONSABLE" style="text-align: center;width: 20%;" styleClass="centeredColumnContent#{item.getRealizado()}" >
+                    <p:column filterBy="#{item.responsable}" headerText="RESPONSABLE" style="text-align: center;width: 20%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                        <f:facet name="filter"  >
+                            <p:selectOneMenu  onchange="PF('turnosTable').filter()"  value="#{turnoController.responsableSeleccionadoEnWithSessionOnlyAdmins}"  styleClass="custom-filter">
+                                <f:selectItem itemLabel="Seleccionar Todos" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItems  value="#{empleadoController.itemsAvailableSelectOne}" />
+                                <p:ajax update=":AgendaListForm:datalist:inputEnAgenda"/> 
+                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputEnAgenda"/>
+                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
+                                <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
+                            </p:selectOneMenu>
+                        </f:facet>
                         <h:outputText value="#{item.responsable}"/>
                     </p:column>
 
@@ -167,7 +179,7 @@
                             <h:outputText value="REALIZADO"/>
                         </f:facet>
                         <f:facet name="filter">
-                            <p:selectOneMenu  onchange="PF('turnosTable').filter()"  value="#{turnoController.realizadoSeleccionadoEnTurnoWithSession}"  styleClass="custom-filter">
+                            <p:selectOneMenu  onchange="PF('turnosTable').filter()"  value="#{turnoController.realizadoSeleccionadoEnTurnoWithSessionOnlyAdmins}"  styleClass="custom-filter">
                                 <f:selectItem itemLabel="Seleccionar Todos" itemValue="#{null}" noSelectionOption="true" />
                                 <f:selectItem itemLabel="Si" itemValue="Si" />
                                 <f:selectItem itemLabel="No" itemValue="No" />
@@ -222,7 +234,7 @@
                              emptyMessage="no hay agendas agregadas para esa fecha" 
                              rendered="true"  
                              paginatorPosition="bottom"
-                             filteredValue="#{agendaController.filteredAgendasConSesion}"
+                             filteredValue="#{agendaController.filteredAgendasConSesionOnlyAdminUsers}"
                              
                              >
                     <p:poll interval="2" update="datalist" />
@@ -252,17 +264,20 @@
                         <h:outputText value="#{item.apellido} #{item.nombre}"/>
                     </p:column>
 
-                    <p:column id="columnToUpdate"  style="width: 20%"  styleClass="centeredColumnContent#{item.realizado}">
+                    <p:column id="columnToUpdate"  style="width: 20%"  filterBy="#{item.responsable}"  styleClass="centeredColumnContent#{item.realizado}"  filterMatchMode="exact">
+                        <f:facet name="filter" >
+                            <p:inputText id="inputEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.responsableSeleccionadoEnWithSessionOnlyAdmins}" />
+                        </f:facet>
                         <h:outputText value="#{item.responsable}" />
                     </p:column>
-
+                    
                     <p:column style="width: 13%" styleClass="centeredColumnContent#{item.realizado}">
                         <h:outputText value="#{item.descripcion}"  />
                     </p:column>
 
-                   <p:column style="text-align: center; width: 28%;" filterBy="#{item.realizado}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                   <p:column style="text-align: center; width: 20%;" filterBy="#{item.realizado}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
                         <f:facet name="filter" >
-                            <p:inputText id="inputRealizadoEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.realizadoSeleccionadoEnTurno}" />
+                            <p:inputText id="inputRealizadoEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.realizadoSeleccionadoEnTurnoWithSessionOnlyAdmins}" />
                         </f:facet>
                        <h:outputText value="#{item.realizado}"/>
                     </p:column>
@@ -322,12 +337,9 @@
                             <p:commandButton  update=":growl,datalist" oncomplete="PF('agendasTable').clearFilters()" value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;"/>
                             <p:commandButton update="@all"  oncomplete="agendasTable.filter()" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
                         </p:confirmDialog> 
-
                     </p:column>
-
                     <f:facet name="footer">
                         <p:commandButton id="createButton" icon="ui-icon-plus" rendered="false"  value="#{bundle.Create}" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
-
                     </f:facet>
                 </p:dataTable>
             </h:form>

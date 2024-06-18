@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.estudioAlvarezVersion2.jpacontroller;
 
 import java.util.List;
@@ -10,7 +5,7 @@ import javax.persistence.EntityManager;
 
 /**
  *
- * @author developer
+ * @author juanpablo618@hotmail.com
  */
 public abstract class AbstractFacade<T> {
 
@@ -59,6 +54,11 @@ public abstract class AbstractFacade<T> {
         cq.select(getEntityManager().getCriteriaBuilder().count(rt));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
+    }
+    
+    public List<T> findFirst100() {
+            int[] range = {0, 99}; // Los primeros 100 registros (de 0 a 99)
+            return findRange(range);
     }
     
 }

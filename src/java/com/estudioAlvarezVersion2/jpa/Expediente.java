@@ -42,7 +42,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Expediente.findByBarrio", query = "SELECT e FROM Expediente e WHERE e.barrio = :barrio")
     , @NamedQuery(name = "Expediente.findByTelefono", query = "SELECT e FROM Expediente e WHERE e.telefono = :telefono")
     , @NamedQuery(name = "Expediente.findByFechaDeNacimiento", query = "SELECT e FROM Expediente e WHERE e.fechaDeNacimiento = :fechaDeNacimiento")
-    , @NamedQuery(name = "Expediente.findByEdad", query = "SELECT e FROM Expediente e WHERE e.edad = :edad")})
+    , @NamedQuery(name = "Expediente.findByEdad", query = "SELECT e FROM Expediente e WHERE e.edad = :edad")
+    , @NamedQuery(name = "Expediente.findClaveCidiByOrden", query = "SELECT e.claveCidi FROM Expediente e WHERE e.orden = :orden")
+    , @NamedQuery(name = "Expediente.findClaveSeguridadSocialByOrden", query = "SELECT e.claveSeguridadSocial FROM Expediente e WHERE e.orden = :orden")
+    , @NamedQuery(name = "Expediente.findClaveFiscalByOrden", query = "SELECT e.claveFiscal FROM Expediente e WHERE e.orden = :orden")
+    , @NamedQuery(name = "Expediente.findCuitByOrden", query = "SELECT e.cuit FROM Expediente e WHERE e.orden = :orden")
+})
 public class Expediente implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -6,6 +6,9 @@
 package com.estudioAlvarezVersion2.jpacontroller;
 
 import com.estudioAlvarezVersion2.jpa.Turno;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,5 +31,20 @@ public class TurnoFacade extends AbstractFacade<Turno> {
     public TurnoFacade() {
         super(Turno.class);
     }
+    
+    public List<Turno> findByResponsable(String responsable) {
+        
+        return em.createNamedQuery("Turno.findByResponsable", Turno.class)
+                 .setParameter("responsable", responsable)
+                 .getResultList();
+    }
+    
+    
+    public List<Turno> findByResponsables(Set<String> responsables) {
+        System.out.println("responsables: " + responsables.toString());
+    return getEntityManager().createNamedQuery("Turno.findByResponsables", Turno.class)
+                             .setParameter("responsables", responsables)
+                             .getResultList();
+}
     
 }

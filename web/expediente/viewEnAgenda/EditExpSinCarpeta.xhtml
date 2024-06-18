@@ -119,9 +119,18 @@
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_cuit}" for="cuit" style="font-weight: bold" />
                                     <p:inputText required="true" requiredMessage="CUIT ES REQUERIDO" id="cuit" value="#{expedienteController.selectedParaVerExp.cuit}" title="#{bundle.CreateExpedienteTitle_cuit}" />
 
-                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="margin-left: 3%;font-weight: bold" />
-                                    <p:inputText id="telefono" value="#{expedienteController.selectedParaVerExp.telefono}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_telefono}" />
                                 </h:panelGrid>
+                                <h:panelGrid columns="4" cellspacing="5" cellpadding="1" style="margin-top: 3%;">
+                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="font-weight: bold" />    
+                                    <p:inputText id="telefono" value="#{expedienteController.selectedParaVerExp.telefono}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_telefono}" />
+                                
+                                   <p:outputLabel value="whatsapp: "  style="color:  green ;font-weight: bold" />    
+                                    
+                                   <a href="#{expedienteController.abrirWhatsApp(expedienteController.selectedParaVerExp.telefono)}" target="_blank" >
+                                        <img src="../faces/resources/images/whatsapp.png" style="width: 10%;" ></img>
+                                   </a>
+                                </h:panelGrid>
+                                
 
                                 <h:panelGrid columns="2" cellspacing="5" cellpadding="1" style="margin-top: 3%;">
                                     <p:outputLabel value="Edad:"  style="margin-left: 3%;font-weight: bold" />

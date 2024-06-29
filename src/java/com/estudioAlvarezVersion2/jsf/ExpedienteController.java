@@ -897,7 +897,8 @@ public class ExpedienteController implements Serializable {
      }
     
     public List verAgendasFuturasPorNroDeOrden(Integer orden) {
-
+        System.out.println("verAgendasFuturasPorNroDeOrden");
+        
         List<Agenda> verAgendasFuturas = new ArrayList<Agenda>();
 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -905,7 +906,7 @@ public class ExpedienteController implements Serializable {
 
         Date date = new Date();
 
-        for (Agenda agenda : agendaControllerBean.getItems()) {
+        for (Agenda agenda : agendaControllerBean.getItemsByOrder(orden)) {
             if (orden != null) {
                 if (agenda.getOrden() != null) {
                     if (Objects.equals(agenda.getOrden(), orden)) {
@@ -919,7 +920,8 @@ public class ExpedienteController implements Serializable {
             }
         }
         
-        agendaControllerBean.ordenarListItems(verAgendasFuturas);
+        //por que ahora lo hacemos por base de datos con order by
+        //agendaControllerBean.ordenarListItems(verAgendasFuturas);
 
         return verAgendasFuturas;
     }
@@ -945,7 +947,8 @@ public class ExpedienteController implements Serializable {
             }
         }
         
-        agendaControllerBean.ordenarListItems(verAgendasPasadas);
+        //por que ahora lo hacemos por base de datos con order by
+        //agendaControllerBean.ordenarListItems(verAgendasPasadas);
         
         Collections.reverse(verAgendasPasadas);
         

@@ -30,12 +30,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Agenda.findByFecha", query = "SELECT a FROM Agenda a WHERE a.fecha = :fecha")
     , @NamedQuery(name = "Agenda.findByDescripcion", query = "SELECT a FROM Agenda a WHERE a.descripcion = :descripcion")
     , @NamedQuery(name = "Agenda.findByNombre", query = "SELECT a FROM Agenda a WHERE a.nombre = :nombre")
-    , @NamedQuery(name = "Agenda.findByResponsableAndFecha", query = "SELECT a FROM Agenda a WHERE a.responsable = :responsable AND a.fecha = :fecha")
-    , @NamedQuery(name = "Agenda.findByOrder", query = "SELECT a FROM Agenda a WHERE a.orden = :orden")
-    , @NamedQuery(name = "Agenda.findByResponsablesAndFecha", query = "SELECT a FROM Agenda a WHERE a.responsable IN :responsables AND a.fecha = :fecha")
+    , @NamedQuery(name = "Agenda.findByResponsableAndFecha", query = "SELECT a FROM Agenda a WHERE a.responsable = :responsable AND a.fecha = :fecha ORDER BY a.fecha")
+    , @NamedQuery(name = "Agenda.findByOrder", query = "SELECT a FROM Agenda a WHERE a.orden = :orden ORDER BY a.fecha")
+    , @NamedQuery(name = "Agenda.findByResponsablesAndFecha", query = "SELECT a FROM Agenda a WHERE a.responsable IN :responsables AND a.fecha = :fecha ORDER BY a.fecha")
     
     
-})
+    })
 public class Agenda implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -44,16 +44,12 @@
                             
                             <p:menuitem outcome="/empleado/List" class="fa fa-id-card fa-3x btnMenuLeft" title="Empleados" />
                             <p:separator class="separador"/>
-                            <p:menuitem outcome="/estadoDelTramite/List_EstadoDelTramiteYProcedencias" class="fa fa-file-archive fa-3x btnMenuLeft" title="Tipos de tramites, Estados del tramite y Procedencias"/>
-                            <p:separator class="separador"/>
-                            <p:menuitem outcome="/turno/List" class="fa fa-calendar-alt fa-3x btnMenuLeft" title="Turnos" />
+                            <p:menuitem outcome="/estadoDelTramite/List_EstadoDelTramiteYProcedencias" class="fa fa-file-archive fa-3x btnMenuLeft" title="Tipos de tramites, Estados del tramite y Procedencias y actividades"/>
                             <p:separator class="separador"/>
                             <p:menuitem outcome="/honorario/List" class="fa fa-balance-scale fa-3x btnMenuLeft" title="Honorarios" />
                             <p:separator class="separador"/>
                             <p:menuitem outcome="/consulta/List" class="fa fa-laptop fa-3x btnMenuLeft" title="Consultas"/>
                             <p:separator class="separador"/>
-                            <p:menuitem outcome="/estadisticas/List" rendered="#{session.getAttribute('userNombreCompleto') eq 'Mateo Francisco Alvarez' or session.getAttribute('userNombreCompleto') eq 'María Emilia Campos'}" class="fa fa-address-book fa-3x btnMenuLeft" title="Estadisticas" />
-                            <p:separator class="separador" rendered="#{session.getAttribute('userNombreCompleto') eq 'Mateo Francisco Alvarez' or session.getAttribute('userNombreCompleto') eq 'María Emilia Campos'}"  />
                             <p:menuitem  
                                 onclick="window.open('https://wa.me/543513220999?text=hola%20necesito%20ayuda%20con%20el%20sistema%20del%20estudio%20Alvarez'); return false;"
                                 class="fa fas fa-wrench fa-3x btnMenuLeft"

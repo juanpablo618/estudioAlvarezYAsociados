@@ -14,7 +14,7 @@
             <h:form id="ExpedienteViewDocumentosForm" enctype="multipart/form-data">
                 
                  <div style="font-weight: bold; float: left; width: 100%; ">
-                     <u> <h:outputText value="Documentos de:" />
+                      <h:outputText value="Documentos de:" />
                     <h:outputText value=" "/>
                     
                      <h:outputText value="#{expedienteController.selected.apellido}" />
@@ -27,7 +27,7 @@
                     <h:outputText style="font-size: 32px" value="#{expedienteController.selected.cuit}" rendered="#{expedienteController.selected.tipoDeExpediente eq 'sin carpeta'}"/>
                     
                     
-                     </u>
+                     
                 </div>
                 <br></br><br></br>
                 <h:panelGroup id="display">
@@ -394,8 +394,6 @@
                                
                             </p:panel>
                             </div>
-                            <br></br>
-                            <br></br>
                             <div>
                                 <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
                                          id="cronoDeAportes" 
@@ -439,7 +437,6 @@
                             </p:panel>
                             </div>
                             <br></br>
-                            <br></br>
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                      id="panelFrenteDni"
                                      header="Frente DNI"
@@ -467,8 +464,6 @@
                                 </p:commandButton>
                                 
                             </p:panel>
-                                <br></br>
-                                <br></br>
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                      id="panelDorsoDni" 
                                      header="Dorso DNI"
@@ -495,8 +490,6 @@
                                     <p:fileDownload value="#{fileDownloadBean.fileDorsoDni}" />
                                 </p:commandButton>
                             </p:panel>    
-                                <br></br>
-                                <br></br>
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
                                      id="panelOtraDocumentacion" 
                                      header="Otra Documentación" 
@@ -740,18 +733,25 @@
                                 closeSpeed="500" 
                                 style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu').contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                 >
-                                <p:outputLabel value="Constancia de CBU"  style="font-weight: bold"/><br></br>
+                                <p:outputLabel value="Constancia de CBU"  style="font-weight: bold"/><br/>
                                 <p:growl showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileConstanciaDeCbu}" mode="simple"/>
-                                <p:commandButton icon="fa-upload" value="Subir Constancia de CBU" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'ConstanciaDeCbu')}" ajax="false" />
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo Constancia de cbu"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu')}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar Constancia de cbu" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'ConstanciaDeCbu')}" ajax="false">
+
+                                <!-- Icono de subir archivo -->
+                                <p:fileUpload value="#{fileUploadBean.fileConstanciaDeCbu}" mode="simple"/>
+                                <p:commandButton icon="fa fa-upload" value="Subir Constancia de CBU" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'ConstanciaDeCbu')}" ajax="false" />
+                                <br/>
+
+                                <!-- Icono de archivo -->
+                                <p:outputLabel value="Nombre del archivo Constancia de CBU" style="font-weight: bold"/><br/>
+                                <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu')}" style="font-weight: bold; color: #123A6D"/>
+                                <br/>
+
+                                <!-- Icono de descarga -->
+                                <p:commandButton icon="fa fa-download" class="botonCrearAgenda hoverBlue" value="Descargar Constancia de CBU" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'ConstanciaDeCbu')}" ajax="false">
                                     <p:fileDownload value="#{fileDownloadBean.fileConstanciaDeCbu}" />
                                 </p:commandButton>
                             </p:panel>
-                            
+
  </div>     
                             <br></br>
                             <br></br>

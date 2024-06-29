@@ -1,7 +1,6 @@
 package com.estudioAlvarezVersion2.jsf;
 
 import com.estudioAlvarezVersion2.jpa.Agenda;
-import com.estudioAlvarezVersion2.jpa.Expediente;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.AgendaFacade;
@@ -59,13 +58,12 @@ public class AgendaController implements Serializable {
     private EntityManager em;
 
     private List<Agenda> items = null;
-    private List ItemsTODOS = null;
+    private List<Agenda> itemsitemsWithSession = null;
     
     private static final String DD_MM_YYYY = "dd/MM/yyyy";
     private static final String LA_FECHA_SELECCIONADA_NO_ES_VALIDA = "la fecha selecionada no es válida";
     private static final String POR_SER_FERIADO = " por ser feriado";
     private static final String SI = "Si";
-    private static final String NO_POSEE_CLAVE_CIDI = "no posee clave CIDI";
     private static final String ESTA_PERSONA_PARA_ESTE_DIA_YA_TIENE_40_AGENDAS = "Esta persona para este día ya tiene 40 o más agendas ";
 
     private Agenda selected;
@@ -585,13 +583,12 @@ public class AgendaController implements Serializable {
 
     public List<Agenda> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().findAllSortedByDate();
         }
         //List<Agenda> cloned_list;
 
         //cloned_list = new ArrayList<>(this.items);
         //Collections.sort(cloned_list, new SortByDate());
-
         return items;
     }
     
@@ -599,9 +596,11 @@ public class AgendaController implements Serializable {
         return getFacade().getItemsByOrder(orden);
     }
     
+    /*
+    por que entiendo q lo vamos a hacer por order by
     public void ordenarListItems(List<Agenda> listaDeAgendas) {
         Collections.sort(listaDeAgendas, new SortByDate());
-    }
+    }*/
 
     /*
     metodo viejo backup por las dudas, luego borrar 13/07/2024
@@ -631,7 +630,7 @@ public class AgendaController implements Serializable {
     public List<Agenda> getItemsBySessionUser(String userNombreCompleto, String dateStr) {
         Date date = null;
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
             date = sdf.parse(dateStr);
         } catch (ParseException e) {
             System.err.println("error en getItemsBySessionUser" + e);
@@ -641,11 +640,12 @@ public class AgendaController implements Serializable {
             return Collections.emptyList();
         }
 
-        items = getFacade().findByResponsableAndFecha(userNombreCompleto, date);
+        itemsitemsWithSession = getFacade().findByResponsableAndFecha(userNombreCompleto, date);
 
-        Collections.sort(items, new SortByDate());
+        //aca pasamos el  ordenamiento a la bd con order by
+        //Collections.sort(itemsitemsWithSession, new SortByDate());
 
-        return items;
+        return itemsitemsWithSession;
     }
 
 
@@ -705,7 +705,7 @@ public class AgendaController implements Serializable {
 
         Date date = null;
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
             date = sdf.parse(dateStr);
         } catch (ParseException e) {
             System.err.println("error en getItemsBySessionUser" + e);
@@ -714,7 +714,8 @@ public class AgendaController implements Serializable {
         List<Agenda> agendas = getFacade().findByResponsablesAndFecha(nombresEmpleados, date);
 
         // Ordenar la lista
-        Collections.sort(agendas, new SortByDate());
+        // No es necesario ordenar la lista aquí, ya que la consulta en la base de datos ya está ordenada
+        // Collections.sort(agendas, new SortByDate());
 
         return agendas;
     }
@@ -749,7 +750,6 @@ public class AgendaController implements Serializable {
 
         return empleados;
     }
-
 
     private boolean validateAmountOfAgendas(String responsable, Date fecha) {
         
@@ -1008,7 +1008,6 @@ public class AgendaController implements Serializable {
     }
 
     public void handleDateSelect(SelectEvent event) {
-        System.out.println("entro al handleDateSelect de agendaController");
         RequestContext.getCurrentInstance().execute("PF('agendasTable').filter()");
     }
     
@@ -1231,11 +1230,6 @@ public class AgendaController implements Serializable {
        } else {
            selectionMode = "single";
        }
-    }
-    
-    public void refreshTable() {
-        // Aquí puedes realizar las acciones necesarias para refrescar la tabla
-        items = getFacade().findAll();
     }
     
 }

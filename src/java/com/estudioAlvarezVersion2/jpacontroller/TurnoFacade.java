@@ -12,6 +12,9 @@ import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -41,10 +44,20 @@ public class TurnoFacade extends AbstractFacade<Turno> {
     
     
     public List<Turno> findByResponsables(Set<String> responsables) {
-        System.out.println("responsables: " + responsables.toString());
-    return getEntityManager().createNamedQuery("Turno.findByResponsables", Turno.class)
+    
+        return getEntityManager().createNamedQuery("Turno.findByResponsables", Turno.class)
                              .setParameter("responsables", responsables)
                              .getResultList();
-}
+    }
     
+
+    public List<Turno> findAllSortedByDate() {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Turno> cq = cb.createQuery(Turno.class);
+        Root<Turno> root = cq.from(Turno.class);
+        cq.select(root).orderBy(cb.asc(root.get("horaYDia"))); // Ordena por horaYDia ascendente
+
+        return getEntityManager().createQuery(cq).getResultList();
+    }
+
 }

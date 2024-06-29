@@ -8,6 +8,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -46,6 +49,15 @@ public class AgendaFacade extends AbstractFacade<Agenda> {
              .setParameter("responsables", responsables)
              .setParameter("fecha", fecha)
              .getResultList();
+    }
+    
+    public List<Agenda> findAllSortedByDate() {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Agenda> cq = cb.createQuery(Agenda.class);
+        Root<Agenda> root = cq.from(Agenda.class);
+        cq.select(root).orderBy(cb.asc(root.get("fecha"))); // Ordena por fecha ascendente
+
+        return getEntityManager().createQuery(cq).getResultList();
     }
     
 }

@@ -18,15 +18,15 @@
         </script>
         <p:dialog id="ExpedienteSinCarpetaViewDesdeAgendaDlg" class="editDialogExpediente" widgetVar="ExpedienteSinCarpetaviewDesdeAgendaDialog" modal="true" resizable="false" appendTo="@(body)" >
             <h:form id="ExpedienteSinCarpetaViewDesdeAgendaForm">
-                
-                   <div style="font-weight: bold; float: left;width: 100%;">
+
+                <div style="font-weight: bold; float: left;width: 100%;">
                     <h:outputText value="#{expedienteController.selectedParaVerExp.apellido}" />
                     <h:outputText value=" "/>
                     <h:outputText value="#{expedienteController.selectedParaVerExp.nombre}"/>
                     <h:outputText value=" "/>
                     <h:outputText value="#{expedienteController.selectedParaVerExp.orden}"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ExpedienteEditDialog.hide()" class="botonCrearAgenda hoverGreen" style="float: right !important; margin-top: 0% !important;" />
-                    
+
                 </div>
 
                 <br></br><br></br>
@@ -123,14 +123,13 @@
                                 <h:panelGrid columns="4" cellspacing="5" cellpadding="1" style="margin-top: 3%;">
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="font-weight: bold" />    
                                     <p:inputText id="telefono" value="#{expedienteController.selectedParaVerExp.telefono}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_telefono}" />
-                                
-                                   <p:outputLabel value="whatsapp: "  style="color:  green ;font-weight: bold" />    
-                                    
-                                   <a href="#{expedienteController.abrirWhatsApp(expedienteController.selectedParaVerExp.telefono)}" target="_blank" >
+
+                                    <p:outputLabel value="whatsapp: "  style="color:  green ;font-weight: bold" />    
+
+                                    <a href="#{expedienteController.abrirWhatsApp(expedienteController.selectedParaVerExp.telefono)}" target="_blank" >
                                         <img src="../faces/resources/images/whatsapp.png" style="width: 10%;" ></img>
-                                   </a>
+                                    </a>
                                 </h:panelGrid>
-                                
 
                                 <h:panelGrid columns="2" cellspacing="5" cellpadding="1" style="margin-top: 3%;">
                                     <p:outputLabel value="Edad:"  style="margin-left: 3%;font-weight: bold" />
@@ -188,9 +187,7 @@
                             </div>
 
                         </p:tab>
-
                         <p:tab title="Claves">
-
                             <div>
                                 <p:outputLabel value="Clave Seguridad Social" for="claveSeguridadSocial" style="font-weight: bold" /><br></br>
                                 <p:inputText id="claveSeguridadSocial" value="#{expedienteController.selectedParaVerExp.claveSeguridadSocial}" title="clave de seguridad social"/><br></br>
@@ -203,7 +200,7 @@
                                 <p:outputLabel value="Clave Fiscal" for="claveFiscal" style="font-weight: bold" /><br></br>
                                 <p:inputText id="claveFiscal" value="#{expedienteController.selectedParaVerExp.claveFiscal}" title="clave Fiscal"/><br></br>
                                 <a href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank" >
-                                    <img src="/estudioAlvarezYAsociados/faces/resources/images/afip.png" style="width: 15%;" ></img>
+                                    <img src="../faces/resources/images/afip.png" style="width: 15%;" ></img>
                                 </a>
                             </div>
                             <br></br>
@@ -211,7 +208,7 @@
                                 <p:outputLabel value="Clave CIDI" for="claveCidi" style="font-weight: bold" /><br></br>
                                 <p:inputText id="claveCidi" value="#{expedienteController.selectedParaVerExp.claveCidi}" title="clave Cidi"/><br></br>
                                 <a href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" >
-                                    <img src="/estudioAlvarezYAsociados/faces/resources/images/CIDI.png"></img>
+                                    <img src="../faces/resources/images/CIDI.png"></img>
                                 </a>
                             </div>
                             <br></br>
@@ -219,39 +216,30 @@
                                 <p:outputLabel value="CUIT" for="claveCidi" style="font-weight: bold" /><br></br>
                                 <p:outputLabel value="#{expedienteController.selectedParaVerExp.cuit}" style="font-weight: bold" /><br></br>
                             </div>
-
-
                             <br></br>
                             <br></br>
                         </p:tab>
-
                         <p:tab title="Documentos">
-
                             <div>
-                                
                                 <p:commandButton value="C. de Aportes" ajax="false">
                                     <p:fileDownload value="#{fileBean.createExcel(expedienteController.selectedParaVerExp.fechaDeNacimiento, expedienteController.selectedParaVerExp.sexo, expedienteController.selectedParaVerExp.nroDeExpediente, expedienteController.selectedParaVerExp.nombre, expedienteController.selectedParaVerExp.apellido)}"/>
                                 </p:commandButton>
                             </div>
-
                             <br></br>
                             <div>
                                 <p:commandButton value="Carta Poder" ajax="false">
                                     <p:fileDownload value="#{fileBean.file}"/>
                                 </p:commandButton>
-
                             </div>
                             <br></br>
                             <div>
                                 <p:commandButton value="Solicitud de prestaciones previsionales" ajax="false">
                                     <p:fileDownload value="#{fileBean.file2}"/>
                                 </p:commandButton>
-
                             </div>
                             <br></br>
                             <br></br>
                         </p:tab>
-
                         <p:tab title="Comunicaciones">
                             <div>
                                 <p:outputLabel value="Comunicaciones" for="comunicaciones" style="font-weight: bold"/><br></br>
@@ -260,7 +248,6 @@
                             <br></br>
                             <br></br>
                         </p:tab>
-
                         <p:tab title="Honorarios y Gastos">
                             <div>
                                 <h:commandButton value="Imprimir Convenio" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selectedParaVerExp.nombre, expedienteController.selectedParaVerExp.apellido, expedienteController.selectedParaVerExp.dni, expedienteController.selectedParaVerExp.direccion, expedienteController.selectedParaVerExp.nroDeAltura, expedienteController.selectedParaVerExp.barrio)}" />
@@ -277,7 +264,6 @@
                                     <f:selectItem itemLabel="25% retroactivo" itemValue="25% retroactivo" />
                                 </p:selectOneMenu>
                             </div>
-
                             <br></br>
                             <br></br>
                             <p:outputLabel value="Firmado" for="poderFirmado" style="font-weight: bold" />
@@ -286,12 +272,10 @@
                                 <f:selectItem itemLabel="Si" itemValue="Si" />
                                 <f:selectItem itemLabel="No" itemValue="No" />
                             </p:selectOneMenu>
-
                             <br></br>
                             <br></br>
                             <p:editor width="700" value="#{expedienteController.selectedParaVerExp.tablaDeHonorariosYGastos}"></p:editor>
                         </p:tab>
-
                     </p:tabView>
                 </div>
 

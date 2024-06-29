@@ -341,7 +341,7 @@ public class TurnoController implements Serializable {
         }
     }
 
-    public List<Turno> getItems() {
+    /*public List<Turno> getItems() {
 
     if (items == null) {
         items = getFacade().findAll();
@@ -354,38 +354,15 @@ public class TurnoController implements Serializable {
 
         return cloned_list;
 
-    }
-
-    public void cambiarFiltroIzquierda(String userNombreCompleto){
-         
-    // Obtener el valor actual de fechaParaFiltrar
-    String fechaActual = getFechaParaFiltrar();
-
-    // Concatenar "+1" al valor actual
-    String nuevoValor = fechaActual + "-11";
-
-    // Actualizar fechaParaFiltrar con el nuevo valor
-    setFechaParaFiltrar(nuevoValor);
-
-}
-
-    public void cambiarFiltroDerecha(String userNombreCompleto) throws ParseException {
-    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-    Date fecha = formato.parse(fechaParaFiltrar);
+    }*/
     
-    if (fecha != null) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(fecha);
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        fecha = calendar.getTime();
+    public List<Turno> getItems() {
+        if (items == null) {
+            items = getFacade().findAllSortedByDate();
+        }
+        return items; 
     }
-        
-    String fechaString = formato.format(fecha);
-    this.fechaParaFiltrar = fechaString;
-        
-    this.getItemsBySessionUser(userNombreCompleto, fechaParaFiltrar);
-}
-
+    
     /*
     por las dudas lo dejo de backup, luego borrar.
     public List<Turno> getItemsBySessionUser(String userNombreCompleto, String date) {
@@ -425,8 +402,9 @@ public class TurnoController implements Serializable {
                 resultados.add(turno);
             }
         }
-            
-        Collections.sort(resultados, new SortByDate());
+        
+        // No es necesario ordenar la lista aquí, ya que la consulta en la base de datos ya está ordenada
+        //Collections.sort(resultados, new SortByDate());
 
         return resultados;
     }
@@ -524,7 +502,7 @@ public class TurnoController implements Serializable {
     }
 
     // Ordenar la lista
-    Collections.sort(filtrados, new SortByDate());
+    // Collections.sort(filtrados, new SortByDate());
 
     return filtrados;
 }

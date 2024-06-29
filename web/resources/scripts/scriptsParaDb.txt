@@ -36,3 +36,11 @@ SELECT * FROM `agenda` WHERE `fecha` <= '2022-01-01'
 
 DELETE FROM `agenda` WHERE `fecha` <= '2022-01-01'
  63426 filas afectadas. (La consulta tardó 0,5646 segundos.)
+
+
+
+crear indice en tabla turno y agenda
+
+CREATE INDEX idx_turno_horaYDia ON turno(horaYDia);
+
+CREATE INDEX idx_agenda_fecha ON agenda(fecha);

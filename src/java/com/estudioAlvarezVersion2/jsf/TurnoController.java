@@ -48,7 +48,8 @@ public class TurnoController implements Serializable {
     private static final String DD_MM_YYYY = "dd/MM/yyyy";
     private static final String LA_FECHA_SELECCIONADA_NO_ES_VALIDA = "la fecha selecionada no es válida";
     private static final String POR_SER_FERIADO = " por ser feriado";
-
+    private static final String SI = "Si";
+    
     private String responsableSeleccionadoEnTurno;
     private String responsableSeleccionadoEnWithSessionOnlyAdmins;
     private String liderSeleccionadoEnWithSessionOnlyAdmins;
@@ -253,6 +254,11 @@ public class TurnoController implements Serializable {
 
     private TurnoFacade getFacade() {
         return ejbFacade;
+    }
+    
+    public void marcarComoRealizadaSi() {
+        selected.setRealizado(SI);
+        this.update();
     }
 
     public String getUserName() {

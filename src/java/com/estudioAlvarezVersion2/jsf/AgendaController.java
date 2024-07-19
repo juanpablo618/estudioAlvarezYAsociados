@@ -731,15 +731,14 @@ public class AgendaController implements Serializable {
             "Mateo Francisco Alvarez", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
             "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
             "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Pilar Boglione"});
+            "Pilar Boglione", "juan cuello"});
         lideresEmpleadosMap.put("Paula Alvarez", new String[]{
-            "Mateo Novau", "Natali D Agostino", "Maria Jose Alaye", 
-            "Liliana Romero", "Pilar Boglione"});
+            "Mateo Novau", "Natali D Agostino", "Liliana Romero", "Pilar Boglione"});
         lideresEmpleadosMap.put("Paola Maldonado", new String[]{
             "Carla Juez", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
             "Maria Jose Alaye"});
         lideresEmpleadosMap.put("Ayelen Brizzio", new String[]{
-            "Mateo Novau"});
+            "Mateo Novau", "Natali D Agostino",});
 
         Set<String> empleados = new HashSet<>();
         if (lideresEmpleadosMap.containsKey(lider)) {

@@ -2,30 +2,25 @@
 package com.estudioAlvarezVersion2.jsf;
 
 import com.estudioAlvarezVersion2.jpa.Consulta;
-import com.estudioAlvarezVersion2.jpa.DAO;
-import com.estudioAlvarezVersion2.jpa.Expediente;
 import com.estudioAlvarezVersion2.jpacontroller.ConsultaFacade;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 
 
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 /**
@@ -43,6 +38,8 @@ public class ConsultaController implements Serializable {
     private EntityManager em;
 
     private List<Consulta> items = null;
+    private List<Consulta> itemsExceptArchivadoODesistido = null;
+    
     private Consulta selected;
     private List<Consulta> filteredConsultas;
 
@@ -50,7 +47,83 @@ public class ConsultaController implements Serializable {
     private String estadoSeleccionadoEnTabla;
     private String fechaSeleccionadaEnConsultaTable;
     
+     private Date filterDay;
+    private String filterMonth;
+    private String filterYear;
+    private List<String> months;
+    private List<String> years;
+
+     @PostConstruct
+    public void init() {
+        // Inicializar meses y años
+        months = Arrays.asList("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12");
+       // Inicializar años dinámicamente
+        years = generateYears(10); // Generar los próximos 10 años
+    }
+
     public ConsultaController() {
+    }
+
+    public void filterConsultas() {
+        // Lógica para filtrar las consultas basadas en filterDay, filterMonth, filterYear
+        filteredConsultas = getFacade().findAll(); // Reemplaza con la lógica de filtrado
+        if (filterDay != null) {
+            filteredConsultas = filteredConsultas.stream()
+                    .filter(consulta -> consulta.getFechaDeAtencion().equals(filterDay))
+                    .collect(Collectors.toList());
+        }
+        if (filterMonth != null && !filterMonth.isEmpty()) {
+            filteredConsultas = filteredConsultas.stream()
+                    .filter(consulta -> {
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(consulta.getFechaDeAtencion());
+                        return String.format("%02d", cal.get(Calendar.MONTH) + 1).equals(filterMonth);
+                    })
+                    .collect(Collectors.toList());
+        }
+        if (filterYear != null && !filterYear.isEmpty()) {
+            filteredConsultas = filteredConsultas.stream()
+                    .filter(consulta -> {
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(consulta.getFechaDeAtencion());
+                        return String.valueOf(cal.get(Calendar.YEAR)).equals(filterYear);
+                    })
+                    .collect(Collectors.toList());
+        }
+    }
+
+    // Getters y Setters
+
+    public Date getFilterDay() {
+        return filterDay;
+    }
+
+    public void setFilterDay(Date filterDay) {
+        this.filterDay = filterDay;
+    }
+
+    public String getFilterMonth() {
+        return filterMonth;
+    }
+
+    public void setFilterMonth(String filterMonth) {
+        this.filterMonth = filterMonth;
+    }
+
+    public String getFilterYear() {
+        return filterYear;
+    }
+
+    public void setFilterYear(String filterYear) {
+        this.filterYear = filterYear;
+    }
+
+    public List<String> getMonths() {
+        return months;
+    }
+
+    public List<String> getYears() {
+        return years;
     }
 
     public List<Consulta> getItems() {
@@ -59,6 +132,23 @@ public class ConsultaController implements Serializable {
         }
         return items;
     }
+    
+    public List<Consulta> getItemsExceptArchivadoODesistido() {
+            if (items == null) {
+            items = getFacade().findAllExceptArchivedOrDismissed();
+        }
+        return items;
+    
+    }
+    
+     public void loadFilteredConsultas() {
+        filteredConsultas = getFacade().findAllExceptArchivedOrDismissed();
+    }
+
+    public void loadAllConsultas() {
+        filteredConsultas = getFacade().findAll();
+    }
+
 
     public String getFechaSeleccionadaEnConsultaTable() {
         return fechaSeleccionadaEnConsultaTable;
@@ -94,6 +184,7 @@ public class ConsultaController implements Serializable {
         selected = new Consulta();
         
         initializeEmbeddableKey();
+        selected.setFechaDeAtencion(new Date());
         return selected;
     }
 
@@ -167,5 +258,13 @@ public class ConsultaController implements Serializable {
          persist(JsfUtil.PersistAction.UPDATE, "Consulta actualizada exitosamente");
     }
 
+     private List<String> generateYears(int numberOfYears) {
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        List<String> yearsList = new ArrayList<>();
+        for (int i = 0; i < numberOfYears; i++) {
+            yearsList.add(String.valueOf(currentYear + i));
+        }
+        return yearsList;
+    }
 
 }

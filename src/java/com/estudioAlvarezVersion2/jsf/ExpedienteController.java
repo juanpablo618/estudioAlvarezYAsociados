@@ -432,6 +432,10 @@ public class ExpedienteController implements Serializable {
         ingresarEdad();
 
         ingresarDni();
+        
+        if(selected.getFechaDeNacimiento() != null){ 
+            crearAgendaSaludoPorCumpleaños(selected.getFechaDeNacimiento(), selected.getOrden(), selected.getNombre(), selected.getApellido());
+        }
 
         String successMessage = "Expediente del tipo: ".concat(selected.getTipoDeExpediente().toUpperCase()).concat(" creado exitosamente");
 
@@ -745,6 +749,37 @@ public class ExpedienteController implements Serializable {
         return expedientesJudiciales;
     }
 
+ private void crearAgendaSaludoPorCumpleaños(Date fechaDeNacimientoDelExp, Integer orden, String nombre, String apellido) {
+        // Convertir Date a LocalDate
+        LocalDate fechaNacimiento = fechaDeNacimientoDelExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        
+        // Obtener la fecha actual
+        LocalDate fechaActual = LocalDate.now();
+        
+        // Calcular el próximo cumpleaños
+        LocalDate proximoCumpleaños = fechaNacimiento.withYear(fechaActual.getYear());
+        if (proximoCumpleaños.isBefore(fechaActual) || proximoCumpleaños.isEqual(fechaActual)) {
+            proximoCumpleaños = proximoCumpleaños.plusYears(1);
+        }
+        
+        // Convertir el próximo cumpleaños a Date
+        Date fechaProximoCumpleaños = Date.from(proximoCumpleaños.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        
+        // Crear la agenda
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        agendaControllerBean.prepareCreate();
+        agendaControllerBean.getSelected().setFecha(fechaProximoCumpleaños);
+        agendaControllerBean.getSelected().setDescripcion("Saludar por fecha de Cumpleaños");
+        agendaControllerBean.getSelected().setOrden(orden);
+        agendaControllerBean.getSelected().setNombre(nombre);
+        agendaControllerBean.getSelected().setApellido(apellido);
+        
+        agendaControllerBean.getSelected().setResponsable("Natali D Agostino");
+        
+        agendaControllerBean.create(nombre, apellido, orden);
+    }
+ 
     @FacesConverter(forClass = Expediente.class)
     public static class ExpedienteControllerConverter implements Converter {
 
@@ -1220,40 +1255,40 @@ public class ExpedienteController implements Serializable {
     
     
     public void cambiarConsultaAExpAdm(Consulta consultaSelected) {
-        
-        FacesContext context = FacesContext.getCurrentInstance();
-        
-        ConsultaController consultaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{consultaController}", ConsultaController.class);
-        
-        Expediente expAInsertar = prepareCreateExpAdministrativo();
-        
-        Date fechaAntigua = new Date();
-        
-        
-        if (consultaSelected.getFechaDeNacimiento() != null) {
-            fechaAntigua = consultaSelected.getFechaDeNacimiento();
-        }
+    FacesContext context = FacesContext.getCurrentInstance();
+    ConsultaController consultaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{consultaController}", ConsultaController.class);
 
+    Expediente expAInsertar = prepareCreateExpAdministrativo();
+    Date fechaAntigua = new Date();
+    
+    if (consultaSelected.getFechaDeNacimiento() != null) {
+        fechaAntigua = consultaSelected.getFechaDeNacimiento();
+    }
+
+    if (consultaSelected.getFechaDeNacimiento() != null) {
         LocalDate fechaNueva = fechaAntigua.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate start = fechaNueva;
-        LocalDate end = LocalDate.now(); // use for age-calculation: LocalDate.now()
+        LocalDate end = LocalDate.now();
         long years = ChronoUnit.YEARS.between(start, end);
-        
         expAInsertar.setEdad(Math.toIntExact(years));
-        
-        if ("0".equals(consultaSelected.getCuit()) || consultaSelected.getCuit() == null || "".equals(consultaSelected.getCuit()) || consultaSelected.getCuit().isEmpty() )  {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Esta consulta no tiene cuit", "no es posible pasarla a exp. administrativo");
-            FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-        }else{
-            
-            if (consultaSelected.getCuit() != null) {
-                
-                String cuit = consultaSelected.getCuit();
-                cuit = cuit.substring(2, 9);
-                expAInsertar.setDni(cuit);
-                expAInsertar.setCuit(consultaSelected.getCuit());
-            }
-        
+    } else {
+        // Manejar el caso donde la fecha de nacimiento es nula
+        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Fecha de nacimiento es nula", "No se puede calcular la edad");
+        FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+        expAInsertar.setEdad(0); // o algún valor predeterminado
+    }
+
+    if ("0".equals(consultaSelected.getCuit()) || consultaSelected.getCuit() == null || "".equals(consultaSelected.getCuit()) || consultaSelected.getCuit().isEmpty() ) {
+        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Esta consulta no tiene cuit", "No es posible pasarla a exp. administrativo");
+        FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+    } else {
+        if (consultaSelected.getCuit() != null) {
+            String cuit = consultaSelected.getCuit();
+            cuit = cuit.substring(2, 9);
+            expAInsertar.setDni(cuit);
+            expAInsertar.setCuit(consultaSelected.getCuit());
+        }
+
         expAInsertar.setNombre(consultaSelected.getNombre());
         expAInsertar.setTipoDeDocumento(consultaSelected.getTipoDeDocumento());
         expAInsertar.setSexo(consultaSelected.getSexo());
@@ -1305,14 +1340,14 @@ public class ExpedienteController implements Serializable {
         expAInsertar.setObraSocial(consultaSelected.getObraSocial());
         expAInsertar.setInscripcionAut(consultaSelected.getInscripcionAut());
         expAInsertar.setReclamoArt(consultaSelected.getReclamoArt());
-    
-        consultaControllerBean.destroy();
 
+        consultaControllerBean.getSelected().setEstadoConsulta("CONSULTA PASADA A EXP. ADMINISTRATIVO");
+        consultaControllerBean.update();
         persist(JsfUtil.PersistAction.CREATE, "Consulta transformada a ADMINISTRATIVO con el nro de orden: " + expAInsertar.getOrden());
-        
+        items = null;
         }
-        
     }
+
 
     public String abrirWhatsApp(String telefono) throws IOException {
         if (telefono == null || telefono.isEmpty()) {

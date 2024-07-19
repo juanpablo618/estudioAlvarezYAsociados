@@ -6,10 +6,12 @@
 package com.estudioAlvarezVersion2.jpacontroller;
 
 import com.estudioAlvarezVersion2.jpa.Consulta;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -29,5 +31,12 @@ public class ConsultaFacade extends AbstractFacade<Consulta> {
     public ConsultaFacade() {
         super(Consulta.class);
     }
+    
+    public List<Consulta> findAllExceptArchivedOrDismissed() {
+        TypedQuery<Consulta> query = em.createNamedQuery("Consulta.findAllExceptArchivedOrDismissed", Consulta.class);
+        return query.getResultList();
+    }
+    
+    
     
 }

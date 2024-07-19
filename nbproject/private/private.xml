@@ -6,18 +6,24 @@
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/WEB-INF/glassfish-resources.xml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/CounterView.java</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/viewEnAgenda/EditExpJudicial.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/ViewDocumentos.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/ViewParaAgenda.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/List_AgendasTurnos.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/List_AgendasTurnosWithSessionOnlyAdminUsers.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpacontroller/ConsultaFacade.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/Create.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Turno.java</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/procedencia/List.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/ExpedienteController.java</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/login.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Comunicacion.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Consulta.java</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/ConsultaController.java</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/consulta/List.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/honorario/List.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/EditExpSinCarpeta.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Agenda.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/Create_1.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/template.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/EditExpJudicial.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpacontroller/AbstractFacade.java</file>

@@ -7,22 +7,70 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
-
+    
+       
         <ui:define name="body">
             <h:form id="ConsultaListForm" style="background-color: #F4F8FA">
-                <div style="float: left;margin-left: .5%;"><p:commandButton id="createButton"  icon="ui-icon-plus" value="NUEVA CONSULTA" class="botonCrearAgenda  borderRd mrgTB2 hoverGreen" actionListener="#{consultaController.prepareCreate}" update=":ConsultaCreateForm" oncomplete="PF('ConsultaCreateDialog').show()"/>
+               
+                <div style="float: left;margin-left: .5%;">
+                    <p:commandButton id="createButton"  icon="ui-icon-plus" value="NUEVA CONSULTA" class="botonCrearAgenda  borderRd mrgTB2 hoverGreen" actionListener="#{consultaController.prepareCreate}" update=":ConsultaCreateForm" oncomplete="PF('ConsultaCreateDialog').show()"/>
                 </div>
+                
+                <div style="float: left;margin-left: .5%;">
+                    <p:commandButton class="borderRd" value="Mostrar Filtradas" actionListener="#{consultaController.loadFilteredConsultas()}" update="datalist" />
+                    <p:commandButton class="borderRd" value="Mostrar Todas" actionListener="#{consultaController.loadAllConsultas()}" update="datalist" />
+                </div>
+                
+                <!-- Filtros por día, mes y año -->
+                <div  style="float: left;margin-top: .5%; margin-left: .5%;">
+                    <p:fieldset class="ui-fieldset-toggleable-azul" style="background-color: #123a6d" legend="Filtro por dìa" toggleable="true"  collapsed="true" toggleSpeed="500">
+                                    <p:calendar id="filterDay" value="#{consultaController.filterDay}" pattern="dd/MM/yyyy"
+                                placeholder="Seleccionar Día"  />
+                            <p:commandButton value="Filtrar" class="borderRd mrgTB2" action="#{consultaController.filterConsultas}" update="datalist" />
+                
+                    </p:fieldset>  
+                    
+                </div>
+                <div  style="float: left;margin-top: .5%; margin-left: .5%;">
+                    <p:fieldset class="ui-fieldset-toggleable-azul" style="background-color: #123a6d" legend="Filtro por Mes" toggleable="true"  collapsed="true" toggleSpeed="500">
+                    
+                    <p:selectOneMenu id="filterMonth" value="#{consultaController.filterMonth}" >
+                        <f:selectItem itemLabel="Seleccionar Mes" itemValue="" />
+                        <f:selectItems value="#{consultaController.months}" var="month" itemLabel="#{month}" itemValue="#{month}" />
+                    </p:selectOneMenu>
+                        <p:commandButton value="Filtrar" class="borderRd mrgTB2" action="#{consultaController.filterConsultas}" update="datalist" />
+                
+                    </p:fieldset>    
+                </div>
+                 <div  style="float: left;margin-top: .5%;  margin-left: .5%;">
+                   <p:fieldset class="ui-fieldset-toggleable-azul" style="background-color: #123a6d" legend="Filtro por Año" toggleable="true"  collapsed="true" toggleSpeed="500">
+                    
+                    <p:selectOneMenu id="filterYear" value="#{consultaController.filterYear}" >
+                        <f:selectItem itemLabel="Seleccionar Año" itemValue="" />
+                        <f:selectItems value="#{consultaController.years}" var="year" itemLabel="#{year}" itemValue="#{year}" />
+                    </p:selectOneMenu>
+                        <p:commandButton value="Filtrar" class="borderRd mrgTB2" action="#{consultaController.filterConsultas}" update="datalist" />
+                   
+                   </p:fieldset>    
+                </div>
+                 
                 <br></br>
+                <br></br>
+                <br></br>
+                                <br></br>
+                <br></br>
+                <br></br>
+                                <br></br>
                 <br></br>
                 <br></br>
                 
-                <p:dataTable id="datalist" value="#{consultaController.items}" var="item"
+                <p:dataTable id="datalist" value="#{consultaController.getItemsExceptArchivadoODesistido()}" var="item"
                                  selectionMode="single" selection="#{consultaController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idConsulta}"
                                  rows="20"
                                  widgetVar="consultasTable"
-                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 rowsPerPageTemplate="10,20,50,100,200"
                                  emptyMessage="No existen consultas"
                                  filteredValue="#{consultaController.filteredConsultas}"
                              
@@ -33,6 +81,12 @@
 
                        <p:growl  id="message" showDetail="true" />
  
+                       <p:column style="text-align: center; width: 10%" headerText="Fecha de atenciòn">
+                        <h:outputText style="width: 10%" value="#{item.fechaDeAtencion}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                       
                         <p:column filterBy="#{item.apellido}"  style="text-align: center;" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="Apellido y Nombre"/>
@@ -47,20 +101,12 @@
                             <h:outputText value="#{item.telefono}"/>
                         </p:column>
                        
-                       
-                    <p:column style="text-align: center; width: 10%"  sortBy="#{item.getDiaMesAnioParaFechaDeAtencion()}" filterBy="#{item.getDiaMesAnioParaFechaDeAtencion()}" filterMatchMode="startsWith" headerText="FECHA">
-                        <f:facet name="filter">
-                            <p:inputText id="inputFechaEnConsultaTable" style="width: -webkit-fill-available;" onfocus="PF('consultasTable').filter()" onblur="PF('consultasTable').filter()" onchange="PF('consultasTable').filter()"  value="#{consultaController.fechaSeleccionadaEnConsultaTable}" >
-                            </p:inputText>
-                        </f:facet>
-                        <h:outputText style="width: 10%" value="#{item.fechaDeAtencion}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputText>
-                    </p:column>
-
-
-                       
-                       
+                       <p:column filterBy="#{item.procedencia}" style="text-align: center;" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Procedencia"/>
+                            </f:facet>
+                            <h:outputText value="#{item.procedencia}"/>
+                        </p:column>
                        
                        <p:column filterBy="#{item.estadoConsulta}" filterMatchMode="exact" style="text-align: center;" >
                             <f:facet name="header">

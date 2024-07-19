@@ -12,7 +12,7 @@
             <h:form id="AgendaCreateForm">
                 <h:panelGroup id="display">
                     
-                    <div class="padre">
+                    <div class="padre" style="height: 300px; display: flex; flex-direction: row; justify-content: space-between;">
                         <div class="hijo">
                                 <p:outputLabel value="#{bundle.CreateAgendaLabel_fecha}" for="fecha" style="font-weight: bold"/>
                                 <p:calendar  widgetVar="testCalendar" mindate="today" disabledWeekends="true" id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" mode="inline" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>

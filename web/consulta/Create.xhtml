@@ -8,7 +8,7 @@
 
     <ui:composition>
             
-        <p:dialog id="ConsultaCreateDlg" class="crearConsulta" widgetVar="ConsultaCreateDialog" modal="true" resizable="true" appendTo="@(body)" header="Crear Consulta" width="100" style="overflow-y:auto">
+        <p:dialog id="ConsultaCreateDlg" class="crearConsulta" widgetVar="ConsultaCreateDialog" modal="true" resizable="true" appendTo="@(body)" header="Crear Consulta" style="overflow-y:auto">
             <h:form id="ConsultaCreateForm">
 
                 <p:commandButton actionListener="#{consultaController.create}" value="Crear" class="botonCrearAgenda hoverGreen" update=":ConsultaListForm:datalist,:growl"   oncomplete="handleSubmit(args,'ConsultaCreateDialog');PF('consultasTable').clearFilters()"
@@ -32,6 +32,10 @@
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="margin-left: 3%;font-weight: bold" />
                                 <p:inputText id="telefono" required="true" requiredMessage="teléfono es necesario" value="#{consultaController.selected.telefono}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_telefono}" />
 
+                                <p:outputLabel value="teléfono auxiliar" for="telefono" style="margin-left: 3%;font-weight: bold" />
+                                <p:inputTextarea   autoResize="true"   id="telefonoAuxiliar" value="#{consultaController.selected.telefonoAuxiliar}" title="Telèfono Auxiliar"/>
+
+                                
                                 <p:outputLabel value="Estado de la consulta" for="estadoConsulta" style="margin-left: 3%;font-weight: bold" />
                                 <p:selectOneMenu id="estadoConsulta" value="#{consultaController.selected.estadoConsulta}" style="margin-left: 3%" >
                                     <f:selectItem itemLabel="PRIMER CONTACTO" itemValue="PRIMER CONTACTO" />
@@ -116,7 +120,6 @@
                         </p:tab>
                         <p:tab title="Tipo de Consulta">
 
-                            <div style="float: left; width: 50%"> 
                                 <h:panelGrid columns="4" cellspacing="5">
                                     
                                     <p:outputLabel value="Fecha de Atención:" for="fechaDeAtencion" style="font-weight: bold" />
@@ -185,8 +188,7 @@
                                 <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
                                 <p:inputTextarea rows="7" cols="55" autoResize="false"  id="observaciones" value="#{consultaController.selected.observaciones}" title="observaciones"/>
 
-                            </div> 
-
+                            
                             <h:panelGrid columns="2" cellspacing="5" >
                                 <p:outputLabel value="Tiene aportes: "  style="margin-left: 3%;font-weight: bold" />
                                 <p:selectOneMenu style="margin-left: 3%" id="aportes" value="#{consultaController.selected.aportes}" >

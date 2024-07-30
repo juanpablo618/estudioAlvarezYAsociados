@@ -78,6 +78,7 @@ public class EmpleadoController implements Serializable {
         if (items == null) {
             items = getFacade().findAll();
         }
+        
         return items;
     }
 

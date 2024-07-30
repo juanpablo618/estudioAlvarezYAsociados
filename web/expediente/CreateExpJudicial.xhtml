@@ -31,6 +31,11 @@
 
                             <p:outputLabel value="#{bundle.EditExpedienteLabel_telefono}"  for="telefono" style="margin-left: 3%;font-weight: bold" />   
                             <p:inputText id="telefono" value="#{expedienteController.selected.telefono}" style="margin-left: 3%" title="#{bundle.EditExpedienteTitle_telefono}" />
+                        
+                            <p:outputLabel value="Telèfono Auxiliar" for="telefonoAuxiliar" style="margin-left: 3%;font-weight: bold" />
+                            <p:inputTextarea   autoResize="true"   id="telefonoAuxiliar" value="#{expedienteController.selected.telefonoAuxiliar}" title="Telèfono Auxiliar"/>
+
+                        
                         </h:panelGrid>
                         <h:panelGrid columns="2" cellspacing="5" cellpadding="1">
                             <p:outputLabel value="#{bundle.EditExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento" style="font-weight: bold" />

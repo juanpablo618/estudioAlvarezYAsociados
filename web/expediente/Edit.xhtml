@@ -165,6 +165,10 @@
                                    <a href="#{expedienteController.abrirWhatsApp(expedienteController.selected.telefono)}" target="_blank" >
                                         <img src="../faces/resources/images/whatsapp.png" style="width: 10%;" ></img>
                                    </a>
+                                   
+                                   <p:outputLabel value="Telèfono Auxiliar" for="telefonoAuxiliar" style="margin-left: 3%;font-weight: bold" />
+                                    <p:inputTextarea   autoResize="true"   id="telefonoAuxiliar" value="#{expedienteController.selected.telefonoAuxiliar}" title="Telèfono Auxiliar"/>
+
                                 </h:panelGrid>
                                 
                                 <h:panelGrid columns="2" cellspacing="5" cellpadding="1" style="margin-top: 3%;">

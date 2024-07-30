@@ -245,9 +245,9 @@ table.dataTable.nowrap td{white-space:nowrap}
 }
 
 .crearExpediente, .crearConsulta{
-    width: 90% !important;
-    height: 90% !important;
-    left: 5% !important;
+    width: 50% !important;
+    height: 70% !important;
+    left: 15% !important;
     top: 2% !important;
     z-index: 1005 !important;
     position: absolute;
@@ -262,10 +262,10 @@ table.dataTable.nowrap td{white-space:nowrap}
 }
 
 .crearExpedienteJudicial{
-    width: 85% !important;
-    height: 90% !important;
-    left: 5% !important;
-    top: 5% !important;
+    width: 50% !important;
+    height: 70% !important;
+    left: 15% !important;
+    top: 2% !important;
     z-index: 1005 !important;
     position: absolute;
 }

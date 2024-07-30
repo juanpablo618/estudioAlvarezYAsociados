@@ -115,7 +115,11 @@
 
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="font-weight: bold" />    
                                     <p:inputText id="telefono" value="#{consultaController.selected.telefono}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_telefono}" />
-                                
+                                    
+                                    <p:outputLabel value="teléfono auxiliar" for="telefono" style="margin-left: 3%;font-weight: bold" />
+                                    <p:inputTextarea   autoResize="true"   id="telefonoAuxiliar" value="#{consultaController.selected.telefonoAuxiliar}" title="Telèfono Auxiliar"/>
+
+                                    
                                     <p:outputLabel value="Estado de la consulta" for="estadoConsulta" style="margin-left: 3%;font-weight: bold" />
                                     <p:selectOneMenu id="estadoConsulta" value="#{consultaController.selected.estadoConsulta}" style="margin-left: 3%" >
                                         <f:selectItem itemLabel="PRIMER CONTACTO" itemValue="PRIMER CONTACTO" />

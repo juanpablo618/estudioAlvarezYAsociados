@@ -109,6 +109,11 @@ public class Consulta implements Serializable {
     private String telefono;
     
     @Basic(optional = false)
+    @Column(name = "telefonoAuxiliar")
+    private String telefonoAuxiliar;
+
+
+    @Basic(optional = false)
     @Column(name = "fechaDeNacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechaDeNacimiento;
@@ -284,7 +289,7 @@ public class Consulta implements Serializable {
     public Consulta(Integer idConsulta, int orden, String cuit, String dni,
             String nombre, String tipoDeDocumento, String sexo, String apellido,
             String direccion, int nroDeAltura, String piso, String depto,
-            String barrio, String telefono, Date fechaDeNacimiento, int edad,
+            String barrio, String telefono, String telefonoAuxiliar, Date fechaDeNacimiento, int edad,
             String claveSeguridadSocial, String claveFiscal, String claveCidi,
             String cobraBeneficio, Date fechaDeAltaDeConsulta, String codigoPostal,
             String localidad, String tipoDeTramite, String procedencia,
@@ -317,6 +322,7 @@ public class Consulta implements Serializable {
         this.depto = depto;
         this.barrio = barrio;
         this.telefono = telefono;
+        this.telefonoAuxiliar = telefonoAuxiliar;
         this.fechaDeNacimiento = fechaDeNacimiento;
         this.edad = edad;
         this.claveSeguridadSocial = claveSeguridadSocial;
@@ -519,6 +525,16 @@ public class Consulta implements Serializable {
         this.telefono = telefono;
     }
 
+    public String getTelefonoAuxiliar() {
+        return telefonoAuxiliar;
+    }
+
+    public void setTelefonoAuxiliar(String telefonoAuxiliar) {
+        this.telefonoAuxiliar = telefonoAuxiliar;
+    }
+
+    
+    
     public Date getFechaDeNacimiento() {
         return fechaDeNacimiento;
     }

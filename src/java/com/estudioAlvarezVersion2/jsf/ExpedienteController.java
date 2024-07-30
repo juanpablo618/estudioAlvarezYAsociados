@@ -932,7 +932,6 @@ public class ExpedienteController implements Serializable {
      }
     
     public List verAgendasFuturasPorNroDeOrden(Integer orden) {
-        System.out.println("verAgendasFuturasPorNroDeOrden");
         
         List<Agenda> verAgendasFuturas = new ArrayList<Agenda>();
 
@@ -1255,28 +1254,28 @@ public class ExpedienteController implements Serializable {
     
     
     public void cambiarConsultaAExpAdm(Consulta consultaSelected) {
-    FacesContext context = FacesContext.getCurrentInstance();
-    ConsultaController consultaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{consultaController}", ConsultaController.class);
+        FacesContext context = FacesContext.getCurrentInstance();
+        ConsultaController consultaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{consultaController}", ConsultaController.class);
 
-    Expediente expAInsertar = prepareCreateExpAdministrativo();
-    Date fechaAntigua = new Date();
-    
-    if (consultaSelected.getFechaDeNacimiento() != null) {
-        fechaAntigua = consultaSelected.getFechaDeNacimiento();
-    }
+        Expediente expAInsertar = prepareCreateExpAdministrativo();
+        Date fechaAntigua = new Date();
 
-    if (consultaSelected.getFechaDeNacimiento() != null) {
-        LocalDate fechaNueva = fechaAntigua.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate start = fechaNueva;
-        LocalDate end = LocalDate.now();
-        long years = ChronoUnit.YEARS.between(start, end);
-        expAInsertar.setEdad(Math.toIntExact(years));
-    } else {
-        // Manejar el caso donde la fecha de nacimiento es nula
-        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Fecha de nacimiento es nula", "No se puede calcular la edad");
-        FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-        expAInsertar.setEdad(0); // o algún valor predeterminado
-    }
+        if (consultaSelected.getFechaDeNacimiento() != null) {
+            fechaAntigua = consultaSelected.getFechaDeNacimiento();
+        }
+
+        if (consultaSelected.getFechaDeNacimiento() != null) {
+            LocalDate fechaNueva = fechaAntigua.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate start = fechaNueva;
+            LocalDate end = LocalDate.now();
+            long years = ChronoUnit.YEARS.between(start, end);
+            expAInsertar.setEdad(Math.toIntExact(years));
+        } else {
+            // Manejar el caso donde la fecha de nacimiento es nula
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Fecha de nacimiento es nula", "No se puede calcular la edad");
+            FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+            expAInsertar.setEdad(0); // o algún valor predeterminado
+        }
 
     if ("0".equals(consultaSelected.getCuit()) || consultaSelected.getCuit() == null || "".equals(consultaSelected.getCuit()) || consultaSelected.getCuit().isEmpty() ) {
         FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Esta consulta no tiene cuit", "No es posible pasarla a exp. administrativo");
@@ -1299,6 +1298,7 @@ public class ExpedienteController implements Serializable {
         expAInsertar.setDepto(consultaSelected.getDepto());
         expAInsertar.setBarrio(consultaSelected.getBarrio());
         expAInsertar.setTelefono(consultaSelected.getTelefono());
+        expAInsertar.setTelefonoAuxiliar(consultaSelected.getTelefonoAuxiliar());
         expAInsertar.setFechaDeNacimiento(consultaSelected.getFechaDeNacimiento());
         expAInsertar.setClaveSeguridadSocial(consultaSelected.getClaveSeguridadSocial());
         expAInsertar.setClaveFiscal(consultaSelected.getClaveFiscal());
@@ -1344,6 +1344,14 @@ public class ExpedienteController implements Serializable {
         consultaControllerBean.getSelected().setEstadoConsulta("CONSULTA PASADA A EXP. ADMINISTRATIVO");
         consultaControllerBean.update();
         persist(JsfUtil.PersistAction.CREATE, "Consulta transformada a ADMINISTRATIVO con el nro de orden: " + expAInsertar.getOrden());
+        
+        if(expAInsertar.getFechaDeNacimiento() != null){
+        crearAgendaSaludoPorCumpleaños(expAInsertar.getFechaDeNacimiento(), expAInsertar.getOrden(), expAInsertar.getNombre(), expAInsertar.getApellido());
+        }else{
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Exp a insertar no tiene fecha de Nacimiento", "No es posible crear agenda de saludo de cumpleaños");
+            FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+        }
+        
         items = null;
         }
     }

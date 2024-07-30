@@ -32,6 +32,9 @@
 
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="margin-left: 3%;font-weight: bold" />
                                 <p:inputText id="telefono" value="#{expedienteController.selected.telefono}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_telefono}" />
+                                
+                                <p:outputLabel value="Telèfono Auxiliar" for="telefonoAuxiliar" style="margin-left: 3%;font-weight: bold" />
+                                <p:inputTextarea   autoResize="true"   id="telefonoAuxiliar" value="#{expedienteController.selected.telefonoAuxiliar}" title="Telèfono Auxiliar"/>
 
                             </h:panelGrid>
                             <h:panelGrid columns="4" cellspacing="5" cellpadding="1">
@@ -109,7 +112,6 @@
                         </p:tab>
                         <p:tab title="Datos Expediente">
 
-                            <div style="float: left; width: 50%"> 
                                 <h:panelGrid columns="4" cellspacing="5">
                                     <p:outputLabel value="Tipo de expediente" style="font-weight: bold"  />
                                     <p:inputText id="tipoDeExpediente" readonly="true" value="#{expedienteController.selected.tipoDeExpediente}" title="tipoDeExpediente"/>
@@ -193,8 +195,6 @@
                                 <br></br>
                                 <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
                                 <p:inputTextarea rows="7" cols="55" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
-
-                            </div> 
 
                             <h:panelGrid columns="2" cellspacing="5" >
                                 <p:outputLabel value="Tiene aportes: "  style="margin-left: 3%;font-weight: bold" />

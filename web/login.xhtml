@@ -51,7 +51,7 @@
                     <p:outputLabel for="username" value="Usuario:" style="color: white; font-size: 30px"  />
                                     
                     <p:selectOneMenu id="username" value="#{login.user}" style="border-radius: 5px;">
-                        <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.nombre}" />
+                        <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.idEmpleado}" />
                     </p:selectOneMenu>
 
                     <p:outputLabel for="password" value="Clave:" style="color: white; font-size: 30px"  />

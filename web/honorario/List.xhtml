@@ -144,7 +144,7 @@
                                 <h:outputText value="ACCIONES"/>
                             </f:facet>
                             
-                            <p:commandButton class="linea btnDelete" update=":growl,datalist, message" oncomplete="PF('honorariosTable').clearFilters()" actionListener="#{honorarioController.destroy}"  icon="ui-icon-trash" title="Eliminar">
+                            <p:commandButton class="linea btnDelete" update="datalist, message" oncomplete="PF('honorariosTable').clearFilters()" actionListener="#{honorarioController.destroy}"  icon="ui-icon-trash" title="Eliminar">
                             <f:setPropertyActionListener value="#{item}" target="#{honorarioController.selected}" />
                             <p:confirm header="Confirmación" message="¿Estas seguro?"  icon="ui-icon-alert"/>
                         </p:commandButton>

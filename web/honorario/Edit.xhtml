@@ -89,7 +89,7 @@
                 </p:selectOneMenu>
                 
                 <div>
-                    <p:commandButton actionListener="#{honorarioController.update}" class="botonCrear hoverGreen" value="#{bundle.Save}" update="displayEditHonorario,:HonorarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'HonorarioEditDialog');PF('honorariosTable').clearFilters()" />
+                    <p:commandButton actionListener="#{honorarioController.update}" class="botonCrear hoverGreen" value="#{bundle.Save}" update="displayEditHonorario,:HonorarioListForm:datalist" oncomplete="handleSubmit(args,'HonorarioEditDialog');PF('honorariosTable').clearFilters()" />
                                 
                 </div>
             </h:panelGrid>

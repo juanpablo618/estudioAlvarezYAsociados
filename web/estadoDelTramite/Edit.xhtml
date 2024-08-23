@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                         <p:outputLabel value="#{bundle.EditEstadoDelTramiteLabel_estado}" for="estado" /><br></br>
                         <p:inputText id="estado" value="#{estadoDelTramiteController.selected.estado}" title="#{bundle.EditEstadoDelTramiteTitle_estado}" required="true" requiredMessage="#{bundle.EditEstadoDelTramiteRequiredMessage_estado}"/><br></br><br></br>
-                        <p:commandButton class="botonCrear" onclick="EstadoDelTramiteViewDialog.hide()" actionListener="#{estadoDelTramiteController.update}" value="#{bundle.Save}" update="display,:EstadoDelTramiteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EstadoDelTramiteEditDialog');"/>
+                        <p:commandButton class="botonCrear" onclick="EstadoDelTramiteViewDialog.hide()" actionListener="#{estadoDelTramiteController.update}" value="#{bundle.Save}" update="display,:EstadoDelTramiteListForm:datalist" oncomplete="handleSubmit(args, 'EstadoDelTramiteEditDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

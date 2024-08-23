@@ -91,7 +91,7 @@
                                 <br></br><br></br>
                                 <div>
                                     <p:commandButton onclick="ConsultaViewDialog.hide()" actionListener="#{expedienteController.cambiarConsultaAExpAdm(consultaController.selected)}" class="botonCrearAgenda hoverGreen" value="Cambiar a Administrativo"
-                                                     style="float: right !important; margin-top: 0% !important;" update=":ConsultaListForm:datalist,:growl"  oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
+                                                     style="float: right !important; margin-top: 0% !important;" update=":ConsultaListForm:datalist"  oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
 
                                 </div>
                                 <br></br>
@@ -146,6 +146,12 @@
                                     <f:selectItem itemLabel="VIUDO" itemValue="VIUDO" />
                                      <p:ajax update="inputDatosDelConyuge" />
                                 </p:selectOneMenu>
+                                
+                                  <p:outputLabel value="Equipo"   /><br></br>
+                                
+                                 <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" requiredMessage="debe seleccionar un equipo" id="equipo" editable="false" effect="fold" value="#{consultaController.selected.equipo}">
+                                            <f:selectItems value="#{empleadoController.allEquipos}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo.nombre}" />
+                                        </p:selectOneMenu>
                             </h:panelGrid>
                             <h:panelGrid id="inputDatosDelConyuge" columns="6" cellspacing="5" style="margin-top: 2%;">
                                 <!-- DATOS CONYUGE -->

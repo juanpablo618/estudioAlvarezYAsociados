@@ -1,12 +1,11 @@
 package com.estudioAlvarezVersion2.jpa;
 
 import java.io.Serializable;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,6 +52,26 @@ public class Empleado implements Serializable {
     @Column(name = "password")
     private String password;
     
+    @ManyToMany
+    @JoinTable(
+        name = "empleados_equipos",
+        joinColumns = @JoinColumn(name = "idEmpleado"),
+        inverseJoinColumns = @JoinColumn(name = "idEquipo")
+    )
+    private List<Equipo> equipos;
+
+    // Getters y Setters para la lista de equipos
+    public List<Equipo> getEquipos() {
+        if (equipos == null) {
+            equipos = new ArrayList<>();
+        }
+        return equipos;
+    }
+
+    public void setEquipos(List<Equipo> equipos) {
+        this.equipos = equipos;
+    }
+    
     public Empleado() {
     }
 
@@ -60,12 +79,13 @@ public class Empleado implements Serializable {
         this.idEmpleado = idEmpleado;
     }
 
-    public Empleado(Integer idEmpleado, String nombre, String apellido, String cargo, String password) {
+    public Empleado(Integer idEmpleado, String nombre, String apellido, String cargo, String password, List<Equipo> equipos) {
         this.idEmpleado = idEmpleado;
         this.nombre = nombre;
         this.apellido = apellido;
         this.cargo = cargo;
         this.password = password;
+        this.equipos = equipos;
     }
     
     public Integer getIdEmpleado() {

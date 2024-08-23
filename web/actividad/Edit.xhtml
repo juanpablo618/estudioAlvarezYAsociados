@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                         <p:outputLabel value="Actividad" for="actividad" /><br></br>
                         <p:inputText id="actividad" value="#{actividadController.selected.actividad}" title="Actividad" required="true" requiredMessage="Actividad es requerido"/><br></br><br></br>
-                        <p:commandButton class="botonCrear" onclick="actividadViewDialog.hide()" actionListener="#{actividadController.update}" value="#{bundle.Save}" update="display,:ActividadListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ActividadEditDialog');"/>
+                        <p:commandButton class="botonCrear" onclick="actividadViewDialog.hide()" actionListener="#{actividadController.update}" value="#{bundle.Save}" update="display,:ActividadListForm:datalist" oncomplete="handleSubmit(args, 'ActividadEditDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

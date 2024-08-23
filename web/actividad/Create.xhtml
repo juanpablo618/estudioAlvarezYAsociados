@@ -15,7 +15,7 @@
                     <p:inputText id="actividad" value="#{actividadController.selected.actividad}" title="#{bundle.CreateEstadoDelTramiteTitle_estado}" required="true" requiredMessage="actividad es requerido"/><br></br>
                     
                     <p:commandButton value="#{bundle.Cancel}" onclick="ActividadCreateDialog.hide()"/>
-                    <p:commandButton class="botonCrear" actionListener="#{actividadController.create}" value="#{bundle.Save}" update="display,:ActividadListForm:datalist,:growl" oncomplete="handleSubmit(args,'ActividadCreateDialog');"/>
+                    <p:commandButton class="botonCrear" actionListener="#{actividadController.create}" value="#{bundle.Save}" update="display,:ActividadListForm:datalist" oncomplete="handleSubmit(args,'ActividadCreateDialog');"/>
                     
                 </h:panelGroup>
             </h:form>

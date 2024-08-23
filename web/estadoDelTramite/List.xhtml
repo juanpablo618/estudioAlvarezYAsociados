@@ -53,7 +53,7 @@
                                    <f:setPropertyActionListener value="#{item}" target="#{estadoDelTramiteController.selected}" />
                             </p:commandButton>
                             
-                            <p:commandButton class="linea" update=":growl,datalist, message" actionListener="#{estadoDelTramiteController.destroy}"  icon="ui-icon-circle-close" title="borrar">
+                            <p:commandButton class="linea" update="datalist, message" actionListener="#{estadoDelTramiteController.destroy}"  icon="ui-icon-circle-close" title="borrar">
                                 <f:setPropertyActionListener value="#{item}" target="#{estadoDelTramiteController.selected}" />
                                 <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
                             </p:commandButton>

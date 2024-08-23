@@ -1,11 +1,18 @@
 package com.estudioAlvarezVersion2.jsf;
 
+import com.estudioAlvarezVersion2.jpa.DAO;
 import com.estudioAlvarezVersion2.jpa.Empleado;
+import com.estudioAlvarezVersion2.jpa.Equipo;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.EmpleadoFacade;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,6 +25,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 @Named("empleadoController")
 @SessionScoped
@@ -25,8 +34,13 @@ public class EmpleadoController implements Serializable {
 
     @EJB
     private com.estudioAlvarezVersion2.jpacontroller.EmpleadoFacade ejbFacade;
+    
+    @EJB
+    private com.estudioAlvarezVersion2.jpacontroller.EquipoFacade equipoFacade;
+    
     private List<Empleado> items = null;
     private Empleado selected;
+    private List<Equipo> selectedEquipos;
 
     public EmpleadoController() {
     }
@@ -35,8 +49,86 @@ public class EmpleadoController implements Serializable {
         return selected;
     }
 
+    /*public void prepareEdit() {
+        if (selected != null) {
+            // Forzar la carga de los equipos si es Lazy
+            if (selected.getEquipos() == null) {
+                selectedEquipos = new ArrayList<>();
+            } else {
+                selectedEquipos = new ArrayList<>(selected.getEquipos());
+            }
+        } else {
+            selectedEquipos = new ArrayList<>();
+        }
+    }*/
+    
+    public void prepareEdit() {
+        if (selected != null) {
+            selectedEquipos = new ArrayList<>();
+
+            Connection con = null;
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+
+            try {
+                con = DAO.getConnection();
+
+                // Consulta para obtener los equipos asociados al empleado
+                String getEquiposSql = "SELECT idEquipo FROM empleados_equipos WHERE idEmpleado = ?";
+                ps = con.prepareStatement(getEquiposSql);
+                ps.setInt(1, selected.getIdEmpleado());
+                rs = ps.executeQuery();
+
+                FacesContext context = FacesContext.getCurrentInstance();
+                EquipoController equipoControllerBean = context.getApplication().evaluateExpressionGet(context, "#{equipoController}", EquipoController.class);
+
+                while (rs.next()) {
+                    int equipoId = rs.getInt("idEquipo");
+                    selectedEquipos.add(equipoControllerBean.getEquipo(equipoId));
+                }
+
+                if (selectedEquipos.isEmpty()) {
+                       selectedEquipos = new ArrayList<>();
+                }
+
+            } catch (SQLException ex) {
+                JsfUtil.addErrorMessage("Error al recuperar los equipos: " + ex.getMessage());
+            } finally {
+                try {
+                    if (rs != null) {
+                        rs.close();
+                    }
+                    if (ps != null) {
+                        ps.close();
+                    }
+                    if (con != null) {
+                        con.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            selectedEquipos = new ArrayList<>();
+        }
+    }
+
+
+    
     public void setSelected(Empleado selected) {
         this.selected = selected;
+    }
+
+    public List<Equipo> getSelectedEquipos() {
+        return selectedEquipos;
+    }
+
+    public void setSelectedEquipos(List<Equipo> selectedEquipos) {
+        this.selectedEquipos = selectedEquipos;
+    }
+
+   public List<Equipo> getAllEquipos() {
+        return equipoFacade.findAll();
     }
 
     protected void setEmbeddableKeys() {
@@ -51,20 +143,166 @@ public class EmpleadoController implements Serializable {
 
     public Empleado prepareCreate() {
         selected = new Empleado();
+        selectedEquipos = new ArrayList<>(); // Inicializar equipos seleccionados
         initializeEmbeddableKey();
         return selected;
     }
 
-    public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EmpleadoCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+    public void create() throws SQLException {
+        
+        // Persistir el empleado primero
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EmpleadoCreated"));
+
+             selected.setEquipos(selectedEquipos);
+       
+            Connection con = null;
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+
+            try {
+                con = DAO.getConnection();
+
+                // Consulta para obtener el ID del empleado recién creado
+                String getIdSql = "SELECT idEmpleado FROM Empleado WHERE Nombre = ? AND Apellido = ? ORDER BY idEmpleado DESC LIMIT 1";
+                ps = con.prepareStatement(getIdSql);
+                ps.setString(1, selected.getNombre());
+                ps.setString(2, selected.getApellido());
+                rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    int empleadoId = rs.getInt("idEmpleado");
+
+                    // Crear las relaciones con los equipos
+                    String insertSql = "INSERT INTO empleados_equipos (idEmpleado, idEquipo) VALUES (?, ?)";
+                    ps = con.prepareStatement(insertSql);
+                    
+                    for(Object obj : selectedEquipos){    
+          
+                        ps.setInt(1, empleadoId);
+                        ps.setInt(2, Integer.parseInt(obj.toString())); // Utiliza el id del equipo
+                        ps.execute();
+                    }
+
+                } else {
+                    JsfUtil.addErrorMessage("Error: No se pudo encontrar el ID del empleado.");
+                }
+
+            } catch (SQLException ex) {
+                JsfUtil.addErrorMessage("Error al crear las relaciones: " + ex.getMessage());
+            } finally {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            }
+
+            // Invalidar la lista de empleados para refrescar los datos
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;
+            }
+        
+    }
+
+
+
+
+    
+    
+    //public void update() {
+    //    if (selectedEquipos != null) {
+    //        selected.setEquipos(selectedEquipos);
+    //    }
+    //    persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("EmpleadoUpdated"));
+    //}
+    
+    /*public void update() {
+        if (selectedEquipos != null) {
+            selected.setEquipos(selectedEquipos);
+        }
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("EmpleadoUpdated"));
+    }*/
+    
+    
+
+    /*public void update() {
+            if (selected != null) {
+                if (selectedEquipos != null) {
+                //selected.setEquipos(selectedEquipos);
+            }
+                System.out.println("update de empleado ");
+                System.out.println(selectedEquipos.size());
+                System.out.println(selectedEquipos.toString());
+
+
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("EmpleadoUpdated"));
+        } else {
+            // Manejo de error: `selected` es `null`
+            JsfUtil.addErrorMessage("Empleado no seleccionado.");
+        }
+    }*/
+
+    public void update() {
+        if (selected != null) {
+            Connection con = null;
+            PreparedStatement ps = null;
+
+            try {
+                con = DAO.getConnection();
+
+                // Eliminar relaciones existentes en empleados_equipos para el empleado seleccionado
+                String deleteSql = "DELETE FROM empleados_equipos WHERE idEmpleado = ?";
+                ps = con.prepareStatement(deleteSql);
+                ps.setInt(1, selected.getIdEmpleado());
+                ps.executeUpdate();
+                ps.close();
+
+                // Insertar las nuevas relaciones con los equipos seleccionados
+                if (selectedEquipos != null && !selectedEquipos.isEmpty()) {
+                    String insertSql = "INSERT INTO empleados_equipos (idEmpleado, idEquipo) VALUES (?, ?)";
+                    ps = con.prepareStatement(insertSql);
+
+                    for (Object obj : selectedEquipos) {
+                        ps.setInt(1, selected.getIdEmpleado());
+                        ps.setInt(2, Integer.parseInt(obj.toString())); // Utiliza el id del equipo
+                        ps.execute();
+                    }
+                }
+
+                // Persistir el empleado
+                persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("EmpleadoUpdated"));
+
+            } catch (SQLException ex) {
+                JsfUtil.addErrorMessage("Error al actualizar las relaciones: " + ex.getMessage());
+            } finally {
+                try {
+                    if (ps != null) {
+                        ps.close();
+                    }
+                    if (con != null) {
+                        con.close();
+                    }
+                } catch (SQLException ex) {
+                    JsfUtil.addErrorMessage("Error al cerrar recursos: " + ex.getMessage());
+                }
+            }
+
+            // Invalidar la lista de empleados para refrescar los datos
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;
+            }
+        } else {
+            // Manejo de error: `selected` es `null`
+            JsfUtil.addErrorMessage("Empleado no seleccionado.");
         }
     }
 
-    public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("EmpleadoUpdated"));
-    }
+    
+    
 
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("EmpleadoDeleted"));
@@ -109,7 +347,7 @@ public class EmpleadoController implements Serializable {
             }
         }
     }
-
+    
     public Empleado getEmpleado(java.lang.Integer id) {
         return getFacade().find(id);
     }
@@ -172,6 +410,15 @@ public class EmpleadoController implements Serializable {
             return true;
             
         return false;
+    }
+    
+    public Equipo getEquipos(int id) {
+    // Implementar la lógica para obtener el equipo por ID
+    return equipoFacade.find(id);
+}
+    
+     public Equipo findEquipoById(Integer id) {
+        return equipoFacade.find(id);
     }
 
 }

@@ -64,6 +64,7 @@ public class AgendaController implements Serializable {
     private static final String LA_FECHA_SELECCIONADA_NO_ES_VALIDA = "la fecha selecionada no es válida";
     private static final String POR_SER_FERIADO = " por ser feriado";
     private static final String SI = "Si";
+    private static final String NO = "No";
     private static final String ESTA_PERSONA_PARA_ESTE_DIA_YA_TIENE_40_AGENDAS = "Esta persona para este día ya tiene 40 o más agendas ";
 
     private Agenda selected;
@@ -250,6 +251,9 @@ public class AgendaController implements Serializable {
     }
     
     public Agenda prepareReagendar(Agenda agendaAnterior) {
+        
+        selected.setRealizado("Reagendada");
+        
         selectedParaCrearUnaNueva = new Agenda();
 
         selectedParaCrearUnaNueva.setNombre(agendaAnterior.getNombre());
@@ -401,7 +405,20 @@ public class AgendaController implements Serializable {
     }
 
     public void createReagendado(String nombre, String apellido, String responsable, String realizado, Integer orden, Date fecha, String descripcion) {
+        
+        if(selected.getRealizado().equalsIgnoreCase("Reagendada")){
+        marcarComoReagendada();        
+        }
 
+        if(selected.getRealizado().equalsIgnoreCase("Si")){
+        marcarComoRealizadaSi();        
+        }
+        
+        if(selected.getRealizado().equalsIgnoreCase("No")){
+        marcarComoRealizadaNo();        
+        }
+        
+        
         selectedParaCrearUnaNueva.setNombre(nombre);
         selectedParaCrearUnaNueva.setApellido(apellido);
         selectedParaCrearUnaNueva.setOrden(orden);
@@ -486,9 +503,19 @@ public class AgendaController implements Serializable {
         }
 
     }
+    
+    public void marcarComoRealizadaNo() {
+        selected.setRealizado(NO);
+        this.update();
+    }
 
     public void marcarComoRealizadaSi() {
         selected.setRealizado(SI);
+        this.update();
+    }
+    
+    public void marcarComoReagendada(){
+        selected.setRealizado("Reagendada");
         this.update();
     }
     

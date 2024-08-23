@@ -21,6 +21,8 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 /**
@@ -52,8 +54,10 @@ public class ConsultaController implements Serializable {
     private String filterYear;
     private List<String> months;
     private List<String> years;
+    
+    private boolean cuitAlreadyExists;
 
-     @PostConstruct
+    @PostConstruct
     public void init() {
         // Inicializar meses y años
         months = Arrays.asList("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12");
@@ -64,6 +68,8 @@ public class ConsultaController implements Serializable {
     public ConsultaController() {
     }
 
+    
+    
     public void filterConsultas() {
         // Lógica para filtrar las consultas basadas en filterDay, filterMonth, filterYear
         filteredConsultas = getFacade().findAll(); // Reemplaza con la lógica de filtrado
@@ -94,6 +100,8 @@ public class ConsultaController implements Serializable {
 
     // Getters y Setters
 
+    
+    
     public Date getFilterDay() {
         return filterDay;
     }
@@ -201,12 +209,26 @@ public class ConsultaController implements Serializable {
     
     
     public void create() {
-
+        System.out.println("entro al create");
+        System.out.println(isCuitAlreadyRegistered(selected.getCuit()));
+        
         String successMessage = "Consulta".concat(" creada exitosamente");
 
-        persist(JsfUtil.PersistAction.CREATE, successMessage);
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        if(!selected.getCuit().isEmpty()){
+            if(!isCuitAlreadyRegistered(selected.getCuit())){
+        
+                persist(JsfUtil.PersistAction.CREATE, successMessage);
+                if (!JsfUtil.isValidationFailed()) {
+                    items = null;    // Invalidate list of items to trigger re-query.
+                }
+            }else{
+                   JsfUtil.addErrorMessage("cuit ya existe no fue posible crear la consulta");
+            }
+        }else{
+            persist(JsfUtil.PersistAction.CREATE, successMessage);
+                if (!JsfUtil.isValidationFailed()) {
+                    items = null;    // Invalidate list of items to trigger re-query.
+                }
         }
     }
     
@@ -267,4 +289,12 @@ public class ConsultaController implements Serializable {
         return yearsList;
     }
 
+     public boolean isCuitAlreadyRegistered(String cuit) {
+        // Lógica para verificar si el CUIT ya está registrado
+        return getFacade().isCuitExisting(cuit); // Asumiendo que tienes un servicio para esto
+    
+     
+     }
+     
+    
 }

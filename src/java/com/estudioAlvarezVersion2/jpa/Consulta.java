@@ -278,7 +278,10 @@ public class Consulta implements Serializable {
     @Column(name = "estadoConsulta")    
     private String estadoConsulta;
     
+    @Column(name = "equipo")    
+    private String equipo;
     
+
     public Consulta() {
     }
 
@@ -305,7 +308,7 @@ public class Consulta implements Serializable {
             String estadoCivil, String datosDelConyuge, String tipoDeBeneficio,
             String aportes, String detalleDeAportes, String trabajando, 
             String obraSocial, String inscripcionAut, String reclamoArt,
-            String estadoConsulta
+            String estadoConsulta, String equipo
     
     ) {
         this.idConsulta = idConsulta;
@@ -368,6 +371,7 @@ public class Consulta implements Serializable {
         this.inscripcionAut = inscripcionAut;
         this.reclamoArt = reclamoArt;
         this.estadoConsulta = estadoConsulta;
+        this.equipo = equipo;
         
     }
     
@@ -406,6 +410,16 @@ public class Consulta implements Serializable {
     public void setOrden(Integer orden) {
         this.orden = orden;
     }
+
+    public String getEquipo() {
+        return equipo;
+    }
+
+    public void setEquipo(String equipo) {
+        this.equipo = equipo;
+    }
+    
+    
 
     public String getCuit() {
         if(cuit != null){
@@ -533,8 +547,6 @@ public class Consulta implements Serializable {
         this.telefonoAuxiliar = telefonoAuxiliar;
     }
 
-    
-    
     public Date getFechaDeNacimiento() {
         return fechaDeNacimiento;
     }

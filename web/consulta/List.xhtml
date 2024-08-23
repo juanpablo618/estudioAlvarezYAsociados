@@ -81,34 +81,39 @@
 
                        <p:growl  id="message" showDetail="true" />
  
-                       <p:column style="text-align: center; width: 10%" headerText="Fecha de atenciòn">
+                       <p:column style="text-align: center; width: 10%" headerText="Fecha de atenciòn"  styleClass="centeredColumnContent#{item.estadoConsulta}">
                         <h:outputText style="width: 10%" value="#{item.fechaDeAtencion}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:column>
                        
-                        <p:column filterBy="#{item.apellido}"  style="text-align: center;" filterMatchMode="contains">
+                        <p:column filterBy="#{item.apellido}"  style="text-align: center;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
                             <f:facet name="header">
                                 <h:outputText value="Apellido y Nombre"/>
                             </f:facet>
                             <h:outputText value="#{item.apellido} #{item.nombre}"/>
                         </p:column>
                        
-                       <p:column filterBy="#{item.telefono}" style="text-align: center;" filterMatchMode="contains">
+                       <p:column filterBy="#{item.telefono}" style="text-align: center;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
                             <f:facet name="header">
                                 <h:outputText value="teléfono"/>
                             </f:facet>
                             <h:outputText value="#{item.telefono}"/>
-                        </p:column>
+                             <a href="#{expedienteController.abrirWhatsApp(item.telefono)}" target="_blank" >
+                                <img src="../faces/resources/images/whatsapp.png" style="width: 10%;" ></img>
+                            </a>
+                                      
                        
-                       <p:column filterBy="#{item.procedencia}" style="text-align: center;" filterMatchMode="contains">
+                       </p:column>
+                       
+                       <p:column filterBy="#{item.procedencia}" style="text-align: center;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
                             <f:facet name="header">
                                 <h:outputText value="Procedencia"/>
                             </f:facet>
                             <h:outputText value="#{item.procedencia}"/>
                         </p:column>
                        
-                       <p:column filterBy="#{item.estadoConsulta}" filterMatchMode="exact" style="text-align: center;" >
+                       <p:column filterBy="#{item.estadoConsulta}" filterMatchMode="exact" style="text-align: center;" styleClass="centeredColumnContent#{item.estadoConsulta}">
                             <f:facet name="header">
                                 <h:outputText value="estado"/>
                             </f:facet>
@@ -118,13 +123,15 @@
                                         <f:selectItem itemLabel="PRIMER CONTACTO" itemValue="PRIMER CONTACTO" />
                                         <f:selectItem itemLabel="ESPERANDO DOCUMENTACIÓN" itemValue="ESPERANDO DOCUMENTACIÓN" />
                                         <f:selectItem itemLabel="ARCHIVADO / DESISTIDO" itemValue="ARCHIVADO / DESISTIDO" />
+                                        <f:selectItem itemLabel="CONSULTA PASADA A EXP. ADMINISTRATIVO" itemValue="CONSULTA PASADA A EXP. ADMINISTRATIVO" />
+                                        <f:selectItem itemLabel="PARA BLANQUEO DE CLASE SS" itemValue="PARA BLANQUEO DE CLASE SS" />
+                                        
                                     </p:selectOneMenu>
                             </f:facet>
                            <h:outputText value="#{item.estadoConsulta}"/>
                         </p:column>
-                        
                        
-                       <p:column style="text-align: center;width: 10%; ">
+                       <p:column style="text-align: center;width: 10%; " styleClass="centeredColumnContent#{item.estadoConsulta}">
                             
                             <f:facet name="header">
                                 <h:outputText value="ACCIONES"/>

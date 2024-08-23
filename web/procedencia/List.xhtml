@@ -52,7 +52,7 @@
                             </p:commandButton>
                             
                             
-                            <p:commandButton class="linea" update=":growl,datalist, message" actionListener="#{procedenciaController.destroy}"  icon="ui-icon-circle-close" title="borrar">
+                            <p:commandButton class="linea" update="datalist, message" actionListener="#{procedenciaController.destroy}"  icon="ui-icon-circle-close" title="borrar">
                                 <f:setPropertyActionListener value="#{item}" target="#{procedenciaController.selected}" />
                                 <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert" />
                             </p:commandButton>

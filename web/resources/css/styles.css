@@ -94,6 +94,7 @@ boto.fondo {
 
 .btnDelete{background-color: red !important; }
 .btnSearch{background-color: green !important; }
+.btnOrange{background-color: orange !important; }
 .btnSearchDarkBlue{background-color: #0404e2 !important; }
 .btnSearchYellow{background-color: yellow !important; }
 .btnKey{background-color:  #3485ac  !important; }
@@ -218,6 +219,42 @@ boto.fondo {
     height: 95% !important;
 }
 
-.ui-growl-item{
+.ui-growl-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    color: #ffffff;
+    transition: all 0.3s ease;
     font-size: 30px !important;
+}
+
+.ui-growl-item .ui-growl-icon {
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+.ui-growl-item .ui-growl-message {
+    font-size: 26px;
+}
+
+.ui-growl-item:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.ui-growl-icon-info {
+    color: #17a2b8;
+}
+
+.ui-growl-icon-success {
+    color: #28a745;
+}
+
+.ui-growl-icon-warn {
+    color: #ffc107;
+}
+
+.ui-growl-icon-error {
+    color: #dc3545;
 }

@@ -238,9 +238,16 @@
                             <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
                         </p:commandButton>
                         
-                        <p:commandButton class="linea btnSearch"  update=":AgendaEditForm" oncomplete="PF('AgendaEditDialog').show()" icon="ui-icon-search" title="Ver Agenda">
-                            <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
-                        </p:commandButton>
+                         
+                        <p:commandButton  class="linea btnOrange" 
+                                          actionListener="#{agendaController.prepareReagendar(item)}"
+                                          title="Reagendar"
+                                          icon=" ui-icon-refresh" 
+                                          update=":AgendaReagendarForm" 
+                                          oncomplete="PF('AgendaReagendarDialog').show()" />
+                            
+                        
+                        
                         <br></br>    
                         <p:commandButton rendered="#{item.orden > 0 }" class="linea btnKey"  update=":AgendaViewClavesForm" oncomplete="PF('AgendaViewClavesDialog').show()" icon="ui-icon-locked" title="Claves">
                             <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />

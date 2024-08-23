@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                         <p:outputLabel value="Procedencia:" for="nombreProcedencia" /><br></br>
                         <p:inputText id="nombreProcedencia" value="#{procedenciaController.selected.nombreProcedencia}" title="#{bundle.EditProcedenciaTitle_nombreProcedencia}" required="true" requiredMessage="#{bundle.EditProcedenciaRequiredMessage_nombreProcedencia}"/><br></br><br></br>
-                        <p:commandButton class="botonCrear" onclick="ProcedenciaViewDialog.hide()" actionListener="#{procedenciaController.update}" value="#{bundle.Save}" update="display,:ProcedenciaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProcedenciaEditDialog');"/>
+                        <p:commandButton class="botonCrear" onclick="ProcedenciaViewDialog.hide()" actionListener="#{procedenciaController.update}" value="#{bundle.Save}" update="display,:ProcedenciaListForm:datalist" oncomplete="handleSubmit(args, 'ProcedenciaEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ProcedenciaEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

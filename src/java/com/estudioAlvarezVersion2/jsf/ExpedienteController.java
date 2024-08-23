@@ -1005,7 +1005,11 @@ public class ExpedienteController implements Serializable {
             comunicaciones.add(Comunicacion);
         });
         
-        Collections.sort(comunicaciones, (Comunicacion o1, Comunicacion o2) -> o1.getFecha().compareTo(o2.getFecha()));
+        //Collections.sort(comunicaciones, (Comunicacion o1, Comunicacion o2) -> o1.getFecha().compareTo(o2.getFecha()));
+        
+         // Ordenar de la más reciente a la más antigua
+        Collections.sort(comunicaciones, (Comunicacion o1, Comunicacion o2) -> o2.getFecha().compareTo(o1.getFecha()));
+
         
         return comunicaciones;
     }
@@ -1340,7 +1344,8 @@ public class ExpedienteController implements Serializable {
         expAInsertar.setObraSocial(consultaSelected.getObraSocial());
         expAInsertar.setInscripcionAut(consultaSelected.getInscripcionAut());
         expAInsertar.setReclamoArt(consultaSelected.getReclamoArt());
-
+        expAInsertar.setEquipo(consultaSelected.getEquipo());
+        
         consultaControllerBean.getSelected().setEstadoConsulta("CONSULTA PASADA A EXP. ADMINISTRATIVO");
         consultaControllerBean.update();
         persist(JsfUtil.PersistAction.CREATE, "Consulta transformada a ADMINISTRATIVO con el nro de orden: " + expAInsertar.getOrden());
@@ -1367,7 +1372,7 @@ public class ExpedienteController implements Serializable {
         telefono = telefono.replaceAll("[^0-9]", "");
 
         // Construir la URL de WhatsApp
-        String url = "https://wa.me/" + telefono;
+        String url = "https://wa.me/" + telefono+"?text=hola%20me%20comunico%20del%20Estudio%20Alvarez";
         return url;
     }
     

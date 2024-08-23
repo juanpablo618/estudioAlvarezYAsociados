@@ -15,7 +15,7 @@
                     <p:inputText id="estado" value="#{estadoDelTramiteController.selected.estado}" title="#{bundle.CreateEstadoDelTramiteTitle_estado}" required="true" requiredMessage="#{bundle.CreateEstadoDelTramiteRequiredMessage_estado}"/><br></br>
                     
                     <p:commandButton value="#{bundle.Cancel}" onclick="EstadoDelTramiteCreateDialog.hide()"/>
-                    <p:commandButton class="botonCrear" actionListener="#{estadoDelTramiteController.create}" value="#{bundle.Save}" update="display,:EstadoDelTramiteListForm:datalist,:growl" oncomplete="handleSubmit(args,'EstadoDelTramiteCreateDialog');"/>
+                    <p:commandButton class="botonCrear" actionListener="#{estadoDelTramiteController.create}" value="#{bundle.Save}" update="display,:EstadoDelTramiteListForm:datalist" oncomplete="handleSubmit(args,'EstadoDelTramiteCreateDialog');"/>
                     
                 </h:panelGroup>
             </h:form>

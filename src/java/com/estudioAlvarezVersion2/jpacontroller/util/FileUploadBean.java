@@ -384,11 +384,12 @@ public class FileUploadBean implements Serializable{
             Connection con;
 		PreparedStatement ps;
 
-            if(fileCronoDeAportes != null){
-                    if(fileCronoDeAportes.getContentType().equalsIgnoreCase("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") ||
-                            fileCronoDeAportes.getContentType().equalsIgnoreCase("application/vnd.ms-excel")
-                            || fileCronoDeAportes.getContentType().equalsIgnoreCase("application/octet-stream")
-                            ){
+                    if(fileCronoDeAportes != null){
+                    if (fileCronoDeAportes.getContentType().equalsIgnoreCase("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") ||
+                        fileCronoDeAportes.getContentType().equalsIgnoreCase("application/vnd.ms-excel") ||
+                        fileCronoDeAportes.getContentType().equalsIgnoreCase("application/vnd.ms-excel.sheet.macroEnabled.12") ||
+                        fileCronoDeAportes.getContentType().equalsIgnoreCase("application/octet-stream")) {
+
                         con = DAO.getConnection();
                         ps = con.prepareStatement("INSERT INTO documentoscronodeaportes (documento, nroDeOrden, nombreDelDocumento) " +
                         "VALUES (?, ?, ?) " +
@@ -431,11 +432,11 @@ public class FileUploadBean implements Serializable{
 		PreparedStatement ps;
 
             if(fileCronoDeAportesDos != null){
-                //Fichero ARRIETA MONICA SILVINA.xlsm no es un archivo xls/xlsx o no seleccionó un archivo
-                    if(fileCronoDeAportesDos.getContentType().equalsIgnoreCase("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") ||
-                            fileCronoDeAportesDos.getContentType().equalsIgnoreCase("application/vnd.ms-excel")
-                            || fileCronoDeAportesDos.getContentType().equalsIgnoreCase("application/octet-stream")
-                            ){
+               if (fileCronoDeAportesDos.getContentType().equalsIgnoreCase("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") ||
+                        fileCronoDeAportesDos.getContentType().equalsIgnoreCase("application/vnd.ms-excel") ||
+                        fileCronoDeAportesDos.getContentType().equalsIgnoreCase("application/vnd.ms-excel.sheet.macroEnabled.12") ||
+                        fileCronoDeAportesDos.getContentType().equalsIgnoreCase("application/octet-stream")) {
+
                         con = DAO.getConnection();
                         ps = con.prepareStatement("INSERT INTO documentoscronodeaportesdos (documento, nroDeOrden, nombreDelDocumento) " +
                         "VALUES (?, ?, ?) " +

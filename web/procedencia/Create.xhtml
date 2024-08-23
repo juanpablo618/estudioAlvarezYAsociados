@@ -15,7 +15,7 @@
                         <p:inputText id="nombreProcedencia" value="#{procedenciaController.selected.nombreProcedencia}" title="#{bundle.CreateProcedenciaTitle_nombreProcedencia}" required="true" requiredMessage="#{bundle.CreateProcedenciaRequiredMessage_nombreProcedencia}"/><br></br><br></br>
                 
                     <p:commandButton value="#{bundle.Cancel}" onclick="ProcedenciaCreateDialog.hide()"/>
-                    <p:commandButton class="botonCrear" actionListener="#{procedenciaController.create}" value="#{bundle.Save}" update="display,:ProcedenciaListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProcedenciaCreateDialog');"/>
+                    <p:commandButton class="botonCrear" actionListener="#{procedenciaController.create}" value="#{bundle.Save}" update="display,:ProcedenciaListForm:datalist" oncomplete="handleSubmit(args,'ProcedenciaCreateDialog');"/>
                 
                 </h:panelGroup>
             </h:form>

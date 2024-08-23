@@ -21,8 +21,15 @@
                         
                         <p:outputLabel value="#{bundle.CreateEmpleadoLabel_cargo}" for="cargo" /><br></br>
                         <p:inputText id="cargo" value="#{empleadoController.selected.cargo}" title="#{bundle.CreateEmpleadoTitle_cargo}" /><br></br><br></br>
+                    
+                    <p:outputLabel value="Equipos" for="equipos" /><br></br>
+                <p:selectManyCheckbox id="equipos" value="#{empleadoController.selectedEquipos}" layout="grid" columns="2">
+                    <f:selectItems value="#{empleadoController.allEquipos}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo}" />
+                </p:selectManyCheckbox>
+
+                    
+                    <p:commandButton class="botonCrearAgenda" actionListener="#{empleadoController.create}" value="#{bundle.Save}" update="display,:EmpleadoListForm:datalist" oncomplete="handleSubmit(args,'EmpleadoCreateDialog');" />
                     <p:commandButton value="#{bundle.Cancel}" onclick="EmpleadoCreateDialog.hide()"/>
-                    <p:commandButton class="botonCrearAgenda" actionListener="#{empleadoController.create}" value="#{bundle.Save}" update="display,:EmpleadoListForm:datalist,:growl" oncomplete="handleSubmit(args,'EmpleadoCreateDialog');" />
                     
                 </h:panelGroup>
             </h:form>

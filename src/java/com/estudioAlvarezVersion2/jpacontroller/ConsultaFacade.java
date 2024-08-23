@@ -37,6 +37,17 @@ public class ConsultaFacade extends AbstractFacade<Consulta> {
         return query.getResultList();
     }
     
-    
+    public boolean isCuitExisting(String cuit) {
+        try {
+            // Consulta JPQL para verificar si el CUIT ya existe en la base de datos
+            Long count = em.createQuery("SELECT COUNT(c) FROM Consulta c WHERE c.cuit = :cuit", Long.class)
+                            .setParameter("cuit", cuit)
+                            .getSingleResult();
+            return count > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     
 }

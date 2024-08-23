@@ -54,6 +54,9 @@
                                     <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
                                     <p:ajax update="inputPanelCantHijos" />
                                 </p:selectOneMenu>
+                                
+                                
+                                
                             </h:panelGrid>
                             <h:panelGrid  columns="4" cellspacing="5" id="inputPanelCantHijos">
                                 <p:outputLabel value="Número total de Hijos:" rendered="#{expedienteController.selected.sexo == 'Femenino'}" />
@@ -136,12 +139,10 @@
                                 <div style="width: 50%; margin-top: 1.5%"> 
                                     <div>
                                         <p:outputLabel value="Equipo:" for="equipo" style="font-weight: bold" /><br></br>
-
-                                        <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" requiredMessage="debe seleccionar un equipo correcto" id="equipo" editable="false" effect="fold" value="#{expedienteController.selected.equipo}">
+                                         
+                                        <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" id="equipo" editable="false" effect="fold" value="#{expedienteController.selected.equipo}">
                                             <f:selectItem itemLabel=" -- Elige un equipo --"  noSelectionOption="true"  />
-                                            <f:selectItem itemLabel="Justicia Federal" itemValue="Justicia Federal" />
-                                            <f:selectItem itemLabel="Justicia Provincial" itemValue="Justicia Provincial" />
-                                            <f:selectItem itemLabel="Previsional" itemValue="Previsional" />
+                                            <f:selectItems value="#{equipoController.items}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo.nombre}" />
                                         </p:selectOneMenu>
 
                                     </div>

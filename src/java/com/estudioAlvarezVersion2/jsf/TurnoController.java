@@ -69,6 +69,17 @@ public class TurnoController implements Serializable {
     
     private Date dateSelected;
     private String nombreResponsableSelected;
+    
+    private String asignarExpediente;
+    // Otras propiedades y métodos...
+
+    public String getAsignarExpediente() {
+        return asignarExpediente;
+    }
+
+    public void setAsignarExpediente(String asignarExpediente) {
+        this.asignarExpediente = asignarExpediente;
+    }
 
     public String getRealizadoSeleccionadoEnTurnoWithSessionOnlyAdmins() {
         return realizadoSeleccionadoEnTurnoWithSessionOnlyAdmins;

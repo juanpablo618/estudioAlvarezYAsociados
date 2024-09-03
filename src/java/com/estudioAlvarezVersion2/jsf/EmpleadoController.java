@@ -421,4 +421,57 @@ public class EmpleadoController implements Serializable {
         return equipoFacade.find(id);
     }
 
+     public String buscarEquiposALosQuePertenece(int empleadoId) {
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    List<String> nombresDeEquipos = new ArrayList<>();
+
+    try {
+        con = DAO.getConnection();
+
+        // Consulta para obtener los equipos asociados al empleado
+        String getEquiposSql = "SELECT idEquipo FROM empleados_equipos WHERE idEmpleado = ?";
+        ps = con.prepareStatement(getEquiposSql);
+        ps.setInt(1, empleadoId);
+        rs = ps.executeQuery();
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        EquipoController equipoControllerBean = context.getApplication().evaluateExpressionGet(context, "#{equipoController}", EquipoController.class);
+
+        while (rs.next()) {
+            int equipoId = rs.getInt("idEquipo");
+            Equipo equipo = equipoControllerBean.getEquipo(equipoId);
+            if (equipo != null) {
+                nombresDeEquipos.add(equipo.getNombre()); // Asumiendo que `getNombre()` devuelve el nombre del equipo
+            }
+        }
+
+    } catch (SQLException ex) {
+        JsfUtil.addErrorMessage("Error al recuperar los equipos: " + ex.getMessage());
+    } finally {
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    if (nombresDeEquipos.isEmpty()) {
+        return "No posee equipos";
+    }
+
+    // Unir los nombres de los equipos en una sola cadena, separados por comas
+    return String.join(", ", nombresDeEquipos);
+}
+
+     
 }

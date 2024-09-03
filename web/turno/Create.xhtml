@@ -11,6 +11,30 @@
         <p:dialog id="TurnoCreateDlg" widgetVar="TurnoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTurnoTitle}">
             <h:form id="TurnoCreateForm">
                 <h:panelGroup id="display">
+                    
+                     <!-- Botón para preguntar si se desea asignar a un expediente -->
+                        
+                     <!--<p:outputLabel value="desea asignarlo a un exp?" style="margin-left: 3%;font-weight: bold" />
+                     <p:selectOneMenu style="margin-left: 3%"  value="#{turnoController.selected.asignarExpediente}" >
+                                    <f:selectItem itemLabel="No" itemValue="no" />           
+                                    <f:selectItem itemLabel="Si" itemValue="si" />
+                            <p:ajax update="expedienteFields" />
+                    </p:selectOneMenu>
+                                
+                      Mostrar campos adicionales si asignarExpediente es verdadero 
+                     
+                     <h:panelGrid id="expedienteFields" columns="4" >
+                            <p:outputLabel value="Apellido y Nombre" for="apellidoExp" style="margin-left: 3%;font-weight: bold" rendered="#{turnoController.selected.asignarExpediente == 'si'}" />
+                            <p:selectOneMenu rendered="#{turnoController.selected.asignarExpediente == 'si'}" id="apellidoExp" value="#{honorarioController.selected.apellido}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="--Seleccione Uno--" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItems value="#{expedienteController.itemsAvailableSelectOneOnlyJudiciales}" var="exp" itemLabel="#{exp.getApellidoYNombre()}" itemDescription="#{exp.getApellidoYNombre()}" itemValue="#{exp}" />
+                                <p:ajax listener="#{honorarioController.transferir()}" update="orden" />
+                            </p:selectOneMenu>
+                        
+                            <p:outputLabel rendered="#{turnoController.selected.asignarExpediente == 'si'}" value="Orden" for="orden" style="margin-left: 3%;font-weight: bold" />
+                            <p:inputText rendered="#{turnoController.selected.asignarExpediente == 'si'}" readonly="true" id="orden" value="#{honorarioController.selected.orden}" title="Orden" />
+                        </h:panelGrid>
+-->
                     <h:panelGrid columns="4">
                     
                         <p:outputLabel value="día y hora:" for="horaYDia" style="font-weight: bold"/><br></br>

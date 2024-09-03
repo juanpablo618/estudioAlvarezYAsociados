@@ -60,7 +60,6 @@ public class Consulta implements Serializable {
     @Column(name = "orden")
     private Integer orden;
 
-    @Basic(optional = false)
     @Column(name = "cuit")
     private String cuit;
 

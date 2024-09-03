@@ -46,7 +46,7 @@
                         <p:ajax event="rowSelect"   update="createButton "/>
                         <p:ajax event="rowUnselect" update="createButton "/>
                         
-                        <p:growl  id="message" showDetail="true" />
+                        <p:growl life="2500" id="message" showDetail="true" />
 
                         <p:column style="width: 23%" styleClass="centeredColumnContent" sortBy="#{item.fecha}" filterBy="#{item.fecha}" filterMatchMode="contains" headerText="FECHA">
                             <f:facet name="filter">

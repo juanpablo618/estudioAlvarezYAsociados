@@ -7,7 +7,6 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
-    
        
         <ui:define name="body">
             <h:form id="ConsultaListForm" style="background-color: #F4F8FA">
@@ -73,47 +72,56 @@
                                  rowsPerPageTemplate="10,20,50,100,200"
                                  emptyMessage="No existen consultas"
                                  filteredValue="#{consultaController.filteredConsultas}"
-                             
+                                 
                                  >
-
+                        
+                         
                         <p:ajax event="rowSelect"   update="createButton  "/>
                         <p:ajax event="rowUnselect" update="createButton  "/>
 
-                       <p:growl  id="message" showDetail="true" />
+                       <p:growl life="2500" id="message" showDetail="true" />
  
-                       <p:column style="text-align: center; width: 10%" headerText="Fecha de atenciòn"  styleClass="centeredColumnContent#{item.estadoConsulta}">
+                       <p:column style="text-align: left; width: 10%" headerText="Fecha de atenciòn"  styleClass="centeredColumnContent#{item.estadoConsulta}">
                         <h:outputText style="width: 10%" value="#{item.fechaDeAtencion}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:column>
                        
-                        <p:column filterBy="#{item.apellido}"  style="text-align: center;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
-                            <f:facet name="header">
+                        <p:column filterBy="#{item.apellido}"  style="text-align: left;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
+                            <f:facet name="header"  >
                                 <h:outputText value="Apellido y Nombre"/>
                             </f:facet>
                             <h:outputText value="#{item.apellido} #{item.nombre}"/>
                         </p:column>
                        
-                       <p:column filterBy="#{item.telefono}" style="text-align: center;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
+                       <p:column filterBy="#{item.telefono}" style="text-align: left;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
                             <f:facet name="header">
                                 <h:outputText value="teléfono"/>
                             </f:facet>
                             <h:outputText value="#{item.telefono}"/>
-                             <a href="#{expedienteController.abrirWhatsApp(item.telefono)}" target="_blank" >
+                       </p:column>
+                       
+                       <p:column style="text-align: center;width: 20%;" styleClass="centeredColumnContent#{item.estadoConsulta}">
+                            <f:facet name="header">
+                                <h:outputText value="whatsapp"/>
+                            </f:facet>
+                            
+                           <a href="#{expedienteController.abrirWhatsApp(item.telefono)}" target="_blank" >
                                 <img src="../faces/resources/images/whatsapp.png" style="width: 10%;" ></img>
-                            </a>
+                           </a>
                                       
                        
                        </p:column>
                        
-                       <p:column filterBy="#{item.procedencia}" style="text-align: center;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
+                       
+                       <p:column filterBy="#{item.procedencia}" style="text-align: left;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
                             <f:facet name="header">
                                 <h:outputText value="Procedencia"/>
                             </f:facet>
                             <h:outputText value="#{item.procedencia}"/>
                         </p:column>
                        
-                       <p:column filterBy="#{item.estadoConsulta}" filterMatchMode="exact" style="text-align: center;" styleClass="centeredColumnContent#{item.estadoConsulta}">
+                       <p:column filterBy="#{item.estadoConsulta}" filterMatchMode="exact" style="text-align: left;" styleClass="centeredColumnContent#{item.estadoConsulta}">
                             <f:facet name="header">
                                 <h:outputText value="estado"/>
                             </f:facet>
@@ -131,7 +139,7 @@
                            <h:outputText value="#{item.estadoConsulta}"/>
                         </p:column>
                        
-                       <p:column style="text-align: center;width: 10%; " styleClass="centeredColumnContent#{item.estadoConsulta}">
+                       <p:column style="text-align: left;width: 10%; " styleClass="centeredColumnContent#{item.estadoConsulta}">
                             
                             <f:facet name="header">
                                 <h:outputText value="ACCIONES"/>

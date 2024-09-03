@@ -24,6 +24,14 @@
                     <h:outputText value="#{consultaController.selected.apellido}" />
                     <h:outputText value=" "/>
                     <h:outputText value="#{consultaController.selected.nombre}"/>
+                    <h:outputText value=" "/>
+
+                    <h:outputText value="Consulta pasada a nro de orden: "
+                                  rendered="#{not empty consultaController.selected.orden and consultaController.selected.estadoConsulta == 'CONSULTA PASADA A EXP. ADMINISTRATIVO'}"/>
+
+                    <h:outputText value="#{consultaController.selected.orden}"
+                                  rendered="#{not empty consultaController.selected.orden and consultaController.selected.estadoConsulta == 'CONSULTA PASADA A EXP. ADMINISTRATIVO'}"/>
+
                     <p:commandButton onclick="ConsultaViewDialog.hide()" actionListener="#{consultaController.update}" class="botonCrearAgenda hoverGreen" value="#{bundle.Save}"
                                      style="float: right !important; margin-top: 0% !important;" update=":ConsultaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ConsultaEditDialog');"/>
                 </div>

@@ -1347,6 +1347,7 @@ public class ExpedienteController implements Serializable {
         expAInsertar.setEquipo(consultaSelected.getEquipo());
         
         consultaControllerBean.getSelected().setEstadoConsulta("CONSULTA PASADA A EXP. ADMINISTRATIVO");
+        consultaControllerBean.getSelected().setOrden(expAInsertar.getOrden());
         consultaControllerBean.update();
         persist(JsfUtil.PersistAction.CREATE, "Consulta transformada a ADMINISTRATIVO con el nro de orden: " + expAInsertar.getOrden());
         

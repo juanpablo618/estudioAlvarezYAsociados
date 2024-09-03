@@ -486,3 +486,7 @@ div.ui-growl {
 
     margin-bottom: 10px;
 }
+
+.ui-dialog .ui-dialog-buttonpane{
+    text-align: center !important;
+}

@@ -56,7 +56,7 @@ public class ConsultaController implements Serializable {
     private List<String> years;
     
     private boolean cuitAlreadyExists;
-
+    
     @PostConstruct
     public void init() {
         // Inicializar meses y años
@@ -209,8 +209,6 @@ public class ConsultaController implements Serializable {
     
     
     public void create() {
-        System.out.println("entro al create");
-        System.out.println(isCuitAlreadyRegistered(selected.getCuit()));
         
         String successMessage = "Consulta".concat(" creada exitosamente");
 

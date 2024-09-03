@@ -81,6 +81,10 @@ public class Turno implements Serializable {
     @Column(name = "tipoDeTurno")
     private String tipoDeTurno;
     
+    @Column(name = "asignarExpediente")
+    private String asignarExpediente;
+    
+    
     public Turno() {
     }
 
@@ -195,6 +199,14 @@ public class Turno implements Serializable {
 
     public void setTipoDeTurno(String tipoDeTurno) {
         this.tipoDeTurno = tipoDeTurno;
+    }
+
+    public String getAsignarExpediente() {
+        return asignarExpediente;
+    }
+
+    public void setAsignarExpediente(String asignarExpediente) {
+        this.asignarExpediente = asignarExpediente;
     }
     
     @Override

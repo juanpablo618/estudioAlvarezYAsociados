@@ -57,7 +57,7 @@
                     <p:ajax event="rowSelect"   update="createButton "/>
                     <p:ajax event="rowUnselect" update="createButton "/>
 
-                    <p:growl  id="message" showDetail="true" />
+                    <p:growl life="2500" id="message" showDetail="true" />
 
                     <p:column style="text-align: center; width: 10%"  sortBy="#{item.getDiaMesAnio()}" filterBy="#{item.getDiaMesAnio()}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="startsWith" headerText="FECHA">
                         <f:facet name="filter">
@@ -189,7 +189,7 @@
                     <p:ajax event="rowSelect"   update="createButton "/>
                     <p:ajax event="rowUnselect" update="createButton "/>
 
-                    <p:growl  id="message2" showDetail="true" />
+                    <p:growl life="2500" id="message2" showDetail="true" />
         
                     <p:column style="width: 10%" styleClass="centeredColumnContent#{item.realizado}" sortBy="#{item.getDiaMesAnio()}" filterBy="#{item.getDiaMesAnio()}" filterMatchMode="exact" >
                         <f:facet name="filter">

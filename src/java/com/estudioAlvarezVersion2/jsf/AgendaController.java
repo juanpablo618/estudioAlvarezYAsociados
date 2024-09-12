@@ -72,6 +72,10 @@ public class AgendaController implements Serializable {
     private Agenda selectedAgendaPasada;
     private Agenda selectedAgendaFutura;
 
+    private Agenda selectedTurnoPasado;
+    private Agenda selectedTurnoFuturo;
+
+    
     private Agenda selectedParaCrearUnaNueva;
     private Date fechaParaFiltrar = new Date();
     private List<Agenda> filteredAgendas;
@@ -108,6 +112,24 @@ public class AgendaController implements Serializable {
             "Mateo Novau"});
         // Agregar más líderes y sus empleados según sea necesario
     }
+
+    public Agenda getSelectedTurnoPasado() {
+        return selectedTurnoPasado;
+    }
+
+    public void setSelectedTurnoPasado(Agenda selectedTurnoPasado) {
+        this.selectedTurnoPasado = selectedTurnoPasado;
+    }
+
+    public Agenda getSelectedTurnoFuturo() {
+        return selectedTurnoFuturo;
+    }
+
+    public void setSelectedTurnoFuturo(Agenda selectedTurnoFuturo) {
+        this.selectedTurnoFuturo = selectedTurnoFuturo;
+    }
+    
+    
     
     public List<Agenda> getSelectedItems() {
         return selectedItems;

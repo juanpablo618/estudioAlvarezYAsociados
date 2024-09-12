@@ -16,7 +16,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -29,24 +28,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Consulta.findAll", query = "SELECT e FROM Consulta e ORDER BY e.fechaDeAtencion DESC"),
-    @NamedQuery(name = "Consulta.findAllExceptArchivedOrDismissed", 
-            query = "SELECT e FROM Consulta e WHERE e.estadoConsulta NOT IN ('ARCHIVADO / DESISTIDO') ORDER BY e.fechaDeAtencion DESC")
-    , @NamedQuery(name = "Consulta.findByIdConsulta", query = "SELECT e FROM Consulta e WHERE e.idConsulta = :idConsulta")
-    , @NamedQuery(name = "Consulta.findByOrden", query = "SELECT e FROM Consulta e WHERE e.orden = :orden")
-    , @NamedQuery(name = "Consulta.findByCuit", query = "SELECT e FROM Consulta e WHERE e.cuit = :cuit")
-    , @NamedQuery(name = "Consulta.findByDni", query = "SELECT e FROM Consulta e WHERE e.cuit = :dni")
-    , @NamedQuery(name = "Consulta.findByNombre", query = "SELECT e FROM Consulta e WHERE e.nombre = :nombre")
-    , @NamedQuery(name = "Consulta.findByTipoDeDocumento", query = "SELECT e FROM Consulta e WHERE e.tipoDeDocumento = :tipoDeDocumento")
-    , @NamedQuery(name = "Consulta.findBySexo", query = "SELECT e FROM Consulta e WHERE e.sexo = :sexo")
-    , @NamedQuery(name = "Consulta.findByApellido", query = "SELECT e FROM Consulta e WHERE e.apellido = :apellido")
-    , @NamedQuery(name = "Consulta.findByDireccion", query = "SELECT e FROM Consulta e WHERE e.direccion = :direccion")
-    , @NamedQuery(name = "Consulta.findByNroDeAltura", query = "SELECT e FROM Consulta e WHERE e.nroDeAltura = :nroDeAltura")
-    , @NamedQuery(name = "Consulta.findByPiso", query = "SELECT e FROM Consulta e WHERE e.piso = :piso")
-    , @NamedQuery(name = "Consulta.findByDepto", query = "SELECT e FROM Consulta e WHERE e.depto = :depto")
-    , @NamedQuery(name = "Consulta.findByBarrio", query = "SELECT e FROM Consulta e WHERE e.barrio = :barrio")
-    , @NamedQuery(name = "Consulta.findByTelefono", query = "SELECT e FROM Consulta e WHERE e.telefono = :telefono")
-    , @NamedQuery(name = "Consulta.findByFechaDeNacimiento", query = "SELECT e FROM Consulta e WHERE e.fechaDeNacimiento = :fechaDeNacimiento")
-    , @NamedQuery(name = "Consulta.findByEdad", query = "SELECT e FROM Consulta e WHERE e.edad = :edad")})
+    @NamedQuery(name = "Consulta.findAllExceptArchivedOrDismissed",
+            query = "SELECT e FROM Consulta e WHERE e.estadoConsulta NOT IN ('ARCHIVADO / DESISTIDO') ORDER BY e.fechaDeAtencion DESC"),
+    @NamedQuery(name = "Consulta.findByIdConsulta", query = "SELECT e FROM Consulta e WHERE e.idConsulta = :idConsulta"),
+    @NamedQuery(name = "Consulta.findByOrden", query = "SELECT e FROM Consulta e WHERE e.orden = :orden"),
+    @NamedQuery(name = "Consulta.findByCuit", query = "SELECT e FROM Consulta e WHERE e.cuit = :cuit"),
+    @NamedQuery(name = "Consulta.findByDni", query = "SELECT e FROM Consulta e WHERE e.cuit = :dni"),
+    @NamedQuery(name = "Consulta.findByNombre", query = "SELECT e FROM Consulta e WHERE e.nombre = :nombre"),
+    @NamedQuery(name = "Consulta.findByTipoDeDocumento", query = "SELECT e FROM Consulta e WHERE e.tipoDeDocumento = :tipoDeDocumento"),
+    @NamedQuery(name = "Consulta.findBySexo", query = "SELECT e FROM Consulta e WHERE e.sexo = :sexo"),
+    @NamedQuery(name = "Consulta.findByApellido", query = "SELECT e FROM Consulta e WHERE e.apellido = :apellido"),
+    @NamedQuery(name = "Consulta.findByDireccion", query = "SELECT e FROM Consulta e WHERE e.direccion = :direccion"),
+    @NamedQuery(name = "Consulta.findByNroDeAltura", query = "SELECT e FROM Consulta e WHERE e.nroDeAltura = :nroDeAltura"),
+    @NamedQuery(name = "Consulta.findByPiso", query = "SELECT e FROM Consulta e WHERE e.piso = :piso"),
+    @NamedQuery(name = "Consulta.findByDepto", query = "SELECT e FROM Consulta e WHERE e.depto = :depto"),
+    @NamedQuery(name = "Consulta.findByBarrio", query = "SELECT e FROM Consulta e WHERE e.barrio = :barrio"),
+    @NamedQuery(name = "Consulta.findByTelefono", query = "SELECT e FROM Consulta e WHERE e.telefono = :telefono"),
+    @NamedQuery(name = "Consulta.findByFechaDeNacimiento", query = "SELECT e FROM Consulta e WHERE e.fechaDeNacimiento = :fechaDeNacimiento"),
+    @NamedQuery(name = "Consulta.findByEdad", query = "SELECT e FROM Consulta e WHERE e.edad = :edad")})
 public class Consulta implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,7 +54,7 @@ public class Consulta implements Serializable {
     @Basic(optional = false)
     @Column(name = "idConsulta")
     private Integer idConsulta;
-    
+
     @Basic(optional = false)
     @Column(name = "orden")
     private Integer orden;
@@ -67,14 +66,15 @@ public class Consulta implements Serializable {
     @Column(name = "dni")
     private String dni;
 
+    @Basic(optional = false)
     @Column(name = "nombre")
     private String nombre;
-    
+
     @Basic(optional = false)
     @Size(min = 1, max = 200)
     @Column(name = "tipoDeDocumento")
     private String tipoDeDocumento;
-    
+
     @Basic(optional = false)
     @Column(name = "sexo")
     private String sexo;
@@ -102,15 +102,13 @@ public class Consulta implements Serializable {
     @Basic(optional = false)
     @Column(name = "barrio")
     private String barrio;
-    
+
     @Basic(optional = false)
     @Column(name = "telefono")
     private String telefono;
-    
-    @Basic(optional = false)
+
     @Column(name = "telefonoAuxiliar")
     private String telefonoAuxiliar;
-
 
     @Basic(optional = false)
     @Column(name = "fechaDeNacimiento")
@@ -186,11 +184,11 @@ public class Consulta implements Serializable {
     @Basic(optional = false)
     @Column(name = "observaciones")
     private String observaciones;
-    
+
     @Basic(optional = false)
     @Column(name = "responsable")
     private String responsable;
-    
+
     @Basic(optional = false)
     @Column(name = "apoderado")
     private String apoderado;
@@ -223,63 +221,65 @@ public class Consulta implements Serializable {
     @Basic(optional = false)
     @Column(name = "tipo")
     private String tipo;
-    
+
     @Basic(optional = false)
     @Column(name = "detalleDeEstadoDeTramite")
     private String detalleDeEstadoDeTramite;
-    
+
     @Basic(optional = false)
     @Column(name = "tablaDeHonorariosYGastos")
     private String tablaDeHonorariosYGastos;
-    
-    @Column(name = "subCategoriasDeTipo")
-    private String[]  subCategoriasDeTipo;
-    
-    @Column(name = "cantidadDeHijos")
-    private int  cantidadDeHijos;
-    
-    @Column(name = "cantidadDeHijosConDiscapacidad")
-    private int  cantidadDeHijosConDiscapacidad;
-    
-    @Column(name = "cantidadDeHijosAdoptivos")
-    private int  cantidadDeHijosAdoptivos;
-    
-    @Column(name = "cantidadDeHijosPercibioAuh")
-    private int  cantidadDeHijosPercibioAuh;
-    
-    @Column(name = "estadoCivil")
-    private String  estadoCivil;
 
-    @Column(name = "datosDelConyuge")    
+    @Column(name = "subCategoriasDeTipo")
+    private String[] subCategoriasDeTipo;
+
+    @Column(name = "cantidadDeHijos")
+    private int cantidadDeHijos;
+
+    @Column(name = "cantidadDeHijosConDiscapacidad")
+    private int cantidadDeHijosConDiscapacidad;
+
+    @Column(name = "cantidadDeHijosAdoptivos")
+    private int cantidadDeHijosAdoptivos;
+
+    @Column(name = "cantidadDeHijosPercibioAuh")
+    private int cantidadDeHijosPercibioAuh;
+
+    @Column(name = "estadoCivil")
+    private String estadoCivil;
+
+    @Column(name = "datosDelConyuge")
     private String datosDelConyuge;
-    
-    @Column(name = "tipoDeBeneficio")    
+
+    @Column(name = "tipoDeBeneficio")
     private String tipoDeBeneficio;
-    
-    @Column(name = "aportes")    
+
+    @Column(name = "aportes")
     private String aportes;
-    
-    @Column(name = "detalleDeAportes")    
+
+    @Column(name = "detalleDeAportes")
     private String detalleDeAportes;
-    
-    @Column(name = "trabajando")    
+
+    @Column(name = "trabajando")
     private String trabajando;
-    
-    @Column(name = "obraSocial")    
+
+    @Column(name = "obraSocial")
     private String obraSocial;
-    
-    @Column(name = "inscripcionAut")    
+
+    @Column(name = "inscripcionAut")
     private String inscripcionAut;
-    
-    @Column(name = "reclamoArt")    
+
+    @Column(name = "reclamoArt")
     private String reclamoArt;
-    
-    @Column(name = "estadoConsulta")    
+
+    @Column(name = "estadoConsulta")
     private String estadoConsulta;
-    
-    @Column(name = "equipo")    
+
+    @Column(name = "equipo")
     private String equipo;
-    
+
+    @Column(name = "quienTomoConsulta")
+    private String quienTomoConsulta;
 
     public Consulta() {
     }
@@ -297,18 +297,17 @@ public class Consulta implements Serializable {
             String localidad, String tipoDeTramite, String procedencia,
             String estadoDelTramite, Date fechaDeCobro, String nacionalidad,
             String tipoDeConsulta, String caratula, String nroDeConsulta,
-            String juzgadoODependencia, String observaciones, String responsable, 
+            String juzgadoODependencia, String observaciones, String responsable,
             String apoderado, String comunicaciones, Date fechaDeAtencion,
             String convenioDeHonorarios, String jurisdiccion, String poderFirmado,
-            String tipo, String etapaProcesal, String detalleDeEstadoDeTramite, 
-            String tablaDeHonorariosYGastos, String[]  subCategoriasDeTipo,
+            String tipo, String etapaProcesal, String detalleDeEstadoDeTramite,
+            String tablaDeHonorariosYGastos, String[] subCategoriasDeTipo,
             int cantidadDeHijos, int cantidadDeHijosConDiscapacidad,
             int cantidadDeHijosAdoptivos, int cantidadDeHijosPercibioAuh,
             String estadoCivil, String datosDelConyuge, String tipoDeBeneficio,
-            String aportes, String detalleDeAportes, String trabajando, 
+            String aportes, String detalleDeAportes, String trabajando,
             String obraSocial, String inscripcionAut, String reclamoArt,
-            String estadoConsulta, String equipo
-    
+            String estadoConsulta, String equipo, String quienTomoConsulta
     ) {
         this.idConsulta = idConsulta;
         this.orden = orden;
@@ -363,7 +362,7 @@ public class Consulta implements Serializable {
         this.datosDelConyuge = datosDelConyuge;
         this.tipoDeBeneficio = tipoDeBeneficio;
         this.aportes = aportes;
-        
+
         this.detalleDeAportes = detalleDeAportes;
         this.trabajando = trabajando;
         this.obraSocial = obraSocial;
@@ -371,20 +370,30 @@ public class Consulta implements Serializable {
         this.reclamoArt = reclamoArt;
         this.estadoConsulta = estadoConsulta;
         this.equipo = equipo;
-        
-    }
-    
-    public String[]  getSubCategoriasDeTipo() {
-        return  subCategoriasDeTipo;
+        this.quienTomoConsulta = quienTomoConsulta;
     }
 
-    public void setSubCategoriasDeTipo(String[]  subCategoriasDeTipo) {
-        this.subCategoriasDeTipo = subCategoriasDeTipo;
+    public String getQuienTomoConsulta() {
+        return quienTomoConsulta;
+    }
+
+    public void setQuienTomoConsulta(String quienTomoConsulta) {
+        this.quienTomoConsulta = quienTomoConsulta;
     }
     
+    
+
+    public String[] getSubCategoriasDeTipo() {
+        return subCategoriasDeTipo;
+    }
+
+    public void setSubCategoriasDeTipo(String[] subCategoriasDeTipo) {
+        this.subCategoriasDeTipo = subCategoriasDeTipo;
+    }
+
     public String getSelectedValueString() {
-          return Arrays.toString(subCategoriasDeTipo);
-        }
+        return Arrays.toString(subCategoriasDeTipo);
+    }
 
     public String getApoderado() {
         return apoderado;
@@ -393,7 +402,7 @@ public class Consulta implements Serializable {
     public void setApoderado(String apoderado) {
         this.apoderado = apoderado;
     }
-    
+
     public Integer getIdConsulta() {
         return idConsulta;
     }
@@ -417,11 +426,9 @@ public class Consulta implements Serializable {
     public void setEquipo(String equipo) {
         this.equipo = equipo;
     }
-    
-    
 
     public String getCuit() {
-        if(cuit != null){
+        if (cuit != null) {
             return cuit;
         }
         return "";
@@ -434,14 +441,14 @@ public class Consulta implements Serializable {
     public String getDni() {
         return dni;
     }
-    
+
     //ESTO LO TENGO Q HACER POR Q LOS DNI ESTÁN MAL CARGADOS LA GRAN MAYORíA
     public String getCuitRecordado() {
-        if(cuit !=null && cuit.length()>=10){
-        String documento = cuit.replace(" ", "");
-        documento = documento.substring(2, 10);
-        return documento;
-        }else{
+        if (cuit != null && cuit.length() >= 10) {
+            String documento = cuit.replace(" ", "");
+            documento = documento.substring(2, 10);
+            return documento;
+        } else {
             return dni;
         }
     }
@@ -479,13 +486,13 @@ public class Consulta implements Serializable {
     }
 
     public String getApellidoYNombre() {
-        if(apellido != null && nombre !=null){
-        return apellido.concat(" ").concat(nombre);
-        }else{
+        if (apellido != null && nombre != null) {
+            return apellido.concat(" ").concat(nombre);
+        } else {
             return null;
         }
     }
-       
+
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
@@ -705,7 +712,7 @@ public class Consulta implements Serializable {
     public void setResponsable(String responsable) {
         this.responsable = responsable;
     }
-    
+
     public String getComunicaciones() {
         return comunicaciones;
     }
@@ -729,7 +736,7 @@ public class Consulta implements Serializable {
     public void setEstadoConsulta(String estadoConsulta) {
         this.estadoConsulta = estadoConsulta;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -740,15 +747,15 @@ public class Consulta implements Serializable {
     public Date getFechaDeAtencion() {
         return fechaDeAtencion;
     }
-    
+
     public String getDiaMesAnioParaFechaDeAtencion() {
-        
-        if(fechaDeAtencion != null){
-        DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        return formatoFecha.format(fechaDeAtencion);
+
+        if (fechaDeAtencion != null) {
+            DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+            return formatoFecha.format(fechaDeAtencion);
         }
         return "";
-        
+
     }
 
     public void setFechaDeAtencion(Date fechaDeAtencion) {
@@ -898,7 +905,7 @@ public class Consulta implements Serializable {
     public void setReclamoArt(String reclamoArt) {
         this.reclamoArt = reclamoArt;
     }
-    
+
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Consulta)) {
@@ -910,5 +917,5 @@ public class Consulta implements Serializable {
         }
         return true;
     }
-    
+
 }

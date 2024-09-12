@@ -7,6 +7,7 @@ import com.estudioAlvarezVersion2.jpa.Expediente;
 import com.estudioAlvarezVersion2.jpa.ExpedienteDAO;
 import com.estudioAlvarezVersion2.jpa.Comunicacion;
 import com.estudioAlvarezVersion2.jpa.Consulta;
+import com.estudioAlvarezVersion2.jpa.Turno;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.ExpedienteFacade;
@@ -79,6 +80,11 @@ public class ExpedienteController implements Serializable {
     private List<Agenda> filteredAgendasParaHoy;
     private List<Agenda> filteredAgendasAnteriores;
     private List<Agenda> filteredAgendasFuturas;
+    
+    private List<Agenda> filteredTurnosAnteriores;
+    private List<Agenda> filteredTurnosFuturos;
+    
+    
     private List<Comunicacion> filteredComunicacionesPorNroDeOrden;
     
     private Date dateSelected;
@@ -89,6 +95,22 @@ public class ExpedienteController implements Serializable {
 
     public Date getDateSelected() {
         return dateSelected;
+    }
+
+    public List<Agenda> getFilteredTurnosAnteriores() {
+        return filteredTurnosAnteriores;
+    }
+
+    public void setFilteredTurnosAnteriores(List<Agenda> filteredTurnosAnteriores) {
+        this.filteredTurnosAnteriores = filteredTurnosAnteriores;
+    }
+
+    public List<Agenda> getFilteredTurnosFuturos() {
+        return filteredTurnosFuturos;
+    }
+
+    public void setFilteredTurnosFuturos(List<Agenda> filteredTurnosFuturos) {
+        this.filteredTurnosFuturos = filteredTurnosFuturos;
     }
 
     public void setDateSelected(Date dateSelected) {
@@ -988,6 +1010,59 @@ public class ExpedienteController implements Serializable {
         
         return verAgendasPasadas;
     }
+    
+    public List verTurnosPasadosPorNroDeOrden(Integer orden) {
+
+        List<Turno> verTurnosPasados = new ArrayList<Turno>();
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        TurnoController turnoControllerBean = context.getApplication().evaluateExpressionGet(context, "#{turnoController}", TurnoController.class);
+
+        Date date = new Date();
+
+        for (Turno turno : turnoControllerBean.getItemsByOrder(orden)) {
+            if (orden != null) {
+                if (turno.getOrden() != null) {
+                        if (turno.getHoraYDia() != null) {
+                            if (turno.getHoraYDia().before(date)) {
+                                verTurnosPasados.add(turno);
+                            }
+                        }
+                }
+            }
+        }
+
+        Collections.reverse(verTurnosPasados);
+        
+        return verTurnosPasados;
+    }
+    
+    public List verTurnosFuturosPorNroDeOrden(Integer orden) {
+        
+        List<Turno> verTurnosFuturos = new ArrayList<Turno>();
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        TurnoController turnoControllerBean = context.getApplication().evaluateExpressionGet(context, "#{turnoController}", TurnoController.class);
+
+        Date date = new Date();
+
+        for (Turno turno : turnoControllerBean.getItemsByOrder(orden)) {
+            if (orden != null) {
+                if (turno.getOrden() != null) {
+                    if (Objects.equals(turno.getOrden(), orden)) {
+                        if (turno.getHoraYDia()!= null) {
+                            if (turno.getHoraYDia().after(date)) {
+                                verTurnosFuturos.add(turno);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return verTurnosFuturos;
+    }
+
     
     public List verComunicacionesPorNroDeOrden(Integer orden) {
         

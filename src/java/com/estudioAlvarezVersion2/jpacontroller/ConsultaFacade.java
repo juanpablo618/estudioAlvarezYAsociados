@@ -50,4 +50,17 @@ public class ConsultaFacade extends AbstractFacade<Consulta> {
         }
     }
     
+    public boolean isPhoneExisting(String telefono) {
+        try {
+            // Consulta JPQL para verificar si el CUIT ya existe en la base de datos
+            Long count = em.createQuery("SELECT COUNT(c) FROM Consulta c WHERE c.telefono = :telefono", Long.class)
+                            .setParameter("telefono", telefono)
+                            .getSingleResult();
+            return count > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
 }

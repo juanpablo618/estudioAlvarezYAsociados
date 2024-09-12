@@ -7,11 +7,9 @@ import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.TurnoFacade;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -45,6 +43,10 @@ public class TurnoController implements Serializable {
     private List<Turno> items = null;
     private Turno selected;
 
+    private Turno selectedTurnoPasado;
+    private Turno selectedTurnoFuturo;
+    
+    
     private static final String DD_MM_YYYY = "dd/MM/yyyy";
     private static final String LA_FECHA_SELECCIONADA_NO_ES_VALIDA = "la fecha selecionada no es válida";
     private static final String POR_SER_FERIADO = " por ser feriado";
@@ -70,8 +72,36 @@ public class TurnoController implements Serializable {
     private Date dateSelected;
     private String nombreResponsableSelected;
     
+    private String expSeleccionado;
     private String asignarExpediente;
-    // Otras propiedades y métodos...
+
+    public Turno getSelectedTurnoPasado() {
+        return selectedTurnoPasado;
+    }
+
+    public void setSelectedTurnoPasado(Turno selectedTurnoPasado) {
+        this.selectedTurnoPasado = selectedTurnoPasado;
+    }
+
+    public Turno getSelectedTurnoFuturo() {
+        return selectedTurnoFuturo;
+    }
+
+    public void setSelectedTurnoFuturo(Turno selectedTurnoFuturo) {
+        this.selectedTurnoFuturo = selectedTurnoFuturo;
+    }
+
+    
+    
+    
+
+    public String getExpSeleccionado() {
+        return expSeleccionado;
+    }
+
+    public void setExpSeleccionado(String expSeleccionado) {
+        this.expSeleccionado = expSeleccionado;
+    }
 
     public String getAsignarExpediente() {
         return asignarExpediente;
@@ -635,4 +665,30 @@ public class TurnoController implements Serializable {
         this.dateSelected = null;
     }*/
 
+     public void transferir() {
+                
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        TurnoController turnoController = context.getApplication().evaluateExpressionGet(context, "#{turnoController}", TurnoController.class);
+        ExpedienteController expedienteController = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+
+        Integer idExpediente;
+            
+        if (turnoController.expSeleccionado != null) {
+            System.out.println("turnoController.expSeleccionado: "+ turnoController.expSeleccionado);
+            
+            idExpediente = Integer.parseInt(turnoController.expSeleccionado);
+            
+            turnoController.getSelected().setNombre(expedienteController.getExpediente(idExpediente).getNombre());
+            turnoController.getSelected().setOrden(expedienteController.getExpediente(idExpediente).getOrden());
+            turnoController.getSelected().setApellido(expedienteController.getExpediente(idExpediente).getApellido());
+        }
+
+    }
+
+     
+     public List<Turno> getItemsByOrder(Integer orden) {
+        return getFacade().getItemsByOrder(orden);
+    }
+    
 }

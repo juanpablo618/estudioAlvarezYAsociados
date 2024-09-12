@@ -29,6 +29,10 @@
                         <p:selectOneMenu  id="procedencia" value="#{turnoController.selected.procedencia}"  editable="true">
                             <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.getNombreProcedencia()}" itemValue="#{procedencia.getNombreProcedencia()}" />
                         </p:selectOneMenu>
+                      
+                        <p:outputLabel value="Nro de Orden: " style="font-weight: bold" />
+                        <p:outputLabel value="#{turnoController.selected.orden != null ? turnoController.selected.orden : 'S/N'}" style="font-weight: bold" />
+                        
                     </h:panelGrid>
                     <br></br>
                     <p:outputLabel value="#{bundle.EditTurnoLabel_observacion}" for="observacion" style="font-weight: bold"  /><br></br>

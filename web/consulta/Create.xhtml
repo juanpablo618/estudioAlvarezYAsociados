@@ -26,8 +26,6 @@
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_nombre}" for="nombre" style="margin-left: 3%;font-weight: bold" />
                                 <p:inputText id="nombre" required="true"  style="margin-left: 3%" requiredMessage="nombre es necesario" value="#{consultaController.selected.nombre}"  title="#{bundle.CreateExpedienteTitle_nombre}" />
                                 
-                            
-                            
                                  <p:outputLabel value="#{bundle.CreateExpedienteLabel_cuit}" for="cuit" style="font-weight: bold" />
                                 
                                     <p:inputText id="cuit" maxlength="11" 
@@ -46,11 +44,19 @@
                                         <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.nombreProcedencia}" itemValue="#{procedencia.nombreProcedencia}" />
                                     </p:selectOneMenu>
 
-                            
+                            <p:outputLabel value="quien tomó la consulta?" for="quienTomoConsulta" style="font-weight: bold" />
+                                <p:inputText id="quienTomoConsulta"  style="margin-left: 3%" value="#{consultaController.selected.quienTomoConsulta}"   />
+                                
                             </h:panelGrid>  
+                            <h:panelGrid columns="4" cellspacing="5">
+                                    
+                                    <p:outputLabel value="Fecha de Atención:" for="fechaDeAtencion" style="font-weight: bold" />
+                                    <p:calendar   required="true" requiredMessage="fecha de atención es requerida"  style="width: 100px" class="inputFechaDeAtencion" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{consultaController.selected.fechaDeAtencion}" title="fechaDeAtencion">
+                                    </p:calendar>
+                                </h:panelGrid>
+
                             
-                            
-                                <h:panelGrid columns="4" cellspacing="5" cellpadding="1">
+                                <h:panelGrid columns="2" cellspacing="5" cellpadding="1">
                             
                                   <p:outputLabel value="Estado de la consulta" for="estadoConsulta" style="margin-left: 3%;font-weight: bold" />
                                 <p:selectOneMenu id="estadoConsulta" value="#{consultaController.selected.estadoConsulta}" style="margin-left: 3%" >
@@ -78,6 +84,13 @@
                                     <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
                                     <p:ajax update="inputPanelCantHijos" />
                                 </p:selectOneMenu>
+                                
+                                
+                                <br></br>
+                                <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
+                                <p:inputTextarea rows="7" cols="55" autoResize="false"  id="observaciones" value="#{consultaController.selected.observaciones}" title="observaciones"/>
+
+                                
                             </h:panelGrid>
                             <h:panelGrid  columns="4" cellspacing="5" id="inputPanelCantHijos">
                                 <p:outputLabel value="Número total de Hijos:" rendered="#{consultaController.selected.sexo == 'Femenino'}" />
@@ -146,13 +159,7 @@
                         </p:tab>
                         <p:tab title="Tipo de Consulta">
 
-                                <h:panelGrid columns="4" cellspacing="5">
-                                    
-                                    <p:outputLabel value="Fecha de Atención:" for="fechaDeAtencion" style="font-weight: bold" />
-                                    <p:calendar   required="true" requiredMessage="fecha de atención es requerida"  style="width: 100px" class="inputFechaDeAtencion" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{consultaController.selected.fechaDeAtencion}" title="fechaDeAtencion">
-                                    </p:calendar>
-                                </h:panelGrid>
-
+                                
                                 <div style="width: 50%; margin-top: 1.5%"> 
                                     <div>
                                         <p:outputLabel value="Tipo de tramite:" for="tipoDeTramite" style="font-weight: bold" /><br></br>
@@ -204,10 +211,7 @@
                                     <p:inputText rendered="#{consultaController.selected.cobraBeneficio == 'SI'}" id="tipoDeBeneficio" value="#{consultaController.selected.tipoDeBeneficio}" title="tipoDeBeneficio" style="margin-left: 3%;"/>
 
                                 </p:panel>
-                                <br></br>
-                                <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
-                                <p:inputTextarea rows="7" cols="55" autoResize="false"  id="observaciones" value="#{consultaController.selected.observaciones}" title="observaciones"/>
-
+                                
                             
                             <h:panelGrid columns="2" cellspacing="5" >
                                 <p:outputLabel value="Tiene aportes: "  style="margin-left: 3%;font-weight: bold" />

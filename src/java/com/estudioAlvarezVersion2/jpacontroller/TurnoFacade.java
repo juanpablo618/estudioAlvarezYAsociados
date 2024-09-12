@@ -6,12 +6,12 @@
 package com.estudioAlvarezVersion2.jpacontroller;
 
 import com.estudioAlvarezVersion2.jpa.Turno;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -60,4 +60,10 @@ public class TurnoFacade extends AbstractFacade<Turno> {
         return getEntityManager().createQuery(cq).getResultList();
     }
 
+    public List<Turno> getItemsByOrder(Integer orden) {
+        TypedQuery<Turno> query = em.createNamedQuery("Turno.findByOrder", Turno.class);
+        query.setParameter("orden", orden);
+        return query.getResultList();
+    }
+    
 }

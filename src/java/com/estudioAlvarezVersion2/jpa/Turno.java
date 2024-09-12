@@ -36,6 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Turno.findByObservacion", query = "SELECT t FROM Turno t WHERE t.observacion = :observacion"),
     @NamedQuery(name = "Turno.findByResponsable", query = "SELECT t FROM Turno t WHERE t.responsable = :responsable ORDER BY t.horaYDia"),
     @NamedQuery(name = "Turno.findByResponsables", query = "SELECT t FROM Turno t WHERE t.responsable IN :responsables ORDER BY t.horaYDia"),
+    @NamedQuery(name = "Turno.findByOrder", query = "SELECT a FROM Turno a WHERE a.orden = :orden ORDER BY a.horaYDia"),
+    
 
 })
 public class Turno implements Serializable {
@@ -84,6 +86,9 @@ public class Turno implements Serializable {
     @Column(name = "asignarExpediente")
     private String asignarExpediente;
     
+    @Column(name = "orden")
+    private Integer orden;
+
     
     public Turno() {
     }
@@ -96,6 +101,14 @@ public class Turno implements Serializable {
         this.idTurno = idTurno;
         this.horaYDia = horaYDia;
         this.responsable = responsable;
+    }
+
+    public Integer getOrden() {
+        return orden;
+    }
+
+    public void setOrden(Integer orden) {
+        this.orden = orden;
     }
 
     public Integer getIdTurno() {

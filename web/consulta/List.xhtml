@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
     <ui:composition template="/template.xhtml">
        
@@ -72,27 +73,38 @@
                                  rowsPerPageTemplate="10,20,50,100,200"
                                  emptyMessage="No existen consultas"
                                  filteredValue="#{consultaController.filteredConsultas}"
-                                 
-                                 >
+                                  resizableColumns="true"
+                                  > 
                         
                          
                         <p:ajax event="rowSelect"   update="createButton  "/>
                         <p:ajax event="rowUnselect" update="createButton  "/>
 
-                       <p:growl life="2500" id="message" showDetail="true" />
+                       <p:growl life="5000" id="message" showDetail="true" />
  
                        <p:column style="text-align: left; width: 10%" headerText="Fecha de atenciòn"  styleClass="centeredColumnContent#{item.estadoConsulta}">
                         <h:outputText style="width: 10%" value="#{item.fechaDeAtencion}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:column>
+                      
                        
-                        <p:column filterBy="#{item.apellido}"  style="text-align: left;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
-                            <f:facet name="header"  >
-                                <h:outputText value="Apellido y Nombre"/>
+                        <p:column filterBy="#{fn:toLowerCase(item.apellido)} #{fn:toLowerCase(item.nombre)}"  
+                                    style="text-align: left;" 
+                                    filterMatchMode="contains" 
+                                    filterFunction="#{consultaController.filterInsensitive}" 
+                                    styleClass="centeredColumnContent#{item.estadoConsulta}">
+                              <f:facet name="header">
+                                  <h:outputText value="Apellido y Nombre"/>
+                              </f:facet>
+                              <h:outputText value="#{item.apellido} #{item.nombre}"/>
+                          </p:column>
+                        <p:column filterBy="#{item.equipo}" style="text-align: left;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
+                            <f:facet name="header">
+                                <h:outputText value="equipo"/>
                             </f:facet>
-                            <h:outputText value="#{item.apellido} #{item.nombre}"/>
-                        </p:column>
+                            <h:outputText value="#{item.equipo}"/>
+                       </p:column>
                        
                        <p:column filterBy="#{item.telefono}" style="text-align: left;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
                             <f:facet name="header">
@@ -113,6 +125,13 @@
                        
                        </p:column>
                        
+                       
+                       <p:column filterBy="#{item.cuit}" style="text-align: left;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
+                            <f:facet name="header">
+                                <h:outputText value="Cuit"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cuit}"/>
+                        </p:column>
                        
                        <p:column filterBy="#{item.procedencia}" style="text-align: left;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
                             <f:facet name="header">

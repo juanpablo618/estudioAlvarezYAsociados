@@ -75,7 +75,7 @@
                         </h:outputText>
                     </p:column>
 
-                    <p:column filterBy="#{item.apellido}"  style="width: 7%" headerText="ORDEN" styleClass="centeredColumnContent#{item.getRealizado()}">
+                    <p:column filterBy="#{item.orden}" filterMatchMode="exact"  style="width: 7%" headerText="ORDEN" styleClass="centeredColumnContent#{item.getRealizado()}">
                         <f:facet name="filter">
                             <p:inputText id="inputOrdenEnTurnoTable" style="width: -webkit-fill-available;" value="#{turnoController.ordenSeleccionadoEnTurno}" >
                                 <p:ajax update=":AgendaListForm:datalist:inputOrdenEnAgenda"/> 
@@ -85,7 +85,8 @@
                                 <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
                             </p:inputText>
                         </f:facet>
-                        <h:outputText value="S/N"/>
+                           <h:outputText value="#{item.orden != null ? item.orden : 'S/N'}" />
+                    
                     </p:column>
                     
                     <p:column  style="width: 20%" filterBy="#{item.apellido} #{item.nombre}"  styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="contains" headerText="NOMBRE">

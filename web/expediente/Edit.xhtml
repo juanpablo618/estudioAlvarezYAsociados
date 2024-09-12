@@ -397,7 +397,7 @@
                             <br></br>
                             <br></br>
                         </p:tab>
-                        <p:tab title="Agenda">
+                        <p:tab title="Agendas y Turnos">
                             <div style="width: 90%">
                                 <div>
                                     <p:fieldset class="ui-fieldset-toggleable-lila" legend="AGENDAS ANTERIORES" toggleable="true"  collapsed="true" toggleSpeed="500">
@@ -462,6 +462,63 @@
                                     </p:fieldset>
                                 </div>
                                 
+                                
+                                <div>
+                                    <p:fieldset class="ui-fieldset-toggleable-lila" legend="TURNOS ANTERIORES" toggleable="true"  collapsed="true" toggleSpeed="500">
+                                        <p:dataTable id="datalistTurnosAnteriores" 
+                                                     value="#{expedienteController.verTurnosPasadosPorNroDeOrden(expedienteController.selected.orden)}"
+                                                     var="item"
+                                                     selectionMode="single"
+                                                     selection="#{turnoController.selectedTurnoPasado}"
+                                                     rowKey="#{item.idTurno}"
+                                                     paginator="true"
+                                                     rows="20"
+                                                     rendered="true"
+                                                     rowsPerPageTemplate="20,30,40,50"
+                                                     emptyMessage="no hay turnos Pasados agregados" 
+                                                     filteredValue="#{expedienteController.filteredTurnosAnteriores}"
+                                                     >
+                                            <p:ajax event="rowSelect"  />
+                                            <p:ajax event="rowUnselect" />
+                                            <p:growl life="2500" id="message3"  showDetail="true" />
+
+                                        <p:column style="text-align: center; width: 10%" styleClass="centeredColumnContent#{item.getRealizado()}" headerText="FECHA">
+
+                                                                <h:outputText style="width: 10%" value="#{item.horaYDia}">
+                                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                                                </h:outputText>
+                                        </p:column>
+
+                    
+                    
+                    <p:column filterBy="#{item.responsable}" headerText="RESPONSABLE" style="text-align: center;width: 20%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                        <h:outputText value="#{item.responsable}"/>
+                    </p:column>
+
+                    <p:column style="text-align: center; width: 18%;" styleClass="centeredColumnContent#{item.getRealizado()}">
+                        <f:facet name="header">
+                            <h:outputText value="DESCRIPCIÓN"/>
+                        </f:facet>
+                        <h:outputText value="#{item.observacion}"/>
+                    </p:column>
+                    
+                    <p:column filterBy="#{item.realizado}" style="text-align: center; width: 10%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                        <f:facet name="header">
+                            <h:outputText value="REALIZADO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.realizado}"/>
+                    </p:column>
+
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        </p:dataTable>
+                                    </p:fieldset>
+                                </div>
+                                
+                                
                                 <div>
                                     <p:fieldset legend="AGENDAS FUTURAS" toggleable="true"  collapsed="true" toggleSpeed="500">
 
@@ -524,12 +581,67 @@
                                 </div>
                                
                                 <div>
+                                    <p:fieldset legend="TURNOS FUTUROS" toggleable="true"  collapsed="true" toggleSpeed="500">
+
+                                        <p:dataTable id="datalistTurnosFuturos" 
+                                                     value="#{expedienteController.verTurnosFuturosPorNroDeOrden(expedienteController.selected.orden)}" 
+                                                     var="item"
+                                                     selectionMode="single"
+                                                     selection="#{turnoController.selectedTurnoFuturo}"
+                                                     rowKey="#{item.idTurno}"
+                                                     paginator="true"
+                                                     rows="20"
+                                                     rendered="true"
+                                                     rowsPerPageTemplate="20,30,40,50"
+                                                     emptyMessage="no hay turnos futuros agregados" 
+                                                     filteredValue="#{expedienteController.filteredTurnosFuturos}"
+                                                     >
+                                             <p:ajax event="rowSelect"  />
+                                            <p:ajax event="rowUnselect" />
+                                            <p:growl life="2500" id="message4" showDetail="true" />
+
+                    <p:column style="text-align: center; width: 10%" styleClass="centeredColumnContent#{item.getRealizado()}" headerText="FECHA">
+
+                                                                <h:outputText style="width: 10%" value="#{item.horaYDia}">
+                                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                                                </h:outputText>
+                    </p:column>
+
+                    
+                    <p:column  style="width: 20%" filterBy="#{item.apellido} #{item.nombre}"  styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="contains" headerText="NOMBRE">
+                        <h:outputText value="#{ item.apellido} #{ item.nombre}"/>
+                    </p:column>
+
+                    <p:column filterBy="#{item.responsable}" headerText="RESPONSABLE" style="text-align: center;width: 20%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                        <h:outputText value="#{item.responsable}"/>
+                    </p:column>
+
+                    <p:column style="text-align: center; width: 18%;" styleClass="centeredColumnContent#{item.getRealizado()}">
+                        <f:facet name="header">
+                            <h:outputText value="DESCRIPCIÓN"/>
+                        </f:facet>
+                        <h:outputText value="#{item.observacion}"/>
+                    </p:column>
+                    
+                    <p:column filterBy="#{item.realizado}" style="text-align: center; width: 10%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                        <f:facet name="header">
+                            <h:outputText value="REALIZADO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.realizado}"/>
+                    </p:column>
+
+                                        </p:dataTable>
+                                    </p:fieldset>
+                                </div>
+                               
+                                
+                                <div>
                                     <p:commandButton id="createButtonAgenda" class="createButtonAgenda hoverBlue" value="Crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda,:growl" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteEditDialog').show()" />
                                 </div>
 
                             </div>
                         </p:tab>
-
+                        
                         <p:tab title="Honorarios y Gastos">
                             <div>
                                 <h:commandButton value="Imprimir Convenio" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion, expedienteController.selected.nroDeAltura, expedienteController.selected.barrio)}" />

@@ -100,10 +100,9 @@
                                 <div>
                                     <p:commandButton onclick="ConsultaViewDialog.hide()" actionListener="#{expedienteController.cambiarConsultaAExpAdm(consultaController.selected)}" class="botonCrearAgenda hoverGreen" value="Cambiar a Administrativo"
                                                      style="float: right !important; margin-top: 0% !important;" update=":ConsultaListForm:datalist"  oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
-
+                        
                                 </div>
                                 <br></br>
-                            
                             </div>  
                             <div class="width50" style="float:right;">
                                 <h:panelGrid columns="4" cellspacing="5">
@@ -136,10 +135,14 @@
                                         <f:selectItem itemLabel="CONSULTA PASADA A EXP. ADMINISTRATIVO" itemValue="CONSULTA PASADA A EXP. ADMINISTRATIVO" />
                                     </p:selectOneMenu>    
                                 
-                                
                                 </h:panelGrid>
 
                                 <h:panelGrid columns="2" cellspacing="5" cellpadding="1">            
+                                   
+                                      <p:outputLabel value="quien tomó la consulta?" for="quienTomoConsulta" style="font-weight: bold" />
+                                <p:inputText id="quienTomoConsulta"  style="margin-left: 3%" value="#{consultaController.selected.quienTomoConsulta}"   />
+                             
+                                    
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_fechaDeNacimiento}" style="font-weight: bold" for="fechaDeNacimiento" />
                                     <p:calendar id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{consultaController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" showOn="button">
                                     </p:calendar>

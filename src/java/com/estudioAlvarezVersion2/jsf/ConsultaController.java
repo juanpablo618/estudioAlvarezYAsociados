@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -214,8 +215,13 @@ public class ConsultaController implements Serializable {
 
         if(!selected.getCuit().isEmpty()){
             if(!isCuitAlreadyRegistered(selected.getCuit())){
-        
-                persist(JsfUtil.PersistAction.CREATE, successMessage);
+                    if(isPhoneAlreadyRegistered(selected.getTelefono())){
+                        System.out.println("entro aqui isPhoneAlreadyRegistered");
+                        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "este telèfono ya existe en otra Consulta.", "");
+                       FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+                    }
+                        persist(JsfUtil.PersistAction.CREATE, successMessage);
+                    
                 if (!JsfUtil.isValidationFailed()) {
                     items = null;    // Invalidate list of items to trigger re-query.
                 }
@@ -223,6 +229,11 @@ public class ConsultaController implements Serializable {
                    JsfUtil.addErrorMessage("cuit ya existe no fue posible crear la consulta");
             }
         }else{
+            if(isPhoneAlreadyRegistered(selected.getTelefono())){
+                        System.out.println("entro aqui isPhoneAlreadyRegistered");
+                        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "este telèfono ya existe en otra Consulta.", "");
+                       FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+            }
             persist(JsfUtil.PersistAction.CREATE, successMessage);
                 if (!JsfUtil.isValidationFailed()) {
                     items = null;    // Invalidate list of items to trigger re-query.
@@ -293,6 +304,25 @@ public class ConsultaController implements Serializable {
     
      
      }
+     
+     public boolean isPhoneAlreadyRegistered(String telefono) {
+        // Lógica para verificar si el CUIT ya está registrado
+        return getFacade().isPhoneExisting(telefono); // Asumiendo que tienes un servicio para esto
+    
+     
+     }
+     
+     public boolean filterInsensitive(Object value, Object filter, Locale locale) {
+    if (filter == null || filter.toString().trim().isEmpty()) {
+        return true;
+    }
+
+    String filterText = filter.toString().toLowerCase();
+    String fieldValue = value.toString().toLowerCase();
+
+    return fieldValue.contains(filterText);
+}
+
      
     
 }

@@ -99,4 +99,11 @@ public class ExpedienteFacade extends AbstractFacade<Expediente> {
     }
     
     
+      // Método para obtener solo expedientes activos
+    public List<Expediente> findActiveExpedientes() {
+        return em.createQuery("SELECT e FROM Expediente e WHERE e.activo = 'Si'", Expediente.class)
+                 .getResultList();
+    }
+    
+    
 }

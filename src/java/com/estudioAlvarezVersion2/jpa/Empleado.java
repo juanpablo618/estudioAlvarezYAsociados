@@ -2,6 +2,7 @@ package com.estudioAlvarezVersion2.jpa;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -52,6 +55,20 @@ public class Empleado implements Serializable {
     @Column(name = "password")
     private String password;
     
+    @Column(name = "domicilio")
+    private String domicilio;
+    
+    @Column(name = "fechaDeNacimiento")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaDeNacimiento;
+    
+    @Column(name = "fechaDeIngreso")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaDeIngreso;
+    
+    @Column(name = "herramientas")
+    private String herramientas;
+    
     @ManyToMany
     @JoinTable(
         name = "empleados_equipos",
@@ -79,13 +96,18 @@ public class Empleado implements Serializable {
         this.idEmpleado = idEmpleado;
     }
 
-    public Empleado(Integer idEmpleado, String nombre, String apellido, String cargo, String password, List<Equipo> equipos) {
+    public Empleado(Integer idEmpleado, String nombre, String apellido, String cargo, String password, List<Equipo> equipos,
+            String domicilio, Date fechaDeNacimiento, Date fechaDeIngreso, String herramientas) {
         this.idEmpleado = idEmpleado;
         this.nombre = nombre;
         this.apellido = apellido;
         this.cargo = cargo;
         this.password = password;
         this.equipos = equipos;
+        this.domicilio = domicilio;
+        this.fechaDeNacimiento = fechaDeNacimiento;
+        this.fechaDeIngreso = fechaDeIngreso;
+        this.herramientas = herramientas;
     }
     
     public Integer getIdEmpleado() {
@@ -130,6 +152,38 @@ public class Empleado implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(String domicilio) {
+        this.domicilio = domicilio;
+    }
+
+    public Date getFechaDeNacimiento() {
+        return fechaDeNacimiento;
+    }
+
+    public void setFechaDeNacimiento(Date fechaDeNacimiento) {
+        this.fechaDeNacimiento = fechaDeNacimiento;
+    }
+
+    public Date getFechaDeIngreso() {
+        return fechaDeIngreso;
+    }
+
+    public void setFechaDeIngreso(Date fechaDeIngreso) {
+        this.fechaDeIngreso = fechaDeIngreso;
+    }
+
+    public String getHerramientas() {
+        return herramientas;
+    }
+
+    public void setHerramientas(String herramientas) {
+        this.herramientas = herramientas;
     }
 
     @Override

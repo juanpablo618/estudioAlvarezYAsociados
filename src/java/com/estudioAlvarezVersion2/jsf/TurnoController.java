@@ -311,8 +311,9 @@ public class TurnoController implements Serializable {
         //lista sacada de https://www.argentina.gob.ar/interior/feriados-nacionales-2023
         //https://www.lanacion.com.ar/feriados/2024/
         String feriadosArg[] = {"01/01/2024", "12/02/2024", "13/02/2024", "24/03/2024", "29/03/2024", "02/04/2024", "01/05/2024", "25/05/2024", "20/06/2024",
-            "09/07/2024", "17/08/2024", "12/10/2024", "20/11/2024", "08/12/2024", "25/12/2024"    
+            "09/07/2024", "17/08/2024", "11/10/2024", "18/11/2024", "08/12/2024", "25/12/2024"    
         };
+        
         return Arrays.asList(feriadosArg).contains(date);
     }
 

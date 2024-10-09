@@ -214,6 +214,7 @@
                     </p:column>
 
                     <p:column style="width: 13%" styleClass="centeredColumnContent#{item.realizado}">
+                        <h:graphicImage rendered="#{item.prioridad eq 'Si' }" alt="priorida Alta" value="resources/images/Estrella_amarilla.png" style="height: 8% ; width: 8%;"/>
                         <h:outputText value="#{item.descripcion}"  />
                     </p:column>
 

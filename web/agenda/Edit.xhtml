@@ -46,8 +46,17 @@
                                 <f:selectItem itemLabel="Reagendada" itemValue="Reagendada" />
 
                             </p:selectOneMenu>
+                            <br></br><br></br>
 
+                            <p:outputLabel rendered="#{agendaController.isLeader(session.getAttribute('userNombreCompleto'))}" value="prioridad" for="prioridad" style="font-weight: bold" />
+                            <p:selectOneMenu rendered="#{agendaController.isLeader(session.getAttribute('userNombreCompleto'))}" style="margin-left: 3%" id="prioridad" value="#{agendaController.selected.prioridad}" editable="false" effect="fold" >
+                                <f:selectItem itemLabel="--" itemValue="--" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Si" itemValue="Si" />
+                                <f:selectItem itemLabel="No" itemValue="No" />
+                                
+                            </p:selectOneMenu>
 
+                            
                             <div>
                                 <p:commandButton onclick="AgendaViewDialog.hide()" 
                                                  class="createButtonAgenda hoverBlue" actionListener="#{agendaController.update}" 

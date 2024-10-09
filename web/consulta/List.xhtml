@@ -75,20 +75,19 @@
                                  filteredValue="#{consultaController.filteredConsultas}"
                                   resizableColumns="true"
                                   > 
+                 
                         
-                         
                         <p:ajax event="rowSelect"   update="createButton  "/>
                         <p:ajax event="rowUnselect" update="createButton  "/>
 
                        <p:growl life="5000" id="message" showDetail="true" />
  
-                       <p:column style="text-align: left; width: 10%" headerText="Fecha de atenciòn"  styleClass="centeredColumnContent#{item.estadoConsulta}">
+                       <p:column filterBy="#{item.getFechaDeAtencionFormateada()}" filterMatchMode="exact" style="text-align: left; width: 10%" headerText="Fecha de atenciòn"  styleClass="centeredColumnContent#{item.estadoConsulta}">
                         <h:outputText style="width: 10%" value="#{item.fechaDeAtencion}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:column>
-                      
-                       
+                        
                         <p:column filterBy="#{fn:toLowerCase(item.apellido)} #{fn:toLowerCase(item.nombre)}"  
                                     style="text-align: left;" 
                                     filterMatchMode="contains" 
@@ -103,26 +102,24 @@
                             <f:facet name="header">
                                 <h:outputText value="equipo"/>
                             </f:facet>
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('consultasTable').filter()" style="margin-left: 1%; margin-right: 1%" id="equipo" editable="false" effect="fold" value="#{consultaController.equipoSeleccionadoEnTabla}">
+                                               <f:selectItem itemLabel=" -- Elige un equipo --"  noSelectionOption="true"  />
+                                               <f:selectItems value="#{equipoController.items}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo.nombre}" />
+                                           </p:selectOneMenu>
+                            </f:facet>
                             <h:outputText value="#{item.equipo}"/>
-                       </p:column>
+                        </p:column>
                        
                        <p:column filterBy="#{item.telefono}" style="text-align: left;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
                             <f:facet name="header">
                                 <h:outputText value="teléfono"/>
                             </f:facet>
                             <h:outputText value="#{item.telefono}"/>
-                       </p:column>
-                       
-                       <p:column style="text-align: center;width: 20%;" styleClass="centeredColumnContent#{item.estadoConsulta}">
-                            <f:facet name="header">
-                                <h:outputText value="whatsapp"/>
-                            </f:facet>
-                            
-                           <a href="#{expedienteController.abrirWhatsApp(item.telefono)}" target="_blank" >
-                                <img src="../faces/resources/images/whatsapp.png" style="width: 10%;" ></img>
+                            <a href="#{expedienteController.abrirWhatsApp(item.telefono)}" target="_blank" >
+                                <img src="../faces/resources/images/whatsapp.png" style="height: 16% ; width: 16%;" ></img>
                            </a>
-                                      
-                       
+                           
                        </p:column>
                        
                        

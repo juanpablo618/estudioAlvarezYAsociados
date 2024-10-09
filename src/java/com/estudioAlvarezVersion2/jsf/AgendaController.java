@@ -112,6 +112,10 @@ public class AgendaController implements Serializable {
             "Mateo Novau"});
         // Agregar más líderes y sus empleados según sea necesario
     }
+    
+    public boolean isLeader(String nombre) {
+        return lideresEmpleadosMap.containsKey(nombre);
+    }
 
     public Agenda getSelectedTurnoPasado() {
         return selectedTurnoPasado;
@@ -285,6 +289,7 @@ public class AgendaController implements Serializable {
         selectedParaCrearUnaNueva.setOrden(agendaAnterior.getOrden());
         selectedParaCrearUnaNueva.setRealizado("No");
         selectedParaCrearUnaNueva.setResponsable(agendaAnterior.getResponsable());
+        selectedParaCrearUnaNueva.setPrioridad(agendaAnterior.getPrioridad());
 
         initializeEmbeddableKey();
         return selectedParaCrearUnaNueva;
@@ -307,7 +312,7 @@ public class AgendaController implements Serializable {
 
         // Lista de feriados en Argentina
         String feriadosArg[] = {"01/01/2024", "12/02/2024", "13/02/2024", "24/03/2024", "29/03/2024", "02/04/2024", "01/05/2024", "25/05/2024", "20/06/2024",
-            "09/07/2024", "17/08/2024", "12/10/2024", "20/11/2024", "08/12/2024", "25/12/2024"    
+            "09/07/2024", "17/08/2024", "11/10/2024", "18/11/2024", "08/12/2024", "25/12/2024"    
         };
 
         return Arrays.asList(feriadosArg).contains(dateString);
@@ -426,7 +431,8 @@ public class AgendaController implements Serializable {
         }
     }
 
-    public void createReagendado(String nombre, String apellido, String responsable, String realizado, Integer orden, Date fecha, String descripcion) {
+    public void createReagendado(String nombre, String apellido, String responsable,
+            String realizado, Integer orden, Date fecha, String descripcion, String prioridad) {
         
         if(selected.getRealizado().equalsIgnoreCase("Reagendada")){
         marcarComoReagendada();        
@@ -445,6 +451,7 @@ public class AgendaController implements Serializable {
         selectedParaCrearUnaNueva.setApellido(apellido);
         selectedParaCrearUnaNueva.setOrden(orden);
         selectedParaCrearUnaNueva.setDescripcion(descripcion);
+        selectedParaCrearUnaNueva.setPrioridad(prioridad);
         selectedParaCrearUnaNueva.setFecha(fecha);
         selectedParaCrearUnaNueva.setOrden(orden);
         selectedParaCrearUnaNueva.setRealizado(realizado);
@@ -587,7 +594,7 @@ public class AgendaController implements Serializable {
 
     this.update();
     this.createReagendado(selected.getNombre(), selected.getApellido(), selected.getResponsable(),
-            selectedParaCrearUnaNueva.getRealizado(), selected.getOrden(), selectedParaCrearUnaNueva.getFecha(), selected.getDescripcion());
+            selectedParaCrearUnaNueva.getRealizado(), selected.getOrden(), selectedParaCrearUnaNueva.getFecha(), selected.getDescripcion(), selected.getPrioridad());
 }
     
     public void destroy() {

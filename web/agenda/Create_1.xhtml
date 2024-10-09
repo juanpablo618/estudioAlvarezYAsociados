@@ -50,10 +50,20 @@
                                 <f:selectItem itemLabel="No" itemValue="No" />
                                 
                             </p:selectOneMenu>
+                            <br></br>
+                                
+                            <p:outputLabel value="prioridad" for="prioridad" style="font-weight: bold" />
+                            <p:selectOneMenu style="margin-left: 3%" id="prioridad" value="#{agendaController.selectedParaCrearUnaNueva.prioridad}" editable="false" effect="fold" >
+                                <f:selectItem itemLabel="--" itemValue="--" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Si" itemValue="Si" />
+                                <f:selectItem itemLabel="No" itemValue="No" />
+                                
+                            </p:selectOneMenu>
+
                                 
                                 
                                 <div>
-                                    <p:commandButton actionListener="#{agendaController.createReagendado(agendaController.selectedParaCrearUnaNueva.nombre, agendaController.selectedParaCrearUnaNueva.apellido, agendaController.selectedParaCrearUnaNueva.responsable, agendaController.selectedParaCrearUnaNueva.realizado, agendaController.selectedParaCrearUnaNueva.orden, agendaController.selectedParaCrearUnaNueva.fecha, agendaController.selectedParaCrearUnaNueva.descripcion)}" class="botonCrear hoverGreen" value="#{bundle.Save}" update="display,:AgendaListForm:datalist,:growl" oncomplete="handleSubmit(args,'AgendaReagendarDialog');"/>
+                                    <p:commandButton actionListener="#{agendaController.createReagendado(agendaController.selectedParaCrearUnaNueva.nombre, agendaController.selectedParaCrearUnaNueva.apellido, agendaController.selectedParaCrearUnaNueva.responsable, agendaController.selectedParaCrearUnaNueva.realizado, agendaController.selectedParaCrearUnaNueva.orden, agendaController.selectedParaCrearUnaNueva.fecha, agendaController.selectedParaCrearUnaNueva.descripcion, agendaController.selectedParaCrearUnaNueva.prioridad)}" class="botonCrear hoverGreen" value="#{bundle.Save}" update="display,:AgendaListForm:datalist,:growl" oncomplete="handleSubmit(args,'AgendaReagendarDialog');"/>
                                 </div>
                     
                         </div>

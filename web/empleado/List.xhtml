@@ -13,7 +13,7 @@
                 <div style="float: left;margin-left: .5%;">
                     <p:commandButton id="createButton" 
                                      icon="ui-icon-plus"
-                                     value="NUEVO EMPLEADO"
+                                     value="NUEVO COLABORADOR"
                                      class="botonCrearAgenda  borderRd mrgTB2 hoverGreen"
                                      actionListener="#{empleadoController.prepareCreate}"
                                      update=":EmpleadoCreateForm"
@@ -31,7 +31,7 @@
                                  rowKey="#{item.idEmpleado}"
                                  rows="30"
                                  rowsPerPageTemplate="30,40,50"
-                                 emptyMessage="No existen Empleados"
+                                 emptyMessage="No existen Colaboradores"
                                  >
 
                         <p:ajax event="rowSelect"   update="createButton  "/>

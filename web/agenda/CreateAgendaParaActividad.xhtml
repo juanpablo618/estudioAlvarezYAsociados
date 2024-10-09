@@ -32,6 +32,16 @@
                                     <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
                                 </p:selectOneMenu>
                                 <br></br>
+                                
+                                     <p:outputLabel value="prioridad" for="prioridad" style="font-weight: bold" />
+                            <p:selectOneMenu style="margin-left: 3%" id="prioridad" value="#{agendaController.selectedActividad.prioridad}" editable="false" effect="fold" >
+                                <f:selectItem itemLabel="--" itemValue="--" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Si" itemValue="Si" />
+                                <f:selectItem itemLabel="No" itemValue="No" />
+                                
+                            </p:selectOneMenu>
+
+                                
                                 <div>
                                     <p:commandButton value="#{bundle.Cancel}" onclick="AgendaParaActividadCreateDialog.hide()"/>
                                     <p:commandButton actionListener="#{agendaController.createParaActividad}" 
@@ -39,7 +49,9 @@
                                                      value="#{bundle.Save}"
                                                      update="display,:AgendaListForm:datalist,:growl"  
                                                      oncomplete="handleSubmit(args,'AgendaParaActividadCreateDialog');PF('agendasTable').clearFilters()"/>
-                                </div>
+                                </div><br></br>
+                                
+                             
                     
                         </div>
                     </div>

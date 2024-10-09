@@ -151,7 +151,15 @@
 
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_cuit}" for="cuit" style="font-weight: bold" />
                                     <p:inputText required="true" requiredMessage="CUIT ES REQUERIDO" id="cuit" value="#{expedienteController.selected.cuit}" title="#{bundle.CreateExpedienteTitle_cuit}" />
-
+                                    
+                                    <p:outputLabel value="Activo:" for="activo" style="margin-left: 3%;font-weight: bold" />
+                                    <p:selectOneMenu id="activo" value="#{expedienteController.selected.activo}" style="margin-left: 3%" >
+                                        <f:selectItem itemLabel=" -- Elige un estado --"  noSelectionOption="true"  />
+                                        <f:selectItem itemLabel="Si" itemValue="Si" />
+                                        <f:selectItem itemLabel="No" itemValue="No" />
+                                    </p:selectOneMenu>
+                            
+                                    
                                 </h:panelGrid>
                                  
                                 <h:panelGrid columns="4" cellspacing="5" cellpadding="1" style="margin-top: 3%;">

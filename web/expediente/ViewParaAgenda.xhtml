@@ -81,6 +81,15 @@
                                 <p:selectOneMenu  id="responsable" value="#{agendaController.selected.responsable}"  >
                                     <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
                                 </p:selectOneMenu>
+                                
+                                <p:outputLabel  value="prioridad" for="prioridad" style="font-weight: bold" />
+                            <p:selectOneMenu style="margin-left: 3%" id="prioridad" value="#{agendaController.selected.prioridad}" editable="false" effect="fold" >
+                                <f:selectItem itemLabel="--" itemValue="--" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Si" itemValue="Si" />
+                                <f:selectItem itemLabel="No" itemValue="No" />
+                                
+                            </p:selectOneMenu>
+
 
                             </h:panelGrid>
                             <p:commandButton rendered="#{expedienteController.selected.tipoDeExpediente eq 'administrativo'}"  class="createButtonAgenda hoverBlue" actionListener="#{agendaController.create(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.orden)}" value="Guardar Agenda" title="guardar para exp. administrativo" update=":ExpedienteEditForm,:growl" oncomplete="handleSubmit(args,'ExpedienteViewDialogParaAgenda');" />

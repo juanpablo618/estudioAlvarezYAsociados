@@ -48,6 +48,8 @@ public class ConsultaController implements Serializable {
 
     //para filtros en tablas
     private String estadoSeleccionadoEnTabla;
+    private String equipoSeleccionadoEnTabla;
+    
     private String fechaSeleccionadaEnConsultaTable;
     
      private Date filterDay;
@@ -207,16 +209,29 @@ public class ConsultaController implements Serializable {
     
     protected void initializeEmbeddableKey() {
     }
-    
+
+    public String getEquipoSeleccionadoEnTabla() {
+        return equipoSeleccionadoEnTabla;
+    }
+
+    public void setEquipoSeleccionadoEnTabla(String equipoSeleccionadoEnTabla) {
+        this.equipoSeleccionadoEnTabla = equipoSeleccionadoEnTabla;
+    }
     
     public void create() {
-        
+          // Convertir nombre y apellido a mayúsculas antes de guardar
+            if (selected.getNombre() != null) {
+                selected.setNombre(selected.getNombre().toUpperCase());
+            }
+
+            if (selected.getApellido() != null) {
+                selected.setApellido(selected.getApellido().toUpperCase());
+            }
         String successMessage = "Consulta".concat(" creada exitosamente");
 
         if(!selected.getCuit().isEmpty()){
             if(!isCuitAlreadyRegistered(selected.getCuit())){
                     if(isPhoneAlreadyRegistered(selected.getTelefono())){
-                        System.out.println("entro aqui isPhoneAlreadyRegistered");
                         FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "este telèfono ya existe en otra Consulta.", "");
                        FacesContext.getCurrentInstance().addMessage(null, facesMsg);
                     }

@@ -282,6 +282,9 @@ public class Expediente implements Serializable {
     @Column(name = "equipo")    
     private String equipo;
     
+    @Column(name = "activo")    
+    private String activo;
+    
     public Expediente() {
     }
 
@@ -308,7 +311,7 @@ public class Expediente implements Serializable {
             String estadoCivil, String datosDelConyuge, String tipoDeBeneficio,
             String aportes, String detalleDeAportes, String trabajando, 
             String obraSocial, String inscripcionAut, String reclamoArt,
-            String equipo
+            String equipo, String activo
     
     ) {
         this.idExpediente = idExpediente;
@@ -372,6 +375,7 @@ public class Expediente implements Serializable {
         this.inscripcionAut = inscripcionAut;
         this.reclamoArt = reclamoArt;
         this.equipo = equipo;
+        this.activo = activo;
         
         
     }
@@ -895,6 +899,14 @@ public class Expediente implements Serializable {
 
     public void setEquipo(String equipo) {
         this.equipo = equipo;
+    }
+
+    public String getActivo() {
+        return activo;
+    }
+
+    public void setActivo(String activo) {
+        this.activo = activo;
     }
     
     public boolean equals(Object object) {

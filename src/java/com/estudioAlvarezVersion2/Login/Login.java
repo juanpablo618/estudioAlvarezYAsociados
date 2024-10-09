@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -178,55 +177,55 @@ public void init() {
     }
 
     //validate login
-    public String validateUsernamePassword() {
-        String userName = "";
-        
-        FacesContext context = FacesContext.getCurrentInstance();
-        EmpleadoController empleadoController = context.getApplication().evaluateExpressionGet(context, "#{empleadoController}", EmpleadoController.class);
+public String validateUsernamePassword() {
+    String userName = "";
 
-        for (Empleado empleado : empleadoController.getItems()) {
+    FacesContext context = FacesContext.getCurrentInstance();
+    EmpleadoController empleadoController = context.getApplication().evaluateExpressionGet(context, "#{empleadoController}", EmpleadoController.class);
+
+    for (Empleado empleado : empleadoController.getItems()) {
             // Supongo que `user` es una cadena que representa el ID del empleado
-            if (empleado.getIdEmpleado().equals(Integer.parseInt(user))) {
-                userName = empleado.getNombre();
-                break; // Salir del bucle una vez encontrado el empleado
-            }
+        if (empleado.getIdEmpleado().equals(Integer.parseInt(user))) {
+            userName = empleado.getNombre();
+            break; // Salir del bucle una vez encontrado el empleado
         }
-        
-        boolean valid = LoginDAO.validate(userName, pwd);
-        if (valid) {
+    }
+
+    boolean valid = LoginDAO.validate(userName, pwd);
+    if (valid) {
             HttpSession session = SessionUtils.getSession();
             
             
             for (Empleado empleado : empleadoController.getItems()) {
                 if (empleado.getNombre() == null ? user == null : empleado.getNombre().equals(userName)) {
                     session.setAttribute("userNombreCompleto", empleado.getNombre() + " " + empleado.getApellido());
-                }
+        }
             }
-            
+
             LocalDate fechaHoy = LocalDate.now();
-        
+
             // Formatear la fecha como una cadena en formato dd/MM/YYYY
-            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            String fechaFormateada = fechaHoy.format(formato);
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String fechaFormateada = fechaHoy.format(formato);
 
             
-            session.setAttribute("dateToday", fechaFormateada);
-              
+        session.setAttribute("dateToday", fechaFormateada);
+
             
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                 "", getSelectedQuote()));
         
 
-            return "agenda/List_AgendasTurnosWithSession.xhtml";
-        } else {
+        return "agenda/List_AgendasTurnosWithSession.xhtml";
+    } else {
             FacesContext.getCurrentInstance().addMessage(
                     null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN,
-                            "Password o Usuario incorrecto",
-                            "Por favor ingrese bien su usuario y password"));
-            return "login";
-        }
+                "Password o Usuario incorrecto",
+                "Por favor ingrese bien su usuario y password"));
+        return "login";
     }
+}
 
     //logout event, invalidate session
     //TODO mejorar este metodo que devuelva un string con "login" el nombre del archivo que quiero redireccionar 
@@ -260,4 +259,4 @@ public void init() {
         return selectedQuote;
     }
 
-}
+                }

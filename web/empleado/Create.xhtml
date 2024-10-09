@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="EmpleadoCreateDlg" widgetVar="EmpleadoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Empleado">
+        <p:dialog id="EmpleadoCreateDlg" widgetVar="EmpleadoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Colaborador">
             <h:form id="EmpleadoCreateForm">
                 <h:panelGroup id="display">
                     <p:outputLabel value="#{bundle.CreateEmpleadoLabel_nombre}" for="nombre" /><br></br>
@@ -22,6 +22,20 @@
                         <p:outputLabel value="#{bundle.CreateEmpleadoLabel_cargo}" for="cargo" /><br></br>
                         <p:inputText id="cargo" value="#{empleadoController.selected.cargo}" title="#{bundle.CreateEmpleadoTitle_cargo}" /><br></br><br></br>
                     
+                        <p:outputLabel value="Domicilio" for="domicilio" /><br></br>
+                        <p:inputText id="domicilio" value="#{empleadoController.selected.domicilio}" title="domicilio" /><br></br><br></br>
+                    
+                        <p:outputLabel value="F. de Nacimiento" for="fechaDeNacimiento" /><br></br>
+                        <p:calendar   id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{empleadoController.selected.fechaDeNacimiento}" title="fechaDeNacimiento" /><br></br><br></br>
+
+                        <p:outputLabel value="F. de ingreso" for="fechaDeIngreso" /><br></br>
+                        <p:calendar   id="fechaDeIngreso" pattern="dd/MM/yyyy" value="#{empleadoController.selected.fechaDeIngreso}" title="fechaDeIngreso" /><br></br><br></br>
+
+                        <p:outputLabel value="Herramientas de trabajo" for="herramientas" /><br></br>
+                        <p:inputTextarea id="herramientas" value="#{empleadoController.selected.herramientas}" title="Herramientas de trabajo" /><br></br><br></br>
+                        
+                        
+                        
                     <p:outputLabel value="Equipos" for="equipos" /><br></br>
                 <p:selectManyCheckbox id="equipos" value="#{empleadoController.selectedEquipos}" layout="grid" columns="2">
                     <f:selectItems value="#{empleadoController.allEquipos}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo}" />

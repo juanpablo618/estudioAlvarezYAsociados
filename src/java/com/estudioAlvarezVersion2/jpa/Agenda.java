@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Agenda.findByFecha", query = "SELECT a FROM Agenda a WHERE a.fecha = :fecha")
     , @NamedQuery(name = "Agenda.findByDescripcion", query = "SELECT a FROM Agenda a WHERE a.descripcion = :descripcion")
     , @NamedQuery(name = "Agenda.findByNombre", query = "SELECT a FROM Agenda a WHERE a.nombre = :nombre")
-    , @NamedQuery(name = "Agenda.findByResponsableAndFecha", query = "SELECT a FROM Agenda a WHERE a.responsable = :responsable AND a.fecha = :fecha ORDER BY a.fecha")
+    , @NamedQuery(name = "Agenda.findByResponsableAndFecha", query = "SELECT a FROM Agenda a WHERE a.responsable = :responsable AND a.fecha = :fecha ORDER BY CASE WHEN a.prioridad = 'Si' THEN 1 ELSE 2 END, a.fecha")
     , @NamedQuery(name = "Agenda.findByOrder", query = "SELECT a FROM Agenda a WHERE a.orden = :orden ORDER BY a.fecha")
     , @NamedQuery(name = "Agenda.findByResponsablesAndFecha", query = "SELECT a FROM Agenda a WHERE a.responsable IN :responsables AND a.fecha = :fecha ORDER BY a.fecha")
     
@@ -66,6 +66,10 @@ public class Agenda implements Serializable {
 
     @Column(name = "realizado")
     private String realizado;
+    
+    @Column(name = "prioridad")
+    private String prioridad;
+    
 
     public Agenda() {
     }
@@ -74,7 +78,8 @@ public class Agenda implements Serializable {
         this.idAgenda = idAgenda;
     }
 
-    public Agenda(Integer idAgenda, Date fecha, String descripcion, String nombre, String apellido, String responsable, int orden, String realizado) {
+    public Agenda(Integer idAgenda, Date fecha, String descripcion, String nombre, String apellido, String responsable, int orden, String realizado,
+            String prioridad) {
         this.idAgenda = idAgenda;
         this.fecha = fecha;
         this.descripcion = descripcion;
@@ -83,6 +88,7 @@ public class Agenda implements Serializable {
         this.responsable = responsable;
         this.orden = orden;
         this.realizado = realizado;
+        this.prioridad = prioridad;
     }
 
     public Integer getIdAgenda() {
@@ -133,6 +139,14 @@ public class Agenda implements Serializable {
         this.responsable = responsable;
     }
 
+    public String getPrioridad() {
+        return prioridad;
+    }
+
+    public void setPrioridad(String prioridad) {
+        this.prioridad = prioridad;
+    }
+    
     public Integer getOrden() {
         
         if(orden != null){

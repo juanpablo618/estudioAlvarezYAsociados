@@ -45,7 +45,7 @@
                                      toggleSpeed="500"
                                      closeSpeed="500"
                                      widgetVar="panelPartidas"
-                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivoJPG(expedienteController.selected.orden).toString().contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivoJPG(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                      >
                            
                             <div>
@@ -277,7 +277,7 @@
                                      toggleSpeed="500" 
                                      closeSpeed="500" 
                                      widgetVar="panelHistorialLaboralAnses"
-                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralAnses').toString().contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralAnses').toString().contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                      >
                             
                                 <p:growl life="2500" showDetail="true"/>
@@ -306,7 +306,7 @@
                                      toggleSpeed="500" 
                                      closeSpeed="500" 
                                      widgetVar="panelHistorialLaboralOtrasCajas"
-                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralOtrasCajas').toString().contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralOtrasCajas').toString().contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                      >
                             
                                 <p:growl life="2500" showDetail="true"/>
@@ -349,7 +349,7 @@
                                      toggleSpeed="500" 
                                      closeSpeed="500" 
                                      widgetVar="panelAfipDatosPersonalesPagosOtros"
-                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros').toString().contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros').toString().contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                      >
                             
                                 <p:growl life="2500" showDetail="true"/>
@@ -463,7 +463,7 @@
                                          collapsed="true"
                                          toggleSpeed="500"
                                          closeSpeed="500" 
-                                         style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivoCronoDeAportes(expedienteController.selected.orden).toString().contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                         style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivoCronoDeAportes(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                          >
                             
                                 <p:growl life="2500" showDetail="true"/>
@@ -508,7 +508,7 @@
                                      collapsed="true" 
                                      toggleSpeed="500"
                                      closeSpeed="500" 
-                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivoFrenteDni(expedienteController.selected.orden).toString().contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivoFrenteDni(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                      >
                             
                             <p:outputLabel value="Frente DNI:"  style="font-weight: bold"/><br></br>
@@ -555,7 +555,7 @@
                                      collapsed="true"
                                      toggleSpeed="500"
                                      closeSpeed="500"  
-                                     style="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden).toString().contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                     style="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                      >
                                 
                                 <p:outputLabel value="Otra Documentación:"  style="font-weight: bold"/><br></br>
@@ -625,7 +625,7 @@
                                 collapsed="true"
                                 toggleSpeed="500"
                                 closeSpeed="500"
-                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'CartaPoder').contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'CartaPoder').contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                 >
                                 <p:outputLabel value="Carta Poder:"  style="font-weight: bold"/><br></br>
                                 <p:growl life="2500" showDetail="true"/>
@@ -687,7 +687,7 @@
                                 collapsed="true" 
                                 toggleSpeed="500"
                                 closeSpeed="500" 
-                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Recibos').contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'}"
+                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Recibos').contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'}"
                             >
                                 <p:outputLabel value="Archivos Recibos:" style="font-weight: bold"/>
                                 <br></br>
@@ -721,7 +721,7 @@
                                 collapsed="true"
                                 toggleSpeed="500" 
                                 closeSpeed="500" 
-                                style="#{fileDownloadBean.buscarNombreDeArchivoBlueCorp(expedienteController.selected.orden).toString().contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                style="#{fileDownloadBean.buscarNombreDeArchivoBlueCorp(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                 >
                                 
                                 <p:growl life="2500" showDetail="true"/>
@@ -786,7 +786,7 @@
                                 collapsed="true"
                                 toggleSpeed="500"
                                 closeSpeed="500" 
-                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ResolucionDenegatoria').contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ResolucionDenegatoria').contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                 >
                                 <p:growl life="2500" showDetail="true"/>
                                 <p:fileUpload  value="#{fileUploadBean.fileResolucionDenegatoria}" mode="simple"/>
@@ -815,7 +815,7 @@
                                 collapsed="true" 
                                 toggleSpeed="500" 
                                 closeSpeed="500"  
-                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios').contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios').contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                 >
                                 <p:growl life="2500" showDetail="true"/>
                                 <p:fileUpload  value="#{fileUploadBean.fileConvenioDeHonorarios}" mode="simple"/>
@@ -844,7 +844,7 @@
                                 collapsed="true" 
                                 toggleSpeed="500"
                                 closeSpeed="500" 
-                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu').contains('no') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu').contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                 >
                                 <p:growl life="2500" showDetail="true"/>
 

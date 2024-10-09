@@ -747,6 +747,14 @@ public class Consulta implements Serializable {
     public Date getFechaDeAtencion() {
         return fechaDeAtencion;
     }
+    
+    public String getFechaDeAtencionFormateada() {
+    if (fechaDeAtencion != null) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(fechaDeAtencion);
+    }
+    return null; // O una cadena vacía si prefieres
+}
 
     public String getDiaMesAnioParaFechaDeAtencion() {
 

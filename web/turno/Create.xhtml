@@ -23,7 +23,7 @@
                                 
                      <h:panelGrid id="expedienteFields" columns="2" >
                             <p:outputLabel value="Apellido y Nombre" for="apellidoExp" style="margin-left: 3%;font-weight: bold" rendered="#{turnoController.selected.asignarExpediente == 'si'}" />
-                            <p:selectOneMenu rendered="#{turnoController.selected.asignarExpediente == 'si'}" id="apellidoExp" value="#{turnoController.expSeleccionado}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith">
+                            <p:selectOneMenu rendered="#{turnoController.selected.asignarExpediente == 'si'}" id="apellidoExp" value="#{turnoController.expSeleccionado}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains">
                                 <f:selectItem itemLabel="--Seleccione Uno--" itemValue="#{null}" noSelectionOption="true" />
                                 <f:selectItems value="#{expedienteController.itemsAvailableSelectOne}" var="exp" itemLabel="#{exp.getApellidoYNombre()}" itemDescription="#{exp.getApellidoYNombre()}" itemValue="#{exp}" />
                                 <p:ajax listener="#{turnoController.transferir()}" update="orden" />

@@ -64,6 +64,9 @@ public class ExpedienteController implements Serializable {
     private EntityManager em;
 
     private List<Expediente> items = null;
+    private List<Expediente> activeItems = null;
+    private boolean mostrarSoloActivos = true;  // Mostrar solo activos por defecto
+
     private Expediente selected;
     private Expediente selectedParaHonorarios;
     private Expediente selectedDesdeWithSession;
@@ -254,6 +257,14 @@ public class ExpedienteController implements Serializable {
         this.tipoDeTramiteSelected = tipoDeTramiteSelected;
     }
 
+    public boolean isMostrarSoloActivos() {
+        return mostrarSoloActivos;
+    }
+
+    public void setMostrarSoloActivos(boolean mostrarSoloActivos) {
+        this.mostrarSoloActivos = mostrarSoloActivos;
+    }
+    
     public Expediente prepareCreateExpAdministrativo() {
         selected = new Expediente();
         selected.setTipoDeExpediente(ADMINISTRATIVO);
@@ -265,7 +276,7 @@ public class ExpedienteController implements Serializable {
         selected.setTablaDeHonorariosYGastos("fecha | concepto | debe | haber | saldo |");
 
         selected.setOrden(buscarMayorIdAdmOrJudicial());
-
+        selected.setActivo("Si");
         initializeEmbeddableKey();
         return selected;
     }
@@ -275,12 +286,11 @@ public class ExpedienteController implements Serializable {
         selected.setTipoDeExpediente(JUDICIAL);
         Date date = new Date();
         selected.setFechaDeAtencion(date);
-        //ingresarOrdenAutoincremental();
-        //ingresarOrdenAutoincrementalSaltandoExpedientesSinCarpeta();
         selected.setOrden(buscarMayorIdAdmOrJudicial());
 
         selected.setTablaDeHonorariosYGastos("fecha | concepto | debe | haber | saldo |");
 
+        selected.setActivo("Si");
         initializeEmbeddableKey();
         return selected;
     }
@@ -541,6 +551,8 @@ public class ExpedienteController implements Serializable {
         }
 
         persist(PersistAction.UPDATE, successMessage);
+        items = null;    // Invalidate list of items to trigger re-query.
+
     }
 
     public void updateConCambioParaAdministrativo() {
@@ -701,12 +713,21 @@ public class ExpedienteController implements Serializable {
     }
     
    public List<Expediente> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
+        if (mostrarSoloActivos) {
+            if (activeItems == null) {
+                activeItems = getFacade().findActiveExpedientes();
+                System.out.println("entro aqui findActiveExpedientes");
+            }
+            return activeItems;
+        } else {
+            if (items == null) {
+                items = getFacade().findAll();
+                System.out.println("entro aqui else de getFacade().findAll()");
+            }
+            return items;
         }
-        return items;
     }
-
+   
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
@@ -1460,6 +1481,12 @@ public class ExpedienteController implements Serializable {
     public String verNroDeCuil(int orden) {
         String cuit = getFacade().findCuitByOrden(orden);
         return cuit != null ? cuit : "No posee CUIL/CUIT";
+    }
+    
+    public void toggleMostrarTodos() {
+        mostrarSoloActivos = !mostrarSoloActivos;
+        activeItems = null;  // Refrescar lista de expedientes activos
+        items = null;        // Refrescar lista de todos los expedientes
     }
     
 }

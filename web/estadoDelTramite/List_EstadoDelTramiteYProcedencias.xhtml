@@ -261,6 +261,66 @@
                 
             </h:form>
             
+            <br></br>
+            <br></br>
+            <br></br>
+            <h:form id="FechasRestringidasListForm" style="background-color: #F4F8FA">
+                
+                <div style="float: left; margin-left: .5%;">
+                    <p:commandButton id="createButton"  icon="ui-icon-plus" value="NUEVA FECHA RESTRINGIDA" class="botonCrearAgenda" actionListener="#{fechasRestringidasController.prepareCreate}" update=":FechasRestringidasCreateForm" oncomplete="PF('FechasRestringidasCreateDialog').show()"/>
+                </div>
+                <br></br>
+                <br></br>
+                <br></br>
+                
+                <p:dataTable id="datalist" value="#{fechasRestringidasController.items}" var="item"
+                                 selectionMode="single" selection="#{fechasRestringidasController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idFechaRestringida}"
+                                 rows="20"
+                                 rowsPerPageTemplate="20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton "/>
+                        <p:ajax event="rowUnselect" update="createButton "/>
+                        
+                        <p:growl life="2500" id="message" showDetail="true" />
+ 
+                        <p:column style="text-align: center;">
+                            <h:outputText  value="#{item.fecha}"   >
+                                <f:convertDateTime pattern="dd/MM/yyyy"  />
+                            </h:outputText>
+                        </p:column>
+                        
+                        <p:column style="text-align: center; width: 10%" resizable="true">
+                            
+                            <f:facet name="header">
+                                <h:outputText value="ACCIONES"/>
+                            </f:facet>
+                            
+                            <p:commandButton class="linea btnSearch"  update=":FechasRestringidasEditForm" oncomplete="PF('FechasRestringidasEditDialog').show()" icon="ui-icon-search" title="Ver">
+                                   <f:setPropertyActionListener value="#{item}" target="#{actividadController.selected}" />
+                            </p:commandButton>
+                            
+                            <p:commandButton class="linea btnDelete" update="datalist, message" actionListener="#{fechasRestringidasController.destroy}"  icon="ui-icon-trash" title="Eliminar">
+                                <f:setPropertyActionListener value="#{item}" target="#{fechasRestringidasController.selected}" />
+                                <p:confirm header="Confirmación" message="¿Estas seguro?" icon="pi pi-exclamation-triangle" />
+                            </p:commandButton>
+
+                            <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton update=":FechasRestringidasListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                <p:commandButton update=":FechasRestringidasListForm" value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                            </p:confirmDialog> 
+                            
+                        </p:column>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" rendered="false" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{fechasRestringidasController.prepareCreate}" update=":FechasRestringidasCreateForm" oncomplete="PF('FechasRestringidasCreateDialog').show()"/>
+                        </f:facet>
+                    </p:dataTable>
+                
+            </h:form>
+            
             <ui:include src="../procedencia/Create.xhtml"/>
             <ui:include src="../procedencia/Edit.xhtml"/>
             <ui:include src="Create.xhtml"/>
@@ -271,6 +331,8 @@
             <ui:include src="../tipoDeTramite/Edit.xhtml"/>
             <ui:include src="../actividad/Create.xhtml"/>
             <ui:include src="../actividad/Edit.xhtml"/>
+            <ui:include src="../fechasRestringidas/Create.xhtml"/>
+            <ui:include src="../fechasRestringidas/Edit.xhtml"/>
             
             
         </ui:define>

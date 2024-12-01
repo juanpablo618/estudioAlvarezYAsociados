@@ -1,6 +1,7 @@
 package com.estudioAlvarezVersion2.jsf;
 
 import com.estudioAlvarezVersion2.jpa.Agenda;
+import com.estudioAlvarezVersion2.jpa.FechasRestringidas;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.AgendaFacade;
@@ -307,21 +308,33 @@ public class AgendaController implements Serializable {
     }
 
     private Boolean validateHolidays(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String dateString = sdf.format(date);
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Formato correcto
+    String dateString = sdf.format(date); // Convertir la fecha a String en el formato deseado
 
-        // Lista de feriados en Argentina
-        String feriadosArg[] = {"01/01/2024", "12/02/2024", "13/02/2024", "24/03/2024", "29/03/2024", "02/04/2024", "01/05/2024", "25/05/2024", "20/06/2024",
-            "09/07/2024", "17/08/2024", "11/10/2024", "18/11/2024", "08/12/2024", "25/12/2024"    
-        };
+    // Obtener el controlador de FechasRestringidas
+    FacesContext context = FacesContext.getCurrentInstance();
+    FechasRestringidasController fechasRestringidasController = context.getApplication()
+        .evaluateExpressionGet(context, "#{fechasRestringidasController}", FechasRestringidasController.class);
 
-        return Arrays.asList(feriadosArg).contains(dateString);
+    Boolean result = false;
+
+    for (FechasRestringidas item : fechasRestringidasController.getItems()) {
+        // Formatear cada fecha de item a String en el mismo formato y compararlas
+        String itemDateString = sdf.format(item.getFecha()); // Convertir la fecha del item a String
+        if (itemDateString.equals(dateString)) {
+            result = true;
+            break; // No es necesario seguir buscando si ya encontramos una coincidencia
+        }
     }
+
+    return result;
+}
+
     
     public void createParaActividad() {
         
         if (validateHolidays(selectedActividad.getFecha())) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
             filteredAgendas = null;
@@ -355,7 +368,7 @@ public class AgendaController implements Serializable {
         }
 
         if (validateHolidays(agendaController.getSelected().getFecha())) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
         } else {
@@ -388,7 +401,7 @@ public class AgendaController implements Serializable {
         }
 
         if (validateHolidays(agendaController.getSelected().getFecha())) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
         } else {
@@ -414,7 +427,7 @@ public class AgendaController implements Serializable {
         AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
 
         if (validateHolidays(selected.getFecha())) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
         } else {
@@ -461,7 +474,7 @@ public class AgendaController implements Serializable {
         AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
         
         if (validateHolidays(selectedParaCrearUnaNueva.getFecha())) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
         } else {
@@ -481,7 +494,7 @@ public class AgendaController implements Serializable {
     public void update() {
 
         if (validateHolidays(selected.getFecha())) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
             filteredAgendas = null;
@@ -499,7 +512,7 @@ public class AgendaController implements Serializable {
     public void updateAgendaPasada() {
 
         if (validateHolidays(selectedAgendaPasada.getFecha())) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
             filteredAgendas = null;
@@ -517,7 +530,7 @@ public class AgendaController implements Serializable {
     public void updateAgendaFutura() {
 
         if (validateHolidays(selectedAgendaFutura.getFecha())) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
             filteredAgendas = null;

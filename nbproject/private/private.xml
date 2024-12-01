@@ -4,47 +4,28 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/WEB-INF/glassfish-resources.xml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/EmpleadoController.java</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/EditAgendaPasada.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/ViewParaAgenda.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/View_1.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpacontroller/ExpedienteFacade.java</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/ViewExp_DesdeEditAgenda.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/consulta/Edit.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/Create.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/List.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/empleado/Edit.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/ExpedienteController.java</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/login.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/CreateAgendaParaActividad.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/Edit.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/empleado/List.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Consulta.java</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/ConsultaController.java</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/consulta/List.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/empleado/Create.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/Login/Login.java</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/View.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/EditAgendaFutura.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/ComunicacionController.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/eventoDeCausaJudicial/CreateEventoCausasJudicialesParaExpJudicial.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/ViewDocumentos.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/comunicacion/CreateComunicacionParaExpJudicial.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/resources/css/jsfcrud.css</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/actividad/Create.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Expediente.java</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/Edit.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Agenda.java</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/Create_1.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/EventoDeCausasJudicialesController.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpacontroller/util/FileDownloadBean.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/consulta/Edit.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/template.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/EditExpJudicial.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpacontroller/AbstractFacade.java</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/DAO.java</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/List_AgendasTurnosWithSession.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/Create.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/actividad/Edit.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/turno/Create.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/viewEnAgenda/Edit.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpacontroller/AgendaFacade.java</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/TurnoController.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Turno.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/comunicacion/CreateComunicacionParaExpAdministrativo.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpacontroller/util/FileUploadBean.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/ExpedienteController.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/agenda/CreateAgendaParaActividad.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/resources/css/styles.css</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Comunicacion.java</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/consulta/Create.xhtml</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/Empleado.java</file>
-            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/AgendaController.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpacontroller/TurnoFacade.java</file>
         </group>
     </open-files>
 </project-private>

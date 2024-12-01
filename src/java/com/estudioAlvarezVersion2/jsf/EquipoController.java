@@ -1,6 +1,5 @@
 package com.estudioAlvarezVersion2.jsf;
 
-import com.estudioAlvarezVersion2.jpa.Empleado;
 import com.estudioAlvarezVersion2.jpa.Equipo;
 import com.estudioAlvarezVersion2.jpacontroller.EquipoFacade;
 import javax.ejb.EJB;
@@ -15,6 +14,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+/**
+ *
+ * @author juanpablo618@hotmail.com
+ */
 @Named("equipoController")
 @SessionScoped
 public class EquipoController implements Serializable {
@@ -119,7 +122,5 @@ public class EquipoController implements Serializable {
         }
 
     }
-    
-    
     
 }

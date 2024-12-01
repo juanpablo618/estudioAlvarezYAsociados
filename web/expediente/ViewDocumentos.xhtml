@@ -674,6 +674,29 @@
                                         <p:fileDownload value="#{fileDownloadBean.fileExpAdministrativo}" />
                                     </p:commandButton>
                                 </div>
+                                
+                                
+                                <p:outputLabel value="Exp Administrativo dos:"  style="font-weight: bold"/>
+                                <br></br>
+                                <p:growl life="2500" showDetail="true"/>
+                                <p:fileUpload value="#{fileUploadBean.fileExpAdministrativoDos}" mode="simple"/>
+                                <br></br>
+                                <p:outputLabel value="Nombre del archivo Exp Administrativo Dos:"  style="font-weight: bold"/>
+                                <br></br>
+                                <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ExpAdministrativoDos')}"  style="font-weight: bold; color: #123A6D"/>
+                                <br></br>
+
+                                <!-- Contenedor flex para los botones -->
+                                <div style="display: flex; gap: 10px;">
+                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadExpAdministrativoDos(expedienteController.selected.orden)}" ajax="false" />
+
+                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar Exp. Administrativo Dos" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'ExpAdministrativoDos')}" ajax="false">
+                                        <p:fileDownload value="#{fileDownloadBean.fileExpAdministrativoDos}" />
+                                    </p:commandButton>
+                                </div>
+                                
+                                
+                                
                             </p:panel>
 
                             <br></br>

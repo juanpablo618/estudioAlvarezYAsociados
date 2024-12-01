@@ -23,7 +23,7 @@
                 
                 <!-- Filtros por día, mes y año -->
                 <div  style="float: left;margin-top: .5%; margin-left: .5%;">
-                    <p:fieldset class="ui-fieldset-toggleable-azul" style="background-color: #123a6d" legend="Filtro por dìa" toggleable="true"  collapsed="true" toggleSpeed="500">
+                    <p:fieldset class="ui-fieldset-toggleable-azul" style="background-color: #123a6d" legend="Filtro por Día" toggleable="true"  collapsed="true" toggleSpeed="500">
                                     <p:calendar id="filterDay" value="#{consultaController.filterDay}" pattern="dd/MM/yyyy"
                                 placeholder="Seleccionar Día"  />
                             <p:commandButton value="Filtrar" class="borderRd mrgTB2" action="#{consultaController.filterConsultas}" update="datalist" />
@@ -68,9 +68,9 @@
                                  selectionMode="single" selection="#{consultaController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idConsulta}"
-                                 rows="20"
+                                 rows="50"
                                  widgetVar="consultasTable"
-                                 rowsPerPageTemplate="10,20,50,100,200"
+                                 rowsPerPageTemplate="50,100,200"
                                  emptyMessage="No existen consultas"
                                  filteredValue="#{consultaController.filteredConsultas}"
                                   resizableColumns="true"
@@ -82,7 +82,7 @@
 
                        <p:growl life="5000" id="message" showDetail="true" />
  
-                       <p:column filterBy="#{item.getFechaDeAtencionFormateada()}" filterMatchMode="exact" style="text-align: left; width: 10%" headerText="Fecha de atenciòn"  styleClass="centeredColumnContent#{item.estadoConsulta}">
+                       <p:column filterBy="#{item.getFechaDeAtencionFormateada()}" filterMatchMode="exact" style="text-align: left; width: 10%" headerText="FECHA DE ATENCIÓN"  styleClass="centeredColumnContent#{item.estadoConsulta}">
                         <h:outputText style="width: 10%" value="#{item.fechaDeAtencion}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
@@ -94,13 +94,13 @@
                                     filterFunction="#{consultaController.filterInsensitive}" 
                                     styleClass="centeredColumnContent#{item.estadoConsulta}">
                               <f:facet name="header">
-                                  <h:outputText value="Apellido y Nombre"/>
+                                  <h:outputText value="APELLIDO Y NOMBRE"/>
                               </f:facet>
                               <h:outputText value="#{item.apellido} #{item.nombre}"/>
                           </p:column>
                         <p:column filterBy="#{item.equipo}" style="text-align: left;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
                             <f:facet name="header">
-                                <h:outputText value="equipo"/>
+                                <h:outputText value="EQUIPO"/>
                             </f:facet>
                             <f:facet name="filter">
                                 <p:selectOneMenu onchange="PF('consultasTable').filter()" style="margin-left: 1%; margin-right: 1%" id="equipo" editable="false" effect="fold" value="#{consultaController.equipoSeleccionadoEnTabla}">
@@ -113,7 +113,7 @@
                        
                        <p:column filterBy="#{item.telefono}" style="text-align: left;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
                             <f:facet name="header">
-                                <h:outputText value="teléfono"/>
+                                <h:outputText value="TELÉFONO"/>
                             </f:facet>
                             <h:outputText value="#{item.telefono}"/>
                             <a href="#{expedienteController.abrirWhatsApp(item.telefono)}" target="_blank" >
@@ -125,21 +125,30 @@
                        
                        <p:column filterBy="#{item.cuit}" style="text-align: left;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
                             <f:facet name="header">
-                                <h:outputText value="Cuit"/>
+                                <h:outputText value="CUIT"/>
                             </f:facet>
                             <h:outputText value="#{item.cuit}"/>
                         </p:column>
                        
+                        <p:column filterBy="#{item.responsable}" style="text-align: left;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
+                            <f:facet name="header">
+                                <h:outputText value="RESPONSABLE"/>
+                            </f:facet>
+                            <h:outputText value="#{item.responsable}"/>
+                        </p:column>
+                       
+                     
+                       
                        <p:column filterBy="#{item.procedencia}" style="text-align: left;" filterMatchMode="contains" styleClass="centeredColumnContent#{item.estadoConsulta}">
                             <f:facet name="header">
-                                <h:outputText value="Procedencia"/>
+                                <h:outputText value="PROCEDENCIA"/>
                             </f:facet>
                             <h:outputText value="#{item.procedencia}"/>
                         </p:column>
                        
                        <p:column filterBy="#{item.estadoConsulta}" filterMatchMode="exact" style="text-align: left;" styleClass="centeredColumnContent#{item.estadoConsulta}">
                             <f:facet name="header">
-                                <h:outputText value="estado"/>
+                                <h:outputText value="ESTADO"/>
                             </f:facet>
                             <f:facet name="filter">
                                     <p:selectOneMenu  onchange="PF('consultasTable').filter()" value="#{consultaController.estadoSeleccionadoEnTabla}"   styleClass="custom-filter">
@@ -149,6 +158,11 @@
                                         <f:selectItem itemLabel="ARCHIVADO / DESISTIDO" itemValue="ARCHIVADO / DESISTIDO" />
                                         <f:selectItem itemLabel="CONSULTA PASADA A EXP. ADMINISTRATIVO" itemValue="CONSULTA PASADA A EXP. ADMINISTRATIVO" />
                                         <f:selectItem itemLabel="PARA BLANQUEO DE CLASE SS" itemValue="PARA BLANQUEO DE CLASE SS" />
+                                        
+                                        <f:selectItem itemLabel="TURNO TELEFÓNICO" itemValue="TURNO TELEFÓNICO" />
+                                        <f:selectItem itemLabel="TURNO PRESENCIAL" itemValue="TURNO PRESENCIAL" />
+                                        <f:selectItem itemLabel="ENVÍO CARTA PRESUPUESTO" itemValue="ENVÍO CARTA PRESUPUESTO" />
+                                        <f:selectItem itemLabel="ESTUDIO DE CAUSA" itemValue="ESTUDIO DE CAUSA" />
                                         
                                     </p:selectOneMenu>
                             </f:facet>

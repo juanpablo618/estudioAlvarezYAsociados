@@ -97,10 +97,10 @@
                                 <p:outputLabel class="float-l" value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
                                 <p:inputTextarea rows="5" cols="65" autoResize="false"  id="observaciones" value="#{consultaController.selected.observaciones}" title="observaciones"/>
                                 <br></br><br></br>
-                                <div>
+                               <div>
                                     <p:commandButton onclick="ConsultaViewDialog.hide()" actionListener="#{expedienteController.cambiarConsultaAExpAdm(consultaController.selected)}" class="botonCrearAgenda hoverGreen" value="Cambiar a Administrativo"
                                                      style="float: right !important; margin-top: 0% !important;" update=":ConsultaListForm:datalist"  oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
-                        
+                            
                                 </div>
                                 <br></br>
                             </div>  
@@ -309,6 +309,13 @@
                             <br></br>
                             <br></br>
                         </p:tab>
+                         <p:tab title="Comunicaciones">
+                            <p:outputLabel value="Comunicaciones" for="comunicaciones" style="font-weight: bold"/><br></br>
+                            <p:editor width="700" id="comunicaciones" value="#{consultaController.selected.comunicaciones}" ></p:editor>
+
+                        </p:tab>
+                        
+                        
                         
                     </p:tabView>
                 </div>

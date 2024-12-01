@@ -7,6 +7,7 @@ import com.estudioAlvarezVersion2.jpa.Expediente;
 import com.estudioAlvarezVersion2.jpa.ExpedienteDAO;
 import com.estudioAlvarezVersion2.jpa.Comunicacion;
 import com.estudioAlvarezVersion2.jpa.Consulta;
+import com.estudioAlvarezVersion2.jpa.EventoDeCausasJudiciales;
 import com.estudioAlvarezVersion2.jpa.Turno;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
@@ -46,7 +47,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.event.ActionEvent;
+import java.time.LocalDate;
+import java.util.concurrent.TimeUnit;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
@@ -716,13 +718,11 @@ public class ExpedienteController implements Serializable {
         if (mostrarSoloActivos) {
             if (activeItems == null) {
                 activeItems = getFacade().findActiveExpedientes();
-                System.out.println("entro aqui findActiveExpedientes");
             }
             return activeItems;
         } else {
             if (items == null) {
                 items = getFacade().findAll();
-                System.out.println("entro aqui else de getFacade().findAll()");
             }
             return items;
         }
@@ -1083,7 +1083,6 @@ public class ExpedienteController implements Serializable {
 
         return verTurnosFuturos;
     }
-
     
     public List verComunicacionesPorNroDeOrden(Integer orden) {
         
@@ -1109,70 +1108,50 @@ public class ExpedienteController implements Serializable {
         
         return comunicaciones;
     }
+    
+    public List verFechasJudicialesPorNroDeOrden(Integer orden) {
+        
+        List<EventoDeCausasJudiciales> eventoDeCausasJudiciales;
+        eventoDeCausasJudiciales = new ArrayList<>();
 
-    /*public String verClaveCidi(int orden) {
         FacesContext context = FacesContext.getCurrentInstance();
-        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        String noPoseeClave = "no posee clave CIDI";
+        EventoDeCausasJudicialesController eventoDeCausasJudicialesControllerBean = context.getApplication().evaluateExpressionGet(context, "#{eventoDeCausasJudicialesController}", EventoDeCausasJudicialesController.class);
+            
+        eventoDeCausasJudicialesControllerBean.getItems().stream().filter(EventoDeCausasJudiciales ->
+                (orden != null)).filter(EventoDeCausasJudiciales ->
+                        (EventoDeCausasJudiciales.getOrden() != null)).filter(EventoDeCausasJudiciales ->
+                                (Objects.equals(EventoDeCausasJudiciales.getOrden(), orden))).forEachOrdered(EventoDeCausasJudiciales ->
+                                {
+            eventoDeCausasJudiciales.add(EventoDeCausasJudiciales);
+        });
+        
+        Collections.sort(eventoDeCausasJudiciales, (EventoDeCausasJudiciales o1, EventoDeCausasJudiciales o2) -> o2.getFecha().compareTo(o1.getFecha()));
 
-        for (Expediente expediente : expedienteControllerBean.getItems()) {
-            if (expediente.getOrden() != null) {
-                if (Integer.compare(expediente.getOrden(), orden) == 0) {
-                    if (expediente.getClaveCidi() != null) {
-                        return expediente.getClaveCidi();
-                    } else {
-                        return noPoseeClave;
-                    }
-                }
+          for (int i = 0; i < eventoDeCausasJudiciales.size() - 1; i++) {
+                Date fechaActual = eventoDeCausasJudiciales.get(i).getFecha();
+                Date fechaSiguiente = eventoDeCausasJudiciales.get(i + 1).getFecha();
+
+                // Calcular la diferencia en milisegundos y convertirla a días
+                long diferenciaEnMilisegundos = fechaSiguiente.getTime() - fechaActual.getTime();
+                long diasDiferencia = TimeUnit.MILLISECONDS.toDays(diferenciaEnMilisegundos);
+
+                // Asignar la diferencia al modelo
+                eventoDeCausasJudiciales.get(i).setDiasHastaProximaFecha(diasDiferencia);
             }
-        }
-        return noPoseeClave;
-    }*/
 
-    /*public String verClaveFiscal(int orden) {
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        String noPoseeClaveFiscal = "no posee clave FISCAL";
-
-        for (Expediente expediente : expedienteControllerBean.getItems()) {
-            if (expediente.getOrden() != null) {
-                if (Integer.compare(expediente.getOrden(), orden) == 0) {
-                    if (expediente.getClaveFiscal() != null) {
-                        return expediente.getClaveFiscal();
-                    } else {
-                        return noPoseeClaveFiscal;
-                    }
-                }
-            }
+        // La última fecha no tiene próxima fecha, asignamos un valor indicativo
+        if (!eventoDeCausasJudiciales.isEmpty()) {
+            eventoDeCausasJudiciales.get(eventoDeCausasJudiciales.size() - 1).setDiasHastaProximaFecha(null);
         }
-        return noPoseeClaveFiscal;
-    }*/
+        
+        return eventoDeCausasJudiciales;
+    }
     
     public String verClaveFiscal(int orden) {
         String claveFiscal = getFacade().findClaveFiscalByOrden(orden);
         return claveFiscal != null ? claveFiscal : "No posee clave Fiscal";
     }
 
-
-    /*public String verClaveDeSeguridadSocial(int orden) {
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-        String noPoseeClave = "no posee clave de Seguridad Social";
-
-        for (Expediente expediente : expedienteControllerBean.getItems()) {
-            if (expediente.getOrden() != null) {
-                if (Integer.compare(expediente.getOrden(), orden) == 0) {
-                    if (expediente.getClaveSeguridadSocial() != null) {
-                        return expediente.getClaveSeguridadSocial();
-                    } else {
-                        return noPoseeClave;
-                    }
-                }
-            }
-        }
-        return noPoseeClave;
-    }*/
-    
     public String verClaveDeSeguridadSocial(int orden) {
         String claveSeguridadSocial = getFacade().findClaveSeguridadSocialByOrden(orden);
         return claveSeguridadSocial != null ? claveSeguridadSocial : "No posee clave de Seguridad Social";

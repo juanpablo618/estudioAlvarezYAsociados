@@ -1,6 +1,7 @@
 package com.estudioAlvarezVersion2.jsf;
 
 import com.estudioAlvarezVersion2.Login.SessionUtils;
+import com.estudioAlvarezVersion2.jpa.FechasRestringidas;
 import com.estudioAlvarezVersion2.jpa.Turno;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
@@ -34,6 +35,10 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+/**
+ *
+ * @author juanpablo618@hotmail.com
+ */
 @Named("turnoController")
 @SessionScoped
 public class TurnoController implements Serializable {
@@ -45,7 +50,6 @@ public class TurnoController implements Serializable {
 
     private Turno selectedTurnoPasado;
     private Turno selectedTurnoFuturo;
-    
     
     private static final String DD_MM_YYYY = "dd/MM/yyyy";
     private static final String LA_FECHA_SELECCIONADA_NO_ES_VALIDA = "la fecha selecionada no es válida";
@@ -90,10 +94,6 @@ public class TurnoController implements Serializable {
     public void setSelectedTurnoFuturo(Turno selectedTurnoFuturo) {
         this.selectedTurnoFuturo = selectedTurnoFuturo;
     }
-
-    
-    
-    
 
     public String getExpSeleccionado() {
         return expSeleccionado;
@@ -308,14 +308,27 @@ public class TurnoController implements Serializable {
     }
 
     private Boolean validateHolidays(String date) {
-        //lista sacada de https://www.argentina.gob.ar/interior/feriados-nacionales-2023
-        //https://www.lanacion.com.ar/feriados/2024/
-        String feriadosArg[] = {"01/01/2024", "12/02/2024", "13/02/2024", "24/03/2024", "29/03/2024", "02/04/2024", "01/05/2024", "25/05/2024", "20/06/2024",
-            "09/07/2024", "17/08/2024", "11/10/2024", "18/11/2024", "08/12/2024", "25/12/2024"    
-        };
+    // Formato esperado de la fecha recibida (ejemplo: "dd/MM/yyyy")
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+    FacesContext context = FacesContext.getCurrentInstance();
+    FechasRestringidasController fechasRestringidasController = context.getApplication().evaluateExpressionGet(context, "#{fechasRestringidasController}", FechasRestringidasController.class);
+
+    Boolean result = false;
+
+    for (FechasRestringidas item : fechasRestringidasController.getItems()) {
+        // Convertir la fecha del item a String en el mismo formato
+        String itemDateString = sdf.format(item.getFecha());
         
-        return Arrays.asList(feriadosArg).contains(date);
+        // Comparar las fechas ya formateadas
+        if (itemDateString.equals(date)) {
+            result = true;
+            break; // Romper el bucle si se encuentra una coincidencia
+        }
     }
+
+    return result;
+}
 
     public Turno prepareCreate() {
         selected = new Turno();
@@ -329,7 +342,7 @@ public class TurnoController implements Serializable {
         String date = sdf.format(selected.getHoraYDia());
 
         if (validateHolidays(date)) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
             items = null;
         } else {
@@ -353,7 +366,7 @@ public class TurnoController implements Serializable {
         String date = sdf.format(selected.getHoraYDia());
 
         if (validateHolidays(date)) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
             items = null;
         } else {
@@ -370,7 +383,7 @@ public class TurnoController implements Serializable {
         String date = sdf.format(selected.getHoraYDia());
 
         if (validateHolidays(date)) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA, POR_SER_FERIADO);
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
             items = null;
         } else {
@@ -389,53 +402,12 @@ public class TurnoController implements Serializable {
         }
     }
 
-    /*public List<Turno> getItems() {
-
-    if (items == null) {
-        items = getFacade().findAll();
-    }
-    List<Turno> cloned_list;
-
-    cloned_list = new ArrayList<>(this.items);
-    Collections.sort(cloned_list, new SortByDate());
-        //Collections.sort(cloned_list, (Turno o1, Turno o2) -> o1.getHoraYDia().compareTo(o2.getHoraYDia()));
-
-        return cloned_list;
-
-    }*/
-    
     public List<Turno> getItems() {
         if (items == null) {
             items = getFacade().findAllSortedByDate();
         }
         return items; 
     }
-    
-    /*
-    por las dudas lo dejo de backup, luego borrar.
-    public List<Turno> getItemsBySessionUser(String userNombreCompleto, String date) {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
-        List<Turno> cloned_list;
-        setFechaParaFiltrar(date);
-        
-        cloned_list = new ArrayList<>(this.items);
-        Collections.sort(cloned_list, new SortByDate());
-
-        List<Turno> resultados = new ArrayList<>();
-
-        for (Turno turno : cloned_list) {
-            String nombreCompletoResponsable = turno.getResponsable();
-
-            if (nombreCompletoResponsable.equals(userNombreCompleto) && turno.getDiaMesAnio().equals(date)) {
-                resultados.add(turno);
-            }
-        }
-            
-        return resultados;
-
-    }*/
     
     public List<Turno> getItemsBySessionUser(String userNombreCompleto, String date) {
         
@@ -642,30 +614,6 @@ public class TurnoController implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('turnosTable').filter()");
     }
 
-    /*public void filtrarAgendasYTurnos(Date dateSelected) {
-        this.filteredturnos = new ArrayList<Turno>();
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
-
-        agendaController.filtrarPorFecha(dateSelected);
-
-        if (dateSelected != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-            String date = sdf.format(dateSelected);
-
-            for (Turno turno : getItems()) {
-                SimpleDateFormat sdf2 = new SimpleDateFormat(DD_MM_YYYY);
-                String date2 = sdf2.format(turno.getHoraYDia());
-
-                if (date2.equals(date)) {
-                    filteredturnos.add(turno);
-                }
-            }
-        }
-        this.dateSelected = null;
-    }*/
-
      public void transferir() {
                 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -686,7 +634,6 @@ public class TurnoController implements Serializable {
         }
 
     }
-
      
      public List<Turno> getItemsByOrder(Integer orden) {
         return getFacade().getItemsByOrder(orden);

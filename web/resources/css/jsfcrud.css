@@ -256,7 +256,7 @@ table.dataTable.nowrap td{white-space:nowrap}
 }
 
 .crearExpediente, .crearConsulta{
-    width: 50% !important;
+    width: 70% !important;
     height: 70% !important;
     left: 15% !important;
     top: 2% !important;

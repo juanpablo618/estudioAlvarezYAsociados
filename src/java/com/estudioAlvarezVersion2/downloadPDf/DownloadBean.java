@@ -1,6 +1,5 @@
 package com.estudioAlvarezVersion2.downloadPDf;
 
-import static com.estudioAlvarezVersion2.jpa.Expediente_.sexo;
 import com.lowagie.text.DocumentException;
 import java.io.IOException;
 import java.io.InputStream;

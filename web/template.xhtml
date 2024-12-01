@@ -15,12 +15,12 @@
 
     <h:body class="fondo">
         <h:form>
-            <p:growl life="2500" id="messages1" showDetail="true" />
+            <p:growl life="5000" id="messages1" showDetail="true" />
             <p:idleMonitor timeout="900000">
                 <p:ajax event="idle" listener="#{login.onIdle}" update="messages1" />
             </p:idleMonitor>
         </h:form>
-         <p:growl id="growl" life="2500" />
+         <p:growl id="growl" life="1" />
         <p:layout fullPage="true" style="background: #123a6d;">
             <p:layoutUnit position="north" class="bordersn maxwidth" style="margin: 0 !important; padding: 0 !important;">
                 <center style="background-color: #123a6d;">
@@ -31,32 +31,32 @@
                 <h:form class="menuForm" style="background: #123a6d !important;">
                     <p:menu  style="width: auto !important;background: #123a6d !important;">
                         <p:submenu > 
-                            <p:menuitem outcome="/expediente/List" class="fa fa-folder-open fa-3x btnMenuLeft" title="Expedientes"/>
+                            <p:menuitem outcome="/expediente/List" class="fa fa-folder-open fa-2x btnMenuLeft" title="Expedientes"/>
                             <p:separator class="separador" />
-                            <p:menuitem outcome="/agenda/List_AgendasTurnos" class="fa fa-calendar-alt fa-3x btnMenuLeft" title="Agendas y Turnos"/>
+                            <p:menuitem outcome="/agenda/List_AgendasTurnos" class="fa fa-calendar-alt fa-2x btnMenuLeft" title="Agendas y Turnos"/>
                             <p:separator class="separador"/>
                             
-                            <p:menuitem outcome="/agenda/List_AgendasTurnosWithSession" class="fa fa-tasks fa-3x btnMenuLeft" title="Agendas y Turnos personales"/>
+                            <p:menuitem outcome="/agenda/List_AgendasTurnosWithSession" class="fa fa-tasks fa-2x btnMenuLeft" title="Agendas y Turnos personales"/>
                                 <p:separator class="separador"/>
                             
-                            <p:menuitem outcome="/agenda/List_AgendasTurnosWithSessionOnlyAdminUsers" rendered="#{empleadoController.isLeader(session.getAttribute('userNombreCompleto'))}" class="fa fa-eye fa-3x btnMenuLeft" title="Agendas y Turnos de lideres"/>
+                            <p:menuitem outcome="/agenda/List_AgendasTurnosWithSessionOnlyAdminUsers" rendered="#{empleadoController.isLeader(session.getAttribute('userNombreCompleto'))}" class="fa fa-eye fa-2x btnMenuLeft" title="Agendas y Turnos de lideres"/>
                             <p:separator class="separador" rendered="#{empleadoController.isLeader(session.getAttribute('userNombreCompleto'))}"/>
                             
-                            <p:menuitem outcome="/empleado/List" class="fa fa-id-card fa-3x btnMenuLeft" title="Colaboradores" />
+                            <p:menuitem outcome="/empleado/List" class="fa fa-id-card fa-2x btnMenuLeft" title="Colaboradores" />
                             <p:separator class="separador"/>
-                            <p:menuitem outcome="/estadoDelTramite/List_EstadoDelTramiteYProcedencias" class="fa fa-file-archive fa-3x btnMenuLeft" title="Tipos de tramites, Estados del tramite y Procedencias y actividades"/>
+                            <p:menuitem outcome="/estadoDelTramite/List_EstadoDelTramiteYProcedencias" class="fa fa-file-archive fa-2x btnMenuLeft" title="Tipos de tramites, Estados del tramite y Procedencias y actividades, fechas restringidas"/>
                             <p:separator class="separador"/>
-                            <p:menuitem outcome="/honorario/List" class="fa fa-balance-scale fa-3x btnMenuLeft" title="Honorarios" />
+                            <p:menuitem outcome="/honorario/List" class="fa fa-balance-scale fa-2x btnMenuLeft" title="Honorarios" />
                             <p:separator class="separador"/>
-                            <p:menuitem outcome="/consulta/List" class="fa fa-laptop fa-3x btnMenuLeft" title="Consultas"/>
+                            <p:menuitem outcome="/consulta/List" class="fa fa-laptop fa-2x btnMenuLeft" title="Consultas"/>
                             <p:separator class="separador"/>
                             <p:menuitem  
                                 onclick="window.open('https://wa.me/543513220999?text=hola%20necesito%20ayuda%20con%20el%20sistema%20del%20estudio%20Alvarez'); return false;"
-                                class="fa fas fa-wrench fa-3x btnMenuLeft"
+                                class="fa fas fa-wrench fa-2x btnMenuLeft"
                                 title="Contactar por WhatsApp" />
                             <p:separator class="separador" />
                             
-                            <p:menuitem outcome="/login.xhtml" class="fa fa-user-circle fa-3x btnMenuLeft" title="Salir"/>
+                            <p:menuitem outcome="/login.xhtml" class="fa fa-user-circle fa-2x btnMenuLeft" title="Salir"/>
                         </p:submenu>
                     </p:menu>
                 </h:form>

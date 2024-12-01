@@ -49,6 +49,8 @@ public class ConsultaController implements Serializable {
     //para filtros en tablas
     private String estadoSeleccionadoEnTabla;
     private String equipoSeleccionadoEnTabla;
+    private String equipoSeleccionadoEnTablaDesdeViewEmpleados;
+    
     
     private String fechaSeleccionadaEnConsultaTable;
     
@@ -69,6 +71,14 @@ public class ConsultaController implements Serializable {
     }
 
     public ConsultaController() {
+    }
+
+    public String getEquipoSeleccionadoEnTablaDesdeViewEmpleados() {
+        return equipoSeleccionadoEnTablaDesdeViewEmpleados;
+    }
+
+    public void setEquipoSeleccionadoEnTablaDesdeViewEmpleados(String equipoSeleccionadoEnTablaDesdeViewEmpleados) {
+        this.equipoSeleccionadoEnTablaDesdeViewEmpleados = equipoSeleccionadoEnTablaDesdeViewEmpleados;
     }
 
     

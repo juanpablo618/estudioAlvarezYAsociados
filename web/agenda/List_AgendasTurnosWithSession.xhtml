@@ -21,7 +21,7 @@
                     <h:outputText style="color: white;" id="output" value="#{counterView.number}" />
                 </h:panelGrid>
                 
-                <div style="float: right;width: 30%;">
+                <div style="float: right;width: 50%; ">
                     <p:commandButton id="createButton" icon="ui-icon-plus" value="NUEVA AGENDA" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
                     <p:commandButton id="createButtonTurno"  icon="ui-icon-plus" value="NUEVO TURNO" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
                     <p:commandButton id="createAgendaParaActividadButton" icon="ui-icon-plus" value="NUEVA ACTIVIDAD" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{agendaController.prepareCreateActividad()}" update=":AgendaParaActividadCreateForm" oncomplete="PF('AgendaParaActividadCreateDialog').show()"/>

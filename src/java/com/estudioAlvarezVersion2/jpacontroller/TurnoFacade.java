@@ -18,7 +18,7 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author developer
+ * @author juanpablo618@hotmail.com
  */
 @Stateless
 public class TurnoFacade extends AbstractFacade<Turno> {

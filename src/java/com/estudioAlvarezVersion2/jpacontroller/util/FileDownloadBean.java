@@ -55,6 +55,8 @@ public class FileDownloadBean implements Serializable {
     private StreamedContent fileAfipDatosPersonalesPagosOtrosTres;
     
     private StreamedContent fileExpAdministrativo;
+    private StreamedContent fileExpAdministrativoDos;
+    
     private StreamedContent fileRecibos;
     private StreamedContent fileLiquidacionBlueCorp;
     private StreamedContent fileLiquidacionBlueCorpDos;
@@ -347,6 +349,14 @@ public class FileDownloadBean implements Serializable {
 
     public StreamedContent getFileAfipDatosPersonalesPagosOtrosTres() {
         return fileAfipDatosPersonalesPagosOtrosTres;
+    }
+
+    public StreamedContent getFileExpAdministrativoDos() {
+        return fileExpAdministrativoDos;
+    }
+
+    public void setFileExpAdministrativoDos(StreamedContent fileExpAdministrativoDos) {
+        this.fileExpAdministrativoDos = fileExpAdministrativoDos;
     }
 
     public void setFileAfipDatosPersonalesPagosOtrosTres(StreamedContent fileAfipDatosPersonalesPagosOtrosTres) {
@@ -1617,6 +1627,11 @@ public class FileDownloadBean implements Serializable {
                                 fileExpAdministrativo = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileExpAdministrativo;
                                 break;
+                            case "ExpAdministrativoDos":
+                                fileExpAdministrativoDos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileExpAdministrativoDos;
+                                break;
+                            
                             case "Recibos":
                                 fileRecibos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileRecibos;
@@ -1675,6 +1690,10 @@ public class FileDownloadBean implements Serializable {
                             case "ExpAdministrativo":
                                 fileExpAdministrativo = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileExpAdministrativo;
+                                break;
+                            case "ExpAdministrativoDos":
+                                fileExpAdministrativoDos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileExpAdministrativoDos;
                                 break;
                             case "Recibos":
                                 fileRecibos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));

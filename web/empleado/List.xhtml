@@ -32,6 +32,7 @@
                                  rows="30"
                                  rowsPerPageTemplate="30,40,50"
                                  emptyMessage="No existen Colaboradores"
+                                 widgetVar="empleadosTable"
                                  >
 
                         <p:ajax event="rowSelect"   update="createButton  "/>
@@ -60,13 +61,22 @@
                             <h:outputText value="#{item.cargo}"/>
                         </p:column>
                        
-                        <p:column style="text-align: center;">
-                            <f:facet name="header">
+                       <p:column filterBy="#{empleadoController.buscarEquiposALosQuePertenece(item.idEmpleado)}" filterMatchMode="contains" style="text-align: center;">
+                           <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('empleadosTable').filter()" style="margin-left: 1%; margin-right: 1%" id="equipo" editable="false" effect="fold" value="#{consultaController.equipoSeleccionadoEnTablaDesdeViewEmpleados}">
+                                               <f:selectItem itemLabel=" -- Elige un equipo --"  noSelectionOption="true"  />
+                                               <f:selectItems value="#{equipoController.items}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo.nombre}" />
+                                           </p:selectOneMenu>
+                            </f:facet>
+                             
+                           <f:facet name="header">
                                 <h:outputText value="equipos"/>
                             </f:facet>
                             <h:outputText value="#{empleadoController.buscarEquiposALosQuePertenece(item.idEmpleado)}"/>
                         </p:column>
-                        
+                       
+                       
+                       
                         <p:column rendered="#{session.getAttribute('userNombreCompleto') eq 'Mateo Francisco Alvarez' or session.getAttribute('userNombreCompleto') eq 'María Emilia Campos'}" style="text-align: center;width: 10%; ">
                             
                             <f:facet name="header">

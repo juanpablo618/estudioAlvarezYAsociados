@@ -366,7 +366,12 @@
                                             <f:setPropertyActionListener value="#{item}" target="#{comunicacionController.selected}" />
                                     </p:commandButton>
 
-                                    <p:commandButton class="linea btnDelete" update=":growl," oncomplete="PF('expedientesTable').clearFilters()" actionListener="#{comunicacionController.destroy}"  icon="ui-icon-trash" title="Eliminar">
+                                    <p:commandButton class="linea btnDelete"
+                                                     update=":growl, :ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist3" 
+                                                     oncomplete="PF('expedientesTable').clearFilters()"
+                                                     actionListener="#{comunicacionController.destroy}"
+                                                     icon="ui-icon-trash"
+                                                     title="Eliminar">
                                         <f:setPropertyActionListener value="#{item}" target="#{comunicacionController.selected}" />
                                         <p:confirm header="Confirmación" message="¿Estas seguro?"  icon="ui-icon-alert"/>
                                     </p:commandButton> 
@@ -375,7 +380,7 @@
 
                             </p:dataTable>
 
-                            <div >
+                            <div>
                                 <p:commandButton  class="botonEditarAgendaEsteBotonNoSirveMasPeroLoNecesitaLaUI botonCrear hoverGreen"
                                                   actionListener="#{comunicacionController.prepareCreateComunicacion(expedienteController.selected.orden)}"  value="crear comunicación" 
                                                   update=":ComunicacionCreateForm" oncomplete="PF('ComunicacionCreateDialog').show()" />
@@ -387,6 +392,70 @@
                             </p:confirmDialog> 
 
                         </p:tab>
+                        <p:tab id="tabEventosDeCausasJudiciales" title="fechas Judiciales">
+                            <p:dataTable id="datalist6" value="#{expedienteController.verFechasJudicialesPorNroDeOrden(expedienteController.selected.orden)}" var="item"
+                                         selectionMode="single" selection="#{eventoDeCausasJudicialesController.selected}"
+                                         rowKey="#{item.idEventoDeCausasJudiciales}"
+                                         paginator="true"
+                                         rows="10"
+                                         widgetVar="eventosDeCausasJudicialesTable2"
+                                         rowsPerPageTemplate="100,200,500"
+                                         emptyMessage="no hay eventos de causas judiciales agregadas" 
+                                         rendered="true"  
+                                         >
+
+                                <p:column sortBy="#{item.fecha}" style="width: 10%" styleClass="centeredColumnContent"  headerText="FECHA">
+                                    <h:outputText value="#{item.fecha}"  >
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                
+                                <p:column style="width: 20%" styleClass="centeredColumnContent" headerText="Días hasta próxima fecha">
+                                    <h:outputText value="#{item.diasHastaProximaFecha != null ? item.diasHastaProximaFecha  : 'N/A'}" escape="false" />
+
+                                </p:column>
+                                
+                                <p:column  style="width: 40%" styleClass="centeredColumnContent" headerText="tipo de fecha">
+                                    <h:outputText value="#{item.tipoDeFecha}"  />
+                                </p:column>
+
+                                <p:column style="width: 10% !important;text-align: center; "  exportable="false">
+
+                                    <f:facet name="header">
+                                        <h:outputText value="ACCIONES"/>
+                                    </f:facet>
+                                    
+                                    <p:commandButton class="linea btnSearch"  update=":EventoDeCausasJudicialesEditForm" oncomplete="PF('EventoDeCausasJudicialesEditDialog').show()"  icon="ui-icon-search"  title="Editar Evento">
+                                            <f:setPropertyActionListener value="#{item}" target="#{eventoDeCausasJudicialesController.selected}" />
+                                    </p:commandButton>
+
+                                    <p:commandButton class="linea btnDelete" 
+                                                     update=":growl, :ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist6"
+                                                     oncomplete="PF('expedientesTable').clearFilters()"
+                                                     actionListener="#{eventoDeCausasJudicialesController.destroy}"  
+                                                     icon="ui-icon-trash"
+                                                     title="Eliminar">
+                                        <f:setPropertyActionListener value="#{item}" target="#{eventoDeCausasJudicialesController.selected}" />
+                                        <p:confirm header="Confirmación" message="¿Estas seguro?"  icon="ui-icon-alert"/>
+                                    </p:commandButton> 
+
+                                </p:column>    
+
+                            </p:dataTable>
+
+                            <div >
+                                <p:commandButton  class="botonEditarAgendaEsteBotonNoSirveMasPeroLoNecesitaLaUI botonCrear hoverGreen"
+                                                  actionListener="#{eventoDeCausasJudicialesController.prepareCreateEventoJudicial(expedienteController.selected.orden)}"  value="crear fecha" 
+                                                  update=":EventoJudicialCreateForm" oncomplete="PF('EventoJudicialCreateDialog').show()" />
+                            </div>     
+
+                            <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton update=":ExpedienteListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;" />
+                                <p:commandButton update=":ExpedienteListForm" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;" />
+                            </p:confirmDialog> 
+
+                        </p:tab>
+                        
                         <p:tab id="tabAgendaAnterior" title="Agendas y Turnos">
                             <div>
                                 <p:fieldset id="fieldSetAgendaAnterior" class="ui-fieldset-toggleable-lila" legend="AGENDAS ANTERIORES" toggleable="true"  collapsed="true" toggleSpeed="500">
@@ -685,6 +754,9 @@
         </p:dialog>
         
         <ui:include src="../comunicacion/CreateComunicacionParaExpJudicial.xhtml"/>
+        <ui:include src="../eventoDeCausaJudicial/CreateEventoCausasJudicialesParaExpJudicial.xhtml"/>
+        <ui:include src="../eventoDeCausaJudicial/Edit.xhtml"/>
+        
 
     </ui:composition>
 </html>

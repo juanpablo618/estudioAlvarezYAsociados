@@ -33,11 +33,9 @@ boto.fondo {
 #menuForm{
     float: left;
     margin: 0 auto !important;
-    width: 100%;
 }
 
 #menuLeft{
-    width:5% !important;
     margin: 0 !important;
 }
 

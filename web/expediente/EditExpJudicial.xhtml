@@ -475,7 +475,7 @@
 
                                         <p:ajax event="rowSelect"  />
                                         <p:ajax event="rowUnselect" />
-                                        <p:growl life="2500" id="message5" showDetail="true" />
+                                        <p:growl life="5000" id="message5" showDetail="true" />
 
 
                                         <p:column  style="width: 23%" styleClass="centeredColumnContent#{item.realizado}"  headerText="FECHA">
@@ -543,7 +543,7 @@
                                                      >
                                             <p:ajax event="rowSelect"  />
                                             <p:ajax event="rowUnselect" />
-                                            <p:growl life="2500" id="message3"  showDetail="true" />
+                                            <p:growl life="5000" id="message3"  showDetail="true" />
 
                                         <p:column style="text-align: center; width: 10%" styleClass="centeredColumnContent#{item.getRealizado()}" headerText="FECHA">
 
@@ -604,7 +604,7 @@
 
                                         <p:ajax event="rowSelect"  />
                                         <p:ajax event="rowUnselect" />
-                                        <p:growl life="2500" id="message6" showDetail="true" />
+                                        <p:growl life="5000" id="message6" showDetail="true" />
 
 
                                         <p:column style="width: 23%" styleClass="centeredColumnContent#{item.realizado}"  headerText="FECHA">
@@ -672,7 +672,7 @@
                                                      >
                                              <p:ajax event="rowSelect"  />
                                             <p:ajax event="rowUnselect" />
-                                            <p:growl life="2500" id="message4" showDetail="true" />
+                                            <p:growl life="5000" id="message4" showDetail="true" />
 
                     <p:column style="text-align: center; width: 10%" styleClass="centeredColumnContent#{item.getRealizado()}" headerText="FECHA">
 
@@ -707,8 +707,24 @@
                               
                             
                             <div>
-                                <p:commandButton id="createButton" class="createButtonAgenda hoverBlue" value="Crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteJudicialEditDialog').show()" />
+                                <p:commandButton
+                                    rendered="#{empleadoController.isLeader(session.getAttribute('userNombreCompleto'))}"
+                                    id="createButton"
+                                    class="createButtonAgenda hoverBlue"
+                                    value="Crear Agenda"
+                                    actionListener="#{agendaController.prepareCreate}"
+                                    update=":ExpedienteViewFormParaAgenda"
+                                    oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteJudicialEditDialog').show()" />
                             </div>
+                            
+                            <div>
+                                    <p:commandButton id="createButtonAgendasMasivas"
+                                                     class="createButtonAgenda hoverBlue"
+                                                     value="Crear Agendas Masivas" 
+                                                     actionListener="#{agendaController.prepareCreateAgendasMasivas}"
+                                                     update=":ExpedienteViewFormParaAgendaMasiva,:growl"
+                                                     oncomplete="PF('ExpedienteViewDialogParaAgendasMasivas').show(); PF('ExpedienteEditDialog').show()" />
+                                </div>
 
                         </p:tab>
 

@@ -90,7 +90,7 @@
                     <p:ajax event="rowSelect"   update="createButton "/>
                     <p:ajax event="rowUnselect" update="createButton "/>
 
-                    <p:growl life="2500" id="message" showDetail="true" />
+                    <p:growl life="5000" id="message" showDetail="true" />
 
                     <p:column style="width: 8% !important;" filterBy="#{item.orden}" sortBy="#{item.orden}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="exact">
                         <f:facet name="header">
@@ -175,6 +175,7 @@
             <ui:include src="EditExpSinCarpeta.xhtml"/>
             <ui:include src="EditExpJudicial.xhtml"/>
             <ui:include src="ViewParaAgenda.xhtml"/>
+            <ui:include src="ViewParaAgendaMasiva.xhtml"/>
             <ui:include src="View_1.xhtml"/>
             <ui:include src="ViewDocumentos.xhtml"/>
             <ui:include src="ViewExpJudicial.xhtml"/>

@@ -2,6 +2,7 @@ package com.estudioAlvarezVersion2.jsf;
 
 import com.estudioAlvarezVersion2.jpa.Agenda;
 import com.estudioAlvarezVersion2.jpa.FechasRestringidas;
+import com.estudioAlvarezVersion2.jpa.Turno;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.AgendaFacade;
@@ -16,6 +17,10 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -31,6 +36,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
@@ -44,6 +50,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
@@ -69,6 +76,14 @@ public class AgendaController implements Serializable {
     private static final String ESTA_PERSONA_PARA_ESTE_DIA_YA_TIENE_40_AGENDAS = "Esta persona para este día ya tiene 40 o más agendas ";
 
     private Agenda selected;
+    
+    private Agenda selectedAgendaMasivaUno;
+    private Agenda selectedAgendaMasivaDos;
+    private Agenda selectedAgendaMasivaTres;
+    private Agenda selectedAgendaMasivaCuatro;
+    private Agenda selectedAgendaMasivaCinco;
+    private Agenda selectedAgendaMasivaSeis;
+    
     private Agenda selectedActividad;
     private Agenda selectedAgendaPasada;
     private Agenda selectedAgendaFutura;
@@ -89,30 +104,57 @@ public class AgendaController implements Serializable {
     private String realizado;
     private List<Agenda> selectedItems;
 
-    // Mapa de líderes a sus respectivos empleados
-    private static final Map<String, String[]> lideresEmpleadosMap = new HashMap<>();
+    private String tipoDeAgendaMasiva;
     
-    static {
-        lideresEmpleadosMap.put("Mateo Francisco Alvarez", new String[]{
+    // Mapa de líderes a sus respectivos empleados
+    private Map<String, List<String>> lideresEmpleadosMap;
+    
+    public AgendaController() {
+        // Constructor vacío
+    }
+
+    @PostConstruct
+    public void init() {
+        // Inicialización del mapa en @PostConstruct
+        lideresEmpleadosMap = new HashMap<>();
+        cargarDatos();
+    }
+
+    private void cargarDatos() {
+        lideresEmpleadosMap.put("Mateo Francisco Alvarez", Arrays.asList(
             "María Emilia Campos", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
             "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
             "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Pilar Boglione", "juan cuello"});
-        lideresEmpleadosMap.put("María Emilia Campos", new String[]{
+            "Pilar Boglione", "Juan Cuello"));
+        
+        lideresEmpleadosMap.put("María Emilia Campos", Arrays.asList(
             "Mateo Francisco Alvarez", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
             "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
             "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Pilar Boglione"});
-        lideresEmpleadosMap.put("Paula Alvarez", new String[]{
+            "Pilar Boglione"));
+
+        lideresEmpleadosMap.put("Paula Alvarez", Arrays.asList(
             "Mateo Novau", "Natali D Agostino", "Maria Jose Alaye", 
-            "Liliana Romero", "Pilar Boglione"});
-        lideresEmpleadosMap.put("Paola Maldonado", new String[]{
+            "Liliana Romero", "Pilar Boglione"));
+
+        lideresEmpleadosMap.put("Paola Maldonado", Arrays.asList(
             "Carla Juez", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Maria Jose Alaye"});
-        lideresEmpleadosMap.put("Ayelen Brizzio", new String[]{
-            "Mateo Novau"});
-        // Agregar más líderes y sus empleados según sea necesario
+            "Maria Jose Alaye"));
+
+        lideresEmpleadosMap.put("Ayelen Brizzio", Arrays.asList(
+            "Mateo Novau"));
+
+        // Agregar más líderes y empleados según sea necesario
     }
+
+    public List<String> getEmpleadosPorLider(String lider) {
+        return lideresEmpleadosMap.getOrDefault(lider, Arrays.asList());
+    }
+
+    public List<String> getLideres() {
+        return lideresEmpleadosMap.keySet().stream().toList();
+    }
+    
     
     public boolean isLeader(String nombre) {
         return lideresEmpleadosMap.containsKey(nombre);
@@ -154,9 +196,6 @@ public class AgendaController implements Serializable {
         this.selectionMode = selectionMode;
     }
     
-    public AgendaController() {
-    }
-
     public Date getFechaParaFiltrar() {
         return fechaParaFiltrar;
     }
@@ -173,6 +212,62 @@ public class AgendaController implements Serializable {
         this.selected = selected;
     }
 
+    public Agenda getSelectedAgendaMasivaUno() {
+        return selectedAgendaMasivaUno;
+    }
+
+    public void setSelectedAgendaMasivaUno(Agenda selectedAgendaMasivaUno) {
+        this.selectedAgendaMasivaUno = selectedAgendaMasivaUno;
+    }
+
+    public Agenda getSelectedAgendaMasivaDos() {
+        return selectedAgendaMasivaDos;
+    }
+
+    public void setSelectedAgendaMasivaDos(Agenda selectedAgendaMasivaDos) {
+        this.selectedAgendaMasivaDos = selectedAgendaMasivaDos;
+    }
+
+    public Agenda getSelectedAgendaMasivaTres() {
+        return selectedAgendaMasivaTres;
+    }
+
+    public void setSelectedAgendaMasivaTres(Agenda selectedAgendaMasivaTres) {
+        this.selectedAgendaMasivaTres = selectedAgendaMasivaTres;
+    }
+
+    public Agenda getSelectedAgendaMasivaCuatro() {
+        return selectedAgendaMasivaCuatro;
+    }
+
+    public void setSelectedAgendaMasivaCuatro(Agenda selectedAgendaMasivaCuatro) {
+        this.selectedAgendaMasivaCuatro = selectedAgendaMasivaCuatro;
+    }
+
+    public Agenda getSelectedAgendaMasivaCinco() {
+        return selectedAgendaMasivaCinco;
+    }
+
+    public void setSelectedAgendaMasivaCinco(Agenda selectedAgendaMasivaCinco) {
+        this.selectedAgendaMasivaCinco = selectedAgendaMasivaCinco;
+    }
+
+    public Agenda getSelectedAgendaMasivaSeis() {
+        return selectedAgendaMasivaSeis;
+    }
+
+    public void setSelectedAgendaMasivaSeis(Agenda selectedAgendaMasivaSeis) {
+        this.selectedAgendaMasivaSeis = selectedAgendaMasivaSeis;
+    }
+    
+    public String getTipoDeAgendaMasiva() {
+        return tipoDeAgendaMasiva;
+    }
+
+    public void setTipoDeAgendaMasiva(String tipoDeAgendaMasiva) {
+        this.tipoDeAgendaMasiva = tipoDeAgendaMasiva;
+    }
+    
     public Agenda getSelectedAgendaPasada() {
         return selectedAgendaPasada;
     }
@@ -244,6 +339,34 @@ public class AgendaController implements Serializable {
         selected.setRealizado("No");
         initializeEmbeddableKey();
         return selected;
+    }
+    
+    public Agenda prepareCreateAgendasMasivas() {
+        selectedAgendaMasivaUno = new Agenda();
+        selectedAgendaMasivaUno.setRealizado("No");
+        initializeEmbeddableKey();
+        
+        selectedAgendaMasivaDos = new Agenda();
+        selectedAgendaMasivaDos.setRealizado("No");
+        initializeEmbeddableKey();
+        
+        selectedAgendaMasivaTres = new Agenda();
+        selectedAgendaMasivaTres.setRealizado("No");
+        initializeEmbeddableKey();
+        
+        selectedAgendaMasivaCuatro = new Agenda();
+        selectedAgendaMasivaCuatro.setRealizado("No");
+        initializeEmbeddableKey();
+        
+        selectedAgendaMasivaCinco = new Agenda();
+        selectedAgendaMasivaCinco.setRealizado("No");
+        initializeEmbeddableKey();
+        
+        selectedAgendaMasivaSeis = new Agenda();
+        selectedAgendaMasivaSeis.setRealizado("No");
+        initializeEmbeddableKey();
+        
+        return selectedAgendaMasivaUno;
     }
     
     public Agenda prepareCreateActividad() {
@@ -416,6 +539,240 @@ public class AgendaController implements Serializable {
                 items = null;    // Invalidate list of items to trigger re-query.
             }
         }
+    }
+    
+    public void createAgendasMasivas(String tipodeAgendaMasiva) {
+        // No permitimos fechas pasadas
+
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        ExpedienteController expedienteController = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
+
+        String tipoDeTramiteDelExp = expedienteController.getSelected().getTipoDeTramite();
+        String apoderadoDeExp = expedienteController.getSelected().getApoderado();
+
+        if (tipoDeTramiteDelExp != null) {
+
+            if (validateHolidays(agendaController.getSelectedAgendaMasivaUno().getFecha())) {
+                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA + POR_SER_FERIADO, POR_SER_FERIADO);
+                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+                items = null;
+            }
+            
+            if (isPastDate(agendaController.getSelectedAgendaMasivaUno().getFecha())){
+            
+                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA + " ES FECHA PASADA", " ES FECHA PASADA");
+                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+                items = null;
+            
+            }
+            
+            if (apoderadoDeExp == null){
+            
+                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "el exp. no tiene apoderado", " el exp. no tiene apoderado");
+                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+                items = null;
+            
+            }
+            else {
+
+                String responsable = agendaController.getSelectedAgendaMasivaUno().getResponsable();
+                String liderDeEseResponsable = encontrarLider(agendaController.getSelectedAgendaMasivaUno().getResponsable());
+                String liderDeEseResponsablePaula = "Paula Alvarez";
+                
+                String nombreDelExpSeleccionado = expedienteController.getSelected().getNombre();
+                String apellidoDelExpSeleccionado = expedienteController.getSelected().getApellido();
+                int nroDeOrdenDeExpSeleccionado = expedienteController.getSelected().getOrden();
+
+                
+                Date fechaOriginal = agendaController.getSelectedAgendaMasivaUno().getFecha();
+
+                // Convierte el objeto Date a LocalDateTime
+                LocalDateTime fechaDisparadora = fechaOriginal.toInstant()
+                                                              .atZone(ZoneId.systemDefault())
+                                                              .toLocalDateTime();
+
+                // Define el formato deseado - me pidieron almacenar solo la hora y minutos.
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+                // Formatea la fecha
+                String fechaFormateada = fechaDisparadora.format(formatter);
+
+                // agenda 1
+                agendaController.getSelectedAgendaMasivaUno().setResponsable(liderDeEseResponsablePaula);
+                agendaController.getSelectedAgendaMasivaUno().setRealizado("No");
+                agendaController.getSelectedAgendaMasivaUno().setDescripcion("Turno UDAI 1 - " + fechaFormateada + " - " + tipoDeTramiteDelExp + " - " + apoderadoDeExp);
+                agendaController.getSelectedAgendaMasivaUno().setOrden(nroDeOrdenDeExpSeleccionado);
+                agendaController.getSelectedAgendaMasivaUno().setApellido(apellidoDelExpSeleccionado);
+                agendaController.getSelectedAgendaMasivaUno().setNombre(nombreDelExpSeleccionado);
+
+                // agenda 2: Día hábil anterior a la fecha disparadora
+                Date fechaDisparador = agendaController.getSelectedAgendaMasivaUno().getFecha();
+                Date fechaUnDiaMenos = getPreviousBusinessDay(fechaDisparador);
+
+                agendaController.getSelectedAgendaMasivaDos().setFecha(fechaUnDiaMenos);
+                agendaController.getSelectedAgendaMasivaDos().setResponsable(apoderadoDeExp);
+                agendaController.getSelectedAgendaMasivaDos().setRealizado("No");
+                agendaController.getSelectedAgendaMasivaDos().setDescripcion("Recordar mañana turno UDAI 1 – " + fechaFormateada + " – " + tipoDeTramiteDelExp + " – " + apoderadoDeExp);
+                agendaController.getSelectedAgendaMasivaDos().setOrden(nroDeOrdenDeExpSeleccionado);
+                agendaController.getSelectedAgendaMasivaDos().setApellido(apellidoDelExpSeleccionado);
+                agendaController.getSelectedAgendaMasivaDos().setNombre(nombreDelExpSeleccionado);
+
+                // agenda 3: Siete días antes de la fecha disparadora
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(fechaDisparador);
+                cal.add(Calendar.DATE, -7);
+                Date fechaSieteDiasMenos = cal.getTime();
+
+                agendaController.getSelectedAgendaMasivaTres().setFecha(fechaSieteDiasMenos);
+                agendaController.getSelectedAgendaMasivaTres().setResponsable(liderDeEseResponsablePaula);
+                agendaController.getSelectedAgendaMasivaTres().setRealizado("No");
+                agendaController.getSelectedAgendaMasivaTres().setDescripcion("Dejar listo, trámite con turno en 1 semana.");
+                agendaController.getSelectedAgendaMasivaTres().setOrden(nroDeOrdenDeExpSeleccionado);
+                agendaController.getSelectedAgendaMasivaTres().setApellido(apellidoDelExpSeleccionado);
+                agendaController.getSelectedAgendaMasivaTres().setNombre(nombreDelExpSeleccionado);
+
+                // agenda 4: 42 días antes de la fecha disparadora
+                cal.setTime(fechaDisparador);
+                cal.add(Calendar.DATE, -42);
+                Date fecha42DiasMenos = cal.getTime();
+
+                agendaController.getSelectedAgendaMasivaCuatro().setFecha(fecha42DiasMenos);
+                agendaController.getSelectedAgendaMasivaCuatro().setResponsable(liderDeEseResponsablePaula);
+                agendaController.getSelectedAgendaMasivaCuatro().setRealizado("No");
+                agendaController.getSelectedAgendaMasivaCuatro().setDescripcion("Controlar este trámite con turno en ANSES.");
+                agendaController.getSelectedAgendaMasivaCuatro().setOrden(nroDeOrdenDeExpSeleccionado);
+                agendaController.getSelectedAgendaMasivaCuatro().setApellido(apellidoDelExpSeleccionado);
+                agendaController.getSelectedAgendaMasivaCuatro().setNombre(nombreDelExpSeleccionado);
+
+                // agenda 5: se genere para el dia habil siguiente de la fecha de creacion de la agenda (NO del disparador).
+
+                 HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+                        .getExternalContext().getSession(false);
+                
+                 
+                 
+            // Recuperar el valor de la sesión
+            String dateTodayStr = (String) session.getAttribute("dateToday");
+
+            Date dateToday = null;
+            if (dateTodayStr != null) {
+                formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate localDate = LocalDate.parse(dateTodayStr, formatter); // Convierte el String a LocalDate
+
+                // Convertir LocalDate a Date
+                dateToday = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            } else {
+                throw new RuntimeException("El atributo 'dateToday' no está disponible en la sesión.");
+            }
+
+            Date fechaDeCreacion = dateToday; // Fecha de creación obtenida de la sesión
+            Date fechaProximoDiaHabil = getNextBusinessDay(fechaDeCreacion);
+                
+                
+                
+                agendaController.getSelectedAgendaMasivaCinco().setFecha(fechaProximoDiaHabil);
+                agendaController.getSelectedAgendaMasivaCinco().setResponsable(responsable);
+                agendaController.getSelectedAgendaMasivaCinco().setRealizado("No");
+                agendaController.getSelectedAgendaMasivaCinco().setDescripcion("Preparar este trámite con turno en ANSES.");
+                agendaController.getSelectedAgendaMasivaCinco().setOrden(nroDeOrdenDeExpSeleccionado);
+                agendaController.getSelectedAgendaMasivaCinco().setApellido(apellidoDelExpSeleccionado);
+                agendaController.getSelectedAgendaMasivaCinco().setNombre(nombreDelExpSeleccionado);
+
+                // agenda 6: Copia de agenda 2 para otro responsable
+                    agendaController.getSelectedAgendaMasivaSeis().setFecha(fechaUnDiaMenos);
+                    agendaController.getSelectedAgendaMasivaSeis().setResponsable(liderDeEseResponsable);
+                    agendaController.getSelectedAgendaMasivaSeis().setRealizado("No");
+                    agendaController.getSelectedAgendaMasivaSeis().setDescripcion("Recordar mañana turno UDAI 1 – " + fechaFormateada + " – " + tipoDeTramiteDelExp + " – " + apoderadoDeExp);
+                    agendaController.getSelectedAgendaMasivaSeis().setOrden(nroDeOrdenDeExpSeleccionado);
+                    agendaController.getSelectedAgendaMasivaSeis().setApellido(apellidoDelExpSeleccionado);
+                    agendaController.getSelectedAgendaMasivaSeis().setNombre(nombreDelExpSeleccionado);
+
+                
+                // Crear un turno futuro para el apoderado
+                    TurnoController turnoController = context.getApplication().evaluateExpressionGet(context, "#{turnoController}", TurnoController.class);
+
+                    // Crear un nuevo objeto Turno (o como se manejen los turnos en tu aplicación)
+                    Turno turnoFuturo = new Turno();
+                    turnoFuturo.setHoraYDia(fechaDisparador); // Fecha del turno futuro
+                    turnoFuturo.setOrden(nroDeOrdenDeExpSeleccionado); // Número de orden del expediente
+                    turnoFuturo.setNombre(nombreDelExpSeleccionado); // Nombre del cliente
+                    turnoFuturo.setApellido(apellidoDelExpSeleccionado); // Apellido del cliente
+                    turnoFuturo.setObservacion("Turno UDAI 1 - " + fechaFormateada + " - " + tipoDeTramiteDelExp + " - " + apoderadoDeExp); // Descripción del turno
+                    turnoFuturo.setResponsable(apoderadoDeExp); // Asignar el apoderado como responsable
+
+                // Guardar el turno futuro
+                turnoController.setSelected(turnoFuturo);
+                turnoController.create(); // Método que persiste el turno en la base de datos
+                
+                
+                
+                persistAgendasMasivas(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreated"), tipodeAgendaMasiva);
+
+                if (!JsfUtil.isValidationFailed()) {
+                    items = null; // Invalidate list of items to trigger re-query.
+                }
+            }
+        } else {
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este exp. no tiene tipo de trámite", "");
+            FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+        }
+    }
+    
+    public boolean isPastDate(Date date) {
+        return date.before(new Date());
+    }
+    
+    private Date getNextBusinessDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        do {
+            calendar.add(Calendar.DAY_OF_MONTH, 1); // Avanzar un día
+        } while (validateHolidays(calendar.getTime()) || isWeekend(calendar.getTime())); // Verificar si es fin de semana o feriado
+
+        return calendar.getTime();
+    }
+    
+    public Date getPreviousBusinessDay(Date date) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+
+            do {
+                calendar.add(Calendar.DATE, -1); // Retrocede un día
+            } while (validateHolidays(calendar.getTime()) || isWeekend(calendar.getTime()));
+
+            return calendar.getTime();
+        }
+
+    private boolean isWeekend(Date date) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+            return dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY;
+        }
+
+
+
+    public String encontrarLider(String empleado) {
+        if (empleado == null || empleado.trim().isEmpty()) {
+            return null;
+        }
+
+        empleado = empleado.trim(); // Elimina espacios al inicio y final
+        for (Map.Entry<String, List<String>> entry : lideresEmpleadosMap.entrySet()) {
+            String lider = entry.getKey().trim();
+            List<String> empleados = entry.getValue();
+
+            for (String emp : empleados) {
+                if (emp.trim().equalsIgnoreCase(empleado)) {
+                    return lider;
+                }
+            }
+        }
+
+        return null;
     }
 
     public void create(String nombre, String apellido, int orden) {
@@ -665,37 +1022,6 @@ public class AgendaController implements Serializable {
         return getFacade().getItemsByOrder(orden);
     }
     
-    /*
-    por que entiendo q lo vamos a hacer por order by
-    public void ordenarListItems(List<Agenda> listaDeAgendas) {
-        Collections.sort(listaDeAgendas, new SortByDate());
-    }*/
-
-    /*
-    metodo viejo backup por las dudas, luego borrar 13/07/2024
-    public List<Agenda> getItemsBySessionUser(String userNombreCompleto, String date) {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
-        List<Agenda> cloned_list;
-        
-        cloned_list = new ArrayList<>(this.items);
-        Collections.sort(cloned_list, new SortByDate());
-        
-        List<Agenda> resultados = new ArrayList<>();
-
-        for (Agenda agenda : cloned_list) {
-            String nombreCompletoResponsable = agenda.getResponsable();
-                
-            if (nombreCompletoResponsable.equals(userNombreCompleto) && agenda.getDiaMesAnio().equals(date)) {
-                resultados.add(agenda);
-            }
-        }
-
-        return resultados;
-
-    }*/
-    
     public List<Agenda> getItemsBySessionUser(String userNombreCompleto, String dateStr) {
         Date date = null;
         try {
@@ -711,63 +1037,11 @@ public class AgendaController implements Serializable {
 
         itemsitemsWithSession = getFacade().findByResponsableAndFecha(userNombreCompleto, date);
 
-        //aca pasamos el  ordenamiento a la bd con order by
-        //Collections.sort(itemsitemsWithSession, new SortByDate());
-
         return itemsitemsWithSession;
     }
 
 
 
-    /*public List<Agenda> getItemsByLeader(String userNombreCompleto, String date) {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
-
-        // Mapa de líderes a sus respectivos empleados
-        Map<String, String[]> lideresEmpleadosMap = new HashMap<>();
-        lideresEmpleadosMap.put("Mateo Francisco Alvarez", new String[]{
-            "María Emilia Campos", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
-            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
-            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Pilar Boglione", "juan cuello"});
-        lideresEmpleadosMap.put("María Emilia Campos", new String[]{
-            "Mateo Francisco Alvarez", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
-            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
-            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Pilar Boglione"});
-        lideresEmpleadosMap.put("Paula Alvarez", new String[]{
-            "Mateo Novau", "Natali D Agostino",
-            "Liliana Romero", "Pilar Boglione"});
-        lideresEmpleadosMap.put("Paola Maldonado", new String[]{
-            "Carla Juez", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Maria Jose Alaye", "Natali D Agostino"});
-        lideresEmpleadosMap.put("Ayelen Brizzio", new String[]{
-            "Mateo Novau", "Natali D Agostino"});
-
-        // Obtener la lista de empleados del líder
-        Set<String> nombresEmpleados = new HashSet<>();
-        if (lideresEmpleadosMap.containsKey(userNombreCompleto)) {
-            nombresEmpleados.addAll(Arrays.asList(lideresEmpleadosMap.get(userNombreCompleto)));
-        } else {
-            System.out.println("Líder no encontrado en el mapa: " + userNombreCompleto);
-        }
-
-        // Filtrar los elementos antes de ordenar
-        List<Agenda> filteredList = new ArrayList<>();
-        for (Agenda agenda : items) {
-            String nombreCompletoResponsable = agenda.getResponsable();
-            if (nombresEmpleados.contains(nombreCompletoResponsable) && agenda.getDiaMesAnio().equals(date)) {
-                filteredList.add(agenda);
-            }
-        }
-
-        // Ordenar la lista filtrada
-        Collections.sort(filteredList, new SortByDate());
-
-        return filteredList;
-    }*/
-    
     public List<Agenda> getItemsByLeader(String userNombreCompleto, String dateStr) {
         // Obtener la lista de empleados asociados al líder
         Set<String> nombresEmpleados = obtenerEmpleadosPorLider(userNombreCompleto);
@@ -861,19 +1135,6 @@ public class AgendaController implements Serializable {
         }
     }
 
-    /*public List<Agenda> getItemsTODOS() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
-        ItemsTODOS = new ArrayList();
-        ItemsTODOS.addAll(items);
-        FacesContext context = FacesContext.getCurrentInstance();
-        TurnoController turnoControllerBean = context.getApplication().evaluateExpressionGet(context, "#{turnoController}", TurnoController.class);
-        ItemsTODOS.addAll(turnoControllerBean.getItems());
-
-        return items;
-    }*/
-
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
@@ -901,6 +1162,50 @@ public class AgendaController implements Serializable {
             }
         }
     }
+    
+    private void persistAgendasMasivas(PersistAction persistAction, String successMessage, String tipoDeAgendaMasiva) {
+        switch(tipoDeAgendaMasiva){
+            case "TURNO ANSES":
+                procesarAgenda(selectedAgendaMasivaUno, persistAction, successMessage);
+                procesarAgenda(selectedAgendaMasivaDos, persistAction, successMessage);
+                procesarAgenda(selectedAgendaMasivaTres, persistAction, successMessage);
+                procesarAgenda(selectedAgendaMasivaCuatro, persistAction, successMessage);
+                procesarAgenda(selectedAgendaMasivaCinco, persistAction, successMessage);
+                procesarAgenda(selectedAgendaMasivaSeis, persistAction, successMessage);
+                
+                break;
+            default:
+                System.err.println("Entro por el switch de persistAgendasMasivas");
+        }
+    }
+
+        private void procesarAgenda(Agenda agenda, PersistAction persistAction, String successMessage) {
+            if (agenda != null) {
+                setEmbeddableKeys();
+                try {
+                    if (persistAction != PersistAction.DELETE) {
+                        getFacade().edit(agenda);
+                    } else {
+                        getFacade().remove(agenda);
+                    }
+                    JsfUtil.addSuccessMessage(successMessage);
+                } catch (EJBException ex) {
+                    String msg = "";
+                    Throwable cause = ex.getCause();
+                    if (cause != null) {
+                        msg = cause.getLocalizedMessage();
+                    }
+                    if (msg.length() > 0) {
+                        JsfUtil.addErrorMessage(msg);
+                    } else {
+                        JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            }
+        }
     
     private void persistActividad(PersistAction persistAction, String successMessage) {
         if (selectedActividad != null) {
@@ -1083,25 +1388,6 @@ public class AgendaController implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('agendasTableWithSessionOnlyAdmin').filter()");
     }
 
-    /*public String verClaveCidi(int orden) {
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-
-        for (Expediente expediente : expedienteControllerBean.getItems()) {
-            if (expediente.getOrden() != null) {
-                if (Integer.compare(expediente.getOrden(), orden) == 0) {
-                    if (expediente.getClaveCidi() != null) {
-                        return expediente.getClaveCidi();
-                    } else {
-                        return "No posee clave CIDI";
-                    }
-                }
-            }
-        }
-        return NO_POSEE_CLAVE_CIDI;
-    }*/
-    
     public String verClaveCidi(int orden) {
     FacesContext context = FacesContext.getCurrentInstance();
     ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
@@ -1109,33 +1395,6 @@ public class AgendaController implements Serializable {
     return expedienteControllerBean.verClaveCidi(orden);
     }
     
-    /*public String verDatosPersonalesYDelExp(int orden) {
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-
-        String datosExp = null;
-
-        for (Expediente expediente : expedienteControllerBean.getItems()) {
-            if (expediente.getOrden() != null) {
-                if (Integer.compare(expediente.getOrden(), orden) == 0) {
-
-                    if (expediente.toString() != null) {
-
-                        datosExp = expediente.toStringWithDatosPersonalesYDelExp();
-                        return datosExp;
-
-                    } else {
-                        datosExp = "no posee datos";
-                        return datosExp;
-
-                    }
-                }
-            }
-        }
-        return datosExp;
-    }*/
-
     public String verNroDeCuil(int orden) {
 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -1144,31 +1403,6 @@ public class AgendaController implements Serializable {
         
         return expedienteControllerBean.verNroDeCuil(orden);
     }
-
-    /*
-    fecha 14/06/2024 luego borrar
-    
-    public String verClaveFiscal(int orden) {
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-
-        for (Expediente expediente : expedienteControllerBean.getItems()) {
-
-            if (expediente.getOrden() != null) {
-                if (Integer.compare(expediente.getOrden(), orden) == 0) {
-
-                    if (expediente.getClaveFiscal() != null) {
-                        return expediente.getClaveFiscal();
-                    } else {
-                        return "No posee clave FISCAL";
-                    }
-                }
-            }
-        }
-        return "no posee clave FISCAL";
-
-    }*/
 
     public String verClaveFiscal(int orden) {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -1179,31 +1413,6 @@ public class AgendaController implements Serializable {
     
     }
     
-    /*
-    fecha 14/06/2024 luego borrar
-    public String verClaveDeSeguridadSocial(int orden) {
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExpedienteController expedienteControllerBean = 
-        context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-
-        for (Expediente expediente : expedienteControllerBean.getItems()) {
-
-            if (expediente.getOrden() != null) {
-                if (Integer.compare(expediente.getOrden(), orden) == 0) {
-
-                    if (expediente.getClaveSeguridadSocial() != null) {
-                        return expediente.getClaveSeguridadSocial();
-                    } else {
-                        return "No posee clave de Seguridad Social";
-
-                    }
-                }
-            }
-        }
-        return "no posee clave de Seguridad Social";
-    }*/
-
     public String verClaveDeSeguridadSocial(int orden) {
 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -1228,27 +1437,6 @@ public class AgendaController implements Serializable {
         pdf.add(Image.getInstance(logo));
 
     }
-
-    /*public void filtrarPorFecha(Date fechaParaFiltrar) {
-        this.filteredAgendas = new ArrayList<Agenda>();
-
-        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String date = sdf.format(fechaParaFiltrar);
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
-
-        if (fechaParaFiltrar != null) {
-            for (Agenda agenda : agendaControllerBean.getItems()) {
-                if (agenda.getFecha() != null) {
-                    String date2 = sdf.format(agenda.getFecha());
-                    if (date.equals(date2)) {
-                        agendaControllerBean.getFilteredAgendas().add(agenda);
-                    }
-                }
-            }
-        }
-    }*/
 
     public void clearAllFilters() {
 

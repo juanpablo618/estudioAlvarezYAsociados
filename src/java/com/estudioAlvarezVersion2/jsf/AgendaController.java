@@ -556,25 +556,25 @@ public class AgendaController implements Serializable {
 
             if (validateHolidays(agendaController.getSelectedAgendaMasivaUno().getFecha())) {
                 FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA + POR_SER_FERIADO, POR_SER_FERIADO);
-                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+            FacesContext.getCurrentInstance().addMessage(null, facesMsg);
                 items = null;
-            }
-            
+        }
+
             if (isPastDate(agendaController.getSelectedAgendaMasivaUno().getFecha())){
-            
+
                 FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA + " ES FECHA PASADA", " ES FECHA PASADA");
-                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+            FacesContext.getCurrentInstance().addMessage(null, facesMsg);
                 items = null;
             
-            }
-            
+        }
+
             if (apoderadoDeExp == null){
             
                 FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "el exp. no tiene apoderado", " el exp. no tiene apoderado");
                 FacesContext.getCurrentInstance().addMessage(null, facesMsg);
                 items = null;
             
-            }
+    }
             else {
 
                 String responsable = agendaController.getSelectedAgendaMasivaUno().getResponsable();
@@ -620,11 +620,41 @@ public class AgendaController implements Serializable {
                 agendaController.getSelectedAgendaMasivaDos().setNombre(nombreDelExpSeleccionado);
 
                 // agenda 3: Siete días antes de la fecha disparadora
+                
+                        HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+                        .getExternalContext().getSession(false);
+                
+                 
+                 
+                // Recuperar el valor de la sesión
+                String dateTodayStr = (String) session.getAttribute("dateToday");
+
+                Date dateToday = null;
+                    if (dateTodayStr != null) {
+                        formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                        LocalDate localDate = LocalDate.parse(dateTodayStr, formatter); // Convierte el String a LocalDate
+
+                        // Convertir LocalDate a Date
+                        dateToday = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                    } else {
+                        throw new RuntimeException("El atributo 'dateToday' no está disponible en la sesión.");
+                    }
+
+                Date fechaDeCreacion = dateToday; // Fecha de creación obtenida de la sesión
+                Date fechaProximoDiaHabil = getNextBusinessDay(fechaDeCreacion);
+
+                
+                
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(fechaDisparador);
                 cal.add(Calendar.DATE, -7);
                 Date fechaSieteDiasMenos = cal.getTime();
 
+                if (isPastDate(fechaSieteDiasMenos)){
+                     fechaSieteDiasMenos = fechaProximoDiaHabil;
+                        
+                }
+                
                 agendaController.getSelectedAgendaMasivaTres().setFecha(fechaSieteDiasMenos);
                 agendaController.getSelectedAgendaMasivaTres().setResponsable(liderDeEseResponsablePaula);
                 agendaController.getSelectedAgendaMasivaTres().setRealizado("No");
@@ -638,6 +668,12 @@ public class AgendaController implements Serializable {
                 cal.add(Calendar.DATE, -42);
                 Date fecha42DiasMenos = cal.getTime();
 
+                if (isPastDate(fecha42DiasMenos)){
+                     fecha42DiasMenos = fechaProximoDiaHabil;
+                        
+                }
+                
+                
                 agendaController.getSelectedAgendaMasivaCuatro().setFecha(fecha42DiasMenos);
                 agendaController.getSelectedAgendaMasivaCuatro().setResponsable(liderDeEseResponsablePaula);
                 agendaController.getSelectedAgendaMasivaCuatro().setRealizado("No");
@@ -648,30 +684,6 @@ public class AgendaController implements Serializable {
 
                 // agenda 5: se genere para el dia habil siguiente de la fecha de creacion de la agenda (NO del disparador).
 
-                 HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-                        .getExternalContext().getSession(false);
-                
-                 
-                 
-            // Recuperar el valor de la sesión
-            String dateTodayStr = (String) session.getAttribute("dateToday");
-
-            Date dateToday = null;
-            if (dateTodayStr != null) {
-                formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                LocalDate localDate = LocalDate.parse(dateTodayStr, formatter); // Convierte el String a LocalDate
-
-                // Convertir LocalDate a Date
-                dateToday = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            } else {
-                throw new RuntimeException("El atributo 'dateToday' no está disponible en la sesión.");
-            }
-
-            Date fechaDeCreacion = dateToday; // Fecha de creación obtenida de la sesión
-            Date fechaProximoDiaHabil = getNextBusinessDay(fechaDeCreacion);
-                
-                
-                
                 agendaController.getSelectedAgendaMasivaCinco().setFecha(fechaProximoDiaHabil);
                 agendaController.getSelectedAgendaMasivaCinco().setResponsable(responsable);
                 agendaController.getSelectedAgendaMasivaCinco().setRealizado("No");
@@ -712,14 +724,14 @@ public class AgendaController implements Serializable {
 
                 if (!JsfUtil.isValidationFailed()) {
                     items = null; // Invalidate list of items to trigger re-query.
-                }
+    }
             }
         } else {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este exp. no tiene tipo de trámite", "");
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
         }
     }
-    
+
     public boolean isPastDate(Date date) {
         return date.before(new Date());
     }

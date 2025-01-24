@@ -269,9 +269,9 @@ public class CounterView implements Serializable {
         AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
         TurnoController turnoController = context.getApplication().evaluateExpressionGet(context, "#{turnoController}", TurnoController.class);
 
-        turnoController.setFilteredTurnosConSesionOnlyAdminUsers(turnoController.getItemsByLeader(leaderNombreCompleto, dateString));
+        turnoController.setFilteredTurnosConSesionOnlyAdminUsers(turnoController.getItemsBySessionUser(leaderNombreCompleto, dateString));
         
-        agendaController.setFilteredAgendasConSesionOnlyAdminUsers(agendaController.getItemsByLeader(leaderNombreCompleto, dateString));
+        agendaController.setFilteredAgendasConSesionOnlyAdminUsers(agendaController.getItemsBySessionUser(leaderNombreCompleto, dateString));
         
     }
     
@@ -293,9 +293,9 @@ public class CounterView implements Serializable {
         AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
         TurnoController turnoController = context.getApplication().evaluateExpressionGet(context, "#{turnoController}", TurnoController.class);
 
-        turnoController.setFilteredTurnosConSesionOnlyAdminUsers(turnoController.getItemsByLeader(leaderNombreCompleto, dateString));
+        turnoController.setFilteredTurnosConSesionOnlyAdminUsers(turnoController.getItemsBySessionUser(leaderNombreCompleto, dateString));
         
-        agendaController.setFilteredAgendasConSesionOnlyAdminUsers(agendaController.getItemsByLeader(leaderNombreCompleto, dateString));
+        agendaController.setFilteredAgendasConSesionOnlyAdminUsers(agendaController.getItemsBySessionUser(leaderNombreCompleto, dateString));
         
     }
     
@@ -345,7 +345,9 @@ public class CounterView implements Serializable {
         
     }
     
-    public void actualDateByLeader(String leaderNombreCompleto, String dateSession) throws ParseException {
+    public void actualDateByLeader(String empleadoSeleccionado, String dateSession) throws ParseException {
+        System.out.println("empleadoSeleccionado: "+empleadoSeleccionado);
+        
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy");
 
         Date date = dateFormat.parse(dateSession);
@@ -361,9 +363,9 @@ public class CounterView implements Serializable {
         AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
         TurnoController turnoController = context.getApplication().evaluateExpressionGet(context, "#{turnoController}", TurnoController.class);
 
-        turnoController.setFilteredTurnosConSesionOnlyAdminUsers(turnoController.getItemsByLeader(leaderNombreCompleto, dateString));
+        turnoController.setFilteredTurnosConSesionOnlyAdminUsers(turnoController.getItemsBySessionUser(empleadoSeleccionado, dateString));
         
-        agendaController.setFilteredAgendasConSesionOnlyAdminUsers(agendaController.getItemsByLeader(leaderNombreCompleto, dateString));
+        agendaController.setFilteredAgendasConSesionOnlyAdminUsers(agendaController.getItemsBySessionUser(empleadoSeleccionado, dateString));
         
     }
     

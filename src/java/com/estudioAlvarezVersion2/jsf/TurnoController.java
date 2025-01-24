@@ -356,11 +356,13 @@ public class TurnoController implements Serializable {
         }
     }
 
-    public void createConNombreYApellido(String nombre, String apellido, String telefono) {
+    public void createConNombreYApellido(String nombre, String apellido, String telefono, Integer orden) {
 
         selected.setNombre(nombre);
         selected.setApellido(apellido);
         selected.setNroDeTelefono(telefono);
+        selected.setOrden(orden);
+        
 
         SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
         String date = sdf.format(selected.getHoraYDia());
@@ -502,6 +504,8 @@ public class TurnoController implements Serializable {
     lideresEmpleadosMap.put("Ayelen Brizzio", new String[]{
         "Mateo Novau"});
 
+    if(userNombreCompleto.equalsIgnoreCase("todos")) userNombreCompleto = "Mateo Francisco Alvarez";
+    
     // Obtener la lista de empleados del líder
     if (lideresEmpleadosMap.containsKey(userNombreCompleto)) {
         nombresEmpleados.addAll(Arrays.asList(lideresEmpleadosMap.get(userNombreCompleto)));

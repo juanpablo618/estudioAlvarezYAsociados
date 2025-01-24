@@ -25,8 +25,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 @Named("empleadoController")
 @SessionScoped
@@ -41,13 +39,25 @@ public class EmpleadoController implements Serializable {
     private List<Empleado> items = null;
     private Empleado selected;
     private List<Equipo> selectedEquipos;
-
+    
+    private Empleado selectedDesdeOnlyAdminUsers;
+    
     public EmpleadoController() {
     }
 
     public Empleado getSelected() {
         return selected;
     }
+
+    public Empleado getSelectedDesdeOnlyAdminUsers() {
+        return selectedDesdeOnlyAdminUsers;
+    }
+
+    public void setSelectedDesdeOnlyAdminUsers(Empleado selectedDesdeOnlyAdminUsers) {
+        this.selectedDesdeOnlyAdminUsers = selectedDesdeOnlyAdminUsers;
+    }
+    
+    
 
     /*public void prepareEdit() {
         if (selected != null) {

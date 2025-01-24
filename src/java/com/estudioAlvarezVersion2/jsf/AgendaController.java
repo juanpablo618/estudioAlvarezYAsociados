@@ -574,157 +574,188 @@ public class AgendaController implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, facesMsg);
                 items = null;
             
-    }
+            }
             else {
-
-                String responsable = agendaController.getSelectedAgendaMasivaUno().getResponsable();
-                String liderDeEseResponsable = encontrarLider(agendaController.getSelectedAgendaMasivaUno().getResponsable());
-                String liderDeEseResponsablePaula = "Paula Alvarez";
                 
-                String nombreDelExpSeleccionado = expedienteController.getSelected().getNombre();
-                String apellidoDelExpSeleccionado = expedienteController.getSelected().getApellido();
-                int nroDeOrdenDeExpSeleccionado = expedienteController.getSelected().getOrden();
+                 Date fechaDisparador = agendaController.getSelectedAgendaMasivaUno().getFecha();
+                    
+                 String responsable = agendaController.getSelectedAgendaMasivaUno().getResponsable();
+                 String liderDeEseResponsable = encontrarLider(agendaController.getSelectedAgendaMasivaUno().getResponsable());
+                 String liderDeEseResponsablePaula = "Paula Alvarez";
 
-                
-                Date fechaOriginal = agendaController.getSelectedAgendaMasivaUno().getFecha();
+                    String nombreDelExpSeleccionado = expedienteController.getSelected().getNombre();
+                    String apellidoDelExpSeleccionado = expedienteController.getSelected().getApellido();
+                    String equipoDelExpSeleccionado = expedienteController.getSelected().getEquipo();
+                    
+                    int nroDeOrdenDeExpSeleccionado = expedienteController.getSelected().getOrden();
 
-                // Convierte el objeto Date a LocalDateTime
-                LocalDateTime fechaDisparadora = fechaOriginal.toInstant()
-                                                              .atZone(ZoneId.systemDefault())
-                                                              .toLocalDateTime();
-
-                // Define el formato deseado - me pidieron almacenar solo la hora y minutos.
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-
-                // Formatea la fecha
-                String fechaFormateada = fechaDisparadora.format(formatter);
-
-                // agenda 1
-                agendaController.getSelectedAgendaMasivaUno().setResponsable(liderDeEseResponsablePaula);
-                agendaController.getSelectedAgendaMasivaUno().setRealizado("No");
-                agendaController.getSelectedAgendaMasivaUno().setDescripcion("Turno UDAI 1 - " + fechaFormateada + " - " + tipoDeTramiteDelExp + " - " + apoderadoDeExp);
-                agendaController.getSelectedAgendaMasivaUno().setOrden(nroDeOrdenDeExpSeleccionado);
-                agendaController.getSelectedAgendaMasivaUno().setApellido(apellidoDelExpSeleccionado);
-                agendaController.getSelectedAgendaMasivaUno().setNombre(nombreDelExpSeleccionado);
-
-                // agenda 2: Día hábil anterior a la fecha disparadora
-                Date fechaDisparador = agendaController.getSelectedAgendaMasivaUno().getFecha();
-                Date fechaUnDiaMenos = getPreviousBusinessDay(fechaDisparador);
-
-                agendaController.getSelectedAgendaMasivaDos().setFecha(fechaUnDiaMenos);
-                agendaController.getSelectedAgendaMasivaDos().setResponsable(apoderadoDeExp);
-                agendaController.getSelectedAgendaMasivaDos().setRealizado("No");
-                agendaController.getSelectedAgendaMasivaDos().setDescripcion("Recordar mañana turno UDAI 1 – " + fechaFormateada + " – " + tipoDeTramiteDelExp + " – " + apoderadoDeExp);
-                agendaController.getSelectedAgendaMasivaDos().setOrden(nroDeOrdenDeExpSeleccionado);
-                agendaController.getSelectedAgendaMasivaDos().setApellido(apellidoDelExpSeleccionado);
-                agendaController.getSelectedAgendaMasivaDos().setNombre(nombreDelExpSeleccionado);
-
-                // agenda 3: Siete días antes de la fecha disparadora
-                
-                        HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-                        .getExternalContext().getSession(false);
-                
-                 
-                 
-                // Recuperar el valor de la sesión
-                String dateTodayStr = (String) session.getAttribute("dateToday");
-
-                Date dateToday = null;
-                    if (dateTodayStr != null) {
-                        formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                        LocalDate localDate = LocalDate.parse(dateTodayStr, formatter); // Convierte el String a LocalDate
-
-                        // Convertir LocalDate a Date
-                        dateToday = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-                    } else {
-                        throw new RuntimeException("El atributo 'dateToday' no está disponible en la sesión.");
-                    }
-
-                Date fechaDeCreacion = dateToday; // Fecha de creación obtenida de la sesión
-                Date fechaProximoDiaHabil = getNextBusinessDay(fechaDeCreacion);
-
-                
-                
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(fechaDisparador);
-                cal.add(Calendar.DATE, -7);
-                Date fechaSieteDiasMenos = cal.getTime();
-
-                if (isPastDate(fechaSieteDiasMenos)){
-                     fechaSieteDiasMenos = fechaProximoDiaHabil;
+                 String responsableParaAgendar = "";
                         
-                }
-                
-                agendaController.getSelectedAgendaMasivaTres().setFecha(fechaSieteDiasMenos);
-                agendaController.getSelectedAgendaMasivaTres().setResponsable(liderDeEseResponsablePaula);
-                agendaController.getSelectedAgendaMasivaTres().setRealizado("No");
-                agendaController.getSelectedAgendaMasivaTres().setDescripcion("Dejar listo, trámite con turno en 1 semana.");
-                agendaController.getSelectedAgendaMasivaTres().setOrden(nroDeOrdenDeExpSeleccionado);
-                agendaController.getSelectedAgendaMasivaTres().setApellido(apellidoDelExpSeleccionado);
-                agendaController.getSelectedAgendaMasivaTres().setNombre(nombreDelExpSeleccionado);
-
-                // agenda 4: 42 días antes de la fecha disparadora
-                cal.setTime(fechaDisparador);
-                cal.add(Calendar.DATE, -42);
-                Date fecha42DiasMenos = cal.getTime();
-
-                if (isPastDate(fecha42DiasMenos)){
-                     fecha42DiasMenos = fechaProximoDiaHabil;
+                        if(equipoDelExpSeleccionado.equalsIgnoreCase("JUSTICIA FEDERAL")) responsableParaAgendar = "Paola Maldonado";
                         
-                }
-                
-                
-                agendaController.getSelectedAgendaMasivaCuatro().setFecha(fecha42DiasMenos);
-                agendaController.getSelectedAgendaMasivaCuatro().setResponsable(liderDeEseResponsablePaula);
-                agendaController.getSelectedAgendaMasivaCuatro().setRealizado("No");
-                agendaController.getSelectedAgendaMasivaCuatro().setDescripcion("Controlar este trámite con turno en ANSES.");
-                agendaController.getSelectedAgendaMasivaCuatro().setOrden(nroDeOrdenDeExpSeleccionado);
-                agendaController.getSelectedAgendaMasivaCuatro().setApellido(apellidoDelExpSeleccionado);
-                agendaController.getSelectedAgendaMasivaCuatro().setNombre(nombreDelExpSeleccionado);
+                        if(equipoDelExpSeleccionado.equalsIgnoreCase("PREVISIONAL ADMINISTRATIVO")) responsableParaAgendar = "Paula Alvarez";
+                        
+                        if(equipoDelExpSeleccionado.equalsIgnoreCase("JUSTICIA PROVINCIAL")) responsableParaAgendar = "Ayelen Brizzio";
+                        
+                    
+                if(tipodeAgendaMasiva.equalsIgnoreCase("TURNO ANSES")){
+                    
+                        Date fechaOriginal = agendaController.getSelectedAgendaMasivaUno().getFecha();
 
-                // agenda 5: se genere para el dia habil siguiente de la fecha de creacion de la agenda (NO del disparador).
+                        // Convierte el objeto Date a LocalDateTime
+                        LocalDateTime fechaDisparadora = fechaOriginal.toInstant()
+                                                                      .atZone(ZoneId.systemDefault())
+                                                                      .toLocalDateTime();
 
-                agendaController.getSelectedAgendaMasivaCinco().setFecha(fechaProximoDiaHabil);
-                agendaController.getSelectedAgendaMasivaCinco().setResponsable(responsable);
-                agendaController.getSelectedAgendaMasivaCinco().setRealizado("No");
-                agendaController.getSelectedAgendaMasivaCinco().setDescripcion("Preparar este trámite con turno en ANSES.");
-                agendaController.getSelectedAgendaMasivaCinco().setOrden(nroDeOrdenDeExpSeleccionado);
-                agendaController.getSelectedAgendaMasivaCinco().setApellido(apellidoDelExpSeleccionado);
-                agendaController.getSelectedAgendaMasivaCinco().setNombre(nombreDelExpSeleccionado);
+                        // Define el formato deseado - me pidieron almacenar solo la hora y minutos.
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
-                // agenda 6: Copia de agenda 2 para otro responsable
-                    agendaController.getSelectedAgendaMasivaSeis().setFecha(fechaUnDiaMenos);
-                    agendaController.getSelectedAgendaMasivaSeis().setResponsable(liderDeEseResponsable);
-                    agendaController.getSelectedAgendaMasivaSeis().setRealizado("No");
-                    agendaController.getSelectedAgendaMasivaSeis().setDescripcion("Recordar mañana turno UDAI 1 – " + fechaFormateada + " – " + tipoDeTramiteDelExp + " – " + apoderadoDeExp);
-                    agendaController.getSelectedAgendaMasivaSeis().setOrden(nroDeOrdenDeExpSeleccionado);
-                    agendaController.getSelectedAgendaMasivaSeis().setApellido(apellidoDelExpSeleccionado);
-                    agendaController.getSelectedAgendaMasivaSeis().setNombre(nombreDelExpSeleccionado);
+                        // Formatea la fecha
+                        String fechaFormateada = fechaDisparadora.format(formatter);
+
+                        // agenda 1
+                        agendaController.getSelectedAgendaMasivaUno().setResponsable(responsableParaAgendar);
+                        agendaController.getSelectedAgendaMasivaUno().setRealizado("No");
+                        agendaController.getSelectedAgendaMasivaUno().setDescripcion("Turno UDAI 1 - " + fechaFormateada + " - " + tipoDeTramiteDelExp + " - " + apoderadoDeExp);
+                        agendaController.getSelectedAgendaMasivaUno().setOrden(nroDeOrdenDeExpSeleccionado);
+                        agendaController.getSelectedAgendaMasivaUno().setApellido(apellidoDelExpSeleccionado);
+                        agendaController.getSelectedAgendaMasivaUno().setNombre(nombreDelExpSeleccionado);
+
+                        // agenda 2: Día hábil anterior a la fecha disparadora
+                        Date fechaUnDiaMenos = getPreviousBusinessDay(fechaDisparador);
+
+                        agendaController.getSelectedAgendaMasivaDos().setFecha(fechaUnDiaMenos);
+                        agendaController.getSelectedAgendaMasivaDos().setResponsable(apoderadoDeExp);
+                        agendaController.getSelectedAgendaMasivaDos().setRealizado("No");
+                        agendaController.getSelectedAgendaMasivaDos().setDescripcion("Recordar mañana turno UDAI 1 – " + fechaFormateada + " – " + tipoDeTramiteDelExp + " – " + apoderadoDeExp);
+                        agendaController.getSelectedAgendaMasivaDos().setOrden(nroDeOrdenDeExpSeleccionado);
+                        agendaController.getSelectedAgendaMasivaDos().setApellido(apellidoDelExpSeleccionado);
+                        agendaController.getSelectedAgendaMasivaDos().setNombre(nombreDelExpSeleccionado);
+
+                        // agenda 3: Siete días antes de la fecha disparadora
+
+                                HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+                                .getExternalContext().getSession(false);
+
+
+
+                        // Recuperar el valor de la sesión
+                        String dateTodayStr = (String) session.getAttribute("dateToday");
+
+                        Date dateToday = null;
+                            if (dateTodayStr != null) {
+                                formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                                LocalDate localDate = LocalDate.parse(dateTodayStr, formatter); // Convierte el String a LocalDate
+
+                                // Convertir LocalDate a Date
+                                dateToday = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                            } else {
+                                throw new RuntimeException("El atributo 'dateToday' no está disponible en la sesión.");
+                            }
+
+                        Date fechaDeCreacion = dateToday; // Fecha de creación obtenida de la sesión
+                        Date fechaProximoDiaHabil = getNextBusinessDay(fechaDeCreacion);
+                
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(fechaDisparador);
+                        cal.add(Calendar.DATE, -7);
+                        Date fechaSieteDiasMenos = cal.getTime();
+
+                        if (isPastDate(fechaSieteDiasMenos)){
+                             fechaSieteDiasMenos = fechaProximoDiaHabil;
+
+                        }
+                
+                        agendaController.getSelectedAgendaMasivaTres().setFecha(fechaSieteDiasMenos);
+                        agendaController.getSelectedAgendaMasivaTres().setResponsable(responsableParaAgendar);
+                        agendaController.getSelectedAgendaMasivaTres().setRealizado("No");
+                        agendaController.getSelectedAgendaMasivaTres().setDescripcion("Dejar listo, trámite con turno en 1 semana.");
+                        agendaController.getSelectedAgendaMasivaTres().setOrden(nroDeOrdenDeExpSeleccionado);
+                        agendaController.getSelectedAgendaMasivaTres().setApellido(apellidoDelExpSeleccionado);
+                        agendaController.getSelectedAgendaMasivaTres().setNombre(nombreDelExpSeleccionado);
+
+                        // agenda 4: 42 días antes de la fecha disparadora
+                        cal.setTime(fechaDisparador);
+                        cal.add(Calendar.DATE, -42);
+                        Date fecha42DiasMenos = cal.getTime();
+
+                        if (isPastDate(fecha42DiasMenos)){
+                             fecha42DiasMenos = fechaProximoDiaHabil;
+
+                        }
+                
+                        agendaController.getSelectedAgendaMasivaCuatro().setFecha(fecha42DiasMenos);
+                        agendaController.getSelectedAgendaMasivaCuatro().setResponsable(responsableParaAgendar);
+                        agendaController.getSelectedAgendaMasivaCuatro().setRealizado("No");
+                        agendaController.getSelectedAgendaMasivaCuatro().setDescripcion("Controlar este trámite con turno en ANSES.");
+                        agendaController.getSelectedAgendaMasivaCuatro().setOrden(nroDeOrdenDeExpSeleccionado);
+                        agendaController.getSelectedAgendaMasivaCuatro().setApellido(apellidoDelExpSeleccionado);
+                        agendaController.getSelectedAgendaMasivaCuatro().setNombre(nombreDelExpSeleccionado);
+
+                        // agenda 5: se genere para el dia habil siguiente de la fecha de creacion de la agenda (NO del disparador).
+
+                        agendaController.getSelectedAgendaMasivaCinco().setFecha(fechaProximoDiaHabil);
+                        agendaController.getSelectedAgendaMasivaCinco().setResponsable(responsable);
+                        agendaController.getSelectedAgendaMasivaCinco().setRealizado("No");
+                        agendaController.getSelectedAgendaMasivaCinco().setDescripcion("Preparar este trámite con turno en ANSES.");
+                        agendaController.getSelectedAgendaMasivaCinco().setOrden(nroDeOrdenDeExpSeleccionado);
+                        agendaController.getSelectedAgendaMasivaCinco().setApellido(apellidoDelExpSeleccionado);
+                        agendaController.getSelectedAgendaMasivaCinco().setNombre(nombreDelExpSeleccionado);
+
+                        // agenda 6: Copia de agenda 2 para otro responsable
+                            agendaController.getSelectedAgendaMasivaSeis().setFecha(fechaUnDiaMenos);
+                            agendaController.getSelectedAgendaMasivaSeis().setResponsable(responsableParaAgendar);
+                            agendaController.getSelectedAgendaMasivaSeis().setRealizado("No");
+                            agendaController.getSelectedAgendaMasivaSeis().setDescripcion("Recordar mañana turno UDAI 1 – " + fechaFormateada + " – " + tipoDeTramiteDelExp + " – " + apoderadoDeExp);
+                            agendaController.getSelectedAgendaMasivaSeis().setOrden(nroDeOrdenDeExpSeleccionado);
+                            agendaController.getSelectedAgendaMasivaSeis().setApellido(apellidoDelExpSeleccionado);
+                            agendaController.getSelectedAgendaMasivaSeis().setNombre(nombreDelExpSeleccionado);
 
                 
-                // Crear un turno futuro para el apoderado
-                    TurnoController turnoController = context.getApplication().evaluateExpressionGet(context, "#{turnoController}", TurnoController.class);
+                        // Crear un turno futuro para el apoderado
+                            TurnoController turnoController = context.getApplication().evaluateExpressionGet(context, "#{turnoController}", TurnoController.class);
 
-                    // Crear un nuevo objeto Turno (o como se manejen los turnos en tu aplicación)
-                    Turno turnoFuturo = new Turno();
-                    turnoFuturo.setHoraYDia(fechaDisparador); // Fecha del turno futuro
-                    turnoFuturo.setOrden(nroDeOrdenDeExpSeleccionado); // Número de orden del expediente
-                    turnoFuturo.setNombre(nombreDelExpSeleccionado); // Nombre del cliente
-                    turnoFuturo.setApellido(apellidoDelExpSeleccionado); // Apellido del cliente
-                    turnoFuturo.setObservacion("Turno UDAI 1 - " + fechaFormateada + " - " + tipoDeTramiteDelExp + " - " + apoderadoDeExp); // Descripción del turno
-                    turnoFuturo.setResponsable(apoderadoDeExp); // Asignar el apoderado como responsable
+                            // Crear un nuevo objeto Turno (o como se manejen los turnos en tu aplicación)
+                            Turno turnoFuturo = new Turno();
+                            turnoFuturo.setHoraYDia(fechaDisparador); // Fecha del turno futuro
+                            turnoFuturo.setOrden(nroDeOrdenDeExpSeleccionado); // Número de orden del expediente
+                            turnoFuturo.setNombre(nombreDelExpSeleccionado); // Nombre del cliente
+                            turnoFuturo.setApellido(apellidoDelExpSeleccionado); // Apellido del cliente
+                            turnoFuturo.setObservacion("Turno UDAI 1 - " + fechaFormateada + " - " + tipoDeTramiteDelExp + " - " + apoderadoDeExp); // Descripción del turno
+                            turnoFuturo.setResponsable(apoderadoDeExp); // Asignar el apoderado como responsable
 
-                // Guardar el turno futuro
-                turnoController.setSelected(turnoFuturo);
-                turnoController.create(); // Método que persiste el turno en la base de datos
+                            // Guardar el turno futuro
+                            turnoController.setSelected(turnoFuturo);
+                            turnoController.create(); // Método que persiste el turno en la base de datos
                 
+            }
+            
+            if(tipodeAgendaMasiva.equalsIgnoreCase("ANSES INGRESADO")){
                 
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(fechaDisparador);
+                        cal.add(Calendar.DATE, +150);
+                        Date fechaCientoCincuentaDiasMas = cal.getTime();
+
+                        if (isWeekend(fechaCientoCincuentaDiasMas)){
+                             fechaCientoCincuentaDiasMas = getNextBusinessDay(fechaCientoCincuentaDiasMas);
+                        }
                 
+                        agendaController.getSelectedAgendaMasivaTres().setFecha(fechaCientoCincuentaDiasMas);
+                        agendaController.getSelectedAgendaMasivaTres().setResponsable(responsableParaAgendar);
+                        agendaController.getSelectedAgendaMasivaTres().setRealizado("No");
+                        agendaController.getSelectedAgendaMasivaTres().setDescripcion("Trámite ingresado en ANSES hace 5 meses, verificar si se resolvió si no reclamar agilización");
+                        agendaController.getSelectedAgendaMasivaTres().setOrden(nroDeOrdenDeExpSeleccionado);
+                        agendaController.getSelectedAgendaMasivaTres().setApellido(apellidoDelExpSeleccionado);
+                        agendaController.getSelectedAgendaMasivaTres().setNombre(nombreDelExpSeleccionado);
+                
+            }    
+                        
                 persistAgendasMasivas(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreated"), tipodeAgendaMasiva);
 
                 if (!JsfUtil.isValidationFailed()) {
                     items = null; // Invalidate list of items to trigger re-query.
-    }
+                }
             }
         } else {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este exp. no tiene tipo de trámite", "");
@@ -1055,10 +1086,15 @@ public class AgendaController implements Serializable {
 
 
     public List<Agenda> getItemsByLeader(String userNombreCompleto, String dateStr) {
+        
+        if(userNombreCompleto.equalsIgnoreCase("todos")) userNombreCompleto = "Mateo Francisco Alvarez";
+    
         // Obtener la lista de empleados asociados al líder
         Set<String> nombresEmpleados = obtenerEmpleadosPorLider(userNombreCompleto);
 
         Date date = null;
+        
+    
         try {
             SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
             date = sdf.parse(dateStr);
@@ -1186,6 +1222,12 @@ public class AgendaController implements Serializable {
                 procesarAgenda(selectedAgendaMasivaSeis, persistAction, successMessage);
                 
                 break;
+            
+            case "ANSES INGRESADO":
+                procesarAgenda(selectedAgendaMasivaTres, persistAction, successMessage);
+                break;
+            
+                
             default:
                 System.err.println("Entro por el switch de persistAgendasMasivas");
         }

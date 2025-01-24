@@ -229,42 +229,46 @@ public class ConsultaController implements Serializable {
     }
     
     public void create() {
-          // Convertir nombre y apellido a mayúsculas antes de guardar
-            if (selected.getNombre() != null) {
-                selected.setNombre(selected.getNombre().toUpperCase());
+        if (selected.getNombre() != null) {
+            selected.setNombre(selected.getNombre().toUpperCase());
+        }
+
+        if (selected.getApellido() != null) {
+            selected.setApellido(selected.getApellido().toUpperCase());
+        }
+
+        String successMessage = "Consulta creada exitosamente";
+
+        if (!selected.getCuit().isEmpty()) {
+            if (isCuitAlreadyRegistered(selected.getCuit())) {
+                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este CUIT ya existe en otra consulta.", "");
+                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             }
 
-            if (selected.getApellido() != null) {
-                selected.setApellido(selected.getApellido().toUpperCase());
+            if (isPhoneAlreadyRegistered(selected.getTelefono())) {
+                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este teléfono ya existe en otra consulta.", "");
+                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             }
-        String successMessage = "Consulta".concat(" creada exitosamente");
 
-        if(!selected.getCuit().isEmpty()){
-            if(!isCuitAlreadyRegistered(selected.getCuit())){
-                    if(isPhoneAlreadyRegistered(selected.getTelefono())){
-                        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "este telèfono ya existe en otra Consulta.", "");
-                       FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-                    }
-                        persist(JsfUtil.PersistAction.CREATE, successMessage);
-                    
-                if (!JsfUtil.isValidationFailed()) {
-                    items = null;    // Invalidate list of items to trigger re-query.
-                }
-            }else{
-                   JsfUtil.addErrorMessage("cuit ya existe no fue posible crear la consulta");
-            }
-        }else{
-            if(isPhoneAlreadyRegistered(selected.getTelefono())){
-                        System.out.println("entro aqui isPhoneAlreadyRegistered");
-                        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "este telèfono ya existe en otra Consulta.", "");
-                       FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-            }
             persist(JsfUtil.PersistAction.CREATE, successMessage);
-                if (!JsfUtil.isValidationFailed()) {
-                    items = null;    // Invalidate list of items to trigger re-query.
-                }
+
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
+        } else {
+            if (isPhoneAlreadyRegistered(selected.getTelefono())) {
+                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este teléfono ya existe en otra consulta.", "");
+                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+            }
+
+            persist(JsfUtil.PersistAction.CREATE, successMessage);
+
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
         }
     }
+
     
     private void persist(JsfUtil.PersistAction persistAction, String successMessage) {
         if (selected != null) {

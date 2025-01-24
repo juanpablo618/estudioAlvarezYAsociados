@@ -253,6 +253,11 @@
                         <p:commandButton rendered="#{item.orden > 0 }" class="linea btnKey"  update=":AgendaViewClavesForm" oncomplete="PF('AgendaViewClavesDialog').show()" icon="ui-icon-locked" title="Claves">
                             <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
                         </p:commandButton>
+                        
+                         <p:commandButton class="linea btnKey"  update=":ExpedienteViewDocumentosForm"  oncomplete="PF('ExpedienteViewDocumentosDialog').show()" icon="ui-icon-folder-open" title="Documentos">
+                             <f:setPropertyActionListener value="#{expedienteController.getExpedienteByNroDeOrden(item.orden)}" target="#{expedienteController.selected}" />
+                        </p:commandButton>
+                        
 
                         <p:commandButton class="linea btnSearchDarkBlue"
                                          actionListener="#{expedienteController.prepareViewParaExpediente(item)}" 
@@ -321,6 +326,7 @@
             <ui:include src="View.xhtml"/>
             <ui:include src="View_1.xhtml"/>
             
+            <ui:include src="../expediente/ViewDocumentos.xhtml"/>
             <ui:include src="../expediente/viewEnAgenda/Edit.xhtml"/>
             <ui:include src="../expediente/viewEnAgenda/EditExpSinCarpeta.xhtml"/>
             <ui:include src="../expediente/viewEnAgenda/EditExpJudicial.xhtml"/>

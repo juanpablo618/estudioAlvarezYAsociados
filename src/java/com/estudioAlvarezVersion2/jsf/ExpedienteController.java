@@ -760,6 +760,17 @@ public class ExpedienteController implements Serializable {
         return getFacade().find(id);
     }
     
+    public Expediente getExpedienteByNroDeOrden(java.lang.Integer orden) {
+        
+        for (Expediente en : getFacade().findAll()) {
+            if(Objects.equals(en.getOrden(), orden)){
+                return en;
+            }
+            
+        }
+        return new Expediente();
+    }
+    
     public Expediente getExpedienteByOrden(java.lang.Integer orden) {
          List<Expediente> listExpedientes = getItemsAvailableSelectMany();
          
@@ -1359,7 +1370,19 @@ public class ExpedienteController implements Serializable {
     if ("0".equals(consultaSelected.getCuit()) || consultaSelected.getCuit() == null || "".equals(consultaSelected.getCuit()) || consultaSelected.getCuit().isEmpty() ) {
         FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Esta consulta no tiene cuit", "No es posible pasarla a exp. administrativo");
         FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-    } else {
+    } 
+    
+     if (consultaSelected.getResponsable() == null || consultaSelected.getResponsable().isEmpty() ||
+        consultaSelected.getEquipo() == null || consultaSelected.getEquipo().isEmpty()) {
+        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+                                                 "Faltan datos", 
+                                                 "La consulta debe tener tanto 'responsable' como 'equipo' para convertirse en expediente administrativo.");
+        
+        FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+    
+    }
+    
+    else {
         if (consultaSelected.getCuit() != null) {
             String cuit = consultaSelected.getCuit();
             cuit = cuit.substring(2, 9);

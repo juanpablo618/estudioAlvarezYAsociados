@@ -90,10 +90,19 @@
                 </div>
                 <br></br>
                 
+             <p:selectOneMenu  onchange="PF('turnosTable').filter()"  value="#{turnoController.responsableSeleccionadoEnWithSessionOnlyAdmins}"  styleClass="custom-filter">
+                                <f:selectItem itemLabel="Seleccionar Todos" itemValue="todos"/>
+                                <f:selectItems  value="#{empleadoController.items}" />
+                                <p:ajax update=":AgendaListForm:datalist:inputEnAgenda"/> 
+                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputEnAgenda"/>
+                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
+                                <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
+             </p:selectOneMenu>
+                        
                 
-             <p:commandButton value="←" action="#{counterView.decrementDateByLeader(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
-             <p:commandButton id="botonHoy" value="hoy" action="#{counterView.actualDateByLeader(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
-             <p:commandButton value="→" action="#{counterView.incrementDateByLeader(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
+             <p:commandButton value="←" action="#{counterView.decrementDateByLeader(turnoController.responsableSeleccionadoEnWithSessionOnlyAdmins, session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
+             <p:commandButton id="botonHoy" value="hoy" action="#{counterView.actualDateByLeader(turnoController.responsableSeleccionadoEnWithSessionOnlyAdmins, session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
+             <p:commandButton value="→" action="#{counterView.incrementDateByLeader(turnoController.responsableSeleccionadoEnWithSessionOnlyAdmins, session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
            
               
             </h:form>
@@ -153,17 +162,8 @@
                         <h:outputText value="#{ item.apellido} #{ item.nombre}"/>
                     </p:column>
 
-                    <p:column filterBy="#{item.responsable}" headerText="RESPONSABLE" style="text-align: center;width: 20%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
-                        <f:facet name="filter"  >
-                            <p:selectOneMenu  onchange="PF('turnosTable').filter()"  value="#{turnoController.responsableSeleccionadoEnWithSessionOnlyAdmins}"  styleClass="custom-filter">
-                                <f:selectItem itemLabel="Seleccionar Todos" itemValue="#{null}" noSelectionOption="true" />
-                                <f:selectItems  value="#{empleadoController.itemsAvailableSelectOne}" />
-                                <p:ajax update=":AgendaListForm:datalist:inputEnAgenda"/> 
-                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputEnAgenda"/>
-                                <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
-                                <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
-                            </p:selectOneMenu>
-                        </f:facet>
+                    <p:column  headerText="RESPONSABLE" style="text-align: center;width: 20%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                        
                         <h:outputText value="#{item.responsable}"/>
                     </p:column>
 

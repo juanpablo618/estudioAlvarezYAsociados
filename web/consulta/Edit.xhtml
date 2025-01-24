@@ -90,7 +90,7 @@
                                 <p:selectOneMenu style="margin-left: 1%; margin-right: 1%"  id="apoderado" value="#{consultaController.selected.apoderado}">
                                     <f:selectItem itemLabel=" -- Elige un Apoderado --"  noSelectionOption="true"  />
                                     <f:selectItem itemLabel="Mateo Francisco Alvarez" itemValue="Mateo Francisco Alvarez" />
-                                    <f:selectItem itemLabel="Campos María Emilia" itemValue="Campos María Emilia" />
+                                    <f:selectItem itemLabel="María Emilia Campos" itemValue="María Emilia Campos" />
                                 </p:selectOneMenu>
                                 
                                 <br></br><br></br>
@@ -161,8 +161,10 @@
                                   <p:outputLabel value="Equipo"   /><br></br>
                                 
                                  <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" requiredMessage="debe seleccionar un equipo" id="equipo" editable="false" effect="fold" value="#{consultaController.selected.equipo}">
+                                            <f:selectItem itemLabel=" -- Elige un Equipo --"  noSelectionOption="true"  />
+                                    
                                             <f:selectItems value="#{empleadoController.allEquipos}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo.nombre}" />
-                                        </p:selectOneMenu>
+                                 </p:selectOneMenu>
                             </h:panelGrid>
                             <h:panelGrid id="inputDatosDelConyuge" columns="6" cellspacing="5" style="margin-top: 2%;">
                                 <!-- DATOS CONYUGE -->

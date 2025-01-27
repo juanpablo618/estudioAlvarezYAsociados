@@ -8,6 +8,7 @@ import com.estudioAlvarezVersion2.jpa.ExpedienteDAO;
 import com.estudioAlvarezVersion2.jpa.Comunicacion;
 import com.estudioAlvarezVersion2.jpa.Consulta;
 import com.estudioAlvarezVersion2.jpa.EventoDeCausasJudiciales;
+import com.estudioAlvarezVersion2.jpa.FechasRestringidas;
 import com.estudioAlvarezVersion2.jpa.Turno;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
@@ -48,6 +49,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -803,6 +806,25 @@ public class ExpedienteController implements Serializable {
         return expedientesJudiciales;
     }
 
+    private void crearNuevaComunicacion(String comunicacion, Integer orden, String responsable){
+        
+        // Obtén la fecha actual
+        LocalDate fechaActual = LocalDate.now();
+
+        // Convierte LocalDate a Date
+        Date fechaActualDate = Date.from(fechaActual.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        ComunicacionController comunicacionControllerBean = context.getApplication().evaluateExpressionGet(context, "#{comunicacionController}", ComunicacionController.class);
+        comunicacionControllerBean.prepareCreateComunicacion(orden);
+        
+        comunicacionControllerBean.createComunicacion(fechaActualDate, comunicacion, responsable, orden);
+        
+    
+    }
+    
+    
  private void crearAgendaSaludoPorCumpleaños(Date fechaDeNacimientoDelExp, Integer orden, String nombre, String apellido) {
         // Convertir Date a LocalDate
         LocalDate fechaNacimiento = fechaDeNacimientoDelExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -833,6 +855,129 @@ public class ExpedienteController implements Serializable {
         
         agendaControllerBean.create(nombre, apellido, orden);
     }
+ 
+ private void crearAgendaVerConsulta(Integer orden, String nombre, String apellido, String responsable) {
+
+                                HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+                                .getExternalContext().getSession(false);
+
+                        // Recuperar el valor de la sesión
+                        String dateTodayStr = (String) session.getAttribute("dateToday");
+
+                        Date dateToday = null;
+                            if (dateTodayStr != null) {
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                                LocalDate localDate = LocalDate.parse(dateTodayStr, formatter); // Convierte el String a LocalDate
+
+                                // Convertir LocalDate a Date
+                                dateToday = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                            } else {
+                                throw new RuntimeException("El atributo 'dateToday' no está disponible en la sesión.");
+                            }
+
+                        Date fechaDeCreacion = dateToday; // Fecha de creación obtenida de la sesión
+                        Date fechaProximoDiaHabil = getNextBusinessDay(fechaDeCreacion);
+                
+        // Crear la agenda
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        agendaControllerBean.prepareCreate();
+        agendaControllerBean.getSelected().setFecha(fechaProximoDiaHabil);
+        agendaControllerBean.getSelected().setDescripcion("Ver Nueva Consulta");
+        agendaControllerBean.getSelected().setOrden(orden);
+        agendaControllerBean.getSelected().setNombre(nombre);
+        agendaControllerBean.getSelected().setApellido(apellido);
+        
+        agendaControllerBean.getSelected().setResponsable(responsable);
+        
+        agendaControllerBean.create(nombre, apellido, orden);
+    }
+ 
+ private void crearAgendaControlarSiDimosResp(Integer orden, String nombre, String apellido, String equipo) {
+
+                                HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+                                .getExternalContext().getSession(false);
+
+                        // Recuperar el valor de la sesión
+                        String dateTodayStr = (String) session.getAttribute("dateToday");
+
+                        Date dateToday = null;
+                            if (dateTodayStr != null) {
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                                LocalDate localDate = LocalDate.parse(dateTodayStr, formatter); // Convierte el String a LocalDate
+
+                                // Convertir LocalDate a Date
+                                dateToday = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                            } else {
+                                throw new RuntimeException("El atributo 'dateToday' no está disponible en la sesión.");
+                            }
+
+                        Date fechaDeCreacion = dateToday; // Fecha de creación obtenida de la sesión
+                        Date fechaProximoDiaHabil = getNextBusinessDay(fechaDeCreacion);
+                
+     String responsableParaAgendar = "";
+                        
+                        if(equipo.equalsIgnoreCase("JUSTICIA FEDERAL")) responsableParaAgendar = "Paola Maldonado";
+                        
+                        if(equipo.equalsIgnoreCase("PREVISIONAL ADMINISTRATIVO")) responsableParaAgendar = "Paula Alvarez";
+                        
+                        if(equipo.equalsIgnoreCase("JUSTICIA PROVINCIAL")) responsableParaAgendar = "Ayelen Brizzio";
+     
+        // Crear la agenda
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        agendaControllerBean.prepareCreate();
+        agendaControllerBean.getSelected().setFecha(fechaProximoDiaHabil);
+        agendaControllerBean.getSelected().setDescripcion("Controlar si dimos respuesta a esta nueva consulta");
+        agendaControllerBean.getSelected().setOrden(orden);
+        agendaControllerBean.getSelected().setNombre(nombre);
+        agendaControllerBean.getSelected().setApellido(apellido);
+        agendaControllerBean.getSelected().setResponsable(responsableParaAgendar);
+        
+        agendaControllerBean.create(nombre, apellido, orden);
+    }
+ 
+ 
+ private Date getNextBusinessDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        do {
+            calendar.add(Calendar.DAY_OF_MONTH, 1); // Avanzar un día
+        } while (validateHolidays(calendar.getTime()) || isWeekend(calendar.getTime())); // Verificar si es fin de semana o feriado
+
+        return calendar.getTime();
+    }
+    
+ private Boolean validateHolidays(Date date) {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Formato correcto
+    String dateString = sdf.format(date); // Convertir la fecha a String en el formato deseado
+
+    // Obtener el controlador de FechasRestringidas
+    FacesContext context = FacesContext.getCurrentInstance();
+    FechasRestringidasController fechasRestringidasController = context.getApplication()
+        .evaluateExpressionGet(context, "#{fechasRestringidasController}", FechasRestringidasController.class);
+
+    Boolean result = false;
+
+    for (FechasRestringidas item : fechasRestringidasController.getItems()) {
+        // Formatear cada fecha de item a String en el mismo formato y compararlas
+        String itemDateString = sdf.format(item.getFecha()); // Convertir la fecha del item a String
+        if (itemDateString.equals(dateString)) {
+            result = true;
+            break; // No es necesario seguir buscando si ya encontramos una coincidencia
+        }
+    }
+
+    return result;
+}
+
+ private boolean isWeekend(Date date) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+            return dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY;
+        }
  
     @FacesConverter(forClass = Expediente.class)
     public static class ExpedienteControllerConverter implements Converter {
@@ -1450,10 +1595,17 @@ public class ExpedienteController implements Serializable {
         persist(JsfUtil.PersistAction.CREATE, "Consulta transformada a ADMINISTRATIVO con el nro de orden: " + expAInsertar.getOrden());
         
         if(expAInsertar.getFechaDeNacimiento() != null){
-        crearAgendaSaludoPorCumpleaños(expAInsertar.getFechaDeNacimiento(), expAInsertar.getOrden(), expAInsertar.getNombre(), expAInsertar.getApellido());
+            crearAgendaSaludoPorCumpleaños(expAInsertar.getFechaDeNacimiento(), expAInsertar.getOrden(), expAInsertar.getNombre(), expAInsertar.getApellido());
+            crearAgendaVerConsulta( expAInsertar.getOrden(), expAInsertar.getNombre(), expAInsertar.getApellido(), expAInsertar.getResponsable());
+            crearAgendaControlarSiDimosResp( expAInsertar.getOrden(), expAInsertar.getNombre(), expAInsertar.getApellido(), expAInsertar.getEquipo());
+        
         }else{
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Exp a insertar no tiene fecha de Nacimiento", "No es posible crear agenda de saludo de cumpleaños");
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+        }
+        
+        if(consultaSelected.getComunicaciones() != null){
+            crearNuevaComunicacion(consultaSelected.getComunicaciones(), expAInsertar.getOrden(), consultaSelected.getResponsable());
         }
         
         items = null;

@@ -98,8 +98,14 @@
                                 <p:inputTextarea rows="5" cols="65" autoResize="false"  id="observaciones" value="#{consultaController.selected.observaciones}" title="observaciones"/>
                                 <br></br><br></br>
                                <div>
-                                    <p:commandButton onclick="ConsultaViewDialog.hide()" actionListener="#{expedienteController.cambiarConsultaAExpAdm(consultaController.selected)}" class="botonCrearAgenda hoverGreen" value="Cambiar a Administrativo"
-                                                     style="float: right !important; margin-top: 0% !important;" update=":ConsultaListForm:datalist"  oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
+                                    <p:commandButton onclick="ConsultaViewDialog.hide()" 
+                                                     actionListener="#{expedienteController.cambiarConsultaAExpAdm(consultaController.selected)}"
+                                                     class="botonCrearAgenda hoverGreen"
+                                                     value="Cambiar a Administrativo"
+                                                     rendered="#{consultaController.selected.estadoConsulta != 'CONSULTA PASADA A EXP. ADMINISTRATIVO'}"
+                                                     style="float: right !important; margin-top: 0% !important;" 
+                                                     update=":ConsultaListForm:datalist"  
+                                                     oncomplete="handleSubmit(args, 'ExpedienteEditDialog');"/>
                             
                                 </div>
                                 <br></br>

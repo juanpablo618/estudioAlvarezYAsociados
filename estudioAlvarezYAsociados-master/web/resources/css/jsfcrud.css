@@ -1,0 +1,492 @@
+@font-face {
+font-family: "gotham Logo";
+
+src: url("#{resource['fonts/Gotham-BookItalic.otf']}");
+font-weight: normal;
+font-style: normal;
+
+    body{
+        font-family: "gotham Logo";
+    }
+}
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+      font-family: "gotham Logo" !important;
+}
+
+td.centeredColumnContent{
+    text-align: center;
+}
+
+td.centeredColumnContentNo{
+    text-align: center;
+}
+
+td.centeredColumnContentSi{
+    text-align: center;
+    background-color: lightgreen;
+}
+
+td.centeredColumnContentARCHIVADO{
+    text-align: center;
+    background-color: pink;
+}
+
+td.centeredColumnContentCONSULTA{
+    text-align: center;
+    background-color: lightgreen;
+    
+}
+
+tbody tr:hover  td.centeredColumnContentSi{
+    text-align: center;
+    background-color: darkcyan;
+    color: white;
+    text-shadow:none !important;
+}
+
+td.centeredColumnContentPendiente{
+    text-align: center;
+    background-color: yellow;
+}
+
+tbody tr:hover  td.centeredColumnContentPendiente{
+    text-align: center;
+    background-color: #D6D661;
+    color: white;
+    text-shadow:none !important;
+}
+
+td.centeredColumnContentReagendada{
+    text-align: center;
+    background-color: gold;
+}
+
+tbody tr:hover  td.centeredColumnContentReagendada{
+    text-align: center;
+    background-color: #D6D661;
+    color: white;
+    text-shadow:none !important;
+}
+
+td.centeredColumnContentadministrativo{
+    text-align: center;
+    
+}
+
+.centeredColumnContentjudicial{
+    text-align: center;
+    background-color: lightgreen;
+    color: #4f4f4f;
+    text-shadow:none !important;
+}
+
+tbody tr:hover  td.centeredColumnContentjudicial{
+    text-align: center;
+    background-color: darkolivegreen;
+    color: white;
+    text-shadow:none !important;
+}
+
+tbody tr:hover  td.centeredColumnContentsincarpeta{
+    text-align: center;
+    background-color: salmon !important;
+    color: white;
+    text-shadow:none !important;
+}
+
+tr.ui-datatable-even:hover td.centeredColumnContentadministrativo,
+tr.ui-datatable-odd:hover td.centeredColumnContentadministrativo {
+    background-color: #1B6BD1 !important;
+    color: white !important;
+}
+
+td.centeredColumnContentsincarpeta{
+    text-align: center;
+    background-color: burlywood !important;
+}
+
+.ui-datatable .ui-datatable-data tr.ui-state-hover,
+.ui-datatable .ui-datatable-data tr.ui-state-active{
+    background-color: #1B6BD1 !important;
+    color: white !important;
+}
+.ui-datatable tbody tr.ui-selected td {
+    background-color: #123a6d;
+}
+
+.ui-datatable tbody tr.ui-state-highlight td.centeredColumnContentjudicial,
+.ui-datatable tbody tr.ui-state-highlight td.centeredColumnContentadministrativo,
+.ui-datatable tbody tr.ui-state-highlight td.centeredColumnContentsincarpeta {
+    background-color: #123a6d !important;
+    color: white !important;
+}
+
+.ui-datatable tbody tr.ui-state-highlight td {
+    background-color: #123a6d;
+    color: white;
+}
+
+table.dataTable.nowrap td{white-space:nowrap}
+
+.ui-widget {
+    font-size: 15px !important;
+    font-family: gotham Logo;
+}
+.ui-layout-north {
+    z-index: 20 !important;
+    overflow: visible !important;;
+}
+.ui-layout-north .ui-layout-unit-content {
+    overflow: visible !important;
+}
+.ui-widget-header {
+    text-align: center;
+
+}
+.ui-button {
+    margin-top: 10px !important;
+}
+
+.linea
+{
+    display: inline-block;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.crearAgenda{
+    background: #2dfbd0;
+}
+
+.fondoBotones{
+    background-color: black;
+}
+
+.ui-layout-unit .ui-layout-unit-content {
+    background-color: white;
+}
+
+.ui-datatable-odd{
+    background:unset;
+}
+
+.ui-widget-header{
+    background: white;
+}
+
+.fondoBody{
+    background-color: white;
+}
+
+.ui-menu .ui-menuitem-link{
+    background-color: #123a6d !important;
+
+}
+
+.ui-widget-content .ui-icon{
+    background-color: white !important;
+}
+
+.botonEditarAgenda{
+    background-color: #00C6AE !important;
+    background: #00C6AE !important;
+    font-size: 13px !important; 
+    color: #FFFFFF !important;
+    letter-spacing: 0.93px !important;
+    text-shadow:unset !important;
+}
+
+.botonCrear{
+    background-color: #00C6AE !important;
+    background: #00C6AE !important;
+    font-size: 15px !important; 
+    color: #FFFFFF !important;
+    letter-spacing: 0.93px !important;
+    text-shadow:unset !important;
+}
+
+.botonCrearAgenda{
+    background-color: #00C6AE !important;
+    background: #00C6AE !important;
+    font-size: 13px !important; 
+    color: #FFFFFF !important;
+    letter-spacing: 0.93px !important;
+    text-shadow:unset !important;
+}
+
+.botonSubir{
+    background-color: #3485AC !important;
+    background: #3485AC !important;
+    font-size: 13px !important; 
+    color: #FFFFFF !important;
+    letter-spacing: 0.93px !important;
+    text-shadow:unset !important;
+}
+
+.editDialogExpediente, .editDialogConsulta{
+    width: 93% !important;
+    height: 95% !important;
+    top: 2% !important;
+    z-index: 1005 !important;
+    position: absolute;
+}
+
+.padre {
+    /* IMPORTANTE */
+    text-align: center;
+}
+
+.hijo {
+    padding: 10px;
+    margin: 10px;
+    /* IMPORTANTE */
+    display: inline-block;
+}
+
+.hijoParaClaves {
+    padding: 10px;
+    margin: 2px;
+    /* IMPORTANTE */
+    display: inline-block;
+}
+
+.ui-menu .ui-menuitem-link{
+    background-color: #9db7e8 !important;
+}
+
+.crearExpediente, .crearConsulta{
+    width: 50% !important;
+    height: 70% !important;
+    left: 15% !important;
+    top: 2% !important;
+    z-index: 1005 !important;
+    position: absolute;
+}
+
+.verExpediente{
+    width: 90% !important;
+    height: 90% !important;
+    top: 2% !important;
+    z-index: 1005 !important;
+    position: absolute;
+}
+
+.crearExpedienteJudicial{
+    width: 50% !important;
+    height: 70% !important;
+    left: 15% !important;
+    top: 2% !important;
+    z-index: 1005 !important;
+    position: absolute;
+}
+.editarExpedienteJudicial{
+    width: 85% !important;
+    height: 90% !important;
+    left: 5% !important;
+    top: 5% !important;
+    z-index: 1005 !important;
+    position: absolute;
+}
+
+.ui-layout-unit-content .ui-widget-content{
+    background-color: white;
+}
+
+.ui-menu .ui-menuitem-link{
+    background-color: #123a6d !important;
+}
+
+#fechaDeAtencion{
+    width: 100px !important;
+}
+
+.inputFechaDeAtencion{
+    width: 100px !important;
+}
+
+div.ui-layout-unit-content {
+    background-color: #123a6d !important;
+
+}
+
+.ui-datatable .ui-column-filter{
+    width: 80% !important;
+}
+
+div[id="AgendaListForm:datalist"] thead {
+    display:none;
+}
+
+.ui-button-text-only .ui-button-text {
+    text-shadow: none !important;
+}
+
+.ui-buttonset .ui-button{
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 2%;
+    background: #32b9a9;
+}
+
+.ui-datatable thead th,
+.ui-datatable tbody td,
+.ui-datatable tfoot td {
+    padding:4px 10px;
+    overflow:hidden;
+    border-width:1px;
+    border-style:solid none solid none !important; /*Lineas tabala*/
+}
+
+#TurnoListForm\:datalist\ {
+    margin-bottom: 10% !important;
+}
+
+.ui-datepicker .ui-datepicker-calendar .ui-state-default {
+ background:#c8b363 !important;
+ border:none;
+ color:#000000 !important;
+}
+
+.ui-datepicker .ui-datepicker-header {
+ background:#a69753 !important;
+}
+
+.ui-datepicker .ui-datepicker-calendar .ui-state-hover{
+    background: #716536 !important;
+    color: white !important;
+}
+
+.ui-widget-header{color:black !important;}
+
+.ui-datepicker-days-cell-over  .ui-datepicker-today{
+    color: white !important;
+}
+
+.ui-fieldset-toggleable .ui-fieldset-legend {
+    background: #4fb2e1 !important; 
+    color: white !important;
+    text-shadow: none !important;
+}
+
+.ui-fieldset-toggleable-lila .ui-fieldset-legend {
+    background: #ca4fe1 !important; 
+    color: white !important;
+    text-shadow: none !important;
+}
+
+.ui-fieldset-toggleable-verde .ui-fieldset-legend {
+    background: #32b9a9 !important; 
+    color: white !important;
+    text-shadow: none !important;
+}
+
+.ui-fieldset-toggleable-azul .ui-fieldset-legend {
+    background: #123a6d  !important; 
+    color: white !important;
+    text-shadow: none !important;
+}
+
+.ui-fieldset-toggleable .ui-fieldset-legend:hover{
+    background-color: #2a55aa !important;
+}   
+
+.ui-fieldset .ui-fieldset-toggler {
+ padding-right:0em !important; 
+ margin-top:0em !important; 
+}
+
+.ui-state-active a,
+.ui-state-active a:link,
+.ui-state-active a:visited {
+ color:white !important;
+ background: #3485ac !important;
+ text-shadow: none !important;
+}
+
+.ui-draggable .ui-dialog-titlebar {
+    cursor:move;
+    background: #2a55aa !important;
+    color: white !important;
+    text-shadow: none !important;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    background: #2a55aa !important;
+    color: white !important;
+    text-shadow: none !important;
+} 
+
+:focus {
+    outline: none !important;
+}
+
+.ui-buttonset .ui-button {
+    margin-top: 1% !important;
+    margin-right: 0;
+    padding-bottom: 2.5%;
+    padding-top: 1.5%;
+}
+
+#j_idt18\:j_idt19 > ul > li.ui-widget-header.ui-corner-all{
+    background-color: #123A6D;
+}
+
+#j_idt14-resizer{
+    background-color: #123A6D;
+}
+
+.MaríaEmiliaCampos  {
+background-color: #3aad56 !important;    
+}
+
+
+.MateoFranciscoAlvarez {
+background-color: #af3535 !important;    
+} 
+
+.fc-header-title{
+   color: white;
+}
+
+div.ui-growl {
+   left: 50%;
+   right: 0;
+   margin-left:-150px;
+}
+
+.ui-messages-warn{
+        animation: showWarnMessage 25s ease-in-out; /* Ajusta el tiempo (15s) según tus necesidades */
+
+}
+
+.ui-messages-info{
+        animation: showWarnMessage 25s ease-in-out; /* Ajusta el tiempo (15s) según tus necesidades */
+
+}
+
+/* Agrega este estilo a tu archivo CSS o en la página XHTML dentro de una etiqueta <style> */
+.filtro-form {
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+    
+}
+
+.filtro-item {
+    margin-right: 10px;
+    margin-left: 15px;
+        font-size: 15px !important;
+    margin-bottom: 10px;
+}
+.filtro-item-resultado {
+    margin-right: 10px;
+    margin-left: 15px;
+        font-size: 25px !important;
+
+    margin-bottom: 10px;
+}
+
+.ui-dialog .ui-dialog-buttonpane{
+    text-align: center !important;
+}

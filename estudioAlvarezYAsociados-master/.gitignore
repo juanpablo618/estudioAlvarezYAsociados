@@ -1,0 +1,10 @@
+estudioAlvarezYAsociados/web/WEB-INF/glassfish-resources.xml
+estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/DAO.java
+
+/build/
+/dist/
+
+/web/WEB-INF
+
+estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/DAO.java
+estudioAlvarezYAsociados/web/WEB-INF/glassfish-resources.xml

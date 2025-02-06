@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Login Estudio Alvarez y Asociados</title>
+        
+        <h:outputStylesheet name="css/loginnuevo.css"/>   
+    </h:head>  
+
+    <body> 
+        
+    <p:growl id="mensajes" showDetail="true" life="5000"  />
+
+    
+       
+        
+        <div class="left-panel">
+            <div class="image-section">
+            <img  src="resources/images/DA1.jpg" alt="Imagen 1" class="active fotologin" />
+            <img class="fotologin" src="resources/images/DA2.jpg" alt="Imagen 2" />
+            <img class="fotologin" src="resources/images/DA3.jpg" alt="Imagen 3" />
+        </div>
+        
+        
+        
+           <div class="right-panel">
+               <div class="logo">
+                <h:graphicImage value="resources/images/Alvarezyasociados.svg" />
+        
+            </div>
+            <h:form class="login-box">
+                
+                <div class="userdiv">
+                <label  for="username" >Usuario</label>
+                 </div>
+                 <p:selectOneMenu id="username" styleClass="user" value="#{login.user}" style="border-radius: 5px;" >
+                        <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.idEmpleado}" />
+                    </p:selectOneMenu>
+               
+                <div class="clavediv">
+                <div>    
+                <label for="password">Clave:</label>
+                </div>
+                    <div>
+                <p:password id="password" value="#{login.pwd}" style="color: black; border-radius: 5px;" />
+                 </div>   
+                </div>
+                    <h:message for="username" styleClass="error-message" />
+                    <h:message for="password" styleClass="error-message" />
+              
+                    
+                     <center>
+                            <h:commandButton id="botonIniciarSesion" class="hover" action="#{login.validateUsernamePassword}"
+                                             value="INICIAR SESIÓN" styleClass="btn-login" >
+                            </h:commandButton>
+                        </center>
+            </h:form>
+        </div>
+    </div>
+                
+       
+
+        
+          </body> 
+<script >
+            const images = document.querySelectorAll('.image-section .fotologin');
+        let currentIndex = 0;
+
+        setInterval(() => {
+            images[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].classList.add('active');
+        }, 3000);
+        </script>
+    
+
+</html>

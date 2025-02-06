@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="HonorarioEditDlg" widgetVar="HonorarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar Honorario">
+            <h:form id="HonorarioEditForm">
+                <h:panelGroup id="displayEditHonorario">
+                    <h:panelGrid columns="2">
+                    
+                <p:outputLabel value="Orden" for="orden" style="margin-left: 3%;font-weight: bold" />
+                <p:inputText readonly="true" id="orden" value="#{honorarioController.selected.orden}" style="margin-left: 3%" title="Orden" />
+                
+                <p:outputLabel value="#{bundle.EditAgendaLabel_fecha}" for="fecha" />
+                <p:calendar  disabledWeekends="true" id="fecha" mode="inline" pattern="dd/MM/yyyy" value="#{honorarioController.selected.fechaRegulacion}" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
+
+                <p:outputLabel value="Juzgado federal" for="juzgadoFederal" style="margin-left: 3%;font-weight: bold" />
+                <p:selectOneMenu editable="true" style="margin-left: 1%; margin-right: 1%" requiredMessage="debe colocar un juzgado federal correcto" id="juzgadoFederal" value="#{honorarioController.selected.juzgadoFederal}">
+                                    <f:selectItem itemLabel=" -- Elige un Juzgado --"  noSelectionOption="true"  />
+                                    <f:selectItem itemLabel="1" itemValue="1" />
+                                    <f:selectItem itemLabel="2" itemValue="2" />
+                                    <f:selectItem itemLabel="3" itemValue="3" />
+                                    <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
+                </p:selectOneMenu>
+                
+                
+                <p:outputLabel value="A nombre de quien" for="aNombreDeQuien" style="margin-left: 3%;font-weight: bold" />
+                <p:selectOneMenu editable="true" style="margin-left: 1%; margin-right: 1%" requiredMessage="debe colocar nombre" id="aNombreDeQuien" value="#{honorarioController.selected.anombreDeQuien}">
+                                    <f:selectItem itemLabel=" -- Elige un nombre --"  noSelectionOption="true"  />
+                                    <f:selectItem itemLabel="MATEO" itemValue="MATEO" />
+                                    <f:selectItem itemLabel="MARIA EMILIA" itemValue="MARIA EMILIA" />
+                                    <f:selectItem itemLabel="MATEO Y MARIA EMILIA" itemValue="MATEO Y MARIA EMILIA" />
+                                    <f:selectItem itemLabel="EDUARDO ALVAREZ" itemValue="EDUARDO ALVAREZ" />
+                                    <f:selectItem itemLabel="ROXANA PEREDA" itemValue="ROXANA PEREDA" />
+                                    <f:selectItem itemLabel="EDUARDO Y ROXANA" itemValue="EDUARDO Y ROXANA" />
+                                    <f:selectItem itemLabel="MATEO Y EDUARDO" itemValue="MATEO Y EDUARDO" />
+                                    <f:selectItem itemLabel="MATEO Y ROXANA" itemValue="MATEO Y ROXANA" />
+                                    <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
+                </p:selectOneMenu>
+                
+                <p:outputLabel value="Tipo de juicio" for="tipoDeJuicio" style="margin-left: 3%;font-weight: bold" />
+                <p:selectOneMenu editable="true" style="margin-left: 1%; margin-right: 1%" requiredMessage="debe colocar un tipo de juicio correcto" id="tipoDeJuicio" value="#{honorarioController.selected.tipoDeJuicio}">
+                                    <f:selectItem itemLabel=" -- Elige un Tipo --"  noSelectionOption="true"  />
+                                    <f:selectItem itemLabel="REAJUSTE HABERES" itemValue="REAJUSTE HABERES" />
+                                    <f:selectItem itemLabel="DEMANDA ORDINARIA PENSION" itemValue="DEMANDA ORDINARIA PENSION" />
+                                    <f:selectItem itemLabel="AMPAROS" itemValue="AMPAROS" />
+                                    <f:selectItem itemLabel="ACCION DECLARATIVA DE CERTEZA" itemValue="ACCION DECLARATIVA DE CERTEZA" />
+                                    <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
+                                    
+                </p:selectOneMenu>
+                
+                <p:outputLabel value="Tipo de Honorario" for="tipoDeHonorario" style="margin-left: 3%;font-weight: bold" />
+                <p:selectOneMenu editable="true" style="margin-left: 1%; margin-right: 1%" requiredMessage="debe colocar un tipo de honorario correcto" id="tipoDeHonorario" value="#{honorarioController.selected.tipoDeHonorario}">
+                                    <f:selectItem itemLabel=" -- Elige un Tipo --"  noSelectionOption="true"  />
+                                    <f:selectItem itemLabel="PRIMERA INSTANCIA" itemValue="PRIMERA INSTANCIA" />
+                                    <f:selectItem itemLabel="SEGUNDA INSTANCIA" itemValue="SEGUNDA INSTANCIA" />
+                                    <f:selectItem itemLabel="REX" itemValue="REX" />
+                                    <f:selectItem itemLabel="EJECUCIÓN" itemValue="EJECUCIÓN" />
+                                    <f:selectItem itemLabel="PÓSTERIOR A EJECUCION" itemValue="PÓSTERIOR A EJECUCION" />
+                                    <f:selectItem itemLabel="OTRO" itemValue="OTRO" />
+                </p:selectOneMenu>
+                
+                <p:outputLabel value="Estado" for="estado" style="margin-left: 3%;font-weight: bold" />
+                <p:selectOneMenu editable="true" style="margin-left: 1%; margin-right: 1%" requiredMessage="debe colocar un estado correcto" id="estado" value="#{honorarioController.selected.estado}">
+                                    <f:selectItem itemLabel=" -- Elige un Estado --"  noSelectionOption="true"  />
+                                    <f:selectItem itemLabel="PENDIENTE" itemValue="PENDIENTE" />
+                                    <f:selectItem itemLabel="REGULADOS" itemValue="REGULADOS" />
+                                    <f:selectItem itemLabel="DIFERIDOS" itemValue="DIFERIDOS" />
+                                    <f:selectItem itemLabel="APELADOS" itemValue="APELADOS" />
+                                    <f:selectItem itemLabel="REGULADOS CON AUTO DE HONORARIOS" itemValue="REGULADOS CON AUTO DE HONORARIOS" />
+                                    <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
+                                    
+                </p:selectOneMenu>
+                
+                <p:outputLabel value="Regimén de Costas" for="costas" style="margin-left: 3%;font-weight: bold" />
+                <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" editable="true" requiredMessage="debe un regimén de costas correcto" id="costas" value="#{honorarioController.selected.costas}">
+                                    <f:selectItem itemLabel=" -- Elige un R. de Costas --"  noSelectionOption="true"  />
+                                    <f:selectItem itemLabel="100% DEMANDADO" itemValue="100% DEMANDADO" />
+                                    <f:selectItem itemLabel="ORDEN CAUSADO" itemValue="ORDEN CAUSADO" />
+                                    <f:selectItem itemLabel="100% ACTOR" itemValue="100% ACTOR" />
+                                    <f:selectItem itemLabel="90 - 10" itemValue="90 - 10" />
+                                    <f:selectItem itemLabel="80 - 20" itemValue="80 - 20" />
+                                    <f:selectItem itemLabel="OTRO" itemValue="OTRO"  />
+                </p:selectOneMenu>
+                
+                <div>
+                    <p:commandButton actionListener="#{honorarioController.update}" class="botonCrear hoverGreen" value="#{bundle.Save}" update="displayEditHonorario,:HonorarioListForm:datalist" oncomplete="handleSubmit(args,'HonorarioEditDialog');PF('honorariosTable').clearFilters()" />
+                                
+                </div>
+            </h:panelGrid>
+         </h:panelGroup>
+                
+                </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>

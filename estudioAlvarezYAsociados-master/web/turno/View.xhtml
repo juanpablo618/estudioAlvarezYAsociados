@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TurnoViewDlg" widgetVar="TurnoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTurnoTitle}">
+            <h:form id="TurnoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{turnoController.selected != null}">
+                        <h:outputText value="Día y Hora:"/>
+                        <h:outputText value="#{turnoController.selected.horaYDia}" title="#{bundle.ViewTurnoTitle_horaYDia}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTurnoLabel_nombre}"/>
+                        <h:outputText value="#{turnoController.selected.nombre}" title="nombre"/>
+                        <h:outputText value="#{bundle.ViewTurnoLabel_apellido}"/>
+                        <h:outputText value="#{turnoController.selected.apellido}" title="#{bundle.ViewTurnoTitle_apellido}"/>
+                        <h:outputText value="Nro de teléfono:"/>
+                        <h:outputText value="#{turnoController.selected.nroDeTelefono}" title="#{bundle.ViewTurnoTitle_nroDeTelefono}"/>
+                        <h:outputText value="#{bundle.ViewTurnoLabel_procedencia}"/>
+                        <h:outputText value="#{turnoController.selected.procedencia}" title="#{bundle.ViewTurnoTitle_procedencia}"/>
+                        <h:outputText value="Observación:"/>
+                        <h:outputText value="#{turnoController.selected.observacion}" title="#{bundle.ViewTurnoTitle_observacion}"/>
+                        <h:outputText value="Realizado:"/>
+                        <h:outputText value="#{turnoController.selected.realizado}" title="realizado"/>
+                        
+                    </p:panelGrid>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TurnoEditForm" oncomplete="PF('TurnoEditDialog').show()" disabled="#{empty turnoController.selected}"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="TurnoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

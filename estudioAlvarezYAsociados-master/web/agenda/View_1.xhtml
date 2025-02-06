@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AgendaViewClavesDialog" widgetVar="AgendaViewClavesDialog" modal="true" resizable="false" appendTo="@(body)" header="Claves">
+            <h:form id="AgendaViewClavesForm">
+                <h:panelGroup id="display">
+                   
+                        <h:outputText value="NRO DE CUIL:"/>
+                        <h:outputText style="font-weight: bold" value="#{agendaController.verNroDeCuil(agendaController.selected.orden)}"/><br></br><br></br>
+                            
+                    
+                        <h:outputText value="Clave CIDI:"/><br></br>
+                        <h:outputText value="#{agendaController.verClaveCidi(agendaController.selected.orden)}" class="negrita"/><br></br>
+                        <a href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" >
+                             <img src="../faces/resources/images/CIDI.png"></img>
+                        </a><br></br><br></br>
+                        
+                        <h:outputText value="Clave Fiscal:"/><br></br>
+                        <h:outputText value="#{agendaController.verClaveFiscal(agendaController.selected.orden)}" class="negrita" /><br></br>
+                        <a href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank" >
+                        <img src="../faces/resources/images/afip.png" style="width: 80%;" ></img>
+                        </a><br></br><br></br>
+                                
+                        <h:outputText value="Clave de Seguridad Social:"/><br></br>
+                        <h:outputText value="#{agendaController.verClaveDeSeguridadSocial(agendaController.selected.orden)}" class="negrita"/><br></br>
+                        <a href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=miansesv2" target="_blank" >
+                             <img src="../faces/resources/images/anses.png"></img>
+                        </a><br></br><br></br>
+
+                    
+                    <p:commandButton value="#{bundle.Close}" onclick="AgendaViewClavesDialog.hide()" class="botonCrear hoverGreen"/>
+                           
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

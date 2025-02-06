@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="HonorarioEditDlg" widgetVar="HonorariosListDialog" modal="true" resizable="false" appendTo="@(body)" header="Honorarios de exp. Judicial">
+            <h:form id="HonorarioListFormDesdeExp">
+                <div style="font-weight: bold; float: left; width: 100%; ">
+                     <u> <h:outputText value="Honorarios de:" />
+                    <h:outputText value=" "/>
+                     <h:outputText value="#{expedienteController.selected.apellido}" />
+                    <h:outputText value=" "/>
+                    <h:outputText value="#{expedienteController.selected.nombre}"/>
+                    <h:outputText value=" "/>
+                    <h:outputText style="font-size: 32px" value="#{expedienteController.selected.orden}"/>
+                     </u>
+                </div>
+                <br></br><br></br><br></br>
+                <h:panelGroup id="display">
+                   <p:dataTable id="datalist" value="#{honorarioController.getItemsBySelectedExp(expedienteController.selected.orden)}" var="item"
+                             selectionMode="single" selection="#{honorarioController.selected}"
+                             paginator="true"
+                             rowKey="#{item.idHonorario}"
+                             widgetVar="honorariosTable"
+                             rows="20"
+                             rowsPerPageTemplate="20,40,80"
+                             emptyMessage="No existen Honorarios"
+                             paginatorPosition="bottom" 
+                             rendered="true"
+                             >
+
+                        <p:ajax event="rowSelect"   />
+                        <p:ajax event="rowUnselect" />
+
+                        <p:growl life="2500" id="message" showDetail="true" />
+ 
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="Apellido y Nombre"/>
+                            </f:facet>
+                            <h:outputText value="#{item.apellido} #{item.nombre}"/>
+                        </p:column>
+                        
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="juzgado federal"/>
+                            </f:facet>
+                            <h:outputText value="#{item.juzgadoFederal}"/>
+                        </p:column>
+                        
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="Tipo de honorario"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipoDeHonorario}"/>
+                        </p:column>
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="a nombre de quien"/>
+                            </f:facet>
+                            <h:outputText value="#{item.anombreDeQuien}"/>
+                        </p:column>
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="estado"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estado}"/>
+                        </p:column>
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="Costas"/>
+                            </f:facet>
+                            <h:outputText value="#{item.costas}"/>
+                        </p:column>
+                        
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="fecha de regulación"/>
+                            </f:facet>
+                            <h:outputText  value="#{item.fechaRegulacion}"   >
+                            <f:convertDateTime pattern="dd/MM/yyyy"  />
+                        </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="HonorariosListDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>

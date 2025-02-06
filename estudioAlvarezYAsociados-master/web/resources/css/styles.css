@@ -1,0 +1,258 @@
+boto.fondo {
+    background-color: #123a6d !important;
+}
+
+.ui-layout-unit-content .ui-widget-content{
+    border: none !important;
+}
+
+.ui-widget-content {
+    border:none !important;
+}
+
+.myIconSize{
+    font-size: 3em;
+}
+
+.separador{
+    margin-bottom: 5% !important;
+    margin-top: 5% !important;
+
+}
+
+.btnMenuLeft {
+    width: auto !important;
+    padding: auto !important;
+    margin: 0 auto;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+#fondoCenter{background-color: #123a6d !important;}
+
+#menuForm{
+    float: left;
+    margin: 0 auto !important;
+    width: 100%;
+}
+
+#menuLeft{
+    width:5% !important;
+    margin: 0 !important;
+}
+
+#menuLeft-resizer{
+    background-color: #123a6d !important;
+}
+
+.bordersn{
+    border:none !important;
+}
+
+.maxwidth{
+    width: 100% !important;
+    margin: 0 auto !important;
+}
+
+.btmMarginLeft{
+    width: 20%;
+    text-shadow: 0px 0px 0px !important;
+}
+
+#font{
+    color: white !important;
+    font-family: gotham Logo !important;
+}
+
+.btnBorderColor{
+    border-radius: 20px !important;
+    color: #00C6AE !important;
+}
+
+.sizeAction{
+    width: 15%;
+}
+
+.mrgBtn{
+    margin-right: 2%; 
+} 
+
+.mrg10{width: 10% !important;}
+.mrg20{width: 20%;}
+.mrg30{width: 30%;}
+.mrg40{width: 40%;}
+.mrg50{width: 50%;}
+.mrg60{width: 60%;}
+.mrg100{width: 100%;} 
+
+.mgr-left-40{margin-left: 40%;}
+.width80{width: 80%;}
+.width50{width: 52%;}
+.w48{width: 48%;}
+
+.btnDelete{background-color: red !important; }
+.btnSearch{background-color: green !important; }
+.btnOrange{background-color: orange !important; }
+.btnSearchDarkBlue{background-color: #0404e2 !important; }
+.btnSearchYellow{background-color: yellow !important; }
+.btnKey{background-color:  #3485ac  !important; }
+.btnKeyYellow{background-color:  #FFFF00  !important; }
+.btnKeyGreen{background-color:  #00FF00  !important; }
+
+.CIDI{background-image:  url("#{resources['images/CIDI.png']}");}
+
+.borderRd{
+    border-radius: 20px !important;
+}
+
+.mrgLR2{
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.btnPrint{
+    width: 15%; 
+    padding: 0.5%; 
+    font-family: bolt; 
+    font-weight:bold; 
+    background: #4fb2e1; 
+    border-color: #9FCBD4;
+    color: white; 
+    border-radius: 7px 7px 7px 7px;
+    margin-top: .5%;
+    margin-left: .5%;
+}   
+
+.btnPrint:hover{
+    background: #2a55aa;
+}
+
+.hoverGreen:hover{
+    background-color: mediumseagreen !important;
+}
+
+.hoverGreenCancel{
+    background-color: mediumseagreen !important;
+    color: red !important;
+}
+
+.hoverBlue:hover{
+    background-color: #2a55aa !important;
+}
+
+.filterTables{
+    width: 15%; 
+    padding: 0.5%; 
+    font-family: bolt; 
+    font-weight:bold; 
+    background: #4fb2e1; 
+    border-color: #9FCBD4;
+    color: white; 
+    border-radius: 7px 7px 7px 7px; 
+    margin-left: 10px;
+} 
+
+#ExpedienteListForm:j_idt37:hover{
+    background-color: mediumseagreen !important;
+}
+
+.mrgTB2{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.subMenu{
+    color: white !important;
+}
+
+.subMenu:hover{
+    color: black !important;
+    font-weight: bold !important;
+}
+
+.confirmar{
+    color: black;
+    background-color: yellow;
+} 
+
+.colum-2{
+    column: 2;
+    column-rule: 4px double #ff00ff;
+}
+
+.colum-space{
+    column-gap: 5px;
+}
+
+.float-r{float: right;}
+.float-l{float: left;}
+
+.createButtonAgenda{
+    margin-left: 10% !important; 
+    background: #4fb2e1 !important; 
+    color: white !important;
+}
+
+.negrita{
+    font-weight: bold;
+}
+
+.maxModal{
+    max-width: 85% !important;
+    max-height: 85% !important;
+}
+
+.pipeSeparator{
+    font-size: 1.5em;
+    color: #2a55aa;
+}
+
+#ExpedienteViewDlgParaTurno{
+    width: 85% !important;
+    height: 95% !important;
+}
+
+#ExpedienteViewDialogParaAgenda{
+    width: 85% !important;
+    height: 95% !important;
+}
+
+.ui-growl-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    font-size: 30px !important;
+}
+
+.ui-growl-item .ui-growl-icon {
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+.ui-growl-item .ui-growl-message {
+    font-size: 26px;
+}
+
+.ui-growl-item:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.ui-growl-icon-info {
+    color: #17a2b8;
+}
+
+.ui-growl-icon-success {
+    color: #28a745;
+}
+
+.ui-growl-icon-warn {
+    color: #ffc107;
+}
+
+.ui-growl-icon-error {
+    color: #dc3545;
+}

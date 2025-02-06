@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition id="EditExpJudicial">
+
+        <p:dialog id="ExpedienteJudicialEditDlg" class="editarExpedienteJudicial" widgetVar="ExpedienteJudicialEditDialog"  modal="true" resizable="true" appendTo="@(body)" width="100" style="overflow-y:auto" >
+            <h:form id="ExpedienteJudicialEditForm">
+
+                <div style="font-weight: bold; float: left; width: 100%; ">
+                    <h:outputText value="#{expedienteController.selected.apellido}" />
+                    <h:outputText value=" "/>
+                    <h:outputText value="#{expedienteController.selected.nombre}"/>
+                    <h:outputText value=" "/>
+                    <h:outputText style="font-size: 32px" value="#{expedienteController.selected.orden}"/>
+                    <h:outputText value=" tipo de exp: "/>
+                    <h:outputText style="color: green; font-size: 32px" value="#{expedienteController.selected.tipoDeExpediente}"/>
+                    <h:outputText value=" //  "/>
+                    <h:outputLink value="http://scw.pjn.gov.ar/scw/home.seam" target="_blank">
+                        Sistema de consulta web
+                    </h:outputLink>
+                    <p:commandButton onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.update}" class="botonCrearAgenda hoverGreen" value="#{bundle.Save}"
+                                     style="float: right !important; margin-top: 0% !important;" update=":ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteJudicialEditDialog');"/>
+                </div>
+
+                <br></br><br></br>
+
+                <div style="float: left;width: 100%;">   
+
+                    <p:tabView id="tabViewEditExpJudicialEditForm" style="width: 100%">
+                        <h:panelGroup id="display">
+
+                        </h:panelGroup>
+                        <p:tab title="Datos Personales / Expediente">
+                            <div class="w48 float-r" >
+
+                                <h:panelGrid columns="2" cellspacing="5">
+                                    <p:outputLabel value="Tipo:" for="tipo" style="font-weight: bold"/>
+                                    <p:selectOneMenu   editable="true" id="tipo" style="margin-left: 3%" value="#{expedienteController.selected.tipo}" >
+                                        <f:selectItem itemLabel="Reajustes" itemValue="Reajustes" />
+                                        <f:selectItem itemLabel="Pensiones" itemValue="Pensiones" />
+                                        <f:selectItem itemLabel="Amparos" itemValue="Amparos" />
+                                        <f:selectItem itemLabel="Otros" itemValue="Otros" />
+                                        <f:selectItem itemLabel="Provincia" itemValue="Provincia" />
+
+                                        <p:ajax event="change" update="confirmdialog" oncomplete="PF('confirm').show()" />
+                                    </p:selectOneMenu>
+
+                                    <p:confirmDialog id="confirmdialog" widgetVar="confirm" global="true" showEffect="fade" hideEffect="fade" message="¿está seguro?" header="No es muy común cambiar el tipo de expediente:">
+                                        <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                                    </p:confirmDialog>
+
+                                </h:panelGrid>
+                                    <h:panelGrid columns="2" cellspacing="5">
+                                        <div>
+                                            <p:outputLabel value="Equipo:" for="equipo" style="font-weight: bold" /><br></br>
+
+                                            <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" id="equipo" editable="false" effect="fold" value="#{expedienteController.selected.equipo}">
+                                                <f:selectItem itemLabel=" -- Elige un equipo --"  noSelectionOption="true"  />
+                                                <f:selectItems value="#{equipoController.items}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo.nombre}" />
+                                            </p:selectOneMenu>
+
+                                        </div>
+
+                                </h:panelGrid>
+
+
+                                <h:panelGrid columns="4" cellspacing="5">
+
+                                    <p:selectManyCheckbox value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Reajustes'}" >
+                                        <f:selectItem itemValue="PBU - Quiroga" itemLabel="PBU - Quiroga" />
+                                        <f:selectItem itemValue="Eliff (actualización de rem)" itemLabel="Eliff (actualización de rem)" />
+                                        <f:selectItem itemValue="Badaro (movilidad 2002-2009)" itemLabel="Badaro (movilidad 2002-2009)" />
+                                        <f:selectItem itemValue="Sánchez (movilidad hasta año 2002)" itemLabel="Sánchez (movilidad hasta año 2002)" />
+                                        <f:selectItem itemValue="Topes (Actis Caporale): ver en especificaciones cuales" itemLabel="Topes (Actis Caporale): ver en especificaciones cuales" />
+                                        <f:selectItem itemValue="Movilidad 2° semestre 2017 (Fernández Pastor)" itemLabel="Movilidad 2° semestre 2017 (Fernández Pastor" />
+                                        <f:selectItem itemValue="Movilidad por Decretos 2020 (Caliva)" itemLabel="Movilidad por Decretos 2020 (Caliva))" />
+                                        <f:selectItem itemValue="Autónomo (Volonte/Mackler/Rodríguez, Emilio)" itemLabel="Autónomo (Volonte/Mackler/Rodríguez, Emilio)" />
+                                        <f:selectItem itemValue="Otros" itemLabel="Otros" />
+                                    </p:selectManyCheckbox>
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="4" cellspacing="5">
+
+                                    <p:selectManyCheckbox value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Pensiones'}">
+                                        <f:selectItem itemValue="Separación de hecho (de Seta de Mazzucco)" itemLabel="Separación de hecho (de Seta de Mazzucco)" />
+                                        <f:selectItem itemValue="Convivientes sin prueba suficiente" itemLabel="Convivientes sin prueba suficiente" />
+                                        <f:selectItem itemValue="Proporcionalidad (Pinto)" itemLabel="Proporcionalidad (Pinto)" />
+                                        <f:selectItem itemValue="Fallec. En actividad sin regularidad (Tarditti)" itemLabel="Fallec. En actividad sin regularidad (Tarditti)" />
+                                        <f:selectItem itemValue="Autónomo sin inscripción (Núñez Piedad)" itemLabel="Autónomo sin inscripción (Núñez Piedad)" />
+                                        <f:selectItem itemValue="Autónomo pagos fuera de termino (Puebla)" itemLabel="Autónomo pagos fuera de termino (Puebla)" />
+                                        <f:selectItem itemValue="Otros (DDJJ de Salud) (hijo incapacitado)" itemLabel="Otros (DDJJ de Salud) (hijo incapacitado)" />
+                                    </p:selectManyCheckbox>
+
+                                    <p:selectManyCheckbox value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Amparos'}">
+                                        <f:selectItem itemValue="Hombres – Ley 26.970" itemLabel="Hombres – Ley 26.970" />
+                                        <f:selectItem itemValue="DD.JJ. de Salud sin presentar en RTI" itemLabel="DD.JJ. de Salud sin presentar en RTI" />
+                                        <f:selectItem itemValue="RVP" itemLabel="RVP" />
+                                        <f:selectItem itemValue="Pensionadas (24476)" itemLabel="Pensionadas (24476)" />
+                                        <f:selectItem itemValue="Socioeconómico 24476" itemLabel="Socioeconómico 24476" />
+                                        <f:selectItem itemValue="Otros" itemLabel="Otros" />
+                                    </p:selectManyCheckbox>
+
+                                    <p:selectManyCheckbox value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Otros'}">
+                                        <f:selectItem itemValue="Imp. Ganancias" itemLabel="Imp. Ganancias" />
+                                        <f:selectItem itemValue="Apelación dictamen CMC" itemLabel="Apelación dictamen CMC" />
+                                        <f:selectItem itemValue="Laboral" itemLabel="Laboral" />
+                                    </p:selectManyCheckbox>
+
+                                    <p:selectManyCheckbox value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Provincia'}">
+                                        <f:selectItem itemValue="DD.HH" itemLabel="DD.HH" />
+                                        <f:selectItem itemValue="A.R.T" itemLabel="A.R.T" />
+                                        <f:selectItem itemValue="Despido" itemLabel="Despido" />
+                                        <f:selectItem itemValue="Otros" itemLabel="otros" />
+                                    </p:selectManyCheckbox>
+
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2" cellspacing="5">
+                                    <p:outputLabel value="Nº de Expediente:" for="nroDeExpediente" style="margin-left: 6%;font-weight: bold" />
+                                    <p:inputText id="nroDeExpediente" value="#{expedienteController.selected.nroDeExpediente}" title="nroDeExpediente" />
+                                </h:panelGrid>    
+
+                                <h:panelGrid columns="2" cellspacing="5">
+                                    <p:outputLabel value="Caratula:" style="margin-left: 6%;font-weight: bold" for="caratula" />
+                                    <p:inputTextarea rows="3" cols="50" autoResize="false"  id="caratula" value="#{expedienteController.selected.caratula}" title="caratula"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2" cellspacing="5" style="margin-top: 1%">
+                                    <p:outputLabel value="Jurisdicción:" for="jurisdiccion" style="font-weight: bold" />
+                                    <p:selectOneMenu id="jurisdiccion" style="margin-left: 3%;" value="#{expedienteController.selected.jurisdiccion}" editable="true" >
+                                        <f:selectItem itemLabel="Provincia - Juzgado N°" itemValue="Provincia - Juzgado N°" />
+                                        <f:selectItem itemLabel="Provincia - Cámara" itemValue="Provincia - Cámara" />
+                                        <f:selectItem itemLabel="Federales - Juzgado 1" itemValue="Federales - Juzgado 1" />
+                                        <f:selectItem itemLabel="Federales - Juzgado 2" itemValue="Federales - Juzgado 2" />
+                                        <f:selectItem itemLabel="Federales - Juzgado 3" itemValue="Federales - Juzgado 3" />
+                                        <f:selectItem itemLabel="Federales - Camara - Sala A" itemValue="Federales - Camara - Sala A" />
+                                        <f:selectItem itemLabel="Federales - Camara - Sala B" itemValue="Federales - Camara - Sala B" />
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="Etapa Procesal:" for="etapaProcesal" style="margin-left: 6%;font-weight: bold" />
+                                    <p:selectOneMenu id="etapaProcesal" editable="true" style="margin-left: 3%" value="#{expedienteController.selected.etapaProcesal}" >
+                                        <f:selectItem itemLabel="Preparación de Demanda" itemValue="Preparación de Demanda" />
+                                        <f:selectItem itemLabel="DDA iniciada" itemValue="DDA iniciada" />
+                                        <f:selectItem itemLabel="Contestacion" itemValue="Contestacion" />
+                                        <f:selectItem itemLabel="Prueba" itemValue="Prueba" />
+                                        <f:selectItem itemLabel="Alegatos" itemValue="Alegatos" />
+                                        <f:selectItem itemLabel="Sentencia" itemValue="Sentencia" />
+                                        <f:selectItem itemLabel="Apelacion" itemValue="Apelacion" />
+                                        <f:selectItem itemLabel="Sentencia definitiva" itemValue="Sentencia definitiva" />
+                                        <f:selectItem itemLabel="Ejecucion" itemValue="Ejecucion" />
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="Procedencia:" for="procedencia" style="font-weight: bold" />
+                                    <p:selectOneMenu  id="procedencia" value="#{expedienteController.selected.procedencia}"  >
+                                        <f:selectItem itemLabel=" -- Procedencia --"  noSelectionOption="true"/>
+                                        <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.nombreProcedencia}" itemValue="#{procedencia.nombreProcedencia}" />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                                <br></br><br></br>
+
+                                <p:outputLabel class="float-l" value="Responsable:" for="responsable" style="font-weight: bold"/><br></br>
+
+                                <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" requiredMessage="debe seleccionar un responsable correcto" id="responsable" value="#{expedienteController.selected.responsable}">
+                                    <f:selectItem itemLabel=" -- Elige un Responsable --"  noSelectionOption="true"  />
+                                    <f:selectItems value="#{empleadoController.items}" var="empleado" itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}" />
+                                </p:selectOneMenu>
+
+
+                                <br></br><br></br>
+                                <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
+                                <p:inputTextarea rows="7" cols="55" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
+                                <br></br>
+                            <br></br>
+                            <div>
+                                <h:commandButton onclick="form.target='_blank';" value="Imprimir Carátula" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearPdfDeCaratula(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion,
+                                                                                                                                        expedienteController.selected.nroDeAltura, expedienteController.selected.barrio,
+                                                                                                                                        expedienteController.selected.apoderado,
+                                                                                                                                        expedienteController.selected.fechaDeAtencion,
+                                                                                                                                        expedienteController.selected.sexo,
+                                                                                                                                        expedienteController.selected.telefono,
+                                                                                                                                        expedienteController.selected.cuit,
+                                                                                                                                        expedienteController.selected.fechaDeNacimiento,
+                                                                                                                                        expedienteController.selected.edad, 
+                                                                                                                                        expedienteController.selected.cobraBeneficio,
+                                                                                                                                        expedienteController.selected.tipoDeBeneficio,
+                                                                                                                                        expedienteController.selected.aportes,
+                                                                                                                                        expedienteController.selected.trabajando,
+                                                                                                                                        expedienteController.selected.inscripcionAut,
+                                                                                                                                        expedienteController.selected.estadoCivil,
+                                                                                                                                        expedienteController.selected.cantidadDeHijos,
+                                                                                                                                        expedienteController.selected.obraSocial,
+                                                                                                                                        expedienteController.selected.claveCidi,
+                                                                                                                                        expedienteController.selected.claveFiscal,
+                                                                                                                                        expedienteController.selected.claveSeguridadSocial
+                                                                                                                                        )}" />
+
+                            </div>
+                            
+                            <br></br>
+                            <br></br>
+                            
+                            
+                            
+                            
+                            </div>
+                            <div class="width50 float-r">
+                                <h:panelGrid columns="4" cellspacing="5">
+                                    <p:outputLabel value="Orden:"  style="font-weight: bold" class="float-l"/>
+                                    <p:inputText onchange="myFunction()" id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" />
+
+                                    <p:outputLabel value="Fecha de atención:" for="fechaDeAtencion" style="font-weight: bold;" class="float-l"/>
+                                    <p:calendar style="width: 100px; margin-left: 3%" class="inputFechaDeAtencion" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion">
+                                    </p:calendar>
+
+                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_apellido}" for="apellido" style="font-weight: bold" class="float-l"/>
+                                    <p:inputText id="apellido" value="#{expedienteController.selected.apellido}" title="#{bundle.EditExpedienteTitle_apellido}" />
+
+                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_nombre}" for="nombre" style="font-weight: bold" class="float-l"/>
+                                    <p:inputText id="nombre" value="#{expedienteController.selected.nombre}" style="margin-left: 3%" title="#{bundle.EditExpedienteTitle_nombre}" />
+
+                                    <p:outputLabel value="Cuit:" for="cuit" style="font-weight: bold" class="float-l"/>
+                                    <p:inputText required="true" requiredMessage="CUIT NO INGRESADO" id="cuit" value="#{expedienteController.selected.cuit}"  title="#{bundle.EditExpedienteTitle_cuit}" />
+                                    
+                                    <p:outputLabel value="Activo:" for="activo" style="margin-left: 3%;font-weight: bold" />
+                                    <p:selectOneMenu id="activo" value="#{expedienteController.selected.activo}" style="margin-left: 3%" >
+                                        <f:selectItem itemLabel=" -- Elige un estado --"  noSelectionOption="true"  />
+                                        <f:selectItem itemLabel="Si" itemValue="Si" />
+                                        <f:selectItem itemLabel="No" itemValue="No" />
+                                    </p:selectOneMenu>
+                                
+                                    
+                                </h:panelGrid>    
+                                <h:panelGrid columns="4" cellspacing="5" cellpadding="1" style="margin-top: 3%;">
+                                        <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="font-weight: bold" />    
+                                    <p:inputText id="telefono" value="#{expedienteController.selected.telefono}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_telefono}" />
+                                
+                                   <p:outputLabel value="whatsapp: "  style="color:  green ;font-weight: bold" />    
+                                    
+                                   <a href="#{expedienteController.abrirWhatsApp(expedienteController.selected.telefono)}" target="_blank" >
+                                        <img src="../faces/resources/images/whatsapp.png" style="width: 10%;" ></img>
+                                   </a>
+                                   
+                                    <p:outputLabel value="Telèfono Auxiliar" for="telefonoAuxiliar" style="margin-left: 3%;font-weight: bold" />
+                                <p:inputTextarea   autoResize="true"   id="telefonoAuxiliar" value="#{expedienteController.selected.telefonoAuxiliar}" title="Telèfono Auxiliar"/>
+
+                                </h:panelGrid>
+                                
+
+                                <h:panelGrid columns="2" cellspacing="5" cellpadding="1" style="margin-top: 3%;">      
+                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_edad}" for="edad" style="font-weight: bold" class="float-l"/>
+                                    <p:outputLabel id="edad" value="#{expedienteController.selected.edad}"  title="#{bundle.EditExpedienteTitle_edad}"  style="font-weight: bold; margin-right: 30%;"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2" cellspacing="5" cellpadding="1">                                  
+                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento" style="font-weight: bold" class="float-l"/>
+                                    <p:calendar required="true" requiredMessage="fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy"  value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}"  showOn="button"/><br></br>
+                                </h:panelGrid>
+                                <h:panelGrid columns="6" cellspacing="5" >        
+                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_sexo}" for="sexo" style="font-weight: bold" class="float-l"/>
+                                    <p:selectOneMenu style="margin-left: 3%" id="sexo" value="#{expedienteController.selected.sexo}" >
+                                        <f:selectItem itemLabel="Masculino" itemValue="masculino" />
+                                        <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="Nacionalidad:" for="nacionalidad" style="font-weight: bold" class="float-l"/>
+                                    <p:selectOneMenu id="nacionalidad" value="#{expedienteController.selected.nacionalidad}" style="margin-left: 3%" >
+                                        <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
+                                        <f:selectItem itemLabel="Extranjero" itemValue="Extranjero" />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2" cellspacing="5" style="margin-top: 3%;"> 
+                                    <p:outputLabel value="Código Postal:" for="codigoPostal" style="margin-left: 3%;font-weight: bold" />
+                                    <p:inputText id="codigoPostal" value="#{expedienteController.selected.codigoPostal}" style="margin-left: 3%;width: 71%" title="codigoPostal"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="4" cellspacing="5" >
+                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_direccion}" for="direccion" style="font-weight: bold" />
+                                    <p:inputText id="direccion" value="#{expedienteController.selected.direccion}" title="#{bundle.EditExpedienteTitle_direccion}" />
+
+                                    <p:outputLabel value="Altura:" for="nroDeAltura" style="font-weight: bold" />
+                                    <p:inputText id="nroDeAltura" value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.EditExpedienteTitle_nroDeAltura}" />
+
+                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_piso}" for="piso" style="margin-left: 3%;font-weight: bold" />
+                                    <p:inputText id="piso" value="#{expedienteController.selected.piso}"  title="#{bundle.EditExpedienteTitle_piso}"  />
+
+                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_depto}" for="depto" style="margin-left: 3%;font-weight: bold" />
+                                    <p:inputText id="depto" value="#{expedienteController.selected.depto}" title="#{bundle.EditExpedienteTitle_depto}" />
+
+                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_barrio}" for="barrio" style="margin-left: 3%;font-weight: bold" />
+                                    <p:inputText id="barrio" value="#{expedienteController.selected.barrio}" title="#{bundle.EditExpedienteTitle_barrio}"  />
+
+                                    <p:outputLabel value="Localidad:" for="localidad" style="margin-left: 3%;font-weight: bold" />
+                                    <p:inputText id="localidad" value="#{expedienteController.selected.localidad}" title="localidad"/>
+                                </h:panelGrid>
+                            </div>
+                        </p:tab>
+                        <p:tab title="Claves">
+                            <div>
+                                <p:outputLabel value="Clave Seguridad Social" for="claveSeguridadSocial" style="font-weight: bold" /><br></br>
+                                <p:inputText id="claveSeguridadSocial" value="#{expedienteController.selected.claveSeguridadSocial}" title="clave de seguridad social"/><br></br>
+                                <a href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=miansesv2" target="_blank" >
+                                    <img src="../faces/resources/images/anses.png" style="width: 15%;"></img>
+                                </a>
+                            </div>
+                            <br></br>
+                            <div>
+                                <p:outputLabel value="Clave Fiscal" for="claveFiscal" style="font-weight: bold" /><br></br>
+                                <p:inputText id="claveFiscal" value="#{expedienteController.selected.claveFiscal}" title="clave Fiscal"/><br></br>
+                                <a href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank" >
+                                    <img src="../faces/resources/images/afip.png" style="width: 15%;" ></img>
+                                </a>
+                            </div>
+                            <br></br>
+                            <div>
+                                <p:outputLabel value="Clave CIDI" for="claveCidi" style="font-weight: bold" /><br></br>
+                                <p:inputText id="claveCidi" value="#{expedienteController.selected.claveCidi}" title="clave Cidi"/><br></br>
+                                <a href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" >
+                                    <img src="../faces/resources/images/CIDI.png"></img>
+                                </a>
+                            </div>
+                            <br></br>
+                            <div>
+                                <p:outputLabel value="CUIT" for="claveCidi" style="font-weight: bold" /><br></br>
+                                <p:outputLabel value="#{expedienteController.selected.cuit}" style="font-weight: bold" /><br></br>
+                            </div>
+
+                            <br></br>
+                            <br></br>
+                        </p:tab>
+
+                        <p:tab id="tabComunicaciones" title="Comunicaciones">
+                            <p:dataTable id="datalist3" value="#{expedienteController.verComunicacionesPorNroDeOrden(expedienteController.selected.orden)}" var="item"
+                                         selectionMode="single" selection="#{comunicacionController.selected}"
+                                         rowKey="#{item.idComunicacion}"
+                                         paginator="true"
+                                         rows="10"
+                                         widgetVar="comunicacionesTable2"
+                                         rowsPerPageTemplate="100,200,500"
+                                         emptyMessage="no hay comunicaciones agregadas" 
+                                         rendered="true"  
+                                         >
+
+                                <p:column sortBy="#{item.fecha}" style="width: 10%" styleClass="centeredColumnContent"  headerText="FECHA">
+                                    <h:outputText value="#{item.fecha}"  >
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column  style="width: 40%" styleClass="centeredColumnContent" headerText="DESCRIPCIÓN">
+                                    <h:outputText value="#{item.descripcion}"  />
+                                </p:column>
+
+                                <p:column  style="width: 40%" styleClass="centeredColumnContent" headerText="RESPONSABLE">
+                                    <h:outputText value="#{item.responsable}"  />
+                                </p:column>
+
+                                <p:column style="width: 10% !important;text-align: center; "  exportable="false">
+
+                                    <f:facet name="header">
+                                        <h:outputText value="ACCIONES"/>
+                                    </f:facet>
+                                    
+                                    <p:commandButton class="linea btnSearch"  update=":ComunicacionEditForm" oncomplete="PF('ComunicacionEditDialog').show()"  icon="ui-icon-search"  title="Editar comunicación">
+                                            <f:setPropertyActionListener value="#{item}" target="#{comunicacionController.selected}" />
+                                    </p:commandButton>
+
+                                    <p:commandButton class="linea btnDelete" update=":growl," oncomplete="PF('expedientesTable').clearFilters()" actionListener="#{comunicacionController.destroy}"  icon="ui-icon-trash" title="Eliminar">
+                                        <f:setPropertyActionListener value="#{item}" target="#{comunicacionController.selected}" />
+                                        <p:confirm header="Confirmación" message="¿Estas seguro?"  icon="ui-icon-alert"/>
+                                    </p:commandButton> 
+
+                                </p:column>    
+
+                            </p:dataTable>
+
+                            <div >
+                                <p:commandButton  class="botonEditarAgendaEsteBotonNoSirveMasPeroLoNecesitaLaUI botonCrear hoverGreen"
+                                                  actionListener="#{comunicacionController.prepareCreateComunicacion(expedienteController.selected.orden)}"  value="crear comunicación" 
+                                                  update=":ComunicacionCreateForm" oncomplete="PF('ComunicacionCreateDialog').show()" />
+                            </div>     
+
+                            <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton update=":ExpedienteListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;" />
+                                <p:commandButton update=":ExpedienteListForm" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;" />
+                            </p:confirmDialog> 
+
+                        </p:tab>
+                        <p:tab id="tabAgendaAnterior" title="Agendas y Turnos">
+                            <div>
+                                <p:fieldset id="fieldSetAgendaAnterior" class="ui-fieldset-toggleable-lila" legend="AGENDAS ANTERIORES" toggleable="true"  collapsed="true" toggleSpeed="500">
+                                    <p:dataTable id="datalist4" 
+                                                 value="#{expedienteController.verAgendasPasadasPorNroDeOrden(expedienteController.selected.orden)}" 
+                                                 var="item"
+                                                 selectionMode="single"
+                                                 selection="#{agendaController.selectedAgendaPasada}"
+                                                 rowKey="#{item.idAgenda}"
+                                                 paginator="true"
+                                                 rows="20"
+                                                 rendered="true"
+                                                 rowsPerPageTemplate="20,30,40,50"
+                                                 emptyMessage="no hay agendas Pasadas agregadas" 
+                                                 filteredValue="#{expedienteController.filteredAgendasAnteriores}"
+                                                 >
+
+                                        <p:ajax event="rowSelect"  />
+                                        <p:ajax event="rowUnselect" />
+                                        <p:growl life="2500" id="message5" showDetail="true" />
+
+
+                                        <p:column  style="width: 23%" styleClass="centeredColumnContent#{item.realizado}"  headerText="FECHA">
+                                            <h:outputText value="#{item.fecha}"  >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:column  style="width: 9%" styleClass="centeredColumnContent#{item.realizado}" headerText="RESPONSABLE">
+                                            <h:outputText value="#{item.responsable}"  />
+                                        </p:column>
+
+                                        <p:column  styleClass="centeredColumnContent#{item.realizado}" headerText="DESCRIPCIÓN">
+                                            <h:outputText value="#{item.descripcion}" />
+                                        </p:column>
+
+                                        <p:column styleClass="centeredColumnContent#{item.realizado}" style="text-align: center; width: 10%" headerText="ACCIONES">
+
+                                            <p:commandButton class="linea btnSearch"  update=":AgendaPasadaEditForm" oncomplete="PF('AgendaPasadaEditDialog').show()" icon="ui-icon-search" title="Ver">
+                                                <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaPasada}" />
+                                            </p:commandButton>
+                                            
+                                            <p:commandButton class="linea btnKeyGreen"
+                                                                 update=":growl,:ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist4" 
+                                                                 actionListener="#{agendaController.marcarComoRealizadaSiAgendaPasada()}"
+                                                                 icon="ui-icon-check"
+                                                                 title="Marcar como realizado si">
+                                                    <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaPasada}" />
+                                            </p:commandButton>
+
+                                            <p:commandButton class="linea btnDelete"
+                                                             update=":growl,:ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist4, message5"  
+                                                             actionListener="#{agendaController.destroyAgendaPasada()}"
+                                                             icon="ui-icon-trash"
+                                                             title="Eliminar">
+                                                <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaPasada}" />
+                                                <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert"/>
+                                            </p:commandButton>
+
+                                            <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
+                                                <p:commandButton  update=":tabViewEditExpJudicialEditForm:datalist4"  value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;"/>
+                                                <p:commandButton update="@all" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
+                                            </p:confirmDialog> 
+                                        </p:column>
+
+
+                                    </p:dataTable>
+                                </p:fieldset>
+                            </div>
+                            
+                            <div>
+                                    <p:fieldset class="ui-fieldset-toggleable-lila" legend="TURNOS ANTERIORES" toggleable="true"  collapsed="true" toggleSpeed="500">
+                                        <p:dataTable id="datalistTurnosAnteriores" 
+                                                     value="#{expedienteController.verTurnosPasadosPorNroDeOrden(expedienteController.selected.orden)}"
+                                                     var="item"
+                                                     selectionMode="single"
+                                                     selection="#{turnoController.selectedTurnoPasado}"
+                                                     rowKey="#{item.idTurno}"
+                                                     paginator="true"
+                                                     rows="20"
+                                                     rendered="true"
+                                                     rowsPerPageTemplate="20,30,40,50"
+                                                     emptyMessage="no hay turnos Pasados agregados" 
+                                                     filteredValue="#{expedienteController.filteredTurnosAnteriores}"
+                                                     >
+                                            <p:ajax event="rowSelect"  />
+                                            <p:ajax event="rowUnselect" />
+                                            <p:growl life="2500" id="message3"  showDetail="true" />
+
+                                        <p:column style="text-align: center; width: 10%" styleClass="centeredColumnContent#{item.getRealizado()}" headerText="FECHA">
+
+                                                                <h:outputText style="width: 10%" value="#{item.horaYDia}">
+                                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                                                </h:outputText>
+                                        </p:column>
+
+                    
+                    <p:column  style="width: 20%" filterBy="#{item.apellido} #{item.nombre}"  styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="contains" headerText="NOMBRE">
+                        <h:outputText value="#{ item.apellido} #{ item.nombre}"/>
+                    </p:column>
+
+                    <p:column filterBy="#{item.responsable}" headerText="RESPONSABLE" style="text-align: center;width: 20%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                        <h:outputText value="#{item.responsable}"/>
+                    </p:column>
+
+                    <p:column style="text-align: center; width: 18%;" styleClass="centeredColumnContent#{item.getRealizado()}">
+                        <f:facet name="header">
+                            <h:outputText value="DESCRIPCIÓN"/>
+                        </f:facet>
+                        <h:outputText value="#{item.observacion}"/>
+                    </p:column>
+                    
+                    <p:column filterBy="#{item.realizado}" style="text-align: center; width: 10%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                        <f:facet name="header">
+                            <h:outputText value="REALIZADO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.realizado}"/>
+                    </p:column>
+
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        </p:dataTable>
+                                    </p:fieldset>
+                                </div>
+                                
+
+                            <div>
+                                <p:fieldset legend="AGENDAS FUTURAS" toggleable="true" collapsed="true" toggleSpeed="500">
+
+                                    <p:dataTable id="datalist5" 
+                                                 value="#{expedienteController.verAgendasFuturasPorNroDeOrden(expedienteController.selected.orden)}" 
+                                                 var="item"
+                                                 selectionMode="single"
+                                                 selection="#{agendaController.selectedAgendaFutura}"
+                                                 rowKey="#{item.idAgenda}"
+                                                 paginator="true"
+                                                 rows="20"
+                                                 rendered="true"
+                                                 rowsPerPageTemplate="20,30,40,50"
+                                                 emptyMessage="no hay agendas futuras agregadas" 
+                                                 filteredValue="#{expedienteController.filteredAgendasFuturas}"
+                                                 >
+
+                                        <p:ajax event="rowSelect"  />
+                                        <p:ajax event="rowUnselect" />
+                                        <p:growl life="2500" id="message6" showDetail="true" />
+
+
+                                        <p:column style="width: 23%" styleClass="centeredColumnContent#{item.realizado}"  headerText="FECHA">
+                                            <h:outputText value="#{item.fecha}"   >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column  style="width: 9%" styleClass="centeredColumnContent#{item.realizado}" headerText="RESPONSABLE">
+                                            <h:outputText value="#{item.responsable}"  />
+                                        </p:column>
+                                        <p:column styleClass="centeredColumnContent#{item.realizado}" headerText="DESCRIPCIÓN">
+                                            <h:outputText value="#{item.descripcion}" />
+                                        </p:column>
+                                        <p:column styleClass="centeredColumnContent#{item.realizado}" style="text-align: center; width: 10%" headerText="ACCIONES">
+
+                                            <p:commandButton class="linea btnSearch"
+                                                             update=":AgendaFuturaEditForm"
+                                                             oncomplete="PF('AgendaFuturaEditDialog').show()"
+                                                             icon="ui-icon-search" title="Ver">
+                                                <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaFutura}" />
+                                            </p:commandButton>
+                                            
+                                            <p:commandButton class="linea btnKeyGreen"
+                                                                 update=":growl,:ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist5"
+                                                                 actionListener="#{agendaController.marcarComoRealizadaSiAgendaFutura()}"
+                                                                 icon=" ui-icon-check"
+                                                                 title="Marcar como realizado si">
+                                                    <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaFutura}" />
+                                            </p:commandButton>
+
+                                            <p:commandButton class="linea btnDelete"
+                                                             update=":growl,:ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist5, message6"
+                                                             actionListener="#{agendaController.destroyAgendaFutura()}"
+                                                             icon="ui-icon-trash"
+                                                             title="Eliminar">
+                                                <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaFutura}" />
+                                                <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert"/>
+                                            </p:commandButton>
+                                            <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
+                                                <p:commandButton  update=":ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist5"
+                                                                  value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;"/>
+                                                <p:commandButton update="@all" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
+                                            </p:confirmDialog> 
+                                        </p:column>
+
+                                    </p:dataTable>
+                                </p:fieldset>
+                            </div>
+
+                              <div>
+                                    <p:fieldset legend="TURNOS FUTUROS" toggleable="true"  collapsed="true" toggleSpeed="500">
+
+                                        <p:dataTable id="datalistTurnosFuturos" 
+                                                     value="#{expedienteController.verTurnosFuturosPorNroDeOrden(expedienteController.selected.orden)}" 
+                                                     var="item"
+                                                     selectionMode="single"
+                                                     selection="#{turnoController.selectedTurnoFuturo}"
+                                                     rowKey="#{item.idTurno}"
+                                                     paginator="true"
+                                                     rows="20"
+                                                     rendered="true"
+                                                     rowsPerPageTemplate="20,30,40,50"
+                                                     emptyMessage="no hay turnos futuros agregados" 
+                                                     filteredValue="#{expedienteController.filteredTurnosFuturos}"
+                                                     >
+                                             <p:ajax event="rowSelect"  />
+                                            <p:ajax event="rowUnselect" />
+                                            <p:growl life="2500" id="message4" showDetail="true" />
+
+                    <p:column style="text-align: center; width: 10%" styleClass="centeredColumnContent#{item.getRealizado()}" headerText="FECHA">
+
+                                                                <h:outputText style="width: 10%" value="#{item.horaYDia}">
+                                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                                                </h:outputText>
+                    </p:column>
+
+                    
+                    
+                    <p:column filterBy="#{item.responsable}" headerText="RESPONSABLE" style="text-align: center;width: 20%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                        <h:outputText value="#{item.responsable}"/>
+                    </p:column>
+
+                    <p:column style="text-align: center; width: 18%;" styleClass="centeredColumnContent#{item.getRealizado()}">
+                        <f:facet name="header">
+                            <h:outputText value="DESCRIPCIÓN"/>
+                        </f:facet>
+                        <h:outputText value="#{item.observacion}"/>
+                    </p:column>
+                    
+                    <p:column filterBy="#{item.realizado}" style="text-align: center; width: 10%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                        <f:facet name="header">
+                            <h:outputText value="REALIZADO"/>
+                        </f:facet>
+                        <h:outputText value="#{item.realizado}"/>
+                    </p:column>
+
+                                        </p:dataTable>
+                                    </p:fieldset>
+                                </div>
+                              
+                            
+                            <div>
+                                <p:commandButton id="createButton" class="createButtonAgenda hoverBlue" value="Crear Agenda" actionListener="#{agendaController.prepareCreate}"  update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteJudicialEditDialog').show()" />
+                            </div>
+
+                        </p:tab>
+
+                        <p:tab title="Honorarios y Gastos">
+                            <div>
+                                <h:commandButton value="Imprimir Convenio" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearConvenioDeHonorarios(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion, expedienteController.selected.nroDeAltura, expedienteController.selected.barrio)}" />
+
+                            </div>
+                            <br></br>
+                            
+                            <div>
+                                <p:outputLabel value="convenio de honorarios" style="font-weight: bold" for="convenioDeHonorarios" />
+                                <p:selectOneMenu style="margin-left: 3%" id="convenioDeHonorarios" value="#{expedienteController.selected.convenioDeHonorarios}" editable="true" effect="fold" >
+                                    <f:selectItem itemLabel="1 haber" itemValue="1 haber" />
+                                    <f:selectItem itemLabel="2 haberes" itemValue="2 haberes" />
+                                    <f:selectItem itemLabel="2 haberes y 20% retroactivo" itemValue="2 haberes y 20% retroactivo" />
+                                    <f:selectItem itemLabel="2 haberes y 30% retroactivo" itemValue="2 haberes y 30% retroactivo" />
+                                    <f:selectItem itemLabel="3 haberes" itemValue="3 haberes" />
+                                    <f:selectItem itemLabel="20% retroactivo" itemValue="20% retroactivo" />
+                                    <f:selectItem itemLabel="25% retroactivo" itemValue="25% retroactivo" />
+                                </p:selectOneMenu>
+                            </div>
+
+                            <br></br>
+                            <br></br>
+                            <p:outputLabel value="Firmado" for="poderFirmado" style="font-weight: bold" />
+                            <p:selectOneMenu style="margin-left: 3%" id="poderFirmado" value="#{expedienteController.selected.poderFirmado}" editable="false" effect="fold" >
+                                <f:selectItem itemLabel="--" itemValue="--" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Si" itemValue="Si" />
+                                <f:selectItem itemLabel="No" itemValue="No" />
+                            </p:selectOneMenu>
+
+                            <br></br>
+                            <br></br>
+                            <p:editor width="700" value="#{expedienteController.selected.tablaDeHonorariosYGastos}"></p:editor>
+                        </p:tab>
+
+                    </p:tabView>
+                </div>
+
+            </h:form>
+
+        </p:dialog>
+        
+        <ui:include src="../comunicacion/CreateComunicacionParaExpJudicial.xhtml"/>
+
+    </ui:composition>
+</html>

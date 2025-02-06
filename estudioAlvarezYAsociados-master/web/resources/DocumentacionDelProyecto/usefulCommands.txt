@@ -1,0 +1,237 @@
+ver maximo nro de orden por sql
+SELECT * FROM expediente WHERE orden = (SELECT MAX(orden) FROM expediente)
+SELECT * FROM expediente WHERE orden = (SELECT MAX(orden) FROM expediente)
+
+Converting all upper case to lower case in SQL 
+UPDATE expediente SET nombre = LOWER(nombre), apellido = LOWER(apellido);
+
+UPDATE expediente SET nombre = UPPER(nombre), apellido = UPPER(apellido);
+
+Para el error de "descargar convenio" hay que crear una carpeta en el server y luego modificar la bd.
+
+si los filtros no llegan a funcionar. OJO con esto por que borra los filtros manuales que le pusimos en agendas y turnos y en exp.
+ejemplo el "filtrar las 2 tablas"
+<p:remoteCommand name="onload" oncomplete="PF('turnosTable').clearFilters()" autoRun="true" />
+                
+
+siempre usar el sistema en 80% por que las interfaces son muy grandes.
+
+
+(1, '99999999', 'C:\\Users\\juan.cuello\\Documents\\Downloads', 'file:///C:\\Users\\USER\\Documents\\Downloads', 'http://localhost:8080/EstudioAlvarezVersion2/faces/resources/images/cutmypic.png');
+
+esto es para cambiar por base de datos
+/home/jelastic/documentos
+
+
+pegar en nombre todo por q la otra base de datos esta todo pegado nombre y apellido.
+
+para sacar los apellidos:
+=LEFT(G12; FIND(" ";G12;1))
+
+para sacar los nombres:
+=MID(G12;SEARCH(" ";G12)+1;LEN(G12))
+
+
+
+download para maquina con windows:
+
+C:\Users\juanp\Documents\Downloads
+
+con linux
+/home/jelastic/Documents
+
+
+SIEMPRE CAMBIAR LOS VALORES tipoDeExpediente a "administrativo" para una nueva carga de datos en el sistema.
+
+
+#ExpedienteListForm:datalist:j_idt36:filter{
+    text-transform: uppercase;
+}
+
+.ui-column-filter.ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all{
+        text-transform: uppercase;
+}
+
+
+por el problema de los filtros
+
+https://stackoverflow.com/questions/14339855/ajax-update-doesnt-work-when-using-filter-on-pdatatable
+
+
+//////////////////////////////////////////////////////////////////////// DEPLOY /////////////////////////////////////////////////////////////////////////////////
+Asegurarse de que exista corriendo en el environment un servidor de aplicaciones glashfish 
+la versión actual es la 5.1.0
+
+Asegurarse de que exista corriendo también una base de datos mysql 
+8.0.19
+con versiones como la 5 también funcionó bien.
+
+luego ir al repositorio y cambiar en el archivo glashfish-resources.xml
+las parametros de conexión a la base de datos, deberían haber llegado por email. o ya tenerlos en un archivo
+
+También cambiar los parametros en la clase DAO.java dentro en 2 lugares
+
+Luego construir la aplicación con clean and build , esto tendria que generar un war sin problemas.
+
+Luego ir a la parte de gestor de despliegue dentro de jelastic y subir el archivo war generado.
+
+1ro borrar en la parte de  despliegue subir el archivo
+
+luego desplegarlo como root en el ambiente
+
+y luego verificar entrando a la url del archivo y abrir todos los botones de la izquierda para asegurarse de que todas las vistan se muestran bien.
+
+
+//////////////////////////////////// DEPLOY ///////////////////////////////////
+la dejo en un documento aparte.
+
+//////////////////////PROBLEMAS CON LOS EXPEDIENTES ////////////////////////////
+
+Si un expediente no muestra la "lupa" para "ver" el expediente por la interfaz
+de usuario es por que el dato "tipoDeExpediente" de ese exp. en la base de datos
+no está macheando exactamente con "judicial" "administrativo" "sin carpeta" .
+
+lo que hay que hacer es 1ro preguntar de que tipo es. por el grupo
+luego hacer una sentencia sql y filtrar a través del nro de orden ejemplo 
+=  SELECT * FROM `Expediente` WHERE orden = 3205
+
+y dentro de la columna "tipoDeExpediente" colocar bien el dato exacto. 
+
+luego la interfaz ya tendría q mostrar la lupa. de ese exp.
+
+////////////////////PROBLEMAS CON LOS EXPEDIENTES ////////////////////////////
+
+Consultar todos los exp. que tienen en el cuit un guión medio:
+SELECT * FROM `expediente` WHERE cuit LIKE '%-%'
+
+Remove special characters from a database field
+
+sacar los guiones medio de todas las filas en el atributo cuit
+
+update Expediente
+set cuit = REPLACE(cuit,'-','')
+
+/////////////////////////////////////////////////////////////////////////
+la diferencia entre Agendas y Turnos es que el "DATE" en turnos lleva fecha y hora
+
+en cambio en Agendas es solo la fecha .
+
+agendas es solo = 22/06/2020
+en cambio turnos es = 22/06/2020 14:00
+
+esto trae muchos problemas en los filtros de la tabla gigante en agenda y turno.
+
+/////////////////////////////////////////////////////////////////////////
+Este tipo de consultas es muy usado y muy practica a la hora de cambiar todos los datos de una columna en especial
+objetivo : por alguna razon necesitamos que todos los valores de ese campo tengan el mismo valor.
+
+UPDATE turno SET realizado = "No" ;
+
+
+//////////////////////////////////////////////////////////////////////
+
+Resetear un branch de Git al estado del Remoto
+Osea, en en un ejemplo posta usando el master y origin como remote.
+
+git fetch origin master
+git reset --hard origin/master
+
+
+// asi se hacen 2 acciones para abrir o cerrar pantallas
+oncomplete="PF('ExpedienteViewDialogParaAgenda').show(); PF('ExpedienteEditDialog').hide()"
+
+// problemas con el fileUpload ?
+
+https://stackoverflow.com/questions/8875818/how-to-use-primefaces-pfileupload-listener-method-is-never-invoked-or-uploaded/8880083#8880083
+
+
+// PARA SOLUCIONAR BUG DE PODER BUSCAR APELLIDO Y NOMBRE CON MAYUSCULA Y MINUSCULA.
+
+https://stackoverflow.com/questions/23936614/primefaces-5-0-datatable-filter-case-sensitive
+
+//  siempre fijarse a la hora de crear una tabla para pdf o jpg que tengo llave primaria nroDeOrden.
+
+//timeZone="GMT-3"
+
+
+
+
+
+                                    <h:selectManyListbox value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Reajustes'}">
+                                            <f:selectItem itemValue="PBU - Quiroga" itemLabel="PBU - Quiroga" />
+                                            <f:selectItem itemValue="Eliff (actualización de rem)" itemLabel="Eliff (actualización de rem)" />
+                                            <f:selectItem itemValue="Badaro (movilidad 2002-2009)" itemLabel="Badaro (movilidad 2002-2009)" />
+                                            <f:selectItem itemValue="Sánchez (movilidad hasta año 2002)" itemLabel="Sánchez (movilidad hasta año 2002)" />
+                                            <f:selectItem itemValue="Topes (Actis Caporale): ver en especificaciones cuales" itemLabel="Topes (Actis Caporale): ver en especificaciones cuales" />
+                                            <f:selectItem itemValue="Movilidad 2° semestre 2017 (Fernández Pastor)" itemLabel="Movilidad 2° semestre 2017 (Fernández Pastor" />
+                                            <f:selectItem itemValue="Movilidad por Decretos 2020 (Caliva)" itemLabel="Movilidad por Decretos 2020 (Caliva))" />
+                                            <f:selectItem itemValue="Autónomo (Volonte/Mackler/Rodríguez, Emilio)" itemLabel="Autónomo (Volonte/Mackler/Rodríguez, Emilio)" />
+                                            <f:selectItem itemValue="Otros" itemLabel="Otros" />
+                                    </h:selectManyListbox>
+
+                                    <h:selectManyListbox value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Pensiones'}">
+                                            <f:selectItem itemValue="Separación de hecho (de Seta de Mazzucco)" itemLabel="Separación de hecho (de Seta de Mazzucco)" />
+                                            <f:selectItem itemValue="Convivientes sin prueba suficiente" itemLabel="Convivientes sin prueba suficiente" />
+                                            <f:selectItem itemValue="Proporcionalidad (Pinto)" itemLabel="Proporcionalidad (Pinto)" />
+                                            <f:selectItem itemValue="Fallec. En actividad sin regularidad (Tarditti)" itemLabel="Fallec. En actividad sin regularidad (Tarditti)" />
+                                            <f:selectItem itemValue="Autónomo sin inscripción (Núñez Piedad)" itemLabel="Autónomo sin inscripción (Núñez Piedad)" />
+                                            <f:selectItem itemValue="Autónomo pagos fuera de termino (Puebla)" itemLabel="Autónomo pagos fuera de termino (Puebla)" />
+                                            <f:selectItem itemValue="Otros (DDJJ de Salud) (hijo incapacitado)" itemLabel="Otros (DDJJ de Salud) (hijo incapacitado)" />
+                                    </h:selectManyListbox>
+
+                                    <h:selectManyListbox value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Amparos'}">
+                                            <f:selectItem itemValue="Hombres – Ley 26.970" itemLabel="Hombres – Ley 26.970" />
+                                            <f:selectItem itemValue="DD.JJ. de Salud sin presentar en RTI" itemLabel="DD.JJ. de Salud sin presentar en RTI" />
+                                            <f:selectItem itemValue="RVP" itemLabel="RVP" />
+                                            <f:selectItem itemValue="Pensionadas (24476)" itemLabel="Pensionadas (24476)" />
+                                            <f:selectItem itemValue="Socioeconómico 24476" itemLabel="Socioeconómico 24476" />
+                                            <f:selectItem itemValue="Otros" itemLabel="Otros" />
+                                    </h:selectManyListbox>
+                                    
+                                    <h:selectManyListbox value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Otros'}">
+                                            <f:selectItem itemValue="Imp. Ganancias" itemLabel="Imp. Ganancias" />
+                                            <f:selectItem itemValue="Apelación dictamen CMC" itemLabel="Apelación dictamen CMC" />
+                                            <f:selectItem itemValue="Laboral" itemLabel="Laboral" />
+                                    </h:selectManyListbox>
+                                    
+                                    <h:selectManyListbox value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Provincia'}">
+                                            <f:selectItem itemValue="DD.HH" itemLabel="DD.HH" />
+                                            <f:selectItem itemValue="A.R.T" itemLabel="A.R.T" />
+                                            <f:selectItem itemValue="Despido" itemLabel="Despido" />
+                                            <f:selectItem itemValue="Otros" itemLabel="otros" />
+                                    </h:selectManyListbox>
+                                    
+
+
+
+
+                                        <p:selectOneMenu id="tipoDeTramite" value="#{expedienteController.selected.tipoDeTramite}" editable="true" effect="fold" >
+                                            <f:selectItem itemLabel="JUBILACION ORDINARIA" itemValue="JUBILACION ORDINARIA" />
+                                            <f:selectItem itemLabel="JUBILACION C/MORATORIA LEY. 24476" itemValue="JUBILACION C/MORATORIA LEY. 24476" />
+                                            <f:selectItem itemLabel="JUBILACION C/MORATORIA LEY. 24476 Y APORTES SDM" itemValue="JUBILACION C/MORATORIA LEY. 24476 Y APORTES SDM" />
+                                            <f:selectItem itemLabel="JUBILACION C/NUEVA MORATORIA (LEY 26.970)" itemValue="JUBILACION C/NUEVA MORATORIA (LEY 26.970)" />
+                                            <f:selectItem itemLabel="JUBILACION C/NUEVA MORATORIA (LEY 26.970) Y APORTES SDM" itemValue="JUBILACION C/NUEVA MORATORIA (LEY 26.970) Y APORTES SDM" />
+                                            <f:selectItem itemLabel="RETIRO POR INVALIDEZ" itemValue="RETIRO POR INVALIDEZ" />
+                                            <f:selectItem itemLabel="RETIRO POR INVALIDEZ CON APORTES SDM" itemValue="RETIRO POR INVALIDEZ CON APORTES SDM" />
+                                            <f:selectItem itemLabel="RETIRO POR INVALIDEZ C/MORATORIA 24476" itemValue="RETIRO POR INVALIDEZ C/MORATORIA 24476" />
+                                            <f:selectItem itemLabel="RETIRO POR INVALIDEZ C/MORATORIA 24476 + APORTES SDM" itemValue="RETIRO POR INVALIDEZ C/MORATORIA 24476 + APORTES SDM" />
+                                            <f:selectItem itemLabel="RECONOCIMIENTO DE SERVICIOS" itemValue="RECONOCIMIENTO DE SERVICIOS" />
+                                            <f:selectItem itemLabel="RECONOCIMIENTO DE SERVICIOS CON APORTES SDM" itemValue="RECONOCIMIENTO DE SERVICIOS CON APORTES SDM" />
+                                            <f:selectItem itemLabel="PUAM" itemValue="PUAM" />
+                                            <f:selectItem itemLabel="PENSION DIRECTA" itemValue="PENSION DIRECTA" />
+                                            <f:selectItem itemLabel="PENSION DIRECTA CON APORTES SDM DE CAUSANTE" itemValue="PENSION DIRECTA CON APORTES SDM DE CAUSANTE" />
+                                            <f:selectItem itemLabel="PENSION DIRECTA C/MORATORIA 24476" itemValue="PENSION DIRECTA C/MORATORIA 24476" />
+                                            <f:selectItem itemLabel="PENSION DIRECTA C/MORATORIA 24476 Y APORTES SDM CAUSANTE" itemValue="PENSION DIRECTA C/MORATORIA 24476 Y APORTES SDM CAUSANTE" />
+                                            <f:selectItem itemLabel="PENSION DERIVADA" itemValue="PENSION DERIVADA" />
+                                            <f:selectItem itemLabel="PENSION DERIVADA HIJO CON DISCAPACIDAD" itemValue="PENSION DERIVADA HIJO CON DISCAPACIDAD" />
+                                            <f:selectItem itemLabel="REAJUSTE" itemValue="REAJUSTE" />
+                                            <f:selectItem itemLabel="OTRO" itemValue="OTRO" />
+                                        </p:selectOneMenu>
+                   
+
+para la parte de días a la hora de crear turnos y actividades masivamente vamos a usar esto para calcular:                    
+https://www.diainternacionalde.com/sumar-restar-dias-fecha
+
+
+aca están los iconos que con primefaces se pueden usar:
+https://api.jqueryui.com/resources/icons-list.html

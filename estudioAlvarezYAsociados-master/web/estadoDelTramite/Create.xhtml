@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EstadoDelTramiteCreateDlg" widgetVar="EstadoDelTramiteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Nuevo Estado del tramite">
+            <h:form id="EstadoDelTramiteCreateForm">
+                <h:panelGroup id="display">
+                    <p:outputLabel value="#{bundle.CreateEstadoDelTramiteLabel_estado}" for="estado" /><br></br>
+                    <p:inputText id="estado" value="#{estadoDelTramiteController.selected.estado}" title="#{bundle.CreateEstadoDelTramiteTitle_estado}" required="true" requiredMessage="#{bundle.CreateEstadoDelTramiteRequiredMessage_estado}"/><br></br>
+                    
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EstadoDelTramiteCreateDialog.hide()"/>
+                    <p:commandButton class="botonCrear" actionListener="#{estadoDelTramiteController.create}" value="#{bundle.Save}" update="display,:EstadoDelTramiteListForm:datalist" oncomplete="handleSubmit(args,'EstadoDelTramiteCreateDialog');"/>
+                    
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

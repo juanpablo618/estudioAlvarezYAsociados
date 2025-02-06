@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmpleadoCreateDlg" widgetVar="EmpleadoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Colaborador">
+            <h:form id="EmpleadoCreateForm">
+                <h:panelGroup id="display">
+                    <p:outputLabel value="#{bundle.CreateEmpleadoLabel_nombre}" for="nombre" /><br></br>
+                        <p:inputText id="nombre" value="#{empleadoController.selected.nombre}" title="#{bundle.CreateEmpleadoTitle_nombre}" /><br></br><br></br>
+                        <p:outputLabel value="#{bundle.CreateEmpleadoLabel_apellido}" for="apellido" /><br></br>
+                        <p:inputText id="apellido" value="#{empleadoController.selected.apellido}" title="#{bundle.CreateEmpleadoTitle_apellido}" /><br></br><br></br>
+                        
+                        <p:outputLabel value="Password" for="password" /><br></br>
+                        <p:inputText id="password" value="#{empleadoController.selected.password}" title="password" /><br></br><br></br>
+                        
+                        <p:outputLabel value="#{bundle.CreateEmpleadoLabel_cargo}" for="cargo" /><br></br>
+                        <p:inputText id="cargo" value="#{empleadoController.selected.cargo}" title="#{bundle.CreateEmpleadoTitle_cargo}" /><br></br><br></br>
+                    
+                        <p:outputLabel value="Domicilio" for="domicilio" /><br></br>
+                        <p:inputText id="domicilio" value="#{empleadoController.selected.domicilio}" title="domicilio" /><br></br><br></br>
+                    
+                        <p:outputLabel value="F. de Nacimiento" for="fechaDeNacimiento" /><br></br>
+                        <p:calendar   id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{empleadoController.selected.fechaDeNacimiento}" title="fechaDeNacimiento" /><br></br><br></br>
+
+                        <p:outputLabel value="F. de ingreso" for="fechaDeIngreso" /><br></br>
+                        <p:calendar   id="fechaDeIngreso" pattern="dd/MM/yyyy" value="#{empleadoController.selected.fechaDeIngreso}" title="fechaDeIngreso" /><br></br><br></br>
+
+                        <p:outputLabel value="Herramientas de trabajo" for="herramientas" /><br></br>
+                        <p:inputTextarea id="herramientas" value="#{empleadoController.selected.herramientas}" title="Herramientas de trabajo" /><br></br><br></br>
+                        
+                        
+                        
+                    <p:outputLabel value="Equipos" for="equipos" /><br></br>
+                <p:selectManyCheckbox id="equipos" value="#{empleadoController.selectedEquipos}" layout="grid" columns="2">
+                    <f:selectItems value="#{empleadoController.allEquipos}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo}" />
+                </p:selectManyCheckbox>
+
+                    
+                    <p:commandButton class="botonCrearAgenda" actionListener="#{empleadoController.create}" value="#{bundle.Save}" update="display,:EmpleadoListForm:datalist" oncomplete="handleSubmit(args,'EmpleadoCreateDialog');" />
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EmpleadoCreateDialog.hide()"/>
+                    
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

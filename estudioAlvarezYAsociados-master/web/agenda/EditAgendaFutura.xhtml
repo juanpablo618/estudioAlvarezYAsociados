@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AgendaFuturaEditDlg" widgetVar="AgendaFuturaEditDialog"  resizable="false" appendTo="@(body)" header="Editar Agenda Futura" modal="true">
+            <h:form id="AgendaFuturaEditForm">
+                <h:panelGroup id="display">
+
+                    <div class="padre">
+
+                        <div class="hijo">
+                            
+                            <p:outputLabel value="Nº Agenda:"  />
+                            <p:inputText readonly="true" value="#{agendaController.selectedAgendaFutura.idAgenda}" /><br></br><br></br>
+
+                            <p:outputLabel value="#{bundle.EditAgendaLabel_fecha}" for="fecha" />
+                            <p:calendar  mindate="today" readonly="true"  id="fecha"  pattern="dd/MM/yyyy" value="#{agendaController.selectedAgendaFutura.fecha}" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" /><br></br><br></br>
+                            
+                            <p:outputLabel value="#{bundle.EditAgendaLabel_descripcion}" for="descripcion" /><br></br>
+                            <p:inputTextarea readonly="true" rows="8" cols="33"  id="descripcion" value="#{agendaController.selectedAgendaFutura.descripcion}" />
+                        </div>
+
+                        <div class="hijo" style="float:left;">
+
+                            <p:outputLabel value="Nombre"  /><br></br>
+                            <p:inputText readonly="true" value="#{agendaController.selectedAgendaFutura.nombre}" /><br></br><br></br>
+
+                            <p:outputLabel value="Apellido"  /><br></br>
+                            <p:inputText readonly="true" value="#{agendaController.selectedAgendaFutura.apellido}"  /><br></br><br></br>
+
+                            <p:outputLabel value="Orden" for="orden" /><br></br>
+                            <p:inputText readonly="true" id="orden" value="#{agendaController.selectedAgendaFutura.orden}" /><br></br><br></br>
+
+                            <p:outputLabel value="Responsable" for="responsable" /><br></br>
+                            <p:inputText readonly="true" id="responsable" value="#{agendaController.selectedAgendaFutura.responsable}" /><br></br><br></br>
+
+                            <h:outputText value="Realizado: " /><br></br>
+
+                            <p:selectOneMenu id="realizado" value="#{agendaController.selectedAgendaFutura.realizado}" editable="false">
+                                <f:selectItem itemLabel="Si" itemValue="Si" />
+                                <f:selectItem itemLabel="No" itemValue="No" />
+                                <f:selectItem itemLabel="Reagendada" itemValue="Reagendada" />
+                            </p:selectOneMenu>
+                            <br></br><br></br>
+                            
+                            <p:outputLabel rendered="#{agendaController.isLeader(session.getAttribute('userNombreCompleto'))}" value="prioridad" for="prioridad" style="font-weight: bold" />
+                            <p:selectOneMenu rendered="#{agendaController.isLeader(session.getAttribute('userNombreCompleto'))}" style="margin-left: 3%" id="prioridad" value="#{agendaController.selectedAgendaFutura.prioridad}" editable="false" effect="fold" >
+                                <f:selectItem itemLabel="--" itemValue="--" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Si" itemValue="Si" />
+                                <f:selectItem itemLabel="No" itemValue="No" />
+                                
+                            </p:selectOneMenu>
+
+
+                            <div>
+                                <p:commandButton 
+                                                 class="createButtonAgenda hoverBlue" actionListener="#{agendaController.updateAgendaFutura()}" 
+                                                 value="Actualizar Agenda" update="display,:ExpedienteEditForm:tabViewEditExpAdm:datalist2,:growl,:ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist5,:growl"
+                                                 oncomplete="handleSubmit(args, 'AgendaFuturaEditDialog');"  />
+                            </div> 
+                            <div>
+                            </div>        
+                        </div>
+                    </div>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title><ui:insert name="title">Estudio Alvarez y Asociados</ui:insert></title>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputStylesheet library="css" name="styles.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"></link>
+    </h:head>
+
+    <h:body class="fondo">
+        <h:form>
+            <p:growl life="2500" id="messages1" showDetail="true" />
+            <p:idleMonitor timeout="900000">
+                <p:ajax event="idle" listener="#{login.onIdle}" update="messages1" />
+            </p:idleMonitor>
+        </h:form>
+         <p:growl id="growl" life="2500" />
+        <p:layout fullPage="true" style="background: #123a6d;">
+            <p:layoutUnit position="north" class="bordersn maxwidth" style="margin: 0 !important; padding: 0 !important;">
+                <center style="background-color: #123a6d;">
+                    <h:graphicImage value="../faces/resources/images/Alvarezyasociados.svg" style="width: 30%; margin-bottom: 0% !important;"/>
+                </center>
+            </p:layoutUnit>
+            <p:layoutUnit position="west" id="menuLeft" style="background: #123a6d;">
+                <h:form class="menuForm" style="background: #123a6d !important;">
+                    <p:menu  style="width: auto !important;background: #123a6d !important;">
+                        <p:submenu > 
+                            <p:menuitem outcome="/expediente/List" class="fa fa-folder-open fa-3x btnMenuLeft" title="Expedientes"/>
+                            <p:separator class="separador" />
+                            <p:menuitem outcome="/agenda/List_AgendasTurnos" class="fa fa-calendar-alt fa-3x btnMenuLeft" title="Agendas y Turnos"/>
+                            <p:separator class="separador"/>
+                            
+                            <p:menuitem outcome="/agenda/List_AgendasTurnosWithSession" class="fa fa-tasks fa-3x btnMenuLeft" title="Agendas y Turnos personales"/>
+                                <p:separator class="separador"/>
+                            
+                            <p:menuitem outcome="/agenda/List_AgendasTurnosWithSessionOnlyAdminUsers" rendered="#{empleadoController.isLeader(session.getAttribute('userNombreCompleto'))}" class="fa fa-eye fa-3x btnMenuLeft" title="Agendas y Turnos de lideres"/>
+                            <p:separator class="separador" rendered="#{empleadoController.isLeader(session.getAttribute('userNombreCompleto'))}"/>
+                            
+                            <p:menuitem outcome="/empleado/List" class="fa fa-id-card fa-3x btnMenuLeft" title="Colaboradores" />
+                            <p:separator class="separador"/>
+                            <p:menuitem outcome="/estadoDelTramite/List_EstadoDelTramiteYProcedencias" class="fa fa-file-archive fa-3x btnMenuLeft" title="Tipos de tramites, Estados del tramite y Procedencias y actividades"/>
+                            <p:separator class="separador"/>
+                            <p:menuitem outcome="/honorario/List" class="fa fa-balance-scale fa-3x btnMenuLeft" title="Honorarios" />
+                            <p:separator class="separador"/>
+                            <p:menuitem outcome="/consulta/List" class="fa fa-laptop fa-3x btnMenuLeft" title="Consultas"/>
+                            <p:separator class="separador"/>
+                            <p:menuitem  
+                                onclick="window.open('https://wa.me/543513220999?text=hola%20necesito%20ayuda%20con%20el%20sistema%20del%20estudio%20Alvarez'); return false;"
+                                class="fa fas fa-wrench fa-3x btnMenuLeft"
+                                title="Contactar por WhatsApp" />
+                            <p:separator class="separador" />
+                            
+                            <p:menuitem outcome="/login.xhtml" class="fa fa-user-circle fa-3x btnMenuLeft" title="Salir"/>
+                        </p:submenu>
+                    </p:menu>
+                </h:form>
+            </p:layoutUnit>
+            <p:layoutUnit position="center"  id="fondoCenter">
+                <ui:insert name="body"  />
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+
+</html>

@@ -11,7 +11,6 @@
         <p:dialog id="AgendaEditDlg" widgetVar="AgendaEditDialog"  resizable="false" appendTo="@(body)" header="Editar Agenda" modal="true">
             <h:form id="AgendaEditForm">
                 <h:panelGroup id="display">
-
                     <div class="padre">
 
                         <div class="hijo">
@@ -62,34 +61,22 @@
                                                  class="createButtonAgenda hoverBlue" actionListener="#{agendaController.update}" 
                                                  value="Actualizar Agenda" update="display,:AgendaListForm:datalist,:growl"
                                                  oncomplete="handleSubmit(args, 'AgendaEditDialog');"  />
-
-
                             </div>     
 
                             <div >
                                 <p:commandButton  class="botonEditarAgendaEsteBotonNoSirveMasPeroLoNecesitaLaUI botonCrear hoverGreen" actionListener="#{agendaController.prepareReagendar(agendaController.selected)}" value="Reagendar"  update=":AgendaReagendarForm" oncomplete="PF('AgendaReagendarDialog').show()" />
                             </div>     
                             <div>
-                        
                                 
                         <p:commandButton class="linea btnSearch" actionListener="#{expedienteController.prepareViewParaExpediente(agendaController.selected)}" update=":ExpedienteViewDesdeAgendaForm" oncomplete="PF('ExpedienteViewDesdeAgendaDialog').show()"  icon="ui-icon-search" rendered="#{expedienteController.buscarTipoDeExpediente(agendaController.selected) eq 'administrativo' }" title="Ver exp. Administrativo de esta agenda" />
-                       
 
                         <p:commandButton class="linea btnSearch"  actionListener="#{expedienteController.prepareViewParaExpediente(agendaController.selected)}" update=":ExpedienteSinCarpetaViewDesdeAgendaForm" oncomplete="PF('ExpedienteSinCarpetaviewDesdeAgendaDialog').show()"  icon="ui-icon-search" rendered="#{expedienteController.buscarTipoDeExpediente(agendaController.selected) eq 'sin carpeta'}" title="Ver exp. Sin Carpeta de esta agenda" />
-                         
 
                         <p:commandButton class="linea btnSearch"  actionListener="#{expedienteController.prepareViewParaExpediente(agendaController.selected)}" update=":ExpedienteJudicialViewDesdeAgendaForm" oncomplete="PF('ExpedienteJudicialViewDesdeAgendaDialog').show()" rendered="#{expedienteController.buscarTipoDeExpediente(agendaController.selected) eq 'judicial'}" icon="ui-icon-search" title="Ver exp. Judicial de esta agenda" />
-                        
-                                
                                 
                             </div>        
-
                         </div>
-
-
                     </div>
-
-
                 </h:panelGroup>
             </h:form>
         </p:dialog>

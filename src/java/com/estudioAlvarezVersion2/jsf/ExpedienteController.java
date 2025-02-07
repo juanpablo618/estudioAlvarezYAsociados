@@ -913,9 +913,17 @@ public class ExpedienteController implements Serializable {
                             }
 
                         Date fechaDeCreacion = dateToday; // Fecha de creación obtenida de la sesión
-                        Date fechaProximoDiaHabil = getNextBusinessDay(fechaDeCreacion);
+                        
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(fechaDeCreacion);
+                        cal.add(Calendar.DATE, +14);
+                        Date fechaCatorseDiasMas = cal.getTime();
+                        
+                        Date fechaProximoDiaHabil = getNextBusinessDay(fechaCatorseDiasMas);
                 
-     String responsableParaAgendar = "";
+                        
+                        
+                        String responsableParaAgendar = "";
                         
                         if(equipo.equalsIgnoreCase("JUSTICIA FEDERAL")) responsableParaAgendar = "Paola Maldonado";
                         

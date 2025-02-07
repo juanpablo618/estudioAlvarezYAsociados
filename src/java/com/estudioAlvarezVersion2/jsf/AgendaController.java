@@ -1130,6 +1130,14 @@ public class AgendaController implements Serializable {
             "Maria Jose Alaye"});
         lideresEmpleadosMap.put("Ayelen Brizzio", new String[]{
             "Mateo Novau", "Natali D Agostino",});
+        
+        //hago esto por q la funcion del ojito, se la teniamos que dar a Naty tambièn 
+        lideresEmpleadosMap.put("Natali D Agostino", new String[]{
+            "Mateo Francisco Alvarez","María Emilia Campos", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
+            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
+            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+            "Pilar Boglione", "juan cuello"});
+        
 
         Set<String> empleados = new HashSet<>();
         if (lideresEmpleadosMap.containsKey(lider)) {

@@ -301,6 +301,32 @@ public class TurnoController implements Serializable {
         selected.setRealizado(SI);
         this.update();
     }
+    
+    public void marcarComoRealizadoSiTurnoPasado() {
+        selectedTurnoPasado.setRealizado(SI);
+        this.updateTurnoPasado();
+    }
+    
+    public void marcarComoRealizadoSiTurnoFuturo() {
+        selectedTurnoFuturo.setRealizado(SI);
+        this.updateTurnoFuturo();
+    }
+    
+    public void destroyTurnoPasado() {
+            persistTurnoPasado(PersistAction.DELETE, "Turno Anterior borrado exitosamente");
+            if (!JsfUtil.isValidationFailed()) {
+                selectedTurnoPasado = null; // Remove selection
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
+    }
+    
+    public void destroyTurnoFuturo() {
+            persistTurnoFuturo(PersistAction.DELETE, "Turno futuro borrado exitosamente");
+            if (!JsfUtil.isValidationFailed()) {
+                selectedTurnoFuturo = null; // Remove selection
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
+    }
 
     public String getUserName() {
         HttpSession session = SessionUtils.getSession();
@@ -391,6 +417,34 @@ public class TurnoController implements Serializable {
         } else {
 
             persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("TurnoUpdated"));
+        }
+    }
+    
+    public void updateTurnoPasado() {
+        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
+        String date = sdf.format(selectedTurnoPasado.getHoraYDia());
+
+        if (validateHolidays(date)) {
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
+            FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
+            items = null;
+        } else {
+
+            persistTurnoPasado(PersistAction.UPDATE, "Turno pasado actualizado exitosamente");
+        }
+    }
+    
+    public void updateTurnoFuturo() {
+        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
+        String date = sdf.format(selectedTurnoFuturo.getHoraYDia());
+
+        if (validateHolidays(date)) {
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
+            FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
+            items = null;
+        } else {
+
+            persistTurnoFuturo(PersistAction.UPDATE, "Turno futuro actualizado exitosamente");
         }
     }
 
@@ -503,9 +557,18 @@ public class TurnoController implements Serializable {
         "Maria Jose Alaye"});
     lideresEmpleadosMap.put("Ayelen Brizzio", new String[]{
         "Mateo Novau"});
+    
+    //hago esto para q naty pueda ver las agendas y turnos de otras personas
+    lideresEmpleadosMap.put("Natali D Agostino", new String[]{
+        "María Emilia Campos", "Mateo Francisco Alvarez", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
+        "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
+        "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+        "Pilar Boglione", "juan cuello"});
+    
 
     if(userNombreCompleto.equalsIgnoreCase("todos")) userNombreCompleto = "Mateo Francisco Alvarez";
     
+        System.out.println("userNombreCompleto: "+userNombreCompleto);
     // Obtener la lista de empleados del líder
     if (lideresEmpleadosMap.containsKey(userNombreCompleto)) {
         nombresEmpleados.addAll(Arrays.asList(lideresEmpleadosMap.get(userNombreCompleto)));
@@ -561,6 +624,63 @@ public class TurnoController implements Serializable {
         }
     }
 
+    private void persistTurnoPasado(PersistAction persistAction, String successMessage) {
+        if (selectedTurnoPasado != null) {
+            setEmbeddableKeys();
+            try {
+                if (persistAction != PersistAction.DELETE) {
+                    getFacade().edit(selectedTurnoPasado);
+                } else {
+                    getFacade().remove(selectedTurnoPasado);
+                }
+                JsfUtil.addSuccessMessage(successMessage);
+            } catch (EJBException ex) {
+                String msg = "";
+                Throwable cause = ex.getCause();
+                if (cause != null) {
+                    msg = cause.getLocalizedMessage();
+                }
+                if (msg.length() > 0) {
+                    JsfUtil.addErrorMessage(msg);
+                } else {
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
+
+    private void persistTurnoFuturo(PersistAction persistAction, String successMessage) {
+        if (selectedTurnoFuturo != null) {
+            setEmbeddableKeys();
+            try {
+                if (persistAction != PersistAction.DELETE) {
+                    getFacade().edit(selectedTurnoFuturo);
+                } else {
+                    getFacade().remove(selectedTurnoFuturo);
+                }
+                JsfUtil.addSuccessMessage(successMessage);
+            } catch (EJBException ex) {
+                String msg = "";
+                Throwable cause = ex.getCause();
+                if (cause != null) {
+                    msg = cause.getLocalizedMessage();
+                }
+                if (msg.length() > 0) {
+                    JsfUtil.addErrorMessage(msg);
+                } else {
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
+
+    
     public Turno getTurno(java.lang.Integer id) {
         return getFacade().find(id);
     }

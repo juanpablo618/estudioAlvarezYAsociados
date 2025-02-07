@@ -93,7 +93,7 @@
                                 <p:inputTextarea rows="5" cols="65" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
                                 <br></br>
                                 <div>
-                                <h:commandButton onclick="form.target='_blank';" value="Imprimir Carátula" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearPdfDeCaratula(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion,
+                                <h:commandButton value="Imprimir Carátula" style=" padding: .3em 1em; margin-right: .1em;" actionListener="#{downloadBean.crearPdfDeCaratula(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion,
                                                                                                                                         expedienteController.selected.nroDeAltura, expedienteController.selected.barrio,
                                                                                                                                         expedienteController.selected.apoderado,
                                                                                                                                         expedienteController.selected.fechaDeAtencion,
@@ -286,7 +286,7 @@
                             <div>
                                 <p:outputLabel value="Clave Seguridad Social" for="claveSeguridadSocial" style="font-weight: bold" /><br></br>
                                 <p:inputText id="claveSeguridadSocial" value="#{expedienteController.selected.claveSeguridadSocial}" title="clave de seguridad social"/><br></br>
-                                <a href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=mianses" target="_blank" >
+                                <a href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=miansesv2" target="_blank" >
                                     <img src="../faces/resources/images/anses.png" style="width: 15%;"></img>
                                 </a>
                             </div>

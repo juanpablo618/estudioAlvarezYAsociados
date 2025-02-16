@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog position="center top" id="ExpedienteViewDlgParaAgendaMasiva" widgetVar="ExpedienteViewDialogParaAgendasMasivas" modal="true" resizable="false" appendTo="@(body)" header="Ver Expediente para agregar agendas masivas" style="margin-top: 1%;">
+
+            <h:form id="ExpedienteViewFormParaAgendaMasiva" >
+                <h:panelGroup id="display">
+
+                    <p:panel  style="margin-bottom:1%">
+                        <h:panelGrid columns="2" rendered="#{expedienteController.selected != null}">
+
+                            <h:panelGrid columns="5" cellpadding="1" rendered="#{expedienteController.selected != null}">
+
+                                <h:outputText value="Orden:"   />
+                                <h:outputText value="#{expedienteController.selected.orden}" title="tipoDeExpediente" class="negrita"/>
+                                <h:outputText value="|"  class="pipeSeparator" />
+                                <h:outputText value=" Apellido y Nombre:"  />
+                                <h:outputText value="#{expedienteController.selected.apellidoYNombre}" title="tipoDeExpediente" class="negrita"/>
+
+                            </h:panelGrid>
+
+                        </h:panelGrid>   
+
+                        <h:panelGrid columns="8" rendered="#{expedienteController.selected != null}">
+                            
+                            <h:outputText value="Tipo de Expediente:" />
+                            <h:outputText value="#{expedienteController.selected.tipoDeExpediente}" title="tipoDeExpediente" class="negrita"/>
+                            <h:outputText value="|"  class="pipeSeparator" />
+                            <h:outputText value="Fecha de Alta Expediente:"/>
+                            <h:outputText value="#{expedienteController.selected.fechaDeAltaDeExpediente}" title="fecha de alta de expediente" class="negrita">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                            <h:outputText value="|"  class="pipeSeparator" />
+                            <h:outputText value="Fecha de Atención:"/>
+                            <h:outputText value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion" class="negrita">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </h:panelGrid>
+                        <h:panelGrid columns="8" rendered="#{expedienteController.selected != null}">
+                            
+                            <h:outputText value="Tipo de Tramite:"/>
+                            <h:outputText value="#{expedienteController.selected.tipoDeTramite}" title="tipoDeTramite" class="negrita"/>
+                            <h:outputText value="|"  class="pipeSeparator" />
+                            <h:outputText value="Estado del Tramite:" />
+                            <h:outputText value="#{expedienteController.selected.estadoDelTramite}" title="estadoDelTramite" class="negrita"/>
+                            <h:outputText value="|"  class="pipeSeparator" />
+                            <h:outputText value="Cobra  Beneficio:" />
+                            <h:outputText value="#{expedienteController.selected.cobraBeneficio}" title="cobra beneficio" class="negrita"/>
+
+                        </h:panelGrid>   
+
+                        <br></br>
+
+                        <h:panelGrid columns="2" rendered="#{expedienteController.selected != null}">
+                            <h:outputText value="Observaciones:" />
+
+                            <h:outputText  value="#{expedienteController.selected.observaciones}" title="observaciones" class="negrita"/>
+                        </h:panelGrid>
+                    </p:panel>          
+                    <br></br>
+                    <p:fieldset legend="Crear Agenda" toggleable="true" toggleSpeed="500" collapsed="false">
+
+                        <p:panel  style="margin-bottom:1%">
+
+                            <h:panelGrid columns="2" rendered="#{expedienteController.selected != null}">
+
+                                <p:outputLabel value="día y hora:" for="horaYDia" style="font-weight: bold"/>
+                                <p:calendar
+                                    disabledWeekends="true"
+                                    
+                                    placeholder="dd/MM/yyyy HH:mm"
+                                    autocomplete="off" 
+                                    id="horaYDia"  
+                                    pattern="dd/MM/yyyy HH:mm" 
+                                    value="#{agendaController.selectedAgendaMasivaUno.fecha}" 
+                                    title="#{bundle.EditAgendaTitle_fecha}" showOn="button"/>
+                                
+                                <p:outputLabel value="Responsable:" for="responsable" style="font-weight: bold" />
+                                <p:selectOneMenu  id="responsable" value="#{agendaController.selectedAgendaMasivaUno.responsable}"  >
+                                    <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
+                                </p:selectOneMenu>
+                                
+                                 <p:outputLabel  value="tipo de agenda masiva" for="tipoDeAgendaMasiva" style="font-weight: bold" />
+                                 <p:selectOneMenu style="margin-left: 3%" id="tipoDeAgendaMasiva" value="#{agendaController.tipoDeAgendaMasiva}" editable="false" effect="fold" >
+                                <f:selectItem itemLabel="TURNO ANSES" itemValue="TURNO ANSES" itemDescription="generará 5 agendas" />
+                                <f:selectItem itemLabel="ANSES INGRESADO" itemValue="ANSES INGRESADO" itemDescription="generará 1 agenda" />
+                                
+                            </p:selectOneMenu>
+
+                            </h:panelGrid>
+                            <p:commandButton class="createButtonAgenda hoverBlue"
+                                             actionListener="#{agendaController.createAgendasMasivas(agendaController.tipoDeAgendaMasiva)}"
+                                             value="Guardar Agenda" 
+                                             title="guardar para exp. administrativo"
+                                             update=":ExpedienteEditForm,:growl"
+                                             oncomplete="handleSubmit(args,'ExpedienteViewDialogParaAgendasMasivas');" />
+                            
+                        </p:panel>
+                    </p:fieldset>
+                    
+                </h:panelGroup>
+            </h:form>
+            <br></br>
+
+        </p:dialog>
+
+
+    </ui:composition>
+</html>

@@ -43,6 +43,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Turno implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private static final DateFormat FORMATO_FECHA = new SimpleDateFormat("dd/MM/yyyy");
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -124,15 +126,9 @@ public class Turno implements Serializable {
     }
 
     public String getDiaMesAnio() {
-        DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        
-        if(horaYDia != null){
-        return formatoFecha.format(horaYDia);
-        }
-        else{
-            return "";
-        }
+        return (horaYDia != null) ? FORMATO_FECHA.format(horaYDia) : "";
     }
+
 
     public void setHoraYDia(Date horaYDia) {
         this.horaYDia = horaYDia;

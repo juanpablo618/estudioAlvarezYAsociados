@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+          
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml" >
+        <script>
+            function enviarTexto() {
+                var texto = document.getElementById("inputText2").value;
+                document.getElementById("inputText").value = texto;
+            }
+
+        </script>
+         
+        <ui:define name="body"  >
+                    <h:outputText style="color: white;" value="Cantidad de agendas Por Empleado:" /><br></br><br></br>
+                    <h:outputText  id="output5" style="white-space: pre-line; color: white;" value="#{counterView.cantAgendasPorEmpleado}" />
+                    <br></br>
+                    <br></br>
+                    
+                    <p:chart  type="bar" model="#{counterView.barModel}" style="height:300px"/>
+                    <br /><br />    
+                    <br /><br />    
+                   
+                    <p:chart type="pie" model="#{counterView.pieModel1}" style="width:500px;height:500px" />
+                    <br></br>
+                    <br></br>
+                  
+                    <h:outputText style="color: white;" value="Cantidad total de agendas: " />
+                    <h:outputText style="color: white;" id="output1" value="#{counterView.totalAgendas}" />
+                <br></br>
+                  
+                    <h:outputText style="color: white;" value="Cantidad de agendas realizadas: " />
+                    <h:outputText style="color: white;" id="output2" value="#{counterView.totalAgendasRealizadas}" />
+                <br></br>
+                  
+                    <h:outputText style="color: white;" value="Cantidad de agendas no realizadas: " />
+                    <h:outputText style="color: white;" id="output3" value="#{counterView.totalAgendasNoRealizadas}" />
+                <br></br>
+                    
+            <br></br>
+            <br></br>
+            <h:outputText style="color:white" value="Filtrar por:" /><br></br><br></br>
+        
+                <h:form styleClass="filtro-form" id="formFiltros">
+    
+                    <h:outputText value="Empleado:" />
+
+                    <div class="filtro-item">
+                        <p:selectOneMenu value="#{agendaController.responsable}">
+                            <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado"
+                                itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
+                        </p:selectOneMenu>
+                    </div>
+
+                    <h:outputText value="Fecha Desde:" />
+
+                    <div class="filtro-item">
+                        <p:calendar id="fechaDesde" value="#{agendaController.fechaDesde}" pattern="dd/MM/yyyy" placeholder="Fecha Desde" />
+                    </div>
+    
+                    <h:outputText value="Fecha Hasta:" />
+
+                    <div class="filtro-item">
+                        <p:calendar id="fechaHasta" value="#{agendaController.fechaHasta}" pattern="dd/MM/yyyy" placeholder="Fecha Hasta" />
+                    </div>
+    
+    <h:outputText value="Realizado: " />
+        
+    <div class="filtro-item">
+        <p:selectOneMenu value="#{agendaController.realizado}" editable="false">
+            <f:selectItem itemLabel="Todos" itemValue="" />
+            <f:selectItem itemLabel="Si" itemValue="Si" />
+            <f:selectItem itemLabel="No" itemValue="No" />
+            <f:selectItem itemLabel="Reagendada" itemValue="Reagendada" />
+        </p:selectOneMenu>
+    </div>
+
+                    
+    <div class="filtro-item" >
+        <p:commandButton style="margin-top: 0 !important" styleClass="botonCrearAgenda" value="Filtrar" actionListener="#{counterView.filtrarAgendasPorFiltros}" update="output4" />
+    </div>
+
+    <div class="filtro-item-resultado">
+        <h:outputText value="Cantidad: " />
+        
+        <h:outputText style="color: white;" id="output4" value="#{counterView.cantAgendasPorEmpleadoFiltradas}" />
+    </div>
+</h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -364,14 +364,9 @@ public class ExpedienteController implements Serializable {
                     if ((agenda.getApellido() != null && agenda.getNombre() != null)
                             && (agenda.getOrden() == null || agenda.getOrden() == 0)) {
 
-                        for (Expediente expediente : expedienteControllerBean.getItems()) {
-                            if (expediente.getApellido() != null && expediente.getNombre() != null) {
-                                if (expediente.getApellido().equals(agenda.getApellido()) && expediente.getNombre().equals(agenda.getNombre())) {
-                                    selectedParaVerExp = expediente;
-
-                                }
-                            }
-                        }
+                        expedienteControllerBean.getItems().stream().filter(expediente -> (expediente.getApellido() != null && expediente.getNombre() != null)).filter(expediente -> (expediente.getApellido().equals(agenda.getApellido()) && expediente.getNombre().equals(agenda.getNombre()))).forEachOrdered(expediente -> {
+                            selectedParaVerExp = expediente;
+                        });
                     }
 
                 }
@@ -1187,9 +1182,6 @@ public class ExpedienteController implements Serializable {
                 }
             }
         }
-        
-        //por que ahora lo hacemos por base de datos con order by
-        //agendaControllerBean.ordenarListItems(verAgendasPasadas);
         
         Collections.reverse(verAgendasPasadas);
         

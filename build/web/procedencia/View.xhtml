@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProcedenciaViewDlg" widgetVar="ProcedenciaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProcedenciaTitle}">
+            <h:form id="ProcedenciaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{procedenciaController.selected != null}">
+                        <h:outputText value="procedencia:"/>
+                        <h:outputText value="#{procedenciaController.selected.nombreProcedencia}" title="#{bundle.ViewProcedenciaTitle_nombreProcedencia}"/>
+                    </p:panelGrid>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ProcedenciaEditForm" oncomplete="PF('ProcedenciaEditDialog').show()" disabled="#{empty procedenciaController.selected}"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="ProcedenciaViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

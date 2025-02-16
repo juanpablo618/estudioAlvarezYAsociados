@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FechasRestringidasCreateDlg" widgetVar="FechasRestringidasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Nueva Fecha Restringida">
+            <h:form id="FechasRestringidasCreateForm">
+                <h:panelGroup id="display">
+                    <p:outputLabel value="fecha Restringida"  /><br></br>
+                    <p:calendar  widgetVar="testCalendar"  id="fecha" pattern="dd/MM/yyyy" value="#{fechasRestringidasController.selected.fecha}"   required="true" requiredMessage="fecha restringida es requerida" showOn="button"/>
+                        
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FechasRestringidasCreateDialog.hide()"/>
+                    <p:commandButton class="botonCrear" actionListener="#{fechasRestringidasController.create}" value="#{bundle.Save}" update="display,:FechasRestringidasListForm:datalist" oncomplete="handleSubmit(args,'FechasRestringidasCreateDialog');"/>
+                    
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

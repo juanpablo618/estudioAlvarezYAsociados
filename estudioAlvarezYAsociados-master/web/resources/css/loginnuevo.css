@@ -24,10 +24,13 @@ and open the template in the editor.
         }
         
         .right-panel {
-            width: 35%;
+        width: 35%;
     background: #1E3A5F;
-    display: block;
-    padding-top: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    height: 100vh;
         }
         .login-box {
             background: transparent;
@@ -45,6 +48,8 @@ and open the template in the editor.
             margin: 10px 0;
             padding: 7px 0px;
             border-radius: 4px;
+            height: 35px;
+            
         }
         .login-box button {
             width: 100%;
@@ -87,12 +92,20 @@ and open the template in the editor.
   font-style: normal;
                 
         }
-        
+        .ui-inputfield{
+  
+    padding: 0px !important;
+        }
         
         .ui-selectonemenu .ui-selectonemenu-label {
     
             text-align: center!important;
+             width: 100% !important;
+                 height: 35px !important;
+                 line-height: 35px;
         } 
+        
+      
         .user{
             width: 100% !important;
             

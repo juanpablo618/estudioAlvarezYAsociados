@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 @font-face {
 font-family: "gotham Logo";
 
@@ -6,12 +9,16 @@ font-weight: normal;
 font-style: normal;
 
     body{
-        font-family: "gotham Logo";
+         font-family: "Poppins", serif;
+  font-weight: 400;
+  font-style: normal;
     }
 }
 
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
-      font-family: "gotham Logo" !important;
+      font-family: "Poppins", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 td.centeredColumnContent{
@@ -130,8 +137,10 @@ td.centeredColumnContentsincarpeta{
 table.dataTable.nowrap td{white-space:nowrap}
 
 .ui-widget {
-    font-size: 15px !important;
-    font-family: gotham Logo;
+    font-size: 16px !important;
+     font-family: "Poppins", serif !important;
+  
+  font-style: normal;
 }
 .ui-layout-north {
     z-index: 20 !important;
@@ -489,4 +498,116 @@ div.ui-growl {
 
 .ui-dialog .ui-dialog-buttonpane{
     text-align: center !important;
+}
+
+.cards1{     border: 3px solid #3E5879;
+    padding: 20px;
+    border-radius: 20px;
+    background: #b4d4e3;
+    display: flex;
+    flex-direction: column;
+    color: black;
+             
+}
+.buscararchivo{
+   padding: 5px; 
+   border-left: 5px solid #780C28; 
+   border-radius:5px ;
+}
+
+.titulopdfjpg{
+    font-size: 19px !important;
+    color: black;
+    font-weight: 500;
+   
+        
+}
+.botonsubirbajarpdf{
+        border-radius: 10px !important;
+    border: solid 3px #3076ff !important;
+    background: #9bbdff !important;
+    color: #2a55aa !important;
+    font-size: 16px !important;
+    text-shadow: none !important;
+        font-family: "Poppins", serif !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+}
+.fileup{
+    padding: 5px;
+}
+
+.contenedorcard{
+     display: grid !important;
+                                     grid-template-columns: 1fr 1fr !important; /* Dos columnas de igual tamaño */
+                                     gap: 10px !important;
+}
+
+.carddatoscliente{
+       display: grid;
+    grid-template-columns: 25% 71%;
+    gap: 20px;
+    width: 89.5vw;
+     /* Alinea los elementos arriba */
+}
+
+.ui-tabs.ui-tabs-left > .ui-tabs-nav li {
+    margin: inherit !important;
+    border-right: inherit !important;
+    float: inherit !important;
+    background: transparent;
+    border-bottom: solid 3px #3e5879;
+    /* border-radius: 15px; */
+    border-top: none;
+    border-left: none;
+    border-right: none !important;
+}
+
+.ui-tabs.ui-tabs-left > .ui-tabs-nav  :hover{
+    background: #b4d4e3;
+}
+.ui-tabs-left > .ui-tabs-nav {
+     float: left;
+    width: 24.5% !important;
+    height: 100vh !important;
+    background-image: inherit !important;
+    padding-top: inherit !important;
+  border: 3px solid #3E5879;
+      
+ border-radius: 20px;
+}
+.ui-tabs .ui-tabs-panel {
+   
+    padding: inherit  !important;
+  ;}
+
+.ui-tabs {
+   
+    margin-top: 10px !important;
+}
+.ui-panel .ui-panel-titlebar {
+        padding: 1em 1em !important;
+    background: #b4d4e3 !important;
+    border: solid 3px #3E5879;
+    border-radius: 15px;
+    color: black !important;
+    margin: 0px 16px;
+    text-shadow: none !important;
+    
+}
+
+.ui-tabs .ui-tabs-nav .ui-tabs-selected {
+    background: #123a6d !important;
+        border-radius: 15px;
+    }
+    
+    .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+    color: white !important;
+    background: #123a6d !important;
+    text-shadow: none !important;
+    border-radius: 15px;
+}
+
+ .ui-state-active a :hover{
+    background: #123a6d;
 }

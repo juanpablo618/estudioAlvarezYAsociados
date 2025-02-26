@@ -218,6 +218,10 @@ public class Turno implements Serializable {
         this.asignarExpediente = asignarExpediente;
     }
     
+    public String getApellidoNombre() {
+        return apellido + " " + nombre;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

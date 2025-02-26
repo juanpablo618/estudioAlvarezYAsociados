@@ -149,7 +149,7 @@
                         <h:outputText value="S/N"/>
                     </p:column>
                     
-                    <p:column  style="width: 20%" filterBy="#{item.apellido} #{item.nombre}"  styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="contains" headerText="NOMBRE">
+                    <p:column  style="width: 20%" filterBy="#{item.apellidoNombre}"  styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="contains" headerText="NOMBRE">
                         <f:facet name="filter" >
                             <p:inputText id="inputApellidoYNombreEnTurnoTable" onfocus="PF('turnosTable').filter()" onchange="PF('turnosTable').filter()" value="#{turnoController.apellidoYNombreSeleccionadoEnTurno}" >
                                 <p:ajax update=":AgendaListForm:datalist:inputApellidoYNombreEnAgenda"/> 
@@ -256,7 +256,7 @@
                         <h:outputText value="#{item.orden}"/>
                     </p:column>
 
-                    <p:column style="width: 20%" filterBy="#{item.apellido} #{item.nombre}" styleClass="centeredColumnContent#{item.realizado}" filterMatchMode="contains">
+                    <p:column style="width: 20%" filterBy="#{item.apellidoNombre}" styleClass="centeredColumnContent#{item.realizado}" filterMatchMode="contains">
                         <f:facet name="filter" >
                             <p:inputText id="inputApellidoYNombreEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.apellidoYNombreSeleccionadoEnTurno}" />
                         </f:facet>
@@ -343,6 +343,21 @@
                     </f:facet>
                 </p:dataTable>
             </h:form>
+            
+            <h:form>
+            <p:panel header="Usuarios Logueados">
+                <p:dataTable 
+                    id="tabladeusuarios"
+                    value="#{login.usuariosLogueados()}" var="usuario">
+                    <p:column headerText="Usuario">
+                        #{usuario}
+                    </p:column>
+                </p:dataTable>
+
+                <!-- Actualiza la lista cada 5 segundos -->
+                <p:poll interval="5" update="tabladeusuarios" />
+            </p:panel>
+        </h:form>
 
             <script type="text/javascript">
                     // Función para activar el botón cuando la página se ha renderizado

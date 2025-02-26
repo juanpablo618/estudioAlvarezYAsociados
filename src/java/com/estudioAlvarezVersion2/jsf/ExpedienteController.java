@@ -17,14 +17,11 @@ import com.estudioAlvarezVersion2.jpacontroller.util.ExpedienteUtils;
 import java.io.IOException;
 
 import java.io.Serializable;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -41,10 +38,8 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.el.ELException;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -52,6 +47,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
+import javax.faces.view.ViewScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
@@ -59,7 +55,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 @Named("expedienteController")
-@SessionScoped
+@ViewScoped
 public class ExpedienteController implements Serializable {
 
     @EJB
@@ -835,13 +831,17 @@ public class ExpedienteController implements Serializable {
         
         // Convertir el próximo cumpleaños a Date
         Date fechaProximoCumpleaños = Date.from(proximoCumpleaños.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        
+        String porSerFeriado = " ";
+        if (validateHolidays(fechaProximoCumpleaños)) {
+            fechaProximoCumpleaños = getNextBusinessDay(fechaProximoCumpleaños);
+            porSerFeriado = porSerFeriado.concat( "( fue feriado ) ");
+        }
         // Crear la agenda
         FacesContext context = FacesContext.getCurrentInstance();
         AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
         agendaControllerBean.prepareCreate();
         agendaControllerBean.getSelected().setFecha(fechaProximoCumpleaños);
-        agendaControllerBean.getSelected().setDescripcion("Saludar por fecha de Cumpleaños");
+        agendaControllerBean.getSelected().setDescripcion("Saludar por fecha de Cumpleaños".concat(porSerFeriado));
         agendaControllerBean.getSelected().setOrden(orden);
         agendaControllerBean.getSelected().setNombre(nombre);
         agendaControllerBean.getSelected().setApellido(apellido);
@@ -1604,7 +1604,7 @@ public class ExpedienteController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
         }
         
-        if(consultaSelected.getComunicaciones() != null){
+        if(consultaSelected.getComunicaciones() != null && !consultaSelected.getComunicaciones().trim().isEmpty()){
             crearNuevaComunicacion(consultaSelected.getComunicaciones(), expAInsertar.getOrden(), consultaSelected.getResponsable());
         }
         

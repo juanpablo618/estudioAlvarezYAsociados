@@ -568,7 +568,6 @@ public class TurnoController implements Serializable {
 
     if(userNombreCompleto.equalsIgnoreCase("todos")) userNombreCompleto = "Mateo Francisco Alvarez";
     
-        System.out.println("userNombreCompleto: "+userNombreCompleto);
     // Obtener la lista de empleados del líder
     if (lideresEmpleadosMap.containsKey(userNombreCompleto)) {
         nombresEmpleados.addAll(Arrays.asList(lideresEmpleadosMap.get(userNombreCompleto)));

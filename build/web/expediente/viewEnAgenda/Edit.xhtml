@@ -342,7 +342,7 @@
                             <br></br>
                             <br></br>
                         </p:tab>
-                        <p:tab title="Comunicaciones">
+                        <p:tab title="Novedades / Comunicaciones">
                             <p:dataTable id="datalist4"
                                                  value="#{expedienteController.verComunicacionesPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}"
                                                  var="item"
@@ -529,8 +529,8 @@
                                             </p:column>
 
                     
-                                        <p:column  style="width: 20%" filterBy="#{item.apellido} #{item.nombre}"  styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="contains" headerText="NOMBRE">
-                                            <h:outputText value="#{ item.apellido} #{ item.nombre}"/>
+                                        <p:column  style="width: 20%" filterBy="#{item.apellidoNombre}"  styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="contains" headerText="NOMBRE">
+                                            <h:outputText value="#{ item.apellidoNombre}"/>
                                         </p:column>
 
                                         <p:column filterBy="#{item.responsable}" headerText="RESPONSABLE" style="text-align: center;width: 20%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">

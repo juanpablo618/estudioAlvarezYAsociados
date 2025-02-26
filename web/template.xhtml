@@ -16,7 +16,7 @@
     <h:body class="fondo">
         <h:form>
             <p:growl life="5000" id="messages1" showDetail="true" />
-            <p:idleMonitor timeout="900000">
+            <p:idleMonitor timeout="1800000">
                 <p:ajax event="idle" listener="#{login.onIdle}" update="messages1" />
             </p:idleMonitor>
         </h:form>
@@ -60,7 +60,9 @@
                                 title="Contactar por WhatsApp" />
                             <p:separator class="separador" />
                             
-                            <p:menuitem outcome="/login.xhtml" class="fa fa-user-circle fa-2x btnMenuLeft" title="Salir"/>
+                            <p:menuitem  action="#{login.logout()}"  class="fa fa-user-circle fa-2x btnMenuLeft" title="Salir"/>
+
+                        
                         </p:submenu>
                     </p:menu>
                 </h:form>

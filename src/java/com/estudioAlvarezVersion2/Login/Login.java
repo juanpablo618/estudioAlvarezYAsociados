@@ -5,6 +5,7 @@ import com.estudioAlvarezVersion2.jpa.LoginDAO;
 import com.estudioAlvarezVersion2.jsf.EmpleadoController;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class Login implements Serializable {
     private String msg;
     private String user;
     private String rol;
+    private Boolean tieneSesionActiva;
     
     private List<String> quotes;
     private String selectedQuote;
@@ -142,8 +144,14 @@ public void init() {
     selectRandomQuote();
 }
 
-    
-    
+    public Boolean getTieneSesionActiva() {
+        return tieneSesionActiva;
+    }
+
+    public void setTieneSesionActiva(Boolean tieneSesionActiva) {
+        this.tieneSesionActiva = tieneSesionActiva;
+    }
+
     public String getRol() {
         return rol;
     }
@@ -176,8 +184,16 @@ public void init() {
         this.user = user;
     }
 
+    public void cerrarOtrasSesiones(){
+        LoginDAO.cerrarOtrasSesiones(user);
+    }
+    
+    public void tieneSesionActiva(){
+        LoginDAO.tieneSesionActiva(user);
+    }
+    
     //validate login
-public String validateUsernamePassword() {
+    public String validateUsernamePassword() {
     String userName = "";
 
     FacesContext context = FacesContext.getCurrentInstance();
@@ -193,28 +209,40 @@ public String validateUsernamePassword() {
 
     boolean valid = LoginDAO.validate(userName, pwd);
     if (valid) {
+        
+        if (LoginDAO.tieneSesionActiva(user)) {
+            tieneSesionActiva = true;
+            FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_WARN, 
+                "Ya tienes una sesión activa.", 
+                "Por favor, cierra otras sesiones"));
+            return "login"; // Mantiene al usuario en el login
+        }
+                    
+
             HttpSession session = SessionUtils.getSession();
-            
             
             for (Empleado empleado : empleadoController.getItems()) {
                 if (empleado.getNombre() == null ? user == null : empleado.getNombre().equals(userName)) {
                     session.setAttribute("userNombreCompleto", empleado.getNombre() + " " + empleado.getApellido());
-        }
+                }
             }
 
             LocalDate fechaHoy = LocalDate.now();
 
             // Formatear la fecha como una cadena en formato dd/MM/YYYY
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String fechaFormateada = fechaHoy.format(formato);
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String fechaFormateada = fechaHoy.format(formato);
 
             
-        session.setAttribute("dateToday", fechaFormateada);
+            session.setAttribute("dateToday", fechaFormateada);
 
             
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                 "", getSelectedQuote()));
         
+            LoginDAO.registrarSesionEnBD(user, session.getId());
+
 
         return "agenda/List_AgendasTurnosWithSession.xhtml";
     } else {
@@ -230,14 +258,32 @@ public String validateUsernamePassword() {
     //logout event, invalidate session
     //TODO mejorar este metodo que devuelva un string con "login" el nombre del archivo que quiero redireccionar 
     public void logout() throws IOException {
-        HttpSession session = SessionUtils.getSession();
-        session.invalidate();
+    HttpSession session = SessionUtils.getSession();
+        if (session != null) {
+            String sessionId = session.getId();
+            LoginDAO.marcarSesionComoInactiva(sessionId); // Actualiza la BD
+            session.invalidate(); // Invalida la sesión en JSF
+        }
 
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         context.redirect(context.getRequestContextPath() + "/faces/login.xhtml");
-
     }
 
+    public List<String>  usuariosLogueados() throws IOException {
+        
+        List<String> usuarios = new ArrayList<>();
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+    
+        EmpleadoController empleadoController = context.getApplication().evaluateExpressionGet(context, "#{empleadoController}", EmpleadoController.class);
+
+        for(Integer idEmpleado : LoginDAO.obtenerUsuariosLogueados()){
+                usuarios.add(empleadoController.getEmpleado(idEmpleado).getNombreyApellido());
+        }
+        
+            return usuarios;
+    }
+    
     public void onIdle() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                 "No detectamos actividad.", "Volveras a iniciar sesión"));
@@ -259,4 +305,4 @@ public String validateUsernamePassword() {
         return selectedQuote;
     }
 
-                }
+ }

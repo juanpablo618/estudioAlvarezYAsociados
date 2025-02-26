@@ -127,19 +127,22 @@
                                 <p:outputLabel value="#{bundle.CreateTurnoLabel_observacion}" for="observacion" style="font-weight: bold"/>
                                 <p:inputTextarea rows="5" cols="50" id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.CreateTurnoTitle_observacion}" />
                             
-                                <p:outputLabel value="Oficina:" for="oficina" style="font-weight: bold" />
-                                <p:selectOneMenu id="oficina" value="#{turnoController.selected.oficina}" editable="true" effect="fold" >
-                                                    <f:selectItem itemLabel="CERRO" itemValue="CERRO" />
-                                                    <f:selectItem itemLabel="CENTRO" itemValue="CENTRO" />
-                                </p:selectOneMenu>
-
                                 <p:outputLabel value="Tipo de Turno:" for="tipoDeTurno" style="font-weight: bold" />
-                                    <p:selectOneMenu id="tipoDeTurno" value="#{turnoController.selected.tipoDeTurno}" editable="true" effect="fold" >
-                                                        <f:selectItem itemLabel="PRESENCIAL" itemValue="PRESENCIAL" />
-                                                        <f:selectItem itemLabel="TELEFÓNICO" itemValue="TELEFÓNICO" />
+                                    <p:selectOneMenu id="tipoDeTurno" value="#{turnoController.selected.tipoDeTurno}"  effect="fold" >
+                                        <f:selectItem itemLabel="TELEFÓNICO" itemValue="TELEFÓNICO" />                
+                                        <f:selectItem itemLabel="PRESENCIAL" itemValue="PRESENCIAL" />
+                                        <p:ajax update="inputPanelOficina" />
                                     </p:selectOneMenu>
-
                             
+                            </h:panelGrid>
+                            <h:panelGrid  id="inputPanelOficina" columns="4">
+                            <p:outputLabel rendered="#{turnoController.selected.tipoDeTurno == 'PRESENCIAL'}" value="Oficina:" for="oficina" style="font-weight: bold" /><br></br>
+
+                            <p:selectOneMenu rendered="#{turnoController.selected.tipoDeTurno == 'PRESENCIAL'}" id="oficina" value="#{turnoController.selected.oficina}"  effect="fold" >
+                                                <f:selectItem itemLabel="CERRO" itemValue="CERRO" />
+                                                <f:selectItem itemLabel="CENTRO" itemValue="CENTRO" />
+                            </p:selectOneMenu><br></br><br></br>
+
                             </h:panelGrid>
                             <p:commandButton class="createButtonAgenda hoverBlue" actionListener="#{turnoController.createConNombreYApellido(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.telefono, expedienteController.selected.orden)}" value="Guardar Turno" onclick="ExpedienteViewDialogParaTurno.hide()"/>
                         

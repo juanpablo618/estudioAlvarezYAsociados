@@ -147,6 +147,10 @@ public class Agenda implements Serializable {
         this.prioridad = prioridad;
     }
     
+    public String getApellidoNombre() {
+        return apellido + " " + nombre;
+    }
+    
     public Integer getOrden() {
         
         if(orden != null){

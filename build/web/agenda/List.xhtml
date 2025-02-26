@@ -66,11 +66,11 @@
                             <h:outputText value="#{item.orden}"/>
                         </p:column>
                         
-                        <p:column  filterBy="#{item.apellido} #{item.nombre}" filterMatchMode="contains">
+                        <p:column  filterBy="#{item.apellidoNombre}" filterMatchMode="contains">
                             <f:facet name="header" >
                                 <h:outputText value="APELLIDO Y NOMBRE"/>
                             </f:facet>
-                            <h:outputText style="color: #0053f6" value="#{item.apellido} #{item.nombre}"/>
+                            <h:outputText style="color: #0053f6" value="#{item.apellidoNombre}"/>
                         </p:column>
                         
                         <p:column  style="width: 9%" filterBy="#{item.responsable}" styleClass="centeredColumnContent" filterMatchMode="exact">

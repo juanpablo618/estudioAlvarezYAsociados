@@ -8,7 +8,7 @@
     <h:head>
         <title>Login Estudio Alvarez y Asociados</title>
         
-        <h:outputStylesheet name="css/loginnuevo.css"/>   
+        <h:outputStylesheet name="css/loginnuevo.css"/> 
     </h:head>  
 
     <body> 
@@ -17,17 +17,17 @@
 
         <div class="left-panel">
             <div class="image-section">
-            <img  src="resources/images/DA1.jpg" alt="Imagen 1" class="active fotologin" />
-            <img class="fotologin" src="resources/images/DA2.jpg" alt="Imagen 2" />
-            <img class="fotologin" src="resources/images/DA3.jpg" alt="Imagen 3" />
-        </div>
+                <img src="#{request.contextPath}/resources/images/DA1.jpg" alt="Imagen 1" class="active fotologin" />
+                <img class="fotologin" src="#{request.contextPath}/resources/images/DA2.jpg" alt="Imagen 2" />
+                <img class="fotologin" src="#{request.contextPath}/resources/images/DA3.jpg" alt="Imagen 3" />
+            </div>
         
            <div class="right-panel">
                <div class="logo">
-                <h:graphicImage value="resources/images/Alvarezyasociados.svg" />
-        
+                 <img src="#{request.contextPath}/resources/images/Alvarezyasociados.svg" alt="logo"  />
+               
             </div>
-            <h:form class="login-box">
+            <h:form styleClass="login-box">
                 
                 <div class="userdiv">
                 <label  for="username" >Usuario</label>
@@ -50,9 +50,17 @@
                     
                      <center>
                             <h:commandButton id="botonIniciarSesion" class="hover" action="#{login.validateUsernamePassword}"
-                                             value="INICIAR SESIÓN" styleClass="btn-login" >
+                                             value="INICIAR SESIÓN" styleClass="btn-login"  >
                             </h:commandButton>
                         </center>
+                    <center>
+   
+                        <h:commandButton rendered="#{login.tieneSesionActiva}" id="botonCerrarSesion" class="hover" action="#{login.cerrarOtrasSesiones()}"
+                                             value="Cerrar otras sesiones" styleClass="btn-login" >
+                            </h:commandButton>
+                          
+                    </center>
+                    
             </h:form>
         </div>
     </div>

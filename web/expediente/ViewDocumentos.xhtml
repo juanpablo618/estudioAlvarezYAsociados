@@ -3,899 +3,986 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition>
 
         <p:dialog id="ExpedienteViewDocumentosDialog" widgetVar="ExpedienteViewDocumentosDialog" modal="true" width="100%" appendTo="@(body)" resizable="true"
-                   class="editDialogExpediente"   style="overflow-y:auto">
-            
-            
+                  class="editDialogExpediente"   style="overflow-y:auto">
+
+
             <h:form id="ExpedienteViewDocumentosForm" enctype="multipart/form-data">
-                
-                 <div style="font-weight: bold; float: left; width: 100%; ">
-                      <h:outputText value="Documentos de:" />
-                    <h:outputText value=" "/>
-                    
-                     <h:outputText value="#{expedienteController.selected.apellido}" />
-                    <h:outputText value=" "/>
-                    <h:outputText value="#{expedienteController.selected.nombre}"/>
-                    <h:outputText value=" "/>
-                    <h:outputText style="font-size: 32px" value="#{expedienteController.selected.orden}"/>
-                    
-                    <h:outputText value="cuit :  " rendered="#{expedienteController.selected.tipoDeExpediente eq 'sin carpeta'}"  />
-                    <h:outputText style="font-size: 32px" value="#{expedienteController.selected.cuit}" rendered="#{expedienteController.selected.tipoDeExpediente eq 'sin carpeta'}"/>
-                    
-                    
-                     
+                <div class="carddatoscliente">
+
+
+                    <div class="cards1"  >
+                        <h:outputText value="Documentacion Expediente:" />
+                        <h:outputText style="font-size: 32px" value="#{expedienteController.selected.orden}"/>
+                        <h:outputText value="#{expedienteController.selected.tipoDeExpediente} "/>
+                    </div>
+                    <div class="cards1"  >
+                        <div style="display:flex  ">
+
+                            <h:outputText style="font-weight: 600; margin-right: 10px" value="Apellido y Nombre: " />
+                            <h:outputText value=" "/>
+                            <h:outputText value="#{expedienteController.selected.apellido}" />
+                            <h:outputText value=" "/>
+                            <h:outputText value="#{expedienteController.selected.nombre}"/>
+                            <h:outputText value=" "/>
+
+                        </div><div style="display:flex  ">
+
+
+                            <h:outputText style="font-weight: 600; margin-right: 10px" value="Cuit:  " />
+                            <h:outputText value=" "/>
+
+                            <h:outputText value="#{expedienteController.selected.cuit}" />
+
+                        </div>
+                        <div style="display:flex  ">
+
+
+                            <h:outputText style="font-weight: 600; margin-right: 10px" value="Edad: " />
+                            <h:outputText value=" "/>
+
+                            <h:outputText value="#{expedienteController.selected.edad}" />
+
+                        </div>
+                        <div style="display:flex  ">
+
+
+                            <h:outputText style="font-weight: 600; margin-right: 10px" value="Fecha de Nacimiento:  " />
+                            <h:outputText value=" "/>
+
+                            <h:outputText value="#{expedienteController.selected.fechaDeNacimiento}">
+                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                            </h:outputText>
+
+
+                        </div>
+                        <div style="display:flex  ">
+
+
+                            <h:outputText style="font-weight: 600; margin-right: 10px" value="Estado Civil:  " />
+                            <h:outputText value=" "/>
+
+                            <h:outputText value="#{expedienteController.selected.estadoCivil}" />
+
+                        </div>
+                        <h:outputText value="cuit :  " rendered="#{expedienteController.selected.tipoDeExpediente eq 'sin carpeta'}"  />
+                        <h:outputText style="font-size: 32px" value="#{expedienteController.selected.cuit}" rendered="#{expedienteController.selected.tipoDeExpediente eq 'sin carpeta'}"/>
+
+                    </div>
+
                 </div>
-                <br></br><br></br>
+
                 <h:panelGroup id="display">
                 </h:panelGroup>
-                
-                        <div style="float:right ;width: 48%; margin-top: 1%;" >
-                            
-                            
+
+                <div >
+                    <p:tabView orientation="left" style="width: 100%; height: 100vh;">
+                        <p:tab title="Partidas">
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                      id="toggleable"
-                                     header="PARTIDAS"
-                                     toggleable="true"
+                                     header="Partidas"
+                                     toggleable="false"
                                      closable="false"
-                                     collapsed="true"
+                                     collapsed="false"
                                      toggleSpeed="500"
                                      closeSpeed="500"
                                      widgetVar="panelPartidas"
-                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivoJPG(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+                                     styleClass="panelpartidas"
                                      >
-                           
-                            <div>
-                                <br></br>
-                                                                
-                                <p:growl life="5000" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.file}" mode="simple"/>
-                                
-                                <br></br>
-                                
-                                <p:outputLabel value="Nombre del archivo JPG o PDF 1:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPG(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadJPG(expedienteController.selected.orden)}" ajax="false" />
+                                <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoJPG(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar archivo 1" actionListener="#{fileDownloadBean.downloadJPG(expedienteController.selected.orden)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.file}" />
-                                    </p:commandButton>
+                                        <p:outputLabel value="Nombre del archivo JPG o PDF 1:"  styleClass="titulopdfjpg"/><br></br>
+
+
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPG(expedienteController.selected.orden)}" 
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoJPG(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.file}" mode="simple" styleClass="fileup"/>
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadJPG(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf " value="Descargar archivo" actionListener="#{fileDownloadBean.downloadJPG(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.file}" />
+                                            </p:commandButton>
+                                        </div>
+
+                                    </div><div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoJPGDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+                                        <p:outputLabel value="Nombre del archivo JPG o PDF 2:"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGDos(expedienteController.selected.orden)}" 
+                                                        styleClass="buscararchivo"
+                                                        style=" #{fileDownloadBean.buscarNombreDeArchivoJPGDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"/><br></br>
+
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileDos}" mode="simple" styleClass="fileup"/>
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadJPGDos(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadJPGDos(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileDos}" />
+                                            </p:commandButton>
+                                        </div>   
+
+
+                                    </div><div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoJPGTres(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+                                        <p:outputLabel value="Nombre del archivo JPG o PDF 3:"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGTres(expedienteController.selected.orden)}" 
+                                                        styleClass="buscararchivo"
+                                                        style=" #{fileDownloadBean.buscarNombreDeArchivoJPGTres(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"/><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileTres}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadJPGTres(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton  class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadJPGTres(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileTres}" />
+                                            </p:commandButton>
+                                        </div>
+
+
+                                    </div><div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoJPGCuatro(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}"> 
+                                        <p:outputLabel value="Nombre del archivo JPG o PDF 4:" styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGCuatro(expedienteController.selected.orden)}"
+                                                        styleClass="buscararchivo"  
+                                                        style=" #{fileDownloadBean.buscarNombreDeArchivoJPGCuatro(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"/><br></br>
+
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileCuatro}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadJPGCuatro(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton  class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadJPGCuatro(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileCuatro}" />
+                                            </p:commandButton>
+                                        </div>
+
+                                    </div><div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoJPGCinco(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+                                        <p:outputLabel value="Nombre del archivo JPG o PDF 5:" styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGCinco(expedienteController.selected.orden)}" 
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoJPGCinco(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileCinco}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadJPGCinco(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadJPGCinco(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileCinco}" />
+                                            </p:commandButton>
+                                        </div>
+
+
+                                    </div><div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoPDF(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+                                        <p:outputLabel value="Nombre del archivo JPG o PDF 6:" styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDF(expedienteController.selected.orden)}"
+                                                       styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoPDF(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                       /><br></br>
+
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.filePdf}" mode="simple"/>
+
+
+
+
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadPDF(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadPDF(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.filePdf}" />
+                                            </p:commandButton>
+
+                                        </div>
+                                    </div><div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoPDFDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+
+                                        <p:outputLabel value="Nombre del archivo JPG o PDF 7:"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFDos(expedienteController.selected.orden)}" 
+                                                       styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoPDFDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                       /><br></br>
+
+
+
+
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.filePdfDos}" mode="simple"/>
+
+
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadPDFDos(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadPDFDos(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.filePdfDos}" />
+                                            </p:commandButton>
+                                        </div>    
+
+                                    </div><div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoPDFTres(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+
+
+                                        <p:outputLabel value="Nombre del archivo JPG o PDF 8:"  styleClass="titulopdfjpg"/><br></br>
+
+
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFTres(expedienteController.selected.orden)}" 
+                                                       styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoPDFTres(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                       /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.filePdfTres}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadPDFTres(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadPDFTres(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.filePdfTres}" />
+                                            </p:commandButton>
+
+                                        </div>
+
+
+                                    </div><div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoPDFCuatro(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+
+
+                                        <p:outputLabel value="Nombre del archivo JPG o PDF 9:"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFCuatro(expedienteController.selected.orden)}"
+                                                       styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoPDFCuatro(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                       /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.filePdfCuatro}" mode="simple"/>
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadPDFCuatro(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadPDFCuatro(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.filePdfCuatro}" />
+                                            </p:commandButton>
+
+                                        </div>
+
+
+                                    </div><div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoPDFCinco(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+
+
+                                        <p:outputLabel value="Nombre del archivo JPG o PDF 10:" styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFCinco(expedienteController.selected.orden)}" 
+                                                       styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoPDFCinco(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                       /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.filePdfCinco}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadPDFCinco(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadPDFCinco(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.filePdfCinco}" />
+                                            </p:commandButton>
+                                        </div>
+
+                                    </div>
                                 </div>
-                                
-                                <br></br>
-                                <br></br>
-                                <br></br>
-                                                                
-                                <p:growl life="5000" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileDos}" mode="simple"/>
-                                
-                                <br></br>
-                                
-                                <p:outputLabel value="Nombre del archivo JPG o PDF 7:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGDos(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadJPGDos(expedienteController.selected.orden)}" ajax="false" />
-                                
-                                <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar archivo 2" actionListener="#{fileDownloadBean.downloadJPGDos(expedienteController.selected.orden)}" ajax="false">
-                                    <p:fileDownload value="#{fileDownloadBean.fileDos}" />
-                                </p:commandButton>
-                                </div>   
-
-                                <br></br>
-                                <br></br>
-                                                                
-                                <p:growl life="5000" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileTres}" mode="simple"/>
-                                
-                                <br></br><br></br>
-                                
-                                <p:outputLabel value="Nombre del archivo JPG o PDF 3:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGTres(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadJPGTres(expedienteController.selected.orden)}" ajax="false" />
-
-                                    <p:commandButton  class="botonCrearAgenda hoverBlue" value="Descargar archivo 3" actionListener="#{fileDownloadBean.downloadJPGTres(expedienteController.selected.orden)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileTres}" />
-                                    </p:commandButton>
-                                </div>
-                                <br></br>
-                                <br></br>
-    
-                                
-                                <br></br>
-                                                                
-                                <p:growl life="5000" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileCuatro}" mode="simple"/>
-                                
-                                <br></br><br></br>
-                                
-                                <p:outputLabel value="Nombre del archivo JPG o PDF 4:" style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGCuatro(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadJPGCuatro(expedienteController.selected.orden)}" ajax="false" />
-
-                                    <p:commandButton  class="botonCrearAgenda hoverBlue" value="Descargar archivo 4" actionListener="#{fileDownloadBean.downloadJPGCuatro(expedienteController.selected.orden)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileCuatro}" />
-                                    </p:commandButton>
-                                </div>
-                                <br></br>
-                                <br></br>
-    
-                                <br></br>
-                                                                
-                                <p:growl life="5000" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileCinco}" mode="simple"/>
-                                
-                                <br></br><br></br>
-                                
-                                <p:outputLabel value="Nombre del archivo JPG o PDF 5:" style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGCinco(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadJPGCinco(expedienteController.selected.orden)}" ajax="false" />
-
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar archivo 5" actionListener="#{fileDownloadBean.downloadJPGCinco(expedienteController.selected.orden)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileCinco}" />
-                                    </p:commandButton>
-                                </div>
-                            </div>
-                            
-                             <div >
-                                 <br></br>
-                                
-                                <p:growl life="5000" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.filePdf}" mode="simple"/>
-                                
-                                
-                                <br></br><br></br>
-                                
-                                <p:outputLabel value="Nombre del archivo JPG o PDF 6:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDF(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadPDF(expedienteController.selected.orden)}" ajax="false" />
-
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar archivo 6" actionListener="#{fileDownloadBean.downloadPDF(expedienteController.selected.orden)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.filePdf}" />
-                                    </p:commandButton>
-                                
-                                </div>
-                                </div>
-                                <br></br>
-
-                                <div >
-                                    
-                                    <br></br>
-                                
-                                <p:growl life="5000" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.filePdfDos}" mode="simple"/>
-                                
-                                <br></br>
-                                
-                                <p:outputLabel value="Nombre del archivo JPG o PDF 7:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFDos(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadPDFDos(expedienteController.selected.orden)}" ajax="false" />
-
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar archivo 7" actionListener="#{fileDownloadBean.downloadPDFDos(expedienteController.selected.orden)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.filePdfDos}" />
-                                    </p:commandButton>
-                                </div>    
-                                    
-                                </div>
-                                <br></br>
-
-                                <div > <p:outputLabel value="Archivo JPG o PDF 8:"  style="font-weight: bold"/><br></br>
-                                
-                                <p:growl life="5000" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.filePdfTres}" mode="simple"/>
-                                
-                                
-                                <br></br>
-                                
-                                <br></br>
-                                <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFTres(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadPDFTres(expedienteController.selected.orden)}" ajax="false" />
-
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar archivo 8" actionListener="#{fileDownloadBean.downloadPDFTres(expedienteController.selected.orden)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.filePdfTres}" />
-                                    </p:commandButton>
-                                
-                                </div>
-                                </div>
-                                <br></br>
-
-                                <div >
-                                    <br></br>
-                                
-                                <p:growl life="5000" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.filePdfCuatro}" mode="simple"/>
-                                
-                                
-                                <br></br>
-                                
-                                <p:outputLabel value="Nombre del archivo JPG o PDF 9:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFCuatro(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadPDFCuatro(expedienteController.selected.orden)}" ajax="false" />
-
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar archivo 9" actionListener="#{fileDownloadBean.downloadPDFCuatro(expedienteController.selected.orden)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.filePdfCuatro}" />
-                                    </p:commandButton>
-                                
-                                </div>
-                                
-                                </div>
-                                <br></br>
-
-                                <div >
-                                <br></br>
-                                
-                                <p:growl life="5000" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.filePdfCinco}" mode="simple"/>
-                                
-                                
-                                <br></br>
-                                
-                                <p:outputLabel value="Nombre del archivo JPG o PDF 10:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFCinco(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadPDFCinco(expedienteController.selected.orden)}" ajax="false" />
-
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar archivo 10" actionListener="#{fileDownloadBean.downloadPDFCinco(expedienteController.selected.orden)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.filePdfCinco}" />
-                                    </p:commandButton>
-                                </div>
-                                
-                                </div>
-                                
-                            </p:panel>   
-                            
-                            <br></br>
-                            
+                            </p:panel>
+                        </p:tab>             
+                        <p:tab title="Historial laboral ANSES">
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                      id="HistorialLaboralAnses" 
                                      header="Historial laboral ANSES" 
-                                     toggleable="true" 
+                                     toggleable="false" 
                                      closable="false" 
-                                     collapsed="true" 
+                                     collapsed="false" 
                                      toggleSpeed="500" 
                                      closeSpeed="500" 
                                      widgetVar="panelHistorialLaboralAnses"
-                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralAnses').toString().contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
+
                                      >
-                            
-                                <p:growl life="5000" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileHistorialLaboralAnses}" mode="simple"/>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo Historial laboral ANSES:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralAnses')}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadHistorialLaboralAnses(expedienteController.selected.orden)}" ajax="false" />
-                                
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar Historial laboral ANSES" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'HistorialLaboralAnses')}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileHistorialLaboralAnses}" />
-                                    </p:commandButton>
-                                
+                                <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralAnses').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+
+
+                                        <p:outputLabel value="Nombre del archivo Historial:"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralAnses')}" 
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralAnses').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileHistorialLaboralAnses}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadHistorialLaboralAnses(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'HistorialLaboralAnses')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileHistorialLaboralAnses}" />
+                                            </p:commandButton>
+                                        </div>
+                                    </div>
                                 </div>
-                                
                             </p:panel>   
-                           
+                        </p:tab>
+                        <p:tab title="Historial laboral otras cajas">
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                      id="HistorialLaboralOtrasCajas" 
-                                     header="HISTORIA LABORAL OTRAS CAJAS" 
-                                     toggleable="true" 
+                                     header="Historial laboral otras cajas" 
+                                     toggleable="false" 
                                      closable="false" 
-                                     collapsed="true" 
+                                     collapsed="false" 
                                      toggleSpeed="500" 
                                      closeSpeed="500" 
                                      widgetVar="panelHistorialLaboralOtrasCajas"
-                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralOtrasCajas').toString().contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                      >
-                            
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileHistorialLaboralOtrasCajas}" mode="simple"/>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo Historial laboral Otras Cajas"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralOtrasCajas')}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadHistorialLaboralOtrasCajas(expedienteController.selected.orden)}" ajax="false" />
+                                <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralOtrasCajas').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar Historial laboral Otras cajas" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'HistorialLaboralOtrasCajas')}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileHistorialLaboralOtrasCajas}" />
-                                    </p:commandButton>
+
+                                        <p:outputLabel value="Nombre del archivo Historial "  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralOtrasCajas')}"
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralOtrasCajas').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileHistorialLaboralOtrasCajas}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadHistorialLaboralOtrasCajas(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar Archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'HistorialLaboralOtrasCajas')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileHistorialLaboralOtrasCajas}" />
+                                            </p:commandButton>
+                                        </div>
+                                    </div><div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralOtrasCajasDos').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+
+
+                                        <p:outputLabel value="Nombre del archivo Historial 2"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralOtrasCajasDos')}" 
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralOtrasCajasDos').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileHistorialLaboralOtrasCajasDos}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadHistorialLaboralOtrasCajasDos(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar Archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'HistorialLaboralOtrasCajasDos')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileHistorialLaboralOtrasCajasDos}" />
+                                            </p:commandButton>
+                                        </div>    
+                                    </div>
                                 </div>
-                            
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileHistorialLaboralOtrasCajasDos}" mode="simple"/>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo Historial laboral Otras Cajas dos"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralOtrasCajasDos')}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadHistorialLaboralOtrasCajasDos(expedienteController.selected.orden)}" ajax="false" />
-                                
-                                <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar Historial laboral Otras cajas dos" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'HistorialLaboralOtrasCajasDos')}" ajax="false">
-                                    <p:fileDownload value="#{fileDownloadBean.fileHistorialLaboralOtrasCajasDos}" />
-                                </p:commandButton>
-                                </div>    
-                                
-                                
                             </p:panel>   
-                           
+                        </p:tab>
+                        <p:tab title="AFIP: datos personales / pagos / otros">
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                      id="AfipDatosPersonalesPagosOtros" 
-                                     header="AFIP: DATOS PERSONALES / PAGOS / OTROS" 
-                                     toggleable="true" 
+                                     header="AFIP: datos personales / pagos / otros" 
+                                     toggleable="false" 
                                      closable="false" 
-                                     collapsed="true" 
+                                     collapsed="false" 
                                      toggleSpeed="500" 
                                      closeSpeed="500" 
                                      widgetVar="panelAfipDatosPersonalesPagosOtros"
-                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros').toString().contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                      >
-                            
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileAfipDatosPersonalesPagosOtros}" mode="simple"/>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo AfipDatosPersonalesPagosOtros"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros')}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadAfipDatosPersonalesPagosOtros(expedienteController.selected.orden)}" ajax="false" />
+                                <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar AfipDatosPersonalesPagosOtros" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros')}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileAfipDatosPersonalesPagosOtros}" />
-                                    </p:commandButton>
-                                </div>    
-                                <br></br><br></br>
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileAfipDatosPersonalesPagosOtrosDos}" mode="simple"/>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo Historial laboral Otras Cajas dos"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosDos')}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadAfipDatosPersonalesPagosOtrosDos(expedienteController.selected.orden)}" ajax="false" />
-                                
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar AfipDatosPersonalesPagosOtros dos" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosDos')}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileAfipDatosPersonalesPagosOtrosDos}" />
-                                    </p:commandButton>
-                                
+                                        <p:outputLabel value="Nombre del archivo Afip"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros')}"
+
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileAfipDatosPersonalesPagosOtros}" mode="simple"/>
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadAfipDatosPersonalesPagosOtros(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar Archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileAfipDatosPersonalesPagosOtros}" />
+                                            </p:commandButton>
+                                        </div>  </div>   
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosDos').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+
+                                        <p:outputLabel value="Nombre del archivo Afip 2"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosDos')}" 
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosDos').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileAfipDatosPersonalesPagosOtrosDos}" mode="simple"/>
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadAfipDatosPersonalesPagosOtrosDos(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar Archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosDos')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileAfipDatosPersonalesPagosOtrosDos}" />
+                                            </p:commandButton>
+
+                                        </div>
+                                    </div>
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosTres').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileAfipDatosPersonalesPagosOtrosTres}" mode="simple"/>
+                                        <br></br>
+                                        <p:outputLabel value="Nombre del archivo Afip 3"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosTres')}" 
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosTres').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadAfipDatosPersonalesPagosOtrosTres(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar Archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosTres')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileAfipDatosPersonalesPagosOtrosTres}" />
+                                            </p:commandButton>
+                                        </div> </div>
                                 </div>
-                                
-                            <br></br><br></br>
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileAfipDatosPersonalesPagosOtrosTres}" mode="simple"/>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo Historial laboral Otras Cajas tres"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosTres')}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadAfipDatosPersonalesPagosOtrosTres(expedienteController.selected.orden)}" ajax="false" />
-                                
-                                <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar AfipDatosPersonalesPagosOtros tres" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosTres')}" ajax="false">
-                                    <p:fileDownload value="#{fileDownloadBean.fileAfipDatosPersonalesPagosOtrosTres}" />
-                                </p:commandButton>
-                                </div>
-                                
                             </p:panel>   
-                           
-                            
-                            </div>                            
-                            <br></br>
-                        <div class="width50" style="float:right;">
-                            <div>
+                        </p:tab>
+                        <p:tab title="Archivos frente y dorso dni para Exp. Sin Carpeta"
+                               rendered="#{expedienteController.selected.tipoDeExpediente eq 'sin carpeta'}"
+                               >
+
+
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'sin carpeta'}"
                                      id="frenteDniExpSinCarpeta" header="Archivos frente y dorso dni para Exp. Sin Carpeta" 
-                                     toggleable="true" 
+                                     toggleable="false" 
                                      closable="false" 
-                                     collapsed="true"
+                                     collapsed="false"
                                      toggleSpeed="500"
                                      closeSpeed="500"
                                      style="margin-bottom:20px"
                                      >
-                            
-                                <p:outputLabel value="Frente dni para exp. sin carpeta:"  style="font-weight: bold"/><br></br>
-                                                                
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.frenteDniExpSinCarpeta}" mode="simple"/>
-                                
-                                <br></br>
-                                
-                                <p:outputLabel value="frente dni para Exp. Sin Carpeta:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarFrenteDniParaExpSinCarpeta(expedienteController.selected.cuit)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadFrenteDniParaExpSinCarpeta(expedienteController.selected.cuit)}" ajax="false" />
-                                
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar frente dni exp. sin carpeta" actionListener="#{fileDownloadBean.downloadFrenteDnideExpSinCarpeta(expedienteController.selected.cuit)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.frenteDniExpSinCarpeta}" />
-                                    </p:commandButton>
-                                </div>
-                                
-                                <br></br>
-                                <br></br>
-                                
-                                 <p:outputLabel value="Dorso dni para exp. sin carpeta:"  style="font-weight: bold"/><br></br>
-                                                                
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.dorsoDniExpSinCarpeta}" mode="simple"/>
-                                
-                                <br></br>
-                                
-                                <p:outputLabel value="Dorso dni para Exp. Sin Carpeta:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarDorsoDniParaExpSinCarpeta(expedienteController.selected.cuit)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadDorsoDniParaExpSinCarpeta(expedienteController.selected.cuit)}" ajax="false" />
-                                
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar dorso dni exp. sin carpeta" actionListener="#{fileDownloadBean.downloadDorsoDnideExpSinCarpeta(expedienteController.selected.cuit)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.dorsoDniExpSinCarpeta}" />
-                                    </p:commandButton>
-                                </div>
-                            </p:panel>
-                            </div>
-                            <div>
-                                <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
-                                         id="cronoDeAportes" 
-                                         header="Crono. de aportes"
-                                         toggleable="true"
-                                         closable="false"
-                                         collapsed="true"
-                                         toggleSpeed="500"
-                                         closeSpeed="500" 
-                                         style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivoCronoDeAportes(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
-                                         >
-                            
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileCronoDeAportes}" mode="simple"/>
-                                
-                                <br></br>
-                                
-                                <p:outputLabel value="Nombre del archivo Crono. de aportes:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoCronoDeAportes(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadCronoDeAportes(expedienteController.selected.orden)}" ajax="false" />
-                                
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar Crono. de aportes" actionListener="#{fileDownloadBean.downloadCronoDeAportes(expedienteController.selected.orden)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileCronoDeAportes}" />
-                                    </p:commandButton>
-                                </div>
-                                    <br></br>
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileCronoDeAportesDos}" mode="simple"/>
-                                
-                                <br></br>
-                                
-                                <p:outputLabel value="Nombre del archivo Crono. de aportes Dos:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoCronoDeAportesDos(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadCronoDeAportesDos(expedienteController.selected.orden)}" ajax="false" />
+                                <div class="contenedorcard"  >
+                                    <div class="cards1" >
 
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar Crono. de aportes Dos" actionListener="#{fileDownloadBean.downloadCronoDeAportesDos(expedienteController.selected.orden)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileCronoDeAportesDos}" />
-                                    </p:commandButton>
-                                </div>
+                                        <p:outputLabel value="Frente dni para exp. sin carpeta:"  styleClass="titulopdfjpg"/><br></br>
+
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.frenteDniExpSinCarpeta}" mode="simple"/>
+
+                                        <br></br>
+
+                                        <p:outputLabel value="frente dni para Exp. Sin Carpeta:"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarFrenteDniParaExpSinCarpeta(expedienteController.selected.cuit)}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadFrenteDniParaExpSinCarpeta(expedienteController.selected.cuit)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar frente dni" actionListener="#{fileDownloadBean.downloadFrenteDnideExpSinCarpeta(expedienteController.selected.cuit)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.frenteDniExpSinCarpeta}" />
+                                            </p:commandButton>
+                                        </div>
+                                    </div> <div class="cards1">
+
+
+
+                                        <p:outputLabel value="Dorso dni para exp. sin carpeta:"  styleClass="titulopdfjpg"/><br></br>
+
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.dorsoDniExpSinCarpeta}" mode="simple"/>
+
+                                        <br></br>
+
+                                        <p:outputLabel value="Dorso dni para Exp. Sin Carpeta:"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarDorsoDniParaExpSinCarpeta(expedienteController.selected.cuit)}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadDorsoDniParaExpSinCarpeta(expedienteController.selected.cuit)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar dorso dni" actionListener="#{fileDownloadBean.downloadDorsoDnideExpSinCarpeta(expedienteController.selected.cuit)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.dorsoDniExpSinCarpeta}" />
+                                            </p:commandButton>
+                                        </div></div></div>
                             </p:panel>
-                            </div>
-                            <br></br>
+                        </p:tab>
+
+                        <p:tab title="Crono. de aportes">
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
+                                     id="cronoDeAportes" 
+                                     header="Crono. de aportes"
+                                     toggleable="false"
+                                     closable="false"
+                                     collapsed="false"
+                                     toggleSpeed="500"
+                                     closeSpeed="500" 
+                                     >
+                                <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoCronoDeAportes(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+
+                                        <p:outputLabel value="Nombre del archivo 1:"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoCronoDeAportes(expedienteController.selected.orden)}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoCronoDeAportes(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileCronoDeAportes}" mode="simple"/>
+
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadCronoDeAportes(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadCronoDeAportes(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileCronoDeAportes}" />
+                                            </p:commandButton>
+                                        </div></div>
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoCronoDeAportesDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+
+
+                                        <p:outputLabel value="Nombre del archivo 2:"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoCronoDeAportesDos(expedienteController.selected.orden)}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoCronoDeAportesDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileCronoDeAportesDos}" mode="simple"/>
+
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadCronoDeAportesDos(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadCronoDeAportesDos(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileCronoDeAportesDos}" />
+                                            </p:commandButton>
+                                        </div></div></div>
+                            </p:panel>
+                        </p:tab>
+                        <p:tab title="DNI">
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                      id="panelFrenteDni"
                                      header="DNI"
-                                     toggleable="true"
+                                     toggleable="false"
                                      closable="false" 
-                                     collapsed="true" 
+                                     collapsed="false" 
                                      toggleSpeed="500"
                                      closeSpeed="500" 
-                                     style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivoFrenteDni(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                      >
-                            
-                            <p:outputLabel value="Frente DNI:"  style="font-weight: bold"/><br></br>
-                                                                
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileFrenteDni}" mode="simple"/>
-                                
-                                <br></br>
-                                
-                                <p:outputLabel value="Nombre del archivo Frente DNI:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoFrenteDni(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadFrenteDni(expedienteController.selected.orden)}" ajax="false" />
+                                <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoFrenteDni(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadFrenteDni(expedienteController.selected.orden)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileFrenteDni}" />
-                                    </p:commandButton>
-                                </div>
-                                <br></br><br></br>
-                            <p:outputLabel value="Dorso DNI:"  style="font-weight: bold"/><br></br>
-                                                                
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileDorsoDni}" mode="simple"/>
-                                
-                                <br></br>
-                                
-                                <p:outputLabel value="Nombre del archivo Dorso DNI:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoDorsoDni(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadDorsoDni(expedienteController.selected.orden)}" ajax="false" />
 
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadDorsoDni(expedienteController.selected.orden)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileDorsoDni}" />
-                                    </p:commandButton>
-                                </div>   
-                            </p:panel>    
+
+
+
+
+
+                                        <p:outputLabel value="Nombre del archivo Frente DNI:"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoFrenteDni(expedienteController.selected.orden)}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoFrenteDni(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileFrenteDni}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadFrenteDni(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadFrenteDni(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileFrenteDni}" />
+                                            </p:commandButton>
+                                        </div></div>
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoDorsoDni(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+
+
+
+
+
+
+                                        <p:outputLabel value="Nombre del archivo Dorso DNI:"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoDorsoDni(expedienteController.selected.orden)}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoDorsoDni(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileDorsoDni}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadDorsoDni(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadDorsoDni(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileDorsoDni}" />
+                                            </p:commandButton>
+                                        </div>   </div> </div> 
+                            </p:panel>  </p:tab>
+                        <p:tab title="Otra Documentación">
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
                                      id="panelOtraDocumentacion" 
                                      header="Otra Documentación" 
-                                     toggleable="true" 
+                                     toggleable="false" 
                                      closable="false" 
-                                     collapsed="true"
+                                     collapsed="false"
                                      toggleSpeed="500"
                                      closeSpeed="500"  
-                                     style="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                      >
-                                
-                                <p:outputLabel value="Otra Documentación:"  style="font-weight: bold"/><br></br>
-                                                                
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileOtraDocumentacion}" mode="simple"/>
-                                
-                                <br></br>
-                                
-                                <p:outputLabel value="Nombre del archivo Otra Documentación 1:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadOtraDocumentacion(expedienteController.selected.orden)}" ajax="false" />
+                                <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                    <p:commandButton  class="botonCrearAgenda hoverBlue" value="Descargar Otra Documentación 1" actionListener="#{fileDownloadBean.downloadOtraDocumentacion(expedienteController.selected.orden)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileOtraDocumentacion}" />
-                                    </p:commandButton>
-                                </div>
-                                <br></br>
-                                <br></br>
-                                <p:outputLabel value="Otra Documentación 2:"  style="font-weight: bold"/><br></br>
-                                             <br></br>                   
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileOtraDocumentacionDos}" mode="simple"/>
-                                
-                                <br></br>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo Otra Documentación 2:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionDos(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadOtraDocumentacionDos(expedienteController.selected.orden)}" ajax="false" />
+                                        <p:outputLabel value="Otra Documentación:"  styleClass="titulopdfjpg"/><br></br>
 
-                                    <p:commandButton  class="botonCrearAgenda hoverBlue" value="Descargar Otra Documentación 2" actionListener="#{fileDownloadBean.downloadOtraDocumentacionDos(expedienteController.selected.orden)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileOtraDocumentacionDos}" />
-                                    </p:commandButton>
-                                </div>
-                                
-                                <br></br><br></br>
-                                <p:outputLabel value="Otra Documentación 3:"  style="font-weight: bold"/><br></br>
-                                                                
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileOtraDocumentacionTres}" mode="simple"/>
-                                
-                                <br></br>
-                                
-                                <p:outputLabel value="Nombre del archivo Otra Documentación 3:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionTres(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadOtraDocumentacionTres(expedienteController.selected.orden)}" ajax="false" />
 
-                                    <p:commandButton  class="botonCrearAgenda hoverBlue" value="Descargar Otra Documentación 3" actionListener="#{fileDownloadBean.downloadOtraDocumentacionTres(expedienteController.selected.orden)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileOtraDocumentacionTres}" />
-                                    </p:commandButton>
-                                </div>
-                            </p:panel>
-                                <br></br>
-                                <br></br>
+
+
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden)}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileOtraDocumentacion}" mode="simple"/>
+
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadOtraDocumentacion(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton  class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadOtraDocumentacion(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileOtraDocumentacion}" />
+                                            </p:commandButton>
+                                        </div></div>
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+                                        <p:outputLabel value="Otra Documentación 2:"  styleClass="titulopdfjpg"/><br></br>
+
+
+
+
+
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionDos(expedienteController.selected.orden)}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileOtraDocumentacionDos}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadOtraDocumentacionDos(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton  class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadOtraDocumentacionDos(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileOtraDocumentacionDos}" />
+                                            </p:commandButton>
+                                        </div>
+
+                                    </div>
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionTres(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+                                        <p:outputLabel value="Otra Documentación 3:"  styleClass="titulopdfjpg"/><br></br>
+
+
+
+
+
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionTres(expedienteController.selected.orden)}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionTres(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileOtraDocumentacionTres}" mode="simple"/>
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadOtraDocumentacionTres(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton  class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadOtraDocumentacionTres(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileOtraDocumentacionTres}" />
+                                            </p:commandButton>
+                                        </div></div></div>
+                            </p:panel></p:tab>
+
+                        <p:tab title="Carta Poder">
                             <p:panel
                                 rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
                                 id="panelCartaPoder"
                                 header="Carta Poder"
-                                toggleable="true"
+                                toggleable="false"
                                 closable="false"
-                                collapsed="true"
+                                collapsed="false"
                                 toggleSpeed="500"
                                 closeSpeed="500"
-                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'CartaPoder').contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                 >
-                                <p:outputLabel value="Carta Poder:"  style="font-weight: bold"/><br></br>
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileCartaPoder}" mode="simple"/>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo Carta Poder:"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'CartaPoder')}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadCartaPoder(expedienteController.selected.orden)}" ajax="false" />
+                                <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'CartaPoder').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar Carta Poder" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'CartaPoder')}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileCartaPoder}" />
-                                    </p:commandButton>
-                                </div>
-                            
-                            </p:panel>
-                            <br></br>
-                            <br></br>
+
+                                        <p:outputLabel value="Nombre del archivo Carta Poder:"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'CartaPoder')}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'CartaPoder').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileCartaPoder}" mode="simple"/>
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadCartaPoder(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'CartaPoder')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileCartaPoder}" />
+                                            </p:commandButton>
+                                        </div></div></div>
+
+                            </p:panel></p:tab>
+                        <br></br>
+                        <br></br>
+                        <p:tab title="Exp Administrativo">
                             <p:panel
                                 rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                 id="panelExpAdministrativo" 
                                 header="Exp Administrativo" 
-                                toggleable="true"
+                                toggleable="false"
                                 closable="false" 
-                                collapsed="true" 
+                                collapsed="false" 
                                 toggleSpeed="500" 
                                 closeSpeed="500"  
-                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ExpAdministrativo').contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                 >
-                                <p:outputLabel value="Exp Administrativo:"  style="font-weight: bold"/>
-                                <br></br>
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload value="#{fileUploadBean.fileExpAdministrativo}" mode="simple"/>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo Exp Administrativo:"  style="font-weight: bold"/>
-                                <br></br>
-                                <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ExpAdministrativo')}"  style="font-weight: bold; color: #123A6D"/>
-                                <br></br>
+                                <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ExpAdministrativo').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                <!-- Contenedor flex para los botones -->
-                                <div style="display: flex; gap: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadExpAdministrativo(expedienteController.selected.orden)}" ajax="false" />
 
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar Exp. Administrativo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'ExpAdministrativo')}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileExpAdministrativo}" />
-                                    </p:commandButton>
-                                </div>
-                                
-                                
-                                <p:outputLabel value="Exp Administrativo dos:"  style="font-weight: bold"/>
-                                <br></br>
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload value="#{fileUploadBean.fileExpAdministrativoDos}" mode="simple"/>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo Exp Administrativo Dos:"  style="font-weight: bold"/>
-                                <br></br>
-                                <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ExpAdministrativoDos')}"  style="font-weight: bold; color: #123A6D"/>
-                                <br></br>
+                                        <p:outputLabel value="Nombre del archivo Exp Administrativo:"  styleClass="titulopdfjpg"/>
+                                        <br></br>
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ExpAdministrativo')}" 
+                                                       styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ExpAdministrativo').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                       />
+                                        <br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload value="#{fileUploadBean.fileExpAdministrativo}" mode="simple"/>
 
-                                <!-- Contenedor flex para los botones -->
-                                <div style="display: flex; gap: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadExpAdministrativoDos(expedienteController.selected.orden)}" ajax="false" />
+                                        <!-- Contenedor flex para los botones -->
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadExpAdministrativo(expedienteController.selected.orden)}" ajax="false" />
 
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar Exp. Administrativo Dos" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'ExpAdministrativoDos')}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileExpAdministrativoDos}" />
-                                    </p:commandButton>
-                                </div>
-                                
-                                
-                                
-                            </p:panel>
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'ExpAdministrativo')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileExpAdministrativo}" />
+                                            </p:commandButton>
+                                        </div></div></div>
+                            </p:panel></p:tab>
 
-                            <br></br>
-                            <br></br>
+                        <br></br>
+                        <br></br>
+                        <p:tab title="Recibos">
                             <p:panel 
                                 rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                 id="recibos"
                                 header="Recibos" 
-                                toggleable="true"
+                                toggleable="false"
                                 closable="false" 
-                                collapsed="true" 
+                                collapsed="false" 
                                 toggleSpeed="500"
                                 closeSpeed="500" 
-                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Recibos').contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'}"
-                            >
-                                <p:outputLabel value="Archivos Recibos:" style="font-weight: bold"/>
-                                <br></br>
-                                <p:growl life="2500" showDetail="true"  />
-                                <p:fileUpload value="#{fileUploadBean.fileRecibos}" mode="simple"/>
+                                >
+                                <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Recibos').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo Recibos:" style="font-weight: bold"/>
-                                <br></br>
-                                <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Recibos')}" style="font-weight: bold; color: #123A6D"/>
-                                <br></br>
-                                <!-- Contenedor flex para los botones -->
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'Recibos')}" ajax="false" />
 
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar Recibos" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'Recibos')}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileRecibos}" />
-                                    </p:commandButton>
-                                </div>
 
-                            </p:panel>
+                                        <p:outputLabel value="Nombre del archivo Recibos:" styleClass="titulopdfjpg"/>
+                                        <br></br>
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Recibos')}" 
+                                                       styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Recibos').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                       />
+                                        <br></br>
+                                        <p:growl life="2500" showDetail="true"  />
+                                        <p:fileUpload value="#{fileUploadBean.fileRecibos}" mode="simple"/>
 
-                            <br></br>
-                            <br></br>
+                                        <!-- Contenedor flex para los botones -->
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'Recibos')}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar Recibos" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'Recibos')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileRecibos}" />
+                                            </p:commandButton>
+                                        </div>
+                                    </div> </div>
+                            </p:panel></p:tab>
+
+                        <br></br>
+                        <br></br>
+                        <p:tab title="Liquidación BlueCorp">
                             <p:panel 
                                 rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                 id="liquidacionBlueCorp" 
                                 header="Liquidación BlueCorp" 
-                                toggleable="true" 
+                                toggleable="false" 
                                 closable="false"
-                                collapsed="true"
+                                collapsed="false"
                                 toggleSpeed="500" 
                                 closeSpeed="500" 
-                                style="#{fileDownloadBean.buscarNombreDeArchivoBlueCorp(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                 >
-                                
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorp}" mode="simple"/>
+                                <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorp(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+                                     
+
+                                        <p:outputLabel value="Nombre del archivo Liquidación BlueCorp"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorp(expedienteController.selected.orden)}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorp(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+   <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorp}" mode="simple"/>
+                                      
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadBlueCorp(expedienteController.selected.orden)}" ajax="false" />
+                                            <br></br>
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadBlueCorp(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileLiquidacionBlueCorp}" />
+                                            </p:commandButton>
+                                        </div> </div>
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorpDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+                                    
+                                        <p:outputLabel value="Nombre del archivo Liquidación BlueCorp 2"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorpDos(expedienteController.selected.orden)}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorpDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+  <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorpDos}" mode="simple"/>
+                                      
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadBlueCorpDos(expedienteController.selected.orden)}" ajax="false" />
+                                            <br></br>
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadBlueCorpDos(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileLiquidacionBlueCorpDos}" />
+                                            </p:commandButton>
+                                        </div> </div>
+
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorpTres(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+
+                                      
+                                        <p:outputLabel value="Nombre del archivo Liquidación BlueCorp 3"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorpTres(expedienteController.selected.orden)}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorpTres(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+ <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorpTres}" mode="simple"/>
+                                       
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadBlueCorpTres(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton  class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadBlueCorpTres(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileLiquidacionBlueCorpTres}" />
+                                            </p:commandButton>
+                                        </div> </div> </div>
+
                                 <br></br>
-                                
-                                <p:outputLabel value="Nombre del archivo Liquidación BlueCorp"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorp(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadBlueCorp(expedienteController.selected.orden)}" ajax="false" />
-                                    <br></br>
-                                
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar Liquidación BlueCorp 1" actionListener="#{fileDownloadBean.downloadBlueCorp(expedienteController.selected.orden)}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileLiquidacionBlueCorp}" />
-                                    </p:commandButton>
-                                </div>
-                                <br></br>
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorpDos}" mode="simple"/>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo Liquidación BlueCorp 2"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorpDos(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                
-                                <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadBlueCorpDos(expedienteController.selected.orden)}" ajax="false" />
-                                <br></br>
-                                <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar Liquidación BlueCorp 2" actionListener="#{fileDownloadBean.downloadBlueCorpDos(expedienteController.selected.orden)}" ajax="false">
-                                    <p:fileDownload value="#{fileDownloadBean.fileLiquidacionBlueCorpDos}" />
-                                </p:commandButton>
-                                </div>
-                                
-                                <br></br>
-                            
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorpTres}" mode="simple"/>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo Liquidación BlueCorp 3"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorpTres(expedienteController.selected.orden)}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                
-                                <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadBlueCorpTres(expedienteController.selected.orden)}" ajax="false" />
-                                
-                                <p:commandButton  class="botonCrearAgenda hoverBlue" value="Descargar Liquidación BlueCorp 3" actionListener="#{fileDownloadBean.downloadBlueCorpTres(expedienteController.selected.orden)}" ajax="false">
-                                    <p:fileDownload value="#{fileDownloadBean.fileLiquidacionBlueCorpTres}" />
-                                </p:commandButton>
-                                </div>
-                                
-                                <br></br>
-                            
-                            </p:panel>
-                            <br></br>
-                            <br></br>
+
+                            </p:panel></p:tab>
+                        <br></br>
+                        <br></br>
+                        <p:tab title="Resolución Denegatoria">
                             <p:panel 
                                 rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                 id="resolucionDenegatoria" header="Resolución Denegatoria"
-                                toggleable="true"
+                                toggleable="false"
                                 closable="false"
-                                collapsed="true"
+                                collapsed="false"
                                 toggleSpeed="500"
                                 closeSpeed="500" 
-                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ResolucionDenegatoria').contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                 >
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileResolucionDenegatoria}" mode="simple"/>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo Resolución Denegatoria"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ResolucionDenegatoria')}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                
-                                    <p:commandButton class="botonCrearAgenda hoverBlue" value="Descargar Resolución Denegatoria" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'ResolucionDenegatoria')}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileResolucionDenegatoria}" />
-                                    </p:commandButton>
+                                <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ResolucionDenegatoria').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'ResolucionDenegatoria')}" ajax="false" />
-                                
-                                </div>
-                            </p:panel>
-                            <br></br>
-                            <br></br>
+
+                                        <p:outputLabel value="Nombre del archivo Resolución Denegatoria:"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ResolucionDenegatoria')}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ResolucionDenegatoria').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileResolucionDenegatoria}" mode="simple"/>
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+
+
+
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'ResolucionDenegatoria')}" ajax="false" />
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'ResolucionDenegatoria')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileResolucionDenegatoria}" />
+                                            </p:commandButton>
+                                        </div></div></div>
+                            </p:panel></p:tab>
+                        <br></br>
+                        <br></br>
+                        <p:tab title="Convenio de honorarios">
                             <p:panel
                                 rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                 id="convenioDeHonorarios" 
                                 header="Convenio de honorarios" 
-                                toggleable="true" 
+                                toggleable="false" 
                                 closable="false" 
-                                collapsed="true" 
+                                collapsed="false" 
                                 toggleSpeed="500" 
                                 closeSpeed="500"  
-                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios').contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                 >
-                                <p:growl life="2500" showDetail="true"/>
-                                <p:fileUpload  value="#{fileUploadBean.fileConvenioDeHonorarios}" mode="simple"/>
-                                <br></br>
-                                <p:outputLabel value="Nombre del archivo Convenio de honorarios"  style="font-weight: bold"/><br></br>
-                                <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios')}"  style="font-weight: bold;color: #123A6D"/><br></br>
-                                
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                
-                                    <p:commandButton  class="botonCrearAgenda hoverBlue" value="Descargar Convenio de honorarios" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'ConvenioDeHonorarios')}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileConvenioDeHonorarios}" />
-                                    </p:commandButton>
+                                <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                    <p:commandButton icon="fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'ConvenioDeHonorarios')}" ajax="false" />
-                                </div>
-                                
-                            </p:panel>
-                            <br></br>
-                            <br></br>
+                                        
+                                        <p:outputLabel value="Nombre del archivo Convenio de honorarios"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios')}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileConvenioDeHonorarios}" mode="simple"/>
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'ConvenioDeHonorarios')}" ajax="false" />
+
+                                            <p:commandButton  class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'ConvenioDeHonorarios')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileConvenioDeHonorarios}" />
+                                            </p:commandButton>
+
+                                        </div> </div></div>
+
+                            </p:panel></p:tab>
+                        <br></br>
+                        <br></br>
+                        <p:tab title="Constancia de CBU">
                             <p:panel 
                                 rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                 id="constanciaDeCbu" 
                                 header="Constancia de CBU" 
-                                toggleable="true"
+                                toggleable="false"
                                 closable="false" 
-                                collapsed="true" 
+                                collapsed="false" 
                                 toggleSpeed="500"
                                 closeSpeed="500" 
-                                style="margin-bottom:20px; #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu').contains('no existe archivo') ? 'background-color: #e87474;' : 'background-color: #80d3bb;'} margin-bottom:20px;"
                                 >
-                                <p:growl life="2500" showDetail="true"/>
+                                <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                <!-- Icono de subir archivo -->
-                                <p:fileUpload value="#{fileUploadBean.fileConstanciaDeCbu}" mode="simple"/>
-                                <br/>
 
-                                <!-- Icono de archivo -->
-                                <p:outputLabel value="Nombre del archivo Constancia de CBU" style="font-weight: bold"/><br/>
-                                <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu')}" style="font-weight: bold; color: #123A6D"/>
-                                <br/>
 
-                                <!-- Icono de descarga -->
-                                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                
-                                    <p:commandButton icon="fa fa-upload" value="Subir archivo" class="botonCrearAgenda hoverBlue" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'ConstanciaDeCbu')}" ajax="false" />
+                                        <!-- Icono de archivo -->
+                                        <p:outputLabel value="Nombre del archivo Constancia de CBU" styleClass="titulopdfjpg"/><br/>
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu')}" 
+                                                       styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                       />
+                                        <br/>
+                                        <p:growl life="2500" showDetail="true"/>
 
-                                    <p:commandButton icon="fa fa-download" class="botonCrearAgenda hoverBlue" value="Descargar Constancia de CBU" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'ConstanciaDeCbu')}" ajax="false">
-                                        <p:fileDownload value="#{fileDownloadBean.fileConstanciaDeCbu}" />
-                                    </p:commandButton>
-                                
-                                </div>
-                                
-                            </p:panel>
+                                        <!-- Icono de subir archivo -->
+                                        <p:fileUpload value="#{fileUploadBean.fileConstanciaDeCbu}" mode="simple"/>
 
- </div>     
-                            <br></br>
-                            <br></br>
+                                        <!-- Icono de descarga -->
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+
+                                            <p:commandButton icon="fa fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'ConstanciaDeCbu')}" ajax="false" />
+
+                                            <p:commandButton  class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'ConstanciaDeCbu')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileConstanciaDeCbu}" />
+                                            </p:commandButton>
+
+                                        </div></div></div>
+
+                            </p:panel></p:tab>
+                    </p:tabView>
+                </div>     
+                <br></br>
+                <br></br>
             </h:form>
         </p:dialog>
 

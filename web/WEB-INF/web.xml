@@ -18,6 +18,7 @@
             30
         </session-timeout>
     </session-config>
+    
     <welcome-file-list>
         <welcome-file>faces/login.xhtml</welcome-file>
     </welcome-file-list>
@@ -36,5 +37,17 @@
         <extension>otf</extension>
         <mime-type>fonts/Gotham-BookItalic.otf</mime-type>
     </mime-mapping>     
+        
+   <context-param>
+        <param-name>org.primefaces.CACHE_RESOURCE_TTL</param-name>
+        <param-value>604800000</param-value> <!-- 7 días en ms -->
+    </context-param>     
+   
+   <error-page>
+    <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+    <location>/faces/login.xhtml</location>
+</error-page>
+
+    
         
 </web-app>

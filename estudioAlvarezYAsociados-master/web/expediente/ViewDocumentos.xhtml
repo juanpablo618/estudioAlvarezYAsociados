@@ -84,7 +84,13 @@
 
                 <div >
                     <p:tabView orientation="left" style="width: 100%; height: 100vh;">
-                        <p:tab title="Partidas">
+                        <p:tab >
+                            <f:facet name="title">
+                                Partidas prueba 
+                                <span class="circle-badge"  style=" #{fileDownloadBean.cantidadPartidas(expedienteController.selected.orden) == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
+                                    #{fileDownloadBean.cantidadPartidas(expedienteController.selected.orden)}
+                                </span>
+                            </f:facet>
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                      id="toggleable"
                                      header="Partidas"
@@ -296,7 +302,14 @@
                                 </div>
                             </p:panel>
                         </p:tab>             
-                        <p:tab title="Historial laboral ANSES">
+                        <p:tab>
+
+                            <f:facet name="title">
+                                Historial laboral ANSES
+                                <span class="circle-badge"  style=" #{fileDownloadBean.cantidadarchivos(expedienteController.selected.orden, 'HistorialLaboralAnses') == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
+                                    #{fileDownloadBean.cantidadarchivos(expedienteController.selected.orden, 'HistorialLaboralAnses')}
+                                </span>
+                            </f:facet>
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                      id="HistorialLaboralAnses" 
                                      header="Historial laboral ANSES" 
@@ -330,7 +343,13 @@
                                 </div>
                             </p:panel>   
                         </p:tab>
-                        <p:tab title="Historial laboral otras cajas">
+                        <p:tab >
+                            <f:facet name="title">
+                                Historial laboral otras cajas
+                                <span class="circle-badge"  style=" #{fileDownloadBean.cantidadarchivosotrascajas(expedienteController.selected.orden, 'HistorialLaboralOtrasCajas', 'HistorialLaboralOtrasCajasDos') == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
+                                    #{fileDownloadBean.cantidadarchivosotrascajas(expedienteController.selected.orden, 'HistorialLaboralOtrasCajas', 'HistorialLaboralOtrasCajasDos')}
+                                </span>
+                            </f:facet>
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                      id="HistorialLaboralOtrasCajas" 
                                      header="Historial laboral otras cajas" 
@@ -379,7 +398,13 @@
                                 </div>
                             </p:panel>   
                         </p:tab>
-                        <p:tab title="AFIP: datos personales / pagos / otros">
+                        <p:tab >
+                            <f:facet name="title">
+                                AFIP: datos personales / pagos / otros
+                                <span class="circle-badge"  style=" #{fileDownloadBean.otrospagos(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros', 'AfipDatosPersonalesPagosOtrosDos','AfipDatosPersonalesPagosOtrosTres') == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
+                                    #{fileDownloadBean.otrospagos(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros', 'AfipDatosPersonalesPagosOtrosDos','AfipDatosPersonalesPagosOtrosTres')}
+                                </span>
+                            </f:facet>
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                      id="AfipDatosPersonalesPagosOtros" 
                                      header="AFIP: datos personales / pagos / otros" 
@@ -430,14 +455,14 @@
                                     </div>
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosTres').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                        <p:growl life="2500" showDetail="true"/>
-                                        <p:fileUpload  value="#{fileUploadBean.fileAfipDatosPersonalesPagosOtrosTres}" mode="simple"/>
-                                        <br></br>
+
+
                                         <p:outputLabel value="Nombre del archivo Afip 3"  styleClass="titulopdfjpg"/><br></br>
                                         <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosTres')}" 
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosTres').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
-
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileAfipDatosPersonalesPagosOtrosTres}" mode="simple"/>
                                         <div style="display: flex; gap: 10px; margin-top: 10px;">
                                             <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadAfipDatosPersonalesPagosOtrosTres(expedienteController.selected.orden)}" ajax="false" />
 
@@ -510,7 +535,13 @@
                             </p:panel>
                         </p:tab>
 
-                        <p:tab title="Crono. de aportes">
+                        <p:tab >
+                            <f:facet name="title">
+                                Crono. de aportes
+                                <span class="circle-badge"  style=" #{fileDownloadBean.Cronoaportes(expedienteController.selected.orden) == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
+                                    #{fileDownloadBean.Cronoaportes(expedienteController.selected.orden)}
+                                </span>
+                            </f:facet>
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
                                      id="cronoDeAportes" 
                                      header="Crono. de aportes"
@@ -560,7 +591,13 @@
                                         </div></div></div>
                             </p:panel>
                         </p:tab>
-                        <p:tab title="DNI">
+                        <p:tab >
+                            <f:facet name="title">
+                                DNI
+                                <span class="circle-badge"  style=" #{fileDownloadBean.cantidaddni(expedienteController.selected.orden) == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
+                                    #{fileDownloadBean.cantidaddni(expedienteController.selected.orden)}
+                                </span>
+                            </f:facet>
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                      id="panelFrenteDni"
                                      header="DNI"
@@ -615,7 +652,13 @@
                                             </p:commandButton>
                                         </div>   </div> </div> 
                             </p:panel>  </p:tab>
-                        <p:tab title="Otra Documentación">
+                        <p:tab >
+                            <f:facet name="title">
+                                Otra Documentación
+                                <span class="circle-badge"  style=" #{fileDownloadBean.cantidadotradoc(expedienteController.selected.orden) == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
+                                    #{fileDownloadBean.cantidadotradoc(expedienteController.selected.orden)}
+                                </span>
+                            </f:facet>
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
                                      id="panelOtraDocumentacion" 
                                      header="Otra Documentación" 
@@ -691,8 +734,14 @@
                                             </p:commandButton>
                                         </div></div></div>
                             </p:panel></p:tab>
+                        <p:tab title="">
+                            <f:facet name="title">
+                                Carta Poder
+                                <span class="circle-badge"  style=" #{fileDownloadBean.cantidadarchivos(expedienteController.selected.orden, 'CartaPoder') == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
+                                    #{fileDownloadBean.cantidadarchivos(expedienteController.selected.orden, 'CartaPoder')}
+                                </span>
+                            </f:facet>
 
-                        <p:tab title="Carta Poder">
                             <p:panel
                                 rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
                                 id="panelCartaPoder"
@@ -725,7 +774,13 @@
                             </p:panel></p:tab>
                         <br></br>
                         <br></br>
-                        <p:tab title="Exp Administrativo">
+                        <p:tab >
+                            <f:facet name="title">
+                                Exp Administrativo
+                                <span class="circle-badge"  style=" #{fileDownloadBean.cantidadarchivos(expedienteController.selected.orden, 'ExpAdministrativo') == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
+                                    #{fileDownloadBean.cantidadarchivos(expedienteController.selected.orden, 'ExpAdministrativo')}
+                                </span>
+                            </f:facet>
                             <p:panel
                                 rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                 id="panelExpAdministrativo" 
@@ -761,7 +816,13 @@
 
                         <br></br>
                         <br></br>
-                        <p:tab title="Recibos">
+                        <p:tab>
+                            <f:facet name="title">
+                                Recibos
+                                <span class="circle-badge"  style=" #{fileDownloadBean.cantidadarchivos(expedienteController.selected.orden, 'Recibos') == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
+                                    #{fileDownloadBean.cantidadarchivos(expedienteController.selected.orden, 'Recibos')}
+                                </span>
+                            </f:facet>
                             <p:panel 
                                 rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                 id="recibos"
@@ -799,7 +860,14 @@
 
                         <br></br>
                         <br></br>
-                        <p:tab title="Liquidación BlueCorp">
+                        <p:tab>
+                             <f:facet name="title"  >
+                               
+                          Liquidación BlueCorp 
+                                <span class="circle-badge"  style=" #{fileDownloadBean.cantidadbluecorp(expedienteController.selected.orden) == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
+                                    #{fileDownloadBean.cantidadbluecorp(expedienteController.selected.orden)}
+                                </span>
+                            </f:facet>
                             <p:panel 
                                 rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                 id="liquidacionBlueCorp" 
@@ -813,15 +881,15 @@
                                 <div class="contenedorcard"  >
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorp(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                     
+
 
                                         <p:outputLabel value="Nombre del archivo Liquidación BlueCorp"  styleClass="titulopdfjpg"/><br></br>
                                         <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorp(expedienteController.selected.orden)}"  
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorp(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
-   <p:growl life="2500" showDetail="true"/>
+                                        <p:growl life="2500" showDetail="true"/>
                                         <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorp}" mode="simple"/>
-                                      
+
                                         <div style="display: flex; gap: 10px; margin-top: 10px;">
 
                                             <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadBlueCorp(expedienteController.selected.orden)}" ajax="false" />
@@ -833,14 +901,14 @@
                                         </div> </div>
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorpDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                    
+
                                         <p:outputLabel value="Nombre del archivo Liquidación BlueCorp 2"  styleClass="titulopdfjpg"/><br></br>
                                         <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorpDos(expedienteController.selected.orden)}"  
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorpDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
-  <p:growl life="2500" showDetail="true"/>
+                                        <p:growl life="2500" showDetail="true"/>
                                         <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorpDos}" mode="simple"/>
-                                      
+
                                         <div style="display: flex; gap: 10px; margin-top: 10px;">
 
                                             <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadBlueCorpDos(expedienteController.selected.orden)}" ajax="false" />
@@ -853,14 +921,14 @@
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorpTres(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
 
-                                      
+
                                         <p:outputLabel value="Nombre del archivo Liquidación BlueCorp 3"  styleClass="titulopdfjpg"/><br></br>
                                         <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorpTres(expedienteController.selected.orden)}"  
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorpTres(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
- <p:growl life="2500" showDetail="true"/>
+                                        <p:growl life="2500" showDetail="true"/>
                                         <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorpTres}" mode="simple"/>
-                                       
+
                                         <div style="display: flex; gap: 10px; margin-top: 10px;">
 
                                             <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadBlueCorpTres(expedienteController.selected.orden)}" ajax="false" />
@@ -875,7 +943,13 @@
                             </p:panel></p:tab>
                         <br></br>
                         <br></br>
-                        <p:tab title="Resolución Denegatoria">
+                        <p:tab >
+                            <f:facet name="title">
+                                Resolución Denegatoria
+                                <span class="circle-badge"  style=" #{fileDownloadBean.cantidadarchivos(expedienteController.selected.orden, 'ResolucionDenegatoria') == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
+                                    #{fileDownloadBean.cantidadarchivos(expedienteController.selected.orden, 'ResolucionDenegatoria')}
+                                </span>
+                            </f:facet>
                             <p:panel 
                                 rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                 id="resolucionDenegatoria" header="Resolución Denegatoria"
@@ -908,7 +982,13 @@
                             </p:panel></p:tab>
                         <br></br>
                         <br></br>
-                        <p:tab title="Convenio de honorarios">
+                        <p:tab>
+                            <f:facet name="title">
+                                Convenio de honorarios
+                                <span class="circle-badge"  style=" #{fileDownloadBean.cantidadarchivos(expedienteController.selected.orden, 'ConvenioDeHonorarios') == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
+                                    #{fileDownloadBean.cantidadarchivos(expedienteController.selected.orden, 'ConvenioDeHonorarios')}
+                                </span>
+                            </f:facet>
                             <p:panel
                                 rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                 id="convenioDeHonorarios" 
@@ -922,7 +1002,7 @@
                                 <div class="contenedorcard"  >
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                        
+
                                         <p:outputLabel value="Nombre del archivo Convenio de honorarios"  styleClass="titulopdfjpg"/><br></br>
                                         <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios')}"  
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
@@ -942,7 +1022,13 @@
                             </p:panel></p:tab>
                         <br></br>
                         <br></br>
-                        <p:tab title="Constancia de CBU">
+                        <p:tab>
+                            <f:facet name="title">
+                                Constancia de CBU
+                                <span class="circle-badge"  style=" #{fileDownloadBean.cantidadarchivos(expedienteController.selected.orden, 'ConstanciaDeCbu') == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
+                                    #{fileDownloadBean.cantidadarchivos(expedienteController.selected.orden, 'ConstanciaDeCbu')}
+                                </span>
+                            </f:facet>
                             <p:panel 
                                 rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
                                 id="constanciaDeCbu" 

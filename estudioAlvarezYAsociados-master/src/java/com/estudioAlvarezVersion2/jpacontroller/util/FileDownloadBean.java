@@ -1828,7 +1828,7 @@ public class FileDownloadBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         if ("".equals(nombre)) {
-            return "no existe archivo uno para este expediente";
+            return "no existe archivo 1 para este expediente";
         } else {
             return nombre;
 
@@ -2443,5 +2443,267 @@ public class FileDownloadBean implements Serializable {
                     }
         
     }
+     public int cantidadarchivos(int orden ,String nombrearchivo) {
+    int cantidad = 0; // Valor inicial
+    
+    if (orden != 0) {
+        boolean nombre = buscarNombreDeArchivo(orden, nombrearchivo).toString().contains("no existe archivo");
+  
 
+        
+        
+        if (nombre == false) {
+            cantidad += 1;
+         }
+       
+       
+        else {
+           
+
+       
+           return cantidad; 
+        }
+    }
+
+    return cantidad;
+}
+
+     
+     
+     
+  public int cantidadPartidas(int orden) {
+    int cantidadPartidas = 0; // Valor inicial
+
+    if (orden != 0) {
+        boolean nombre = buscarNombreDeArchivoJPG(orden).toString().contains("no existe archivo");
+        boolean nombre2 = buscarNombreDeArchivoJPGDos(orden).toString().contains("no existe archivo");
+boolean nombre3 = buscarNombreDeArchivoJPGTres(orden).toString().contains("no existe archivo");
+boolean nombre4 = buscarNombreDeArchivoJPGCuatro(orden).toString().contains("no existe archivo");
+boolean nombre5 = buscarNombreDeArchivoJPGCinco(orden).toString().contains("no existe archivo");
+boolean nombre6 = buscarNombreDeArchivoPDF(orden).toString().contains("no existe archivo");
+boolean nombre7 = buscarNombreDeArchivoPDFDos(orden).toString().contains("no existe archivo");
+boolean nombre8 = buscarNombreDeArchivoPDFTres(orden).toString().contains("no existe archivo");
+boolean nombre9 = buscarNombreDeArchivoPDFCuatro(orden).toString().contains("no existe archivo");
+boolean nombre10 = buscarNombreDeArchivoPDFCinco(orden).toString().contains("no existe archivo");
+
+        
+        
+        if (nombre == false) {
+            cantidadPartidas += 1;
+         }
+        if (nombre2 == false) {
+            cantidadPartidas += 1;
+        } 
+        if (nombre3 == false) {
+            cantidadPartidas += 1;
+        } 
+        if (nombre4 == false) {
+            cantidadPartidas += 1;
+        } 
+        if (nombre5 == false) {
+            cantidadPartidas += 1;
+        } 
+        if (nombre6 == false) {
+            cantidadPartidas += 1;
+        } 
+        if (nombre7 == false) {
+            cantidadPartidas += 1;
+        } 
+        if (nombre8 == false) {
+            cantidadPartidas += 1;
+        } 
+        if (nombre9 == false) {
+            cantidadPartidas += 1;
+        } 
+        if (nombre10 == false) {
+            cantidadPartidas += 1;
+        } 
+        else {
+           
+
+       
+           return cantidadPartidas; 
+        }
+    }
+
+    return cantidadPartidas;
+}
+
+  
+  public int cantidadarchivosotrascajas(int orden ,String nombrearchivo,String nombrearchivo2) {
+    int cantidad = 0; // Valor inicial
+    
+    if (orden != 0 ) {
+        boolean nombre = buscarNombreDeArchivo(orden, nombrearchivo).toString().contains("no existe archivo");
+        boolean nombre2 = buscarNombreDeArchivo(orden, nombrearchivo2).toString().contains("no existe archivo");
+
+        
+        
+        if (nombre == false) {
+            cantidad += 1;
+         }
+         if (nombre2 == false) {
+            cantidad += 1;
+         }
+       
+       
+        else {
+           
+
+       
+           return cantidad; 
+        }
+    }
+
+    return cantidad;
+}
+  
+   public int otrospagos(int orden ,String nombrearchivo,String nombrearchivo2,String nombrearchivo3) {
+    int cantidad = 0; // Valor inicial
+    
+    if (orden != 0 ) {
+        boolean nombre = buscarNombreDeArchivo(orden, nombrearchivo).toString().contains("no existe archivo");
+        boolean nombre2 = buscarNombreDeArchivo(orden, nombrearchivo2).toString().contains("no existe archivo");
+        boolean nombre3 = buscarNombreDeArchivo(orden, nombrearchivo3).toString().contains("no existe archivo");
+        
+        
+        if (nombre == false) {
+            cantidad += 1;
+         }
+         if (nombre2 == false) {
+            cantidad += 1;
+         }
+        if (nombre3 == false) {
+            cantidad += 1;
+         }
+       
+        else {
+           
+
+       
+           return cantidad; 
+        }
+    }
+
+    return cantidad;
+}
+   
+   
+   public int Cronoaportes(int orden ) {
+    int cantidad = 0; // Valor inicial
+    
+    if (orden != 0 ) {
+        boolean nombre = buscarNombreDeArchivoCronoDeAportes(orden).toString().contains("no existe archivo");
+        boolean nombre2 = buscarNombreDeArchivoCronoDeAportesDos(orden).toString().contains("no existe archivo");
+
+        
+        
+        if (nombre == false) {
+            cantidad += 1;
+         }
+         if (nombre2 == false) {
+            cantidad += 1;
+         }
+       
+       
+        else {
+           
+
+       
+           return cantidad; 
+        }
+    }
+
+    return cantidad;
+}
+   
+   
+   public int cantidaddni(int orden ) {
+    int cantidad = 0; // Valor inicial
+    
+    if (orden != 0 ) {
+        boolean nombre = buscarNombreDeArchivoFrenteDni(orden).toString().contains("no existe archivo");
+        boolean nombre2 = buscarNombreDeArchivoDorsoDni(orden).toString().contains("no existe archivo");
+
+        
+        
+        if (nombre == false) {
+            cantidad += 1;
+         }
+         if (nombre2 == false) {
+            cantidad += 1;
+         }
+       
+       
+        else {
+           
+
+       
+           return cantidad; 
+        }
+    }
+
+    return cantidad;
+}
+   
+   
+   
+   public int cantidadotradoc(int orden ) {
+    int cantidad = 0; // Valor inicial
+    
+    if (orden != 0 ) {
+        boolean nombre = buscarNombreDeArchivoOtraDocumentacion(orden).toString().contains("no existe archivo");
+        boolean nombre2 = buscarNombreDeArchivoOtraDocumentacionDos(orden).toString().contains("no existe archivo");
+        boolean nombre3 = buscarNombreDeArchivoOtraDocumentacionTres(orden).toString().contains("no existe archivo");
+        
+        
+        if (nombre == false) {
+            cantidad += 1;
+         }
+         if (nombre2 == false) {
+            cantidad += 1;
+         }
+       if (nombre3 == false) {
+            cantidad += 1;
+         }
+       
+        else {
+           
+
+       
+           return cantidad; 
+        }
+    }
+
+    return cantidad;
+}
+    public int cantidadbluecorp(int orden ) {
+    int cantidad = 0; // Valor inicial
+    
+    if (orden != 0 ) {
+        boolean nombre = buscarNombreDeArchivoBlueCorp(orden).toString().contains("no existe archivo");
+        boolean nombre2 = buscarNombreDeArchivoBlueCorpDos(orden).toString().contains("no existe archivo");
+        boolean nombre3 = buscarNombreDeArchivoBlueCorpTres(orden).toString().contains("no existe archivo");
+        
+        
+        if (nombre == false) {
+            cantidad += 1;
+         }
+         if (nombre2 == false) {
+            cantidad += 1;
+         }
+       if (nombre3 == false) {
+            cantidad += 1;
+         }
+       
+        else {
+           
+
+       
+           return cantidad; 
+        }
+    }
+
+    return cantidad;
+}
 }

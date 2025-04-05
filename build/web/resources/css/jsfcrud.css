@@ -2,23 +2,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 @font-face {
-font-family: "gotham Logo";
+    font-family: "gotham Logo";
 
-src: url("#{resource['fonts/Gotham-BookItalic.otf']}");
-font-weight: normal;
-font-style: normal;
+    src: url("#{resource['fonts/Gotham-BookItalic.otf']}");
+    font-weight: normal;
+    font-style: normal;
 
     body{
-         font-family: "Poppins", serif;
-  font-weight: 400;
-  font-style: normal;
+        font-family: "Poppins", serif;
+        font-weight: 400;
+        font-style: normal;
     }
 }
 
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
-      font-family: "Poppins", serif;
-  font-weight: 400;
-  font-style: normal;
+    font-family: "Poppins", serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 td.centeredColumnContent{
@@ -42,7 +42,7 @@ td.centeredColumnContentARCHIVADO{
 td.centeredColumnContentCONSULTA{
     text-align: center;
     background-color: lightgreen;
-    
+
 }
 
 tbody tr:hover  td.centeredColumnContentSi{
@@ -78,7 +78,7 @@ tbody tr:hover  td.centeredColumnContentReagendada{
 
 td.centeredColumnContentadministrativo{
     text-align: center;
-    
+
 }
 
 .centeredColumnContentjudicial{
@@ -138,9 +138,9 @@ table.dataTable.nowrap td{white-space:nowrap}
 
 .ui-widget {
     font-size: 16px !important;
-     font-family: "Poppins", serif !important;
-  
-  font-style: normal;
+    font-family: "Poppins", serif !important;
+
+    font-style: normal;
 }
 .ui-layout-north {
     z-index: 20 !important;
@@ -352,13 +352,13 @@ div[id="AgendaListForm:datalist"] thead {
 }
 
 .ui-datepicker .ui-datepicker-calendar .ui-state-default {
- background:#c8b363 !important;
- border:none;
- color:#000000 !important;
+    background:#c8b363 !important;
+    border:none;
+    color:#000000 !important;
 }
 
 .ui-datepicker .ui-datepicker-header {
- background:#a69753 !important;
+    background:#a69753 !important;
 }
 
 .ui-datepicker .ui-datepicker-calendar .ui-state-hover{
@@ -401,16 +401,16 @@ div[id="AgendaListForm:datalist"] thead {
 }   
 
 .ui-fieldset .ui-fieldset-toggler {
- padding-right:0em !important; 
- margin-top:0em !important; 
+    padding-right:0em !important; 
+    margin-top:0em !important; 
 }
 
 .ui-state-active a,
 .ui-state-active a:link,
 .ui-state-active a:visited {
- color:white !important;
- background: #3485ac !important;
- text-shadow: none !important;
+    color:white !important;
+    background: #3485ac !important;
+    text-shadow: none !important;
 }
 
 .ui-draggable .ui-dialog-titlebar {
@@ -446,31 +446,31 @@ div[id="AgendaListForm:datalist"] thead {
 }
 
 .MaríaEmiliaCampos  {
-background-color: #3aad56 !important;    
+    background-color: #3aad56 !important;    
 }
 
 
 .MateoFranciscoAlvarez {
-background-color: #af3535 !important;    
+    background-color: #af3535 !important;    
 } 
 
 .fc-header-title{
-   color: white;
+    color: white;
 }
 
 div.ui-growl {
-   left: 50%;
-   right: 0;
-   margin-left:-150px;
+    left: 50%;
+    right: 0;
+    margin-left:-150px;
 }
 
 .ui-messages-warn{
-        animation: showWarnMessage 25s ease-in-out; /* Ajusta el tiempo (15s) según tus necesidades */
+    animation: showWarnMessage 25s ease-in-out; /* Ajusta el tiempo (15s) según tus necesidades */
 
 }
 
 .ui-messages-info{
-        animation: showWarnMessage 25s ease-in-out; /* Ajusta el tiempo (15s) según tus necesidades */
+    animation: showWarnMessage 25s ease-in-out; /* Ajusta el tiempo (15s) según tus necesidades */
 
 }
 
@@ -479,19 +479,19 @@ div.ui-growl {
     display: flex;
     flex-wrap: wrap;
     color: white;
-    
+
 }
 
 .filtro-item {
     margin-right: 10px;
     margin-left: 15px;
-        font-size: 15px !important;
+    font-size: 15px !important;
     margin-bottom: 10px;
 }
 .filtro-item-resultado {
     margin-right: 10px;
     margin-left: 15px;
-        font-size: 25px !important;
+    font-size: 25px !important;
 
     margin-bottom: 10px;
 }
@@ -501,35 +501,35 @@ div.ui-growl {
 }
 
 .cards1{     border: 3px solid #3E5879;
-    padding: 20px;
-    border-radius: 20px;
-    background: #b4d4e3;
-    display: flex;
-    flex-direction: column;
-    color: black;
-             
+             padding: 20px;
+             border-radius: 20px;
+             background: #b4d4e3;
+             display: flex;
+             flex-direction: column;
+             color: black;
+
 }
 .buscararchivo{
-   padding: 5px; 
-   border-left: 5px solid #780C28; 
-   border-radius:5px ;
+    padding: 5px; 
+    border-left: 5px solid #780C28; 
+    border-radius:5px ;
 }
 
 .titulopdfjpg{
     font-size: 19px !important;
     color: black;
     font-weight: 500;
-   
-        
+
+
 }
 .botonsubirbajarpdf{
-        border-radius: 10px !important;
+    border-radius: 10px !important;
     border: solid 3px #3076ff !important;
     background: #9bbdff !important;
     color: #2a55aa !important;
     font-size: 16px !important;
     text-shadow: none !important;
-        font-family: "Poppins", serif !important;
+    font-family: "Poppins", serif !important;
     font-style: normal !important;
     font-weight: 500 !important;
 }
@@ -538,17 +538,17 @@ div.ui-growl {
 }
 
 .contenedorcard{
-     display: grid !important;
-                                     grid-template-columns: 1fr 1fr !important; /* Dos columnas de igual tamaño */
-                                     gap: 10px !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important; /* Dos columnas de igual tamaño */
+    gap: 10px !important;
 }
 
 .carddatoscliente{
-       display: grid;
+    display: grid;
     grid-template-columns: 25% 71%;
     gap: 20px;
     width: 89.5vw;
-     /* Alinea los elementos arriba */
+    /* Alinea los elementos arriba */
 }
 
 .ui-tabs.ui-tabs-left > .ui-tabs-nav li {
@@ -567,47 +567,61 @@ div.ui-growl {
     background: #b4d4e3;
 }
 .ui-tabs-left > .ui-tabs-nav {
-     float: left;
+    float: left;
     width: 24.5% !important;
     height: 100vh !important;
     background-image: inherit !important;
     padding-top: inherit !important;
-  border: 3px solid #3E5879;
-      
- border-radius: 20px;
+    border: 3px solid #3E5879;
+
+    border-radius: 20px;
 }
 .ui-tabs .ui-tabs-panel {
-   
+
     padding: inherit  !important;
-  ;}
+    ;}
 
 .ui-tabs {
-   
+
     margin-top: 10px !important;
 }
 .ui-panel .ui-panel-titlebar {
-        padding: 1em 1em !important;
+    padding: 1em 1em !important;
     background: #b4d4e3 !important;
     border: solid 3px #3E5879;
     border-radius: 15px;
     color: black !important;
     margin: 0px 16px;
     text-shadow: none !important;
-    
+
 }
 
 .ui-tabs .ui-tabs-nav .ui-tabs-selected {
     background: #123a6d !important;
-        border-radius: 15px;
-    }
-    
-    .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+    border-radius: 15px;
+}
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
     color: white !important;
     background: #123a6d !important;
     text-shadow: none !important;
     border-radius: 15px;
 }
 
- .ui-state-active a :hover{
+.ui-state-active a :hover{
     background: #123a6d;
+}
+
+.circle-badge {
+
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-left: 5px;
 }

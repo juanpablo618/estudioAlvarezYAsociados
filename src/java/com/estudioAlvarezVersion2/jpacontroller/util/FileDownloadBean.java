@@ -3,6 +3,7 @@ package com.estudioAlvarezVersion2.jpacontroller.util;
 /**
  *
  * @author cuello.juanpablo@gmail.com
+ * @author juanpablo618@hotmail.com
  */
 import com.estudioAlvarezVersion2.jpa.DAO;
 import java.io.InputStream;
@@ -26,7 +27,7 @@ public class FileDownloadBean implements Serializable {
     private static final String APPLICATION_PDF = "application/pdf";
     private static final String IMAGE_JPEG = "image/jpeg";
     private static final String ERROR = "Error";
-    
+
     private StreamedContent filePdf;
     private StreamedContent filePdfDos;
     private StreamedContent filePdfTres;
@@ -44,34 +45,33 @@ public class FileDownloadBean implements Serializable {
     private StreamedContent fileOtraDocumentacion;
     private StreamedContent fileOtraDocumentacionDos;
     private StreamedContent fileOtraDocumentacionTres;
-    
+
     private StreamedContent fileCartaPoder;
     private StreamedContent fileHistorialLaboralAnses;
     private StreamedContent fileHistorialLaboralOtrasCajas;
     private StreamedContent fileHistorialLaboralOtrasCajasDos;
-    
+
     private StreamedContent fileAfipDatosPersonalesPagosOtros;
     private StreamedContent fileAfipDatosPersonalesPagosOtrosDos;
     private StreamedContent fileAfipDatosPersonalesPagosOtrosTres;
-    
+
     private StreamedContent fileExpAdministrativo;
     private StreamedContent fileExpAdministrativoDos;
-    
+
     private StreamedContent fileRecibos;
     private StreamedContent fileLiquidacionBlueCorp;
     private StreamedContent fileLiquidacionBlueCorpDos;
     private StreamedContent fileLiquidacionBlueCorpTres;
-    
+
     private StreamedContent fileResolucionDenegatoria;
     private StreamedContent fileConvenioDeHonorarios;
     private StreamedContent fileConstanciaDeCbu;
-    
+
     private StreamedContent fileCronoDeAportes;
     private StreamedContent fileCronoDeAportesDos;
-    
+
     private StreamedContent frenteDniExpSinCarpeta;
     private StreamedContent dorsoDniExpSinCarpeta;
-    
 
     private int codigo;
 
@@ -202,7 +202,7 @@ public class FileDownloadBean implements Serializable {
     public void setFileCronoDeAportesDos(StreamedContent fileCronoDeAportesDos) {
         this.fileCronoDeAportesDos = fileCronoDeAportesDos;
     }
-    
+
     public StreamedContent getFrenteDniExpSinCarpeta() {
         return frenteDniExpSinCarpeta;
     }
@@ -362,8 +362,7 @@ public class FileDownloadBean implements Serializable {
     public void setFileAfipDatosPersonalesPagosOtrosTres(StreamedContent fileAfipDatosPersonalesPagosOtrosTres) {
         this.fileAfipDatosPersonalesPagosOtrosTres = fileAfipDatosPersonalesPagosOtrosTres;
     }
-    
-    
+
     public void downloadPDF(int orden) {
         Connection con;
         PreparedStatement ps;
@@ -387,12 +386,12 @@ public class FileDownloadBean implements Serializable {
                 con.close();
                 if (filePdf != null) {
                     FacesMessage msg = new FacesMessage("Exito", "archivo PDF 1 descargado exitosamente.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
 
                 } else {
                     FacesMessage msg = new FacesMessage(ERROR, "No existe archivo PDF 1 para este nro de orden: " + orden);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
+                }
 
             } else {
                 FacesMessage msg = new FacesMessage(ERROR, "no se encontro documento pdf 1 con ese nro de orden.");
@@ -708,7 +707,7 @@ public class FileDownloadBean implements Serializable {
 
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                   InputStream stream = rs.getBinaryStream("documento");
+                    InputStream stream = rs.getBinaryStream("documento");
                     String nombreDelDocumento = rs.getString("nombreDelDocumento");
                     if (nombreDelDocumento.contains(".xls")) {
                         fileCronoDeAportes = new DefaultStreamedContent(stream, "application/vnd.ms-excel", nombreDelDocumento);
@@ -739,7 +738,7 @@ public class FileDownloadBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    
+
     public void downloadCronoDeAportesDos(int orden) {
         Connection con;
         PreparedStatement ps;
@@ -783,19 +782,17 @@ public class FileDownloadBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    
-    
+
     public void downloadFrenteDnideExpSinCarpeta(String cuit) {
         Connection con;
         PreparedStatement ps;
         try {
             long cuitLong = 0;
-            
-            if (!"0".equals(cuit) && cuit != null && !"".equals(cuit))  {
+
+            if (!"0".equals(cuit) && cuit != null && !"".equals(cuit)) {
                 cuitLong = Long.parseLong(cuit);
-            }  
-        
-            
+            }
+
             if (cuitLong != 0) {
                 con = DAO.getConnection();
                 ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM frenteDniExpSinCarpeta WHERE nroDeCuit = (?);");
@@ -838,12 +835,11 @@ public class FileDownloadBean implements Serializable {
         PreparedStatement ps;
         try {
             long cuitLong = 0;
-            
-            if (!"0".equals(cuit) && cuit != null && !"".equals(cuit))  {
+
+            if (!"0".equals(cuit) && cuit != null && !"".equals(cuit)) {
                 cuitLong = Long.parseLong(cuit);
-            }  
-        
-            
+            }
+
             if (cuitLong != 0) {
                 con = DAO.getConnection();
                 ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM dorsoDniExpSinCarpeta WHERE nroDeCuit = (?);");
@@ -1166,193 +1162,100 @@ public class FileDownloadBean implements Serializable {
     }
 
     public void downloadOtraDocumentacion(int orden, int numeroDocumento) {
-    Connection con = null;
-    PreparedStatement ps = null;
-    
-    try {
-        if (orden != 0 && numeroDocumento >= 1 && numeroDocumento <= 3) {
-            con = DAO.getConnection();
-            ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosOtraDocumentacion WHERE nroDeOrden = (?) AND numeroDocumento = (?);");
-            ps.setInt(1, orden);
-            ps.setInt(2, numeroDocumento);
+        Connection con = null;
+        PreparedStatement ps = null;
 
-                     
-            
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                InputStream stream = rs.getBinaryStream("documento");
-                if (rs.getString("nombreDelDocumento").contains(".jpg")) {
-                    
-                    switch (numeroDocumento) {
-                        case 1:
-                            fileOtraDocumentacion = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));;
-                            break;
-                        case 2:
-                            fileOtraDocumentacionDos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));;
-                            break;
-                        case 3:
-                            fileOtraDocumentacionTres = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));;
-                            break;
+        try {
+            if (orden != 0 && numeroDocumento >= 1 && numeroDocumento <= 3) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosOtraDocumentacion WHERE nroDeOrden = (?) AND numeroDocumento = (?);");
+                ps.setInt(1, orden);
+                ps.setInt(2, numeroDocumento);
 
-                    }
-                     
-                } else {
-                    switch (numeroDocumento) {
-                        case 1:
-                            fileOtraDocumentacion = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
-                            break;
-                        case 2:
-                            fileOtraDocumentacionDos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
-                            break;
-                        case 3:
-                            fileOtraDocumentacionTres = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
-                            break;
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
 
+                        switch (numeroDocumento) {
+                            case 1:
+                                fileOtraDocumentacion = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                ;
+                                break;
+                            case 2:
+                                fileOtraDocumentacionDos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                ;
+                                break;
+                            case 3:
+                                fileOtraDocumentacionTres = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                ;
+                                break;
+
+                        }
+
+                    } else {
+                        switch (numeroDocumento) {
+                            case 1:
+                                fileOtraDocumentacion = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                break;
+                            case 2:
+                                fileOtraDocumentacionDos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                break;
+                            case 3:
+                                fileOtraDocumentacionTres = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                break;
+
+                        }
                     }
                 }
-            }
-            
-             StreamedContent currentFile = null;
 
-            switch (numeroDocumento) {
-                case 1:
-                    currentFile = fileOtraDocumentacion;
-                    break;
-                case 2:
-                    currentFile = fileOtraDocumentacionDos;
-                    break;
-                case 3:
-                    currentFile = fileOtraDocumentacionTres;
-                    break;
-                default:
-                    // Manejar el caso en el que el número de documento no sea válido
-                    FacesMessage msg = new FacesMessage(ERROR, "Número de documento no válido: " + numeroDocumento);
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                    return;
-            }
+                StreamedContent currentFile = null;
 
-            if (currentFile != null) {
-                FacesMessage msg = new FacesMessage("Éxito", "Archivo Otra Documentación " + numeroDocumento + " descargado exitosamente.");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-            } else {
-                FacesMessage msg = new FacesMessage(ERROR, "No existe archivo Otra Documentación " + numeroDocumento + " para este nro de orden: " + orden);
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-            }
-        } else {
-            FacesMessage msg = new FacesMessage(ERROR, "No se encontró Otra Documentación " + numeroDocumento + " con ese nro de orden.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    } catch (SQLException e) {
-        FacesMessage msg = new FacesMessage(ERROR, "Fichero Otra Documentación " + numeroDocumento + " no descargado");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    } finally {
-        try {
-            if (ps != null) {
-                ps.close();
-            }
-            if (con != null) {
-                con.close();
-            }
-        } catch (SQLException e) {
-            // Manejar la excepción al cerrar la conexión
-            e.printStackTrace();
-        }
-    }
-}
-
-    
-    /*public void downloadBluecorp(int orden, int numeroDocumento) {
-    Connection con = null;
-    PreparedStatement ps = null;
-    
-    try {
-        if (orden != 0 && numeroDocumento >= 1 && numeroDocumento <= 3) {
-            con = DAO.getConnection();
-            ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosliquidacionbluecorp WHERE nroDeOrden = (?) AND numeroDocumento = (?);");
-            ps.setInt(1, orden);
-            ps.setInt(2, numeroDocumento);
-
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                InputStream stream = rs.getBinaryStream("documento");
-                if (rs.getString("nombreDelDocumento").contains(".jpg")) {
-                    
-                    switch (numeroDocumento) {
-                        case 1:
-                            fileLiquidacionBlueCorp = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));;
-                            break;
-                        case 2:
-                            fileLiquidacionBlueCorpDos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));;
-                            break;
-                        case 3:
-                            fileLiquidacionBlueCorpTres = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));;
-                            break;
-
-                    }
-                     
-                } else {
-                    switch (numeroDocumento) {
-                        case 1:
-                            fileLiquidacionBlueCorp = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
-                            break;
-                        case 2:
-                            fileLiquidacionBlueCorpDos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
-                            break;
-                        case 3:
-                            fileLiquidacionBlueCorpTres = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
-                            break;
-
-                    }
+                switch (numeroDocumento) {
+                    case 1:
+                        currentFile = fileOtraDocumentacion;
+                        break;
+                    case 2:
+                        currentFile = fileOtraDocumentacionDos;
+                        break;
+                    case 3:
+                        currentFile = fileOtraDocumentacionTres;
+                        break;
+                    default:
+                        // Manejar el caso en el que el número de documento no sea válido
+                        FacesMessage msg = new FacesMessage(ERROR, "Número de documento no válido: " + numeroDocumento);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                        return;
                 }
-            }
-            
-             StreamedContent currentFile = null;
 
-            switch (numeroDocumento) {
-                case 1:
-                    currentFile = fileLiquidacionBlueCorp;
-                    break;
-                case 2:
-                    currentFile = fileLiquidacionBlueCorpDos;
-                    break;
-                case 3:
-                    currentFile = fileLiquidacionBlueCorpTres;
-                    break;
-                default:
-                    // Manejar el caso en el que el número de documento no sea válido
-                    FacesMessage msg = new FacesMessage(ERROR, "Número de documento no válido: " + numeroDocumento);
+                if (currentFile != null) {
+                    FacesMessage msg = new FacesMessage("Éxito", "Archivo Otra Documentación " + numeroDocumento + " descargado exitosamente.");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
-                    return;
-            }
-
-            if (currentFile != null) {
-                FacesMessage msg = new FacesMessage("Éxito", "Archivo Bluecorp " + numeroDocumento + " descargado exitosamente.");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
+                } else {
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo Otra Documentación " + numeroDocumento + " para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
             } else {
-                FacesMessage msg = new FacesMessage(ERROR, "No existe archivo Blue corp " + numeroDocumento + " para este nro de orden: " + orden);
+                FacesMessage msg = new FacesMessage(ERROR, "No se encontró Otra Documentación " + numeroDocumento + " con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-            }
-        } else {
-            FacesMessage msg = new FacesMessage(ERROR, "No se encontró bluecorp " + numeroDocumento + " con ese nro de orden.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    } catch (SQLException e) {
-        FacesMessage msg = new FacesMessage(ERROR, "Fichero Bluecorp " + numeroDocumento + " no descargado");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    } finally {
-        try {
-            if (ps != null) {
-                ps.close();
-            }
-            if (con != null) {
-                con.close();
             }
         } catch (SQLException e) {
-            // Manejar la excepción al cerrar la conexión
-            e.printStackTrace();
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero Otra Documentación " + numeroDocumento + " no descargado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                // Manejar la excepción al cerrar la conexión
+                e.printStackTrace();
+            }
         }
     }
-}*/
 
     public void downloadBlueCorp(int orden) {
         Connection con;
@@ -1394,7 +1297,7 @@ public class FileDownloadBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    
+
     public void downloadBlueCorpDos(int orden) {
         Connection con;
         PreparedStatement ps;
@@ -1435,7 +1338,7 @@ public class FileDownloadBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    
+
     public void downloadBlueCorpTres(int orden) {
         Connection con;
         PreparedStatement ps;
@@ -1476,7 +1379,7 @@ public class FileDownloadBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    
+
     public void downloadOtraDocumentacion(int orden) {
         Connection con;
         PreparedStatement ps;
@@ -1517,7 +1420,7 @@ public class FileDownloadBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    
+
     public void downloadOtraDocumentacionDos(int orden) {
         Connection con;
         PreparedStatement ps;
@@ -1558,7 +1461,7 @@ public class FileDownloadBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    
+
     public void downloadOtraDocumentacionTres(int orden) {
         Connection con;
         PreparedStatement ps;
@@ -1599,26 +1502,24 @@ public class FileDownloadBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    
-    
+
     public void downloadDocumentoPorNombre(int orden, String nombre) {
         Connection con;
         PreparedStatement ps;
         StreamedContent fileAlmacenado = null;
-                       
+
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
-                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentos"+nombre+" WHERE nroDeOrden = (?);");
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentos" + nombre + " WHERE nroDeOrden = (?);");
                 ps.setInt(1, orden);
 
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     InputStream stream = rs.getBinaryStream("documento");
                     if (rs.getString("nombreDelDocumento").contains(".jpg")) {
-                        
-                         
-                        switch(nombre){
+
+                        switch (nombre) {
                             case "CartaPoder":
                                 fileCartaPoder = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileCartaPoder;
@@ -1631,7 +1532,7 @@ public class FileDownloadBean implements Serializable {
                                 fileExpAdministrativoDos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileExpAdministrativoDos;
                                 break;
-                            
+
                             case "Recibos":
                                 fileRecibos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileRecibos;
@@ -1663,26 +1564,25 @@ public class FileDownloadBean implements Serializable {
                             case "HistorialLaboralOtrasCajasDos":
                                 fileHistorialLaboralOtrasCajasDos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileHistorialLaboralOtrasCajasDos;
-                                break;   
+                                break;
                             case "AfipDatosPersonalesPagosOtros":
                                 fileAfipDatosPersonalesPagosOtros = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileAfipDatosPersonalesPagosOtros;
-                                break;   
+                                break;
                             case "AfipDatosPersonalesPagosOtrosDos":
                                 fileAfipDatosPersonalesPagosOtrosDos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileAfipDatosPersonalesPagosOtrosDos;
-                                break;   
+                                break;
                             case "AfipDatosPersonalesPagosOtrosTres":
                                 fileAfipDatosPersonalesPagosOtrosTres = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileAfipDatosPersonalesPagosOtrosTres;
-                                break;   
-                                
-                                
+                                break;
+
                         }
-                        
+
                     } else {
-                        
-                        switch(nombre){
+
+                        switch (nombre) {
                             case "CartaPoder":
                                 fileCartaPoder = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileCartaPoder;
@@ -1707,12 +1607,12 @@ public class FileDownloadBean implements Serializable {
                                 fileResolucionDenegatoria = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileResolucionDenegatoria;
                                 break;
-                                
+
                             case "ConvenioDeHonorarios":
                                 fileConvenioDeHonorarios = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileConvenioDeHonorarios;
                                 break;
-                                
+
                             case "ConstanciaDeCbu":
                                 fileConstanciaDeCbu = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileConstanciaDeCbu;
@@ -1720,7 +1620,7 @@ public class FileDownloadBean implements Serializable {
                             case "HistorialLaboralAnses":
                                 fileHistorialLaboralAnses = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileHistorialLaboralAnses;
-                                break;  
+                                break;
                             case "HistorialLaboralOtrasCajas":
                                 fileHistorialLaboralOtrasCajas = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileHistorialLaboralOtrasCajas;
@@ -1728,47 +1628,47 @@ public class FileDownloadBean implements Serializable {
                             case "HistorialLaboralOtrasCajasDos":
                                 fileHistorialLaboralOtrasCajasDos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileHistorialLaboralOtrasCajasDos;
-                                break;    
+                                break;
                             case "AfipDatosPersonalesPagosOtros":
                                 fileAfipDatosPersonalesPagosOtros = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileAfipDatosPersonalesPagosOtros;
-                                break;    
+                                break;
                             case "AfipDatosPersonalesPagosOtrosDos":
                                 fileAfipDatosPersonalesPagosOtrosDos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileAfipDatosPersonalesPagosOtrosDos;
-                                break;    
+                                break;
                             case "AfipDatosPersonalesPagosOtrosTres":
                                 fileAfipDatosPersonalesPagosOtrosTres = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileAfipDatosPersonalesPagosOtrosTres;
-                                break;    
-                                
+                                break;
+
                         }
-                        
+
                     }
 
                 }
 
                 con.close();
                 if (fileAlmacenado != null) {
-                    FacesMessage msg = new FacesMessage("Exito", "archivo "+nombre+" descargado exitosamente.");
+                    FacesMessage msg = new FacesMessage("Exito", "archivo " + nombre + " descargado exitosamente.");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
 
                 } else {
-                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo "+nombre+" para este nro de orden: " + orden);
+                    FacesMessage msg = new FacesMessage("ERROR", "No existe archivo " + nombre + " para este nro de orden: " + orden);
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
 
             } else {
-                FacesMessage msg = new FacesMessage("ERROR", "no se encontro "+nombre+" con ese nro de orden.");
+                FacesMessage msg = new FacesMessage("ERROR", "no se encontro " + nombre + " con ese nro de orden.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
 
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage(ERROR, "Fichero "+nombre+" no descargada");
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero " + nombre + " no descargada");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-    
+
     public String buscarNombreDeArchivoCronoDeAportes(int orden) {
         Connection con;
         PreparedStatement ps;
@@ -1796,7 +1696,7 @@ public class FileDownloadBean implements Serializable {
             return nombre;
         }
     }
-    
+
     public String buscarNombreDeArchivoCronoDeAportesDos(int orden) {
         Connection con;
         PreparedStatement ps;
@@ -1824,7 +1724,7 @@ public class FileDownloadBean implements Serializable {
             return nombre;
         }
     }
-    
+
     public String buscarNombreDeArchivoJPG(int orden) {
         Connection con;
         PreparedStatement ps;
@@ -1847,7 +1747,7 @@ public class FileDownloadBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         if ("".equals(nombre)) {
-            return "no existe archivo uno para este expediente";
+            return "no existe archivo 1 para este expediente";
         } else {
             return nombre;
 
@@ -1858,14 +1758,13 @@ public class FileDownloadBean implements Serializable {
         Connection con;
         PreparedStatement ps;
         String nombre = "";
-        
+
         long cuitLong = 0;
-            
-            if (!"0".equals(cuit) && cuit != null && !"".equals(cuit))  {
-                cuitLong = Long.parseLong(cuit);
-            }  
-            
-        
+
+        if (!"0".equals(cuit) && cuit != null && !"".equals(cuit)) {
+            cuitLong = Long.parseLong(cuit);
+        }
+
         try {
             if (cuitLong != 0) {
                 con = DAO.getConnection();
@@ -1895,14 +1794,13 @@ public class FileDownloadBean implements Serializable {
         Connection con;
         PreparedStatement ps;
         String nombre = "";
-        
+
         long cuitLong = 0;
-            
-            if (!"0".equals(cuit) && cuit != null && !"".equals(cuit))  {
-                cuitLong = Long.parseLong(cuit);
-            }  
-            
-        
+
+        if (!"0".equals(cuit) && cuit != null && !"".equals(cuit)) {
+            cuitLong = Long.parseLong(cuit);
+        }
+
         try {
             if (cuitLong != 0) {
                 con = DAO.getConnection();
@@ -2103,88 +2001,88 @@ public class FileDownloadBean implements Serializable {
     }
 
     public String buscarNombreDeArchivoOtraDocumentacion(int orden, int numeroDocumento) {
-    Connection con = null;
-    PreparedStatement ps = null;
-    String nombre = "";
+        Connection con = null;
+        PreparedStatement ps = null;
+        String nombre = "";
 
-    try {
-        if (orden != 0 && numeroDocumento >= 1 && numeroDocumento <= 3) {
-            con = DAO.getConnection();
-            ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosOtraDocumentacion WHERE nroDeOrden = (?) AND numeroDocumento = (?);");
-            ps.setInt(1, orden);
-            ps.setInt(2, numeroDocumento);
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                nombre = rs.getString(1);
-            }
-        }
-    } catch (SQLException e) {
-        FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo otra documentación " + numeroDocumento + " no encontrado");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    } finally {
         try {
-            if (ps != null) {
-                ps.close();
-            }
-            if (con != null) {
-                con.close();
+            if (orden != 0 && numeroDocumento >= 1 && numeroDocumento <= 3) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosOtraDocumentacion WHERE nroDeOrden = (?) AND numeroDocumento = (?);");
+                ps.setInt(1, orden);
+                ps.setInt(2, numeroDocumento);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
             }
         } catch (SQLException e) {
-            // Manejar la excepción al cerrar la conexión
-            e.printStackTrace();
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo otra documentación " + numeroDocumento + " no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                // Manejar la excepción al cerrar la conexión
+                e.printStackTrace();
+            }
+        }
+
+        if ("".equals(nombre)) {
+            return "No existe archivo para Otra Documentación " + numeroDocumento;
+        } else {
+            return nombre;
         }
     }
-
-    if ("".equals(nombre)) {
-        return "No existe archivo para Otra Documentación " + numeroDocumento;
-    } else {
-        return nombre;
-    }
-}
 
     public String buscarNombreDeArchivoBluecorp(int orden, int numeroDocumento) {
-    Connection con = null;
-    PreparedStatement ps = null;
-    String nombre = "";
+        Connection con = null;
+        PreparedStatement ps = null;
+        String nombre = "";
 
-    try {
-        if (orden != 0 && numeroDocumento >= 1 && numeroDocumento <= 3) {
-            con = DAO.getConnection();
-            ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosliquidacionbluecorp WHERE nroDeOrden = (?) AND numeroDocumento = (?);");
-            ps.setInt(1, orden);
-            ps.setInt(2, numeroDocumento);
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                nombre = rs.getString(1);
-            }
-        }
-    } catch (SQLException e) {
-        FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo otra documentación " + numeroDocumento + " no encontrado");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    } finally {
         try {
-            if (ps != null) {
-                ps.close();
-            }
-            if (con != null) {
-                con.close();
+            if (orden != 0 && numeroDocumento >= 1 && numeroDocumento <= 3) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosliquidacionbluecorp WHERE nroDeOrden = (?) AND numeroDocumento = (?);");
+                ps.setInt(1, orden);
+                ps.setInt(2, numeroDocumento);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
             }
         } catch (SQLException e) {
-            // Manejar la excepción al cerrar la conexión
-            e.printStackTrace();
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo otra documentación " + numeroDocumento + " no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                // Manejar la excepción al cerrar la conexión
+                e.printStackTrace();
+            }
+        }
+
+        if ("".equals(nombre)) {
+            return "No existe archivo para BlueCorp " + numeroDocumento;
+        } else {
+            return nombre;
         }
     }
-
-    if ("".equals(nombre)) {
-        return "No existe archivo para BlueCorp " + numeroDocumento;
-    } else {
-        return nombre;
-    }
-}
 
     public String buscarNombreDeArchivoBlueCorp(int orden) {
         Connection con;
@@ -2359,18 +2257,18 @@ public class FileDownloadBean implements Serializable {
 
         }
     }
-    
+
     public String buscarNombreFrenteDniParaExpSinCarpeta(String cuit) {
         Connection con;
         PreparedStatement ps;
         String nombre = "";
-         long cuitLong = 0;
-            
-            if (!"0".equals(cuit) && cuit != null && !"".equals(cuit))  {
-                cuitLong = Long.parseLong(cuit);
-            } 
+        long cuitLong = 0;
 
-        try {       
+        if (!"0".equals(cuit) && cuit != null && !"".equals(cuit)) {
+            cuitLong = Long.parseLong(cuit);
+        }
+
+        try {
             if (!"0".equals(cuit)) {
                 con = DAO.getConnection();
                 ps = con.prepareStatement("SELECT nombreDelDocumento FROM frenteDniExpSinCarpeta WHERE nroDeCuit = (?);");
@@ -2393,20 +2291,20 @@ public class FileDownloadBean implements Serializable {
             return nombre;
 
         }
-    
+
     }
 
     public String buscarNombreDorsoDniParaExpSinCarpeta(String cuit) {
         Connection con;
         PreparedStatement ps;
         String nombre = "";
-         long cuitLong = 0;
-            
-            if (!"0".equals(cuit) && cuit != null && !"".equals(cuit))  {
-                cuitLong = Long.parseLong(cuit);
-            } 
+        long cuitLong = 0;
 
-        try {       
+        if (!"0".equals(cuit) && cuit != null && !"".equals(cuit)) {
+            cuitLong = Long.parseLong(cuit);
+        }
+
+        try {
             if (!"0".equals(cuit)) {
                 con = DAO.getConnection();
                 ps = con.prepareStatement("SELECT nombreDelDocumento FROM dorsoDniExpSinCarpeta WHERE nroDeCuit = (?);");
@@ -2429,38 +2327,245 @@ public class FileDownloadBean implements Serializable {
             return nombre;
 
         }
-    
+
     }
-    
+
     public String buscarNombreDeArchivo(int orden, String nombreDeArchivo) {
         Connection con;
         PreparedStatement ps;
         String nombre = "";
-       
-                    try {
-                        if (orden != 0) {
-                            con = DAO.getConnection();
-                            ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentos"+nombreDeArchivo+" WHERE nroDeOrden = (?);");
-                            ps.setInt(1, orden);
 
-                            ResultSet rs = ps.executeQuery();
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentos" + nombreDeArchivo + " WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
 
-                            while (rs.next()) {
-                                nombre = rs.getString(1);
-                            }
-                            con.close();
-                        }
-                    } catch (SQLException e) {
-                        FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo "+nombreDeArchivo+" no encontrado");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-                    }
-                    if ("".equals(nombre)) {
-                        return "no existe archivo para "+nombreDeArchivo;
-                    } else {
-                        return nombre;
+                ResultSet rs = ps.executeQuery();
 
-                    }
-        
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo " + nombreDeArchivo + " no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe archivo para " + nombreDeArchivo;
+        } else {
+            return nombre;
+
+        }
+
+    }
+
+    public int cantidadArchivosOtrasCajas(int orden, String nombrearchivo, String nombrearchivo2) {
+        int cantidad = 0; // Valor inicial
+
+        if (orden != 0) {
+            boolean nombre = buscarNombreDeArchivo(orden, nombrearchivo).contains("no existe archivo");
+            boolean nombre2 = buscarNombreDeArchivo(orden, nombrearchivo2).contains("no existe archivo");
+
+            if (nombre == false) {
+                cantidad += 1;
+            }
+            if (nombre2 == false) {
+                cantidad += 1;
+            } else {
+
+                return cantidad;
+            }
+        }
+
+        return cantidad;
+    }
+
+    public int otrosPagos(int orden, String nombrearchivo, String nombrearchivo2, String nombrearchivo3) {
+        int cantidad = 0; // Valor inicial
+
+        if (orden != 0) {
+            boolean nombre = buscarNombreDeArchivo(orden, nombrearchivo).contains("no existe archivo");
+            boolean nombre2 = buscarNombreDeArchivo(orden, nombrearchivo2).contains("no existe archivo");
+            boolean nombre3 = buscarNombreDeArchivo(orden, nombrearchivo3).contains("no existe archivo");
+
+            if (nombre == false) {
+                cantidad += 1;
+            }
+            if (nombre2 == false) {
+                cantidad += 1;
+            }
+            if (nombre3 == false) {
+                cantidad += 1;
+            } else {
+
+                return cantidad;
+            }
+        }
+
+        return cantidad;
+    }
+
+    public int CronoAportes(int orden) {
+        int cantidad = 0; // Valor inicial
+
+        if (orden != 0) {
+            boolean nombre = buscarNombreDeArchivoCronoDeAportes(orden).contains("no existe archivo");
+            boolean nombre2 = buscarNombreDeArchivoCronoDeAportesDos(orden).contains("no existe archivo");
+
+            if (nombre == false) {
+                cantidad += 1;
+            }
+            if (nombre2 == false) {
+                cantidad += 1;
+            } else {
+
+                return cantidad;
+            }
+        }
+
+        return cantidad;
+    }
+
+    public int cantidadDni(int orden) {
+        int cantidad = 0; // Valor inicial
+
+        if (orden != 0) {
+            boolean nombre = buscarNombreDeArchivoFrenteDni(orden).contains("no existe archivo");
+            boolean nombre2 = buscarNombreDeArchivoDorsoDni(orden).contains("no existe archivo");
+
+            if (nombre == false) {
+                cantidad += 1;
+            }
+            if (nombre2 == false) {
+                cantidad += 1;
+            } else {
+
+                return cantidad;
+            }
+        }
+
+        return cantidad;
+    }
+
+    public int cantidadOtraDoc(int orden) {
+        int cantidad = 0; // Valor inicial
+
+        if (orden != 0) {
+            boolean nombre = buscarNombreDeArchivoOtraDocumentacion(orden).contains("no existe archivo");
+            boolean nombre2 = buscarNombreDeArchivoOtraDocumentacionDos(orden).contains("no existe archivo");
+            boolean nombre3 = buscarNombreDeArchivoOtraDocumentacionTres(orden).contains("no existe archivo");
+
+            if (nombre == false) {
+                cantidad += 1;
+            }
+            if (nombre2 == false) {
+                cantidad += 1;
+            }
+            if (nombre3 == false) {
+                cantidad += 1;
+            } else {
+
+                return cantidad;
+            }
+        }
+
+        return cantidad;
+    }
+
+    public int cantidadBluecorp(int orden) {
+        int cantidad = 0; // Valor inicial
+
+        if (orden != 0) {
+            boolean nombre = buscarNombreDeArchivoBlueCorp(orden).contains("no existe archivo");
+            boolean nombre2 = buscarNombreDeArchivoBlueCorpDos(orden).contains("no existe archivo");
+            boolean nombre3 = buscarNombreDeArchivoBlueCorpTres(orden).contains("no existe archivo");
+
+            if (nombre == false) {
+                cantidad += 1;
+            }
+            if (nombre2 == false) {
+                cantidad += 1;
+            }
+            if (nombre3 == false) {
+                cantidad += 1;
+            } else {
+
+                return cantidad;
+            }
+        }
+
+        return cantidad;
+    }
+
+    public int cantidadArchivos(int orden, String nombrearchivo) {
+        int cantidad = 0; // Valor inicial
+
+        if (orden != 0) {
+            boolean nombre = buscarNombreDeArchivo(orden, nombrearchivo).contains("no existe archivo");
+
+            if (nombre == false) {
+                cantidad += 1;
+            } else {
+
+                return cantidad;
+            }
+        }
+
+        return cantidad;
+    }
+
+    public int cantidadPartidas(int orden) {
+        int cantidadPartidas = 0; // Valor inicial
+
+        if (orden != 0) {
+            boolean nombre = buscarNombreDeArchivoJPG(orden).contains("no existe archivo");
+            boolean nombre2 = buscarNombreDeArchivoJPGDos(orden).contains("no existe archivo");
+            boolean nombre3 = buscarNombreDeArchivoJPGTres(orden).contains("no existe archivo");
+            boolean nombre4 = buscarNombreDeArchivoJPGCuatro(orden).contains("no existe archivo");
+            boolean nombre5 = buscarNombreDeArchivoJPGCinco(orden).contains("no existe archivo");
+            boolean nombre6 = buscarNombreDeArchivoPDF(orden).contains("no existe archivo");
+            boolean nombre7 = buscarNombreDeArchivoPDFDos(orden).contains("no existe archivo");
+            boolean nombre8 = buscarNombreDeArchivoPDFTres(orden).contains("no existe archivo");
+            boolean nombre9 = buscarNombreDeArchivoPDFCuatro(orden).contains("no existe archivo");
+            boolean nombre10 = buscarNombreDeArchivoPDFCinco(orden).contains("no existe archivo");
+
+            if (nombre == false) {
+                cantidadPartidas += 1;
+            }
+            if (nombre2 == false) {
+                cantidadPartidas += 1;
+            }
+            if (nombre3 == false) {
+                cantidadPartidas += 1;
+            }
+            if (nombre4 == false) {
+                cantidadPartidas += 1;
+            }
+            if (nombre5 == false) {
+                cantidadPartidas += 1;
+            }
+            if (nombre6 == false) {
+                cantidadPartidas += 1;
+            }
+            if (nombre7 == false) {
+                cantidadPartidas += 1;
+            }
+            if (nombre8 == false) {
+                cantidadPartidas += 1;
+            }
+            if (nombre9 == false) {
+                cantidadPartidas += 1;
+            }
+            if (nombre10 == false) {
+                cantidadPartidas += 1;
+            } else {
+                return cantidadPartidas;
+            }
+        }
+
+        return cantidadPartidas;
     }
 
 }

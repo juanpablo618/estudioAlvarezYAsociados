@@ -33,7 +33,7 @@
              <p:commandButton id="botonHoy" value="hoy" action="#{counterView.actualDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
              <p:commandButton value="→" action="#{counterView.incrementDate(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday'))}" update="output,:TurnoListForm:datalist,:AgendaListForm:datalist" />
            
-              
+             
             </h:form>
             
             <h:form id="TurnoListForm" style="background-color: #F4F8FA">
@@ -165,6 +165,13 @@
             </h:form>
        
             <h:form id="AgendaListForm" style="background-color: #F4F8FA">
+            
+                
+                <p:commandButton value="Exportar PDF"
+                     actionListener="#{agendaController.exportarPDFCustom}"
+                     ajax="false"
+                     icon="ui-icon-print" />
+                
 
                 <p:dataTable id="datalist" value="#{agendaController.getItemsBySessionUser(session.getAttribute('userNombreCompleto'), session.getAttribute('dateToday') )}" var="item"
                              selectionMode="single" selection="#{agendaController.selected}"
@@ -185,20 +192,20 @@
 
                     <p:growl life="2500" id="message2" showDetail="true" />
 
-                    <p:column style="width: 10%" styleClass="centeredColumnContent#{item.realizado}" sortBy="#{item.diaMesAnio}" filterBy="#{item.diaMesAnio}" filterMatchMode="exact" >
+                    <p:column headerText="Fecha" style="width: 10%" styleClass="centeredColumnContent#{item.realizado}" sortBy="#{item.diaMesAnio}" filterBy="#{item.diaMesAnio}" filterMatchMode="exact" >
                         <h:outputText  value="#{item.fecha}"   >
                             <f:convertDateTime pattern="dd/MM/yyyy"  />
                         </h:outputText>
                     </p:column>
 
-                     <p:column  style="width: 7%" filterBy="#{item.orden}"  styleClass="centeredColumnContent#{item.realizado}" filterMatchMode="exact">
+                     <p:column headerText="Orden"  style="width: 7%" filterBy="#{item.orden}"  styleClass="centeredColumnContent#{item.realizado}" filterMatchMode="exact">
                         <f:facet name="filter" >
                             <p:inputText id="inputOrdenEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.ordenSeleccionadoEnTurno}" />
                         </f:facet>
                         <h:outputText value="#{item.orden}"/>
                     </p:column>
 
-                    <p:column style="width: 20%" filterBy="#{item.apellidoNombre}" styleClass="centeredColumnContent#{item.realizado}" filterMatchMode="contains">
+                    <p:column headerText="Nombre y Apellido" style="width: 20%" filterBy="#{item.apellidoNombre}" styleClass="centeredColumnContent#{item.realizado}" filterMatchMode="contains">
                         <f:facet name="filter" >
                             <p:inputText id="inputApellidoYNombreEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.apellidoYNombreSeleccionadoEnTurno}" />
                         </f:facet>
@@ -206,19 +213,18 @@
                         <h:outputText value="#{item.apellido} #{item.nombre}"/>
                     </p:column>
 
-                    <p:column id="columnToUpdate"  style="width: 20%"  filterBy="#{item.responsable}"  styleClass="centeredColumnContent#{item.realizado}"  filterMatchMode="exact">
+                    <p:column headerText="Responsable" id="columnToUpdate"  style="width: 20%"  filterBy="#{item.responsable}"  styleClass="centeredColumnContent#{item.realizado}"  filterMatchMode="exact">
                         <f:facet name="filter" >
                             <p:inputText id="inputEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.responsableSeleccionadoEnTurno}" />
                         </f:facet>
                         <h:outputText value="#{item.responsable}" />
                     </p:column>
 
-                    <p:column style="width: 13%" styleClass="centeredColumnContent#{item.realizado}">
-                        <h:graphicImage rendered="#{item.prioridad eq 'Si' }" alt="priorida Alta" value="resources/images/Estrella_amarilla.png" style="height: 8% ; width: 8%;"/>
+                    <p:column rowspan="20" headerText="descripcion" style="width: 13%" styleClass="centeredColumnContent#{item.realizado}">
                         <h:outputText value="#{item.descripcion}"  />
                     </p:column>
-
-                   <p:column style="text-align: center; width: 28%;" filterBy="#{item.realizado}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                    
+                   <p:column headerText="Realizado" style="text-align: center; width: 28%;" filterBy="#{item.realizado}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
                         <f:facet name="filter" >
                             <p:inputText id="inputRealizadoEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.realizadoSeleccionadoEnTurno}" />
                         </f:facet>

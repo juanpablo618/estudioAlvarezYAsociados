@@ -6,6 +6,7 @@ import com.estudioAlvarezVersion2.jpa.Turno;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil.PersistAction;
 import com.estudioAlvarezVersion2.jpacontroller.AgendaFacade;
+import com.estudioAlvarezVersion2.jsf.util.CustomPDFExporter;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -32,6 +33,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
@@ -50,10 +52,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.primefaces.component.datatable.DataTable;
+import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
+
+import javax.mail.*;
+import javax.mail.internet.*;
+
 
 @Named("agendaController")
 @SessionScoped
@@ -1550,4 +1558,30 @@ public class AgendaController implements Serializable {
        }
     }
     
+    public String getFileNameExport() {
+        LocalDate hoy = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return "agendas_" + hoy.format(formatter);
+    }
+
+    public void exportarPDFCustom() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        UIComponent datatable = findComponent(":AgendaListForm:datalist");
+
+        CustomPDFExporter exporter = new CustomPDFExporter();
+        exporter.export(context, datatable, "agendas_" + getFechaHoy(), false, false, "UTF-8", false);
+    }
+
+    private UIComponent findComponent(String id) {
+        return FacesContext.getCurrentInstance().getViewRoot().findComponent(id);
+    }
+
+    public String getFechaHoy() {
+        return new java.text.SimpleDateFormat("dd-MM-yyyy").format(new java.util.Date());
+    }
+
+
+  
+
+
 }

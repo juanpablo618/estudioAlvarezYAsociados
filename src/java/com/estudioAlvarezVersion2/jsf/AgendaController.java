@@ -1580,8 +1580,21 @@ public class AgendaController implements Serializable {
         return new java.text.SimpleDateFormat("dd-MM-yyyy").format(new java.util.Date());
     }
 
+// para la vista de agendas en editexpedientejudiciales
+  private String vista;
 
-  
+public String getVista() {
+    return vista;
+}
+
+public void setVista(String vista) {
+    this.vista = vista;
+}
+
+public void seleccionarVista(String tipo) {
+    this.vista = tipo;
+}
+
 
 
 }

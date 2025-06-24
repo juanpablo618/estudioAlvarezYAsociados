@@ -144,11 +144,11 @@
                             </p:selectOneMenu><br></br><br></br>
 
                             </h:panelGrid>
-                            <p:commandButton class="createButtonAgenda hoverBlue" actionListener="#{turnoController.createConNombreYApellido(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.telefono, expedienteController.selected.orden)}" value="Guardar Turno" onclick="ExpedienteViewDialogParaTurno.hide()"/>
+                            <p:commandButton class="createButtonAgenda hoverBlue" actionListener="#{turnoController.createConNombreYApellido(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.telefono, expedienteController.selected.orden)}" value="Guardar Turno" update=":ExpedienteJudicialEditForm,:growl"  oncomplete="handleSubmit(args,'ExpedienteViewDialogParaTurno');" />
                         
                         </p:fieldset> 
                     </div>
-                    <p:commandButton value="#{bundle.Close}" onclick="ExpedienteViewDialogParaTurno.hide()" class="botonCrearAgenda hoverGreen" style="float: right"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('ExpedienteViewDialogParaTurno').hide();" class="botonCrearAgenda hoverGreen" style="float: right"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

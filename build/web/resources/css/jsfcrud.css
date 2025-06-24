@@ -331,8 +331,8 @@ table.dataTable.nowrap td{white-space:nowrap}
     position: absolute;
 }
 .editarExpedienteJudicial{
-    width: 768px !important;
-    height: 90% !important;
+    width: 85% !important;
+    height: 95% !important;
 
     z-index: 1005 !important;
 
@@ -745,7 +745,7 @@ div.ui-growl {
 .datospersonales{
 
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(1, 1fr);
     gap: 45px;
     padding: 20px 40px;
@@ -1046,8 +1046,8 @@ label{
     border: 1px solid #C4D1EB;
     border-radius: 10px;
     padding: 20px 40px;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, auto);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, auto);
     gap: 45px;
 }   
 .editordetexto {
@@ -1179,13 +1179,13 @@ display: flex;
     
 }
 #ExpedienteJudicialEditForm\:tabViewEditExpJudicialEditForm\:historialdeagendas_menu{
-       width: 38.5em; 
+       width: 63.5em; 
 }
 
 .apilarelementos{
     display: flex;
     flex-direction: column;
-    text-align: center;
+    text-align: start;
     font-size: 14px;
 }
 .iconoturnorespondable  > .fa {

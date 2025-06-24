@@ -9,7 +9,7 @@
     <h:head>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 
     </h:head>
 
@@ -74,108 +74,111 @@
                         </f:facet>
 
 
-                       
-
-                            
-                                <div class="datospersonales">
-                                    <div class="columna">
-                                        
-
-                                            <p:outputLabel value="Orden:"   class=""/>
-
-                                            <p:inputText onchange="myFunction()" id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" />
-
-                                            <p:outputLabel value="Fecha de atención:" for="fechaDeAtencion"  class=""/>
-                                            <p:calendar styleClass="inputfecha" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion" showOn="button">
-                                            </p:calendar>
-
-                                            <p:outputLabel value="#{bundle.EditExpedienteLabel_apellido}" for="apellido"  class=""/>
-                                            <p:inputText id="apellido" value="#{expedienteController.selected.apellido}" title="#{bundle.EditExpedienteTitle_apellido}" />
-
-                                            <p:outputLabel value="#{bundle.EditExpedienteLabel_nombre}" for="nombre"  class=""/>
-                                            <p:inputText id="nombre" value="#{expedienteController.selected.nombre}" style="" title="#{bundle.EditExpedienteTitle_nombre}" />
-
-                                            <p:outputLabel value="Cuit:" for="cuit"  class=""/>
-                                            <p:inputText required="true" requiredMessage="CUIT NO INGRESADO" id="cuit" value="#{expedienteController.selected.cuit}"  title="#{bundle.EditExpedienteTitle_cuit}" />
-
-                                            <p:outputLabel value="Activo:" for="activo"  />
-                                            <p:selectOneMenu id="activo" value="#{expedienteController.selected.activo}" style="float-l" >
-                                                <f:selectItem itemLabel=" -- Elige un estado --"  noSelectionOption="true"  />
-                                                <f:selectItem itemLabel="Si" itemValue="Si" />
-                                                <f:selectItem itemLabel="No" itemValue="No" />
-                                            </p:selectOneMenu>
-
-
-                                            <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono"  />    
-
-                                            <div class="telefonoinput">
-                                                <p:inputText  id="telefono" value="#{expedienteController.selected.telefono}" style="" title="#{bundle.CreateExpedienteTitle_telefono}" />
 
 
 
-                                                <a class="btnwpp" href="#{expedienteController.abrirWhatsApp(expedienteController.selected.telefono)}" target="_blank" >
-                                                    <img src="../faces/resources/images/whatsapp.png" ></img>
-                                                </a>
-                                           </div>
-                                            <p:outputLabel value="Telèfono Auxiliar" for="telefonoAuxiliar"  />
-                                            <p:inputTextarea    id="telefonoAuxiliar" value="#{expedienteController.selected.telefonoAuxiliar}" cols="22" title="Telèfono Auxiliar" style="height: 98px;"/>
-                                            <p:outputLabel value="#{bundle.EditExpedienteLabel_edad}" for="edad"  class=""/>
-                                            <p:inputText id="edad"  value="#{expedienteController.selected.edad}" 
-                                                         title="#{bundle.EditExpedienteTitle_edad}"  readonly="true"/> <!-- AQUI SE CAMBIO EL LABEL POR INPUT QUE NO SE PUEDA EDITAR PARA QUE QUEDE MAS ESTETICO -->
+                        <div class="datospersonales">
+                            <div class="columna">
+
+
+                                <p:outputLabel value="Orden:"   class=""/>
+
+                                <p:inputText onchange="myFunction()" id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" />
+
+                                <p:outputLabel value="Fecha de atención:" for="fechaDeAtencion"  class=""/>
+                                <p:calendar styleClass="inputfecha" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion" showOn="button">
+                                </p:calendar>
+
+                                <p:outputLabel value="#{bundle.EditExpedienteLabel_apellido}" for="apellido"  class=""/>
+                                <p:inputText id="apellido" value="#{expedienteController.selected.apellido}" title="#{bundle.EditExpedienteTitle_apellido}" />
+
+                                <p:outputLabel value="#{bundle.EditExpedienteLabel_nombre}" for="nombre"  class=""/>
+                                <p:inputText id="nombre" value="#{expedienteController.selected.nombre}" style="" title="#{bundle.EditExpedienteTitle_nombre}" />
+
+                                <p:outputLabel value="Cuit:" for="cuit"  class=""/>
+                                <p:inputText required="true" requiredMessage="CUIT NO INGRESADO" id="cuit" value="#{expedienteController.selected.cuit}"  title="#{bundle.EditExpedienteTitle_cuit}" />
+
+                                <p:outputLabel value="Activo:" for="activo"  />
+                                <p:selectOneMenu id="activo" value="#{expedienteController.selected.activo}" style="float-l" >
+                                    <f:selectItem itemLabel=" -- Elige un estado --"  noSelectionOption="true"  />
+                                    <f:selectItem itemLabel="Si" itemValue="Si" />
+                                    <f:selectItem itemLabel="No" itemValue="No" />
+                                </p:selectOneMenu>
+
+                            </div>
+                            <div class="columna">
+
+
+                                <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono"  />    
+
+                                <div class="telefonoinput">
+                                    <p:inputText  id="telefono" value="#{expedienteController.selected.telefono}" style="" title="#{bundle.CreateExpedienteTitle_telefono}" />
+
+
+
+                                    <a class="btnwpp" href="#{expedienteController.abrirWhatsApp(expedienteController.selected.telefono)}" target="_blank" >
+                                        <img src="../faces/resources/images/whatsapp.png" ></img>
+                                    </a>
+                                </div>
+                                <p:outputLabel value="Telèfono Auxiliar" for="telefonoAuxiliar"  />
+                                <p:inputTextarea    id="telefonoAuxiliar" value="#{expedienteController.selected.telefonoAuxiliar}" cols="22" title="Telèfono Auxiliar" style="height: 98px;"/>
+                                <p:outputLabel value="#{bundle.EditExpedienteLabel_edad}" for="edad"  class=""/>
+                                <p:inputText id="edad"  value="#{expedienteController.selected.edad}" 
+                                             title="#{bundle.EditExpedienteTitle_edad}"  readonly="true"/> <!-- AQUI SE CAMBIO EL LABEL POR INPUT QUE NO SE PUEDA EDITAR PARA QUE QUEDE MAS ESTETICO -->
 
 
 
 
 
 
-                                        
-                                    </div>
-                                    <div class="columna">
-                                       
 
 
-                                            <p:outputLabel  value="#{bundle.EditExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento"  />
-                                            <p:calendar locale="es" styleClass="inputfecha" required="true" requiredMessage="fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy"  value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}"  showOn="button"/>
-
-                                            <p:outputLabel value="#{bundle.EditExpedienteLabel_sexo}" for="sexo"  class=""/>
-                                            <p:selectOneMenu  id="sexo" value="#{expedienteController.selected.sexo}" >
-                                                <f:selectItem itemLabel="Masculino" itemValue="masculino" />
-                                                <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
-                                            </p:selectOneMenu>
-                                            <p:outputLabel value="Nacionalidad:" for="nacionalidad" class=""/>
-                                            <p:selectOneMenu id="nacionalidad" value="#{expedienteController.selected.nacionalidad}"  >
-                                                <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
-                                                <f:selectItem itemLabel="Extranjero" itemValue="Extranjero" />
-                                            </p:selectOneMenu>
 
 
-                                            <p:outputLabel value="Código Postal:" for="codigoPostal" />
-                                            <p:inputText id="codigoPostal" value="#{expedienteController.selected.codigoPostal}"  title="codigoPostal"/>
+
+                                <p:outputLabel  value="#{bundle.EditExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento"  />
+                                <p:calendar locale="es" styleClass="inputfecha" required="true" requiredMessage="fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy"  value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}"  showOn="button"/>
+
+                                <p:outputLabel value="#{bundle.EditExpedienteLabel_sexo}" for="sexo"  class=""/>
+                                <p:selectOneMenu  id="sexo" value="#{expedienteController.selected.sexo}" >
+                                    <f:selectItem itemLabel="Masculino" itemValue="masculino" />
+                                    <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Nacionalidad:" for="nacionalidad" class=""/>
+                                <p:selectOneMenu id="nacionalidad" value="#{expedienteController.selected.nacionalidad}"  >
+                                    <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
+                                    <f:selectItem itemLabel="Extranjero" itemValue="Extranjero" />
+                                </p:selectOneMenu>
+
+                            </div>
+                            <div class="columna">
+                                <p:outputLabel value="Código Postal:" for="codigoPostal" />
+                                <p:inputText id="codigoPostal" value="#{expedienteController.selected.codigoPostal}"  title="codigoPostal"/>
 
 
-                                            <p:outputLabel value="#{bundle.EditExpedienteLabel_direccion}" for="direccion"/>
-                                            <p:inputText id="direccion" value="#{expedienteController.selected.direccion}" title="#{bundle.EditExpedienteTitle_direccion}" />
+                                <p:outputLabel value="#{bundle.EditExpedienteLabel_direccion}" for="direccion"/>
+                                <p:inputText id="direccion" value="#{expedienteController.selected.direccion}" title="#{bundle.EditExpedienteTitle_direccion}" />
 
-                                            <p:outputLabel value="Altura:" for="nroDeAltura" />
-                                            <p:inputText id="nroDeAltura" value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.EditExpedienteTitle_nroDeAltura}" />
+                                <p:outputLabel value="Altura:" for="nroDeAltura" />
+                                <p:inputText id="nroDeAltura" value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.EditExpedienteTitle_nroDeAltura}" />
 
-                                            <p:outputLabel value="#{bundle.EditExpedienteLabel_piso}" for="piso" />
-                                            <p:inputText id="piso" value="#{expedienteController.selected.piso}"  title="#{bundle.EditExpedienteTitle_piso}"  />
+                                <p:outputLabel value="#{bundle.EditExpedienteLabel_piso}" for="piso" />
+                                <p:inputText id="piso" value="#{expedienteController.selected.piso}"  title="#{bundle.EditExpedienteTitle_piso}"  />
 
-                                            <p:outputLabel value="#{bundle.EditExpedienteLabel_depto}" for="depto"  />
-                                            <p:inputText id="depto" value="#{expedienteController.selected.depto}" title="#{bundle.EditExpedienteTitle_depto}" />
+                                <p:outputLabel value="#{bundle.EditExpedienteLabel_depto}" for="depto"  />
+                                <p:inputText id="depto" value="#{expedienteController.selected.depto}" title="#{bundle.EditExpedienteTitle_depto}" />
 
-                                            <p:outputLabel value="#{bundle.EditExpedienteLabel_barrio}" for="barrio"  />
-                                            <p:inputText id="barrio" value="#{expedienteController.selected.barrio}" title="#{bundle.EditExpedienteTitle_barrio}"  />
+                                <p:outputLabel value="#{bundle.EditExpedienteLabel_barrio}" for="barrio"  />
+                                <p:inputText id="barrio" value="#{expedienteController.selected.barrio}" title="#{bundle.EditExpedienteTitle_barrio}"  />
 
-                                            <p:outputLabel value="Localidad:" for="localidad"  />
-                                            <p:inputText id="localidad" value="#{expedienteController.selected.localidad}" title="localidad"/>
-                                     
-                                    </div>
+                                <p:outputLabel value="Localidad:" for="localidad"  />
+                                <p:inputText id="localidad" value="#{expedienteController.selected.localidad}" title="localidad"/>
 
-                                </div> 
-                           
-                     
+                            </div>
+
+                        </div> 
+
+
                     </p:tab>
                     <p:tab >
                         <f:facet name="title">
@@ -205,7 +208,7 @@
                                     <p:ajax event="change" update="confirmdialog" oncomplete="PF('confirm').show()" />
                                 </p:selectOneMenu>
                                 <p:confirmDialog id="confirmdialog" widgetVar="confirm" global="true" showEffect="fade" hideEffect="fade" message="¿está seguro?" header="No es muy común cambiar el tipo de expediente:">
-                                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                                    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" update=":ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm" />
                                 </p:confirmDialog>
                                 <p:outputLabel value="Equipo:" for="equipo"  />
 
@@ -318,9 +321,9 @@
 
                             </div>
 
-                            <div class="columnafila2">
+                            <div class="columna">
                                 <p:outputLabel value="Observaciones:" for="observaciones" />
-                                <p:inputTextarea rows="7" cols="55" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
+                                <p:inputTextarea rows="19" cols="25" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
 
 
 
@@ -428,7 +431,7 @@
 
                             <div style="text-align: right ; padding-bottom: 20px ;display: grid;" >
                                 <p:commandButton  class="botonEditarAgendaEsteBotonNoSirveMasPeroLoNecesitaLaUI boton-guardar"
-                                                  actionListener="#{comunicacionController.prepareCreateComunicacion(expedienteController.selected.orden)}"  value="crear comunicación" 
+                                                  actionListener="#{comunicacionController.prepareCreateComunicacion(expedienteController.selected.orden)}"  value="Crear Comunicación" 
                                                   update=":ComunicacionCreateForm" oncomplete="PF('ComunicacionCreateDialog').show()" />
                             </div>  
 
@@ -438,20 +441,21 @@
                                          paginator="true"
                                          rows="10"
                                          widgetVar="comunicacionesTable2"
-                                         rowsPerPageTemplate="100,200,500"
+                                         rowsPerPageTemplate="20,50,100"
                                          emptyMessage="no hay comunicaciones agregadas" 
                                          rendered="true"  
                                          style="display: table;"
                                          styleClass="tabla-tailwind"
+                                         sortBy="#{item.fecha}" sortOrder="descending"
                                          >
 
-                                <p:column sortBy="#{item.fecha}"   headerText="Fecha"  style="width: 13%">
+                                <p:column  sortBy="#{item.fecha}" headerText="Fecha"  style="width: 8%" >
                                     <h:outputText value="#{item.fecha}" styleClass="fechacolumna"  >
                                         <f:convertDateTime pattern="dd/MM/yyyy" />
 
                                     </h:outputText>
                                 </p:column>
-                                <p:column   styleClass="centeredColumnContent" headerText="Descripción" style="width: 44%;">
+                                <p:column   styleClass="centeredColumnContent" headerText="Descripción" style="width:63%;">
                                     <div class="apilarelementos">
 
 
@@ -494,6 +498,78 @@
                             </p:confirmDialog> 
                         </div> 
                     </p:tab>
+                    <p:tab id="tabEventosDeCausasJudiciales" title="">
+                        <f:facet name="title">
+                            <h:outputText id="iconofechajudiciales" value="" styleClass="fa fa-gavel" style="font-size: 1.2rem; cursor: pointer;" />
+                            <p:tooltip for="iconofechajudiciales" value="Fechas Judiciales" />
+                        </f:facet>
+                        <div class="comunicaciones">
+                            <div style="text-align: right ; padding-bottom: 20px ;display: grid;">
+                            <p:commandButton  class="botonEditarAgendaEsteBotonNoSirveMasPeroLoNecesitaLaUI boton-guardar"
+                                              actionListener="#{eventoDeCausasJudicialesController.prepareCreateEventoJudicial(expedienteController.selected.orden)}"  value="Crear fecha Judicial " 
+                                              update=":ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist6" 
+                                              oncomplete="PF('EventoJudicialCreateDialog').show()" />
+                        </div>
+                        <p:dataTable id="datalist6" value="#{expedienteController.verFechasJudicialesPorNroDeOrden(expedienteController.selected.orden)}" var="item"
+                                     selectionMode="single" selection="#{eventoDeCausasJudicialesController.selected}"
+                                     rowKey="#{item.idEventoDeCausasJudiciales}"
+                                     paginator="true"
+                                     rows="10"
+                                     widgetVar="eventosDeCausasJudicialesTable2"
+                                     rowsPerPageTemplate="100,200,500"
+                                     emptyMessage="no hay eventos de causas judiciales agregadas" 
+                                     rendered="true"  
+                                      style="display: table;"
+                                         styleClass="tabla-tailwind"
+                                     >
+
+                            <p:column sortBy="#{item.fecha}" style="width: 10%" styleClass="centeredColumnContent"  headerText="FECHA">
+                                <h:outputText value="#{item.fecha}"  >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column style="width: 20%" styleClass="centeredColumnContent" headerText="Días hasta próxima fecha">
+                                <h:outputText value="#{item.diasHastaProximaFecha != null ? item.diasHastaProximaFecha  : 'N/A'}" escape="false" />
+
+                            </p:column>
+
+                            <p:column  style="width: 40%" styleClass="centeredColumnContent" headerText="tipo de fecha">
+                                <h:outputText value="#{item.tipoDeFecha}"  />
+                            </p:column>
+
+                            <p:column style="width: 10% !important;text-align: center; "  exportable="false">
+
+                                <f:facet name="header">
+                                    <h:outputText value="ACCIONES"/>
+                                </f:facet>
+
+                                <p:commandButton class="linea btnSearch"  update=":EventoDeCausasJudicialesEditForm" oncomplete="PF('EventoDeCausasJudicialesEditDialog').show()"  icon="ui-icon-search"  title="Editar Evento">
+                                    <f:setPropertyActionListener value="#{item}" target="#{eventoDeCausasJudicialesController.selected}" />
+                                </p:commandButton>
+
+                                <p:commandButton class="linea btnDelete" 
+                                                 update=":growl, :ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist6"
+                                                 oncomplete="PF('expedientesTable').clearFilters()"
+                                                 actionListener="#{eventoDeCausasJudicialesController.destroy}"  
+                                                 icon="ui-icon-trash"
+                                                 title="Eliminar">
+                                    <f:setPropertyActionListener value="#{item}" target="#{eventoDeCausasJudicialesController.selected}" />
+                                    <p:confirm header="Confirmación" message="¿Estas seguro?"  icon="ui-icon-alert"/>
+                                </p:commandButton> 
+
+                            </p:column>    
+
+                        </p:dataTable>
+
+                             
+</div>
+                        <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton update=":ExpedienteListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;" />
+                            <p:commandButton update=":ExpedienteListForm" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;" />
+                        </p:confirmDialog> 
+
+                    </p:tab>
                     <p:tab id="tabAgendaAnterior" >
                         <f:facet name="title">
                             <h:outputText id="iconoAgendas" value="" styleClass="fa fa-calendar" style="font-size: 1.2rem; cursor: pointer;" />
@@ -508,7 +584,7 @@
                                              margin-left: 10px;"
                                              value="Crear Turno" 
                                              actionListener="#{turnoController.prepareCreate}"
-                                             update=":ExpedienteViewFormParaTurno,:growl"
+                                             update=":ExpedienteViewFormParaAgenda"
                                              oncomplete="PF('ExpedienteViewDialogParaTurno').show(); PF('ExpedienteJudicialEditDialog').show()" />
                             <!-- Botón desplegable -->
                             <p:menuButton value="Historial de Agendas y Turnos"  id="historialdeagendas" >
@@ -550,7 +626,7 @@
                                     <p:growl life="2500" id="message5" showDetail="true" />
 
 
-                                    <p:column style="width:48%"   headerText="Descripción" >
+                                    <p:column style="width:65%"   headerText="Descripción" >
                                         <div class="apilarelementos">
 
 
@@ -572,7 +648,7 @@
                                             </h:outputText>
                                         </div>
                                     </p:column>
-                                    <p:column  style="text-align: center; width:23%; " headerText="Acciones">
+                                    <p:column  style="text-align: center; width:15%; " headerText="Acciones">
 
                                         <p:commandButton class="linea btnSearch"  update=":AgendaPasadaEditForm" oncomplete="PF('AgendaPasadaEditDialog').show()" icon="ui-icon-search" title="Ver">
                                             <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaPasada}" />
@@ -637,7 +713,7 @@
 
 
 
-                                    <p:column style="text-align: start; width: 42%">
+                                    <p:column style="text-align: start; width: 55%">
                                         <f:facet name="header">
                                             <h:outputText value="Descripción"/>
                                         </f:facet>
@@ -663,7 +739,7 @@
                                             </h:outputText>
                                         </div> 
                                     </p:column>
-                                    <p:column filterBy="#{item.responsable}" headerText="Responsable"  filterMatchMode="contains" style="width:16%" class="iconoturnorespondable" >
+                                    <p:column filterBy="#{item.responsable}" headerText="Responsable"  filterMatchMode="contains" style="width:10%" class="iconoturnorespondable" >
 
                                         <h:outputText id="responsableicon"  
                                                       styleClass="fa fa-user" 
@@ -697,7 +773,7 @@
                                     <p:growl life="2500" id="message6" showDetail="true" />
 
 
-                                    <p:column style="width:48%"   headerText="Descripción" >
+                                    <p:column style="width:65%"   headerText="Descripción" >
                                         <div class="apilarelementos">
 
 
@@ -719,7 +795,7 @@
                                             </h:outputText>
                                         </div>
                                     </p:column>
-                                    <p:column  style="text-align: center; width:23%; " headerText="Acciones">
+                                    <p:column  style="text-align: center; width:15%; " headerText="Acciones">
 
                                         <p:commandButton class="linea btnSearch"
                                                          update=":AgendaFuturaEditForm"
@@ -783,7 +859,7 @@
 
 
 
-                                    <p:column style="text-align: start; width: 42%">
+                                    <p:column style="text-align: start; width: 55%">
                                         <f:facet name="header">
                                             <h:outputText value="Descripción"/>
                                         </f:facet>
@@ -809,7 +885,7 @@
                                             </h:outputText>
                                         </div> 
                                     </p:column>
-                                    <p:column filterBy="#{item.responsable}" headerText="Responsable"  filterMatchMode="contains" style="width:16%" class="iconoturnorespondable" >
+                                    <p:column filterBy="#{item.responsable}" headerText="Responsable"  filterMatchMode="contains" style="width:10%" class="iconoturnorespondable" >
 
                                         <h:outputText id="responsableicon"  
                                                       styleClass="fa fa-user" 
@@ -840,7 +916,7 @@
 
                     <p:tab  id="honorarios">
                         <f:facet name="title">
-                            <h:outputText id="iconoHonorarios" value="💰" styleClass="fa fa-dollar" style="font-size: 1.4rem; cursor: pointer;" /> <!-- NO TOCAR EL VALUE YA QUE ES UN EMOJI , PERO FUNCIONA -->
+                            <h:outputText id="iconoHonorarios" value="" styleClass="fas fa-coins" style="font-size: 1.2rem; cursor: pointer;" />
 
                             <p:tooltip for="iconoHonorarios" value="Honorarios y Gastos" />
                         </f:facet>
@@ -887,6 +963,7 @@
         </p:dialog>
 
         <ui:include src="../comunicacion/CreateComunicacionParaExpJudicial.xhtml"/>
-
+ <ui:include src="../eventoDeCausaJudicial/CreateEventoCausasJudicialesParaExpJudicial.xhtml"/>
+        <ui:include src="../eventoDeCausaJudicial/Edit.xhtml"/>
     </ui:composition>
 </html>

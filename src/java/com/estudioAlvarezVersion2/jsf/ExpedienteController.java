@@ -44,6 +44,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -427,33 +428,6 @@ public class ExpedienteController implements Serializable {
             return tipoDeExp;
         }
     }
-
-    /*public String verDatosPersonalesYDelExp(int orden) {
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExpedienteController expedienteControllerBean = context.getApplication().evaluateExpressionGet(context, "#{expedienteController}", ExpedienteController.class);
-
-        String datosExp = null;
-
-        for (Expediente expediente : expedienteControllerBean.getItems()) {
-            if (expediente.getOrden() != null) {
-                if (Integer.compare(expediente.getOrden(), orden) == 0) {
-
-                    if (expediente.toString() != null) {
-
-                        datosExp = expediente.toStringWithDatosPersonalesYDelExp();
-                        return datosExp;
-
-                    } else {
-                        datosExp = "no posee datos";
-                        return datosExp;
-
-                    }
-                }
-            }
-        }
-        return datosExp;
-    }*/
 
     public void create() {
 
@@ -1643,4 +1617,62 @@ public class ExpedienteController implements Serializable {
         items = null;        // Refrescar lista de todos los expedientes
     }
     
+   public String getEdadYComparacion() {
+    if (selected == null || selected.getFechaDeNacimiento() == null || selected.getSexo() == null) {
+        return "";
+    }
+
+    LocalDate nacimiento = selected.getFechaDeNacimiento()
+        .toInstant()
+        .atZone(ZoneId.systemDefault())
+        .toLocalDate();
+
+    LocalDate hoy = LocalDate.now();
+    Period edad = Period.between(nacimiento, hoy);
+
+    int años = edad.getYears();
+    int meses = edad.getMonths();
+
+    // Armar parte de la edad
+    StringBuilder resultado = new StringBuilder();
+    resultado.append("Edad: ")
+             .append(años).append(" año").append(años != 1 ? "s" : "")
+             .append(" ").append(meses).append(" mes").append(meses != 1 ? "es" : "");
+
+    // Umbral según sexo
+    String sexo = selected.getSexo().toUpperCase();
+    int edadLimite = sexo.equals("masculino") ? 65 : 60;
+    LocalDate fechaLimite = nacimiento.plusYears(edadLimite);
+
+    Period diferencia;
+
+    if (hoy.isBefore(fechaLimite)) {
+        diferencia = Period.between(hoy, fechaLimite);
+        resultado.append(", Le faltan ").append(formatPeriodo(diferencia));
+    } else {
+        diferencia = Period.between(fechaLimite, hoy);
+        resultado.append(", Está pasado por ").append(formatPeriodo(diferencia));
+    }
+
+    return resultado.toString();
+}
+
+    private String formatPeriodo(Period periodo) {
+    int años = periodo.getYears();
+    int meses = periodo.getMonths();
+
+    StringBuilder sb = new StringBuilder();
+    if (años > 0) {
+        sb.append(años).append(" año").append(años > 1 ? "s" : "");
+    }
+    if (meses > 0) {
+        if (sb.length() > 0) sb.append(" y ");
+        sb.append(meses).append(" mes").append(meses > 1 ? "es" : "");
+    }
+    if (años == 0 && meses == 0) {
+        sb.append("menos de un mes");
+    }
+    return sb.toString();
+}
+
 }

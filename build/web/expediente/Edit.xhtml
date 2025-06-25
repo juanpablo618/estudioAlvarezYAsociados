@@ -178,8 +178,8 @@
                                 </h:panelGrid>
                                 
                                 <h:panelGrid columns="2" cellspacing="5" cellpadding="1" style="margin-top: 3%;">
-                                    <p:outputLabel value="Edad:"  style="font-weight: bold" />
-                                    <p:outputLabel value="#{expedienteController.selected.edad}" style="font-weight: bold; margin-right: 30%;"/>
+                                    <p:outputLabel value="Edad:" style="font-weight: bold" />
+                                    <p:outputLabel value="#{expedienteController.getEdadYComparacion()}" style="font-weight: bold; margin-right: 30%;" />
                                 </h:panelGrid>
                                 <h:panelGrid columns="2" cellspacing="5" cellpadding="1">            
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_fechaDeNacimiento}" style="font-weight: bold" for="fechaDeNacimiento" />
@@ -743,11 +743,143 @@
                             <p:editor width="700" value="#{expedienteController.selected.tablaDeHonorariosYGastos}"></p:editor>
                         </p:tab>
 
+                        <p:tab title="Situación Previsional">
+                                
+                                <p:dataTable id="datalistSituacionPrevisional"
+                                         value="#{situacionPrevisionalController.verSituacionPrevisionalesPorNroDeOrden(expedienteController.selected.orden)}"
+                                         var="item"
+                                             selectionMode="single"
+                                             selection="#{situacionPrevisionalController.selected}"
+                                             rowKey="#{item.idSituacionPrevisional}"
+                                             paginator="true"
+                                             rows="10"
+                                             rendered="true"
+                                             rowsPerPageTemplate="10,20,50"
+                                             emptyMessage="no hay situaciones previsionales agregadas" 
+                                             >
+
+                                    <p:ajax event="rowSelect"  />
+                                    <p:ajax event="rowUnselect" />
+
+                                    <p:column  style="width: 40%" styleClass="centeredColumnContent" headerText="Empleador">
+                                        <h:outputText value="#{item.empleador}"  />
+                                    </p:column>
+                                    <p:column headerText="Empleador">
+                                        <p:cellEditor>
+                                            <f:facet name="input"><p:inputText value="#{item.empleador}" /></f:facet>
+                                            <f:facet name="output"><h:outputText value="#{item.empleador}" /></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column sortBy="#{item.fechaInicio}" style="width: 20%" styleClass="centeredColumnContent"  headerText="FECHA Inicio">
+                                        <h:outputText value="#{item.fechaInicio}"  >
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column sortBy="#{item.fechaFin}" style="width: 20%" styleClass="centeredColumnContent"  headerText="FECHA Fin">
+                                        <h:outputText value="#{item.fechaFin}"  >
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column  style="width: 20%" styleClass="centeredColumnContent" headerText="cant. Años">
+                                        <h:outputText value="#{item.anios}"  />
+                                    </p:column>
+                                    <p:column  style="width: 20%" styleClass="centeredColumnContent" headerText="cant. Meses">
+                                        <h:outputText value="#{item.meses}"  />
+                                    </p:column>
+                                    <p:column  style="width: 20%" styleClass="centeredColumnContent" headerText="cant. días">
+                                        <h:outputText value="#{item.dias}"  />
+                                    </p:column>
+                                    <p:column  style="width: 40%" styleClass="centeredColumnContent" headerText="cant. días">
+                                        <h:outputText value="#{item.observaciones}"  />
+                                    </p:column>
+                                    <p:column  style="width: 20%" styleClass="centeredColumnContent" headerText="Acciones">
+
+                                        <p:commandButton class="linea btnDelete" update=":growl,datalistSituacionPrevisional" oncomplete="PF('expedientesTable').clearFilters()" actionListener="#{situacionPrevisionalController.destroy}"  icon="ui-icon-trash" title="Eliminar">
+                                            <f:setPropertyActionListener value="#{item}" target="#{situacionPrevisionalController.selected}" />
+                                        </p:commandButton> 
+
+
+
+                                    </p:column>
+
+                                </p:dataTable>
+                            
+                                <div >
+                                <p:commandButton  class="botonEditarAgendaEsteBotonNoSirveMasPeroLoNecesitaLaUI botonCrear hoverGreen"
+                                actionListener="#{situacionPrevisionalController.prepareCreateSituacionPrevisional(expedienteController.selected.orden)}"  value="crear situación previsional" 
+                                 update=":SituacionPrevisionalCreateFormExpAdm" oncomplete="PF('SituacionPrevisionalCreateDialogExpAdm').show()" />
+                                
+                            
+                                <p:commandButton  
+                                    class="botonEditarAgendaEsteBotonNoSirveMasPeroLoNecesitaLaUI botonCrear hoverGreen"
+                                    actionListener="#{situacionPrevisionalController.crearPeriodosInactivos(expedienteController.selected.orden, expedienteController.selected.sexo, expedienteController.selected.fechaDeNacimiento)}"  
+                                    value="calcular periodos inactivos" 
+                                    update=":growl,datalistSituacionPrevisional"  />
+
+                                <br></br>
+                                <h:panelGroup id="panelTotalTiempoConAportes">
+                                        <h:outputText value="Total tiempo con aportes: #{situacionPrevisionalController.totalTiempoConAportes}" />
+                                    </h:panelGroup>
+
+                                    <p:commandButton value="Refrescar total" 
+                                                     actionListener="#{situacionPrevisionalController.calcularTotalTiempoConAportes(expedienteController.selected.orden)}"
+                                                     update="panelTotalTiempoConAportes"
+                                                     icon="ui-icon-refresh"
+                                                     styleClass="botonRefrescar hoverGreen" />
+
+                            <br></br>
+                                
+                                <!--NUEVO-->    
+                                 
+                            <!-- Tiempo inactivo hasta 30/09/1993 -->
+                            <h:panelGroup id="panelTiempoInactivoAntes1993">
+                                <h:outputText value="Tiempo total inactivo hasta 30/09/1993: #{situacionPrevisionalController.tiempoInactivoHasta1993}" />
+                            </h:panelGroup>
+
+                            <p:commandButton value="Refrescar tiempo hasta 30/09/1993" 
+                                             actionListener="#{situacionPrevisionalController.calcularTiempoInactivoHasta1993(expedienteController.selected.orden)}"
+                                             update="panelTiempoInactivoAntes1993"
+                                             icon="ui-icon-refresh"
+                                             styleClass="botonRefrescar hoverGreen" />
+
+                            <br /><br />
+
+                            <!-- Tiempo inactivo desde 01/10/1993 hasta 31/03/2012 -->
+                            <h:panelGroup id="panelTiempoInactivoDesde1993">
+                                <h:outputText value="Tiempo total inactivo desde 01/10/1993 hasta 31/03/2012: #{situacionPrevisionalController.tiempoInactivoDesde1993}" />
+                            </h:panelGroup>
+
+                            <p:commandButton value="Refrescar tiempo desde 01/10/1993 a 31/03/2012" 
+                                             actionListener="#{situacionPrevisionalController.calcularTiempoInactivoDesde1993(expedienteController.selected.orden)}"
+                                             update="panelTiempoInactivoDesde1993"
+                                             icon="ui-icon-refresh"
+                                             styleClass="botonRefrescar hoverGreen" />
+
+                              
+                            <br></br>
+                            
+                            <h:panelGroup id="panelTotalMoratoria24476">
+                                <h:outputText 
+                                    value="Tiempo total aportes efectivos + comprando con Moratoria 24476: #{situacionPrevisionalController.getTiempoTotalConMoratoria24476(expedienteController.selected.orden)}" 
+                                    style="color: red; font-weight: bold;" />
+                            </h:panelGroup>
+
+                            <p:commandButton value="COMPLETAR REGULARIDAD CON MORATORIA 24476"
+                                             actionListener="#{situacionPrevisionalController.completarMoratoria24476(expedienteController.selected.orden)}"
+                                             update="@all"
+                                             icon="ui-icon-check"
+                                             styleClass="botonMoratoria24476 hoverGreen" />
+                                    
+                            </div>
+                        </p:tab>  
                     </p:tabView>
                 </div>
             </h:form>    
         </p:dialog>
+      
       <ui:include src="../comunicacion/CreateComunicacionParaExpAdministrativo.xhtml"/>
+      <ui:include src="../situacionPrevisional/CreateSituacionPrevisionalParaExpAdministrativo.xhtml"/>
+      
       <ui:include src="../comunicacion/Edit.xhtml"/>
       <ui:include src="../agenda/EditAgendaPasada.xhtml"/>
       <ui:include src="../agenda/EditAgendaFutura.xhtml"/>

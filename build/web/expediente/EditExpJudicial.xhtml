@@ -265,8 +265,8 @@
                                 
 
                                 <h:panelGrid columns="2" cellspacing="5" cellpadding="1" style="margin-top: 3%;">      
-                                    <p:outputLabel value="#{bundle.EditExpedienteLabel_edad}" for="edad" style="font-weight: bold" class="float-l"/>
-                                    <p:outputLabel id="edad" value="#{expedienteController.selected.edad}"  title="#{bundle.EditExpedienteTitle_edad}"  style="font-weight: bold; margin-right: 30%;"/>
+                                        <p:outputLabel value="Edad:" style="font-weight: bold" />
+                                    <p:outputLabel value="#{expedienteController.getEdadYComparacion()}" style="font-weight: bold; margin-right: 30%;" />
                                 </h:panelGrid>
                                 <h:panelGrid columns="2" cellspacing="5" cellpadding="1">                                  
                                     <p:outputLabel value="#{bundle.EditExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento" style="font-weight: bold" class="float-l"/>

@@ -82,7 +82,7 @@
                     <p:ajax event="rowSelect"   update="createButton "/>
                     <p:ajax event="rowUnselect" update="createButton "/>
 
-                    <p:growl life="5000" id="message" showDetail="true" />
+                    <p:growl life="5000" id="messagex" showDetail="true" autoUpdate="true"/>
 
                     <p:column style="width: 8% !important;" filterBy="#{item.orden}" sortBy="#{item.orden}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="exact">
                         <f:facet name="header">

@@ -7,8 +7,8 @@
     
     <ui:composition>
 
-        <p:dialog id="EventoJudicialCreateDlg" widgetVar="EventoJudicialCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Evento Judicial Nuevo">
-            <h:form id="EventoJudicialCreateForm">
+        <p:dialog id="EventoJudicialCreatedesdeagendaDlg" widgetVar="EventoJudicialCreatedesdeagendaDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Evento Judicial Nuevo">
+            <h:form id="EventoJudicialCreatedesdeagendaForm">
                 <h:panelGroup id="display">
                     <h:panelGrid columns="4">
                      
@@ -24,10 +24,10 @@
                                                            eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.tipoDeFecha ,
                                                            eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.orden)}"
                                          class="botonCrear" value="#{bundle.Save}" 
-                                         oncomplete="handleSubmit(args,'EventoJudicialCreateDialog');" 
-                                         update="display,:ExpedienteJudicialEditForm,:growl"/>
+                                         oncomplete="handleSubmit(args,'EventoJudicialCreatedesdeagendaDialog');" 
+                                         update=":ExpedienteJudicialViewDesdeAgendaForm:tabViewEditExpJudicialEditForm:datalist6,:growl"/>
                   
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('EventoJudicialCreateDialog').hide();"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('EventoJudicialCreatedesdeagendaDialog').hide();"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

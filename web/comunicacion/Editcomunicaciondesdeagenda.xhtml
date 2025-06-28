@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ComunicacionEditDlg" widgetVar="ComunicacionEditdesdeagendaDialog"  resizable="false" appendTo="@(body)" header="Editar Comunicación" modal="true">
+            <h:form id="ComunicacionEditdesdeagendaForm">
+                <h:panelGroup id="display">
+
+                    <div class="padre">
+
+                        <div class="hijo">
+                            <p:outputLabel value="#{bundle.EditAgendaLabel_fecha}" for="fecha" />
+                            <p:calendar  disabledWeekends="true" id="fecha" mode="inline" pattern="dd/MM/yyyy" 
+                                         value="#{comunicacionController.selected.fecha}" title="#{bundle.EditAgendaTitle_fecha}" 
+                                         required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
+
+                            <p:outputLabel value="Orden" for="orden" /><br></br>
+                            <p:inputText readonly="true"  id="orden" value="#{comunicacionController.selected.orden}" /><br></br><br></br>
+
+                        
+                        </div>
+
+                        <div class="hijo" style="float:left;">
+
+                            <p:outputLabel value="#{bundle.EditAgendaLabel_descripcion}" for="descripcion" /><br></br>
+                            <p:inputTextarea rows="11" cols="33"  id="descripcion" value="#{comunicacionController.selected.descripcion}" /><br></br>
+
+                            
+                            <p:outputLabel value="Responsable" for="responsable" /><br></br>
+                            <p:selectOneMenu  id="responsable" value="#{comunicacionController.selected.responsable}"  >
+                                <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
+                            </p:selectOneMenu><br></br><br></br><br></br>
+
+                            <div>
+                                <p:commandButton  
+                                                 class="createButtonAgenda hoverBlue" actionListener="#{comunicacionController.update}" 
+                                                 value="Actualizar Comunicación" update=":ExpedienteJudicialViewDesdeAgendaForm:tabViewEditExpJudicialEditForm:datalist3,:growl"
+                                                 oncomplete="handleSubmit(args, 'ComunicacionEditdesdeagendaDialog');"  />
+                                
+                            </div>     
+
+                        </div>
+
+                    </div>
+
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

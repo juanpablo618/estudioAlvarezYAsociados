@@ -435,6 +435,13 @@ public class AgendaController implements Serializable {
         return selected;
     }
     
+     public Agenda prepareCreateNuevaAgendaPorOrden(int orden) {
+       selected = new Agenda();
+        selected.setOrden(orden);
+        initializeEmbeddableKey();
+        return selected;
+    }
+    
     public void actualizarTodasLasAgendas(){
         items = null;
     }

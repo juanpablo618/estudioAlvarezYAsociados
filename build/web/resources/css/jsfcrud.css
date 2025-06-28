@@ -859,8 +859,67 @@ label{
 
 
 }
+/*  --------------------------------------------------------------*/
+
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm > ul{
+    float: left;
+    width: 60px !important;
+    height: 300px;
+    background-image: none;
+    padding-top: 1px;
+
+    height: auto;
+    min-height: 300px;
+    border: 1px solid #C4D1EB; 
+}
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm > div{
+    float:none !important;
+    width: auto !important;
+}
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm > ul {
+    background: #ffffff !important;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;}
+
+
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm > ul > li > a {
+    float: inherit !important;
+    padding: 20px !important;
+    text-align: center;
+    color:#123a6d;
+}
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm > ul > li{
+    background: #ffffff !important;
+    border-radius: 0px;
+    color: #000000;
+    border:   none !important;
+
+
+    box-shadow: none !important;
+}
+
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm > ul > li:hover{
+
+    border-radius: 0px!important;
+    color: #000000;
+    border-left: solid 2px #007bff !important ;
+    background: #00000024 !important;
+
+
+
+
+}
 
 #ExpedienteJudicialEditForm\:toolbarexpedientes{
+    border: 1px solid #C4D1EB; 
+    padding: 0;
+    border-radius: 5px;
+}
+#ExpedienteJudicialViewDesdeAgendaForm\:toolbarexpedientes{
     border: 1px solid #C4D1EB; 
     padding: 0;
     border-radius: 5px;
@@ -872,6 +931,14 @@ label{
     align-items: center;
     flex-wrap: wrap;
     flex-direction: row;
+}
+
+#ExpedienteJudicialViewDesdeAgendaForm\:toolbarexpedientes > div.ui-toolbar-group-left{
+   display: flex;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;  
 }
 
 .nombrecliente{
@@ -896,8 +963,8 @@ label{
     width: 100%;
 }
 
-#ExpedienteJudicialEditDlg > div.ui-dialog-content.ui-widget-content{
-    overflow: hidden;
+.editarExpedienteJudicial > div.ui-dialog-content.ui-widget-content{
+    overflow: hidden !important ;
 }
 
 .boton-guardar {
@@ -1166,6 +1233,21 @@ label{
     text-shadow: inherit;
    
 }
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm\:historialdeagendas_button {
+    background: #e5e7eb;
+    border: inherit;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    border-radius: 0.5rem;
+    /* padding: 0 20px !important; */
+    width: -webkit-fill-available;
+    /* padding: 5px 10px !important; */
+    margin-right: 10px !important;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    text-shadow: inherit;
+   
+}
 
 #ExpedienteJudicialEditForm\:tabViewEditExpJudicialEditForm\:historialdeagendas_menu > ul > li > a {
   background: white !important;
@@ -1178,7 +1260,21 @@ display: flex;
     border-radius: 0.5rem;
     
 }
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm\:historialdeagendas_menu > ul > li > a {
+  background: white !important;
+width: 98%; 
+text-align: center !important;
+display: flex;
+    justify-content: center;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    border-radius: 0.5rem;
+    
+}
 #ExpedienteJudicialEditForm\:tabViewEditExpJudicialEditForm\:historialdeagendas_menu{
+       width: 63.5em; 
+}
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm\:historialdeagendas_menu{
        width: 63.5em; 
 }
 
@@ -1260,4 +1356,14 @@ display: flex;
     margin-left: 12px !important;
     font-weight: bold !important;
     color: #555 !important;
+}
+#ExpedienteViewDlgParaAgenda{
+    overflow: auto !important;
+    height: 90% !important;
+}
+#ExpedienteViewDlgParaAgendadesdeagenda{
+    overflow: auto !important;
+    height: 90% !important; 
+    width: 50% !important; 
+        left: 25% !important; 
 }

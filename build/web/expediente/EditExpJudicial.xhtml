@@ -13,7 +13,7 @@
 
     </h:head>
 
-    <ui:composition id="EditExpJudicial">
+    <ui:composition id="EditExpJudicial" >
 
         <p:dialog id="ExpedienteJudicialEditDlg" class="editarExpedienteJudicial" widgetVar="ExpedienteJudicialEditDialog"  modal="true" resizable="true" appendTo="@(body)" width="100" style="overflow-y:auto" closable="false" >
             <h:form id="ExpedienteJudicialEditForm">
@@ -43,7 +43,7 @@
                             Sistema de consulta
                         </h:outputLink>  
                         <p:commandButton  onclick="ExpedienteViewDialog.hide()" actionListener="#{expedienteController.update}" class="boton-guardar" value="#{bundle.Save}"
-                                          update=":ExpedienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ExpedienteJudicialEditDialog');"/>
+                                          update=":ExpedienteListForm:datalist" oncomplete="handleSubmit(args, 'ExpedienteJudicialEditDialog');"/>
 
                         <p:commandButton value="Cerrar" 
 
@@ -481,7 +481,7 @@
                                         <f:setPropertyActionListener value="#{item}" target="#{comunicacionController.selected}" />
                                     </p:commandButton>
 
-                                    <p:commandButton class="linea btnDelete" update=":growl," oncomplete="PF('expedientesTable').clearFilters()" actionListener="#{comunicacionController.destroy}"  icon="ui-icon-trash" title="Eliminar">
+                                    <p:commandButton class="linea btnDelete" update=":ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist3,:growl," oncomplete="PF('expedientesTable').clearFilters()" actionListener="#{comunicacionController.destroy}"  icon="ui-icon-trash" title="Eliminar">
                                         <f:setPropertyActionListener value="#{item}" target="#{comunicacionController.selected}" />
                                         <p:confirm header="Confirmación" message="¿Estas seguro?"  icon="ui-icon-alert"/>
                                     </p:commandButton> 
@@ -584,7 +584,7 @@
                                              margin-left: 10px;"
                                              value="Crear Turno" 
                                              actionListener="#{turnoController.prepareCreate}"
-                                             update=":ExpedienteViewFormParaAgenda"
+                                             update=":ExpedienteViewFormParaTurno"
                                              oncomplete="PF('ExpedienteViewDialogParaTurno').show(); PF('ExpedienteJudicialEditDialog').show()" />
                             <!-- Botón desplegable -->
                             <p:menuButton value="Historial de Agendas y Turnos"  id="historialdeagendas" >

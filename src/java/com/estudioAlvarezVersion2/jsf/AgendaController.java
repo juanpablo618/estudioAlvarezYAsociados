@@ -53,15 +53,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.primefaces.component.datatable.DataTable;
-import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import javax.mail.*;
-import javax.mail.internet.*;
 
 
 @Named("agendaController")
@@ -1588,6 +1584,7 @@ public class AgendaController implements Serializable {
         return new java.text.SimpleDateFormat("dd-MM-yyyy").format(new java.util.Date());
     }
 
+
 // para la vista de agendas en editexpedientejudiciales
   private String vista;
 
@@ -1602,7 +1599,20 @@ public void setVista(String vista) {
 public void seleccionarVista(String tipo) {
     this.vista = tipo;
 }
+    public List<Agenda> obtenerAgendasNoRealizadasPorFechaYEmpleado(Date fecha, String nombreEmpleado) {
+    try {
+        return em.createQuery(
+            "SELECT a FROM Agenda a WHERE a.fecha = :fecha AND a.responsable = :nombreEmpleado AND a.realizado = 'No'", Agenda.class)
+            .setParameter("fecha", fecha)
+            .setParameter("nombreEmpleado", nombreEmpleado)
+            .getResultList();
+    } catch (Exception e) {
+        e.printStackTrace();
+        return Collections.emptyList();
+    }}}
+
+    
 
 
 
-}
+

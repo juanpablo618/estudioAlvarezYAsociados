@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <ui:composition>
+
+        <p:dialog id="SituacionPrevisionalCreateDlgExpAdm" widgetVar="SituacionPrevisionalCreateDialogExpAdm" modal="true" resizable="true" appendTo="@(body)" header="Crear Situacion Previsional Nueva">
+            <h:form id="SituacionPrevisionalCreateFormExpAdm">
+                <h:panelGroup id="display">
+                    <h:panelGrid id="panelGridSituacionPrevisionalCreateFormExpAdm" columns="4">
+                     
+                        <p:outputLabel value="Empleador:" for="empleador" style="font-weight: bold"/><br></br>
+                        <p:inputText id="empleador" value="#{situacionPrevisionalController.selectedNuevo.empleador}"  title="empleador" /><br></br><br></br>
+                        
+                        <p:outputLabel value="Fecha inicio:" for="fechaInicio" style="font-weight: bold"/><br></br>
+                        <p:calendar disabledWeekends="true"  placeholder="dd/MM/yyyy" autocomplete="off" id="fechaInicio"   pattern="dd/MM/yyyy" value="#{situacionPrevisionalController.selectedNuevo.fechaInicio}" title="fecha de inicio" required="true" showOn="button" /><br></br><br></br>
+                              
+                        <p:outputLabel value="Fecha fín" for="fechaFin" style="font-weight: bold"/><br></br>
+                        <p:calendar disabledWeekends="true"  placeholder="dd/MM/yyyy" autocomplete="off" id="fechaFin"  pattern="dd/MM/yyyy" value="#{situacionPrevisionalController.selectedNuevo.fechaFin}" title="fecha de fin" required="true" showOn="button" /><br></br><br></br>
+                       
+                        <p:outputLabel value="observaciones" for="observaciones" style="font-weight: bold"/><br></br>
+                        <p:inputTextarea autoResize="true" cols="20" rows="5" id="observaciones" value="#{situacionPrevisionalController.selectedNuevo.observaciones}" title="inserte observaciòn" /><br></br><br></br>
+                        
+                        <p:outputLabel value="Orden:" for="orden" style="font-weight: bold"/><br></br>
+                        <p:inputText id="orden" value="#{situacionPrevisionalController.selectedNuevo.orden}" readonly="true" title="orden" /><br></br><br></br>
+                        
+                     </h:panelGrid>
+                    <p:commandButton actionListener="#{situacionPrevisionalController.createSituacionPrevisional(
+                                                       situacionPrevisionalController.selectedNuevo.fechaInicio,
+                                                       situacionPrevisionalController.selectedNuevo.fechaFin,
+                                                       situacionPrevisionalController.selectedNuevo.observaciones,
+                                                       situacionPrevisionalController.selectedNuevo.orden)}"
+                                         class="botonCrear" value="#{bundle.Save}" 
+                                         oncomplete="handleSubmit(args,'SituacionPrevisionalCreateDialogExpAdm');"  
+                                         update="display,:ExpedienteEditForm:tabViewEditExpAdm,:growl"/>
+                  
+                        <p:commandButton value="#{bundle.Cancel}" onclick="SituacionPrevisionalCreateDialogExpAdm.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

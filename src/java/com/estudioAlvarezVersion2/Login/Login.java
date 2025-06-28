@@ -1,14 +1,20 @@
 package com.estudioAlvarezVersion2.Login;
 
+import com.estudioAlvarezVersion2.jpa.Agenda;
 import com.estudioAlvarezVersion2.jpa.Empleado;
 import com.estudioAlvarezVersion2.jpa.LoginDAO;
+import com.estudioAlvarezVersion2.jsf.AgendaController;
 import com.estudioAlvarezVersion2.jsf.EmpleadoController;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
@@ -39,34 +45,31 @@ public class Login implements Serializable {
     @PostConstruct
 public void init() {
     quotes = new ArrayList<>();
-    quotes.add("El éxito no es la clave de la felicidad. La felicidad es la clave del éxito.");
-    quotes.add("El único lugar donde el éxito viene antes que el trabajo es en el diccionario.");
-    quotes.add("No dejes que lo que no puedes hacer interfiera con lo que puedes hacer.");
-    quotes.add("El fracaso es solo la oportunidad de comenzar de nuevo con más experiencia.");
-    quotes.add("La única manera de hacer un gran trabajo es amar lo que haces.");
-    quotes.add("No cuentes los días, haz que los días cuenten.");
-    quotes.add("No te rindas, cada fracaso es una lección aprendida.");
+    quotes.add("No esperes por el momento perfecto, toma el momento y hazlo perfecto.");
+    quotes.add("La diferencia entre lo ordinario y lo extraordinario es ese pequeño extra.");
+    quotes.add("La confianza en uno mismo es el primer secreto del éxito.");
+    quotes.add("No sueñes tu vida, vive tu sueño.");
     quotes.add("El éxito es la suma de pequeños esfuerzos repetidos día tras día.");
-    quotes.add("La vida es 10% lo que te sucede y 90% cómo reaccionas a ello.");
-    quotes.add("El éxito no consiste en nunca cometer errores, sino en no cometer nunca el mismo dos veces.");
-    quotes.add("Tu actitud, no tu aptitud, determinará tu altitud.");
-    quotes.add("No se trata de ser el mejor, se trata de ser mejor que ayer.");
-    quotes.add("El coraje no siempre ruge. A veces el coraje es la voz tranquila al final del día que dice: 'Lo intentaré de nuevo mañana'.");
-    quotes.add("No puedes cambiar el viento, pero puedes ajustar las velas para llegar a tu destino.");
-    quotes.add("La única limitación es aquella que te impones a ti mismo.");
-    quotes.add("No sueñes con el éxito. Trabaja para alcanzarlo.");
-    quotes.add("El único lugar donde el éxito viene antes que el trabajo es en el diccionario.");
-    quotes.add("El camino hacia el éxito es tomar acción masiva y determinada.");
-    quotes.add("El éxito es caer siete veces y levantarse ocho.");
-    quotes.add("Haz de cada día tu obra maestra.");
+    quotes.add("La perseverancia no es una carrera larga; son muchas carreras cortas una tras otra.");
+    quotes.add("El único límite para alcanzar tus sueños eres tú mismo.");
+    quotes.add("El éxito no se logra solo con cualidades especiales. Es sobre todo un trabajo de constancia, de método y de organización.");
+    quotes.add("La clave del éxito es empezar antes de estar listo.");
+    quotes.add("No te detengas hasta estar orgulloso.");
+    quotes.add("La mejor manera de predecir el futuro es crearlo.");
+    quotes.add("El fracaso es solo la oportunidad de comenzar de nuevo con más experiencia.");
+    quotes.add("La acción es la clave fundamental para todo éxito.");
+    quotes.add("No importa cuántas veces caigas, lo importante es cuántas veces te levantas.");
+    quotes.add("El éxito no es para los que piensan en hacerlo, es para los que lo hacen.");
+    quotes.add("Cada día es una nueva oportunidad para cambiar tu vida.");
+    quotes.add("La motivación es lo que te pone en marcha, el hábito es lo que hace que sigas.");
+    quotes.add("No se trata de cuán rápido llegues, sino de no detenerte.");
+    quotes.add("El éxito es la habilidad de ir de fracaso en fracaso sin perder el entusiasmo.");
+    quotes.add("La única forma de hacer un gran trabajo es amar lo que haces.");
+    quotes.add("No cuentes los días, haz que los días cuenten.");
     quotes.add("El éxito no es definitivo, el fracaso no es fatal: lo que cuenta es el valor para continuar.");
+    quotes.add("La vida es 10% lo que me ocurre y 90% cómo reacciono a ello.");
     quotes.add("No busques ser exitoso, busca ser valioso.");
-    quotes.add("La vida es demasiado corta para esperar.");
-    quotes.add("El éxito es la capacidad de ir de un fracaso a otro sin perder el entusiasmo.");
-    quotes.add("Nunca es demasiado tarde para ser lo que podrías haber sido.");
-    quotes.add("No se mide el éxito por el dinero que tienes, sino por las diferencias que haces en la vida de otros.");
     quotes.add("El éxito es la realización progresiva de un objetivo digno.");
-    quotes.add("Tú eres más fuerte de lo que piensas.");
     quotes.add("La disciplina es el puente entre metas y logros.");
     quotes.add("No tengas miedo de renunciar a lo bueno para ir por lo grandioso.");
     quotes.add("El éxito es la suma de pequeños esfuerzos, repetidos día tras día.");
@@ -81,8 +84,6 @@ public void init() {
     quotes.add("La clave del éxito es enfocarte en las metas, no en los obstáculos.");
     quotes.add("Si no puedes volar, corre. Si no puedes correr, camina. Si no puedes caminar, arrástrate, pero hagas lo que hagas, sigue adelante.");
     quotes.add("El éxito no depende de las circunstancias, sino de tus decisiones.");
-    quotes.add("El éxito no es el final, el fracaso no es fatal. Es el coraje para continuar lo que cuenta.");
-    quotes.add("La vida es un 10% lo que me ocurre y un 90% cómo reacciono a ello.");
     quotes.add("La diferencia entre ordinario y extraordinario es ese pequeño extra.");
     quotes.add("El verdadero éxito no está en vencer siempre sino en nunca desanimarse.");
     quotes.add("Cada día es una nueva oportunidad para cambiar tu vida.");
@@ -99,12 +100,10 @@ public void init() {
     quotes.add("No se trata de si te derriban, sino de si te levantas.");
     quotes.add("El éxito no es la ausencia de fracasos, sino la persistencia ante el fracaso.");
     quotes.add("El éxito es un viaje, no un destino.");
-    quotes.add("La única forma de hacer un gran trabajo es amar lo que haces.");
     quotes.add("Nunca dejes que nadie te diga que no puedes hacer algo.");
     quotes.add("Nunca te rindas en algo en lo que no puedes pasar un día sin pensar.");
     quotes.add("Los sueños no tienen fecha de caducidad.");
     quotes.add("La única forma de lograr lo imposible es creer que es posible.");
-    quotes.add("No cuentes los días, haz que los días cuenten.");
     quotes.add("El éxito no se trata de cuán alto llegas, sino de cuántas veces te levantas cuando caes.");
     quotes.add("Si puedes soñarlo, puedes hacerlo.");
     quotes.add("No es el más fuerte de las especies el que sobrevive, ni el más inteligente, sino el que mejor se adapta al cambio.");
@@ -119,9 +118,7 @@ public void init() {
     quotes.add("El éxito no está en vencer siempre, sino en nunca darse por vencido.");
     quotes.add("El éxito es la realización progresiva de un ideal digno.");
     quotes.add("El éxito es el resultado de la preparación, el trabajo duro y aprender del fracaso.");
-    quotes.add("El único lugar donde el éxito viene antes que el trabajo es en el diccionario.");
     quotes.add("El éxito no consiste en nunca cometer errores, sino en no cometer nunca el mismo dos veces.");
-    quotes.add("El éxito es la suma de pequeños esfuerzos repetidos día tras día.");
     quotes.add("La vida es 10% lo que te sucede y 90% cómo reaccionas a ello.");
     quotes.add("Tu actitud, no tu aptitud, determinará tu altitud.");
     quotes.add("No se trata de ser el mejor, se trata de ser mejor que ayer.");
@@ -139,6 +136,17 @@ public void init() {
     quotes.add("El éxito es la suma de detalles pequeños.");
     quotes.add("El éxito es alcanzar tus propios sueños, no los de otra persona.");
     quotes.add("El éxito es el resultado de la preparación, el trabajo duro y aprender del fracaso.");
+    quotes.add("El éxito no consiste en nunca cometer errores, sino en no cometer nunca el mismo dos veces.");
+    quotes.add("El éxito es la suma de pequeños esfuerzos repetidos día tras día.");
+    quotes.add("La vida es 10% lo que te sucede y 90% cómo reaccionas a ello.");
+    quotes.add("Tu actitud, no tu aptitud, determinará tu altitud.");
+    quotes.add("No se trata de ser el mejor, se trata de ser mejor que ayer.");
+    quotes.add("La excelencia no es una habilidad, es una actitud.");
+    quotes.add("Nunca es demasiado tarde para ser lo que podrías haber sido.");
+    quotes.add("El éxito es la suma de pequeños esfuerzos, repetidos día tras día.");
+    quotes.add("El éxito es caer siete veces y levantarse ocho.");
+    quotes.add("El éxito es la capacidad de ir de un fracaso a otro sin perder el entusiasmo.");
+    quotes.add("El éxito no se mide por lo que logras, sino por la oposición que has encontrado y el coraje con el que has mantenido la lucha contra abrumadoras probabilidades.");
 
     // Seleccionar una frase aleatoria
     selectRandomQuote();
@@ -222,8 +230,11 @@ public void init() {
 
             HttpSession session = SessionUtils.getSession();
             
+            String empleadoNombreCompleto = "";
+            
             for (Empleado empleado : empleadoController.getItems()) {
                 if (empleado.getNombre() == null ? user == null : empleado.getNombre().equals(userName)) {
+                    empleadoNombreCompleto = empleado.getNombre() + " " + empleado.getApellido();
                     session.setAttribute("userNombreCompleto", empleado.getNombre() + " " + empleado.getApellido());
                 }
             }
@@ -241,6 +252,12 @@ public void init() {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                 "", getSelectedQuote()));
         
+            
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+                "", getAgendasNoRealizadasEnDiaAnterior(fechaFormateada, empleadoNombreCompleto) ));
+            
+            
             LoginDAO.registrarSesionEnBD(user, session.getId());
 
 
@@ -304,5 +321,51 @@ public void init() {
     public String getSelectedQuote() {
         return selectedQuote;
     }
+    
+    public String getAgendasNoRealizadasEnDiaAnterior(String fechaDelDia, String nombreEmpleado) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        AgendaController agendaController = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
+        
+        if(nombreEmpleado.equals("")){
+            return "Ocurrió un error al obtener las agendas no realizadas.";
+        }
+        
+        try {
+            // 1. Convertir fechaDelDia (String) a Date
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Date fechaActual = sdf.parse(fechaDelDia);
+
+            // 2. Calcular la fecha del último día laboral anterior
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(fechaActual);
+
+            int diaSemana = calendar.get(Calendar.DAY_OF_WEEK);
+
+            if (diaSemana == Calendar.MONDAY) {
+                calendar.add(Calendar.DATE, -3); // Lunes -> Viernes
+            } else if (diaSemana == Calendar.SUNDAY) {
+                calendar.add(Calendar.DATE, -2); // Domingo -> Viernes
+            } else {
+                calendar.add(Calendar.DATE, -1); // Otro día -> día anterior
+            }
+
+            Date fechaAnterior = calendar.getTime();
+
+            // 3. Formatear fecha anterior en formato dd-MM-yyyy para mostrar
+            SimpleDateFormat sdfMostrar = new SimpleDateFormat("dd/MM/yyyy");
+            String fechaAnteriorFormateada = sdfMostrar.format(fechaAnterior);
+
+            // 4. Buscar agendas no realizadas en esa fecha para ese empleado
+            List<Agenda> agendasNoRealizadas = agendaController.obtenerAgendasNoRealizadasPorFechaYEmpleado(fechaAnterior, nombreEmpleado);
+            int cantidad = agendasNoRealizadas.size();
+
+            // 5. Devolver mensaje
+            return "Te quedaron " + cantidad + " agendas sin realizar del día " + fechaAnteriorFormateada + ".";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Ocurrió un error al obtener las agendas no realizadas.";
+        }
+    }
+
 
  }

@@ -6,6 +6,12 @@ public class DAO {
 
 private Connection cn;
 
+private static final String COMMYSQLJDBC_DRIVER = "com.mysql.jdbc.Driver";
+private static final String PASSWORD_SERVER = "BIOeqi72215";
+private static final String PASSWORD_SERVER_VACIO = "";
+private static final String URL_CONN_DB = "jdbc:mysql://10.100.74.197:3306/estudioAlvarez?useSSL=false";
+private static final String URL_CONN_DB_LOCAL = "jdbc:mysql://localhost:3306/estudioAlvarez?useSSL=false";
+
     public Connection getCn() {
         return cn;
     }
@@ -18,9 +24,15 @@ private Connection cn;
     
     try {
         
-            Class.forName("com.mysql.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/estudioAlvarez?useSSL=false");
-           // cn = DriverManager.getConnection("jdbc:mysql://10.100.74.197:3306/estudioAlvarez?useSSL=false");
+
+//            Class.forName("com.mysql.jdbc.Driver");
+//            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/estudioAlvarez?useSSL=false");
+//           // cn = DriverManager.getConnection("jdbc:mysql://10.100.74.197:3306/estudioAlvarez?useSSL=false");
+
+            Class.forName(COMMYSQLJDBC_DRIVER);
+            cn = DriverManager.getConnection(URL_CONN_DB);
+            
+
         } catch (ClassNotFoundException | SQLException e) {
         throw e;
             }
@@ -36,10 +48,15 @@ private Connection cn;
     
     public static Connection getConnection() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection(
-					  //"jdbc:mysql://10.100.74.197:3306/estudioAlvarez?useSSL=false", "root", "BIOeqi72215");
-                      "jdbc:mysql://localhost:3306/estudioAlvarez?useSSL=false","root", "");
+
+//			Class.forName("com.mysql.jdbc.Driver");
+//			Connection con = DriverManager.getConnection(
+//					  //"jdbc:mysql://10.100.74.197:3306/estudioAlvarez?useSSL=false", "root", "BIOeqi72215");
+//                      "jdbc:mysql://localhost:3306/estudioAlvarez?useSSL=false","root", "");
+
+			Class.forName(COMMYSQLJDBC_DRIVER);
+			Connection con = DriverManager.getConnection(URL_CONN_DB, "root", PASSWORD_SERVER);
+
 			return con;
 		} catch (ClassNotFoundException | SQLException ex) {
 			System.out.println("Database.getConnection() Error --> en la clase DAO."

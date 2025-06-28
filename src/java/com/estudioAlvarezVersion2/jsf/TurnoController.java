@@ -485,55 +485,6 @@ public class TurnoController implements Serializable {
         return resultados;
     }
     
-    /*public List<Turno> getItemsByLeader(String userNombreCompleto, String date) {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
-        List<Turno> cloned_list = new ArrayList<>(this.items);
-        Collections.sort(cloned_list, new SortByDate());
-
-        List<Turno> resultados = new ArrayList<>();
-        Set<String> nombresEmpleados = new HashSet<>();
-        
-        // Mapa de líderes a sus respectivos empleados
-        Map<String, String[]> lideresEmpleadosMap = new HashMap<>();
-        lideresEmpleadosMap.put("Mateo Francisco Alvarez", new String[]{
-            "María Emilia Campos", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
-            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
-            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Pilar Boglione", "juan cuello"});
-        lideresEmpleadosMap.put("María Emilia Campos", new String[]{
-            "Mateo Francisco Alvarez", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
-            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
-            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Pilar Boglione"});
-        lideresEmpleadosMap.put("Paula Alvarez", new String[]{
-            "Mateo Novau", "Natali D Agostino", "Maria Jose Alaye", 
-            "Liliana Romero", "Pilar Boglione"});
-        lideresEmpleadosMap.put("Paola Maldonado", new String[]{
-            "Carla Juez", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Maria Jose Alaye"});
-        lideresEmpleadosMap.put("Ayelen Brizzio", new String[]{
-            "Mateo Novau"});
-        
-        // Obtener la lista de empleados del líder
-        if (lideresEmpleadosMap.containsKey(userNombreCompleto)) {
-            nombresEmpleados.addAll(Arrays.asList(lideresEmpleadosMap.get(userNombreCompleto)));
-        } else {
-            System.out.println("Líder no encontrado en el mapa: " + userNombreCompleto);
-        }
-        
-        for (Turno turno : cloned_list) {
-            String nombreCompletoResponsable = turno.getResponsable();
-            
-            if (nombresEmpleados.contains(nombreCompletoResponsable) && turno.getDiaMesAnio().equals(date)) {
-                resultados.add(turno);
-            }
-        }
-
-        return resultados;
-    }*/
-    
     public List<Turno> getItemsByLeader(String userNombreCompleto, String dateStr) {
     
     Set<String> nombresEmpleados = new HashSet<>();
@@ -593,8 +544,6 @@ public class TurnoController implements Serializable {
     return filtrados;
 }
 
-    
-    
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();

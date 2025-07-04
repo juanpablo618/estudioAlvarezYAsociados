@@ -9,7 +9,7 @@ private Connection cn;
 private static final String COMMYSQLJDBC_DRIVER = "com.mysql.jdbc.Driver";
 private static final String PASSWORD_SERVER = "BIOeqi72215";
 private static final String PASSWORD_SERVER_VACIO = "";
-private static final String URL_CONN_DB = "jdbc:mysql://10.100.74.197:3306/estudioAlvarez?useSSL=false";
+private static final String URL_CONN_DB = "jdbc:mysql://10.100.23.234:3306/estudioAlvarez?useSSL=false";
 private static final String URL_CONN_DB_LOCAL = "jdbc:mysql://localhost:3306/estudioAlvarez?useSSL=false";
 
     public Connection getCn() {

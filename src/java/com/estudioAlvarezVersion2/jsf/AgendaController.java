@@ -431,13 +431,7 @@ public class AgendaController implements Serializable {
         return selected;
     }
     
-     public Agenda prepareCreateNuevaAgendaPorOrden(int orden) {
-       selected = new Agenda();
-        selected.setOrden(orden);
-        initializeEmbeddableKey();
-        return selected;
-    }
-    
+
     public void actualizarTodasLasAgendas(){
         items = null;
     }
@@ -1585,7 +1579,7 @@ public class AgendaController implements Serializable {
     }
 
 
-// para la vista de agendas en editexpedientejudiciales
+// para la vista de agendas en editexpedientejudiciales -- esto activa las diferentes tablas segun seleccione en el desplegable de la linea 590 EditExpjudicial.xhtml
   private String vista;
 
 public String getVista() {

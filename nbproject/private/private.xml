@@ -3,29 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/LoginDAO.java</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/web/expediente/ViewParaAgenda.xhtml</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/web/WEB-INF/glassfish-resources.xml</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/build.xml</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/TurnoController.java</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/web/WEB-INF/faces-config.xml</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/DAO.java</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/web/resources/css/jsfcrud.css</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/web/expediente/viewEnAgenda/EditExpJudicial.xhtml</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/web/expediente/EditExpJudicial.xhtml</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/ExpedienteController.java</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpacontroller/util/FileDownloadView.java</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/nbproject/build-impl.xml</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/web/agenda/List_AgendasTurnosWithSession.xhtml</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/web/expediente/viewEnAgenda/ViewParaAgenda.xhtml</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/web/agenda/List_AgendasTurnosWithSessionOnlyAdminUsers.xhtml</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/AgendaController.java</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/web/agenda/List_AgendasTurnos.xhtml</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/web/expediente/ViewParaTurno.xhtml</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/web/expediente/Edit.xhtml</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/web/expediente/List.xhtml</file>
-            <file>file:/C:/Users/juan/Downloads/master/estudioAlvarezYAsociados/web/expediente/viewEnAgenda/ViewParaTurno.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/WEB-INF/glassfish-resources.xml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/EditExpJudicial.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/DAO.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/ExpedienteController.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/login.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/resources/images/DA1.jpg</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/SituacionPrevisionalController.java</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/situacionPrevisional/CreateSituacionPrevisionalParaExpAdministrativo.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/Edit.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/resources/images/DA2.jpg</file>
         </group>
     </open-files>
 </project-private>

@@ -43,4 +43,9 @@
             <redirect/>
         </navigation-case>
     </application>
+    
+    <lifecycle>
+        <phase-listener>com.estudioAlvarezVersion2.jsf.SessionTimeoutListener</phase-listener>
+    </lifecycle>
+    
 </faces-config>

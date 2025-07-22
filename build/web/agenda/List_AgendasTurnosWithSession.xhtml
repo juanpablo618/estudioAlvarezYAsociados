@@ -281,12 +281,7 @@
                                          rendered="#{expedienteController.buscarTipoDeExpediente(item) eq 'sin carpeta'}"
                                          title="Ver exp. Sin Carpeta de esta agenda" />
 
-                        <p:dialog widgetVar="expedienteJDialog" modal="true" resizable="false" width="90%" height="90%" appendTo="@(body)">
-                            <h:panelGroup layout="block" style="height:100%">
-                                <iframe src="#{request.contextPath}/expediente/EditExpJudicial.xhtml" 
-                                        width="100%" height="100%" frameborder="0" />
-                            </h:panelGroup>
-                        </p:dialog>
+                       
 
                         <p:commandButton class="linea btnSearchDarkBlue"  
                                          actionListener="#{expedienteController.prepareViewParaExpediente(item)}" 

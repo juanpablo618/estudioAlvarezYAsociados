@@ -688,7 +688,7 @@ div.ui-growl {
     margin-left: 5px;
 }
 
-/* css de formulario de datos personales& espediente 19-05-2025 */
+/* css de formulario de datos personale y expediente 19-05-2025 */
 
 .Divide-arriba-abajo {
     display: grid;
@@ -908,10 +908,6 @@ label{
     color: #000000;
     border-left: solid 2px #007bff !important ;
     background: #00000024 !important;
-
-
-
-
 }
 
 #ExpedienteJudicialEditForm\:toolbarexpedientes{

@@ -8,7 +8,7 @@
     
     <ui:composition>
 
-        <p:dialog id="ComunicacionCreateDlg" widgetVar="ComunicacionCreateDialog" modal="true" resizable="true" appendTo="@(body)" header="Crear Comunicación Nueva">
+        <p:dialog id="ComunicacionCreateDlg" widgetVar="ComunicacionCreateDialog" modal="true" resizable="true" appendTo="@(body)" header="Crear Comunicación Nueva" >
             <h:form id="ComunicacionCreateForm">
                 <h:panelGroup id="display">
                     <h:panelGrid columns="4">
@@ -36,7 +36,7 @@
                                          oncomplete="handleSubmit(args,'ComunicacionCreateDialog');" 
                                          update="display,:ExpedienteJudicialEditForm,:growl"/>
                   
-                        <p:commandButton value="#{bundle.Cancel}" onclick="TurnoCreateDialog.hide()"/>
+                        <p:commandButton value="#{bundle.Cancel}" onclick="PF('ComunicacionCreateDialog').hide();"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

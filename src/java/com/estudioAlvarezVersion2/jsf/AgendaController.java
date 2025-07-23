@@ -430,6 +430,7 @@ public class AgendaController implements Serializable {
         return selected;
     }
     
+
     public void actualizarTodasLasAgendas(){
         items = null;
     }
@@ -1576,6 +1577,21 @@ public class AgendaController implements Serializable {
         return new java.text.SimpleDateFormat("dd-MM-yyyy").format(new java.util.Date());
     }
 
+
+// para la vista de agendas en editexpedientejudiciales -- esto activa las diferentes tablas segun seleccione en el desplegable de la linea 590 EditExpjudicial.xhtml
+  private String vista;
+
+public String getVista() {
+    return vista;
+}
+
+public void setVista(String vista) {
+    this.vista = vista;
+}
+
+public void seleccionarVista(String tipo) {
+    this.vista = tipo;
+}
     public List<Agenda> obtenerAgendasNoRealizadasPorFechaYEmpleado(Date fecha, String nombreEmpleado) {
     try {
         return em.createQuery(
@@ -1586,10 +1602,10 @@ public class AgendaController implements Serializable {
     } catch (Exception e) {
         e.printStackTrace();
         return Collections.emptyList();
-    }
-}
+    }}}
 
-  
+    
 
 
-}
+
+

@@ -7,8 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-
-        <p:dialog position="center top" id="ExpedienteViewDlgParaAgenda" widgetVar="ExpedienteViewDialogParaAgenda" modal="true" resizable="false" appendTo="@(body)" header="Ver Expediente para agregar agenda" style="margin-top: 1%;">
+        <p:dialog position="center top" id="ExpedienteViewDlgParaAgenda" widgetVar="ExpedienteViewDialogParaAgenda" modal="true" resizable="false" appendTo="@(body)" header="Ver Expediente para agregar agenda"  style="margin-top: 1%;">
 
             <h:form id="ExpedienteViewFormParaAgenda" >
                 <h:panelGroup id="display">
@@ -98,8 +97,9 @@
                             
                         </p:panel>
                     </p:fieldset>
+                   <!-- comment saque este boton ya que no tenia sentido 
                     <p:commandButton id="editButton" class="botonCrearAgenda hoverGreen"  icon="ui-icon-pencil" value="Ver expediente" update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()" disabled="#{empty expedienteController.selected}" />
-
+ -->
                 </h:panelGroup>
             </h:form>
             <br></br>

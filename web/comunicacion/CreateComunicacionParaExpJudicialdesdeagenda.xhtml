@@ -8,8 +8,8 @@
     
     <ui:composition>
 
-        <p:dialog id="ComunicacionCreateDlg" widgetVar="ComunicacionCreateDialog" modal="true" resizable="true" appendTo="@(body)" header="Crear Comunicación Nueva" >
-            <h:form id="ComunicacionCreateForm">
+        <p:dialog id="ComunicacionCreateDlgagenda" widgetVar="ComunicacionCreatedesdeagendaDialog" modal="true" resizable="true" appendTo="@(body)" header="Crear Comunicación Nueva" >
+            <h:form id="ComunicacionCreatedesdeagendaForm">
                 <h:panelGroup id="display">
                     <h:panelGrid columns="4">
                      
@@ -33,10 +33,10 @@
                      </h:panelGrid>
                         <p:commandButton actionListener="#{comunicacionController.createComunicacion(comunicacionController.selectedParaComunicacionNuevo.fecha, comunicacionController.selectedParaComunicacionNuevo.descripcion, comunicacionController.selectedParaComunicacionNuevo.responsable , comunicacionController.selectedParaComunicacionNuevo.orden)}"
                                          class="botonCrear" value="#{bundle.Save}" 
-                                         oncomplete="handleSubmit(args,'ComunicacionCreateDialog');" 
-                                         update="display,:ExpedienteJudicialEditForm,:growl"/>
+                                         oncomplete="handleSubmit(args,'ComunicacionCreatedesdeagendaDialog');" 
+                                         update="display,:ExpedienteJudicialViewDesdeAgendaForm,:growl"/>
                   
-                        <p:commandButton value="#{bundle.Cancel}" onclick="PF('ComunicacionCreateDialog').hide();"/>
+                        <p:commandButton value="#{bundle.Cancel}" onclick="PF('ComunicacionCreatedesdeagendaDialog').hide();"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

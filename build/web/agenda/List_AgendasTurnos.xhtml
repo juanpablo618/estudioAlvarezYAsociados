@@ -19,26 +19,26 @@
 
                 <div style="float: left;width: 100%;">
                     <p:commandButton id="createButton" icon="ui-icon-plus" value="NUEVA AGENDA" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>
-                    <p:commandButton id="createButtonTurno"  icon="ui-icon-plus" value="NUEVO TURNO" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
+                   <p:commandButton id="createButtonTurno"  icon="ui-icon-plus" value="NUEVO TURNO" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{turnoController.prepareCreate}" update=":TurnoCreateForm" oncomplete="PF('TurnoCreateDialog').show()"/>
                     <p:commandButton id="createAgendaParaActividadButton" icon="ui-icon-plus" value="NUEVA ACTIVIDAD" class="botonCrearAgenda borderRd mrgLR2 hoverGreen" actionListener="#{agendaController.prepareCreateActividad()}" update=":AgendaParaActividadCreateForm" oncomplete="PF('AgendaParaActividadCreateDialog').show()"/>
                 </div>
                 <br></br>
-                            
+
                 <h:commandLink style="float: right;margin-right: 1%;" title="Exportar Filtradas.">
                     <h:graphicImage value="../faces/resources/images/pdficon2.png" width="50px"/>
                     <p:dataExporter type="pdf" target=":AgendaListForm:datalist" fileName="AgendasFiltradas" pageOnly="true" />
                 </h:commandLink>  
-               
+
                 <h:commandLink style="float: right;margin-right: 1%;" title="Exportar Filtradas.">
                     <h:graphicImage value="../faces/resources/images/excel-icon-12.png" width="50px"/>
                     <p:dataExporter type="csv" target=":AgendaListForm:datalist" fileName="AgendasFiltradas" pageOnly="true" />
                 </h:commandLink>  
-                
+
                 <h:commandLink style="float: right;margin-right: 1%;" title="Exportar Filtradas.">
                     <h:graphicImage value="../faces/resources/images/excel-icon-12.png" width="50px"/>
                     <p:dataExporter type="xls" target=":AgendaListForm:datalist" fileName="AgendasFiltradas" pageOnly="true" />
                 </h:commandLink>  
-                
+
                 <br></br><br></br>
 
                 <p:dataTable id="datalist" value="#{turnoController.items}" var="item"
@@ -85,10 +85,10 @@
                                 <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
                             </p:inputText>
                         </f:facet>
-                           <h:outputText value="#{item.orden != null ? item.orden : 'S/N'}" />
-                    
+                        <h:outputText value="#{item.orden != null ? item.orden : 'S/N'}" />
+
                     </p:column>
-                    
+
                     <p:column  style="width: 20%" filterBy="#{item.apellidoNombre}"  styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="contains" headerText="NOMBRE">
                         <f:facet name="filter" >
                             <p:inputText id="inputApellidoYNombreEnTurnoTable" onfocus="PF('turnosTable').filter()" onchange="PF('turnosTable').filter()" value="#{turnoController.apellidoYNombreSeleccionadoEnTurno}" >
@@ -122,7 +122,7 @@
                         </f:facet>
                         <h:outputText value="#{item.observacion}"/>
                     </p:column>
-                    
+
                     <p:column filterBy="#{item.realizado}" style="text-align: center; width: 10%;" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
                         <f:facet name="header">
                             <h:outputText value="REALIZADO"/>
@@ -133,14 +133,14 @@
                                 <f:selectItem itemLabel="Si" itemValue="Si" />
                                 <f:selectItem itemLabel="No" itemValue="No" />
                                 <f:selectItem itemLabel="Reagendada" itemValue="Reagendada" />
-                                
+
                                 <p:ajax update=":AgendaListForm:datalist:inputRealizadoEnAgenda"/> 
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" render=":AgendaListForm:datalist:inputRealizadoEnAgenda"/>
                                 <f:ajax event="change" listener="#{agendaController.handleDateSelect(event)}" />
                                 <f:ajax event="change" listener="#{turnoController.handleDateSelect(event)}" />
                             </p:selectOneMenu>
                         </f:facet>
-                        
+
                         <h:outputText value="#{item.realizado}"/>
                     </p:column>
 
@@ -158,7 +158,7 @@
                             <f:setPropertyActionListener value="#{item}" target="#{turnoController.selected}" />
                             <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert"/>
                         </p:commandButton>
-                        
+
                         <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
                             <p:commandButton update=":TurnoListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;"/>
                             <p:commandButton update=":TurnoListForm" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
@@ -172,7 +172,7 @@
                 </p:dataTable>
 
             </h:form>
-       
+
             <h:form id="AgendaListForm" style="background-color: #F4F8FA">
 
                 <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
@@ -191,7 +191,7 @@
                     <p:ajax event="rowUnselect" update="createButton "/>
 
                     <p:growl life="5000" id="message2" showDetail="true" />
-        
+
                     <p:column style="width: 10%" styleClass="centeredColumnContent#{item.realizado}" sortBy="#{item.diaMesAnio}" filterBy="#{item.diaMesAnio}" filterMatchMode="exact" >
                         <f:facet name="filter">
                             <p:inputText id="inputFechaEnAgenda" onchange="PF('agendasTable').filter()" value="#{turnoController.fechaSeleccionadaEnTurno}" />
@@ -201,7 +201,7 @@
                         </h:outputText>
                     </p:column>
 
-                     <p:column  style="width: 7%" filterBy="#{item.orden}"  styleClass="centeredColumnContent#{item.realizado}" filterMatchMode="exact">
+                    <p:column  style="width: 7%" filterBy="#{item.orden}"  styleClass="centeredColumnContent#{item.realizado}" filterMatchMode="exact">
                         <f:facet name="filter" >
                             <p:inputText id="inputOrdenEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.ordenSeleccionadoEnTurno}" />
                         </f:facet>
@@ -227,13 +227,13 @@
                         <h:outputText value="#{item.descripcion}"  />
                     </p:column>
 
-                   <p:column style="text-align: center; width: 28%;" filterBy="#{item.realizado}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                    <p:column style="text-align: center; width: 28%;" filterBy="#{item.realizado}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
                         <f:facet name="filter" >
                             <p:inputText id="inputRealizadoEnAgenda"  onchange="PF('agendasTable').filter()" value="#{turnoController.realizadoSeleccionadoEnTurno}" />
                         </f:facet>
-                       <h:outputText value="#{item.realizado}"/>
+                        <h:outputText value="#{item.realizado}"/>
                     </p:column>
-                    
+
                     <p:column exportable="false" styleClass="centeredColumnContent#{item.realizado}" style="text-align: center; width: 15% ">
 
                         <f:facet name="header">
@@ -278,7 +278,8 @@
             <ui:include src="../expediente/viewEnAgenda/Edit.xhtml"/>
             <ui:include src="../expediente/viewEnAgenda/EditExpSinCarpeta.xhtml"/>
             <ui:include src="../expediente/viewEnAgenda/EditExpJudicial.xhtml"/>
-            
+<ui:include src="../expediente/viewEnAgenda/ViewParaAgenda.xhtml"/>
+ <ui:include src="../expediente/viewEnAgenda/ViewParaTurno.xhtml"/>
         </ui:define>
     </ui:composition>
 

@@ -8,9 +8,9 @@
 
     <ui:composition>
 
-        <p:dialog id="ExpedienteViewDlgParaTurno" widgetVar="ExpedienteViewDialogParaTurno" modal="true" resizable="true" appendTo="@(body)" header="Agregar Turno" style="overflow-y: auto;">
+        <p:dialog id="ExpedienteViewDlgParaTurno" widgetVar="ExpedienteViewDialogParaTurnodesdeagenda" modal="true" resizable="true" appendTo="@(body)" header="Agregar Turno" style="overflow-y: auto;">
 
-            <h:form id="ExpedienteViewFormParaTurno" >
+            <h:form id="ExpedienteViewFormParaTurnodesdeagenda" >
                 <h:panelGroup id="display">
                     <div style="width: 50%;float: left; ">
                         <p:outputLabel value="Datos Personales:" style="font-size: 1.2em !important; font-weight: 800; color: #2a55aa">
@@ -18,66 +18,66 @@
                                 <h:panelGrid columns="2" cellpadding="1" >
 
                                     <h:outputText value="#{bundle.ViewExpedienteLabel_orden}" class="negrita"/>
-                                    <h:outputText value="#{expedienteController.selected.orden}" title="#{bundle.ViewExpedienteTitle_orden}" />
+                                    <h:outputText value="#{expedienteController.selectedParaVerExp.orden}" title="#{bundle.ViewExpedienteTitle_orden}" />
 
                                     <h:outputText value="#{bundle.ViewExpedienteLabel_apellido}" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selected.apellido}" title="#{bundle.ViewExpedienteTitle_apellido}"/>
+                                    <h:outputText value="#{expedienteController.selectedParaVerExp.apellido}" title="#{bundle.ViewExpedienteTitle_apellido}"/>
 
                                     <h:outputText value="#{bundle.ViewExpedienteLabel_nombre}" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selected.nombre}" title="#{bundle.ViewExpedienteTitle_nombre}"/>
+                                    <h:outputText value="#{expedienteController.selectedParaVerExp.nombre}" title="#{bundle.ViewExpedienteTitle_nombre}"/>
 
                                     <h:outputText value="#{bundle.ViewExpedienteLabel_fechaDeNacimiento}" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.ViewExpedienteTitle_fechaDeNacimiento}">
+                                    <h:outputText value="#{expedienteController.selectedParaVerExp.fechaDeNacimiento}" title="#{bundle.ViewExpedienteTitle_fechaDeNacimiento}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" />
                                     </h:outputText>
 
                                     <h:outputText value="#{bundle.ViewExpedienteLabel_edad}" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selected.edad}" title="#{bundle.ViewExpedienteTitle_edad}"/>
+                                    <h:outputText value="#{expedienteController.selectedParaVerExp.edad}" title="#{bundle.ViewExpedienteTitle_edad}"/>
 
                                     <h:outputText value="#{bundle.ViewExpedienteLabel_sexo}" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selected.sexo}" title="#{bundle.ViewExpedienteTitle_sexo}"/>
+                                    <h:outputText value="#{expedienteController.selectedParaVerExp.sexo}" title="#{bundle.ViewExpedienteTitle_sexo}"/>
 
                                     <h:outputText value="Dni:" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selected.dni}" title="Dni"/>
+                                    <h:outputText value="#{expedienteController.selectedParaVerExp.dni}" title="Dni"/>
 
                                     <h:outputText value="#{bundle.ViewExpedienteLabel_cuit}" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selected.cuit}" title="#{bundle.ViewExpedienteTitle_cuit}"/>
+                                    <h:outputText value="#{expedienteController.selectedParaVerExp.cuit}" title="#{bundle.ViewExpedienteTitle_cuit}"/>
 
                                     <h:outputText value="Nacionalidad:" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selected.nacionalidad}" title="nacionalidad"/>
+                                    <h:outputText value="#{expedienteController.selectedParaVerExp.nacionalidad}" title="nacionalidad"/>
                                 </h:panelGrid>    
                             </p:panel>
                         </p:outputLabel>
                         <p:outputLabel value="Datos Domiciliarios / Contacto:" style="font-size: 1.2em !important; font-weight: 800;color: #2a55aa">
                             <p:panel>
-                                <h:panelGroup  rendered="#{expedienteController.selected != null}">
-                                    <h:panelGrid columns="2" rendered="#{expedienteController.selected != null}">
+                                <h:panelGroup  rendered="#{expedienteController.selectedParaVerExp != null}">
+                                    <h:panelGrid columns="2" rendered="#{expedienteController.selectedParaVerExp != null}">
                                         <h:outputText value="Localidad:" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selected.localidad}" title="localidad"/>
+                                        <h:outputText value="#{expedienteController.selectedParaVerExp.localidad}" title="localidad"/>
 
                                         <h:outputText value="#{bundle.ViewExpedienteLabel_barrio}" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selected.barrio}" title="#{bundle.ViewExpedienteTitle_barrio}"/>
+                                        <h:outputText value="#{expedienteController.selectedParaVerExp.barrio}" title="#{bundle.ViewExpedienteTitle_barrio}"/>
 
                                         <h:outputText value="#{bundle.ViewExpedienteLabel_direccion}" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selected.direccion}" title="#{bundle.ViewExpedienteTitle_direccion}"/>
+                                        <h:outputText value="#{expedienteController.selectedParaVerExp.direccion}" title="#{bundle.ViewExpedienteTitle_direccion}"/>
 
                                         <h:outputText value="#{bundle.ViewExpedienteLabel_nroDeAltura}" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.ViewExpedienteTitle_nroDeAltura}"/>
+                                        <h:outputText value="#{expedienteController.selectedParaVerExp.nroDeAltura}" title="#{bundle.ViewExpedienteTitle_nroDeAltura}"/>
 
                                         <h:outputText value="#{bundle.ViewExpedienteLabel_piso}" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selected.piso}" title="#{bundle.ViewExpedienteTitle_piso}"/>
+                                        <h:outputText value="#{expedienteController.selectedParaVerExp.piso}" title="#{bundle.ViewExpedienteTitle_piso}"/>
 
                                         <h:outputText value="#{bundle.ViewExpedienteLabel_depto}" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selected.depto}" title="#{bundle.ViewExpedienteTitle_depto}"/>
+                                        <h:outputText value="#{expedienteController.selectedParaVerExp.depto}" title="#{bundle.ViewExpedienteTitle_depto}"/>
 
                                         <h:outputText value="codigo postal:" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selected.codigoPostal}" title="codigoPostal"/>
+                                        <h:outputText value="#{expedienteController.selectedParaVerExp.codigoPostal}" title="codigoPostal"/>
 
                                         <h:outputText value="#{bundle.ViewExpedienteLabel_telefono}" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selected.telefono}" title="#{bundle.ViewExpedienteTitle_telefono}"/>
+                                        <h:outputText value="#{expedienteController.selectedParaVerExp.telefono}" title="#{bundle.ViewExpedienteTitle_telefono}"/>
 
                                         <h:outputText value="Observaciones:" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selected.observaciones}" title="observaciones"/>
+                                        <h:outputText value="#{expedienteController.selectedParaVerExp.observaciones}" title="observaciones"/>
                                     </h:panelGrid>
 
                                 </h:panelGroup>
@@ -90,26 +90,26 @@
                             <p:panel>
                                 <h:panelGrid columns="2" cellpadding="1" >
                                     <h:outputText value="Tipo de expediente:"  style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selected.tipoDeExpediente}" title="tipoDeExpediente"/>
+                                    <h:outputText value="#{expedienteController.selectedParaVerExp.tipoDeExpediente}" title="tipoDeExpediente"/>
 
                                     <h:outputText value="Fecha de Alta de Expediente:" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selected.fechaDeAltaDeExpediente}" title="fecha de alta de expediente">
+                                    <h:outputText value="#{expedienteController.selectedParaVerExp.fechaDeAltaDeExpediente}" title="fecha de alta de expediente">
                                         <f:convertDateTime pattern="dd/MM/yyyy" />
                                     </h:outputText>
 
                                     <h:outputText value="Fecha de Atención:" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion">
+                                    <h:outputText value="#{expedienteController.selectedParaVerExp.fechaDeAtencion}" title="fechaDeAtencion">
                                         <f:convertDateTime pattern="dd/MM/yyyy" />
                                     </h:outputText>
 
                                     <h:outputText value="Tipo de tramite:" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selected.tipoDeTramite}" title="tipoDeTramite"/>
+                                    <h:outputText value="#{expedienteController.selectedParaVerExp.tipoDeTramite}" title="tipoDeTramite"/>
 
                                     <h:outputText value="Estado del tramite:" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selected.estadoDelTramite}" title="estadoDelTramite"/>
+                                    <h:outputText value="#{expedienteController.selectedParaVerExp.estadoDelTramite}" title="estadoDelTramite"/>
 
                                     <h:outputText value="Cobra  Beneficio:" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selected.cobraBeneficio}" title="cobra beneficio"/>
+                                    <h:outputText value="#{expedienteController.selectedParaVerExp.cobraBeneficio}" title="cobra beneficio"/>
 
                                 </h:panelGrid>        
                             </p:panel>    
@@ -144,11 +144,11 @@
                             </p:selectOneMenu><br></br><br></br>
 
                             </h:panelGrid>
-                            <p:commandButton class="createButtonAgenda hoverBlue" actionListener="#{turnoController.createConNombreYApellido(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.telefono, expedienteController.selected.orden)}" value="Guardar Turno" update=":ExpedienteJudicialEditForm,:growl"  oncomplete="handleSubmit(args,'ExpedienteViewDialogParaTurno');" />
+                            <p:commandButton class="createButtonAgenda hoverBlue" actionListener="#{turnoController.createConNombreYApellido(expedienteController.selectedParaVerExp.nombre, expedienteController.selectedParaVerExp.apellido, expedienteController.selectedParaVerExp.telefono, expedienteController.selectedParaVerExp.orden)}" value="Guardar Turno" update=":ExpedienteJudicialViewDesdeAgendaForm,:growl"  oncomplete="handleSubmit(args,'ExpedienteViewDialogParaTurnodesdeagenda');" />
                         
                         </p:fieldset> 
                     </div>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('ExpedienteViewDialogParaTurno').hide();" class="botonCrearAgenda hoverGreen" style="float: right"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('ExpedienteViewDialogParaTurnodesdeagenda').hide();" class="botonCrearAgenda hoverGreen" style="float: right"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -47,6 +47,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+
 import java.util.concurrent.TimeUnit;
 import javax.faces.view.ViewScoped;
 import javax.persistence.EntityManager;
@@ -1617,6 +1618,11 @@ public class ExpedienteController implements Serializable {
         items = null;        // Refrescar lista de todos los expedientes
     }
     
+
+    
+    
+  
+
    public String getEdadYComparacion() {
     if (selected == null || selected.getFechaDeNacimiento() == null || selected.getSexo() == null) {
         return "";

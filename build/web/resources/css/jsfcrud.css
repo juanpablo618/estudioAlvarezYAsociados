@@ -33,7 +33,35 @@ td.centeredColumnContentSi{
     text-align: center;
     background-color: lightgreen;
 }
-
+.estadofinalizadoSi{
+       background-color: #C5E1A5;
+    color: #28a745;
+    font-size: 14px;
+    border: 1px solid;
+        text-align: center;
+    border-radius: 5px;
+    text-shadow: none !important;
+}
+.estadofinalizadoNo{
+         background: #a8c1ef;
+    color: #0044b3;
+    border: 1px solid #3b82f6;
+    font-size: 14px;
+    
+       text-align: center;
+    border-radius: 5px;
+    text-shadow: none !important;
+}
+.estadofinalizadoReagendada{
+     background: #ffe69c;
+    color: #212529;
+    border: 1px solid #ffc107;
+    font-size: 14px;
+    
+       text-align: center;
+    border-radius: 5px;
+    text-shadow: none !important;
+}
 td.centeredColumnContentARCHIVADO{
     text-align: center;
     background-color: pink;
@@ -55,6 +83,17 @@ tbody tr:hover  td.centeredColumnContentSi{
 td.centeredColumnContentPendiente{
     text-align: center;
     background-color: yellow;
+}
+
+.estadofinalizadoPendiente{
+     background: #ffe69c;
+    color: #212529;
+    border: 1px solid #ffc107;
+    font-size: 14px;
+    
+       text-align: center;
+    border-radius: 5px;
+    text-shadow: none !important;
 }
 
 tbody tr:hover  td.centeredColumnContentPendiente{
@@ -115,11 +154,14 @@ td.centeredColumnContentsincarpeta{
 
 .ui-datatable .ui-datatable-data tr.ui-state-hover,
 .ui-datatable .ui-datatable-data tr.ui-state-active{
-    background-color: #1B6BD1 !important;
-    color: white !important;
+    background-color: #C4D1EB !important;
+    color: black !important;
+    text-shadow: none !important;
+        border: none !important;
 }
 .ui-datatable tbody tr.ui-selected td {
     background-color: #123a6d;
+     text-shadow: none !important
 }
 
 .ui-datatable tbody tr.ui-state-highlight td.centeredColumnContentjudicial,
@@ -139,7 +181,7 @@ table.dataTable.nowrap td{white-space:nowrap}
 .ui-widget {
     font-size: 16px !important;
     font-family: "Poppins", serif !important;
-
+    color: #292B2C ;
     font-style: normal;
 }
 .ui-layout-north {
@@ -265,9 +307,8 @@ table.dataTable.nowrap td{white-space:nowrap}
 }
 
 .crearExpediente, .crearConsulta{
-    width: 50% !important;
-    height: 70% !important;
-    left: 15% !important;
+    width: 90% !important;
+    height: 90% !important;
     top: 2% !important;
     z-index: 1005 !important;
     position: absolute;
@@ -291,10 +332,13 @@ table.dataTable.nowrap td{white-space:nowrap}
 }
 .editarExpedienteJudicial{
     width: 85% !important;
-    height: 90% !important;
-    left: 5% !important;
-    top: 5% !important;
+    height: 95% !important;
+
     z-index: 1005 !important;
+
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%);
     position: absolute;
 }
 
@@ -306,13 +350,9 @@ table.dataTable.nowrap td{white-space:nowrap}
     background-color: #123a6d !important;
 }
 
-#fechaDeAtencion{
-    width: 100px !important;
-}
 
-.inputFechaDeAtencion{
-    width: 100px !important;
-}
+
+
 
 div.ui-layout-unit-content {
     background-color: #123a6d !important;
@@ -421,7 +461,7 @@ div[id="AgendaListForm:datalist"] thead {
 }
 
 .ui-dialog .ui-dialog-titlebar {
-    background: #2a55aa !important;
+    background: #123a6d !important;
     color: white !important;
     text-shadow: none !important;
 } 
@@ -552,11 +592,11 @@ div.ui-growl {
 }
 
 .ui-tabs.ui-tabs-left > .ui-tabs-nav li {
-    margin: inherit !important;
+    margin: 3px 0px !important;
     border-right: inherit !important;
     float: inherit !important;
     background: transparent;
-    border-bottom: solid 3px #3e5879;
+    border-bottom:none;
     /* border-radius: 15px; */
     border-top: none;
     border-left: none;
@@ -568,13 +608,22 @@ div.ui-growl {
 }
 .ui-tabs-left > .ui-tabs-nav {
     float: left;
-    width: 24.5% !important;
-    height: 100vh !important;
-    background-image: inherit !important;
-    padding-top: inherit !important;
-    border: 3px solid #3E5879;
+    /*width: 24.5% !important;*/
 
-    border-radius: 20px;
+    background-image: inherit !important;
+
+    border: none;
+
+    border-radius: 10px;
+
+
+    width: auto; /* ✅ hace que se adapte al contenido */
+    height: auto; /* opcional, si querés que crezca según contenido */
+    background-image: none;
+    padding-top: 1px;
+    white-space: nowrap; /* opcional: evita que se parta el contenido */
+
+
 }
 .ui-tabs .ui-tabs-panel {
 
@@ -589,7 +638,7 @@ div.ui-growl {
     padding: 1em 1em !important;
     background: #b4d4e3 !important;
     border: solid 3px #3E5879;
-    border-radius: 15px;
+    border-radius: 10px;
     color: black !important;
     margin: 0px 16px;
     text-shadow: none !important;
@@ -597,19 +646,32 @@ div.ui-growl {
 }
 
 .ui-tabs .ui-tabs-nav .ui-tabs-selected {
-    background: #123a6d !important;
-    border-radius: 15px;
+    background: #ffffff !important;
+    border-radius: 10px;
+    color: #000000;
+    border: 1px solid #C4D1EB !important;
+
+    box-shadow: 3px 3px 2px 0px #E2E2E2;
+}
+.ui-tabs .ui-tabs-nav {
+    background: #ffffff !important;
+
 }
 
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
-    color: white !important;
-    background: #123a6d !important;
+
+    background: transparent !important;
     text-shadow: none !important;
-    border-radius: 15px;
+
+    color: #007bff !important;
+    border-left: solid 2px #007bff !important ;
+
 }
 
 .ui-state-active a :hover{
     background: #123a6d;
+    color: black;
+
 }
 
 .circle-badge {
@@ -624,4 +686,684 @@ div.ui-growl {
     justify-content: center;
     border-radius: 50%;
     margin-left: 5px;
+}
+
+/* css de formulario de datos personales& espediente 19-05-2025 */
+
+.Divide-arriba-abajo {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(2, 0fr);
+    gap: 0px;
+
+}
+
+
+.ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield{
+    font-size: 14px !important;
+    padding: 5px 10px;
+    width: -webkit-fill-available;
+    outline: none;
+    background: #FFFFFF;
+    color: #495057;
+    border: 1px solid #C4D1EB;
+    border-radius: 5px;
+    box-shadow: inherit ;
+    transition: .3s ease;
+}
+.ui-selectonemenu .ui-selectonemenu-trigger {
+    appearance: none;
+    -webkit-appearance: none;
+    /*width: 100%;*/
+    font-size: 18px;
+    /*padding: 10px 10px 10px 10px;*/
+    background-color: #FFFFFF;
+    border:none !important;
+    border-radius: 5px;
+    color: #000000;
+    cursor: pointer;
+    outline: none;
+
+}
+.ui-selectonemenu .ui-selectonemenu-trigger .ui-icon {
+    margin-top: 7px !important;
+}
+.ui-selectonemenu {
+    display: block !important;}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus{
+    border-color: #007bff;
+    outline: 0 none;
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+}
+.ui-inputfield.ui-state-focus, .ui-widget-content .ui-inputfield.ui-state-focus, .ui-widget-header .ui-inputfield.ui-state-focus {
+    border-color: #007bff;
+    outline: 0 none;
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+}
+
+.datospersonales{
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 45px;
+    padding: 20px 40px;
+    border: 1px solid #C4D1EB;
+    border-radius: 10px;
+}
+
+.telefonoinput{
+    
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+.telefonoinput > .btnwpp{
+    display: flex;
+      background: #29a71a;
+     border: 1px solid #C4D1EB;
+    border-radius:5px;
+}
+
+.telefonoinput > .btnwpp:hover{
+    
+     border: 1px solid #29a71a;
+    border-radius:5px;
+    box-shadow: 0px 0px 1px 2px #10b981 ;
+}
+
+.telefonoinput > .btnwpp > img {
+     width: 25px;
+  
+    padding: 3.5px;
+} 
+
+/* Estilo para que el select se adapte al contenedor */
+.ui-selectonemenu {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+.ui-selectonemenu .ui-selectonemenu-label {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden; /* para evitar desbordes */
+    text-overflow: ellipsis; /* para que corte el texto largo */
+    white-space: nowrap;
+}
+
+
+
+label{
+    font-size: 14px !important;
+}
+
+.ui-tabs .ui-tabs-nav li a {
+
+    font-weight: normal;
+}
+
+
+
+
+#ExpedienteJudicialEditForm\:tabViewEditExpJudicialEditForm > ul{
+    float: left;
+    width: 60px !important;
+    height: 300px;
+    background-image: none;
+    padding-top: 1px;
+
+    height: auto;
+    min-height: 300px;
+    border: 1px solid #C4D1EB; 
+}
+#ExpedienteJudicialEditForm\:tabViewEditExpJudicialEditForm > div{
+    float:none !important;
+}
+#ExpedienteJudicialEditForm\:tabViewEditExpJudicialEditForm > ul {
+    background: #ffffff !important;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;}
+
+
+#ExpedienteJudicialEditForm\:tabViewEditExpJudicialEditForm > ul > li > a {
+    float: inherit !important;
+    padding: 20px !important;
+    text-align: center;
+    color:#123a6d;
+}
+#ExpedienteJudicialEditForm\:tabViewEditExpJudicialEditForm > ul > li{
+    background: #ffffff !important;
+    border-radius: 0px;
+    color: #000000;
+    border:   none !important;
+
+
+    box-shadow: none !important;
+}
+
+#ExpedienteJudicialEditForm\:tabViewEditExpJudicialEditForm > ul > li:hover{
+
+    border-radius: 0px!important;
+    color: #000000;
+    border-left: solid 2px #007bff !important ;
+    background: #00000024 !important;
+
+
+
+
+}
+/*  --------------------------------------------------------------*/
+
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm > ul{
+    float: left;
+    width: 60px !important;
+    height: 300px;
+    background-image: none;
+    padding-top: 1px;
+
+    height: auto;
+    min-height: 300px;
+    border: 1px solid #C4D1EB; 
+}
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm > div{
+    float:none !important;
+    width: auto !important;
+}
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm > ul {
+    background: #ffffff !important;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;}
+
+
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm > ul > li > a {
+    float: inherit !important;
+    padding: 20px !important;
+    text-align: center;
+    color:#123a6d;
+}
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm > ul > li{
+    background: #ffffff !important;
+    border-radius: 0px;
+    color: #000000;
+    border:   none !important;
+
+
+    box-shadow: none !important;
+}
+
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm > ul > li:hover{
+
+    border-radius: 0px!important;
+    color: #000000;
+    border-left: solid 2px #007bff !important ;
+    background: #00000024 !important;
+
+
+
+
+}
+
+#ExpedienteJudicialEditForm\:toolbarexpedientes{
+    border: 1px solid #C4D1EB; 
+    padding: 0;
+    border-radius: 5px;
+}
+#ExpedienteJudicialViewDesdeAgendaForm\:toolbarexpedientes{
+    border: 1px solid #C4D1EB; 
+    padding: 0;
+    border-radius: 5px;
+}
+
+#ExpedienteJudicialEditForm\:toolbarexpedientes > div.ui-toolbar-group-left{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#ExpedienteJudicialViewDesdeAgendaForm\:toolbarexpedientes > div.ui-toolbar-group-left{
+   display: flex;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;  
+}
+
+.nombrecliente{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-left: 10px;
+}
+
+.inputfecha{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.inputfecha > button {
+    margin-top: -1px !important;
+}
+#ExpedienteJudicialEditForm\:tabViewEditExpJudicialEditForm > div{
+    width: 100%;
+}
+
+.editarExpedienteJudicial > div.ui-dialog-content.ui-widget-content{
+    overflow: hidden !important ;
+}
+
+.boton-guardar {
+    background: #10b981 !important;; /* Verde tipo Tailwind (emerald) */
+    color: white !important;
+    border: none !important;
+
+    font-size: 14px !important;
+    font-weight: normal !important;
+    border-radius: 0.5rem;
+
+    padding: 5px 10px !important;
+    margin-right: 10px !important;
+    margin-left: 10px;
+    cursor: pointer;
+    text-shadow: none !important ;
+}
+.boton-imprimir{
+     background: #10b981 !important;; /* Verde tipo Tailwind (emerald) */
+    color: white !important;
+    border: none !important;
+
+    font-size: 14px !important;
+    font-weight: normal !important;
+    border-radius: 0.5rem;
+
+    padding: 5px 10px !important;
+    
+    cursor: pointer;
+    text-shadow: none !important ;
+}
+
+.boton-sistema {
+    background: cornflowerblue !important;; /* Azul tipo Tailwind (blue) */
+    color: white !important;
+    border: none !important;
+    text-shadow: none;
+
+    font-size: 14px !important;
+    font-weight: normal;
+    border-radius: 0.5rem;
+
+    padding: 5px 10px !important;
+
+    text-decoration: none;
+    cursor: pointer;
+    text-shadow: none !important ;}
+
+.boton-cancelar {
+    background: #e5e7eb !important; /* Gris claro */
+    color: #111827 !important; /* Gris oscuro */
+    border: none !important;
+    padding: 5px 10px !important;
+    border-radius: 0.5rem !important;
+
+    font-weight: normal !important;
+    font-size: 14px !important;
+    text-shadow: none !important ;
+    margin-right: 10px !important;
+    cursor: pointer;
+}
+
+
+.boton-cancelar > span {
+    padding: 0 !important;
+    font-size: 14px !important;
+    text-shadow: none !important ;
+    font-weight: normal !important;
+}
+
+.boton-guardar  > span {
+    padding: 0 !important;
+    font-size: 14px !important;
+    text-shadow: none !important ;
+    font-weight: normal !important;
+    
+}
+
+.boton-sistema  > span {
+    padding: 0 !important;
+    font-size: 14px !important;
+    text-shadow: none !important ;
+    font-weight: normal !important;
+}
+
+
+.ui-widget-overlay {
+    background: rgba(162, 162, 162, 0.15) !important; /* fondo claro con transparencia */
+    backdrop-filter: blur(9.9px); /* desenfoque moderno */
+    -webkit-backdrop-filter: blur(9.9px);/* soporte para Safari */
+    opacity: 1 !important; /* aseguramos que se vea el efecto */
+    filter: none; /* quitamos Alpha(Opacity) para no interferir */
+}
+.imagenentidad{
+    text-align: center !important;
+
+}
+
+.imagenentidad > a > img{
+    width: 90px;
+    border: 1px solid #C4D1EB;
+    border-radius:5px;
+    padding: 25px 0px;
+}
+.arca a > img{
+    width: 80px;
+    border: 1px solid #C4D1EB;
+    border-radius:5px;
+
+}
+.arca{
+    text-align: center !important; 
+}
+
+.cardsentidades{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 0;
+    padding: 10px;
+    border: 1px solid #C4D1EB;
+    border-radius: 10px;
+    justify-content: space-evenly;
+    align-items: baseline;
+    justify-items: center;
+}
+.comunicaciones{
+    border: 1px solid #C4D1EB;
+    border-radius: 10px;
+    display: grid !important;
+}
+
+.honorarios{
+
+    display: grid !important;
+    border: 1px solid #C4D1EB;
+    border-radius: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 50px;
+    padding: 20px 40px;
+        margin-bottom: 20px;
+}
+.datosexpediente{
+    display: grid !important;
+    border: 1px solid #C4D1EB;
+    border-radius: 10px;
+    padding: 20px 40px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, auto);
+    gap: 45px;
+}   
+.editordetexto {
+     display: grid;
+   border: 1px solid #C4D1EB;
+    border-radius: 10px;
+
+}
+.ui-editor-toolbar{
+    border: 1px solid #C4D1EB;
+    border-radius: 10px;
+      
+    background: #6495ed1f !important;
+}
+
+.columna{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    
+}
+.columnafila2{
+    grid-column: span 2 / span 2;
+     display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+/* NUEVO ESTILO DE TABLAS  */
+/* Estilo moderno Tailwind para PrimeFaces 5 con !important */
+
+.tabla-tailwind {
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05) !important;
+    background-color: #fff !important;
+
+    border-collapse: collapse !important;
+}
+
+.tabla-tailwind thead th {
+    background-color: #edf5fb !important; /* Azul */
+    color: #1a1a1a !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+
+    border-bottom: 2px solid #C4D1EB !important;
+}
+
+.tabla-tailwind tbody td {
+
+    text-align: center !important;
+    border-bottom: 1px solid  #C4D1EB !important;
+    font-size: 14px;
+}
+
+.tabla-tailwind tbody tr:nth-child(even) {
+    background-color: #edf5fb !important;
+}
+
+.tabla-tailwind tbody tr:hover {
+    background-color: #edf5fb !important;
+    transition: background 0.3s ease !important;
+}
+
+/* Botones */
+.tabla-tailwind .btnSearch,
+.tabla-tailwind .btnDelete,
+.tabla-tailwind .btnKeyGreen{
+    background: none !important;
+    border: none !important;
+    font-size: 16px !important;
+    margin: 0 5px !important;
+    color: #2563eb !important;
+    cursor: pointer !important;
+}
+
+.tabla-tailwind .btnDelete:hover {
+    color: #dc2626 !important; /* rojo */
+}
+
+.tabla-tailwind .btnSearch:hover {
+    color: #1d4ed8 !important;
+}
+
+.tabla-tailwind .ui-widget-header{
+    border: inherit !important;
+}
+
+.truncate {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.agendasyturnos
+{
+    display: grid; 
+     border: 1px solid #C4D1EB;
+    border-radius: 10px;
+ 
+}
+
+#ExpedienteJudicialEditForm\:tabViewEditExpJudicialEditForm\:historialdeagendas_button {
+    background: #e5e7eb;
+    border: inherit;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    border-radius: 0.5rem;
+    /* padding: 0 20px !important; */
+    width: -webkit-fill-available;
+    /* padding: 5px 10px !important; */
+    margin-right: 10px !important;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    text-shadow: inherit;
+   
+}
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm\:historialdeagendas_button {
+    background: #e5e7eb;
+    border: inherit;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    border-radius: 0.5rem;
+    /* padding: 0 20px !important; */
+    width: -webkit-fill-available;
+    /* padding: 5px 10px !important; */
+    margin-right: 10px !important;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    text-shadow: inherit;
+   
+}
+
+#ExpedienteJudicialEditForm\:tabViewEditExpJudicialEditForm\:historialdeagendas_menu > ul > li > a {
+  background: white !important;
+width: 98%; 
+text-align: center !important;
+display: flex;
+    justify-content: center;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    border-radius: 0.5rem;
+    
+}
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm\:historialdeagendas_menu > ul > li > a {
+  background: white !important;
+width: 98%; 
+text-align: center !important;
+display: flex;
+    justify-content: center;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    border-radius: 0.5rem;
+    
+}
+#ExpedienteJudicialEditForm\:tabViewEditExpJudicialEditForm\:historialdeagendas_menu{
+       width: 63.5em; 
+}
+#ExpedienteJudicialViewDesdeAgendaForm\:tabViewEditExpJudicialEditForm\:historialdeagendas_menu{
+       width: 63.5em; 
+}
+
+.apilarelementos{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    font-size: 14px;
+}
+.iconoturnorespondable  > .fa {
+     font-weight: 100 !important;
+}
+.responsableiconclass > span{
+    font-weight: 100 !important;
+}
+.responsableiconclass{
+    width: 2%;
+}
+.fechacolumna{
+    
+    font-size: 14px;
+    
+    font-weight: 400;
+    color: #3b82f6;
+    word-wrap: break-word; /* Permite cortar palabras si es necesario */
+  white-space: normal;   /* Permite los saltos de línea automáticos */
+}
+
+/* Contenedor principal de la paginación */
+.ui-datatable .ui-paginator {
+    background:#e5e7eb !important
+    border: 1px solid #ccc !important;
+    padding: 6px 10px !important;
+    border-radius: 5px !important;
+   
+    font-size: 14px !important;
+    text-align: center !important;
+}
+
+/* Botones de paginación */
+.ui-datatable .ui-paginator .ui-paginator-page,
+.ui-datatable .ui-paginator .ui-paginator-next,
+.ui-datatable .ui-paginator .ui-paginator-prev,
+.ui-datatable .ui-paginator .ui-paginator-first,
+.ui-datatable .ui-paginator .ui-paginator-last {
+    display: inline-block !important;
+    margin: 0 4px !important;
+    padding: 6px 10px !important;
+    background: #ffffff !important;
+    border: 1px solid #bbb !important;
+    border-radius: 4px !important;
+    color: #333 !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+/* Hover sobre botones */
+.ui-datatable .ui-paginator .ui-paginator-page:hover,
+.ui-datatable .ui-paginator .ui-paginator-next:hover,
+.ui-datatable .ui-paginator .ui-paginator-prev:hover,
+.ui-datatable .ui-paginator .ui-paginator-first:hover,
+.ui-datatable .ui-paginator .ui-paginator-last:hover {
+    background: #e9ecef !important;
+    color: #000 !important;
+    border: 1px solid #999 !important;
+}
+
+/* Página activa */
+.ui-datatable .ui-paginator .ui-paginator-page.ui-state-active {
+    background: #e5e7eb !important
+    color: black !important;
+    border: 1px solid #bbb!important;
+    font-weight: bold !important;
+}
+
+/* Texto de página actual y total */
+.ui-datatable .ui-paginator .ui-paginator-current {
+    margin-left: 12px !important;
+    font-weight: bold !important;
+    color: #555 !important;
+}
+#ExpedienteViewDlgParaAgenda{
+    overflow: auto !important;
+    height: 90% !important;
+}
+#ExpedienteViewDlgParaAgendadesdeagenda{
+    overflow: auto !important;
+    height: 90% !important; 
+    width: 50% !important; 
+        left: 25% !important; 
 }

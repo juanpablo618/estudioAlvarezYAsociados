@@ -63,7 +63,7 @@
                                          oncomplete="handleSubmit(args,'EventoJudicialCreateDialog');" 
                                          update="display,:ExpedienteJudicialEditForm,:growl"/>
                   
-                    <p:commandButton value="#{bundle.Cancel}" onclick="EventoDeCausasJudicialesCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('EventoJudicialCreateDialog').hide();"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

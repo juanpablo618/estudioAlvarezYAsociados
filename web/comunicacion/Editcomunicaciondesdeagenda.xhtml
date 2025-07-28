@@ -8,8 +8,8 @@
 
     <ui:composition>
 
-        <p:dialog id="ComunicacionEditDlg" widgetVar="ComunicacionEditDialog"  resizable="false" appendTo="@(body)" header="Editar Comunicación" modal="true">
-            <h:form id="ComunicacionEditForm">
+        <p:dialog id="ComunicacionEditDlg" widgetVar="ComunicacionEditdesdeagendaDialog"  resizable="false" appendTo="@(body)" header="Editar Comunicación" modal="true">
+            <h:form id="ComunicacionEditdesdeagendaForm">
                 <h:panelGroup id="display">
 
                     <div class="padre">
@@ -40,8 +40,8 @@
                             <div>
                                 <p:commandButton  
                                                  class="createButtonAgenda hoverBlue" actionListener="#{comunicacionController.update}" 
-                                                 value="Actualizar Comunicación" update=":ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm:datalist3,:ExpedienteEditForm:tabViewEditExpAdm:datalist4,:growl"
-                                                 oncomplete="handleSubmit(args, 'ComunicacionEditDialog');"  />
+                                                 value="Actualizar Comunicación" update=":ExpedienteJudicialViewDesdeAgendaForm:tabViewEditExpJudicialEditForm:datalist3,:growl"
+                                                 oncomplete="handleSubmit(args, 'ComunicacionEditdesdeagendaDialog');"  />
                                 
                             </div>     
 

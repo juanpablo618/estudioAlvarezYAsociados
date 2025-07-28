@@ -1625,6 +1625,11 @@ public class ExpedienteController implements Serializable {
         items = null;        // Refrescar lista de todos los expedientes
     }
     
+
+    
+    
+  
+
    public String getEdadYComparacion() {
     if (selected == null || selected.getFechaDeNacimiento() == null || selected.getSexo() == null) {
         return "";

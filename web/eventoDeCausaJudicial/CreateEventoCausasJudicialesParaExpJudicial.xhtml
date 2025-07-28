@@ -14,7 +14,7 @@
                     <h:panelGrid columns="4">
                      
                         <p:outputLabel value="Fecha:" for="fecha" style="font-weight: bold"/><br></br>
-                        <p:calendar disabledWeekends="true"  placeholder="dd/MM/yyyy" autocomplete="off" id="fecha"  pattern="dd/MM/yyyy" value="#{eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.fecha}" title="fecha de causa" showOn="button" /><br></br><br></br>
+                        <p:calendar disabledWeekends="true" required="true" requiredMessage="Fecha es requerido." placeholder="dd/MM/yyyy" autocomplete="off" id="fecha"  pattern="dd/MM/yyyy" value="#{eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.fecha}" title="fecha de causa" showOn="button" /><br></br><br></br>
                               
                         <p:outputLabel value="Tipo de fecha:" for="tipo_de_fecha" style="font-weight: bold" /><br></br>
 

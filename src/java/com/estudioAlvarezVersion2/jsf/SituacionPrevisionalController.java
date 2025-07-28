@@ -7,15 +7,24 @@ import com.estudioAlvarezVersion2.jpacontroller.SituacionPrevisionalFacade;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.Period;
+import java.time.YearMonth;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -35,27 +44,59 @@ import org.primefaces.model.UploadedFile;
 @SessionScoped
 public class SituacionPrevisionalController implements Serializable {
 
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MM/yyyy");
+    private static final DateTimeFormatter RANGO_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final LocalDate LIMITE_24476 = LocalDate.of(1993, Month.SEPTEMBER, 30);
+    private static final LocalDate INICIO_27705 = LocalDate.of(1993, Month.OCTOBER, 1);
+    private static final LocalDate FIN_27705 = LocalDate.of(2012, Month.MARCH, 31);
+
+ 
     @EJB
     private com.estudioAlvarezVersion2.jpacontroller.SituacionPrevisionalFacade ejbFacade;
     private List<SituacionPrevisional> items = null;
     private SituacionPrevisional selected;
     private SituacionPrevisional selectedNuevo;
-
-     private UploadedFile archivoCsv;
-
-     private String totalTiempoConAportes;
-     
-     private String tiempoInactivoHasta1993;
+    private UploadedFile archivoCsv;
+    private String totalTiempoConAportes;
+    private String totalAniosDeServicio; 
+    
+    private String resultadoMoratoriaV4;
+    private String resultadoMoratoriaV5;
+    
+    private String tiempoInactivoHasta1993;
     private String tiempoInactivoDesde1993;
 
     private int totalDiasConMoratoria24476 = 0; // valor acumulado (se puede mostrar luego)
 
+    public String getTotalAniosDeServicio() {
+        return totalAniosDeServicio;
+    }
 
-public String getTotalTiempoConAportes() {
-    return totalTiempoConAportes;
-}
+    public void setTotalAniosDeServicio(String totalAniosDeServicio) {
+        this.totalAniosDeServicio = totalAniosDeServicio;
+    }
 
-public void calcularTotalTiempoConAportes(int orden) {
+    public String getTotalTiempoConAportes() {
+        return totalTiempoConAportes;
+    }
+
+    public String getResultadoMoratoriaV4() {
+        return resultadoMoratoriaV4;
+    }
+
+    public void setResultadoMoratoriaV4(String resultadoMoratoriaV4) {
+        this.resultadoMoratoriaV4 = resultadoMoratoriaV4;
+    }
+
+    public String getResultadoMoratoriaV5() {
+        return resultadoMoratoriaV5;
+    }
+
+    public void setResultadoMoratoriaV5(String resultadoMoratoriaV5) {
+        this.resultadoMoratoriaV5 = resultadoMoratoriaV5;
+    }
+
+/*public void calcularTotalTiempoConAportes(int orden) {
     List<SituacionPrevisional> lista = verSituacionPrevisionalesPorNroDeOrden(orden);
 
     int totalDias = 0;
@@ -77,9 +118,215 @@ public void calcularTotalTiempoConAportes(int orden) {
     totalMeses = totalMeses % 12;
 
     totalTiempoConAportes = totalAnios + " años, " + totalMeses + " meses, " + totalDias + " días";
+}*/
+    
+    public void calcularTotalTiempoConAportes(int orden) {
+    List<SituacionPrevisional> lista = verSituacionPrevisionalesPorNroDeOrden(orden);
+
+    // 1. Suma simple igual que antes
+    int totalDias = 0;
+    int totalMeses = 0;
+    int totalAnios = 0;
+
+    for (SituacionPrevisional s : lista) {
+        if (s.getEmpleador() != null && !s.getEmpleador().trim().isEmpty()) {
+            totalDias += s.getDias();
+            totalMeses += s.getMeses();
+            totalAnios += s.getAnios();
+        }
+    }
+
+    totalMeses += totalDias / 30;
+    totalDias = totalDias % 30;
+
+    totalAnios += totalMeses / 12;
+    totalMeses = totalMeses % 12;
+
+    totalTiempoConAportes = totalAnios + " años, " + totalMeses + " meses, " + totalDias + " días";
+
+
+    // 2. Calcular total años de servicio sin contar solapamientos
+    List<Intervalo> intervalos = new ArrayList<>();
+    for (SituacionPrevisional s : lista) {
+        if (s.getEmpleador() != null && !s.getEmpleador().trim().isEmpty()
+                && s.getFechaInicio() != null && s.getFechaFin() != null) {
+
+            LocalDate inicio = convertirADateLocalDate(s.getFechaInicio());
+            LocalDate fin = convertirADateLocalDate(s.getFechaFin());
+            intervalos.add(new Intervalo(inicio, fin));
+        }
+    }
+
+    if (intervalos.isEmpty()) {
+        totalAniosDeServicio = "0 años, 0 meses, 0 días";
+        return;
+    }
+
+    // Ordenar intervalos por fecha inicio
+    intervalos.sort(Comparator.comparing(i -> i.inicio));
+
+    // Fusionar intervalos solapados
+    List<Intervalo> fusionados = new ArrayList<>();
+    Intervalo actual = intervalos.get(0);
+
+    for (int i = 1; i < intervalos.size(); i++) {
+        Intervalo siguiente = intervalos.get(i);
+
+        if (!actual.fin.isBefore(siguiente.inicio.minusDays(1))) {
+            if (siguiente.fin.isAfter(actual.fin)) {
+                actual.fin = siguiente.fin;
+            }
+        } else {
+            fusionados.add(actual);
+            actual = siguiente;
+        }
+    }
+    fusionados.add(actual);
+
+    // Calcular días totales de los intervalos fusionados
+    long totalDiasServicio = 0;
+    for (Intervalo i : fusionados) {
+        totalDiasServicio += ChronoUnit.DAYS.between(i.inicio, i.fin) + 1;
+    }
+
+    // Convertir a años, meses, días
+    int añosServicio = (int) (totalDiasServicio / 365);
+    int mesesServicio = (int) ((totalDiasServicio % 365) / 30);
+    int diasServicio = (int) ((totalDiasServicio % 365) % 30);
+
+    totalAniosDeServicio = añosServicio + " años, " + mesesServicio + " meses, " + diasServicio + " días";
 }
 
-    public SituacionPrevisionalController() {
+    private LocalDate convertirADateLocalDate(Date fecha) {
+        return fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+
+    private static class Intervalo {
+        LocalDate inicio;
+        LocalDate fin;
+
+        Intervalo(LocalDate inicio, LocalDate fin) {
+            this.inicio = inicio;
+            this.fin = fin;
+        }
+    }
+
+public void calcularResultadoPrevisional(int orden) {
+    List<SituacionPrevisional> lista = verSituacionPrevisionalesPorNroDeOrden(orden);
+
+    int totalDias = 0;
+    int totalMeses = 0;
+    int totalAnios = 0;
+    int yaAportados = 0;
+
+    List<String> periodos24476 = new ArrayList<>();
+    List<String> periodos27705 = new ArrayList<>();
+
+    for (SituacionPrevisional s : lista) {
+        if (s.getEmpleador() != null && !s.getEmpleador().trim().isEmpty()) {
+            totalDias += s.getDias();
+            totalMeses += s.getMeses();
+            totalAnios += s.getAnios();
+        } else if (s.getFechaInicio() != null && s.getFechaFin() != null) {
+            try {
+                LocalDate inicio = LocalDate.parse((CharSequence) s.getFechaInicio(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                LocalDate fin = LocalDate.parse((CharSequence) s.getFechaFin(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+                List<String> meses = generarPeriodos(inicio, fin);
+
+                for (String mes : meses) {
+                    LocalDate fecha = parsePeriodo(mes);
+                    if (!fecha.isAfter(LIMITE_24476)) {
+                        periodos24476.add(mes);
+                    } else if (!fecha.isBefore(INICIO_27705) && !fecha.isAfter(FIN_27705)) {
+                        periodos27705.add(mes);
+                    }
+                }
+            } catch (Exception e) {
+                // Manejo opcional si alguna fecha no está bien formada
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Consolidar tiempo aportado
+    totalMeses += totalDias / 30;
+    totalDias = totalDias % 30;
+
+    totalAnios += totalMeses / 12;
+    totalMeses = totalMeses % 12;
+
+    yaAportados = totalAnios * 12 + totalMeses;
+
+    // Obtener períodos de moratoria (con manejo seguro)
+    List<String[]> periodosSeleccionados = limitarA360Meses(yaAportados, periodos24476, periodos27705);
+    int meses24476 = (periodosSeleccionados.size() > 0) ? periodosSeleccionados.get(0).length : 0;
+    int meses27705 = (periodosSeleccionados.size() > 1) ? periodosSeleccionados.get(1).length : 0;
+
+    int totalFinalMeses = yaAportados + meses24476 + meses27705;
+
+    // Crear resumen
+    StringBuilder resumen = new StringBuilder();
+    resumen.append("════════════════════════════════════════════\n");
+    resumen.append("RESUMEN GENERAL\n");
+    resumen.append("════════════════════════════════════════════\n");
+    resumen.append("Meses con aportes registrados: ").append(yaAportados).append("\n");
+    resumen.append("Meses agregados por Ley 24.476: ").append(meses24476).append("\n");
+    resumen.append("Meses agregados por Ley 27.705: ").append(meses27705).append("\n");
+    resumen.append("Total meses computados para jubilación: ").append(totalFinalMeses).append("\n");
+
+    if (totalFinalMeses >= 360) {
+        resumen.append("✅ Se alcanzó el máximo de 360 meses permitidos.\n");
+    } else {
+        int faltan = 360 - totalFinalMeses;
+        resumen.append("⚠️  Faltan ").append(faltan).append(" meses para llegar a los 360.\n");
+    }
+
+    resultadoMoratoriaV4 = resumen.toString();
+}
+
+
+private static List<String[]> limitarA360Meses(int yaAportados, List<String> moratoria24476, List<String> moratoria27705) {
+    int faltan = 360 - yaAportados;
+    if (faltan <= 0) {
+        return Arrays.asList(new String[0], new String[0]);
+    }
+
+    List<String> seleccion24476 = moratoria24476.stream()
+        .sorted()
+        .limit(Math.min(faltan, moratoria24476.size()))
+        .collect(Collectors.toList());
+
+    faltan -= seleccion24476.size();
+
+    List<String> seleccion27705 = moratoria27705.stream()
+        .sorted()
+        .limit(Math.min(faltan, moratoria27705.size()))
+        .collect(Collectors.toList());
+
+    return Arrays.asList(
+        seleccion24476.toArray(new String[0]),
+        seleccion27705.toArray(new String[0])
+    );
+}
+
+
+    private static List<String> generarPeriodos(LocalDate inicio, LocalDate fin) {
+        
+        List<String> periodos = new ArrayList<>();
+        while (!inicio.isAfter(fin)) {
+            periodos.add(inicio.format(OUTPUT_FORMAT));
+            inicio = inicio.plusMonths(1);
+        }
+        return periodos;
+    }
+
+    private static LocalDate parsePeriodo(String periodo) {
+        return LocalDate.parse("01/" + periodo, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+
+
+public SituacionPrevisionalController() {
     }
 
     public SituacionPrevisional getSelected() {
@@ -267,36 +514,38 @@ public void calcularTotalTiempoConAportes(int orden) {
         this.archivoCsv = archivoCsv;
     }
 
-    public void createSituacionPrevisional(Date fechaInicio, Date fechaFin, String observaciones, int orden) {
-        
-        selectedNuevo.setFechaInicio(fechaInicio);
-                selectedNuevo.setFechaFin(fechaFin);
-        selectedNuevo.setObservaciones(observaciones);
-        selectedNuevo.setOrden(orden);
-        
-        if (fechaInicio != null && fechaFin != null) {
-        // Convertir Date a LocalDate
+   public void createSituacionPrevisional(Date fechaInicio, Date fechaFin, String observaciones, int orden) {
+    selectedNuevo.setFechaInicio(fechaInicio);
+    selectedNuevo.setFechaFin(fechaFin);
+    selectedNuevo.setObservaciones(observaciones);
+    selectedNuevo.setOrden(orden);
+
+    if (fechaInicio != null && fechaFin != null) {
         LocalDate inicio = fechaInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate fin = fechaFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
+        // Agregamos 1 día para incluir el último día
+        fin = fin.plusDays(1);
+
+        // Obtenemos el período exacto
         Period periodo = Period.between(inicio, fin);
 
         selectedNuevo.setAnios(periodo.getYears());
         selectedNuevo.setMeses(periodo.getMonths());
         selectedNuevo.setDias(periodo.getDays());
-        
-        } else {
-            selectedNuevo.setAnios(0);
-            selectedNuevo.setMeses(0);
-        }
-        
-        
-        persistParaSituacionPrevisionalNuevo(PersistAction.CREATE, "Situacion previsional creada exitosamente para el nro de orden:"+ orden);
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
-        }
+    } else {
+        selectedNuevo.setAnios(0);
+        selectedNuevo.setMeses(0);
+        selectedNuevo.setDias(0);
     }
+
+    persistParaSituacionPrevisionalNuevo(PersistAction.CREATE, "Situación previsional creada exitosamente para el nro de orden: " + orden);
     
+    if (!JsfUtil.isValidationFailed()) {
+        items = null;
+    }
+}
+
     private void persistParaSituacionPrevisionalNuevo(PersistAction persistAction, String successMessage) {
         if (selectedNuevo != null) {
             setEmbeddableKeys();
@@ -374,26 +623,6 @@ public void calcularTotalTiempoConAportes(int orden) {
     private LocalDate toLocalDate(Date date) {
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
-    
-    /*
-            VERSIÓN 1 QUE SI FUNCIONA
-    private void insertarInactividad(int orden, LocalDate desde, LocalDate hasta) {
-        if (desde.isAfter(hasta)) return; // Evitar períodos inválidos
-
-        Period periodo = Period.between(desde, hasta.plusDays(1)); // incluir el día final
-
-        SituacionPrevisional nueva = prepareCreate();
-        nueva.setEmpleador(""); // vacío
-        nueva.setObservaciones("tiempo inactivo");
-        nueva.setAnios(periodo.getYears());
-        nueva.setMeses(periodo.getMonths());
-        nueva.setDias(periodo.getDays());
-        nueva.setFechaInicio(Date.from(desde.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        nueva.setFechaFin(Date.from(hasta.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        nueva.setOrden(orden); // si hay un campo para relacionar con el orden
-
-        create(); // insertar en la base de datos
-    }*/
     
     private void insertarInactividad(int orden, LocalDate desde, LocalDate hasta) {
         if (desde.isAfter(hasta)) return; // Evitar períodos inválidos
@@ -508,7 +737,7 @@ public void calcularTotalTiempoConAportes(int orden) {
     
     private static final int TOTAL_MESES_OBJETIVO = 360; // 30 años * 12
 
-            private int calcularMesesConAportes(List<SituacionPrevisional> lista) {
+        private int calcularMesesConAportes(List<SituacionPrevisional> lista) {
                 int totalMeses = 0;
                 for (SituacionPrevisional s : lista) {
                     if (tieneAportes(s)) {
@@ -517,7 +746,7 @@ public void calcularTotalTiempoConAportes(int orden) {
                     }
                 }
                 return totalMeses;
-            }
+        }
 
         private boolean tieneAportes(SituacionPrevisional s) {
             return s.getEmpleador() != null && !s.getEmpleador().trim().isEmpty();
@@ -638,17 +867,648 @@ public void calcularTotalTiempoConAportes(int orden) {
         }
 
         private void guardarLista(List<SituacionPrevisional> lista) {
-            System.out.println("llego al guardarLista");
-            System.out.println("llego al guardarLista size: "+ lista.size());
             
             for (SituacionPrevisional s : lista) {
                         this.selected = s; // 👉 importante: asignás el objeto actual a selected
                         
-                        System.out.println("S: "+ this.selected.getObservaciones());
-            
                     persist(PersistAction.UPDATE, "situación previsional editada");
 
             }
         }
 
+    
+    private static List<String[]> limitarA360Meses(int yaAportados, List<String> periodosSinAportes) {
+    final int MAX_MESES = 360;
+
+    List<String[]> seleccionados = new ArrayList<>();
+
+    // Primero, los períodos que aplican a la ley 24.476 (hasta 30/09/1993)
+    List<String> ley24476 = periodosSinAportes.stream()
+            .filter(p -> !parsePeriodo(p).isAfter(LIMITE_24476))
+            .sorted()
+            .collect(Collectors.toList());
+
+    for (String p : ley24476) {
+        if (yaAportados + seleccionados.size() >= MAX_MESES) break;
+        seleccionados.add(new String[]{p, "24.476"});
+    }
+
+    // Luego, los períodos que aplican a la ley 27.705 (entre 01/10/1993 y 31/03/2012)
+    List<String> ley27705 = periodosSinAportes.stream()
+            .filter(p -> {
+                LocalDate fecha = parsePeriodo(p);
+                return (!fecha.isBefore(INICIO_27705) && !fecha.isAfter(FIN_27705));
+            })
+            .sorted()
+            .collect(Collectors.toList());
+
+    for (String p : ley27705) {
+        if (yaAportados + seleccionados.size() >= MAX_MESES) break;
+        seleccionados.add(new String[]{p, "27.705"});
+    }
+
+    return seleccionados;
+}
+       
+    private static List<String[]> calcularTodoConLey27705(List<String> periodosSinAportes, int yaAportados) {
+    final int MAX_MESES = 360;
+    List<String[]> seleccionados = new ArrayList<>();
+
+    List<String> ley27705 = periodosSinAportes.stream()
+            .filter(p -> {
+                LocalDate fecha = parsePeriodo(p);
+                return (!fecha.isBefore(INICIO_27705) && !fecha.isAfter(FIN_27705));
+            })
+            .sorted()
+            .collect(Collectors.toList());
+
+    for (String p : ley27705) {
+        if (yaAportados + seleccionados.size() >= MAX_MESES) break;
+        seleccionados.add(new String[]{p, "27.705"});
+    }
+
+    return seleccionados;
+}
+        
+        
+        
+    public void periodosPosiblesSegunCadaLey(int orden, Date fechaDeNacimiento) {
+    List<SituacionPrevisional> lista = verSituacionPrevisionalesPorNroDeOrden(orden);
+    ZoneId zona = ZoneId.systemDefault();
+    DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    LocalDate fechaNacimiento = fechaDeNacimiento.toInstant().atZone(zona).toLocalDate();
+    LocalDate fechaInicioGeneral = fechaNacimiento.plusYears(18);
+    LocalDate fechaFinGeneral = LocalDate.of(2012, 3, 31); // Límite ley 27.705
+
+    StringBuilder sb = new StringBuilder();
+
+    // Paso 2: Verificación edad
+    if (LocalDate.now().isBefore(fechaInicioGeneral)) {
+        sb.append("⚠️ El titular aún no ha cumplido 18 años. No se pueden computar períodos.\n\n");
+        resultadoMoratoriaV5 = sb.toString();
+        return;
+    }
+
+    sb.append("🧾 Fecha de nacimiento: ").append(fechaNacimiento.format(formatoFecha)).append("\n");
+    sb.append("🎂 Inicio de cómputo (desde 18 años): ").append(fechaInicioGeneral.format(formatoFecha)).append("\n\n");
+
+    // Paso 4: Periodos activos
+    List<LocalDate[]> periodosActivos = lista.stream()
+        .filter(s -> s.getFechaInicio() != null && s.getFechaFin() != null)
+        .map(s -> new LocalDate[]{
+            s.getFechaInicio().toInstant().atZone(zona).toLocalDate(),
+            s.getFechaFin().toInstant().atZone(zona).toLocalDate()
+        })
+        .sorted(Comparator.comparing(a -> a[0]))
+        .collect(Collectors.toList());
+
+    // Paso 5: Calcular huecos reales
+    List<LocalDate[]> periodosInactivosRaw = new ArrayList<>();
+    LocalDate cursor = fechaInicioGeneral;
+
+    for (LocalDate[] periodo : periodosActivos) {
+        LocalDate inicio = periodo[0];
+        LocalDate fin = periodo[1];
+
+        if (cursor.isBefore(inicio)) {
+            periodosInactivosRaw.add(new LocalDate[]{cursor, inicio.minusDays(1)});
+        }
+        cursor = fin.plusDays(1);
+    }
+
+    if (cursor.isBefore(fechaFinGeneral)) {
+        periodosInactivosRaw.add(new LocalDate[]{cursor, fechaFinGeneral});
+    }
+
+    // Paso 6: Filtrar por leyes
+    List<LocalDate[]> periodosLey24476 = periodosInactivosRaw.stream()
+        .filter(p -> !p[0].isAfter(LIMITE_24476))
+        .map(p -> new LocalDate[]{
+            p[0],
+            p[1].isAfter(LIMITE_24476) ? LIMITE_24476 : p[1]
+        })
+        .collect(Collectors.toList());
+
+    List<LocalDate[]> periodosLey27705 = periodosInactivosRaw.stream()
+        .filter(p -> !(p[1].isBefore(INICIO_27705) || p[0].isAfter(FIN_27705)))
+        .map(p -> new LocalDate[]{
+            p[0].isBefore(INICIO_27705) ? INICIO_27705 : p[0],
+            p[1].isAfter(FIN_27705) ? FIN_27705 : p[1]
+        })
+        .collect(Collectors.toList());
+
+    // Paso 7: Mostrar resultados con duración real
+    sb.append("📘 Ley 24.476 (Hasta 30/09/1993):\n");
+    int totalMeses24476 = 0;
+    for (LocalDate[] p : periodosLey24476) {
+        String desde = p[0].format(DateTimeFormatter.ofPattern("MM/yyyy"));
+        String hasta = p[1].format(DateTimeFormatter.ofPattern("MM/yyyy"));
+        String duracion = calcularDuracion(p[0], p[1]);
+        sb.append("➡️ ").append(desde).append(" - ").append(hasta).append("  📅 ").append(duracion).append("\n");
+
+        Period periodo = Period.between(p[0], p[1].plusDays(1));
+        totalMeses24476 += periodo.getYears() * 12 + periodo.getMonths();
+    }
+    sb.append("\n🔢 Total de meses: ").append(totalMeses24476).append(" meses\n\n");
+
+    sb.append("📙 Ley 27.705 (01/10/1993 hasta 31/03/2012):\n");
+    int totalMeses27705 = 0;
+    for (LocalDate[] p : periodosLey27705) {
+        String desde = p[0].format(DateTimeFormatter.ofPattern("MM/yyyy"));
+        String hasta = p[1].format(DateTimeFormatter.ofPattern("MM/yyyy"));
+        String duracion = calcularDuracion(p[0], p[1]);
+        sb.append("➡️ ").append(desde).append(" - ").append(hasta).append("  📅 ").append(duracion).append("\n");
+
+        Period periodo = Period.between(p[0], p[1].plusDays(1));
+        totalMeses27705 += periodo.getYears() * 12 + periodo.getMonths();
+    }
+    sb.append("\n🔢 Total de meses: ").append(totalMeses27705).append(" meses\n");
+
+    resultadoMoratoriaV5 = sb.toString();
+}
+
+    private String calcularDuracionDePeriodo(String periodo, LocalDate fechaInicioPersonalizado) {
+        try {
+            String[] partes = periodo.split(" - ");
+            if (partes.length != 2) return "";
+
+            DateTimeFormatter mesAnio = DateTimeFormatter.ofPattern("MM/yyyy");
+            LocalDate inicio = LocalDate.parse("01/" + partes[0], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            LocalDate fin = LocalDate.parse("01/" + partes[1], DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                    .withDayOfMonth(finFecha(partes[1]));
+
+            if (fechaInicioPersonalizado != null && partes[0].equals(formatMMYYYY(fechaInicioPersonalizado))) {
+                inicio = fechaInicioPersonalizado;
+            }
+
+            return calcularDuracion(inicio, fin);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    private int finFecha(String mesAnio) {
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("MM/yyyy");
+        LocalDate fecha = LocalDate.parse(mesAnio, formato);
+        return fecha.lengthOfMonth();
+    }
+
+    private String formatMMYYYY(LocalDate fecha) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
+        return formatter.format(fecha);
+    }
+
+    private String calcularDuracion(LocalDate inicio, LocalDate fin) {
+        Period periodo = Period.between(inicio, fin.plusDays(1)); // incluir último día
+        int meses = periodo.getYears() * 12 + periodo.getMonths();
+        int dias = periodo.getDays();
+
+        StringBuilder sb = new StringBuilder();
+        if (meses > 0) sb.append(meses).append(" meses");
+        if (dias > 0) sb.append(" y ").append(dias).append(" días");
+        return sb.toString();
+    }
+
+    private static class ResultadoAgrupado {
+    List<String> grupos;
+    long totalMeses;
+
+    ResultadoAgrupado(List<String> grupos, long totalMeses) {
+        this.grupos = grupos;
+        this.totalMeses = totalMeses;
+    }
+}
+
+    private ResultadoAgrupado agruparPeriodosConInfo(List<String> periodosStr) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
+    List<LocalDate> fechas = periodosStr.stream()
+        .map(p -> YearMonth.parse(p, formatter).atDay(1))
+        .sorted()
+        .collect(Collectors.toList());
+
+
+    List<String> grupos = new ArrayList<>();
+    if (fechas.isEmpty()) return new ResultadoAgrupado(grupos, 0);
+
+    LocalDate inicio = fechas.get(0);
+    LocalDate anterior = inicio;
+    long totalMeses = 0;
+
+    for (int i = 1; i < fechas.size(); i++) {
+        LocalDate actual = fechas.get(i);
+        if (!actual.equals(anterior.plusMonths(1))) {
+            long cantidadMeses = YearMonth.from(inicio).until(YearMonth.from(anterior), ChronoUnit.MONTHS) + 1;
+            totalMeses += cantidadMeses;
+            grupos.add(formatter.format(inicio) + " - " + formatter.format(anterior) + "  📅 " + cantidadMeses + " meses");
+
+            if (actual.isAfter(anterior.plusMonths(3))) {
+                grupos.add("");
+            }
+            inicio = actual;
+        }
+        anterior = actual;
+    }
+
+    // último grupo
+    long cantidadMeses = YearMonth.from(inicio).until(YearMonth.from(anterior), ChronoUnit.MONTHS) + 1;
+    totalMeses += cantidadMeses;
+    grupos.add(formatter.format(inicio) + " - " + formatter.format(anterior) + "  📅 " + cantidadMeses + " meses");
+
+    return new ResultadoAgrupado(grupos, totalMeses);
+}
+
+    public void calcularCombinaciónOptima(int orden, Date fechaDeNacimiento) {
+    List<SituacionPrevisional> lista = verSituacionPrevisionalesPorNroDeOrden(orden);
+    ZoneId zona = ZoneId.systemDefault();
+    DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    DateTimeFormatter formatoMes = DateTimeFormatter.ofPattern("MM/yyyy");
+
+    LocalDate fechaNacimiento = fechaDeNacimiento.toInstant().atZone(zona).toLocalDate();
+    LocalDate fechaInicioGeneral = fechaNacimiento.plusYears(18);
+    LocalDate fechaFinGeneral = LocalDate.of(2012, 3, 31);
+
+    StringBuilder sb = new StringBuilder();
+
+    LocalDate hoy = LocalDate.now();
+    if (hoy.isBefore(fechaInicioGeneral)) {
+        sb.append("⚠️ El titular aún no ha cumplido 18 años. No se pueden computar períodos.\n\n");
+        resultadoMoratoriaV5 = sb.toString();
+        return;
+    }
+
+    sb.append("🧾 Fecha de nacimiento: ").append(fechaNacimiento.format(formatoFecha)).append("\n");
+    sb.append("🎂 Inicio de cómputo (desde 18 años): ").append(fechaInicioGeneral.format(formatoFecha)).append("\n\n");
+
+    List<LocalDate[]> periodosActivos = lista.stream()
+            .filter(s -> s.getFechaInicio() != null && s.getFechaFin() != null)
+            .map(s -> new LocalDate[]{
+                    s.getFechaInicio().toInstant().atZone(zona).toLocalDate(),
+                    s.getFechaFin().toInstant().atZone(zona).toLocalDate()
+            })
+            .sorted(Comparator.comparing(a -> a[0]))
+            .collect(Collectors.toList());
+
+    int yaAportados = calcularMesesConAportes(lista);
+
+    List<String[]> seleccionFinal = new ArrayList<>();
+    int mesesRestantes = 360 - yaAportados;
+    if (mesesRestantes <= 0) {
+        sb.append("✅ Ya tiene los 360 meses con aportes reales.\n");
+    } else {
+        List<String[]> periodosInactivos = new ArrayList<>();
+        LocalDate cursor = fechaInicioGeneral;
+
+        for (LocalDate[] periodo : periodosActivos) {
+            LocalDate inicio = periodo[0];
+            LocalDate fin = periodo[1];
+            if (cursor.isBefore(inicio)) {
+                //LocalDate tmp = cursor.withDayOfMonth(1); por que esto tomaba el mes entero
+                LocalDate tmp = cursor.getDayOfMonth() == 1 ? cursor : cursor.plusMonths(1).withDayOfMonth(1);
+
+                while (!tmp.isAfter(inicio.minusMonths(1))) {
+                    String ley = tmp.isBefore(LocalDate.of(1993, 10, 1)) ? "24.476" : "27.705";
+                    periodosInactivos.add(new String[]{tmp.toString(), ley});
+                    tmp = tmp.plusMonths(1);
+                }
+            }
+            cursor = fin.plusMonths(1);
+        }
+
+        if (cursor.isBefore(fechaFinGeneral)) {
+            //LocalDate tmp = cursor.withDayOfMonth(1); por que esto tomaba el mes entero por màs q hubiera el dìa 18/06/xxxx cumplido años
+            LocalDate tmp = cursor.getDayOfMonth() == 1 ? cursor : cursor.plusMonths(1).withDayOfMonth(1);
+
+            while (!tmp.isAfter(fechaFinGeneral)) {
+                String ley = tmp.isBefore(LocalDate.of(1993, 10, 1)) ? "24.476" : "27.705";
+                periodosInactivos.add(new String[]{tmp.toString(), ley});
+                tmp = tmp.plusMonths(1);
+            }
+        }
+
+        // Primero ley 24.476 (sin importar continuidad)
+        for (String[] p : periodosInactivos) {
+            if (mesesRestantes == 0) break;
+            if (p[1].equals("24.476")) {
+                seleccionFinal.add(p);
+                mesesRestantes--;
+            }
+        }
+
+        // Luego ley 27.705 (en bloque continuo desde el primer mes posible)
+        if (mesesRestantes > 0) {
+            List<String[]> ley27705 = periodosInactivos.stream()
+                    .filter(p -> p[1].equals("27.705"))
+                    .collect(Collectors.toList());
+
+            for (int i = 0; i <= ley27705.size() - mesesRestantes; i++) {
+                boolean esBloqueContinuo = true;
+                for (int j = 1; j < mesesRestantes; j++) {
+                    LocalDate prev = LocalDate.parse(ley27705.get(i + j - 1)[0]);
+                    LocalDate curr = LocalDate.parse(ley27705.get(i + j)[0]);
+                    if (!curr.equals(prev.plusMonths(1))) {
+                        esBloqueContinuo = false;
+                        break;
+                    }
+                }
+                if (esBloqueContinuo) {
+                    for (int j = 0; j < mesesRestantes; j++) {
+                        seleccionFinal.add(ley27705.get(i + j));
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    // 🔹 Agrupar para mostrar
+    sb.append("✅ PERÍODOS SELECCIONADOS:\n");
+    Map<String, List<LocalDate>> porLey = new LinkedHashMap<>();
+    for (String[] p : seleccionFinal) {
+        LocalDate fecha = LocalDate.parse(p[0]);
+        String ley = p[1];
+        porLey.computeIfAbsent(ley, k -> new ArrayList<>()).add(fecha);
+    }
+
+    Map<String, Long> totalPorLey = new HashMap<>();
+    for (Map.Entry<String, List<LocalDate>> entry : porLey.entrySet()) {
+        String ley = entry.getKey();
+        List<LocalDate> fechas = entry.getValue().stream().sorted().collect(Collectors.toList());
+
+        List<String> rangos = agruparRangos(fechas, formatoMes);
+        rangos.forEach(r -> sb.append("➡️ ").append(r).append("  ← Ley ").append(ley).append("\n"));
+        totalPorLey.put(ley, (long) fechas.size());
+    }
+
+    // 🔹 Mostrar resumen
+    sb.append("\n📊 RESUMEN GENERAL\n");
+    sb.append("Meses con aportes registrados: ").append(yaAportados).append("\n");
+    totalPorLey.forEach((ley, cant) -> sb.append("Meses agregados por Ley ").append(ley).append(": ").append(cant).append("\n"));
+
+    long total = yaAportados + totalPorLey.values().stream().mapToLong(Long::longValue).sum();
+    sb.append("Total meses computados para jubilación: ").append(total).append("\n");
+
+    if (total >= 360) {
+        sb.append("✅ Se alcanzó el máximo de 360 meses permitidos.\n");
+    } else {
+        sb.append("⚠️ Faltan ").append(360 - total).append(" meses para completar 30 años.\n");
+    }
+
+    resultadoMoratoriaV5 = sb.toString();
+}
+
+// Agrupar rangos consecutivos de meses
+private List<String> agruparRangos(List<LocalDate> fechas, DateTimeFormatter formato) {
+    List<String> rangos = new ArrayList<>();
+    if (fechas.isEmpty()) return rangos;
+
+    LocalDate inicio = fechas.get(0);
+    LocalDate fin = inicio;
+
+    for (int i = 1; i < fechas.size(); i++) {
+        LocalDate actual = fechas.get(i);
+        if (actual.equals(fin.plusMonths(1))) {
+            fin = actual;
+        } else {
+            rangos.add(formato.format(inicio) + " - " + formato.format(fin));
+            inicio = fin = actual;
+        }
+    }
+    rangos.add(formato.format(inicio) + " - " + formato.format(fin));
+    return rangos;
+}
+
+   
+    public static class ResultadoAgrupadoPorLey {
+    public List<String> rangos;
+    public Map<String, Long> totalMesesPorLey;
+
+    public ResultadoAgrupadoPorLey(List<String> rangos, Map<String, Long> totalMesesPorLey) {
+        this.rangos = rangos;
+        this.totalMesesPorLey = totalMesesPorLey;
+    }
+}
+
+    private ResultadoAgrupadoPorLey agruparYSumarPeriodosPorLey(List<String[]> seleccionFinal) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
+
+    class PeriodoLey {
+        LocalDate fecha;
+        String ley;
+        PeriodoLey(String periodo, String ley) {
+            this.fecha = YearMonth.parse(periodo, formatter).atDay(1);
+            this.ley = ley;
+        }
+    }
+
+    List<PeriodoLey> lista = seleccionFinal.stream()
+        .map(p -> new PeriodoLey(p[0], p[1]))
+        .sorted(Comparator.comparing((PeriodoLey pl) -> pl.ley).thenComparing(pl -> pl.fecha))
+        .collect(Collectors.toList());
+
+    List<String> resultados = new ArrayList<>();
+    Map<String, Long> totales = new HashMap<>();
+    if (lista.isEmpty()) return new ResultadoAgrupadoPorLey(resultados, totales);
+
+    String leyActual = lista.get(0).ley;
+    LocalDate inicio = lista.get(0).fecha;
+    LocalDate anterior = inicio;
+
+    for (int i = 1; i < lista.size(); i++) {
+        PeriodoLey actual = lista.get(i);
+        boolean cambioLey = !actual.ley.equals(leyActual);
+        boolean noConsecutivo = !actual.fecha.equals(anterior.plusMonths(1));
+
+        if (cambioLey || noConsecutivo) {
+            long meses = YearMonth.from(inicio).until(YearMonth.from(anterior), ChronoUnit.MONTHS) + 1;
+            resultados.add(formatter.format(inicio) + " - " + formatter.format(anterior) + "  ← Ley " + leyActual);
+            totales.put(leyActual, totales.getOrDefault(leyActual, 0L) + meses);
+
+            leyActual = actual.ley;
+            inicio = actual.fecha;
+        }
+        anterior = actual.fecha;
+    }
+
+    // último rango
+    long meses = YearMonth.from(inicio).until(YearMonth.from(anterior), ChronoUnit.MONTHS) + 1;
+    resultados.add(formatter.format(inicio) + " - " + formatter.format(anterior) + "  ← Ley " + leyActual);
+    totales.put(leyActual, totales.getOrDefault(leyActual, 0L) + meses);
+
+    return new ResultadoAgrupadoPorLey(resultados, totales);
+}
+
+    /*
+     Objetivo:
+        Modificar el método calcularTodoCon27705 para que:
+        Solo analice períodos sin aportes dentro del rango de la Ley 27.705 (01/01/2012 a 31/03/2012).
+        Encuentre el mejor bloque continuo de meses faltantes dentro de ese rango, hasta completar 360 meses (máximo).
+    
+    18/07/2025 
+    18/07/2025 
+    18/07/2025 
+    
+    public void calcularTodoCon27705(int orden, Date fechaDeNacimiento) {
+    List<SituacionPrevisional> lista = verSituacionPrevisionalesPorNroDeOrden(orden);
+
+    if (lista == null || lista.isEmpty()) {
+        resultadoMoratoriaV5 = "❌ No se encontró información para el orden " + orden;
+        return;
+    }
+
+    ZoneId zona = ZoneId.systemDefault();
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    LocalDate nacimiento = fechaDeNacimiento.toInstant().atZone(zona).toLocalDate();
+    LocalDate desde = nacimiento.plusYears(18);
+    LocalDate hasta = FIN_27705;
+    final int MAX_MESES = 360;
+
+    StringBuilder sb = new StringBuilder();
+
+    if (LocalDate.now().isBefore(desde)) {
+        resultadoMoratoriaV5 = "⚠️ El titular aún no ha cumplido 18 años.";
+        return;
+    }
+
+    // 1. Periodos con aportes reales
+    Set<String> aportados = new HashSet<>();
+    for (SituacionPrevisional s : lista) {
+        if (s.getEmpleador() != null && !s.getEmpleador().trim().isEmpty()
+                && s.getFechaInicio() != null && s.getFechaFin() != null) {
+            LocalDate inicio = s.getFechaInicio().toInstant().atZone(zona).toLocalDate();
+            LocalDate fin = s.getFechaFin().toInstant().atZone(zona).toLocalDate();
+            aportados.addAll(generarPeriodos(inicio, fin));
+        }
+    }
+
+    int cantidadAportados = aportados.size();
+
+    // 2. GENERAR PERIODOS POSIBLES DENTRO DEL RANGO 27.705
+    List<String> sinAportes27705 = new ArrayList<>();
+    for (String p : generarPeriodos(INICIO_27705, FIN_27705)) {
+        if (!aportados.contains(p)) {
+            sinAportes27705.add(p);
+        }
+    }
+
+    // 3. SELECCIONAR HASTA COMPLETAR LOS 360 MESES
+    int faltantes = MAX_MESES - cantidadAportados;
+    List<String[]> seleccionFinal = new ArrayList<>();
+
+    for (String periodo : sinAportes27705) {
+        if (faltantes == 0) break;
+        seleccionFinal.add(new String[]{periodo, "27.705"});
+        faltantes--;
+    }
+
+    // 4. MOSTRAR RESULTADO
+    sb.append("📋 Evaluación solo con Ley 27.705\n\n");
+    sb.append("📅 Fecha nacimiento: ").append(nacimiento.format(formato)).append("\n");
+    sb.append("🎂 Inicio cómputo (18 años): ").append(desde.format(formato)).append("\n");
+    sb.append("📆 Fin período legal: ").append(hasta.format(formato)).append("\n\n");
+
+    sb.append("✅ Períodos sin aportes seleccionados (Ley 27.705):\n");
+    ResultadoAgrupadoPorLey agrupado = agruparYSumarPeriodosPorLey(seleccionFinal);
+    agrupado.rangos.forEach(r -> sb.append("➡️ ").append(r).append("\n"));
+
+    sb.append("\n📊 Resumen:\n");
+    sb.append("🧾 Meses con aportes reales: ").append(cantidadAportados).append("\n");
+    sb.append("📙 Meses por Ley 27.705: ").append(agrupado.totalMesesPorLey.getOrDefault("27.705", 0L)).append("\n");
+
+    long total = cantidadAportados + agrupado.totalMesesPorLey.getOrDefault("27.705", 0L);
+    sb.append("📈 Total meses computados: ").append(total).append("\n");
+
+    if (total >= MAX_MESES) {
+        sb.append("✅ Se alcanzó el máximo de 360 meses permitidos.\n");
+    } else {
+        sb.append("⚠️ Faltan ").append(MAX_MESES - total).append(" meses para completar los 30 años.\n");
+    }
+
+    resultadoMoratoriaV5 = sb.toString();
+}*/
+
+
+    public void calcularTodoCon27705(int orden, Date fechaDeNacimiento) {
+    List<SituacionPrevisional> lista = verSituacionPrevisionalesPorNroDeOrden(orden);
+
+    if (lista == null || lista.isEmpty()) {
+        resultadoMoratoriaV5 = "❌ No se encontró información para el orden " + orden;
+        return;
+    }
+
+    ZoneId zona = ZoneId.systemDefault();
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    LocalDate nacimiento = fechaDeNacimiento.toInstant().atZone(zona).toLocalDate();
+    LocalDate desde = nacimiento.plusYears(18).withDayOfMonth(1).plusMonths(1);
+    
+    LocalDate hasta = FIN_27705;
+    final int MAX_MESES = 360;
+
+    StringBuilder sb = new StringBuilder();
+
+    if (LocalDate.now().isBefore(desde)) {
+        resultadoMoratoriaV5 = "⚠️ El titular aún no ha cumplido 18 años.";
+        return;
+    }
+
+    // 1. Periodos con aportes reales
+    Set<String> aportados = new HashSet<>();
+    for (SituacionPrevisional s : lista) {
+        if (s.getEmpleador() != null && !s.getEmpleador().trim().isEmpty()
+                && s.getFechaInicio() != null && s.getFechaFin() != null) {
+            LocalDate inicio = s.getFechaInicio().toInstant().atZone(zona).toLocalDate();
+            LocalDate fin = s.getFechaFin().toInstant().atZone(zona).toLocalDate();
+            aportados.addAll(generarPeriodos(inicio, fin));
+        }
+    }
+
+    int cantidadAportados = aportados.size();
+
+    // 2. GENERAR TODOS LOS MESES POSIBLES desde los 18 años hasta 31/03/2012
+    List<String> sinAportes27705 = new ArrayList<>();
+    for (String p : generarPeriodos(desde, hasta)) {
+        if (!aportados.contains(p)) {
+            sinAportes27705.add(p);
+        }
+    }
+
+    // 3. SELECCIONAR HASTA COMPLETAR LOS 360 MESES
+    int faltantes = MAX_MESES - cantidadAportados;
+    List<String[]> seleccionFinal = new ArrayList<>();
+
+    for (String periodo : sinAportes27705) {
+        if (faltantes == 0) break;
+        seleccionFinal.add(new String[]{periodo, "27.705"});
+        faltantes--;
+    }
+
+    // 4. MOSTRAR RESULTADO
+    sb.append("📋 Evaluación solo con Ley 27.705\n\n");
+    sb.append("📅 Fecha nacimiento: ").append(nacimiento.format(formato)).append("\n");
+    sb.append("🎂 Inicio cómputo (18 años): ").append(desde.format(formato)).append("\n");
+    sb.append("📆 Fin período legal: ").append(hasta.format(formato)).append("\n\n");
+
+    sb.append("✅ Períodos sin aportes seleccionados (Ley 27.705):\n");
+    ResultadoAgrupadoPorLey agrupado = agruparYSumarPeriodosPorLey(seleccionFinal);
+    agrupado.rangos.forEach(r -> sb.append("➡️ ").append(r).append("\n"));
+
+    sb.append("\n📊 Resumen:\n");
+    sb.append("🧾 Meses con aportes reales: ").append(cantidadAportados).append("\n");
+    sb.append("📙 Meses por Ley 27.705: ").append(agrupado.totalMesesPorLey.getOrDefault("27.705", 0L)).append("\n");
+
+    long total = cantidadAportados + agrupado.totalMesesPorLey.getOrDefault("27.705", 0L);
+    sb.append("📈 Total meses computados: ").append(total).append("\n");
+
+    if (total >= MAX_MESES) {
+        sb.append("✅ Se alcanzó el máximo de 360 meses permitidos.\n");
+    } else {
+        sb.append("⚠️ Faltan ").append(MAX_MESES - total).append(" meses para completar los 30 años.\n");
+    }
+
+    resultadoMoratoriaV5 = sb.toString();
+}
+
+    
 }

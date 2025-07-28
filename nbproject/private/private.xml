@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/WEB-INF/glassfish-resources.xml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/EditExpJudicial.xhtml</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/eventoDeCausaJudicial/CreateEventoCausasJudicialesParaExpJudicial.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/DAO.java</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jsf/ExpedienteController.java</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/login.xhtml</file>
@@ -13,6 +14,7 @@
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/situacionPrevisional/CreateSituacionPrevisionalParaExpAdministrativo.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/expediente/Edit.xhtml</file>
             <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/web/resources/images/DA2.jpg</file>
+            <file>file:/C:/Users/juanp/work/estudioAlvarezYAsociados/src/java/com/estudioAlvarezVersion2/jpa/EventoDeCausasJudiciales.java</file>
         </group>
     </open-files>
 </project-private>

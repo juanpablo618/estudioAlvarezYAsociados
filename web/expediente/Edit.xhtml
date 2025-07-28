@@ -811,7 +811,9 @@
                                 
                                 <br></br>
                                 <h:panelGroup id="panelTotalTiempoConAportes">
-                                        <h:outputText value="Total tiempo con aportes: #{situacionPrevisionalController.totalTiempoConAportes}" />
+                                    <h:outputText value="Total tiempo con aportes: #{situacionPrevisionalController.totalTiempoConAportes}" /><br></br>
+                                        <h:outputText value="Total tiempo de servicio: #{situacionPrevisionalController.totalAniosDeServicio}" />
+                                        
                                 </h:panelGroup>
 
                                     <p:commandButton value="Refrescar total" 
@@ -845,7 +847,7 @@
                                                      icon="ui-icon-refresh"
                                                      styleClass="botonRefrescar hoverGreen" />
                                
-                                   <p:commandButton value="Calcular todo con Ley 24.476 y 27.705" 
+                                   <p:commandButton value="Calcular todo con Ley 27.705" 
                                                     actionListener="#{situacionPrevisionalController.calcularTodoCon27705(expedienteController.selected.orden, expedienteController.selected.fechaDeNacimiento)}"
                                                      update="panelTotalMoratoriaV5"
                                                      icon="ui-icon-refresh"

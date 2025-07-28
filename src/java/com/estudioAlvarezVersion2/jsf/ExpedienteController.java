@@ -47,6 +47,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.concurrent.TimeUnit;
 import javax.faces.view.ViewScoped;
 import javax.persistence.EntityManager;
@@ -1239,43 +1240,50 @@ public class ExpedienteController implements Serializable {
         return comunicaciones;
     }
     
-    public List verFechasJudicialesPorNroDeOrden(Integer orden) {
-        
-        List<EventoDeCausasJudiciales> eventoDeCausasJudiciales;
-        eventoDeCausasJudiciales = new ArrayList<>();
+    public List<EventoDeCausasJudiciales> verFechasJudicialesPorNroDeOrden(Integer orden) {
+    List<EventoDeCausasJudiciales> eventos = new ArrayList<>();
 
-        FacesContext context = FacesContext.getCurrentInstance();
-        EventoDeCausasJudicialesController eventoDeCausasJudicialesControllerBean = context.getApplication().evaluateExpressionGet(context, "#{eventoDeCausasJudicialesController}", EventoDeCausasJudicialesController.class);
-            
-        eventoDeCausasJudicialesControllerBean.getItems().stream().filter(EventoDeCausasJudiciales ->
-                (orden != null)).filter(EventoDeCausasJudiciales ->
-                        (EventoDeCausasJudiciales.getOrden() != null)).filter(EventoDeCausasJudiciales ->
-                                (Objects.equals(EventoDeCausasJudiciales.getOrden(), orden))).forEachOrdered(EventoDeCausasJudiciales ->
-                                {
-            eventoDeCausasJudiciales.add(EventoDeCausasJudiciales);
-        });
-        
-        Collections.sort(eventoDeCausasJudiciales, (EventoDeCausasJudiciales o1, EventoDeCausasJudiciales o2) -> o2.getFecha().compareTo(o1.getFecha()));
+    FacesContext context = FacesContext.getCurrentInstance();
+    EventoDeCausasJudicialesController controller =
+        context.getApplication()
+               .evaluateExpressionGet(context,
+                                      "#{eventoDeCausasJudicialesController}",
+                                      EventoDeCausasJudicialesController.class);
 
-          for (int i = 0; i < eventoDeCausasJudiciales.size() - 1; i++) {
-                Date fechaActual = eventoDeCausasJudiciales.get(i).getFecha();
-                Date fechaSiguiente = eventoDeCausasJudiciales.get(i + 1).getFecha();
+    // Obtenemos sólo los que coinciden y dejamos pasar fechas nulas
+    controller.getItems().stream()
+        .filter(e -> orden != null)
+        .filter(e -> e.getOrden() != null && Objects.equals(e.getOrden(), orden))
+        .forEach(eventos::add);
 
-                // Calcular la diferencia en milisegundos y convertirla a días
-                long diferenciaEnMilisegundos = fechaSiguiente.getTime() - fechaActual.getTime();
-                long diasDiferencia = TimeUnit.MILLISECONDS.toDays(diferenciaEnMilisegundos);
+    // Ordenamos de más reciente a más antiguo, con nulos al final
+    eventos.sort(
+        Comparator.comparing(EventoDeCausasJudiciales::getFecha,
+                             Comparator.nullsLast(Date::compareTo))
+                  .reversed()
+    );
 
-                // Asignar la diferencia al modelo
-                eventoDeCausasJudiciales.get(i).setDiasHastaProximaFecha(diasDiferencia);
-            }
-
-        // La última fecha no tiene próxima fecha, asignamos un valor indicativo
-        if (!eventoDeCausasJudiciales.isEmpty()) {
-            eventoDeCausasJudiciales.get(eventoDeCausasJudiciales.size() - 1).setDiasHastaProximaFecha(null);
+    // Calculamos días hasta la siguiente fecha (solo entre fechas no nulas)
+    for (int i = 0; i < eventos.size() - 1; i++) {
+        Date actual  = eventos.get(i).getFecha();
+        Date siguiente = eventos.get(i + 1).getFecha();
+        if (actual != null && siguiente != null) {
+            long diffMs  = siguiente.getTime() - actual.getTime();
+            long dias    = TimeUnit.MILLISECONDS.toDays(diffMs);
+            eventos.get(i).setDiasHastaProximaFecha(dias);
+        } else {
+            eventos.get(i).setDiasHastaProximaFecha(null);
         }
-        
-        return eventoDeCausasJudiciales;
     }
+
+    // Último elemento no tiene siguiente fecha
+    if (!eventos.isEmpty()) {
+        eventos.get(eventos.size() - 1).setDiasHastaProximaFecha(null);
+    }
+
+    return eventos;
+}
+
     
     public String verClaveFiscal(int orden) {
         String claveFiscal = getFacade().findClaveFiscalByOrden(orden);

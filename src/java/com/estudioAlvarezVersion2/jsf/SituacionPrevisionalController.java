@@ -123,7 +123,7 @@ public class SituacionPrevisionalController implements Serializable {
     public void calcularTotalTiempoConAportes(int orden) {
     List<SituacionPrevisional> lista = verSituacionPrevisionalesPorNroDeOrden(orden);
 
-    // 1. Suma simple igual que antes
+    // 1. Total tiempo con aportes (suma directa de campos)
     int totalDias = 0;
     int totalMeses = 0;
     int totalAnios = 0;
@@ -145,7 +145,7 @@ public class SituacionPrevisionalController implements Serializable {
     totalTiempoConAportes = totalAnios + " años, " + totalMeses + " meses, " + totalDias + " días";
 
 
-    // 2. Calcular total años de servicio sin contar solapamientos
+    // 2. Total años de servicio sin superposición y sin contar bisiestos
     List<Intervalo> intervalos = new ArrayList<>();
     for (SituacionPrevisional s : lista) {
         if (s.getEmpleador() != null && !s.getEmpleador().trim().isEmpty()
@@ -162,10 +162,8 @@ public class SituacionPrevisionalController implements Serializable {
         return;
     }
 
-    // Ordenar intervalos por fecha inicio
     intervalos.sort(Comparator.comparing(i -> i.inicio));
 
-    // Fusionar intervalos solapados
     List<Intervalo> fusionados = new ArrayList<>();
     Intervalo actual = intervalos.get(0);
 
@@ -183,16 +181,17 @@ public class SituacionPrevisionalController implements Serializable {
     }
     fusionados.add(actual);
 
-    // Calcular días totales de los intervalos fusionados
     long totalDiasServicio = 0;
     for (Intervalo i : fusionados) {
         totalDiasServicio += ChronoUnit.DAYS.between(i.inicio, i.fin) + 1;
     }
 
-    // Convertir a años, meses, días
-    int añosServicio = (int) (totalDiasServicio / 365);
-    int mesesServicio = (int) ((totalDiasServicio % 365) / 30);
-    int diasServicio = (int) ((totalDiasServicio % 365) % 30);
+    // 🔧 CONVERSIÓN FIJA: 1 año = 360 días, 1 mes = 30 días
+    int añosServicio = (int) (totalDiasServicio / 360);
+    int diasRestantes = (int) (totalDiasServicio % 360);
+
+    int mesesServicio = diasRestantes / 30;
+    int diasServicio = diasRestantes % 30;
 
     totalAniosDeServicio = añosServicio + " años, " + mesesServicio + " meses, " + diasServicio + " días";
 }

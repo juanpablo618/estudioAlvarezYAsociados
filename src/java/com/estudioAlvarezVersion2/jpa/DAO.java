@@ -25,7 +25,7 @@ private static final String URL_CONN_DB_LOCAL = "jdbc:mysql://localhost:3306/est
     try {
         
             Class.forName(COMMYSQLJDBC_DRIVER);
-            cn = DriverManager.getConnection(URL_CONN_DB);
+            cn = DriverManager.getConnection(URL_CONN_DB_LOCAL);
             
         } catch (ClassNotFoundException | SQLException e) {
         throw e;
@@ -43,7 +43,7 @@ private static final String URL_CONN_DB_LOCAL = "jdbc:mysql://localhost:3306/est
     public static Connection getConnection() {
 		try {
 			Class.forName(COMMYSQLJDBC_DRIVER);
-			Connection con = DriverManager.getConnection(URL_CONN_DB, "root", PASSWORD_SERVER);
+			Connection con = DriverManager.getConnection(URL_CONN_DB_LOCAL, "root", PASSWORD_SERVER_VACIO);
 			return con;
 		} catch (ClassNotFoundException | SQLException ex) {
 			System.out.println("Database.getConnection() Error --> en la clase DAO."

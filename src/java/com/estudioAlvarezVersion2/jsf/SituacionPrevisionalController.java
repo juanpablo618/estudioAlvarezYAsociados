@@ -219,7 +219,7 @@ public class SituacionPrevisionalController implements Serializable {
         }
     }
 
-public void calcularResultadoPrevisional(int orden) {
+/*public void calcularResultadoPrevisional(int orden) {
     List<SituacionPrevisional> lista = verSituacionPrevisionalesPorNroDeOrden(orden);
 
     Set<YearMonth> mesesAportados = new HashSet<>();
@@ -287,6 +287,90 @@ public void calcularResultadoPrevisional(int orden) {
     }
 
     resultadoMoratoriaV4 = resumen.toString();
+}*/
+
+public String calcularResultadoPrevisional(int orden) {
+    List<SituacionPrevisional> lista = verSituacionPrevisionalesPorNroDeOrden(orden);
+
+    Set<YearMonth> mesesAportados = new HashSet<>();
+    Set<YearMonth> meses24476     = new HashSet<>();
+    Set<YearMonth> meses27705     = new HashSet<>();
+
+    long mesesAportadosBrutos = 0L; // 👈 contador bruto (sin dedup)
+
+    for (SituacionPrevisional s : lista) {
+        LocalDate inicio = (s.getFechaInicio() == null ? null : 
+                s.getFechaInicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        LocalDate fin    = (s.getFechaFin() == null ? null : 
+                s.getFechaFin().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        if (inicio == null || fin == null || fin.isBefore(inicio)) continue;
+
+        // contador bruto (sin deduplicar) si tiene empleador
+        if (s.getEmpleador() != null && !s.getEmpleador().trim().isEmpty()) {
+            YearMonth a = YearMonth.from(inicio);
+            YearMonth b = YearMonth.from(fin);
+            mesesAportadosBrutos += ChronoUnit.MONTHS.between(a, b) + 1;
+        }
+
+        // recorrer mes a mes
+        YearMonth ym    = YearMonth.from(inicio);
+        YearMonth ymFin = YearMonth.from(fin);
+        while (!ym.isAfter(ymFin)) {
+            if (s.getEmpleador() != null && !s.getEmpleador().trim().isEmpty()) {
+                mesesAportados.add(ym); // únicos (dedup)
+            } else {
+                LocalDate primerDiaMes = ym.atDay(1);
+                if (LIMITE_24476 != null && !primerDiaMes.isAfter(LIMITE_24476)) {
+                    meses24476.add(ym);
+                } else if (INICIO_27705 != null && FIN_27705 != null
+                        && !primerDiaMes.isBefore(INICIO_27705)
+                        && !primerDiaMes.isAfter(FIN_27705)) {
+                    meses27705.add(ym);
+                }
+            }
+            ym = ym.plusMonths(1);
+        }
+    }
+
+    // quitar aportes laborales de las moratorias
+    meses24476.removeAll(mesesAportados);
+    meses27705.removeAll(mesesAportados);
+
+    // prioridad: dar preferencia a 27.705 si hay intersección
+    Set<YearMonth> inter = new HashSet<>(meses24476);
+    inter.retainAll(meses27705);
+    meses24476.removeAll(inter);
+
+    int yaAportados = mesesAportados.size();
+    int faltantes   = Math.max(0, 360 - yaAportados);
+
+    List<YearMonth> sel27705 = meses27705.stream().sorted().limit(faltantes).toList();
+    faltantes -= sel27705.size();
+
+    List<YearMonth> sel24476 = meses24476.stream().sorted().limit(faltantes).toList();
+
+    int meses27705Usados = sel27705.size();
+    int meses24476Usados = sel24476.size();
+
+    int totalFinalMeses = yaAportados + meses24476Usados + meses27705Usados;
+
+    StringBuilder resumen = new StringBuilder();
+    resumen.append("════════════════════════════════════════════\n");
+    resumen.append("RESUMEN GENERAL\n");
+    resumen.append("════════════════════════════════════════════\n");
+    resumen.append("Meses con aportes registrados (brutos): ").append(mesesAportadosBrutos).append("\n");
+    resumen.append("Meses con aportes computables (únicos): ").append(yaAportados).append("\n");
+    resumen.append("Meses agregados por Ley 24.476: ").append(meses24476Usados).append("\n");
+    resumen.append("Meses agregados por Ley 27.705: ").append(meses27705Usados).append("\n");
+    resumen.append("Total meses computados para jubilación: ").append(totalFinalMeses).append("\n");
+
+    if (totalFinalMeses >= 360) {
+        resumen.append("✅ Se alcanzó el máximo de 360 meses permitidos.\n");
+    } else {
+        resumen.append("⚠️  Faltan ").append(360 - totalFinalMeses).append(" meses para llegar a los 360.\n");
+    }
+
+    return resumen.toString();
 }
 
 /** Convierte String|Date|LocalDate → LocalDate, soporta 'dd/MM/yyyy' y 'yyyy-MM-dd'. */

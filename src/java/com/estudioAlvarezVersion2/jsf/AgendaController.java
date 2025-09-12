@@ -38,6 +38,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
@@ -156,7 +157,7 @@ public class AgendaController implements Serializable {
     }
 
     public List<String> getLideres() {
-        return lideresEmpleadosMap.keySet().stream().toList();
+        return lideresEmpleadosMap.keySet().stream().collect(Collectors.toList()); //este metodo lo cambio en mi local ya que me tira error
     }
     
     

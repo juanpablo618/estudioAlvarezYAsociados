@@ -261,7 +261,7 @@ public void init() {
             LoginDAO.registrarSesionEnBD(user, session.getId());
 
 
-        return "agenda/List_AgendasTurnosWithSession.xhtml";
+        return "agenda/List_AgendasTurnosWithSession.xhtml"; 
     } else {
             FacesContext.getCurrentInstance().addMessage(
                     null,
@@ -302,7 +302,7 @@ public void init() {
     }
     
     public void onIdle() {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+     FacesContext.getCurrentInstance().addMessage("messages1", new FacesMessage(FacesMessage.SEVERITY_WARN,//    aqui se agrego messages1 para que muestre el mensaje en un growl especifico con esto corregimos doble notificacion al inicio de sesion al dejar q muestre todo en un solo growl 
                 "No detectamos actividad.", "Volveras a iniciar sesión"));
         try {
             this.logout();

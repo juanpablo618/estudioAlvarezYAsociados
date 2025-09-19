@@ -1687,5 +1687,63 @@ public class ExpedienteController implements Serializable {
     }
     return sb.toString();
 }
+//    para mostrar iniciales de responsable
+    
+    public String getIniciales(String nombreCompleto) {
+    if (nombreCompleto == null || nombreCompleto.isEmpty()) {
+        return "";
+    }
+
+    String[] partes = nombreCompleto.trim().split("\\s+"); // separa por espacios
+    if (partes.length == 0) {
+        return "";
+    }
+
+    // iniciales base: primera y última palabra
+    StringBuilder sb = new StringBuilder();
+    sb.append(partes[0].charAt(0));
+    if (partes.length > 1) {
+        sb.append(partes[partes.length - 1].charAt(0));
+    }
+
+    String iniciales = sb.toString().toUpperCase();
+
+    // Reglas especiales según los nombres exactos del sistema
+    String nombreNormalizado = nombreCompleto.trim().toLowerCase();
+
+    if (nombreNormalizado.equals("amparo alanis toledo")) {
+        iniciales = "AA";
+    } else if (nombreNormalizado.equals("maria jose alaye") || nombreNormalizado.equals("maría jose alaye")) {
+        iniciales = "JA";
+    } else if (nombreNormalizado.equals("natali d agostino")) {
+        iniciales = "ND";
+    } else if (nombreNormalizado.equals("camila a ruiz diaz")) {
+        iniciales = "CR";
+    }
+
+    return iniciales;
+}
+
+
+
+
+//para generar un color al azar para cada responsable
+public String getColor(String nombre) {
+    if (nombre == null) {
+        return "#999999"; // gris por defecto
+    }
+
+    int hash = Math.abs(nombre.hashCode());
+
+    // Generar tono en el rango 0–360 (reparte bien los colores)
+    int hue = hash % 360;
+
+    // Fijamos saturación y luminosidad para que sean lindos colores
+    int saturation = 60; // % saturación
+    int lightness = 60;  // % luminosidad
+
+    return String.format("hsl(%d, %d%%, %d%%)", hue, saturation, lightness);
+}
+
 
 }

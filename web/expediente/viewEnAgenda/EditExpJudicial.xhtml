@@ -32,9 +32,18 @@
 
                         <h:outputLink value="http://scw.pjn.gov.ar/scw/home.seam" target="_blank"
                                       styleClass="boton-sistema"
-                                      >
-                            Sistema de consulta
-                        </h:outputLink>  
+                                      style="background: #32424A !important; margin-right: 10px;"
+                                      rendered="#{expedienteController.selectedParaVerExp.equipo ne null 
+                                                  and expedienteController.selectedParaVerExp.equipo.contains('JUSTICIA FEDERAL')}">
+                            Justicia Federal
+                        </h:outputLink>
+
+                        <h:outputLink value="https://www.justiciacordoba.gob.ar/JusticiaCordoba/extranet.aspx" target="_blank"
+                                      styleClass="boton-sistema"
+                                      rendered="#{expedienteController.selectedParaVerExp.equipo ne null 
+                                                  and expedienteController.selectedParaVerExp.equipo.contains('JUSTICIA PROVINCIAL')}">
+                            Justicia Provincial
+                        </h:outputLink>
 <!--                         <p:commandButton  onclick="ExpedienteJudicialViewDesdeAgendaDialog.hide()" actionListener="" class="boton-guardar" value="#{bundle.Save}"
                                           update=":TurnoListForm:datalist" oncomplete="handleSubmit(args, 'ExpedienteJudicialViewDesdeAgendaDialog');"/>-->
 
@@ -72,15 +81,6 @@
                         <div class="datospersonales">
                             <div class="columna">
 
-
-                                <p:outputLabel value="Orden:"   class=""/>
-
-                                <p:inputText onchange="myFunction()" id="orden" value="#{expedienteController.selectedParaVerExp.orden}" title="#{bundle.EditExpedienteTitle_orden}" />
-
-                                <p:outputLabel value="Fecha de atención:" for="fechaDeAtencion"  class=""/>
-                                <p:calendar styleClass="inputfecha" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selectedParaVerExp.fechaDeAtencion}" title="fechaDeAtencion" showOn="button">
-                                </p:calendar>
-
                                 <p:outputLabel value="#{bundle.EditExpedienteLabel_apellido}" for="apellido"  class=""/>
                                 <p:inputText id="apellido" value="#{expedienteController.selectedParaVerExp.apellido}" title="#{bundle.EditExpedienteTitle_apellido}" />
 
@@ -90,15 +90,42 @@
                                 <p:outputLabel value="Cuit:" for="cuit"  class=""/>
                                 <p:inputText required="true" requiredMessage="CUIT NO INGRESADO" id="cuit" value="#{expedienteController.selectedParaVerExp.cuit}"  title="#{bundle.EditExpedienteTitle_cuit}" />
 
+                                <p:outputLabel value="#{bundle.EditExpedienteLabel_edad}" for="edad"  class=""/>
+                                <p:inputText id="edad"  value="#{expedienteController.selectedParaVerExp.edad}" 
+                                             title="#{bundle.EditExpedienteTitle_edad}"  readonly="true"/> <!-- AQUI SE CAMBIO EL LABEL POR INPUT QUE NO SE PUEDA EDITAR PARA QUE QUEDE MAS ESTETICO -->
+
+                                <p:outputLabel  value="#{bundle.EditExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento"  />
+                                <p:calendar locale="es" styleClass="inputfecha" required="true" requiredMessage="fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy"  value="#{expedienteController.selectedParaVerExp.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}"  showOn="button"/>
+
+                                <p:outputLabel value="#{bundle.EditExpedienteLabel_sexo}" for="sexo"  class=""/>
+                                <p:selectOneMenu  id="sexo" value="#{expedienteController.selectedParaVerExp.sexo}" >
+                                    <f:selectItem itemLabel="Masculino" itemValue="masculino" />
+                                    <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Nacionalidad:" for="nacionalidad" class=""/>
+                                <p:selectOneMenu id="nacionalidad" value="#{expedienteController.selectedParaVerExp.nacionalidad}"  >
+                                    <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
+                                    <f:selectItem itemLabel="Extranjero" itemValue="Extranjero" />
+                                </p:selectOneMenu>
+
+
+
+                            </div>
+                            <div class="columna">
+                                <p:outputLabel value="Orden:"   class=""/>
+
+                                <p:inputText onchange="myFunction()" id="orden" value="#{expedienteController.selectedParaVerExp.orden}" title="#{bundle.EditExpedienteTitle_orden}" />
+
+                                <p:outputLabel value="Fecha de atención:" for="fechaDeAtencion"  class=""/>
+                                <p:calendar styleClass="inputfecha" id="fechaDeAtencion" pattern="dd/MM/yyyy" value="#{expedienteController.selectedParaVerExp.fechaDeAtencion}" title="fechaDeAtencion" showOn="button">
+                                </p:calendar>
+
                                 <p:outputLabel value="Activo:" for="activo"  />
                                 <p:selectOneMenu id="activo" value="#{expedienteController.selectedParaVerExp.activo}" style="float-l" >
                                     <f:selectItem itemLabel=" -- Elige un estado --"  noSelectionOption="true"  />
                                     <f:selectItem itemLabel="Si" itemValue="Si" />
                                     <f:selectItem itemLabel="No" itemValue="No" />
                                 </p:selectOneMenu>
-
-                            </div>
-                            <div class="columna">
 
 
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono"  />    
@@ -114,33 +141,7 @@
                                 </div>
                                 <p:outputLabel value="Telèfono Auxiliar" for="telefonoAuxiliar"  />
                                 <p:inputTextarea    id="telefonoAuxiliar" value="#{expedienteController.selectedParaVerExp.telefonoAuxiliar}" cols="22" title="Telèfono Auxiliar" style="height: 98px;"/>
-                                <p:outputLabel value="#{bundle.EditExpedienteLabel_edad}" for="edad"  class=""/>
-                                <p:inputText id="edad"  value="#{expedienteController.selectedParaVerExp.edad}" 
-                                             title="#{bundle.EditExpedienteTitle_edad}"  readonly="true"/> <!-- AQUI SE CAMBIO EL LABEL POR INPUT QUE NO SE PUEDA EDITAR PARA QUE QUEDE MAS ESTETICO -->
 
-
-
-
-
-
-
-
-
-
-
-                                <p:outputLabel  value="#{bundle.EditExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento"  />
-                                <p:calendar locale="es" styleClass="inputfecha" required="true" requiredMessage="fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy"  value="#{expedienteController.selectedParaVerExp.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}"  showOn="button"/>
-
-                                <p:outputLabel value="#{bundle.EditExpedienteLabel_sexo}" for="sexo"  class=""/>
-                                <p:selectOneMenu  id="sexo" value="#{expedienteController.selectedParaVerExp.sexo}" >
-                                    <f:selectItem itemLabel="Masculino" itemValue="masculino" />
-                                    <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
-                                </p:selectOneMenu>
-                                <p:outputLabel value="Nacionalidad:" for="nacionalidad" class=""/>
-                                <p:selectOneMenu id="nacionalidad" value="#{expedienteController.selectedParaVerExp.nacionalidad}"  >
-                                    <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
-                                    <f:selectItem itemLabel="Extranjero" itemValue="Extranjero" />
-                                </p:selectOneMenu>
 
                             </div>
                             <div class="columna">
@@ -354,63 +355,60 @@
                         </f:facet>
 
                         <div class="cardsentidades">
-                            <h:panelGrid columns="1" cellspacing="10" >
+                            <div class="clavesentidades">                                
 
-                                <div>
-
+                                <div style="margin-right: 20px"> 
                                     <p:outputLabel value="CUIT" for="claveCidi"  />
+                                </div>
+
+                                <div>
                                     <p:inputText value="#{expedienteController.selectedParaVerExp.cuit}" readonly="true" />
+                                </div>
+                                <div class="roww1"> 
+                                    <div class="imagenentidad">
+                                        <a href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=miansesv2" target="_blank" >
+                                            <img src="../faces/resources/images/anses.png" ></img>
+                                        </a>
+                                    </div>
+
+                                    <div>
+
+                                        <p:outputLabel value="Clave Seguridad Social" for="claveSeguridadSocial"  />
+                                        <p:inputText id="claveSeguridadSocial" value="#{expedienteController.selectedParaVerExp.claveSeguridadSocial}" title="clave de seguridad social"/>
+
+                                    </div>
+                                </div>
+                                <div class="roww1"> 
+                                    <div class="arca" >
+                                        <a href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank" >
+                                            <img src="../faces/resources/images/arca.jpg"  ></img>
+                                        </a>
+                                    </div>
+                                    <div>
+
+
+                                        <p:outputLabel value="Clave Fiscal" for="claveFiscal"/>
+                                        <p:inputText id="claveFiscal" value="#{expedienteController.selectedParaVerExp.claveFiscal}" title="clave Fiscal"/>
+
+                                    </div>
 
                                 </div>
-                            </h:panelGrid>
-                            <h:panelGrid columns="1" cellspacing="10" >
-                                <div class="imagenentidad">
-                                    <a href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=miansesv2" target="_blank" >
-                                        <img src="../faces/resources/images/anses.png" ></img>
-                                    </a>
+                                <div class="roww1">
+                                    <div class="imagenentidad">
+                                        <a href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" >
+                                            <img src="../faces/resources/images/CIDI.png"></img>
+                                        </a>
+                                    </div>
+                                    <div>
+
+
+                                        <p:outputLabel value="Clave CIDI" for="claveCidi"  />
+                                        <p:inputText id="claveCidi" value="#{expedienteController.selectedParaVerExp.claveCidi}" title="clave Cidi"/>
+
+                                    </div>
                                 </div>
-                                <div>
-
-                                    <p:outputLabel value="Clave Seguridad Social" for="claveSeguridadSocial"  />
-                                    <p:inputText id="claveSeguridadSocial" value="#{expedienteController.selectedParaVerExp.claveSeguridadSocial}" title="clave de seguridad social"/><br></br>
-
-                                </div>
-                            </h:panelGrid>
-                            <h:panelGrid columns="1" cellspacing="10" >
-                                <div class="arca" >
-                                    <a href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank" >
-                                        <img src="../faces/resources/images/arca.jpg"  ></img>
-                                    </a>
-                                </div>
-                                <div>
-
-
-                                    <p:outputLabel value="Clave Fiscal" for="claveFiscal"/>
-                                    <p:inputText id="claveFiscal" value="#{expedienteController.selectedParaVerExp.claveFiscal}" title="clave Fiscal"/>
-
-                                </div>
-
-                            </h:panelGrid>
-                            <h:panelGrid columns="1" cellspacing="10" >
-                                <div class="imagenentidad">
-                                    <a href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" >
-                                        <img src="../faces/resources/images/CIDI.png"></img>
-                                    </a>
-                                </div>
-                                <div>
-
-
-                                    <p:outputLabel value="Clave CIDI" for="claveCidi"  />
-                                    <p:inputText id="claveCidi" value="#{expedienteController.selectedParaVerExp.claveCidi}" title="clave Cidi"/>
-
-                                </div>
-                            </h:panelGrid>
+                            </div>
                         </div>
-
-
-
-
-
 
                     </p:tab>
                     <p:tab id="tabComunicaciones" title="">
@@ -452,12 +450,17 @@
                                     </div>
                                 </p:column>
 
-                                <p:column  headerText="Responsable"  class="iconoturnorespondable" >
-
-                                    <h:outputText id="responsableicon"  
-                                                  styleClass="fa fa-user" 
-                                                  style="font-size: 1rem; cursor: pointer;" />
-                                    <p:tooltip for="responsableicon" value="#{item.responsable}" />
+                                <p:column  headerText="Responsable"  class="iconoturnorespondable"  >
+                                    <div style="display:flex;justify-content: center">
+                                        <h:outputText id="responsableicon"  
+                                                      value="#{expedienteController.getIniciales(item.responsable)}"
+                                                      style="color:white; border-radius:50%; width:28px; height:28px;
+                                                      display:flex; align-items:center; justify-content:center;
+                                                      font-size:0.8rem;
+                                                      font-weight: 500 !important;
+                                                      background-color: #{expedienteController.getColor(item.responsable)};" />
+                                        <p:tooltip for="responsableicon" value="#{item.responsable}" />
+                                    </div>
                                 </p:column>
                                 <p:column   exportable="false">
 
@@ -582,31 +585,17 @@
                                              update=":ExpedienteViewFormParaTurnodesdeagenda"
                                              oncomplete="PF('ExpedienteViewDialogParaTurnodesdeagenda').show(); " />
 
-                            <!--                            Botón desplegable -->
-                            <p:menuButton value="Historial de Agendas y Turnos"  id="historialdeagendas" >
-                                <p:menuitem value="Agendas Anteriores" actionListener="#{agendaController.seleccionarVista('agendasAnteriores')}" update="contenedorTablas" />
-                                <p:menuitem value="Turnos Anteriores" actionListener="#{agendaController.seleccionarVista('turnosAnteriores')}" update="contenedorTablas" />
-                                <p:menuitem value="Agendas Futuras" actionListener="#{agendaController.seleccionarVista('agendasFuturas')}" update="contenedorTablas"  />
-                                <p:menuitem value="Turnos Futuros" actionListener="#{agendaController.seleccionarVista('turnosFuturos')}" update="contenedorTablas" />
-                            </p:menuButton>
 
-
-
-
-                            <!--Contenedor donde se mostrará solo la tabla correspondiente--> 
-                            <h:panelGroup id="contenedorTablas" layout="block">
-
-                                <!--Agendas Anteriores--> 
+                            <p:fieldset legend="Agendas Anteriores" toggleable="true"  collapsed="true" toggleSpeed="500" class="tablashistorial">                                <!--Agendas Anteriores--> 
                                 <p:dataTable id="datalist4"
-                                             rendered="#{agendaController.vista eq 'agendasAnteriores'}"
                                              value="#{expedienteController.verAgendasPasadasPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}"
                                              var="item"
                                              selectionMode="single"
                                              selection="#{agendaController.selectedAgendaPasada}"
                                              rowKey="#{item.idAgenda}"
                                              paginator="true"
-                                             rows="20"
-                                             rowsPerPageTemplate="20,30,40,50"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,40,50"
                                              emptyMessage="no hay agendas Pasadas agregadas"
                                              filteredValue="#{expedienteController.filteredAgendasAnteriores}"
                                              style="display: table;padding: 20px"
@@ -622,18 +611,24 @@
                                     <p:growl life="2500" id="message5" showDetail="true" />
 
 
-                                    <p:column style="width:65%"   headerText="Descripción" >
+                                    <p:column style="width:55%"   headerText="Descripción" >
                                         <div class="apilarelementos">
 
 
                                             <h:outputText value="#{item.descripcion}"  title="#{item.descripcion}"/>
                                         </div>
                                     </p:column>
-                                    <p:column  headerText="" styleClass="responsableiconclass">
-                                        <h:outputText id="responsableicon" value="" 
-                                                      styleClass="fa fa-user" 
-                                                      style="font-size: 1rem; cursor: pointer;" />
-                                        <p:tooltip for="responsableicon" value="#{item.responsable}" />
+                                   <p:column  headerText="Responsable"  class="iconoturnorespondable"  >
+                                        <div style="display:flex;justify-content: center">
+                                            <h:outputText id="responsableicon"  
+                                                          value="#{expedienteController.getIniciales(item.responsable)}"
+                                                          style="color:white; border-radius:50%; width:28px; height:28px;
+                                                          display:flex; align-items:center; justify-content:center;
+                                                          font-size:0.8rem;
+                                                          font-weight: 500 !important;
+                                                          background-color: #{expedienteController.getColor(item.responsable)};" />
+                                            <p:tooltip for="responsableicon" value="#{item.responsable}" />
+                                        </div>
                                     </p:column>
                                     <p:column  headerText="Estado">
                                         <div class="apilarelementos">
@@ -673,19 +668,18 @@
                                     </p:column>
 
                                 </p:dataTable>
-
-                                <!--Turnos Anteriores--> 
+                            </p:fieldset>
+                            <p:fieldset legend="Turnos Anteriores" toggleable="true"  collapsed="true" toggleSpeed="500" class="tablashistorial">                          <!--Turnos Anteriores--> 
                                 <p:dataTable id="datalistTurnosAnteriores"
                                              widgetVar="tablaTurnosAnteriores"
-                                             rendered="#{agendaController.vista eq 'turnosAnteriores'}"
                                              value="#{expedienteController.verTurnosPasadosPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}"
                                              var="item"
                                              selectionMode="single"
                                              selection="#{turnoController.selectedTurnoPasado}"
                                              rowKey="#{item.idTurno}"
                                              paginator="true"
-                                             rows="20"
-                                             rowsPerPageTemplate="20,30,40,50"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,40,50"
                                              emptyMessage="no hay turnos Pasados agregados"
                                              filteredValue="#{expedienteController.filteredTurnosAnteriores}"
                                              style="display: table;padding: 20px"
@@ -700,15 +694,7 @@
                                     <p:growl life="2500" id="message3"  showDetail="true" />
 
 
-
-
-                                    <p:column  filterBy="#{item.apellido} #{item.nombre}"  style="width:15%" filterMatchMode="contains" headerText="Nombre">
-                                        <h:outputText value="#{ item.apellido} #{ item.nombre}"/>
-                                    </p:column>
-
-
-
-                                    <p:column style="text-align: start; width: 55%">
+                                    <p:column style="text-align: start !important; width: 70%">
                                         <f:facet name="header">
                                             <h:outputText value="Descripción"/>
                                         </f:facet>
@@ -734,27 +720,33 @@
                                             </h:outputText>
                                         </div> 
                                     </p:column>
-                                    <p:column filterBy="#{item.responsable}" headerText="Responsable"  filterMatchMode="contains" style="width:10%" class="iconoturnorespondable" >
+                                     <p:column filterBy="#{item.responsable}" headerText="Responsable"  filterMatchMode="contains" style="width:10%" class="iconoturnorespondable" >
 
-                                        <h:outputText id="responsableicon"  
-                                                      styleClass="fa fa-user" 
-                                                      style="font-size: 1rem; cursor: pointer;" />
-                                        <p:tooltip for="responsableicon" value="#{item.responsable}" />
+                                        <div style="display:flex;justify-content: center">
+                                            <h:outputText id="responsableicon"  
+                                                          value="#{expedienteController.getIniciales(item.responsable)}"
+                                                          style="color:white; border-radius:50%; width:28px; height:28px;
+                                                          display:flex; align-items:center; justify-content:center;
+                                                          font-size:0.8rem;
+                                                          font-weight: 500 !important;
+                                                          background-color: #{expedienteController.getColor(item.responsable)};" />
+                                            <p:tooltip for="responsableicon" value="#{item.responsable}" />
+                                        </div>
+
                                     </p:column>
 
                                 </p:dataTable>
-
-                                <!--                                Agendas Futuras -->
+                            </p:fieldset>
+                            <p:fieldset legend="Agendas Futuras" toggleable="true"  collapsed="true" toggleSpeed="500" class="tablashistorial">                            <!--                                Agendas Futuras -->
                                 <p:dataTable id="datalist5"
-                                             rendered="#{agendaController.vista eq 'agendasFuturas'}"
                                              value="#{expedienteController.verAgendasFuturasPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}"
                                              var="item"
                                              selectionMode="single"
                                              selection="#{agendaController.selectedAgendaFutura}"
                                              rowKey="#{item.idAgenda}"
                                              paginator="true"
-                                             rows="20"
-                                             rowsPerPageTemplate="20,30,40,50"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,40,50"
                                              emptyMessage="no hay agendas futuras agregadas"
                                              filteredValue="#{expedienteController.filteredAgendasFuturas}"
                                              style="display: table;padding: 20px"
@@ -768,18 +760,24 @@
                                     <p:growl life="2500" id="message6" showDetail="true" />
 
 
-                                    <p:column style="width:65%"   headerText="Descripción" >
+                                    <p:column style="width:55%"   headerText="Descripción" >
                                         <div class="apilarelementos">
 
 
                                             <h:outputText value="#{item.descripcion}"  title="#{item.descripcion}"/>
                                         </div>
                                     </p:column>
-                                    <p:column  headerText="" styleClass="responsableiconclass">
-                                        <h:outputText id="responsableicon" value="" 
-                                                      styleClass="fa fa-user" 
-                                                      style="font-size: 1rem; cursor: pointer;" />
-                                        <p:tooltip for="responsableicon" value="#{item.responsable}" />
+                                    <p:column  headerText="Responsable"  class="iconoturnorespondable"  >
+                                        <div style="display:flex;justify-content: center">
+                                            <h:outputText id="responsableicon"  
+                                                          value="#{expedienteController.getIniciales(item.responsable)}"
+                                                          style="color:white; border-radius:50%; width:28px; height:28px;
+                                                          display:flex; align-items:center; justify-content:center;
+                                                          font-size:0.8rem;
+                                                          font-weight: 500 !important;
+                                                          background-color: #{expedienteController.getColor(item.responsable)};" />
+                                            <p:tooltip for="responsableicon" value="#{item.responsable}" />
+                                        </div>
                                     </p:column>
                                     <p:column  headerText="Estado">
                                         <div class="apilarelementos">
@@ -823,19 +821,18 @@
                                     </p:column>
 
                                 </p:dataTable>
-
-                                <!--                                Turnos Futuros -->
+                            </p:fieldset>
+                            <p:fieldset legend="Turnos Futuros" toggleable="true"  collapsed="true" toggleSpeed="500" class="tablashistorial">                            <!--                                Turnos Futuros -->
                                 <p:dataTable id="tablaTurnosFuturos"
-                                             widgetVar="tablaTurnosFuturos"
-                                             rendered="#{agendaController.vista eq 'turnosFuturos'}"
+                                             widgetVar="tablaTurnosFuturos"    
                                              value="#{expedienteController.verTurnosFuturosPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}"
                                              var="item"
                                              selectionMode="single"
                                              selection="#{turnoController.selectedTurnoFuturo}"
                                              rowKey="#{item.idTurno}"
                                              paginator="true"
-                                             rows="20"
-                                             rowsPerPageTemplate="20,30,40,50"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,40,50"
                                              emptyMessage="no hay turnos futuros agregados"
                                              filteredValue="#{expedienteController.filteredTurnosFuturos}"
                                              style="display: table;padding: 20px"
@@ -847,14 +844,8 @@
                                     <p:ajax event="rowSelect"  />
                                     <p:ajax event="rowUnselect" />
                                     <p:growl life="2500" id="message4" showDetail="true" />
-
-                                    <p:column  filterBy="#{item.apellido} #{item.nombre}"  style="width:15%" filterMatchMode="contains" headerText="Nombre">
-                                        <h:outputText value="#{ item.apellido} #{ item.nombre}"/>
-                                    </p:column>
-
-
-
-                                    <p:column style="text-align: start; width: 55%">
+                                
+                                    <p:column style="text-align: start !important; width: 70%">
                                         <f:facet name="header">
                                             <h:outputText value="Descripción"/>
                                         </f:facet>
@@ -882,15 +873,23 @@
                                     </p:column>
                                     <p:column filterBy="#{item.responsable}" headerText="Responsable"  filterMatchMode="contains" style="width:10%" class="iconoturnorespondable" >
 
-                                        <h:outputText id="responsableicon"  
-                                                      styleClass="fa fa-user" 
-                                                      style="font-size: 1rem; cursor: pointer;" />
-                                        <p:tooltip for="responsableicon" value="#{item.responsable}" />
+                                        <div style="display:flex;justify-content: center">
+                                            <h:outputText id="responsableicon"  
+                                                          value="#{expedienteController.getIniciales(item.responsable)}"
+                                                          style="color:white; border-radius:50%; width:28px; height:28px;
+                                                          display:flex; align-items:center; justify-content:center;
+                                                          font-size:0.8rem;
+                                                          font-weight: 500 !important;
+                                                          background-color: #{expedienteController.getColor(item.responsable)};" />
+                                            <p:tooltip for="responsableicon" value="#{item.responsable}" />
+                                        </div>
+
                                     </p:column>
 
                                 </p:dataTable>
+                            </p:fieldset>
 
-                            </h:panelGroup>
+
 
                         </div>
 

@@ -189,7 +189,8 @@
                                         <p:ajax update="inputPanelCantHijos" />
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Nacionalidad:" for="nacionalidad" style="font-weight: bold" />
-                                    <p:selectOneMenu id="nacionalidad" value="#{consultaController.selected.nacionalidad}" style="margin-right: 3%" >
+                                    <p:selectOneMenu id="nacionalidad" value="#{consultaController.selected.nacionalidad}" style="margin-right: 3%" required="true" requiredMessage="Debe seleccionar una nacionalidad">
+                                        <f:selectItem itemLabel=" -- Seleccione una Nacionalidad --" itemValue="" noSelectionOption="true" />
                                         <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
                                         <f:selectItem itemLabel="Naturalizado Argentino" itemValue="Naturalizado Argentino" />
                                         <f:selectItem itemLabel="Extranjero" itemValue="Extranjero" />

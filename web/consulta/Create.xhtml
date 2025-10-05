@@ -98,8 +98,10 @@
                                 <p:calendar id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{consultaController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" showOn="button">
                                 </p:calendar> 
                                 <p:outputLabel value="Nacionalidad:" for="nacionalidad" style="margin-left: 3%;font-weight: bold" />
-                                <p:selectOneMenu id="nacionalidad" value="#{consultaController.selected.nacionalidad}" style="margin-left: 3%" >
+                                <p:selectOneMenu id="nacionalidad" value="#{consultaController.selected.nacionalidad}" style="margin-left: 3%" required="true" requiredMessage="Debe seleccionar una nacionalidad">
+                                    <f:selectItem itemLabel=" -- Seleccione una Nacionalidad --" itemValue="" noSelectionOption="true" />
                                     <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
+                                    <f:selectItem itemLabel="Naturalizado Argentino" itemValue="Naturalizado Argentino" />
                                     <f:selectItem itemLabel="Extranjero" itemValue="Extranjero" />
                                 </p:selectOneMenu>
                             </h:panelGrid>

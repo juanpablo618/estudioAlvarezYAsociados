@@ -501,8 +501,8 @@ public class TurnoController implements Serializable {
         "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
         "Pilar Boglione"});
     lideresEmpleadosMap.put("Paula Alvarez", new String[]{
-        "Mateo Novau", "Natali D Agostino", "Maria Jose Alaye", 
-        "Liliana Romero", "Pilar Boglione"});
+        "Mateo Novau", "Natali D Agostino", "Catalina Povarchik",
+        "Pilar Boglione"});
     lideresEmpleadosMap.put("Paola Maldonado", new String[]{
         "Carla Juez", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
         "Maria Jose Alaye"});

@@ -804,64 +804,35 @@
 
                                 </p:dataTable>
                             
-                                <div >
+                            <div >
                                 <p:commandButton  class="botonEditarAgendaEsteBotonNoSirveMasPeroLoNecesitaLaUI botonCrear hoverGreen"
                                 actionListener="#{situacionPrevisionalController.prepareCreateSituacionPrevisional(expedienteController.selected.orden)}"  value="crear situación previsional" 
                                  update=":SituacionPrevisionalCreateFormExpAdm" oncomplete="PF('SituacionPrevisionalCreateDialogExpAdm').show()" />
                                 
                                 <br></br>
-                                <h:panelGroup id="panelTotalTiempoConAportes">
-                                    <h:outputText value="Total tiempo con aportes: #{situacionPrevisionalController.totalTiempoConAportes}" /><br></br>
-                                        <h:outputText value="Total tiempo de servicio: #{situacionPrevisionalController.totalAniosDeServicio}" />
-                                        
-                                </h:panelGroup>
-
-                                    <p:commandButton value="Refrescar total" 
-                                                     actionListener="#{situacionPrevisionalController.calcularTotalTiempoConAportes(expedienteController.selected.orden)}"
+                                    
+                                    <p:commandButton value="Reporte final" 
+                                                     actionListener="#{situacionPrevisionalController.generarReporteIntegralFinal(
+                                                                       expedienteController.selected.orden,
+                                                                       expedienteController.selected.fechaDeNacimiento,
+                                                                       expedienteController.selected.sexo,
+                                                                       expedienteController.selected.cantidadDeHijos,
+                                                                       expedienteController.selected.cantidadDeHijosAdoptivos,
+                                                                       expedienteController.selected.cantidadDeHijosConDiscapacidad,
+                                                                       expedienteController.selected.cantidadDeHijosPercibioAuh)}"
                                                      update="panelTotalTiempoConAportes"
                                                      icon="ui-icon-refresh"
-                                                     styleClass="botonRefrescar hoverGreen" />
-
-                            <br></br>
-                               <p:commandButton value="Calcular resultado" 
-                                                     actionListener="#{situacionPrevisionalController.calcularResultadoPrevisional(expedienteController.selected.orden)}"
-                                                     update="panelTotalMoratoriaV4"
-                                                     icon="ui-icon-refresh"
-                                                     styleClass="botonRefrescar hoverGreen" />
-                               
-                               <h:panelGroup id="panelTotalMoratoriaV4">
-                                        <p:outputPanel style="border: 1px solid #ccc; padding: 1em; border-radius: 8px; background-color: #f9f9f9; white-space: pre-wrap;">
-                                            <h:outputText value="#{situacionPrevisionalController.resultadoMoratoriaV4}" escape="false" />
-                                        </p:outputPanel>
+                                                     styleClass="botonRefrescar hoverGreen" /><br></br><br></br>
                                 
-                                   
-                                   <p:commandButton value="Ver períodos posibles según cada ley" 
-                                                     actionListener="#{situacionPrevisionalController.periodosPosiblesSegunCadaLey(expedienteController.selected.orden, expedienteController.selected.fechaDeNacimiento)}"
-                                                     update="panelTotalMoratoriaV5"
-                                                     icon="ui-icon-refresh"
-                                                     styleClass="botonRefrescar hoverGreen" />
-                               
-                                   <p:commandButton value="Calcular combinación óptima hasta completar 30 años" 
-                                                     actionListener="#{situacionPrevisionalController.calcularCombinaciónOptima(expedienteController.selected.orden, expedienteController.selected.fechaDeNacimiento)}"
-                                                     update="panelTotalMoratoriaV5"
-                                                     icon="ui-icon-refresh"
-                                                     styleClass="botonRefrescar hoverGreen" />
-                               
-                                   <p:commandButton value="Calcular todo con Ley 27.705" 
-                                                    actionListener="#{situacionPrevisionalController.calcularTodoCon27705(expedienteController.selected.orden, expedienteController.selected.fechaDeNacimiento)}"
-                                                     update="panelTotalMoratoriaV5"
-                                                     icon="ui-icon-refresh"
-                                                     styleClass="botonRefrescar hoverGreen" />
-                                   
-                                   
-                               </h:panelGroup>
-                               <h:panelGroup id="panelTotalMoratoriaV5">
-                                        <p:outputPanel style="border: 1px solid #ccc; padding: 1em; border-radius: 8px; background-color: #f9f9f9; white-space: pre-wrap;">
-                                            <h:outputText value="#{situacionPrevisionalController.resultadoMoratoriaV5}" escape="false" />
-                                        </p:outputPanel>
-                               </h:panelGroup>
-                               
-                                
+                                    <h:panelGroup id="panelTotalTiempoConAportes">
+                                            <p:inputTextarea readonly="true"
+                                                             autoResize="true"
+                                                             rows="30"
+                                                             value="#{empty situacionPrevisionalController.totalTiempoConAportes 
+                                                                      ? '' 
+                                                                      : situacionPrevisionalController.totalTiempoConAportes.trim()}" />
+                                    </h:panelGroup>
+                                    
                             </div>
                         </p:tab>  
                     </p:tabView>

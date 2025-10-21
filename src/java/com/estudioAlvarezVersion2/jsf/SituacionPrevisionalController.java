@@ -755,7 +755,7 @@ public class SituacionPrevisionalController implements Serializable {
             DateTimeFormatter fMY  = DateTimeFormatter.ofPattern("MM/yyyy");
             LocalDate hoy = LocalDate.now();
 
-            // ----- Traer períodos -----
+            // ----- Traer períodos (robusto, no cortar si no hay) -----
             List<SituacionPrevisional> crudos = verSituacionPrevisionalesPorNroDeOrden(orden);
             if (crudos == null) crudos = Collections.emptyList();
 
@@ -786,6 +786,43 @@ public class SituacionPrevisionalController implements Serializable {
             // YM aportados (marca el mes si tiene ≥1 día aportado)
             Set<YearMonth> mesesAportados = mesesDesdeIntervalos(fusionados);
 
+            // ----- Servicio exacto (A/M/D) informativo -----
+            Period pServicio = periodDesdeDias(diasEntreIntervalos(fusionados));
+
+            // ====== Armado de encabezado común ======
+            StringBuilder sb = new StringBuilder();
+            sb.append("════════════════════════════════════════════\n");
+            sb.append("📄 Reporte Integral de Situación Previsional\n");
+            sb.append("════════════════════════════════════════════\n");
+            sb.append("👤 Sexo: ").append(sexo).append("\n");
+            sb.append("🎂 Fecha de nacimiento: ").append(fnac.format(fDMY)).append("\n");
+            sb.append("🎯 Edad jubilatoria legal: ").append(edadLegal).append(" años (cumple el ")
+              .append(fechaEdadLegal.format(fDMY)).append(")\n");
+            sb.append("🗓️ Inicio de cómputo (18 años): ").append(inicio18.format(fDMY))
+              .append(" → primer mes computable: ").append(primerMesComputable.format(fDMY)).append("\n");
+            sb.append("📅 Fecha de cálculo: ").append(hoy.format(fDMY)).append("\n\n");
+
+            sb.append("🧮 CÓMPUTO DE APORTES (intervalos fusionados)\n");
+            sb.append("──────────────────────────────────────────────\n");
+            sb.append("• Tiempo con aportes (exacto): ").append(formatear(pServicio)).append("\n");
+            sb.append("• Meses con aportes registrados (solo completos): ").append(mesesCompletosAportes)
+              .append(" (+").append(diasResidualesAportes).append(" días residuales)\n\n");
+
+            // 🚩 REGLA 15: si aportes efectivos ≥ 360, no topear ni aplicar extras
+            if (mesesCompletosAportes >= TOTAL_MESES_OBJETIVO) {
+                sb.append("⏩ APORTES ADICIONALES\n");
+                sb.append("──────────────────────\n");
+                sb.append("• No aplican: supera los 360 exclusivamente con aportes efectivos.\n\n");
+                sb.append("📈 TOTALES\n");
+                sb.append("────────────\n");
+                sb.append("• Total meses acreditados por aportes efectivos (sin tope): ")
+                  .append(mesesCompletosAportes).append("\n");
+                sb.append("• Total computable para el derecho: ").append(mesesCompletosAportes).append("\n\n");
+                sb.append("✅ Cumple la meta de 30 años (y la excede con aportes efectivos).\n");
+                totalTiempoConAportes = sb.toString();
+                return;
+            }
+
             // ----- Art. 22 bis (modelo acordado) -----
             int mesesReconHijos = mesesReconocimientoHijos(sexo, hijosBiologicos, hijosAdoptados, hijosConDiscapacidad, hijosConAUH);
 
@@ -812,10 +849,10 @@ public class SituacionPrevisionalController implements Serializable {
 
             // Moratorias (universo − meses aportados)
             YearMonth ymInicio = YearMonth.from(primerMesComputable);
-            List<YearMonth> libres24476 = rangoYM(ymInicio, YearMonth.of(1993, 9)).stream()
+            List<YearMonth> libres24476 = rangoYM(ymInicio, YearMonth.from(LIMITE_24476)).stream()
                     .filter(ym -> !mesesAportados.contains(ym)).collect(Collectors.toList());
             List<YearMonth> libres27705 = hoy.isBefore(fechaEdadLegal)
-                    ? rangoYM(maxYM(ymInicio, YearMonth.of(1993,10)), YearMonth.of(2012,3)).stream()
+                    ? rangoYM(maxYM(ymInicio, YearMonth.from(INICIO_27705)), YearMonth.from(FIN_27705)).stream()
                         .filter(ym -> !mesesAportados.contains(ym)).collect(Collectors.toList())
                     : Collections.emptyList();
 
@@ -834,36 +871,17 @@ public class SituacionPrevisionalController implements Serializable {
             int agregados24476 = sel24476.size();
             int agregados27705 = sel27705.size();
 
-            int totalHastaEdad = Math.min(360, subtotalConComp + agregados24476 + agregados27705);
-            int faltanTrasMoratorias = Math.max(0, 360 - totalHastaEdad);
+            int totalHastaEdad = subtotalConComp + agregados24476 + agregados27705;
+            // En rama normal, extras nunca deben pasar de 360 (cap del derecho):
+            if (totalHastaEdad > TOTAL_MESES_OBJETIVO) totalHastaEdad = TOTAL_MESES_OBJETIVO;
+            int faltanTrasMoratorias = Math.max(0, TOTAL_MESES_OBJETIVO - totalHastaEdad);
 
             // Post-edad: combinación óptima aporte + compensación (primer mes posible)
             PlanPostEdad plan = new PlanPostEdad();
             if (faltanTrasMoratorias > 0) plan = planOptimoPostEdad(faltanTrasMoratorias, fechaEdadLegal, hoy);
 
-            int totalFinal = Math.min(360, totalHastaEdad + plan.mesesTotalesAcreditados());
-
-            // ----- Servicio exacto (A/M/D) informativo -----
-            Period pServicio = periodDesdeDias(diasEntreIntervalos(fusionados));
-
-            // ====== Armado de salida (igual al formato que venimos usando) ======
-            StringBuilder sb = new StringBuilder();
-            sb.append("════════════════════════════════════════════\n");
-            sb.append("📄 Reporte Integral de Situación Previsional\n");
-            sb.append("════════════════════════════════════════════\n");
-            sb.append("👤 Sexo: ").append(sexo).append("\n");
-            sb.append("🎂 Fecha de nacimiento: ").append(fnac.format(fDMY)).append("\n");
-            sb.append("🎯 Edad jubilatoria legal: ").append(edadLegal).append(" años (cumple el ")
-              .append(fechaEdadLegal.format(fDMY)).append(")\n");
-            sb.append("🗓️ Inicio de cómputo (18 años): ").append(inicio18.format(fDMY))
-              .append(" → primer mes computable: ").append(primerMesComputable.format(fDMY)).append("\n");
-            sb.append("📅 Fecha de cálculo: ").append(hoy.format(fDMY)).append("\n\n");
-
-            sb.append("🧮 CÓMPUTO DE APORTES (intervalos fusionados)\n");
-            sb.append("──────────────────────────────────────────────\n");
-            sb.append("• Tiempo con aportes (exacto): ").append(formatear(pServicio)).append("\n");
-            sb.append("• Meses con aportes registrados (solo completos): ").append(mesesCompletosAportes)
-              .append(" (+").append(diasResidualesAportes).append(" días residuales)\n\n");
+            int totalAcreditadoSinTope = totalHastaEdad + (faltanTrasMoratorias > 0 ? plan.mesesTotalesAcreditados() : 0);
+            int totalComputableDerecho = Math.min(totalAcreditadoSinTope, TOTAL_MESES_OBJETIVO);
 
             sb.append("👶 RECONOCIMIENTO DE TAREAS DE CUIDADO — Art. 22 bis\n");
             sb.append("───────────────────────────────────────────────────\n");
@@ -927,16 +945,15 @@ public class SituacionPrevisionalController implements Serializable {
                 else sb.append("= Fecha estimada de cumplimiento de 360: no determinada\n\n");
             }
 
-            sb.append("🏁 TOTAL FINAL\n");
-            sb.append("──────────────\n");
-            sb.append("• Hasta edad legal:        ").append(totalHastaEdad).append("\n");
-            if (faltanTrasMoratorias > 0) {
-                sb.append("• + Post-edad (aporte):     ").append(plan.mesesAportadosPost).append("\n");
-                sb.append("• + Post-edad (comp.):      ").append(plan.mesesCompensacion).append("\n");
-            }
-            sb.append("= **Total meses**:          ").append(totalFinal).append(" / 360\n\n");
-            sb.append(totalFinal >= 360 ? "✅ Cumple la meta de 30 años (360 meses)." 
-                                       : "⚠️ Faltan " + (360 - totalFinal) + " meses para llegar a 360.");
+            sb.append("🏁 TOTALES\n");
+            sb.append("────────────\n");
+            sb.append("• Total meses acreditados (sumatoria aplicada en este plan): ")
+              .append(totalAcreditadoSinTope).append("\n");
+            sb.append("• Total computable para el derecho: ")
+              .append(totalComputableDerecho).append("\n\n");
+            sb.append(totalComputableDerecho >= TOTAL_MESES_OBJETIVO
+                    ? "✅ Cumple la meta de 30 años."
+                    : "⚠️ Faltan " + (TOTAL_MESES_OBJETIVO - totalComputableDerecho) + " meses.");
 
             totalTiempoConAportes = sb.toString();
             

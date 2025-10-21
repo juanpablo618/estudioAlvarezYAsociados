@@ -58,7 +58,7 @@
 
                 <div style="float: left;width: 100%;">   
 
-                    <p:tabView id="tabViewEditExpAdm" orientation="left" style="" styleClass="tabdatospersonales" >
+                    <p:tabView id="tabViewEditExpAdm" orientation="left" styleClass="tabdatospersonales" >
                         <h:panelGroup id="display">
 
                         </h:panelGroup>
@@ -66,7 +66,7 @@
                         <p:tab >
                             <f:facet name="title">
 
-                                <h:outputText id="iconoDatos" value="" 
+                                <h:outputText id="iconoDatos" 
                                               styleClass="fa fa-user" 
                                               style="font-size: 1.2rem; cursor: pointer;" />
                                 <p:tooltip for="iconoDatos" value="Datos Personales" />
@@ -147,7 +147,7 @@
                                             <img src="../faces/resources/images/whatsapp.png" ></img>
                                         </a>
                                     </div>
-                                    <p:outputLabel value="Telèfono Auxiliar" for="telefonoAuxiliar"  />            
+                                    <p:outputLabel value="Teléfono Auxiliar" for="telefonoAuxiliar"  />            
                                     <p:inputTextarea    id="telefonoAuxiliar" value="#{expedienteController.selected.telefonoAuxiliar}" cols="22" title="Telèfono Auxiliar" style="height: 21px;"/>
 
                                     <p:outputLabel value="Estado Civil:" for="estadoCivil" />
@@ -257,7 +257,7 @@
                         <p:tab >
                             <f:facet name="title">
 
-                                <h:outputText id="iconoEXP" value="" 
+                                <h:outputText id="iconoEXP"  
                                               styleClass="fa fa-folder" 
                                               style="font-size: 1.2rem; cursor: pointer;" />
                                 <p:tooltip for="iconoEXP" value="Datos del expediente" />
@@ -358,7 +358,7 @@
                         </p:tab>
                         <p:tab >
                             <f:facet name="title">
-                                <h:outputText id="iconoClaves" value="" styleClass="fa fa-key" style="font-size: 1.2rem; cursor: pointer;" />
+                                <h:outputText id="iconoClaves"  styleClass="fa fa-key" style="font-size: 1.2rem; cursor: pointer;" />
                                 <p:tooltip for="iconoClaves" value="Claves" />
                             </f:facet>
 
@@ -418,15 +418,10 @@
                                 </div>
                             </div>
 
-
-
-
-
-
                         </p:tab>
                         <p:tab id="tabComunicaciones" >
                             <f:facet name="title">
-                                <h:outputText id="iconoComunicaciones" value="" styleClass="fa fa-comments" style="font-size: 1.2rem; cursor: pointer;" />
+                                <h:outputText id="iconoComunicaciones"  styleClass="fa fa-comments" style="font-size: 1.2rem; cursor: pointer;" />
                                 <p:tooltip for="iconoComunicaciones" value="Comunicaciones" />
                             </f:facet>
 
@@ -503,20 +498,17 @@
 
                                 </p:dataTable>
 
-
-
                                 <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
                                     <p:commandButton update=":ExpedienteListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;" />
                                     <p:commandButton update=":ExpedienteListForm" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;" />
                                 </p:confirmDialog> 
-
 
                             </div>
                         </p:tab>
 
                         <p:tab id="tabAgendaAnterior" >
                             <f:facet name="title">
-                                <h:outputText id="iconoAgendas" value="" styleClass="fa fa-calendar" style="font-size: 1.2rem; cursor: pointer;" />
+                                <h:outputText id="iconoAgendas"  styleClass="fa fa-calendar" style="font-size: 1.2rem; cursor: pointer;" />
                                 <p:tooltip for="iconoAgendas" value="Agendas y Turnos" />
                             </f:facet>
                             <div class="agendasyturnos">
@@ -566,9 +558,7 @@
 
                                         <p:column style="width:55%"   headerText="Descripción" >
                                             <div class="apilarelementos">
-
-
-                                                <h:outputText value="#{item.descripcion}"  title="#{item.descripcion}"/>
+                                               <h:outputText value="#{item.descripcion}"  title="#{item.descripcion}"/>
                                             </div>
                                         </p:column>
                                         <p:column  headerText="Responsable"  class="iconoturnorespondable"  >
@@ -623,10 +613,6 @@
 
                                     </p:dataTable>
                                 </p:fieldset>
-
-
-
-
                                 <p:fieldset class="tablashistorial" legend="TURNOS ANTERIORES" toggleable="true"  collapsed="true" toggleSpeed="500">
                                     <p:dataTable id="datalistTurnosAnteriores" 
                                                  value="#{expedienteController.verTurnosPasadosPorNroDeOrden(expedienteController.selected.orden)}"
@@ -653,8 +639,6 @@
                                             </f:facet>
                                             <h:outputText value="#{item.observacion}"/>
                                         </p:column>
-
-
 
                                         <p:column filterBy="#{item.realizado}"  filterMatchMode="exact" headerText="Realizado">
                                             <f:facet name="filter">
@@ -712,7 +696,6 @@
 
                                     </p:dataTable>
                                 </p:fieldset>
-
 
                                 <p:fieldset class="tablashistorial" legend="AGENDAS FUTURAS" toggleable="true"  collapsed="true" toggleSpeed="500">
 
@@ -776,7 +759,6 @@
                                                 <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaFutura}" />
                                             </p:commandButton>
 
-
                                             <p:commandButton class="linea btnDelete"
                                                              update=":growl,:ExpedienteEditForm:tabViewEditExpAdm:datalist2, message4"
                                                              actionListener="#{agendaController.destroyAgendaFutura()}"  icon="ui-icon-trash" title="Eliminar">
@@ -792,8 +774,6 @@
                                         </p:column>
                                     </p:dataTable>
                                 </p:fieldset>
-
-
                                 <p:fieldset class="tablashistorial" legend="TURNOS FUTUROS" toggleable="true"  collapsed="true" toggleSpeed="500">
 
                                     <p:dataTable id="datalistTurnosFuturos" 
@@ -822,8 +802,6 @@
                                         </f:facet>
                                         <h:outputText value="#{item.observacion}"/>
                                     </p:column>
-
-
 
                                     <p:column filterBy="#{item.realizado}"  filterMatchMode="exact" headerText="Realizado">
                                         <f:facet name="filter">
@@ -885,7 +863,7 @@
                         </p:tab>
                         <p:tab  id="honorarios">
                             <f:facet name="title">
-                                <h:outputText id="iconoHonorarios" value="" styleClass="fas fa-coins" style="font-size: 1.2rem; cursor: pointer;" />
+                                <h:outputText id="iconoHonorarios"  styleClass="fas fa-coins" style="font-size: 1.2rem; cursor: pointer;" />
 
                                 <p:tooltip for="iconoHonorarios" value="Honorarios y Gastos" />
                             </f:facet>
@@ -921,9 +899,9 @@
                             </div>  
                         </p:tab>
 
-                        <p:tab title="">
+                        <p:tab >
                             <f:facet name="title">
-                                <h:outputText id="iconosp" value="" styleClass="fas fa-clock" style="font-size: 1.2rem; cursor: pointer;" />
+                                <h:outputText id="iconosp"  styleClass="fas fa-clock" style="font-size: 1.2rem; cursor: pointer;" />
 
                                 <p:tooltip for="iconosp" value="Situación Previsional" />
                             </f:facet>
@@ -987,15 +965,11 @@
                                             <f:setPropertyActionListener value="#{item}" target="#{situacionPrevisionalController.selected}" />
                                         </p:commandButton> 
 
-
-
                                     </p:column>
 
                                 </p:dataTable>
 
                                 <div >
-
-
                                     <br></br>
                                     <div class="colum-2" >
                                         <div>
@@ -1042,9 +1016,6 @@
                                                              update="panelTotalMoratoriaV5"
                                                              icon="ui-icon-refresh"
                                                              styleClass="botonRefrescar boton-cancelar btn-situprov" />
-
-
-
 
                                             <p:outputPanel style="margin-top: 20px; border: 1px solid #ccc; padding: 1em; border-radius: 8px; background-color: #f9f9f9; white-space: pre-wrap;">
                                                 <h:outputText value="#{situacionPrevisionalController.resultadoMoratoriaV5}" escape="false" />

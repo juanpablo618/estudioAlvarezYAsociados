@@ -276,10 +276,14 @@ table.dataTable.nowrap td{white-space:nowrap}
 }
 
 .editDialogExpediente, .editDialogConsulta{
-    width: 93% !important;
+  width: 85% !important;
     height: 95% !important;
-    top: 2% !important;
+
     z-index: 1005 !important;
+
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%);
     position: absolute;
 }
 
@@ -341,6 +345,7 @@ table.dataTable.nowrap td{white-space:nowrap}
     transform: translate(-50%, -50%);
     position: absolute;
 }
+
 
 .ui-layout-unit-content .ui-widget-content{
     background-color: white;
@@ -926,6 +931,12 @@ label{
     padding: 0;
     border-radius: 5px;
 }
+#ExpedienteEditForm\:toolbarexpedientes{
+    border: 1px solid #C4D1EB; 
+    padding: 0;
+    border-radius: 5px;
+}  
+
 
 #ExpedienteJudicialEditForm\:toolbarexpedientes > div.ui-toolbar-group-left{
     display: flex;
@@ -942,7 +953,62 @@ label{
     flex-wrap: wrap;
     flex-direction: row;  
 }
+#ExpedienteEditForm\:toolbarexpedientes > div.ui-toolbar-group-left{
+   display: flex;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;  
+}
 
+#ExpedienteEditForm\:tabViewEditExpAdm > ul{
+    float: left;
+    width: 60px !important;
+    height: 300px;
+    background-image: none;
+    padding-top: 1px;
+
+    height: auto;
+    min-height: 300px;
+    border: 1px solid #C4D1EB; 
+}
+#ExpedienteEditForm\:tabViewEditExpAdm > div{
+    float:none !important;
+    width: auto !important;
+}
+#ExpedienteEditForm\:tabViewEditExpAdm > ul {
+    background: #ffffff !important;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;}
+
+
+#ExpedienteEditForm\:tabViewEditExpAdm > ul > li > a {
+    float: inherit !important;
+    padding: 20px !important;
+    text-align: center;
+    color:#123a6d;
+}
+#ExpedienteEditForm\:tabViewEditExpAdm > ul > li{
+    background: #ffffff !important;
+    border-radius: 0px;
+    color: #000000;
+    border:   none !important;
+
+
+    box-shadow: none !important;
+}
+
+#ExpedienteEditForm\:tabViewEditExpAdm > ul > li:hover{
+
+    border-radius: 0px!important;
+    color: #000000;
+    border-left: solid 2px #007bff !important ;
+    background: #00000024 !important;
+}
 .nombrecliente{
     display: flex;
     flex-wrap: wrap;
@@ -966,6 +1032,9 @@ label{
 }
 
 .editarExpedienteJudicial > div.ui-dialog-content.ui-widget-content{
+    overflow: hidden !important ;
+}
+.editDialogExpediente > div.ui-dialog-content.ui-widget-content{
     overflow: hidden !important ;
 }
 
@@ -1029,7 +1098,21 @@ label{
     cursor: pointer;
 }
 
+.boton-agenda-masiva{
+    background: #123a6d !important;
+    color: white !important;
+    border: none !important;
 
+    font-size: 14px !important;
+    font-weight: normal !important;
+    border-radius: 0.5rem;
+
+    padding: 5px 10px !important;
+    margin-right: 10px !important;
+    margin-left: 10px;
+    cursor: pointer;
+    text-shadow: none !important ;
+}
 .boton-cancelar > span {
     padding: 0 !important;
     font-size: 14px !important;
@@ -1043,6 +1126,14 @@ label{
     text-shadow: none !important ;
     font-weight: normal !important;
     
+}
+
+.boton-agenda-masiva  > span{
+     padding: 0 !important;
+         margin-top: 2px !important;
+    font-size: 14px !important;
+    text-shadow: none !important ;
+    font-weight: normal !important;
 }
 
 .boton-sistema  > span {
@@ -1122,6 +1213,19 @@ margin-right: 20px
     padding: 20px 40px;
         margin-bottom: 20px;
 }
+.colum-2{
+
+    display: grid !important;
+  
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 50px;
+    padding: 20px 40px;
+        
+}
+.btn-situprov{
+    width: -webkit-fill-available;
+    } 
 .datosexpediente{
     display: grid !important;
     border: 1px solid #C4D1EB;
@@ -1376,9 +1480,9 @@ display: flex;
 
 /* Página activa */
 .ui-datatable .ui-paginator .ui-paginator-page.ui-state-active {
-    background: #e5e7eb !important
+    background: #e5e7eb !important;
     color: black !important;
-    border: 1px solid #bbb!important;
+    border: 1px solid #1a1a1a !important;
     font-weight: bold !important;
 }
 

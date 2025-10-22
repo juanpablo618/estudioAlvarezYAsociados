@@ -196,6 +196,12 @@ public class ExpedienteController implements Serializable {
 
     public void setSelected(Expediente selected) {
         this.selected = selected;
+        
+        // cada vez que se selecciona un expediente, vaciamos el reporte
+        FacesContext context = FacesContext.getCurrentInstance();
+        SituacionPrevisionalController situacionPrevisionalControllerBean = context.getApplication().evaluateExpressionGet(context, "#{situacionPrevisionalController}", SituacionPrevisionalController.class);
+        situacionPrevisionalControllerBean.setTotalTiempoConAportes("");
+                
     }
 
     public void handleDateSelect(Date selected) {

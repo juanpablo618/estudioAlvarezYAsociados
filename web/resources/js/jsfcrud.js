@@ -26,6 +26,7 @@ function handleSubmitDos(args, dialog) {
  // si se quiere volver al diseño de primefaces , solo comentar esta funcion 
 //ESTE ESPERA QUE TERMINE UN MENSAJE PARA MOSTRARTE RECIEN EL OTRO
 
+
 PrimeFaces.widget.Growl.prototype.show = function(messages) {
     if (!messages || messages.length === 0) return;
 
@@ -46,31 +47,33 @@ PrimeFaces.widget.Growl.prototype.show = function(messages) {
         else if (msg.severity === "warn") icon = "warning";
         else if (msg.severity === "error" || msg.severity === "fatal" || title.toLowerCase().includes("error")) icon = "error";
 
-        // Condiciones especiales: error o texto contiene "Te quedaron"
-        const esBloqueante = 
-            icon === "error" || 
+        // Condición de mensajes bloqueantes
+        const esBloqueante =
+            icon === "error" ||
             text.toLowerCase().includes("te quedaron");
 
+        // Configuración de SweetAlert2
         Swal.fire({
-            toast: true,                   // todos salen como toast
-            position: 'top-end',           // arriba a la derecha
+            toast: true,
+            position: 'top-end',
             icon: icon,
             title: title,
             text: text,
             showConfirmButton: false,
-            showCloseButton: esBloqueante, // X visible en bloqueantes
+            showCloseButton: true,           // siempre muestra la X
             allowOutsideClick: !esBloqueante,
             allowEscapeKey: true,
-            timer: esBloqueante ? undefined : 6000, // sin timer en bloqueantes
-            timerProgressBar: !esBloqueante
+            timer: esBloqueante ? undefined : 6000, // bloqueantes sin timer
+            timerProgressBar: !esBloqueante          // bloqueantes sin barra
         }).then(() => {
             index++;
-            mostrarSiguiente(); // mostramos el siguiente mensaje
+            mostrarSiguiente(); // siguiente mensaje
         });
     };
 
-    mostrarSiguiente(); // iniciamos con el primer mensaje
+    mostrarSiguiente(); // inicia con el primero
 };
+
 
 
 

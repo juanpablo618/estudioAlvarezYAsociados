@@ -56,6 +56,7 @@ public class SituacionPrevisionalController implements Serializable {
     private String totalAniosDeServicio; 
     private String resultadoMoratoriaV4;
     private String resultadoMoratoriaV5;
+    private boolean incluirAportesFuturosHastaEdadLegal = true;
     private String tiempoInactivoHasta1993;
     private String tiempoInactivoDesde1993;
     private int totalDiasConMoratoria24476 = 0; // valor acumulado (se puede mostrar luego)
@@ -91,6 +92,14 @@ public class SituacionPrevisionalController implements Serializable {
 
     public void setResultadoMoratoriaV5(String resultadoMoratoriaV5) {
         this.resultadoMoratoriaV5 = resultadoMoratoriaV5;
+    }
+
+    public boolean isIncluirAportesFuturosHastaEdadLegal() {
+        return incluirAportesFuturosHastaEdadLegal;
+    }
+
+    public void setIncluirAportesFuturosHastaEdadLegal(boolean incluirAportesFuturosHastaEdadLegal) {
+        this.incluirAportesFuturosHastaEdadLegal = incluirAportesFuturosHastaEdadLegal;
     }
     
     public String calcularResultadoPrevisional(int orden) {
@@ -827,7 +836,7 @@ public class SituacionPrevisionalController implements Serializable {
             int mesesReconHijos = mesesReconocimientoHijos(sexo, hijosBiologicos, hijosAdoptados, hijosConDiscapacidad, hijosConAUH);
 
             // ----- Proyección hasta edad legal DESDE hoy -----
-            int mesesPorAportarHastaEdad = hoy.isBefore(fechaEdadLegal)
+            int mesesPorAportarHastaEdad = (incluirAportesFuturosHastaEdadLegal && hoy.isBefore(fechaEdadLegal))
                     ? mesesProyectablesDesdeHoyHastaEdad(mesesAportados, fechaEdadLegal, hoy)
                     : 0;
 
@@ -889,7 +898,11 @@ public class SituacionPrevisionalController implements Serializable {
 
             sb.append("⏩ APORTES FUTUROS HASTA LA EDAD LEGAL (desde la fecha de cálculo)\n");
             sb.append("──────────────────────────────────────────────────────────────────\n");
-            sb.append("• Meses completos posibles hasta edad legal: ").append(mesesPorAportarHastaEdad).append("\n\n");
+            if (incluirAportesFuturosHastaEdadLegal) {
+                sb.append("• Meses completos posibles hasta edad legal: ").append(mesesPorAportarHastaEdad).append("\n\n");
+            } else {
+                sb.append("• Regla desactivada para este cálculo.\n\n");
+            }
 
             sb.append("🧾 COMPENSACIÓN POR EXCESO DE EDAD — Art. 19 (2:1 en A/M/D)\n");
             sb.append("──────────────────────────────────────────────────────────\n");
@@ -927,7 +940,12 @@ public class SituacionPrevisionalController implements Serializable {
             sb.append("─────────────────────────────────────\n");
             sb.append("• Meses con aportes:            ").append(mesesCompletosAportes).append("\n");
             sb.append("• + Art. 22 bis (cuidado):      ").append(mesesReconHijos).append("\n");
-            sb.append("• + Por aportar (hoy→edad):     ").append(mesesPorAportarHastaEdad).append("\n");
+            sb.append("• + Por aportar (hoy→edad):     ");
+            if (incluirAportesFuturosHastaEdadLegal) {
+                sb.append(mesesPorAportarHastaEdad).append("\n");
+            } else {
+                sb.append("0 (regla desactivada)\n");
+            }
             sb.append("• + Art. 19 (compensación):     ").append(compMesesAplicados).append("\n");
             sb.append("• + Ley 24.476:                 ").append(agregados24476).append("\n");
             sb.append("• + Ley 27.705:                 ").append(agregados27705).append("\n");

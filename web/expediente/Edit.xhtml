@@ -969,8 +969,14 @@
                                 </p:dataTable>
 
                              <br></br>
-                                    
-                                    <p:commandButton value="Reporte final" 
+
+                                    <div class="opcion-aportes-futuros" style="margin: 10px 0 20px 10px; display: flex; align-items: center; gap: 8px;">
+                                        <p:selectBooleanCheckbox id="chkAportesFuturos"
+                                                                 value="#{situacionPrevisionalController.incluirAportesFuturosHastaEdadLegal}" />
+                                        <h:outputLabel for="chkAportesFuturos" value="Incluir aportes futuros hasta la edad legal" />
+                                    </div>
+
+                                    <p:commandButton value="Reporte final"
                                                      actionListener="#{situacionPrevisionalController.generarReporteIntegralFinal(
                                                                        expedienteController.selected.orden,
                                                                        expedienteController.selected.fechaDeNacimiento,

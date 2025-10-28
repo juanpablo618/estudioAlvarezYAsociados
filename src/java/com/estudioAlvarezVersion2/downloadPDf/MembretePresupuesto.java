@@ -686,4 +686,70 @@ public class MembretePresupuesto {
         document.close();
 
     }
+
+    public void createPdfReporteFinal(String filename, String nombre, String apellido, String reporte)
+            throws IOException, DocumentException {
+
+        Document document = new Document(PageSize.A4, 36, 36, 140, 36);
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        ConfiguracionesGeneralesController configuracionesGeneralesController
+                = context.getApplication().evaluateExpressionGet(context,
+                        "#{configuracionesGeneralesController}", ConfiguracionesGeneralesController.class);
+
+        PdfWriter writer = PdfWriter.getInstance(document,
+                new FileOutputStream(configuracionesGeneralesController.getConfiguracionesGenerales(1)
+                        .getCarpetaDePresupuestos().concat(filename).concat(".pdf")));
+
+        FormatoDocumentoPresupuesto encabezado = new FormatoDocumentoPresupuesto();
+
+        writer.setPageEvent(encabezado);
+
+        document.open();
+
+        Font tituloFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14);
+        Font detalleFont = FontFactory.getFont(FontFactory.HELVETICA, 11);
+        Font contenidoFont = FontFactory.getFont(FontFactory.COURIER, 10);
+
+        Paragraph titulo = new Paragraph("Reporte final de situación previsional", tituloFont);
+        titulo.setAlignment(Element.ALIGN_CENTER);
+        document.add(titulo);
+        document.add(Chunk.NEWLINE);
+
+        if ((nombre != null && !nombre.trim().isEmpty()) || (apellido != null && !apellido.trim().isEmpty())) {
+            StringBuilder titular = new StringBuilder("Titular: ");
+
+            if (apellido != null && !apellido.trim().isEmpty()) {
+                titular.append(apellido.trim());
+                if (nombre != null && !nombre.trim().isEmpty()) {
+                    titular.append(", ");
+                }
+            }
+
+            if (nombre != null && !nombre.trim().isEmpty()) {
+                titular.append(nombre.trim());
+            }
+
+            Paragraph datosTitular = new Paragraph(titular.toString(), detalleFont);
+            datosTitular.setAlignment(Element.ALIGN_LEFT);
+            document.add(datosTitular);
+            document.add(Chunk.NEWLINE);
+        }
+
+        if (reporte != null && !reporte.trim().isEmpty()) {
+            String[] lineas = reporte.split("\\r?\\n");
+            for (String linea : lineas) {
+                Paragraph parrafo = new Paragraph(linea, contenidoFont);
+                parrafo.setAlignment(Element.ALIGN_LEFT);
+                document.add(parrafo);
+            }
+        } else {
+            Paragraph sinDatos = new Paragraph("Sin contenido disponible para el reporte.", contenidoFont);
+            sinDatos.setAlignment(Element.ALIGN_LEFT);
+            document.add(sinDatos);
+        }
+
+        document.close();
+
+    }
 }

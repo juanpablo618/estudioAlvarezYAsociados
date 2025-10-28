@@ -213,12 +213,49 @@ public void crearCronologicoDeAportes(String nombre ) throws IOException, Docume
                   MembretePresupuesto doc = new MembretePresupuesto();
                   
                   doc.createPdfCronologicoDeAportes(nombreDelDocumento, nombre);
-                  
+
                   downloadCsv(nombreDelDocumento);
-                  
+
                   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Impresion exitosa"));
         }
         }
+
+public void imprimirReporteFinalSituacionPrevisional(String nombre, String apellido, String reporte)
+        throws IOException, DocumentException, InterruptedException {
+
+    if (reporte == null || reporte.trim().isEmpty()) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No hay reporte final para imprimir."));
+        return;
+    }
+
+    Date date = new Date();
+    DateFormat hourdateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+    String fechaYHoraActual = hourdateFormat.format(date);
+
+    String nombreSeguro = nombre != null ? nombre.trim() : "";
+    String apellidoSeguro = apellido != null ? apellido.trim() : "";
+    StringBuilder nombreDocumento = new StringBuilder("ReporteSituacionPrevisional_");
+
+    if (!apellidoSeguro.isEmpty()) {
+        nombreDocumento.append(apellidoSeguro.replaceAll("\\s+", ""));
+    }
+
+    if (!nombreSeguro.isEmpty()) {
+        if (!apellidoSeguro.isEmpty()) {
+            nombreDocumento.append("_");
+        }
+        nombreDocumento.append(nombreSeguro.replaceAll("\\s+", ""));
+    }
+
+    nombreDocumento.append("_").append(fechaYHoraActual);
+
+    MembretePresupuesto doc = new MembretePresupuesto();
+    doc.createPdfReporteFinal(nombreDocumento.toString(), nombre, apellido, reporte);
+
+    downloadPdf(nombreDocumento.toString());
+
+    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Reporte final generado correctamente."));
+}
 
 /**
      * This method reads PDF from the URL and writes it back as a response.     * @throws IOException  

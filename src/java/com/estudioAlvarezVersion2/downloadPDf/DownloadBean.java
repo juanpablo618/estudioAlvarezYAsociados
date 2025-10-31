@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,6 +26,7 @@ import java.util.Date;
 public class DownloadBean implements Serializable {
 
 private static final long serialVersionUID = 626953318628565053L;
+private static final Logger LOGGER = Logger.getLogger(DownloadBean.class.getName());
 
 //private final  String PDF_URL = ConfiguracionesGenerales.getPDF_URL();
 
@@ -213,12 +216,82 @@ public void crearCronologicoDeAportes(String nombre ) throws IOException, Docume
                   MembretePresupuesto doc = new MembretePresupuesto();
                   
                   doc.createPdfCronologicoDeAportes(nombreDelDocumento, nombre);
-                  
+
                   downloadCsv(nombreDelDocumento);
-                  
+
                   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Impresion exitosa"));
         }
         }
+
+public void imprimirReporteFinalSituacionPrevisional(String nombre, String apellido, String reporte) {
+
+    if (reporte == null || reporte.trim().isEmpty()) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No hay reporte final para imprimir."));
+        return;
+    }
+
+    Date date = new Date();
+    DateFormat hourdateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+    String fechaYHoraActual = hourdateFormat.format(date);
+
+    String nombreSeguro = nombre != null ? nombre.trim() : "";
+    String apellidoSeguro = apellido != null ? apellido.trim() : "";
+    StringBuilder nombreDocumento = new StringBuilder("ReporteSituacionPrevisional_");
+
+    if (!apellidoSeguro.isEmpty()) {
+        nombreDocumento.append(apellidoSeguro.replaceAll("\\s+", ""));
+    }
+
+    if (!nombreSeguro.isEmpty()) {
+        if (!apellidoSeguro.isEmpty()) {
+            nombreDocumento.append("_");
+        }
+        nombreDocumento.append(nombreSeguro.replaceAll("\\s+", ""));
+    }
+
+    nombreDocumento.append("_").append(fechaYHoraActual);
+
+    String reporteSanitizado = sanitizeForPdf(reporte);
+
+    try {
+        MembretePresupuesto doc = new MembretePresupuesto();
+        doc.createPdfReporteFinal(nombreDocumento.toString(), nombre, apellido, reporteSanitizado);
+
+        downloadPdf(nombreDocumento.toString());
+
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Reporte final generado correctamente."));
+    } catch (DocumentException | IOException e) {
+        LOGGER.log(Level.SEVERE, "Error al generar el PDF del reporte final", e);
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Ocurrió un error al generar el reporte final.", null));
+    } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        LOGGER.log(Level.SEVERE, "La generación del reporte final fue interrumpida", e);
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "La generación del reporte fue interrumpida. Vuelva a intentarlo.", null));
+    }
+}
+
+private String sanitizeForPdf(String reporte) {
+    if (reporte == null) {
+        return null;
+    }
+
+    StringBuilder limpio = new StringBuilder(reporte.length());
+    reporte.codePoints().forEach(cp -> {
+        if (cp == '\n' || cp == '\r' || cp == '\t') {
+            limpio.appendCodePoint(cp);
+        } else if (cp >= 32 && cp <= 255) {
+            limpio.appendCodePoint(cp);
+        } else {
+            limpio.append(' ');
+        }
+    });
+
+    return limpio.toString();
+}
 
 /**
      * This method reads PDF from the URL and writes it back as a response.     * @throws IOException  

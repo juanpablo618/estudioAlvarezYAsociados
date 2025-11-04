@@ -225,30 +225,32 @@ public void crearCronologicoDeAportes(String nombre ) throws IOException, Docume
 
 public void imprimirReporteFinalSituacionPrevisional(String nombre, String apellido, String reporte) {
 
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+
     if (reporte == null || reporte.trim().isEmpty()) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No hay reporte final para imprimir."));
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                "No hay reporte final para imprimir.", null));
         return;
     }
 
-    Date date = new Date();
-    DateFormat hourdateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
-    String fechaYHoraActual = hourdateFormat.format(date);
-
     String nombreSeguro = nombre != null ? nombre.trim() : "";
     String apellidoSeguro = apellido != null ? apellido.trim() : "";
-    StringBuilder nombreDocumento = new StringBuilder("ReporteSituacionPrevisional_");
 
-    if (!apellidoSeguro.isEmpty()) {
-        nombreDocumento.append(apellidoSeguro.replaceAll("\\s+", ""));
-    }
-
-    if (!nombreSeguro.isEmpty()) {
+    StringBuilder nombreDocumento = new StringBuilder("ReporteSituacionPrevisional");
+    if (!apellidoSeguro.isEmpty() || !nombreSeguro.isEmpty()) {
+        nombreDocumento.append("_");
         if (!apellidoSeguro.isEmpty()) {
-            nombreDocumento.append("_");
+            nombreDocumento.append(apellidoSeguro.replaceAll("\s+", ""));
         }
-        nombreDocumento.append(nombreSeguro.replaceAll("\\s+", ""));
+        if (!nombreSeguro.isEmpty()) {
+            if (!apellidoSeguro.isEmpty()) {
+                nombreDocumento.append("-");
+            }
+            nombreDocumento.append(nombreSeguro.replaceAll("\s+", ""));
+        }
     }
 
+    String fechaYHoraActual = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
     nombreDocumento.append("_").append(fechaYHoraActual);
 
     String reporteSanitizado = sanitizeForPdf(reporte);
@@ -259,16 +261,16 @@ public void imprimirReporteFinalSituacionPrevisional(String nombre, String apell
 
         downloadPdf(nombreDocumento.toString());
 
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Reporte final generado correctamente."));
+        facesContext.addMessage(null, new FacesMessage("Reporte final generado correctamente."));
     } catch (DocumentException | IOException e) {
         LOGGER.log(Level.SEVERE, "Error al generar el PDF del reporte final", e);
-        FacesContext.getCurrentInstance().addMessage(null,
+        facesContext.addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR,
                         "Ocurrió un error al generar el reporte final.", null));
     } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
         LOGGER.log(Level.SEVERE, "La generación del reporte final fue interrumpida", e);
-        FacesContext.getCurrentInstance().addMessage(null,
+        facesContext.addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR,
                         "La generación del reporte fue interrumpida. Vuelva a intentarlo.", null));
     }

@@ -737,7 +737,7 @@ public class MembretePresupuesto {
         }
 
         if (reporte != null && !reporte.trim().isEmpty()) {
-            String[] lineas = reporte.split("\\r?\\n");
+            String[] lineas = reporte.split("\r?\n");
             for (String linea : lineas) {
                 Paragraph parrafo = new Paragraph(linea, contenidoFont);
                 parrafo.setAlignment(Element.ALIGN_LEFT);
@@ -752,4 +752,5 @@ public class MembretePresupuesto {
         document.close();
 
     }
+
 }

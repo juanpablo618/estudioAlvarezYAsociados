@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,6 +26,7 @@ import java.util.Date;
 public class DownloadBean implements Serializable {
 
 private static final long serialVersionUID = 626953318628565053L;
+private static final Logger LOGGER = Logger.getLogger(DownloadBean.class.getName());
 
 //private final  String PDF_URL = ConfiguracionesGenerales.getPDF_URL();
 

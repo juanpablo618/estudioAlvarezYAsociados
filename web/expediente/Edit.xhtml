@@ -20,6 +20,33 @@
             function myFunction() {
                 document.getElementById("myDialog").showModal();
             }
+
+            function prepararDescargaReporteFinal(formId) {
+                var form = document.getElementById(formId);
+                if (!form) {
+                    return true;
+                }
+
+                var previousTarget = form.getAttribute('target');
+                if (previousTarget !== null) {
+                    form.dataset.prevTarget = previousTarget;
+                } else {
+                    delete form.dataset.prevTarget;
+                }
+
+                form.target = '_blank';
+
+                window.setTimeout(function () {
+                    if (form.dataset.prevTarget) {
+                        form.target = form.dataset.prevTarget;
+                    } else {
+                        form.removeAttribute('target');
+                    }
+                    delete form.dataset.prevTarget;
+                }, 0);
+
+                return true;
+            }
         </script>
 
         <p:dialog id="ExpedienteEditDlg" class="editDialogExpediente" widgetVar="ExpedienteEditDialog" modal="true" resizable="true" appendTo="@(body)" width="100" style="overflow-y:auto" closable="false">

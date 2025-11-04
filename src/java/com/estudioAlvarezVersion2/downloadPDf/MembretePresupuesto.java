@@ -707,9 +707,9 @@ public class MembretePresupuesto {
 
         document.open();
 
-        Font tituloFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, BaseFont.CP1252, BaseFont.EMBEDDED, 14f);
-        Font detalleFont = FontFactory.getFont(FontFactory.HELVETICA, BaseFont.CP1252, BaseFont.EMBEDDED, 11f);
-        Font contenidoFont = FontFactory.getFont(FontFactory.COURIER, BaseFont.CP1252, BaseFont.EMBEDDED, 10f);
+        Font tituloFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14);
+        Font detalleFont = FontFactory.getFont(FontFactory.HELVETICA, 11);
+        Font contenidoFont = FontFactory.getFont(FontFactory.COURIER, 10);
 
         Paragraph titulo = new Paragraph("Reporte final de situación previsional", tituloFont);
         titulo.setAlignment(Element.ALIGN_CENTER);
@@ -737,7 +737,7 @@ public class MembretePresupuesto {
         }
 
         if (reporte != null && !reporte.trim().isEmpty()) {
-            String[] lineas = reporte.split("\r?\n");
+            String[] lineas = reporte.split("\\r?\\n");
             for (String linea : lineas) {
                 Paragraph parrafo = new Paragraph(linea, contenidoFont);
                 parrafo.setAlignment(Element.ALIGN_LEFT);
@@ -752,5 +752,4 @@ public class MembretePresupuesto {
         document.close();
 
     }
-
 }

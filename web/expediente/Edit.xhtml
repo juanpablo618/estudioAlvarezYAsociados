@@ -1016,11 +1016,10 @@
                                                      icon="ui-icon-refresh"
                                                      styleClass="botonRefrescar boton-cancelar" style="margin-left:10px;margin-bottom:  10px !important;" />
 
-                                    <p:commandButton value="Imprimir reporte final"
+                                    <h:commandButton value="Imprimir reporte final"
                                                      styleClass="boton-imprimir"
-                                                     ajax="false"
+                                                     onclick="form.target = '_blank';"
                                                      disabled="#{empty situacionPrevisionalController.totalTiempoConAportes}"
-                                                     onclick="return prepararDescargaReporteFinal('ExpedienteEditForm');"
                                                      actionListener="#{downloadBean.imprimirReporteFinalSituacionPrevisional(
                                                                           expedienteController.selected.nombre,
                                                                           expedienteController.selected.apellido,

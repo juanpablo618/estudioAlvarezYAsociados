@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Consulta.findAll", query = "SELECT e FROM Consulta e ORDER BY e.fechaDeAtencion DESC"),
     @NamedQuery(name = "Consulta.findAllExceptArchivedOrDismissed",
-            query = "SELECT e FROM Consulta e WHERE e.estadoConsulta NOT IN ('ARCHIVADO / DESISTIDO') ORDER BY e.fechaDeAtencion DESC"),
+            query = "SELECT e FROM Consulta e ORDER BY e.fechaDeAtencion DESC"),
     @NamedQuery(name = "Consulta.findByIdConsulta", query = "SELECT e FROM Consulta e WHERE e.idConsulta = :idConsulta"),
     @NamedQuery(name = "Consulta.findByOrden", query = "SELECT e FROM Consulta e WHERE e.orden = :orden"),
     @NamedQuery(name = "Consulta.findByCuit", query = "SELECT e FROM Consulta e WHERE e.cuit = :cuit"),

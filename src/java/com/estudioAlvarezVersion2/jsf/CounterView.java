@@ -462,12 +462,16 @@ public class CounterView implements Serializable {
             // Incrementa los contadores si la agenda cumple con todos los filtros
             if (cumpleFiltros) {
                 totalAgendas++;
-                if ("No".equalsIgnoreCase(agenda.getRealizado())) {
-                    totalRealizadasNo++;
-                } else if ("Si".equalsIgnoreCase(agenda.getRealizado())) {
-                    totalRealizadasSi++;
-                } else if ("Reagendado".equalsIgnoreCase(agenda.getRealizado())) {
-                    totalReagendadas++;
+                String estadoAgenda = agenda.getRealizado();
+                if (estadoAgenda != null) {
+                    String estadoNormalizado = estadoAgenda.trim();
+                    if ("No".equalsIgnoreCase(estadoNormalizado)) {
+                        totalRealizadasNo++;
+                    } else if ("Si".equalsIgnoreCase(estadoNormalizado)) {
+                        totalRealizadasSi++;
+                    } else if ("Reagendada".equalsIgnoreCase(estadoNormalizado)) {
+                        totalReagendadas++;
+                    }
                 }
             }
         }

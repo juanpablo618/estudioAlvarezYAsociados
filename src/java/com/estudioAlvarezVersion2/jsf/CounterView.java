@@ -466,7 +466,7 @@ public class CounterView implements Serializable {
                     totalRealizadasNo++;
                 } else if ("Si".equalsIgnoreCase(agenda.getRealizado())) {
                     totalRealizadasSi++;
-                } else if ("Reagendado".equalsIgnoreCase(agenda.getRealizado())) {
+                } else if ("Reagendada".equalsIgnoreCase(agenda.getRealizado())) {
                     totalReagendadas++;
                 }
             }

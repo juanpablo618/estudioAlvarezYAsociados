@@ -15,7 +15,7 @@
 
 
         <dialog id="myDialog">Usted está por modificar el nro de Orden para confirmar presione ESC</dialog>
-
+        
         <script>
             function myFunction() {
                 document.getElementById("myDialog").showModal();
@@ -1015,16 +1015,12 @@
                                                      update="panelTotalTiempoConAportes"
                                                      icon="ui-icon-refresh"
                                                      styleClass="botonRefrescar boton-cancelar" style="margin-left:10px;margin-bottom:  10px !important;" />
-
-                                    <h:commandButton value="Imprimir reporte final"
-                                                     styleClass="boton-imprimir"
-                                                     onclick="form.target = '_blank';"
-                                                     disabled="#{empty situacionPrevisionalController.totalTiempoConAportes}"
-                                                     actionListener="#{downloadBean.imprimirReporteFinalSituacionPrevisional(
-                                                                          expedienteController.selected.nombre,
-                                                                          expedienteController.selected.apellido,
-                                                                          situacionPrevisionalController.totalTiempoConAportes)}"
-                                                     style="margin-left:10px;margin-bottom:10px;" />
+   
+                                    
+                                    
+                                    <p:commandButton value="Imprimir reporte final" type="button" icon="pi pi-print" styleClass="botonRefrescar boton-cancelar" style="margin-left:10px;margin-bottom:  10px !important;">
+                                        <p:printer target="panelTotalTiempoConAportes"/>
+                                    </p:commandButton>
 
                                     <h:panelGroup id="panelTotalTiempoConAportes">
                                             <p:inputTextarea readonly="true"

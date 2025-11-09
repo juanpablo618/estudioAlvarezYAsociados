@@ -155,14 +155,14 @@ public class ConsultaController implements Serializable {
     }
     
     public List<Consulta> getItemsExceptArchivadoODesistido() {
-            if (items == null) {
+        if (items == null) {
             items = getFacade().findAllExceptArchivedOrDismissed();
         }
         return items;
-    
+
     }
-    
-     public void loadFilteredConsultas() {
+
+    public void loadFilteredConsultas() {
         filteredConsultas = getFacade().findAllExceptArchivedOrDismissed();
     }
 

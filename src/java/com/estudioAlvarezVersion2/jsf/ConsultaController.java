@@ -200,16 +200,7 @@ public class ConsultaController implements Serializable {
     public void setFilteredConsultas(List<Consulta> filteredConsultas) {
         this.filteredConsultas = filteredConsultas;
     }
-
-    public int getCurrentDisplayedConsultasCount() {
-        if (filteredConsultas != null) {
-            return filteredConsultas.size();
-        }
-
-        List<Consulta> currentItems = getItemsExceptArchivadoODesistido();
-        return currentItems != null ? currentItems.size() : 0;
-    }
-
+    
     public Consulta prepareCreate() {
         selected = new Consulta();
         

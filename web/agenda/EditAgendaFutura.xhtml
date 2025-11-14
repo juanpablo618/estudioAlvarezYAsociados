@@ -38,7 +38,12 @@
                             <p:inputText readonly="true" id="orden" value="#{agendaController.selectedAgendaFutura.orden}" /><br></br><br></br>
 
                             <p:outputLabel value="Responsable" for="responsable" /><br></br>
-                            <p:inputText readonly="true" id="responsable" value="#{agendaController.selectedAgendaFutura.responsable}" /><br></br><br></br>
+                            <p:selectOneMenu id="responsable" value="#{agendaController.selectedAgendaFutura.responsable}">
+                                <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}"
+                                               var="empleado"
+                                               itemLabel="#{empleado.getNombreyApellido()}"
+                                               itemValue="#{empleado.getNombreyApellido()}" />
+                            </p:selectOneMenu><br></br><br></br>
 
                             <h:outputText value="Realizado: " /><br></br>
 

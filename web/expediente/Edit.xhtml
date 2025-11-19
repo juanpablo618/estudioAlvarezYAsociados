@@ -997,6 +997,30 @@
 
                              <br></br>
 
+                                    <div class="opcion-moratoria-24476" style="margin: 10px 0 0 10px; display: flex; align-items: center; gap: 12px;">
+                                        <p:selectBooleanButton id="btnCompraLey24476"
+                                                               value="#{situacionPrevisionalController.compraAportesConMoratoriaLey24476}"
+                                                               onLabel="True"
+                                                               offLabel="False"
+                                                               onIcon="pi pi-check"
+                                                               offIcon="pi pi-times">
+                                            <p:ajax update="panelCodigoEvaluacionSocioeconomica"/>
+                                        </p:selectBooleanButton>
+                                        <h:outputLabel for="btnCompraLey24476" value="Compra aportes con moratoria Ley 24.476" />
+                                    </div>
+
+                                    <h:panelGroup id="panelCodigoEvaluacionSocioeconomica"
+                                                  layout="block"
+                                                  rendered="#{situacionPrevisionalController.compraAportesConMoratoriaLey24476}"
+                                                  style="margin: 5px 0 15px 10px;">
+                                        <p:outputLabel for="codigoEvaluacionSocioeconomica" value="Código evaluación socioeconómica" />
+                                        <p:inputText id="codigoEvaluacionSocioeconomica"
+                                                     value="#{situacionPrevisionalController.codigoEvaluacionSocioeconomica}"
+                                                     placeholder="codigo evaluación socioeconómica"
+                                                     style="width: 320px;"
+                                                     autocomplete="off"/>
+                                    </h:panelGroup>
+
                                     <div class="opcion-aportes-futuros" style="margin: 10px 0 20px 10px; display: flex; align-items: center; gap: 8px;">
                                         <p:selectBooleanCheckbox id="chkAportesFuturos"
                                                                  value="#{situacionPrevisionalController.incluirAportesFuturosHastaEdadLegal}" />

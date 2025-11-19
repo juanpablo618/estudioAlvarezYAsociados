@@ -57,6 +57,8 @@ public class SituacionPrevisionalController implements Serializable {
     private String resultadoMoratoriaV4;
     private String resultadoMoratoriaV5;
     private boolean incluirAportesFuturosHastaEdadLegal = true;
+    private boolean compraAportesConMoratoriaLey24476 = true;
+    private String codigoEvaluacionSocioeconomica;
     private String tiempoInactivoHasta1993;
     private String tiempoInactivoDesde1993;
     private int totalDiasConMoratoria24476 = 0; // valor acumulado (se puede mostrar luego)
@@ -100,6 +102,22 @@ public class SituacionPrevisionalController implements Serializable {
 
     public void setIncluirAportesFuturosHastaEdadLegal(boolean incluirAportesFuturosHastaEdadLegal) {
         this.incluirAportesFuturosHastaEdadLegal = incluirAportesFuturosHastaEdadLegal;
+    }
+
+    public boolean isCompraAportesConMoratoriaLey24476() {
+        return compraAportesConMoratoriaLey24476;
+    }
+
+    public void setCompraAportesConMoratoriaLey24476(boolean compraAportesConMoratoriaLey24476) {
+        this.compraAportesConMoratoriaLey24476 = compraAportesConMoratoriaLey24476;
+    }
+
+    public String getCodigoEvaluacionSocioeconomica() {
+        return codigoEvaluacionSocioeconomica;
+    }
+
+    public void setCodigoEvaluacionSocioeconomica(String codigoEvaluacionSocioeconomica) {
+        this.codigoEvaluacionSocioeconomica = codigoEvaluacionSocioeconomica;
     }
     
     public String calcularResultadoPrevisional(int orden) {
@@ -160,7 +178,9 @@ public class SituacionPrevisionalController implements Serializable {
     List<YearMonth> sel27705 = meses27705.stream().sorted().limit(faltantes).toList();
     faltantes -= sel27705.size();
 
-    List<YearMonth> sel24476 = meses24476.stream().sorted().limit(faltantes).toList();
+    List<YearMonth> sel24476 = compraAportesConMoratoriaLey24476
+            ? meses24476.stream().sorted().limit(faltantes).toList()
+            : Collections.emptyList();
 
     int meses27705Usados = sel27705.size();
     int meses24476Usados = sel24476.size();
@@ -173,6 +193,11 @@ public class SituacionPrevisionalController implements Serializable {
     resumen.append("════════════════════════════════════════════\n");
     resumen.append("Meses con aportes registrados (brutos): ").append(mesesAportadosBrutos).append("\n");
     resumen.append("Meses con aportes computables (únicos): ").append(yaAportados).append("\n");
+    resumen.append("Compra Ley 24.476: ").append(compraAportesConMoratoriaLey24476 ? "Sí" : "No").append("\n");
+    if (compraAportesConMoratoriaLey24476 && tieneCodigoEvaluacionSocioeconomica()) {
+        resumen.append("Código evaluación socioeconómica: ")
+                .append(codigoEvaluacionSocioeconomica.trim()).append("\n");
+    }
     resumen.append("Meses agregados por Ley 24.476: ").append(meses24476Usados).append("\n");
     resumen.append("Meses agregados por Ley 27.705: ").append(meses27705Usados).append("\n");
     resumen.append("Total meses computados para jubilación: ").append(totalFinalMeses).append("\n");
@@ -760,6 +785,7 @@ public class SituacionPrevisionalController implements Serializable {
             LocalDate fechaEdadLegal = fnac.plusYears(edadLegal);
             LocalDate inicio18 = fnac.plusYears(18);
             LocalDate primerMesComputable = (inicio18.getDayOfMonth() == 1) ? inicio18 : inicio18.plusMonths(1).withDayOfMonth(1);
+            YearMonth ymPosterior18 = YearMonth.from(inicio18).plusMonths(1);
             DateTimeFormatter fDMY = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             DateTimeFormatter fMY  = DateTimeFormatter.ofPattern("MM/yyyy");
             LocalDate hoy = LocalDate.now();
@@ -858,16 +884,24 @@ public class SituacionPrevisionalController implements Serializable {
 
             // Moratorias (universo − meses aportados)
             YearMonth ymInicio = YearMonth.from(primerMesComputable);
-            List<YearMonth> libres24476 = rangoYM(ymInicio, YearMonth.from(LIMITE_24476)).stream()
-                    .filter(ym -> !mesesAportados.contains(ym)).collect(Collectors.toList());
-            List<YearMonth> libres27705 = hoy.isBefore(fechaEdadLegal)
-                    ? rangoYM(maxYM(ymInicio, YearMonth.from(INICIO_27705)), YearMonth.from(FIN_27705)).stream()
+            List<YearMonth> libres24476 = compraAportesConMoratoriaLey24476
+                    ? rangoYM(ymInicio, YearMonth.from(LIMITE_24476)).stream()
+                        .filter(ym -> !mesesAportados.contains(ym)).collect(Collectors.toList())
+                    : Collections.emptyList();
+            YearMonth inicioRango27705 = compraAportesConMoratoriaLey24476
+                    ? maxYM(ymInicio, YearMonth.from(INICIO_27705))
+                    : ymPosterior18;
+            boolean habilitar27705 = compraAportesConMoratoriaLey24476 ? hoy.isBefore(fechaEdadLegal) : true;
+            List<YearMonth> libres27705 = habilitar27705
+                    ? rangoYM(inicioRango27705, YearMonth.from(FIN_27705)).stream()
                         .filter(ym -> !mesesAportados.contains(ym)).collect(Collectors.toList())
                     : Collections.emptyList();
 
             int necesarios = faltanTrasComp;
             List<YearMonth> sel24476 = new ArrayList<>();
-            for (YearMonth ym : libres24476) { if (necesarios == 0) break; sel24476.add(ym); necesarios--; }
+            if (compraAportesConMoratoriaLey24476) {
+                for (YearMonth ym : libres24476) { if (necesarios == 0) break; sel24476.add(ym); necesarios--; }
+            }
 
             List<YearMonth> sel27705 = new ArrayList<>();
             if (necesarios > 0 && !libres27705.isEmpty()) {
@@ -918,22 +952,39 @@ public class SituacionPrevisionalController implements Serializable {
 
             sb.append("📘 LEY 24.476 (hasta 30/09/1993)\n");
             sb.append("────────────────────────────────\n");
-            sb.append("🔢 Meses posibles (huecos): ").append(libres24476.size()).append("\n");
-            if (!sel24476.isEmpty()) {
-                sb.append("✅ Seleccionados: ").append(agregados24476).append("\n");
-                sb.append(listarRangosYM(sel24476));
-            } else sb.append("— Sin selección (no necesarios o ya se llegó a 360)\n");
+            if (compraAportesConMoratoriaLey24476) {
+                sb.append("🔢 Meses posibles (huecos): ").append(libres24476.size()).append("\n");
+                if (!sel24476.isEmpty()) {
+                    sb.append("✅ Seleccionados: ").append(agregados24476).append("\n");
+                    sb.append("📌 Meses a regularizar con Ley 24.476: ").append(agregados24476).append("\n");
+                    sb.append(listarRangosYM(sel24476));
+                } else sb.append("— Sin selección (no necesarios o ya se llegó a 360)\n");
+                if (tieneCodigoEvaluacionSocioeconomica()) {
+                    sb.append("🔐 Código evaluación socioeconómica: ")
+                      .append(codigoEvaluacionSocioeconomica.trim()).append("\n");
+                }
+            } else {
+                sb.append("— Configuración actual: no se compran aportes por Ley 24.476 para este cálculo.\n");
+            }
             sb.append("\n");
 
             sb.append("📙 LEY 27.705 (01/10/1993 a 31/03/2012)\n");
             sb.append("───────────────────────────────────────\n");
-            if (hoy.isBefore(fechaEdadLegal)) {
+            if (habilitar27705) {
                 sb.append("🔢 Meses posibles (huecos): ").append(libres27705.size()).append("\n");
                 if (!sel27705.isEmpty()) {
                     sb.append("✅ Seleccionados (bloques consecutivos): ").append(agregados27705).append("\n");
                     sb.append(listarRangosYM(sel27705));
                 } else sb.append("— Sin selección (no necesarios o ya se llegó a 360)\n");
-            } else sb.append("— No aplicable: ya cumplió la edad jubilatoria (uso exclusivo en etapa prejubilatoria)\n");
+                if (!compraAportesConMoratoriaLey24476) {
+                    sb.append("• Intervalo utilizado: desde ")
+                      .append(inicioRango27705.atDay(1).format(fMY))
+                      .append(" hasta ")
+                      .append(YearMonth.from(FIN_27705).atDay(1).format(fMY)).append("\n");
+                }
+            } else {
+                sb.append("— No aplicable: ya cumplió la edad jubilatoria (uso exclusivo en etapa prejubilatoria)\n");
+            }
             sb.append("\n");
 
             sb.append("📈 TOTAL COMPUTADO (hasta edad legal)\n");
@@ -974,12 +1025,16 @@ public class SituacionPrevisionalController implements Serializable {
                     : "⚠️ Faltan " + (TOTAL_MESES_OBJETIVO - totalComputableDerecho) + " meses.");
 
             totalTiempoConAportes = sb.toString();
-            
+
  //           return sb.toString();
-            
-            
+
+
         }
-        
+
+    private boolean tieneCodigoEvaluacionSocioeconomica() {
+        return codigoEvaluacionSocioeconomica != null && !codigoEvaluacionSocioeconomica.trim().isEmpty();
+    }
+
     // ========================== HELPERS (pegar en la misma clase) ==========================
     private static class Intervalo { LocalDate inicio, fin; Intervalo(LocalDate i, LocalDate f){inicio=i;fin=f;} }
     private static class MesesDias { int meses, dias; MesesDias(int m,int d){meses=m;dias=d;} }

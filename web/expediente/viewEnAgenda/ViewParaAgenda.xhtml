@@ -92,7 +92,7 @@
 
 
                             </h:panelGrid>
-                            <p:commandButton rendered="#{expedienteController.selectedParaVerExp.tipoDeExpediente eq 'administrativo'}"  class="createButtonAgenda hoverBlue" actionListener="#{agendaController.create(expedienteController.selectedParaVerExp.nombre,expedienteController.selectedParaVerExp.apellido, expedienteController.selectedParaVerExp.orden)}" value="Guardar Agenda" title="guardar para exp. administrativo" update=":ExpedienteEditForm,:growl" oncomplete="handleSubmit(args,'ExpedienteViewDialogParaAgenda');" />
+                            <p:commandButton rendered="#{expedienteController.selectedParaVerExp.tipoDeExpediente eq 'administrativo'}"  class="createButtonAgenda hoverBlue" actionListener="#{agendaController.create(expedienteController.selectedParaVerExp.nombre,expedienteController.selectedParaVerExp.apellido, expedienteController.selectedParaVerExp.orden)}" value="Guardar Agenda" title="guardar para exp. administrativo" update=":ExpedienteViewDesdeAgendaForm,:growl" oncomplete="handleSubmit(args,'ExpedienteViewDialogParaAgendadesdeagenda');" />
 
                             <p:commandButton rendered="#{expedienteController.selectedParaVerExp.tipoDeExpediente eq 'judicial'}" class="createButtonAgenda hoverBlue" actionListener="#{agendaController.create(expedienteController.selectedParaVerExp.nombre, expedienteController.selectedParaVerExp.apellido, expedienteController.selectedParaVerExp.orden)}" value="Guardar Agenda"  update=":ExpedienteJudicialViewDesdeAgendaForm:tabViewEditExpJudicialEditForm:datalist5,:growl" title="guardar para exp. judicial" oncomplete="handleSubmit(args,'ExpedienteViewDialogParaAgendadesdeagenda');" />
                             

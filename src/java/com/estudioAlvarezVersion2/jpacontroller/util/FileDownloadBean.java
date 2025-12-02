@@ -42,9 +42,13 @@ public class FileDownloadBean implements Serializable {
 
     private StreamedContent fileFrenteDni;
     private StreamedContent fileDorsoDni;
+    
     private StreamedContent fileOtraDocumentacion;
     private StreamedContent fileOtraDocumentacionDos;
     private StreamedContent fileOtraDocumentacionTres;
+    private StreamedContent fileOtraDocumentacionCuatro;
+    private StreamedContent fileOtraDocumentacionCinco;
+    private StreamedContent fileOtraDocumentacionSeis;
 
     private StreamedContent fileCartaPoder;
     private StreamedContent fileHistorialLaboralAnses;
@@ -275,6 +279,30 @@ public class FileDownloadBean implements Serializable {
         this.fileOtraDocumentacionTres = fileOtraDocumentacionTres;
     }
 
+    public StreamedContent getFileOtraDocumentacionCuatro() {
+        return fileOtraDocumentacionCuatro;
+    }
+
+    public void setFileOtraDocumentacionCuatro(StreamedContent fileOtraDocumentacionCuatro) {
+        this.fileOtraDocumentacionCuatro = fileOtraDocumentacionCuatro;
+    }
+
+    public StreamedContent getFileOtraDocumentacionCinco() {
+        return fileOtraDocumentacionCinco;
+    }
+
+    public void setFileOtraDocumentacionCinco(StreamedContent fileOtraDocumentacionCinco) {
+        this.fileOtraDocumentacionCinco = fileOtraDocumentacionCinco;
+    }
+
+    public StreamedContent getFileOtraDocumentacionSeis() {
+        return fileOtraDocumentacionSeis;
+    }
+
+    public void setFileOtraDocumentacionSeis(StreamedContent fileOtraDocumentacionSeis) {
+        this.fileOtraDocumentacionSeis = fileOtraDocumentacionSeis;
+    }
+    
     public StreamedContent getFileConvenioDeHonorarios() {
         return fileConvenioDeHonorarios;
     }
@@ -1502,6 +1530,129 @@ public class FileDownloadBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
+    
+    public void downloadOtraDocumentacionCuatro(int orden) {
+        Connection con;
+        PreparedStatement ps;
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosOtraDocumentacionCuatro WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        fileOtraDocumentacionCuatro = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        fileOtraDocumentacionCuatro = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+
+                }
+
+                con.close();
+                if (fileOtraDocumentacionCuatro != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo Otra Documentación 4 descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                } else {
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo Otra Documentación 4 para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+
+            } else {
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro Otra Documentación 4 con ese nro de orden.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero Otra Documentación 4 no descargada");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+    
+    public void downloadOtraDocumentacionCinco(int orden) {
+        Connection con;
+        PreparedStatement ps;
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosOtraDocumentacionCinco WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        fileOtraDocumentacionCinco = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        fileOtraDocumentacionCinco = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+
+                }
+
+                con.close();
+                if (fileOtraDocumentacionCinco != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo Otra Documentación 5 descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                } else {
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo Otra Documentación 5 para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+
+            } else {
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro Otra Documentación 5 con ese nro de orden.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero Otra Documentación 5 no descargada");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+    
+    public void downloadOtraDocumentacionSeis(int orden) {
+        Connection con;
+        PreparedStatement ps;
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosOtraDocumentacionSeis WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    InputStream stream = rs.getBinaryStream("documento");
+                    if (rs.getString("nombreDelDocumento").contains(".jpg")) {
+                        fileOtraDocumentacionSeis = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                    } else {
+                        fileOtraDocumentacionSeis = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                    }
+
+                }
+
+                con.close();
+                if (fileOtraDocumentacionSeis != null) {
+                    FacesMessage msg = new FacesMessage("Exito", "archivo Otra Documentación 6 descargado exitosamente.");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                } else {
+                    FacesMessage msg = new FacesMessage(ERROR, "No existe archivo Otra Documentación 6 para este nro de orden: " + orden);
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
+
+            } else {
+                FacesMessage msg = new FacesMessage(ERROR, "no se encontro Otra Documentación 6 con ese nro de orden.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage(ERROR, "Fichero Otra Documentación 6 no descargada");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
 
     public void downloadDocumentoPorNombre(int orden, String nombre) {
         Connection con;
@@ -2252,6 +2403,93 @@ public class FileDownloadBean implements Serializable {
         }
         if ("".equals(nombre)) {
             return "no existe archivo para Otra Documentación Tres";
+        } else {
+            return nombre;
+
+        }
+    }
+    
+    public String buscarNombreDeArchivoOtraDocumentacionCuatro(int orden) {
+        Connection con;
+        PreparedStatement ps;
+        String nombre = "";
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosOtraDocumentacionCuatro WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo otra documentación 4 no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe archivo para Otra Documentación 4";
+        } else {
+            return nombre;
+
+        }
+    }
+    
+    public String buscarNombreDeArchivoOtraDocumentacionCinco(int orden) {
+        Connection con;
+        PreparedStatement ps;
+        String nombre = "";
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosOtraDocumentacionCinco WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo otra documentación 5 no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe archivo para Otra Documentación 5";
+        } else {
+            return nombre;
+
+        }
+    }
+    
+    public String buscarNombreDeArchivoOtraDocumentacionSeis(int orden) {
+        Connection con;
+        PreparedStatement ps;
+        String nombre = "";
+        try {
+            if (orden != 0) {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosOtraDocumentacionSeis WHERE nroDeOrden = (?);");
+                ps.setInt(1, orden);
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    nombre = rs.getString(1);
+                }
+                con.close();
+            }
+        } catch (SQLException e) {
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo otra documentación 6 no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if ("".equals(nombre)) {
+            return "no existe archivo para Otra Documentación 6";
         } else {
             return nombre;
 

@@ -676,7 +676,7 @@
                                      toggleSpeed="500"
                                      closeSpeed="500"  
                                      >
-                                <div class="contenedorcard"  >
+                                <div class="contenedorcard">
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
                                         <p:outputLabel value="Otra Documentación:"  styleClass="titulopdfjpg"/><br></br>
@@ -740,7 +740,62 @@
                                             <p:commandButton  class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadOtraDocumentacionTres(expedienteController.selected.orden)}" ajax="false">
                                                 <p:fileDownload value="#{fileDownloadBean.fileOtraDocumentacionTres}" />
                                             </p:commandButton>
-                                        </div></div></div>
+                                        </div></div>
+                                    
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+                                        <p:outputLabel value="Otra Documentación 4:"  styleClass="titulopdfjpg"/><br></br>
+
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionCuatro(expedienteController.selected.orden)}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionCuatro(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileOtraDocumentacion}" mode="simple"/>
+
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadOtraDocumentacionCuatro(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton  class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadOtraDocumentacionCuatro(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileOtraDocumentacionCuatro}" />
+                                            </p:commandButton>
+                                        </div></div>
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionCinco(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+                                        <p:outputLabel value="Otra Documentación 5:"  styleClass="titulopdfjpg"/><br></br>
+
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionCinco(expedienteController.selected.orden)}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionCinco(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileOtraDocumentacionCinco}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadOtraDocumentacionCinco(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton  class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadOtraDocumentacionCinco(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileOtraDocumentacionCinco}" />
+                                            </p:commandButton>
+                                        </div>
+
+                                    </div>
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionSeis(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+                                        <p:outputLabel value="Otra Documentación 6:"  styleClass="titulopdfjpg"/><br></br>
+
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionSeis(expedienteController.selected.orden)}"  
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionSeis(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileOtraDocumentacionSeis}" mode="simple"/>
+
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadOtraDocumentacionSeis(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton  class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadOtraDocumentacionSeis(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileOtraDocumentacionSeis}" />
+                                            </p:commandButton>
+                                        </div></div>
+                                </div>
                             </p:panel></p:tab>
 
                         <p:tab>

@@ -82,7 +82,7 @@
 
                        <p:growl life="5000" id="message" showDetail="true" />
  
-                       <p:column filterBy="#{item.fechaDeAtencionFormateada}" filterMatchMode="exact" style="text-align: left; width: 10%" headerText="FECHA DE ATENCIÓN"  styleClass="centeredColumnContent#{item.estadoConsulta}">
+                       <p:column sortBy="#{item.fechaDeAtencionFormateada}" filterBy="#{item.fechaDeAtencionFormateada}" filterMatchMode="exact" style="text-align: left; width: 10%" headerText="FECHA DE ATENCIÓN"  styleClass="centeredColumnContent#{item.estadoConsulta}">
                         <h:outputText style="width: 10%" value="#{item.fechaDeAtencion}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>

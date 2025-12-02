@@ -8,8 +8,8 @@
     
     <ui:composition>
 
-        <p:dialog id="ComunicacionCreateDlgExpAdm" widgetVar="ComunicacionCreateDialogExpAdm" modal="true" resizable="true" appendTo="@(body)" header="Crear Comunicación Nueva">
-            <h:form id="ComunicacionCreateFormExpAdm">
+        <p:dialog id="ComunicacionCreateDlgExpAdmDesdeAgenda" widgetVar="ComunicacionCreateDialogExpAdmDesdeAgenda" modal="true" resizable="true" appendTo="@(body)" header="Crear Comunicación Nueva">
+            <h:form id="ComunicacionCreateFormExpAdmDesdeAgenda">
                 <h:panelGroup id="display">
                     <h:panelGrid id="panelGridComunicacionCreateFormExpAdm" columns="4">
                      
@@ -33,10 +33,10 @@
                      </h:panelGrid>
                     <p:commandButton actionListener="#{comunicacionController.createComunicacion(comunicacionController.selectedParaComunicacionNuevo.fecha, comunicacionController.selectedParaComunicacionNuevo.descripcion,comunicacionController.selectedParaComunicacionNuevo.responsable ,comunicacionController.selectedParaComunicacionNuevo.orden)}"
                                          class="botonCrear" value="#{bundle.Save}" 
-                                         oncomplete="handleSubmit(args,'ComunicacionCreateDialogExpAdm');"  
-                                         update="display,:ExpedienteEditForm:tabViewEditExpAdm,:growl"/>
+                                         oncomplete="handleSubmit(args,'ComunicacionCreateDialogExpAdmDesdeAgenda');"  
+                                         update="display,:ExpedienteViewDesdeAgendaForm,:growl"/>
                   
-                        <p:commandButton value="#{bundle.Cancel}" onclick="TurnoCreateDialog.hide()"/>
+                        <p:commandButton value="#{bundle.Cancel}" onclick="PF('ComunicacionCreateDialogExpAdmDesdeAgenda').hide();"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
@@ -44,3 +44,4 @@
         
     </ui:composition>
 </html>
+

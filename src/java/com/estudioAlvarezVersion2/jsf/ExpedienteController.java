@@ -1275,7 +1275,7 @@ public class ExpedienteController implements Serializable {
         Date siguiente = eventos.get(i + 1).getFecha();
         if (actual != null && siguiente != null) {
             long diffMs  = siguiente.getTime() - actual.getTime();
-            long dias    = TimeUnit.MILLISECONDS.toDays(diffMs);
+            long dias    = Math.abs(TimeUnit.MILLISECONDS.toDays(diffMs));
             eventos.get(i).setDiasHastaProximaFecha(dias);
         } else {
             eventos.get(i).setDiasHastaProximaFecha(null);

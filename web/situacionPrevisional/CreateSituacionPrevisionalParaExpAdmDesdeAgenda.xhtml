@@ -8,8 +8,8 @@
     
     <ui:composition>
 
-        <p:dialog id="SituacionPrevisionalCreateDlgExpAdm" widgetVar="SituacionPrevisionalCreateDialogExpAdm" modal="true" resizable="true" appendTo="@(body)" header="Crear Situacion Previsional Nueva">
-            <h:form id="SituacionPrevisionalCreateFormExpAdm">
+        <p:dialog id="SituacionPrevisionalCreateDlgExpAdmDesdeAgenda" widgetVar="SituacionPrevisionalCreateDialogExpAdmDesdeAgenda" modal="true" resizable="true" appendTo="@(body)" header="Crear Situacion Previsional Nueva">
+            <h:form id="SituacionPrevisionalCreateFormExpAdmDesdeAgenda">
                 <h:panelGroup id="display">
                     <h:panelGrid id="panelGridSituacionPrevisionalCreateFormExpAdm" columns="4">
                      
@@ -35,10 +35,10 @@
                                                        situacionPrevisionalController.selectedNuevo.observaciones,
                                                        situacionPrevisionalController.selectedNuevo.orden)}"
                                          class="botonCrear" value="#{bundle.Save}" 
-                                         oncomplete="handleSubmit(args,'SituacionPrevisionalCreateDialogExpAdm');"  
-                                         update="display,:ExpedienteEditForm:tabViewEditExpAdm,:growl"/>
+                                         oncomplete="handleSubmit(args,'SituacionPrevisionalCreateDialogExpAdmDesdeAgenda');"  
+                                         update="display,:ExpedienteViewDesdeAgendaForm,:growl"/>
                   
-                        <p:commandButton value="#{bundle.Cancel}" onclick="PF('SituacionPrevisionalCreateDialogExpAdm').hide();" />
+                        <p:commandButton value="#{bundle.Cancel}" onclick="PF('SituacionPrevisionalCreateDialogExpAdmDesdeAgenda').hide();" />
                 </h:panelGroup>
             </h:form>
         </p:dialog>

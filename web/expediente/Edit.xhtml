@@ -15,7 +15,7 @@
 
 
         <dialog id="myDialog">Usted está por modificar el nro de Orden para confirmar presione ESC</dialog>
-        
+
         <script>
             function myFunction() {
                 document.getElementById("myDialog").showModal();
@@ -110,13 +110,13 @@
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_cuit}" for="cuit"  />
                                     <p:inputText required="true" requiredMessage="CUIT ES REQUERIDO" id="cuit" value="#{expedienteController.selected.cuit}" title="#{bundle.CreateExpedienteTitle_cuit}" />
 
-                                    <p:outputLabel value="Edad:"  style="visibility:hidden"/>
-                                    <p:outputLabel value="#{expedienteController.getEdadYComparacion()}"  />
-
 
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento" />
                                     <p:calendar required="true" styleClass="inputfecha" requiredMessage="Fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" showOn="button">
                                     </p:calendar>
+
+                                    <p:outputLabel value="Edad:"  style="visibility:hidden"/>
+                                    <p:outputLabel value="#{expedienteController.getEdadYComparacion()}"  />
 
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_sexo}" for="sexo" />
                                     <p:selectOneMenu  id="sexo" value="#{expedienteController.selected.sexo}" >
@@ -129,6 +129,23 @@
                                         <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
                                         <f:selectItem itemLabel="Extranjero" itemValue="Extranjero" />
                                     </p:selectOneMenu>
+
+                                    <p:outputLabel value="Estado Civil:" for="estadoCivil" />
+                                    <p:selectOneMenu id="estadoCivil" value="#{expedienteController.selected.estadoCivil}" >
+                                        <f:selectItem itemLabel="SOLTERO" itemValue="SOLTERO" />
+                                        <f:selectItem itemLabel="CASADO" itemValue="CASADO" />
+                                        <f:selectItem itemLabel="SEPARADO DE HECHO" itemValue="SEPARADO DE HECHO" />
+                                        <f:selectItem itemLabel="DIVORCIADO" itemValue="DIVORCIADO" />
+                                        <f:selectItem itemLabel="VIUDO" itemValue="VIUDO" />
+                                        <p:ajax update="inputDatosDelConyuge" />
+                                    </p:selectOneMenu>
+                                    <h:panelGrid id="inputDatosDelConyuge" columns="1"
+                                                 cellpadding="0"
+                                                 style="width:100%; border-collapse:separate;" >
+                                        <!-- DATOS CONYUGE -->
+                                        <p:outputLabel value="Datos Del conyuge:" rendered="#{expedienteController.selected.estadoCivil == 'CASADO' or expedienteController.selected.estadoCivil == 'SEPARADO DE HECHO' or expedienteController.selected.estadoCivil == 'DIVORCIADO' or expedienteController.selected.estadoCivil == 'VIUDO'}" />
+                                        <p:inputTextarea rendered="#{expedienteController.selected.estadoCivil == 'CASADO' or expedienteController.selected.estadoCivil == 'SEPARADO DE HECHO' or expedienteController.selected.estadoCivil == 'DIVORCIADO' or expedienteController.selected.estadoCivil == 'VIUDO'}" value="#{expedienteController.selected.datosDelConyuge}" />
+                                    </h:panelGrid>
 
                                     <h:panelGrid  id="inputPanelCantHijos"
                                                   columns="1"
@@ -149,20 +166,7 @@
                                 </div> 
 
                                 <div class="columna">
-                                    <p:outputLabel value="Orden:" />
-                                    <p:inputText onchange="myFunction()" id="orden" value="#{expedienteController.selected.orden}" title="#{bundle.EditExpedienteTitle_orden}" style="float: left;"/>
 
-                                    <p:outputLabel value="Fecha de Atención:" for="fechaDeAtencion"  />
-                                    <p:calendar class="inputFechaDeAtencion" id="fechaDeAtencion" styleClass="inputfecha" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion" showOn="button">
-                                    </p:calendar>
-
-
-                                    <p:outputLabel value="Activo:" for="activo"  />
-                                    <p:selectOneMenu id="activo" value="#{expedienteController.selected.activo}"  >
-                                        <f:selectItem itemLabel=" -- Elige un estado --"  noSelectionOption="true"  />
-                                        <f:selectItem itemLabel="Si" itemValue="Si" />
-                                        <f:selectItem itemLabel="No" itemValue="No" />
-                                    </p:selectOneMenu>
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono"  />    
 
                                     <div class="telefonoinput">
@@ -177,22 +181,54 @@
                                     <p:outputLabel value="Teléfono Auxiliar" for="telefonoAuxiliar"  />            
                                     <p:inputTextarea    id="telefonoAuxiliar" value="#{expedienteController.selected.telefonoAuxiliar}" cols="22" title="Telèfono Auxiliar" style="height: 21px;"/>
 
-                                    <p:outputLabel value="Estado Civil:" for="estadoCivil" />
-                                    <p:selectOneMenu id="estadoCivil" value="#{expedienteController.selected.estadoCivil}" >
-                                        <f:selectItem itemLabel="SOLTERO" itemValue="SOLTERO" />
-                                        <f:selectItem itemLabel="CASADO" itemValue="CASADO" />
-                                        <f:selectItem itemLabel="SEPARADO DE HECHO" itemValue="SEPARADO DE HECHO" />
-                                        <f:selectItem itemLabel="DIVORCIADO" itemValue="DIVORCIADO" />
-                                        <f:selectItem itemLabel="VIUDO" itemValue="VIUDO" />
-                                        <p:ajax update="inputDatosDelConyuge" />
+
+                                    <p:outputLabel value="Código Postal:" for="codigoPostal" />
+                                    <p:inputText id="codigoPostal" value="#{expedienteController.selected.codigoPostal}"  title="codigoPostal"/>
+
+
+                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_direccion}" for="direccion" />
+                                    <p:inputText id="direccion" value="#{expedienteController.selected.direccion}" title="#{bundle.CreateExpedienteTitle_direccion}" />
+
+                                    <p:outputLabel value="Altura:" for="nroDeAltura"  />
+                                    <p:inputText id="nroDeAltura" value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.CreateExpedienteTitle_nroDeAltura}" />
+
+                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_piso}" for="piso"  />
+                                    <p:inputText id="piso" value="#{expedienteController.selected.piso}" title="#{bundle.CreateExpedienteTitle_piso}"  />
+
+                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_depto}" for="depto" />
+                                    <p:inputText id="depto" value="#{expedienteController.selected.depto}"  title="#{bundle.CreateExpedienteTitle_depto}"  />
+
+                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_barrio}" for="barrio"  />
+                                    <p:inputText id="barrio" value="#{expedienteController.selected.barrio}"     title="#{bundle.CreateExpedienteTitle_barrio}" />
+
+                                    <p:outputLabel value="Localidad:" for="localidad"  />
+                                    <p:inputText id="localidad" value="#{expedienteController.selected.localidad}" title="localidad"/>
+
+                                </div>
+
+                                <div class="columna">
+                                    <p:outputLabel value="Fecha de Atención:" for="fechaDeAtencion"  />
+                                    <p:calendar class="inputFechaDeAtencion" id="fechaDeAtencion" styleClass="inputfecha" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion" showOn="button">
+                                    </p:calendar>
+
+
+                                    <p:outputLabel value="Activo:" for="activo"  />
+                                    <p:selectOneMenu id="activo" value="#{expedienteController.selected.activo}"  >
+                                        <f:selectItem itemLabel=" -- Elige un estado --"  noSelectionOption="true"  />
+                                        <f:selectItem itemLabel="Si" itemValue="Si" />
+                                        <f:selectItem itemLabel="No" itemValue="No" />
                                     </p:selectOneMenu>
-                                    <h:panelGrid id="inputDatosDelConyuge" columns="1"
-                                                 cellpadding="0"
-                                                 style="width:100%; border-collapse:separate;" >
-                                        <!-- DATOS CONYUGE -->
-                                        <p:outputLabel value="Datos Del conyuge:" rendered="#{expedienteController.selected.estadoCivil == 'CASADO' or expedienteController.selected.estadoCivil == 'SEPARADO DE HECHO' or expedienteController.selected.estadoCivil == 'DIVORCIADO' or expedienteController.selected.estadoCivil == 'VIUDO'}" />
-                                        <p:inputTextarea rendered="#{expedienteController.selected.estadoCivil == 'CASADO' or expedienteController.selected.estadoCivil == 'SEPARADO DE HECHO' or expedienteController.selected.estadoCivil == 'DIVORCIADO' or expedienteController.selected.estadoCivil == 'VIUDO'}" value="#{expedienteController.selected.datosDelConyuge}" />
-                                    </h:panelGrid>
+                                    <p:outputLabel  value="Tiene inscripción AUT/MT: " for="inscripcionAut" />
+                                    <p:selectOneMenu   id="inscripcionAut" value="#{expedienteController.selected.inscripcionAut}" >
+                                        <f:selectItem itemLabel="SI" itemValue="SI" />
+                                        <f:selectItem itemLabel="NO" itemValue="NO" />
+                                    </p:selectOneMenu>   
+
+                                    <p:outputLabel  value="Posible Reclamo ART: " for="reclamoArt" />
+                                    <p:selectOneMenu id="reclamoArt" value="#{expedienteController.selected.reclamoArt}" >
+                                        <f:selectItem itemLabel="SI" itemValue="SI" />
+                                        <f:selectItem itemLabel="NO" itemValue="NO" />
+                                    </p:selectOneMenu>   
 
                                     <p:outputLabel value="Cobra Beneficio" for="cobraBeneficio"  />
                                     <p:selectOneMenu  id="cobraBeneficio" value="#{expedienteController.selected.cobraBeneficio}" editable="false">
@@ -237,48 +273,54 @@
                                         <p:inputText rendered="#{expedienteController.selected.trabajando == 'SI'}" id="obraSocial" value="#{expedienteController.selected.obraSocial}" title="obraSocial"/>
 
                                     </h:panelGrid>
-                                </div>
-
-                                <div class="columna">
-
-                                    <p:outputLabel  value="Tiene inscripción AUT/MT: " for="inscripcionAut" />
-                                    <p:selectOneMenu   id="inscripcionAut" value="#{expedienteController.selected.inscripcionAut}" >
-                                        <f:selectItem itemLabel="SI" itemValue="SI" />
-                                        <f:selectItem itemLabel="NO" itemValue="NO" />
-                                    </p:selectOneMenu>   
-
-                                    <p:outputLabel  value="Posible Reclamo ART: " for="reclamoArt" />
-                                    <p:selectOneMenu id="reclamoArt" value="#{expedienteController.selected.reclamoArt}" >
-                                        <f:selectItem itemLabel="SI" itemValue="SI" />
-                                        <f:selectItem itemLabel="NO" itemValue="NO" />
-                                    </p:selectOneMenu>   
-
-
-
-                                    <p:outputLabel value="Código Postal:" for="codigoPostal" />
-                                    <p:inputText id="codigoPostal" value="#{expedienteController.selected.codigoPostal}"  title="codigoPostal"/>
-
-
-                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_direccion}" for="direccion" />
-                                    <p:inputText id="direccion" value="#{expedienteController.selected.direccion}" title="#{bundle.CreateExpedienteTitle_direccion}" />
-
-                                    <p:outputLabel value="Altura:" for="nroDeAltura"  />
-                                    <p:inputText id="nroDeAltura" value="#{expedienteController.selected.nroDeAltura}" title="#{bundle.CreateExpedienteTitle_nroDeAltura}" />
-
-                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_piso}" for="piso"  />
-                                    <p:inputText id="piso" value="#{expedienteController.selected.piso}" title="#{bundle.CreateExpedienteTitle_piso}"  />
-
-                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_depto}" for="depto" />
-                                    <p:inputText id="depto" value="#{expedienteController.selected.depto}"  title="#{bundle.CreateExpedienteTitle_depto}"  />
-
-                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_barrio}" for="barrio"  />
-                                    <p:inputText id="barrio" value="#{expedienteController.selected.barrio}"     title="#{bundle.CreateExpedienteTitle_barrio}" />
-
-                                    <p:outputLabel value="Localidad:" for="localidad"  />
-                                    <p:inputText id="localidad" value="#{expedienteController.selected.localidad}" title="localidad"/>
 
                                 </div>
+                                <div  class="columna"> 
 
+                                    <div class="roww1"> 
+                                        <div class="imagenentidad">
+                                            <a href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=miansesv2" target="_blank" >
+                                                <img src="../faces/resources/images/anses.png" ></img>
+                                            </a>
+                                        </div>
+
+                                        <div>
+
+                                            <p:outputLabel value="Clave Seguridad Social" for="claveSeguridadSocial"  />
+                                            <p:inputText id="claveSeguridadSocial" value="#{expedienteController.selected.claveSeguridadSocial}" title="clave de seguridad social"/>
+
+                                        </div>
+                                    </div>
+                                    <div class="roww1"> 
+                                        <div class="arca" >
+                                            <a href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank" >
+                                                <img src="../faces/resources/images/arca.jpg"  ></img>
+                                            </a>
+                                        </div>
+                                        <div>
+
+
+                                            <p:outputLabel value="Clave Fiscal" for="claveFiscal"/>
+                                            <p:inputText id="claveFiscal" value="#{expedienteController.selected.claveFiscal}" title="clave Fiscal"/>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="roww1">
+                                        <div class="imagenentidad">
+                                            <a href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" >
+                                                <img src="../faces/resources/images/CIDI.png"></img>
+                                            </a>
+                                        </div>
+                                        <div>
+
+
+                                            <p:outputLabel value="Clave CIDI" for="claveCidi"  />
+                                            <p:inputText id="claveCidi" value="#{expedienteController.selected.claveCidi}" title="clave Cidi"/>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </p:tab>
                         <p:tab >
@@ -383,69 +425,7 @@
                                 </div>
                             </div>
                         </p:tab>
-                        <p:tab >
-                            <f:facet name="title">
-                                <h:outputText id="iconoClaves"  styleClass="fa fa-key" style="font-size: 1.2rem; cursor: pointer;" />
-                                <p:tooltip for="iconoClaves" value="Claves" />
-                            </f:facet>
 
-                            <div class="cardsentidades">
-                                <div class="clavesentidades">                                
-
-                                    <div style="margin-right: 20px"> 
-                                        <p:outputLabel value="CUIT" for="claveCidi"  />
-                                    </div>
-
-                                    <div>
-                                        <p:inputText value="#{expedienteController.selected.cuit}" readonly="true" />
-                                    </div>
-                                    <div class="roww1"> 
-                                        <div class="imagenentidad">
-                                            <a href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=miansesv2" target="_blank" >
-                                                <img src="../faces/resources/images/anses.png" ></img>
-                                            </a>
-                                        </div>
-
-                                        <div>
-
-                                            <p:outputLabel value="Clave Seguridad Social" for="claveSeguridadSocial"  />
-                                            <p:inputText id="claveSeguridadSocial" value="#{expedienteController.selected.claveSeguridadSocial}" title="clave de seguridad social"/>
-
-                                        </div>
-                                    </div>
-                                    <div class="roww1"> 
-                                        <div class="arca" >
-                                            <a href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank" >
-                                                <img src="../faces/resources/images/arca.jpg"  ></img>
-                                            </a>
-                                        </div>
-                                        <div>
-
-
-                                            <p:outputLabel value="Clave Fiscal" for="claveFiscal"/>
-                                            <p:inputText id="claveFiscal" value="#{expedienteController.selected.claveFiscal}" title="clave Fiscal"/>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="roww1">
-                                        <div class="imagenentidad">
-                                            <a href="https://cidi.cba.gov.ar/Cuenta/Login" target="_blank" >
-                                                <img src="../faces/resources/images/CIDI.png"></img>
-                                            </a>
-                                        </div>
-                                        <div>
-
-
-                                            <p:outputLabel value="Clave CIDI" for="claveCidi"  />
-                                            <p:inputText id="claveCidi" value="#{expedienteController.selected.claveCidi}" title="clave Cidi"/>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </p:tab>
                         <p:tab id="tabComunicaciones" >
                             <f:facet name="title">
                                 <h:outputText id="iconoComunicaciones"  styleClass="fa fa-comments" style="font-size: 1.2rem; cursor: pointer;" />
@@ -461,8 +441,7 @@
                                 </div>     
 
                                 <p:dataTable id="datalist4"
-                                             value="#{expedienteController.verComunicacionesPorNroDeOrden(expedienteController.selected.orden)}"
-                                             var="item"
+                                             value="#{expedienteController.verComunicacionesPorNroDeOrden(expedienteController.selected.orden)}" var="item"
                                              selectionMode="single" selection="#{comunicacionController.selected}"
                                              rowKey="#{item.idComunicacion}"
                                              paginator="true"
@@ -585,7 +564,7 @@
 
                                         <p:column style="width:55%"   headerText="Descripción" >
                                             <div class="apilarelementos">
-                                               <h:outputText value="#{item.descripcion}"  title="#{item.descripcion}"/>
+                                                <h:outputText value="#{item.descripcion}"  title="#{item.descripcion}"/>
                                             </div>
                                         </p:column>
                                         <p:column  headerText="Responsable"  class="iconoturnorespondable"  >
@@ -812,54 +791,54 @@
                                                  paginator="true"
                                                  rows="10"
                                                  rendered="true"
-                                                rowsPerPageTemplate="10,20,40,50"
+                                                 rowsPerPageTemplate="10,20,40,50"
                                                  emptyMessage="no hay turnos futuros agregados" 
                                                  filteredValue="#{expedienteController.filteredTurnosFuturos}"
                                                  style="display: table;padding: 20px"
                                                  styleClass="tabla-tailwind"
                                                  >
-                                        
+
                                         <p:ajax event="rowSelect"  />
                                         <p:ajax event="rowUnselect" />
                                         <p:growl life="5000" id="message4" showDetail="true" />
 
-                                         <p:column style="text-align: start !important; width: 60%">
-                                        <f:facet name="header">
-                                            <h:outputText value="Descripción"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.observacion}"/>
-                                    </p:column>
+                                        <p:column style="text-align: start !important; width: 60%">
+                                            <f:facet name="header">
+                                                <h:outputText value="Descripción"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.observacion}"/>
+                                        </p:column>
 
-                                    <p:column filterBy="#{item.realizado}"  filterMatchMode="exact" headerText="Realizado">
-                                        <f:facet name="filter">
-                                            <p:selectOneMenu onchange="PF('tablaTurnosFuturos').filter()">
-                                                <f:selectItem itemLabel="Todos" itemValue="" />
-                                                <f:selectItem itemLabel="Sí" itemValue="SI" />
-                                                <f:selectItem itemLabel="No" itemValue="NO" />
-                                                <f:selectItem itemLabel="Pendiente" itemValue="Pendiente" />
-                                            </p:selectOneMenu>
-                                        </f:facet>
-                                        <div class="apilarelementos"> 
-                                            <h:outputText value="#{item.realizado eq 'Si' ? 'Realizado' : (item.realizado eq 'Pendiente' ? 'Pendiente' : 'Por Atender')}" styleClass="estadofinalizado#{item.realizado}" />
+                                        <p:column filterBy="#{item.realizado}"  filterMatchMode="exact" headerText="Realizado">
+                                            <f:facet name="filter">
+                                                <p:selectOneMenu onchange="PF('tablaTurnosFuturos').filter()">
+                                                    <f:selectItem itemLabel="Todos" itemValue="" />
+                                                    <f:selectItem itemLabel="Sí" itemValue="SI" />
+                                                    <f:selectItem itemLabel="No" itemValue="NO" />
+                                                    <f:selectItem itemLabel="Pendiente" itemValue="Pendiente" />
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                            <div class="apilarelementos"> 
+                                                <h:outputText value="#{item.realizado eq 'Si' ? 'Realizado' : (item.realizado eq 'Pendiente' ? 'Pendiente' : 'Por Atender')}" styleClass="estadofinalizado#{item.realizado}" />
 
-                                            <h:outputText  value="#{item.horaYDia}" styleClass="fechacolumna" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-                                            </h:outputText>
-                                        </div> 
-                                    </p:column>
-                                    <p:column filterBy="#{item.responsable}" headerText="Responsable"  filterMatchMode="contains" style="width:10%" class="iconoturnorespondable" >
+                                                <h:outputText  value="#{item.horaYDia}" styleClass="fechacolumna" >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                                </h:outputText>
+                                            </div> 
+                                        </p:column>
+                                        <p:column filterBy="#{item.responsable}" headerText="Responsable"  filterMatchMode="contains" style="width:10%" class="iconoturnorespondable" >
 
-                                        <div style="display:flex;justify-content: center">
-                                            <h:outputText id="responsableicon"  
-                                                          value="#{expedienteController.getIniciales(item.responsable)}"
-                                                          style="color:white; border-radius:50%; width:28px; height:28px;
-                                                          display:flex; align-items:center; justify-content:center;
-                                                          font-size:0.8rem;
-                                                          font-weight: 500 !important;
-                                                          background-color: #{expedienteController.getColor(item.responsable)};" />
-                                            <p:tooltip for="responsableicon" value="#{item.responsable}" />
-                                        </div>
-                                    </p:column>
+                                            <div style="display:flex;justify-content: center">
+                                                <h:outputText id="responsableicon"  
+                                                              value="#{expedienteController.getIniciales(item.responsable)}"
+                                                              style="color:white; border-radius:50%; width:28px; height:28px;
+                                                              display:flex; align-items:center; justify-content:center;
+                                                              font-size:0.8rem;
+                                                              font-weight: 500 !important;
+                                                              background-color: #{expedienteController.getColor(item.responsable)};" />
+                                                <p:tooltip for="responsableicon" value="#{item.responsable}" />
+                                            </div>
+                                        </p:column>
 
                                         <p:column  style="text-align: center; width: 10%" headerText="Acciones">
 
@@ -995,68 +974,66 @@
 
                                 </p:dataTable>
 
-                             <br></br>
+                                <br></br>
 
-                                    <div class="opcion-moratoria-24476" style="margin: 10px 0 0 10px; display: flex; align-items: center; gap: 12px;">
-                                        <p:selectBooleanButton id="btnCompraLey24476"
-                                                               value="#{situacionPrevisionalController.compraAportesConMoratoriaLey24476}"
-                                                               onLabel="True"
-                                                               offLabel="False"
-                                                               onIcon="pi pi-check"
-                                                               offIcon="pi pi-times">
-                                            <p:ajax update="panelCodigoEvaluacionSocioeconomica"/>
-                                        </p:selectBooleanButton>
-                                        <h:outputLabel for="btnCompraLey24476" value="Compra aportes con moratoria Ley 24.476" />
-                                    </div>
+                                <div class="opcion-moratoria-24476" style="margin: 10px 0 0 10px; display: flex; align-items: center; gap: 12px;">
+                                    <p:selectBooleanCheckbox id="btnCompraLey24476"
+                                                             value="#{situacionPrevisionalController.compraAportesConMoratoriaLey24476}">
+                                        <p:ajax update="panelCodigoEvaluacionSocioeconomica"/>
+                                    </p:selectBooleanCheckbox>
 
-                                    <h:panelGroup id="panelCodigoEvaluacionSocioeconomica"
-                                                  layout="block"
-                                                  rendered="#{situacionPrevisionalController.compraAportesConMoratoriaLey24476}"
-                                                  style="margin: 5px 0 15px 10px;">
-                                        <p:outputLabel for="codigoEvaluacionSocioeconomica" value="Código evaluación socioeconómica" />
-                                        <p:inputText id="codigoEvaluacionSocioeconomica"
-                                                     value="#{situacionPrevisionalController.codigoEvaluacionSocioeconomica}"
-                                                     placeholder="codigo evaluación socioeconómica"
-                                                     style="width: 320px;"
-                                                     autocomplete="off"/>
-                                    </h:panelGroup>
+                                    <h:outputLabel for="btnCompraLey24476" 
+                                                   value="Compra aportes con moratoria Ley 24.476" />
+                                </div>
 
-                                    <div class="opcion-aportes-futuros" style="margin: 10px 0 20px 10px; display: flex; align-items: center; gap: 8px;">
-                                        <p:selectBooleanCheckbox id="chkAportesFuturos"
-                                                                 value="#{situacionPrevisionalController.incluirAportesFuturosHastaEdadLegal}" />
-                                        <h:outputLabel for="chkAportesFuturos" value="Incluir aportes futuros hasta la edad legal" />
-                                    </div>
+                                <h:panelGroup id="panelCodigoEvaluacionSocioeconomica"
+                                              layout="block"
+                                              rendered="#{situacionPrevisionalController.compraAportesConMoratoriaLey24476}"
+                                              style="margin: 5px 0 15px 10px;">
+                                    <p:outputLabel for="codigoEvaluacionSocioeconomica" value="Código evaluación socioeconómica" style="margin-right: 10px" />
+                                    <p:inputText id="codigoEvaluacionSocioeconomica"
+                                                 value="#{situacionPrevisionalController.codigoEvaluacionSocioeconomica}"
+                                                 placeholder="codigo evaluación socioeconómica"
+                                                 style="width: 320px;"
+                                                 autocomplete="off"/>
+                                </h:panelGroup>
 
-                                    <p:commandButton value="Reporte final"
-                                                     actionListener="#{situacionPrevisionalController.generarReporteIntegralFinal(
-                                                                       expedienteController.selected.orden,
-                                                                       expedienteController.selected.fechaDeNacimiento,
-                                                                       expedienteController.selected.sexo,
-                                                                       expedienteController.selected.cantidadDeHijos,
-                                                                       expedienteController.selected.cantidadDeHijosAdoptivos,
-                                                                       expedienteController.selected.cantidadDeHijosConDiscapacidad,
-                                                                       expedienteController.selected.cantidadDeHijosPercibioAuh)}"
-                                                     update="panelTotalTiempoConAportes"
-                                                     icon="ui-icon-refresh"
-                                                     styleClass="botonRefrescar boton-cancelar" style="margin-left:10px;margin-bottom:  10px !important;" />
-   
-                                    
-                                    
-                                    <p:commandButton value="Imprimir reporte final" type="button" icon="pi pi-print" styleClass="botonRefrescar boton-cancelar" style="margin-left:10px;margin-bottom:  10px !important;">
-                                        <p:printer target="panelTotalTiempoConAportes"/>
-                                    </p:commandButton>
+                                <div class="opcion-aportes-futuros" style="margin: 10px 0 20px 10px; display: flex; align-items: center; gap: 8px;">
+                                    <p:selectBooleanCheckbox id="chkAportesFuturos"
+                                                             value="#{situacionPrevisionalController.incluirAportesFuturosHastaEdadLegal}" />
+                                    <h:outputLabel for="chkAportesFuturos" value="Incluir aportes futuros hasta la edad legal" />
+                                </div>
 
-                                    <h:panelGroup id="panelTotalTiempoConAportes">
-                                            <p:inputTextarea readonly="true"
-                                                             autoResize="true"
-                                                            style="margin-left:10px;margin-right: 10px !important;"
-                                                             rows="20"
-                                                             value="#{empty situacionPrevisionalController.totalTiempoConAportes 
-                                                                      ? '' 
-                                                                      : situacionPrevisionalController.totalTiempoConAportes.trim()}" />
-                                    </h:panelGroup>
-                                    
-                              
+                                <p:commandButton value="Reporte final"
+                                                 actionListener="#{situacionPrevisionalController.generarReporteIntegralFinal(
+                                                                   expedienteController.selected.orden,
+                                                                   expedienteController.selected.fechaDeNacimiento,
+                                                                   expedienteController.selected.sexo,
+                                                                   expedienteController.selected.cantidadDeHijos,
+                                                                   expedienteController.selected.cantidadDeHijosAdoptivos,
+                                                                   expedienteController.selected.cantidadDeHijosConDiscapacidad,
+                                                                   expedienteController.selected.cantidadDeHijosPercibioAuh)}"
+                                                 update="panelTotalTiempoConAportes"
+                                                 icon="ui-icon-refresh"
+                                                 styleClass="botonRefrescar boton-cancelar" style="margin-left:10px;margin-bottom:  10px !important;" />
+
+
+
+                                <p:commandButton value="Imprimir reporte final" type="button" icon="pi pi-print" styleClass="botonRefrescar boton-cancelar" style="margin-left:10px;margin-bottom:  10px !important;">
+                                    <p:printer target="panelTotalTiempoConAportes"/>
+                                </p:commandButton>
+
+                                <h:panelGroup id="panelTotalTiempoConAportes">
+                                    <p:inputTextarea readonly="true"
+                                                     autoResize="true"
+                                                     style="margin-left:10px;margin-right: 10px !important;"
+                                                     rows="20"
+                                                     value="#{empty situacionPrevisionalController.totalTiempoConAportes 
+                                                              ? '' 
+                                                              : situacionPrevisionalController.totalTiempoConAportes.trim()}" />
+                                </h:panelGroup>
+
+
                             </div>
                         </p:tab>  
                     </p:tabView>

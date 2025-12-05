@@ -144,7 +144,9 @@
                             </p:selectOneMenu><br></br><br></br>
 
                             </h:panelGrid>
-                            <p:commandButton class="createButtonAgenda hoverBlue" actionListener="#{turnoController.createConNombreYApellido(expedienteController.selectedParaVerExp.nombre, expedienteController.selectedParaVerExp.apellido, expedienteController.selectedParaVerExp.telefono, expedienteController.selectedParaVerExp.orden)}" value="Guardar Turno" update=":ExpedienteJudicialViewDesdeAgendaForm,:growl"  oncomplete="handleSubmit(args,'ExpedienteViewDialogParaTurnodesdeagenda');" />
+                            <p:commandButton  rendered="#{expedienteController.selectedParaVerExp.tipoDeExpediente eq 'administrativo'}" class="createButtonAgenda hoverBlue" actionListener="#{turnoController.createConNombreYApellido(expedienteController.selectedParaVerExp.nombre, expedienteController.selectedParaVerExp.apellido, expedienteController.selectedParaVerExp.telefono, expedienteController.selectedParaVerExp.orden)}" value="Guardar Turno" update=":ExpedienteViewDesdeAgendaForm,:growl"  oncomplete="handleSubmit(args,'ExpedienteViewDialogParaTurnodesdeagenda');" />
+                            
+                            <p:commandButton rendered="#{expedienteController.selectedParaVerExp.tipoDeExpediente eq 'judicial'}" class="createButtonAgenda hoverBlue" actionListener="#{turnoController.createConNombreYApellido(expedienteController.selectedParaVerExp.nombre, expedienteController.selectedParaVerExp.apellido, expedienteController.selectedParaVerExp.telefono, expedienteController.selectedParaVerExp.orden)}" value="Guardar Turno" update=":ExpedienteJudicialViewDesdeAgendaForm,:growl"  oncomplete="handleSubmit(args,'ExpedienteViewDialogParaTurnodesdeagenda');" />
                         
                         </p:fieldset> 
                     </div>

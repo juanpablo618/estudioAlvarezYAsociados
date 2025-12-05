@@ -403,6 +403,7 @@
                                 <div style="text-align: right ; padding-bottom: 20px ;display: grid;" >
                                     <p:commandButton  class="botonEditarAgendaEsteBotonNoSirveMasPeroLoNecesitaLaUI boton-guardar"
                                                       actionListener="#{comunicacionController.prepareCreateComunicacion(expedienteController.selectedParaVerExp.orden)}"  value="crear comunicación" 
+                                                      resetValues="true"
                                                       update=":ComunicacionCreateFormExpAdmDesdeAgenda" oncomplete="PF('ComunicacionCreateDialogExpAdmDesdeAgenda').show()" />
                                 </div>      
 

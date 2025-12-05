@@ -1587,3 +1587,8 @@ display: flex;
 #ComunicacionCreateDlgExpAdmDesdeAgenda{
     z-index: 1010 !important;
 }
+
+
+#ComunicacionCreateDlgExpAdm{
+     z-index: 1010 !important;
+}

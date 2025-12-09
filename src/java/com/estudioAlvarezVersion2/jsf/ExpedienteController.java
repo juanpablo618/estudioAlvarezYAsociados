@@ -1726,7 +1726,7 @@ public class ExpedienteController implements Serializable {
     } else if (nombreNormalizado.equals("camila a ruiz diaz")) {
         iniciales = "CR";
     } else if (nombreNormalizado.equals("camila paez")) {
-        iniciales = "CP PPP";
+        iniciales = "CPP";
     }
 
     return iniciales;

@@ -1275,7 +1275,7 @@ public class ExpedienteController implements Serializable {
         Date siguiente = eventos.get(i + 1).getFecha();
         if (actual != null && siguiente != null) {
             long diffMs  = siguiente.getTime() - actual.getTime();
-            long dias    = TimeUnit.MILLISECONDS.toDays(diffMs);
+            long dias    = Math.abs(TimeUnit.MILLISECONDS.toDays(diffMs));
             eventos.get(i).setDiasHastaProximaFecha(dias);
         } else {
             eventos.get(i).setDiasHastaProximaFecha(null);
@@ -1725,6 +1725,8 @@ public class ExpedienteController implements Serializable {
         iniciales = "ND";
     } else if (nombreNormalizado.equals("camila a ruiz diaz")) {
         iniciales = "CR";
+    } else if (nombreNormalizado.equals("camila paez")) {
+        iniciales = "CPP";
     }
 
     return iniciales;
@@ -1737,6 +1739,12 @@ public class ExpedienteController implements Serializable {
 public String getColor(String nombre) {
     if (nombre == null) {
         return "#999999"; // gris por defecto
+    }
+
+    String nombreNormalizado = nombre.trim().toLowerCase();
+
+    if (nombreNormalizado.equals("camila paez")) {
+        return "#b35def"; // color personalizado
     }
 
     int hash = Math.abs(nombre.hashCode());

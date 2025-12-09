@@ -276,7 +276,7 @@ table.dataTable.nowrap td{white-space:nowrap}
 }
 
 .editDialogExpediente, .editDialogConsulta{
-  width: 85% !important;
+  width: 95% !important;
     height: 95% !important;
 
     z-index: 1005 !important;
@@ -335,7 +335,7 @@ table.dataTable.nowrap td{white-space:nowrap}
     position: absolute;
 }
 .editarExpedienteJudicial{
-    width: 85% !important;
+    width: 95% !important;
     height: 95% !important;
 
     z-index: 1005 !important;
@@ -756,7 +756,7 @@ div.ui-growl {
 .datospersonales{
 
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(1, 1fr);
     gap: 45px;
     padding: 20px 40px;
@@ -920,6 +920,58 @@ label{
     border-left: solid 2px #007bff !important ;
     background: #00000024 !important;
 }
+/*  --------------------------------------------------------------*/
+
+#ExpedienteViewDesdeAgendaForm\:tabViewEditExpAdm > ul{
+    float: left;
+    width: 60px !important;
+    height: 300px;
+    background-image: none;
+    padding-top: 1px;
+
+    height: auto;
+    min-height: 300px;
+    border: 1px solid #C4D1EB; 
+}
+#ExpedienteViewDesdeAgendaForm\:tabViewEditExpAdm > div{
+    float:none !important;
+    width: auto !important;
+}
+#ExpedienteViewDesdeAgendaForm\:tabViewEditExpAdm > ul {
+    background: #ffffff !important;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;}
+
+
+#ExpedienteViewDesdeAgendaForm\:tabViewEditExpAdm > ul > li > a {
+    float: inherit !important;
+    padding: 20px !important;
+    text-align: center;
+    color:#123a6d;
+}
+#ExpedienteViewDesdeAgendaForm\:tabViewEditExpAdm > ul > li{
+    background: #ffffff !important;
+    border-radius: 0px;
+    color: #000000;
+    border:   none !important;
+
+
+    box-shadow: none !important;
+}
+
+#ExpedienteViewDesdeAgendaForm\:tabViewEditExpAdm > ul > li:hover{
+
+    border-radius: 0px!important;
+    color: #000000;
+    border-left: solid 2px #007bff !important ;
+    background: #00000024 !important;
+}
+
+/*  --------------------------------------------------------------*/
 
 #ExpedienteJudicialEditForm\:toolbarexpedientes{
     border: 1px solid #C4D1EB; 
@@ -930,6 +982,11 @@ label{
     border: 1px solid #C4D1EB; 
     padding: 0;
     border-radius: 5px;
+}
+#ExpedienteViewDesdeAgendaForm\:toolbarexpedientes{
+    border: 1px solid #C4D1EB; 
+    padding: 0;
+    border-radius: 5px;  
 }
 #ExpedienteEditForm\:toolbarexpedientes{
     border: 1px solid #C4D1EB; 
@@ -954,6 +1011,13 @@ label{
     flex-direction: row;  
 }
 #ExpedienteEditForm\:toolbarexpedientes > div.ui-toolbar-group-left{
+   display: flex;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;  
+}
+#ExpedienteViewDesdeAgendaForm\:toolbarexpedientes > div.ui-toolbar-group-left{
    display: flex;
     align-content: center;
     align-items: center;
@@ -1153,21 +1217,32 @@ label{
 }
 .imagenentidad{
     text-align: center !important;
-
+    display: flex;
+    align-items: flex-end;
+margin-right: 6px;
 }
 
 .imagenentidad > a > img{
-    width: 90px;
+   width: 55px;
     border: 1px solid #C4D1EB;
-    border-radius:5px;
-    padding: 25px 0px;
-    margin-right: 20px
+    border-radius: 5px;
+       padding: 18px 0px;
+
+   
+}
+.imagenentidad > a {
+    display: flex;
+}
+
+.arca >  a {
+   display: flex;
+ 
 }
 .arca a > img{
-    width: 90px;
+       width: 55px;
     border: 1px solid #C4D1EB;
-    border-radius:5px;
-margin-right: 20px
+    border-radius: 5px;
+    margin-right: 5px
 }
 .arca{
     text-align: center !important; 
@@ -1190,11 +1265,12 @@ margin-right: 20px
     flex-direction: column;
 }
 .roww1{
-        display: grid;
-    grid-template-columns: repeat(2, 1fr);
+     display: grid;
+    grid-template-columns: min-content 1fr;
+    padding-top: 10px;
     justify-items: start;
-    align-items: center;
-    padding-top: 20px;
+    align-items: end;
+
 }
 .comunicaciones{
     border: 1px solid #C4D1EB;
@@ -1508,3 +1584,11 @@ display: flex;
     font-size: 16px;
 }
 
+#ComunicacionCreateDlgExpAdmDesdeAgenda{
+    z-index: 1010 !important;
+}
+
+
+#ComunicacionCreateDlgExpAdm{
+     z-index: 1010 !important;
+}

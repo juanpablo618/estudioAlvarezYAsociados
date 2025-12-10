@@ -223,7 +223,7 @@
                                                  cellpadding="0"
                                                  style="width:100%; border-collapse:separate; "  >
                                         <p:outputLabel rendered="#{expedienteController.selectedParaVerExp.aportes == 'SI'}" value="detalle de aportes:" for="detalleDeAportes" />
-                                        <p:inputTextarea rendered="#{expedienteController.selectedParaVerExp.aportes == 'SI'}" rows="5"  autoResize="false"  id="detalleDeAportes" value="#{expedienteController.selected.detalleDeAportes}" title="detalle de aportes"/>
+                                        <p:inputTextarea rendered="#{expedienteController.selectedParaVerExp.aportes == 'SI'}" rows="5"  autoResize="false"  id="detalleDeAportes" value="#{expedienteController.selectedParaVerExp.detalleDeAportes}" title="detalle de aportes"/>
 
                                         <p:outputLabel rendered="#{expedienteController.selectedParaVerExp.aportes == 'SI'}" value="Esta trabajando actualmente? : " for="trabajando" />
 
@@ -968,13 +968,13 @@
 
                                 <p:commandButton value="Reporte final"
                                                  actionListener="#{situacionPrevisionalController.generarReporteIntegralFinal(
-                                                                   expedienteController.selected.orden,
-                                                                   expedienteController.selected.fechaDeNacimiento,
-                                                                   expedienteController.selected.sexo,
-                                                                   expedienteController.selected.cantidadDeHijos,
-                                                                   expedienteController.selected.cantidadDeHijosAdoptivos,
-                                                                   expedienteController.selected.cantidadDeHijosConDiscapacidad,
-                                                                   expedienteController.selected.cantidadDeHijosPercibioAuh)}"
+                                                                   expedienteController.selectedParaVerExp.orden,
+                                                                   expedienteController.selectedParaVerExp.fechaDeNacimiento,
+                                                                   expedienteController.selectedParaVerExp.sexo,
+                                                                   expedienteController.selectedParaVerExp.cantidadDeHijos,
+                                                                   expedienteController.selectedParaVerExp.cantidadDeHijosAdoptivos,
+                                                                   expedienteController.selectedParaVerExp.cantidadDeHijosConDiscapacidad,
+                                                                   expedienteController.selectedParaVerExp.cantidadDeHijosPercibioAuh)}"
                                                  update="panelTotalTiempoConAportes"
                                                  icon="ui-icon-refresh"
                                                  styleClass="botonRefrescar boton-cancelar" style="margin-left:10px;margin-bottom:  10px !important;" />

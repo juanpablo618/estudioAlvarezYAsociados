@@ -52,8 +52,12 @@ public class FileDownloadBean implements Serializable {
 
     private StreamedContent fileCartaPoder;
     private StreamedContent fileHistorialLaboralAnses;
+    
     private StreamedContent fileHistorialLaboralOtrasCajas;
     private StreamedContent fileHistorialLaboralOtrasCajasDos;
+    
+    private StreamedContent fileBoletaDeAportes;
+    private StreamedContent fileBoletaDeAportesDos;
 
     private StreamedContent fileAfipDatosPersonalesPagosOtros;
     private StreamedContent fileAfipDatosPersonalesPagosOtrosDos;
@@ -359,6 +363,22 @@ public class FileDownloadBean implements Serializable {
         this.fileHistorialLaboralOtrasCajasDos = fileHistorialLaboralOtrasCajasDos;
     }
 
+    public StreamedContent getFileBoletaDeAportes() {
+        return fileBoletaDeAportes;
+    }
+
+    public void setFileBoletaDeAportes(StreamedContent fileBoletaDeAportes) {
+        this.fileBoletaDeAportes = fileBoletaDeAportes;
+    }
+
+    public StreamedContent getFileBoletaDeAportesDos() {
+        return fileBoletaDeAportesDos;
+    }
+
+    public void setFileBoletaDeAportesDos(StreamedContent fileBoletaDeAportesDos) {
+        this.fileBoletaDeAportesDos = fileBoletaDeAportesDos;
+    }
+    
     public StreamedContent getFileAfipDatosPersonalesPagosOtros() {
         return fileAfipDatosPersonalesPagosOtros;
     }
@@ -1716,6 +1736,14 @@ public class FileDownloadBean implements Serializable {
                                 fileHistorialLaboralOtrasCajasDos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileHistorialLaboralOtrasCajasDos;
                                 break;
+                            case "BoletaDeAportes":
+                                fileBoletaDeAportes = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileBoletaDeAportes;
+                                break;
+                            case "BoletaDeAportesDos":
+                                fileBoletaDeAportesDos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileBoletaDeAportesDos;
+                                break;
                             case "AfipDatosPersonalesPagosOtros":
                                 fileAfipDatosPersonalesPagosOtros = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileAfipDatosPersonalesPagosOtros;
@@ -1779,6 +1807,14 @@ public class FileDownloadBean implements Serializable {
                             case "HistorialLaboralOtrasCajasDos":
                                 fileHistorialLaboralOtrasCajasDos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileHistorialLaboralOtrasCajasDos;
+                                break;
+                            case "BoletaDeAportes":
+                                fileBoletaDeAportes = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileBoletaDeAportes;
+                                break;
+                            case "BoletaDeAportesDos":
+                                fileBoletaDeAportesDos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileBoletaDeAportesDos;
                                 break;
                             case "AfipDatosPersonalesPagosOtros":
                                 fileAfipDatosPersonalesPagosOtros = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
@@ -2340,7 +2376,7 @@ public class FileDownloadBean implements Serializable {
                 con.close();
             }
         } catch (SQLException e) {
-            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo otra documentación uno no encontrado");
+            FacesMessage msg = new FacesMessage(ERROR, "Nombre del archivo otra documentación no encontrado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         if ("".equals(nombre)) {
@@ -2600,6 +2636,27 @@ public class FileDownloadBean implements Serializable {
     }
 
     public int cantidadArchivosOtrasCajas(int orden, String nombrearchivo, String nombrearchivo2) {
+        int cantidad = 0; // Valor inicial
+
+        if (orden != 0) {
+            boolean nombre = buscarNombreDeArchivo(orden, nombrearchivo).contains("no existe archivo");
+            boolean nombre2 = buscarNombreDeArchivo(orden, nombrearchivo2).contains("no existe archivo");
+
+            if (nombre == false) {
+                cantidad += 1;
+            }
+            if (nombre2 == false) {
+                cantidad += 1;
+            } else {
+
+                return cantidad;
+            }
+        }
+
+        return cantidad;
+    }
+    
+    public int cantidadArchivosBoletasDeAportes(int orden, String nombrearchivo, String nombrearchivo2) {
         int cantidad = 0; // Valor inicial
 
         if (orden != 0) {

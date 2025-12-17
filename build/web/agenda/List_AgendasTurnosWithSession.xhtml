@@ -196,6 +196,8 @@
                         <h:outputText  value="#{item.fecha}"   >
                             <f:convertDateTime pattern="dd/MM/yyyy"  />
                         </h:outputText>
+                       <!--se agrega una estrellita si la agenda tiene prioridad 'si'-->
+                              <h:outputText rendered="#{item.prioridad eq 'Si'}" id="prioridadstar"  styleClass="fas fa-star" style="font-size: 1.2rem; cursor: pointer;" />
                     </p:column>
 
                     <p:column headerText="Orden"  style="width: 7%" filterBy="#{item.orden}"  styleClass="centeredColumnContent#{item.realizado}" filterMatchMode="exact">
@@ -281,7 +283,7 @@
                                          rendered="#{expedienteController.buscarTipoDeExpediente(item) eq 'sin carpeta'}"
                                          title="Ver exp. Sin Carpeta de esta agenda" />
 
-                       
+
 
                         <p:commandButton class="linea btnSearchDarkBlue"  
                                          actionListener="#{expedienteController.prepareViewParaExpediente(item)}" 

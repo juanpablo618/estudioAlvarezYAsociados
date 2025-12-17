@@ -36,10 +36,11 @@
                                          oncomplete="handleSubmit(args,'ComunicacionCreateDialogExpAdm');"  
                                          update="display,:ExpedienteEditForm:tabViewEditExpAdm,:growl"/>
                   
-                        <p:commandButton value="#{bundle.Cancel}" onclick="TurnoCreateDialog.hide()"/>
+                        <p:commandButton value="#{bundle.Cancel}" onclick="PF('ComunicacionCreateDialogExpAdm').hide();"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
 
+        
     </ui:composition>
 </html>

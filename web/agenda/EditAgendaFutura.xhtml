@@ -15,15 +15,15 @@
                     <div class="padre">
 
                         <div class="hijo">
-                            
+
                             <p:outputLabel value="Nº Agenda:"  />
                             <p:inputText readonly="true" value="#{agendaController.selectedAgendaFutura.idAgenda}" /><br></br><br></br>
 
                             <p:outputLabel value="#{bundle.EditAgendaLabel_fecha}" for="fecha" />
-                            <p:calendar  mindate="today" readonly="true"  id="fecha"  pattern="dd/MM/yyyy" value="#{agendaController.selectedAgendaFutura.fecha}" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" /><br></br><br></br>
+                            <p:calendar mindate="today" id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selectedAgendaFutura.fecha}" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" /><br></br><br></br>
                             
                             <p:outputLabel value="#{bundle.EditAgendaLabel_descripcion}" for="descripcion" /><br></br>
-                            <p:inputTextarea readonly="true" rows="8" cols="33"  id="descripcion" value="#{agendaController.selectedAgendaFutura.descripcion}" />
+                            <p:inputTextarea rows="8" cols="33" id="descripcion" value="#{agendaController.selectedAgendaFutura.descripcion}" />
                         </div>
 
                         <div class="hijo" style="float:left;">

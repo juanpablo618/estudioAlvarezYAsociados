@@ -12,145 +12,49 @@
 
             <h:form id="ExpedienteViewFormParaTurnodesdeagenda" >
                 <h:panelGroup id="display">
-                    <div style="width: 50%;float: left; ">
-                        <p:outputLabel value="Datos Personales:" style="font-size: 1.2em !important; font-weight: 800; color: #2a55aa">
-                            <p:panel>  
-                                <h:panelGrid columns="2" cellpadding="1" >
 
-                                    <h:outputText value="#{bundle.ViewExpedienteLabel_orden}" class="negrita"/>
-                                    <h:outputText value="#{expedienteController.selectedParaVerExp.orden}" title="#{bundle.ViewExpedienteTitle_orden}" />
+                          <div class="abmorganizado" >
 
-                                    <h:outputText value="#{bundle.ViewExpedienteLabel_apellido}" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selectedParaVerExp.apellido}" title="#{bundle.ViewExpedienteTitle_apellido}"/>
+                        <div class="botonesapilados">
 
-                                    <h:outputText value="#{bundle.ViewExpedienteLabel_nombre}" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selectedParaVerExp.nombre}" title="#{bundle.ViewExpedienteTitle_nombre}"/>
+                            <p:outputLabel value="Día y Hora:" for="horaYDia"  />
+                             <p:calendar  widgetVar="calHora" id="horaYDia" minHour="8" maxHour="19" pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" />
+                                <p:outputLabel value="Tipo de Turno:" for="tipoDeTurno" />
+                            <p:selectOneMenu id="tipoDeTurno" value="#{turnoController.selected.tipoDeTurno}"  appendTo="@(body)">
+                                <f:selectItem itemLabel="TELEFÓNICO" itemValue="TELEFÓNICO" />                
+                                <f:selectItem itemLabel="PRESENCIAL" itemValue="PRESENCIAL" />
+                                <p:ajax update="inputPanelOficina" />
+                            </p:selectOneMenu>
+                                  <h:panelGrid  id="inputPanelOficina" columns="1">
+                                <p:outputLabel rendered="#{turnoController.selected.tipoDeTurno == 'PRESENCIAL'}" value="Oficina:" for="oficina"  />
 
-                                    <h:outputText value="#{bundle.ViewExpedienteLabel_fechaDeNacimiento}" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selectedParaVerExp.fechaDeNacimiento}" title="#{bundle.ViewExpedienteTitle_fechaDeNacimiento}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-
-                                    <h:outputText value="#{bundle.ViewExpedienteLabel_edad}" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selectedParaVerExp.edad}" title="#{bundle.ViewExpedienteTitle_edad}"/>
-
-                                    <h:outputText value="#{bundle.ViewExpedienteLabel_sexo}" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selectedParaVerExp.sexo}" title="#{bundle.ViewExpedienteTitle_sexo}"/>
-
-                                    <h:outputText value="Dni:" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selectedParaVerExp.dni}" title="Dni"/>
-
-                                    <h:outputText value="#{bundle.ViewExpedienteLabel_cuit}" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selectedParaVerExp.cuit}" title="#{bundle.ViewExpedienteTitle_cuit}"/>
-
-                                    <h:outputText value="Nacionalidad:" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selectedParaVerExp.nacionalidad}" title="nacionalidad"/>
-                                </h:panelGrid>    
-                            </p:panel>
-                        </p:outputLabel>
-                        <p:outputLabel value="Datos Domiciliarios / Contacto:" style="font-size: 1.2em !important; font-weight: 800;color: #2a55aa">
-                            <p:panel>
-                                <h:panelGroup  rendered="#{expedienteController.selectedParaVerExp != null}">
-                                    <h:panelGrid columns="2" rendered="#{expedienteController.selectedParaVerExp != null}">
-                                        <h:outputText value="Localidad:" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selectedParaVerExp.localidad}" title="localidad"/>
-
-                                        <h:outputText value="#{bundle.ViewExpedienteLabel_barrio}" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selectedParaVerExp.barrio}" title="#{bundle.ViewExpedienteTitle_barrio}"/>
-
-                                        <h:outputText value="#{bundle.ViewExpedienteLabel_direccion}" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selectedParaVerExp.direccion}" title="#{bundle.ViewExpedienteTitle_direccion}"/>
-
-                                        <h:outputText value="#{bundle.ViewExpedienteLabel_nroDeAltura}" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selectedParaVerExp.nroDeAltura}" title="#{bundle.ViewExpedienteTitle_nroDeAltura}"/>
-
-                                        <h:outputText value="#{bundle.ViewExpedienteLabel_piso}" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selectedParaVerExp.piso}" title="#{bundle.ViewExpedienteTitle_piso}"/>
-
-                                        <h:outputText value="#{bundle.ViewExpedienteLabel_depto}" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selectedParaVerExp.depto}" title="#{bundle.ViewExpedienteTitle_depto}"/>
-
-                                        <h:outputText value="codigo postal:" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selectedParaVerExp.codigoPostal}" title="codigoPostal"/>
-
-                                        <h:outputText value="#{bundle.ViewExpedienteLabel_telefono}" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selectedParaVerExp.telefono}" title="#{bundle.ViewExpedienteTitle_telefono}"/>
-
-                                        <h:outputText value="Observaciones:" style="font-weight: bold" />
-                                        <h:outputText value="#{expedienteController.selectedParaVerExp.observaciones}" title="observaciones"/>
-                                    </h:panelGrid>
-
-                                </h:panelGroup>
-                            </p:panel>
-                        </p:outputLabel>
-
-                    </div>
-                    <div style="float: left; width: 50%;">
-                        <p:outputLabel value="Datos del Expediente / Tramite:" style="font-size: 1.2em !important; font-weight: 800;color: #2a55aa">
-                            <p:panel>
-                                <h:panelGrid columns="2" cellpadding="1" >
-                                    <h:outputText value="Tipo de expediente:"  style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selectedParaVerExp.tipoDeExpediente}" title="tipoDeExpediente"/>
-
-                                    <h:outputText value="Fecha de Alta de Expediente:" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selectedParaVerExp.fechaDeAltaDeExpediente}" title="fecha de alta de expediente">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-
-                                    <h:outputText value="Fecha de Atención:" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selectedParaVerExp.fechaDeAtencion}" title="fechaDeAtencion">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-
-                                    <h:outputText value="Tipo de tramite:" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selectedParaVerExp.tipoDeTramite}" title="tipoDeTramite"/>
-
-                                    <h:outputText value="Estado del tramite:" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selectedParaVerExp.estadoDelTramite}" title="estadoDelTramite"/>
-
-                                    <h:outputText value="Cobra  Beneficio:" style="font-weight: bold" />
-                                    <h:outputText value="#{expedienteController.selectedParaVerExp.cobraBeneficio}" title="cobra beneficio"/>
-
-                                </h:panelGrid>        
-                            </p:panel>    
-                        </p:outputLabel>
-                        <p:fieldset legend="Agregar Turno:" toggleable="true" toggleSpeed="500" collapsed="true">
-                            <h:panelGrid columns="2">
-                                <p:outputLabel value="Día y Hora:" for="horaYDia" style="font-weight: bold" />
-                                <p:calendar id="horaYDia" minHour="8" maxHour="19" pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" title="#{bundle.EditTurnoTitle_horaYDia}" showOn="button"/>
-
-                                <p:outputLabel value="responsable" for="responsable" style="font-weight: bold" />
-                                <p:selectOneMenu  id="responsable" value="#{turnoController.selected.responsable}"  >
-                                <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
+                                <p:selectOneMenu rendered="#{turnoController.selected.tipoDeTurno == 'PRESENCIAL'}" id="oficina" value="#{turnoController.selected.oficina}"  >
+                                    <f:selectItem itemLabel="CERRO" itemValue="CERRO" />
+                                    <f:selectItem itemLabel="CENTRO" itemValue="CENTRO" />
                                 </p:selectOneMenu>
-                                
-                                <p:outputLabel value="#{bundle.CreateTurnoLabel_observacion}" for="observacion" style="font-weight: bold"/>
-                                <p:inputTextarea rows="5" cols="50" id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.CreateTurnoTitle_observacion}" />
-                            
-                                <p:outputLabel value="Tipo de Turno:" for="tipoDeTurno" style="font-weight: bold" />
-                                    <p:selectOneMenu id="tipoDeTurno" value="#{turnoController.selected.tipoDeTurno}"  effect="fold" >
-                                        <f:selectItem itemLabel="TELEFÓNICO" itemValue="TELEFÓNICO" />                
-                                        <f:selectItem itemLabel="PRESENCIAL" itemValue="PRESENCIAL" />
-                                        <p:ajax update="inputPanelOficina" />
-                                    </p:selectOneMenu>
-                            
-                            </h:panelGrid>
-                            <h:panelGrid  id="inputPanelOficina" columns="4">
-                            <p:outputLabel rendered="#{turnoController.selected.tipoDeTurno == 'PRESENCIAL'}" value="Oficina:" for="oficina" style="font-weight: bold" /><br></br>
-
-                            <p:selectOneMenu rendered="#{turnoController.selected.tipoDeTurno == 'PRESENCIAL'}" id="oficina" value="#{turnoController.selected.oficina}"  effect="fold" >
-                                                <f:selectItem itemLabel="CERRO" itemValue="CERRO" />
-                                                <f:selectItem itemLabel="CENTRO" itemValue="CENTRO" />
-                            </p:selectOneMenu><br></br><br></br>
 
                             </h:panelGrid>
-                            <p:commandButton  rendered="#{expedienteController.selectedParaVerExp.tipoDeExpediente eq 'administrativo'}" class="createButtonAgenda hoverBlue" actionListener="#{turnoController.createConNombreYApellido(expedienteController.selectedParaVerExp.nombre, expedienteController.selectedParaVerExp.apellido, expedienteController.selectedParaVerExp.telefono, expedienteController.selectedParaVerExp.orden)}" value="Guardar Turno" update=":ExpedienteViewDesdeAgendaForm,:growl"  oncomplete="handleSubmit(args,'ExpedienteViewDialogParaTurnodesdeagenda');" />
+                            <p:outputLabel value="responsable" for="responsable"  />
+                            <p:selectOneMenu  id="responsable" value="#{turnoController.selected.responsable}" appendTo="@(body)"  >
+                                <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
+                            </p:selectOneMenu>
+
+                           <p:commandButton  rendered="#{expedienteController.selectedParaVerExp.tipoDeExpediente eq 'administrativo'}" class="boton-guardar" actionListener="#{turnoController.createConNombreYApellido(expedienteController.selectedParaVerExp.nombre, expedienteController.selectedParaVerExp.apellido, expedienteController.selectedParaVerExp.telefono, expedienteController.selectedParaVerExp.orden)}" value="Guardar Turno" update=":ExpedienteViewDesdeAgendaForm,:growl"  oncomplete="handleSubmit(args,'ExpedienteViewDialogParaTurnodesdeagenda');" />
                             
-                            <p:commandButton rendered="#{expedienteController.selectedParaVerExp.tipoDeExpediente eq 'judicial'}" class="createButtonAgenda hoverBlue" actionListener="#{turnoController.createConNombreYApellido(expedienteController.selectedParaVerExp.nombre, expedienteController.selectedParaVerExp.apellido, expedienteController.selectedParaVerExp.telefono, expedienteController.selectedParaVerExp.orden)}" value="Guardar Turno" update=":ExpedienteJudicialViewDesdeAgendaForm,:growl"  oncomplete="handleSubmit(args,'ExpedienteViewDialogParaTurnodesdeagenda');" />
+                            <p:commandButton rendered="#{expedienteController.selectedParaVerExp.tipoDeExpediente eq 'judicial'}" class="boton-guardar" actionListener="#{turnoController.createConNombreYApellido(expedienteController.selectedParaVerExp.nombre, expedienteController.selectedParaVerExp.apellido, expedienteController.selectedParaVerExp.telefono, expedienteController.selectedParaVerExp.orden)}" value="Guardar Turno" update=":ExpedienteJudicialViewDesdeAgendaForm,:growl"  oncomplete="handleSubmit(args,'ExpedienteViewDialogParaTurnodesdeagenda');" />
+                 
+                        </div>
+
+                        <div class="botonesapilados">
+
+                            <p:outputLabel value="#{bundle.CreateTurnoLabel_observacion}" for="observacion" />
+                            <p:inputTextarea rows="12" id="observacion" value="#{turnoController.selected.observacion}" title="#{bundle.CreateTurnoTitle_observacion}" />
+
                         
-                        </p:fieldset> 
-                    </div>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('ExpedienteViewDialogParaTurnodesdeagenda').hide();" class="botonCrearAgenda hoverGreen" style="float: right"/>
+                        </div></div>
+                           
+                    
+                   
                 </h:panelGroup>
             </h:form>
         </p:dialog>

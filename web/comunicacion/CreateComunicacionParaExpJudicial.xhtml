@@ -5,38 +5,45 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    
+
     <ui:composition>
 
-        <p:dialog id="ComunicacionCreateDlg" widgetVar="ComunicacionCreateDialog" modal="true" resizable="true" appendTo="@(body)" header="Crear Comunicación Nueva" >
+        <p:dialog id="ComunicacionCreateDlg" widgetVar="ComunicacionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Comunicación Nueva" >
             <h:form id="ComunicacionCreateForm">
                 <h:panelGroup id="display">
-                    <h:panelGrid columns="4">
-                     
-                        <p:outputLabel value="Fecha:" for="fecha" style="font-weight: bold"/><br></br>
-                        <p:calendar disabledWeekends="true"  placeholder="dd/MM/yyyy" autocomplete="off" id="fecha"  mode="inline" pattern="dd/MM/yyyy" value="#{comunicacionController.selectedParaComunicacionNuevo.fecha}" title="fecha de comunicación" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button" /><br></br><br></br>
-                              
-                        <p:outputLabel value="descripción" for="descripcion" style="font-weight: bold"/><br></br>
-                          <p:inputTextarea autoResize="true" cols="40" rows="20" id="descripcion" value="#{comunicacionController.selectedParaComunicacionNuevo.descripcion}" title="inserte descripcion" /><br></br><br></br>
-                        
-                        <p:outputLabel value="Responsable:" for="responsable" style="font-weight: bold"/><br></br>
+                    <div class="abmorganizado" >
+                        <div>
+                            <p:outputLabel value="Fecha:" for="fecha" />
+                            <p:calendar disabledWeekends="true"  placeholder="dd/MM/yyyy" autocomplete="off" id="fecha"  mode="inline" pattern="dd/MM/yyyy" value="#{comunicacionController.selectedParaComunicacionNuevo.fecha}" title="fecha de comunicación" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button" />
+                           <br></br>
+                            <p:outputLabel value="Responsable:" for="responsable"  />
 
                             <p:selectOneMenu  id="responsable" value="#{comunicacionController.selectedParaComunicacionNuevo.responsable}"  >
                                 <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
                             </p:selectOneMenu>
-                            <br></br>  
-  
-                          
-                        <p:outputLabel value="Orden:" for="orden" style="font-weight: bold"/><br></br>
-                        <p:inputText id="orden" value="#{comunicacionController.selectedParaComunicacionNuevo.orden}" readonly="true" title="orden" /><br></br><br></br>
-                        
-                     </h:panelGrid>
-                        <p:commandButton actionListener="#{comunicacionController.createComunicacion(comunicacionController.selectedParaComunicacionNuevo.fecha, comunicacionController.selectedParaComunicacionNuevo.descripcion, comunicacionController.selectedParaComunicacionNuevo.responsable , comunicacionController.selectedParaComunicacionNuevo.orden)}"
-                                         class="botonCrear" value="#{bundle.Save}" 
-                                         oncomplete="handleSubmit(args,'ComunicacionCreateDialog');" 
-                                         update="display,:ExpedienteJudicialEditForm,:growl"/>
-                  
-                        <p:commandButton value="#{bundle.Cancel}" onclick="PF('ComunicacionCreateDialog').hide();"/>
+
+
+                            <p:outputLabel value="Orden:" for="orden" />
+
+
+                            <p:inputText id="orden" value="#{comunicacionController.selectedParaComunicacionNuevo.orden}" readonly="true" title="orden" />
+
+                            <div class="botonesapilados">
+                                <p:commandButton actionListener="#{comunicacionController.createComunicacion(comunicacionController.selectedParaComunicacionNuevo.fecha, comunicacionController.selectedParaComunicacionNuevo.descripcion, comunicacionController.selectedParaComunicacionNuevo.responsable , comunicacionController.selectedParaComunicacionNuevo.orden)}"
+                                                 class="boton-guardar" value="#{bundle.Save}" 
+                                                 oncomplete="handleSubmit(args,'ComunicacionCreateDialog');" 
+                                                 update="display,:ExpedienteJudicialEditForm,:growl"/>
+
+                                <p:commandButton styleClass="boton-cancelar" value="#{bundle.Cancel}" onclick="PF('ComunicacionCreateDialog').hide();"/>
+                            </div>
+                        </div>
+                        <div>    
+                            <p:outputLabel value="Descripción" for="descripcion" style="margin-bottom: 10px" />
+                            
+                            <p:inputTextarea autoResize="true" cols="40" rows="24" id="descripcion" value="#{comunicacionController.selectedParaComunicacionNuevo.descripcion}" title="inserte descripcion" />
+                        </div>
+
+                    </div>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

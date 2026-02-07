@@ -56,6 +56,8 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 
 
@@ -101,6 +103,8 @@ public class AgendaController implements Serializable {
     private List<Agenda> filteredAgendas;
     private List<Agenda> filteredAgendasConSesion;
     private List<Agenda> filteredAgendasConSesionOnlyAdminUsers;
+    private LazyDataModel<Agenda> lazyItems;
+    private List<Agenda> lazyItemsData;
     
     private String responsable;
     private Date fechaDesde;
@@ -122,6 +126,7 @@ public class AgendaController implements Serializable {
         // Inicialización del mapa en @PostConstruct
         lideresEmpleadosMap = new HashMap<>();
         cargarDatos();
+        initLazyItems();
     }
 
     private void cargarDatos() {
@@ -129,13 +134,13 @@ public class AgendaController implements Serializable {
             "María Emilia Campos", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
             "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
             "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Pilar Boglione", "Juan Cuello"));
+            "Pilar Boglione", "juan cuello"));
 
         lideresEmpleadosMap.put("María Emilia Campos", Arrays.asList(
             "Mateo Francisco Alvarez", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
             "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
             "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Pilar Boglione"));
+            "Pilar Boglione", "juan cuello"));
 
         lideresEmpleadosMap.put("Paula Alvarez", Arrays.asList(
             "Mateo Novau", "Natali D Agostino", "Catalina Povarchik",
@@ -148,7 +153,48 @@ public class AgendaController implements Serializable {
         lideresEmpleadosMap.put("Ayelen Brizzio", Arrays.asList(
             "Mateo Novau"));
 
+        lideresEmpleadosMap.put("Natali D Agostino", Arrays.asList(
+            "Mateo Francisco Alvarez", "María Emilia Campos", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
+            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
+            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+            "Pilar Boglione", "juan cuello"));
+
         // Agregar más líderes y empleados según sea necesario
+    }
+
+    private void initLazyItems() {
+        lazyItems = new LazyDataModel<Agenda>() {
+            @Override
+            public List<Agenda> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+                boolean asc = SortOrder.ASCENDING.equals(sortOrder) || SortOrder.UNSORTED.equals(sortOrder);
+                lazyItemsData = getFacade().findRange(first, pageSize, sortField, asc, filters);
+                setRowCount(getFacade().count(filters));
+                return lazyItemsData;
+            }
+
+            @Override
+            public Object getRowKey(Agenda agenda) {
+                return agenda != null ? agenda.getIdAgenda() : null;
+            }
+
+            @Override
+            public Agenda getRowData(String rowKey) {
+                if (rowKey == null || lazyItemsData == null) {
+                    return null;
+                }
+                Integer key = Integer.valueOf(rowKey);
+                for (Agenda agenda : lazyItemsData) {
+                    if (agenda.getIdAgenda() != null && agenda.getIdAgenda().equals(key)) {
+                        return agenda;
+                    }
+                }
+                return null;
+            }
+        };
+    }
+
+    public LazyDataModel<Agenda> getLazyItems() {
+        return lazyItems;
     }
 
     public List<String> getEmpleadosPorLider(String lider) {
@@ -1117,36 +1163,9 @@ public class AgendaController implements Serializable {
     }
 
     private Set<String> obtenerEmpleadosPorLider(String lider) {
-        Map<String, String[]> lideresEmpleadosMap = new HashMap<>();
-        lideresEmpleadosMap.put("Mateo Francisco Alvarez", new String[]{
-            "María Emilia Campos", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
-            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
-            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Pilar Boglione", "juan cuello"});
-        lideresEmpleadosMap.put("María Emilia Campos", new String[]{
-            "Mateo Francisco Alvarez", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
-            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
-            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Pilar Boglione", "juan cuello"});
-        lideresEmpleadosMap.put("Paula Alvarez", new String[]{
-            "Mateo Novau", "Natali D Agostino", "Catalina Povarchik", "Pilar Boglione"});
-        lideresEmpleadosMap.put("Paola Maldonado", new String[]{
-            "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo", "Maria Jose Alaye",
-            "Catalina Povarchik", "María Paz Bolinaga"});
-        lideresEmpleadosMap.put("Ayelen Brizzio", new String[]{
-            "Mateo Novau", "Natali D Agostino",});
-        
-        //hago esto por q la funcion del ojito, se la teniamos que dar a Naty tambièn 
-        lideresEmpleadosMap.put("Natali D Agostino", new String[]{
-            "Mateo Francisco Alvarez","María Emilia Campos", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
-            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
-            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Pilar Boglione", "juan cuello"});
-        
-
         Set<String> empleados = new HashSet<>();
         if (lideresEmpleadosMap.containsKey(lider)) {
-            empleados.addAll(Arrays.asList(lideresEmpleadosMap.get(lider)));
+            empleados.addAll(lideresEmpleadosMap.get(lider));
         } else {
             System.out.println("Líder no encontrado en el mapa: " + lider);
         }
@@ -1605,7 +1624,5 @@ public void seleccionarVista(String tipo) {
     }}}
 
     
-
-
 
 

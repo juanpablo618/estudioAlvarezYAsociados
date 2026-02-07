@@ -1,6 +1,7 @@
 package com.estudioAlvarezVersion2.jpacontroller;
 
 import com.estudioAlvarezVersion2.jpa.Expediente;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateless;
@@ -8,6 +9,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import org.primefaces.model.SortOrder;
 
 /**
@@ -180,6 +185,89 @@ public class ExpedienteFacade extends AbstractFacade<Expediente> {
         }
 
         return query.getSingleResult().intValue();
+    }
+
+    public List<Expediente> findRange(int first, int pageSize, String sortField, boolean sortAscending, Map<String, Object> filters, boolean onlyActivos) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Expediente> cq = cb.createQuery(Expediente.class);
+        Root<Expediente> root = cq.from(Expediente.class);
+        cq.select(root);
+
+        List<Predicate> predicates = buildPredicates(filters, cb, root, onlyActivos);
+        if (!predicates.isEmpty()) {
+            cq.where(predicates.toArray(new Predicate[0]));
+        }
+
+        if ("apellidoYNombre".equals(sortField)) {
+            if (sortAscending) {
+                cq.orderBy(cb.asc(root.get("apellido")), cb.asc(root.get("nombre")));
+            } else {
+                cq.orderBy(cb.desc(root.get("apellido")), cb.desc(root.get("nombre")));
+            }
+        } else if (sortField != null && !sortField.isBlank()) {
+            if (sortAscending) {
+                cq.orderBy(cb.asc(root.get(sortField)));
+            } else {
+                cq.orderBy(cb.desc(root.get(sortField)));
+            }
+        } else {
+            cq.orderBy(cb.asc(root.get("idExpediente")));
+        }
+
+        TypedQuery<Expediente> query = getEntityManager().createQuery(cq);
+        query.setFirstResult(first);
+        query.setMaxResults(pageSize);
+        return query.getResultList();
+    }
+
+    public int count(Map<String, Object> filters, boolean onlyActivos) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<Expediente> root = cq.from(Expediente.class);
+        cq.select(cb.count(root));
+
+        List<Predicate> predicates = buildPredicates(filters, cb, root, onlyActivos);
+        if (!predicates.isEmpty()) {
+            cq.where(predicates.toArray(new Predicate[0]));
+        }
+
+        return getEntityManager().createQuery(cq).getSingleResult().intValue();
+    }
+
+    private List<Predicate> buildPredicates(Map<String, Object> filters, CriteriaBuilder cb, Root<Expediente> root, boolean onlyActivos) {
+        List<Predicate> predicates = new ArrayList<>();
+        if (onlyActivos) {
+            predicates.add(cb.equal(root.get("activo"), "Si"));
+        }
+        if (filters == null || filters.isEmpty()) {
+            return predicates;
+        }
+
+        Object ordenFilter = filters.get("orden");
+        if (ordenFilter != null && !ordenFilter.toString().isBlank()) {
+            try {
+                Integer orden = Integer.valueOf(ordenFilter.toString());
+                predicates.add(cb.equal(root.get("orden"), orden));
+            } catch (NumberFormatException ex) {
+                // ignorar filtro inválido
+            }
+        }
+
+        Object apellidoNombreFilter = filters.get("apellidoYNombre");
+        if (apellidoNombreFilter != null && !apellidoNombreFilter.toString().isBlank()) {
+            String value = "%" + apellidoNombreFilter.toString().toLowerCase() + "%";
+            predicates.add(cb.or(
+                cb.like(cb.lower(root.get("apellido")), value),
+                cb.like(cb.lower(root.get("nombre")), value)
+            ));
+        }
+
+        Object cuitFilter = filters.get("cuit");
+        if (cuitFilter != null && !cuitFilter.toString().isBlank()) {
+            predicates.add(cb.like(cb.lower(root.get("cuit")), "%" + cuitFilter.toString().toLowerCase() + "%"));
+        }
+
+        return predicates;
     }
     
 }

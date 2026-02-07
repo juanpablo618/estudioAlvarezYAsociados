@@ -4,13 +4,14 @@ package com.estudioAlvarezVersion2.jpacontroller;
  *
  * @author cuello.juanpablo@gmail.com,  github = juanpablo618
  */
+import com.estudioAlvarezVersion2.jpa.EventoParaTurno;
 import com.estudioAlvarezVersion2.jpa.Turno;
+import com.estudioAlvarezVersion2.jsf.TurnoController;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -35,31 +36,39 @@ public class ScheduleView implements Serializable {
     private ScheduleModel lazyEventModel;
  
     private ScheduleEvent event = new DefaultScheduleEvent();
-
-    @EJB
-    private TurnoFacade turnoFacade;
  
     @PostConstruct
     public void init() {
+        
+               FacesContext context = FacesContext.getCurrentInstance();
+               
+       TurnoController turnoController = 
+               context.getApplication().evaluateExpressionGet(context, 
+                       "#{turnoController}", TurnoController.class);
+       
+        eventModel = new DefaultScheduleModel();
+       
+        for (Turno turno : turnoController.getItems()) {
+            if(turno.getObservacion() != null && turno.getHoraYDia() != null && turno.getApellido() != null && turno.getNombre() != null && turno.getResponsable() != null){
+                eventModel.addEvent(new DefaultScheduleEvent(
+                        turno.getApellido().concat(" ").concat(turno.getNombre())+
+                        "\n \n "+turno.getObservacion()+ "\n \n ".concat(turno.getResponsable()), turno.getHoraYDia() , agregarMediaHora(turno.getHoraYDia()), turno.getResponsable().replace(" ", "")));
+
+            }
+            
+        }
+        
         lazyEventModel = new LazyScheduleModel() {
+             
             @Override
             public void loadEvents(Date start, Date end) {
-                clear();
-                for (Turno turno : turnoFacade.findByRange(start, end)) {
-                    if (turno.getObservacion() != null && turno.getHoraYDia() != null
-                            && turno.getApellido() != null && turno.getNombre() != null
-                            && turno.getResponsable() != null) {
-                        addEvent(new DefaultScheduleEvent(
-                                turno.getApellido().concat(" ").concat(turno.getNombre())
-                                        + "\n \n " + turno.getObservacion() + "\n \n ".concat(turno.getResponsable()),
-                                turno.getHoraYDia(),
-                                agregarMediaHora(turno.getHoraYDia()),
-                                turno.getResponsable().replace(" ", "")));
-                    }
-                }
-            }
+                Date random = getRandomDate(start);
+                addEvent(new DefaultScheduleEvent("Lazy Event 1", random, random));
+                 
+                random = getRandomDate(start);
+                addEvent(new DefaultScheduleEvent("Lazy Event 2", random, random));
+            }   
         };
-        eventModel = lazyEventModel;
     }
      
     public Date getRandomDate(Date base) {

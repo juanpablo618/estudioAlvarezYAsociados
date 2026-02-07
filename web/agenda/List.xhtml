@@ -32,7 +32,7 @@
                 
                     <br></br><br></br>
                                     
-                    <p:dataTable id="datalist" value="#{agendaController.lazyItems}" var="item"
+                    <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
                                  selectionMode="single" selection="#{agendaController.selected}"
                                  rowKey="#{item.idAgenda}"
                                  paginator="true"
@@ -41,8 +41,7 @@
                                  rowsPerPageTemplate="100,200,500"
                                  filteredValue="#{agendaController.filteredAgendas}"
                                  emptyMessage="no hay agendas agregadas para esa fecha" 
-                                 rendered="true"
-                                 lazy="true"
+                                 rendered="true"  
                                  >
                         <p:ajax event="rowSelect"   update="createButton "/>
                         <p:ajax event="rowUnselect" update="createButton "/>

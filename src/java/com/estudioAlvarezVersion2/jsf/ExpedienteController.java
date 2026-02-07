@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -49,12 +50,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.concurrent.TimeUnit;
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 @Named("expedienteController")
 @ViewScoped
@@ -83,6 +87,8 @@ public class ExpedienteController implements Serializable {
     private String tipoDeTramiteSelected;
 
     private List<Expediente> filteredExpedientes;
+    private LazyDataModel<Expediente> lazyItems;
+    private List<Expediente> lazyItemsData;
     private List<Agenda> filteredAgendasParaHoy;
     private List<Agenda> filteredAgendasAnteriores;
     private List<Agenda> filteredAgendasFuturas;
@@ -126,6 +132,11 @@ public class ExpedienteController implements Serializable {
     public ExpedienteController() {
     }
 
+    @PostConstruct
+    public void init() {
+        initLazyItems();
+    }
+
     public Expediente getSelected() {
         return selected;
     }
@@ -148,6 +159,55 @@ public class ExpedienteController implements Serializable {
 
     public List<Expediente> getFilteredExpedientes() {
         return filteredExpedientes;
+    }
+
+    private void initLazyItems() {
+        lazyItems = new LazyDataModel<Expediente>() {
+            @Override
+            public List<Expediente> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+                boolean asc = SortOrder.ASCENDING.equals(sortOrder) || SortOrder.UNSORTED.equals(sortOrder);
+                if (filteredExpedientes != null && (filters == null || filters.isEmpty())) {
+                    setRowCount(filteredExpedientes.size());
+                    lazyItemsData = pagedList(filteredExpedientes, first, pageSize);
+                    return lazyItemsData;
+                }
+                lazyItemsData = getFacade().findRange(first, pageSize, sortField, asc, filters, mostrarSoloActivos);
+                setRowCount(getFacade().count(filters, mostrarSoloActivos));
+                return lazyItemsData;
+            }
+
+            @Override
+            public Object getRowKey(Expediente expediente) {
+                return expediente != null ? expediente.getIdExpediente() : null;
+            }
+
+            @Override
+            public Expediente getRowData(String rowKey) {
+                if (rowKey == null || lazyItemsData == null) {
+                    return null;
+                }
+                Integer key = Integer.valueOf(rowKey);
+                for (Expediente expediente : lazyItemsData) {
+                    if (expediente.getIdExpediente() != null && expediente.getIdExpediente().equals(key)) {
+                        return expediente;
+                    }
+                }
+                return null;
+            }
+        };
+    }
+
+    private List<Expediente> pagedList(List<Expediente> source, int first, int pageSize) {
+        if (source == null || source.isEmpty()) {
+            return new ArrayList<>();
+        }
+        int fromIndex = Math.min(first, source.size());
+        int toIndex = Math.min(first + pageSize, source.size());
+        return source.subList(fromIndex, toIndex);
+    }
+
+    public LazyDataModel<Expediente> getLazyItems() {
+        return lazyItems;
     }
 
     public String getEstadoDelTramiteSelected() {

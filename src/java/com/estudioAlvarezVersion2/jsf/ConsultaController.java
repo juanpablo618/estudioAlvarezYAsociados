@@ -26,6 +26,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 /**
  *
  * @author juanpablo618@hotmail.com
@@ -45,6 +47,8 @@ public class ConsultaController implements Serializable {
     
     private Consulta selected;
     private List<Consulta> filteredConsultas;
+    private LazyDataModel<Consulta> lazyItems;
+    private List<Consulta> lazyItemsData;
 
     //para filtros en tablas
     private String estadoSeleccionadoEnTabla;
@@ -68,6 +72,7 @@ public class ConsultaController implements Serializable {
         months = Arrays.asList("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12");
        // Inicializar años dinámicamente
         years = generateYears(10); // Generar los próximos 10 años
+        initLazyItems();
     }
 
     public ConsultaController() {
@@ -152,6 +157,55 @@ public class ConsultaController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+
+    private void initLazyItems() {
+        lazyItems = new LazyDataModel<Consulta>() {
+            @Override
+            public List<Consulta> load(int first, int pageSize, String sortField, SortOrder sortOrder, java.util.Map<String, Object> filters) {
+                boolean asc = SortOrder.ASCENDING.equals(sortOrder) || SortOrder.UNSORTED.equals(sortOrder);
+                if (filteredConsultas != null && (filters == null || filters.isEmpty())) {
+                    setRowCount(filteredConsultas.size());
+                    lazyItemsData = pagedList(filteredConsultas, first, pageSize);
+                    return lazyItemsData;
+                }
+                lazyItemsData = getFacade().findRange(first, pageSize, sortField, asc, filters);
+                setRowCount(getFacade().count(filters));
+                return lazyItemsData;
+            }
+
+            @Override
+            public Object getRowKey(Consulta consulta) {
+                return consulta != null ? consulta.getIdConsulta() : null;
+            }
+
+            @Override
+            public Consulta getRowData(String rowKey) {
+                if (rowKey == null || lazyItemsData == null) {
+                    return null;
+                }
+                Integer key = Integer.valueOf(rowKey);
+                for (Consulta consulta : lazyItemsData) {
+                    if (consulta.getIdConsulta() != null && consulta.getIdConsulta().equals(key)) {
+                        return consulta;
+                    }
+                }
+                return null;
+            }
+        };
+    }
+
+    private List<Consulta> pagedList(List<Consulta> source, int first, int pageSize) {
+        if (source == null || source.isEmpty()) {
+            return new ArrayList<>();
+        }
+        int fromIndex = Math.min(first, source.size());
+        int toIndex = Math.min(first + pageSize, source.size());
+        return source.subList(fromIndex, toIndex);
+    }
+
+    public LazyDataModel<Consulta> getLazyItems() {
+        return lazyItems;
     }
     
     public List<Consulta> getItemsExceptArchivadoODesistido() {

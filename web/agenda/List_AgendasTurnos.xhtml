@@ -41,7 +41,7 @@
 
                 <br></br><br></br>
 
-                <p:dataTable id="datalist" value="#{turnoController.items}" var="item"
+                <p:dataTable id="datalist" value="#{turnoController.lazyItems}" var="item"
                              selectionMode="single" selection="#{turnoController.selected}"
                              paginator="true"
                              rowKey="#{item.idTurno}"
@@ -52,6 +52,7 @@
                              filteredValue="#{turnoController.filteredturnos}"
                              paginatorPosition="top" 
                              rendered="true"
+                             lazy="true"
                              >
 
                     <p:ajax event="rowSelect"   update="createButton "/>
@@ -175,7 +176,7 @@
 
             <h:form id="AgendaListForm" style="background-color: #F4F8FA">
 
-                <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
+                <p:dataTable id="datalist" value="#{agendaController.lazyItems}" var="item"
                              selectionMode="single" selection="#{agendaController.selected}"
                              rowKey="#{item.idAgenda}"
                              paginator="true"
@@ -186,6 +187,7 @@
                              emptyMessage="no hay agendas agregadas para esa fecha" 
                              rendered="true"  
                              paginatorPosition="bottom"
+                             lazy="true"
                              >
                     <p:ajax event="rowSelect"   update="createButton "/>
                     <p:ajax event="rowUnselect" update="createButton "/>

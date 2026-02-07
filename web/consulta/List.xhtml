@@ -64,7 +64,7 @@
                 <br></br>
                 <br></br>
                 
-                <p:dataTable id="datalist" value="#{consultaController.getItemsExceptArchivadoODesistido()}" var="item"
+                <p:dataTable id="datalist" value="#{consultaController.lazyItems}" var="item"
                                  selectionMode="single" selection="#{consultaController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idConsulta}"
@@ -74,6 +74,7 @@
                                  emptyMessage="No existen consultas"
                                  filteredValue="#{consultaController.filteredConsultas}"
                                   resizableColumns="true"
+                                 lazy="true"
                                   > 
                  
                         
@@ -88,10 +89,9 @@
                         </h:outputText>
                     </p:column>
                         
-                        <p:column filterBy="#{fn:toLowerCase(item.apellido)} #{fn:toLowerCase(item.nombre)}"  
-                                    style="text-align: left;" 
-                                    filterMatchMode="contains" 
-                                    filterFunction="#{consultaController.filterInsensitive}" 
+                        <p:column filterBy="#{item.apellidoNombre}"
+                                    style="text-align: left;"
+                                    filterMatchMode="contains"
                                     styleClass="centeredColumnContent#{item.estadoConsulta}">
                               <f:facet name="header">
                                   <h:outputText value="APELLIDO Y NOMBRE"/>

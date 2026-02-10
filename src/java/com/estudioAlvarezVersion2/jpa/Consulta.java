@@ -766,10 +766,6 @@ public class Consulta implements Serializable {
 
     }
 
-    public String getApellidoNombre() {
-        return apellido + " " + nombre;
-    }
-
     public void setFechaDeAtencion(Date fechaDeAtencion) {
         this.fechaDeAtencion = fechaDeAtencion;
     }

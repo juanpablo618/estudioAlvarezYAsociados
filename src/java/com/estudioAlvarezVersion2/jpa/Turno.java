@@ -36,9 +36,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Turno.findByObservacion", query = "SELECT t FROM Turno t WHERE t.observacion = :observacion"),
     @NamedQuery(name = "Turno.findByResponsable", query = "SELECT t FROM Turno t WHERE t.responsable = :responsable ORDER BY t.horaYDia"),
     @NamedQuery(name = "Turno.findByResponsables", query = "SELECT t FROM Turno t WHERE t.responsable IN :responsables ORDER BY t.horaYDia"),
-    @NamedQuery(name = "Turno.findByResponsableAndRange", query = "SELECT t FROM Turno t WHERE t.responsable = :responsable AND t.horaYDia >= :inicio AND t.horaYDia < :fin ORDER BY t.horaYDia"),
-    @NamedQuery(name = "Turno.findByResponsablesAndRange", query = "SELECT t FROM Turno t WHERE t.responsable IN :responsables AND t.horaYDia >= :inicio AND t.horaYDia < :fin ORDER BY t.horaYDia"),
-    @NamedQuery(name = "Turno.findByRange", query = "SELECT t FROM Turno t WHERE t.horaYDia >= :inicio AND t.horaYDia < :fin ORDER BY t.horaYDia"),
     @NamedQuery(name = "Turno.findByOrder", query = "SELECT a FROM Turno a WHERE a.orden = :orden ORDER BY a.horaYDia"),
     
 

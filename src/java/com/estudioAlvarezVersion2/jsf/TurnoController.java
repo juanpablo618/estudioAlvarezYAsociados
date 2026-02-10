@@ -9,10 +9,6 @@ import com.estudioAlvarezVersion2.jpacontroller.TurnoFacade;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,7 +22,6 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
@@ -39,8 +34,6 @@ import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
-import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortOrder;
 
 /**
  *
@@ -62,11 +55,9 @@ public class TurnoController implements Serializable {
     private static final String LA_FECHA_SELECCIONADA_NO_ES_VALIDA = "la fecha selecionada no es válida";
     private static final String POR_SER_FERIADO = " por ser feriado";
     private static final String SI = "Si";
-
+    
     private String responsableSeleccionadoEnTurno;
     private String responsableSeleccionadoEnWithSessionOnlyAdmins;
-
-    private Map<String, List<String>> lideresEmpleadosMap;
     private String liderSeleccionadoEnWithSessionOnlyAdmins;
     
     private String realizadoSeleccionadoEnTurno;
@@ -81,8 +72,6 @@ public class TurnoController implements Serializable {
     private List<Turno> filteredturnos;
     private List<Turno> filteredTurnosConSesion;
     private List<Turno> filteredTurnosConSesionOnlyAdminUsers;
-    private LazyDataModel<Turno> lazyItems;
-    private List<Turno> lazyItemsData;
     
     private Date dateSelected;
     private String nombreResponsableSelected;
@@ -155,79 +144,6 @@ public class TurnoController implements Serializable {
     }
 
     public TurnoController() {
-    }
-
-    @PostConstruct
-    public void init() {
-        lideresEmpleadosMap = new HashMap<>();
-        cargarDatos();
-        initLazyItems();
-    }
-
-    private void cargarDatos() {
-        lideresEmpleadosMap.put("Mateo Francisco Alvarez", Arrays.asList(
-            "María Emilia Campos", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
-            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
-            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Pilar Boglione", "juan cuello"));
-
-        lideresEmpleadosMap.put("María Emilia Campos", Arrays.asList(
-            "Mateo Francisco Alvarez", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
-            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
-            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Pilar Boglione"));
-
-        lideresEmpleadosMap.put("Paula Alvarez", Arrays.asList(
-            "Mateo Novau", "Natali D Agostino", "Catalina Povarchik",
-            "Pilar Boglione"));
-
-        lideresEmpleadosMap.put("Paola Maldonado", Arrays.asList(
-            "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo", "Maria Jose Alaye",
-            "Catalina Povarchik", "María Paz Bolinaga"));
-
-        lideresEmpleadosMap.put("Ayelen Brizzio", Arrays.asList(
-            "Mateo Novau"));
-
-        lideresEmpleadosMap.put("Natali D Agostino", Arrays.asList(
-            "María Emilia Campos", "Mateo Francisco Alvarez", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
-            "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
-            "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
-            "Pilar Boglione", "juan cuello"));
-    }
-
-    private void initLazyItems() {
-        lazyItems = new LazyDataModel<Turno>() {
-            @Override
-            public List<Turno> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-                boolean asc = SortOrder.ASCENDING.equals(sortOrder) || SortOrder.UNSORTED.equals(sortOrder);
-                lazyItemsData = getFacade().findRange(first, pageSize, sortField, asc, filters);
-                setRowCount(getFacade().count(filters));
-                return lazyItemsData;
-            }
-
-            @Override
-            public Object getRowKey(Turno turno) {
-                return turno != null ? turno.getIdTurno() : null;
-            }
-
-            @Override
-            public Turno getRowData(String rowKey) {
-                if (rowKey == null || lazyItemsData == null) {
-                    return null;
-                }
-                Integer key = Integer.valueOf(rowKey);
-                for (Turno turno : lazyItemsData) {
-                    if (turno.getIdTurno() != null && turno.getIdTurno().equals(key)) {
-                        return turno;
-                    }
-                }
-                return null;
-            }
-        };
-    }
-
-    public LazyDataModel<Turno> getLazyItems() {
-        return lazyItems;
     }
 
     public Turno getSelected() {
@@ -550,52 +466,83 @@ public class TurnoController implements Serializable {
     }
     
     public List<Turno> getItemsBySessionUser(String userNombreCompleto, String date) {
+        
+        List<Turno> cloned_list = getFacade().findByResponsable(userNombreCompleto);
+        
         setFechaParaFiltrar(date);
+        
+        List<Turno> resultados = new ArrayList<>();
 
-        Date[] rango = buildDateRange(date);
-        if (rango == null) {
-            return new ArrayList<>();
+        for (Turno turno : cloned_list) {
+            if (turno.getDiaMesAnio().equals(date)) {
+                resultados.add(turno);
+            }
         }
+        
+        // No es necesario ordenar la lista aquí, ya que la consulta en la base de datos ya está ordenada
+        //Collections.sort(resultados, new SortByDate());
 
-        return getFacade().findByResponsableAndRange(userNombreCompleto, rango[0], rango[1]);
+        return resultados;
     }
     
     public List<Turno> getItemsByLeader(String userNombreCompleto, String dateStr) {
     
     Set<String> nombresEmpleados = new HashSet<>();
+    // Mapa de líderes a sus respectivos empleados
+    Map<String, String[]> lideresEmpleadosMap = new HashMap<>();
+    lideresEmpleadosMap.put("Mateo Francisco Alvarez", new String[]{
+        "María Emilia Campos", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
+        "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
+        "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+        "Pilar Boglione", "juan cuello"});
+    lideresEmpleadosMap.put("María Emilia Campos", new String[]{
+        "Mateo Francisco Alvarez", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
+        "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
+        "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+        "Pilar Boglione"});
+    lideresEmpleadosMap.put("Paula Alvarez", new String[]{
+        "Mateo Novau", "Natali D Agostino", "Catalina Povarchik",
+        "Pilar Boglione"});
+    lideresEmpleadosMap.put("Paola Maldonado", new String[]{
+        "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo", "Maria Jose Alaye",
+        "Catalina Povarchik", "María Paz Bolinaga"});
+    lideresEmpleadosMap.put("Ayelen Brizzio", new String[]{
+        "Mateo Novau"});
+    
+    //hago esto para q naty pueda ver las agendas y turnos de otras personas
+    lideresEmpleadosMap.put("Natali D Agostino", new String[]{
+        "María Emilia Campos", "Mateo Francisco Alvarez", "Paula Alvarez", "Paola Maldonado", "Ayelen Brizzio",
+        "Mateo Novau", "Carla Juez", "Natali D Agostino", "Maria Jose Alaye",
+        "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
+        "Pilar Boglione", "juan cuello"});
+    
 
     if(userNombreCompleto.equalsIgnoreCase("todos")) userNombreCompleto = "Mateo Francisco Alvarez";
-
+    
+    // Obtener la lista de empleados del líder
     if (lideresEmpleadosMap.containsKey(userNombreCompleto)) {
-        nombresEmpleados.addAll(lideresEmpleadosMap.get(userNombreCompleto));
+        nombresEmpleados.addAll(Arrays.asList(lideresEmpleadosMap.get(userNombreCompleto)));
     } else {
         System.out.println("Líder no encontrado en el mapa: " + userNombreCompleto);
     }
 
-        Date[] rango = buildDateRange(dateStr);
-        if (rango == null) {
-            return new ArrayList<>();
-        }
+        // Consulta a la base de datos
+    List<Turno> resultados = getFacade().findByResponsables(nombresEmpleados);
 
-        return getFacade().findByResponsablesAndRange(nombresEmpleados, rango[0], rango[1]);
-}
+    List<Turno> filtrados = new ArrayList<>();
 
-    private Date[] buildDateRange(String dateStr) {
-        if (dateStr == null || dateStr.trim().isEmpty()) {
-            return null;
-        }
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DD_MM_YYYY);
-            LocalDate localDate = LocalDate.parse(dateStr, formatter);
-            ZoneId zone = ZoneId.systemDefault();
-            Date inicio = Date.from(localDate.atStartOfDay(zone).toInstant());
-            Date fin = Date.from(localDate.plusDays(1).atStartOfDay(zone).toInstant());
-            return new Date[]{inicio, fin};
-        } catch (DateTimeParseException ex) {
-            System.err.println("error en buildDateRange " + ex);
-            return null;
+    for (Turno turno : resultados) {
+
+        if (turno.getDiaMesAnio().equals(dateStr)) {
+            filtrados.add(turno);
         }
     }
+
+    // Ordenar la lista
+    // Collections.sort(filtrados, new SortByDate());
+
+    return filtrados;
+}
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {

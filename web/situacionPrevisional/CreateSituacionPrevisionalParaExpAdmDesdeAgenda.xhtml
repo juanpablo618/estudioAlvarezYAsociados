@@ -5,6 +5,10 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+     <h:head>
+
+        <h:outputScript library="js" name="jsfcrud.js"/>
+    </h:head>
 
     <ui:composition>
 
@@ -17,14 +21,14 @@
                         <p:outputLabel value="Empleador:" for="empleador" />
                         <p:inputText id="empleador" value="#{situacionPrevisionalController.selectedNuevo.empleador}"  title="empleador" />
                         <div class="abmorganizado" >
-                            <div>
+                              <div>
                                 <p:outputLabel value="Fecha inicio:" for="fechaInicio" />
-                                <p:calendar  mode="inline" disabledWeekends="true"  placeholder="dd/MM/yyyy" autocomplete="off" id="fechaInicio"   pattern="dd/MM/yyyy" value="#{situacionPrevisionalController.selectedNuevo.fechaInicio}" title="fecha de inicio" required="true" />
-                            </div>
-                            <div> 
+                                <p:calendar locale="es" yearRange="c-100:c+20" navigator="true"  disabledWeekends="false"  placeholder="dd/MM/yyyy" autocomplete="off" id="fechaInicio"   pattern="dd/MM/yyyy" value="#{situacionPrevisionalController.selectedNuevo.fechaInicio}" title="fecha de inicio" required="true"  mode="inline" />
+                            </div>  
+                            <div>
                                 <p:outputLabel value="Fecha fín" for="fechaFin" />
-                                <p:calendar  mode="inline" disabledWeekends="true"  placeholder="dd/MM/yyyy" autocomplete="off" id="fechaFin"  pattern="dd/MM/yyyy" value="#{situacionPrevisionalController.selectedNuevo.fechaFin}" title="fecha de fin" required="true" />
-                            </div> 
+                                <p:calendar locale="es" yearRange="c-100:c+20" navigator="true" mode="inline"  disabledWeekends="false"  placeholder="dd/MM/yyyy" autocomplete="off" id="fechaFin"  pattern="dd/MM/yyyy" value="#{situacionPrevisionalController.selectedNuevo.fechaFin}" title="fecha de fin" required="true" />
+                            </div>
                         </div>
                         <p:outputLabel value="observaciones" for="observaciones" />
                         <p:inputTextarea  rows="2" id="observaciones" value="#{situacionPrevisionalController.selectedNuevo.observaciones}" title="inserte observaciòn" />

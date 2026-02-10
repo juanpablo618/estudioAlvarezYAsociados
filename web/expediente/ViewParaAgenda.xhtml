@@ -12,58 +12,7 @@
             <h:form id="ExpedienteViewFormParaAgenda" >
                 <h:panelGroup id="display">
 
-                    <!--                    <p:panel  style="margin-bottom:1%">
-                                            <h:panelGrid columns="2" rendered="#{expedienteController.selected != null}">
-                    
-                                                <h:panelGrid columns="5" cellpadding="1" rendered="#{expedienteController.selected != null}">
-                    
-                                                    <h:outputText value="Orden:"   />
-                                                    <h:outputText value="#{expedienteController.selected.orden}" title="tipoDeExpediente" class="negrita"/>
-                                                    <h:outputText value="|"  class="pipeSeparator" />
-                                                    <h:outputText value=" Apellido y Nombre:"  />
-                                                    <h:outputText value="#{expedienteController.selected.apellidoYNombre}" title="tipoDeExpediente" class="negrita"/>
-                    
-                                                </h:panelGrid>
-                    
-                                            </h:panelGrid>   
-                    
-                                            <h:panelGrid columns="8" rendered="#{expedienteController.selected != null}">
-                                                
-                                                <h:outputText value="Tipo de Expediente:" />
-                                                <h:outputText value="#{expedienteController.selected.tipoDeExpediente}" title="tipoDeExpediente" class="negrita"/>
-                                                <h:outputText value="|"  class="pipeSeparator" />
-                                                <h:outputText value="Fecha de Alta Expediente:"/>
-                                                <h:outputText value="#{expedienteController.selected.fechaDeAltaDeExpediente}" title="fecha de alta de expediente" class="negrita">
-                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                                </h:outputText>
-                                                <h:outputText value="|"  class="pipeSeparator" />
-                                                <h:outputText value="Fecha de Atención:"/>
-                                                <h:outputText value="#{expedienteController.selected.fechaDeAtencion}" title="fechaDeAtencion" class="negrita">
-                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                                </h:outputText>
-                                            </h:panelGrid>
-                                            <h:panelGrid columns="8" rendered="#{expedienteController.selected != null}">
-                                                
-                                                <h:outputText value="Tipo de Tramite:"/>
-                                                <h:outputText value="#{expedienteController.selected.tipoDeTramite}" title="tipoDeTramite" class="negrita"/>
-                                                <h:outputText value="|"  class="pipeSeparator" />
-                                                <h:outputText value="Estado del Tramite:" />
-                                                <h:outputText value="#{expedienteController.selected.estadoDelTramite}" title="estadoDelTramite" class="negrita"/>
-                                                <h:outputText value="|"  class="pipeSeparator" />
-                                                <h:outputText value="Cobra  Beneficio:" />
-                                                <h:outputText value="#{expedienteController.selected.cobraBeneficio}" title="cobra beneficio" class="negrita"/>
-                    
-                                            </h:panelGrid>   
-                    
-                                            <br></br>
-                    
-                                            <h:panelGrid columns="2" rendered="#{expedienteController.selected != null}">
-                                                <h:outputText value="Observaciones:" />
-                    
-                                                <h:outputText  value="#{expedienteController.selected.observaciones}" title="observaciones" class="negrita"/>
-                                            </h:panelGrid>
-                                        </p:panel>          
-                                        <br></br>-->
+                
 
                     <div class="abmorganizado" >
 
@@ -98,11 +47,6 @@
 
                         </div>
 
-
-
-                        <!-- comment saque este boton ya que no tenia sentido 
-                         <p:commandButton id="editButton" class="botonCrearAgenda hoverGreen"  icon="ui-icon-pencil" value="Ver expediente" update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()" disabled="#{empty expedienteController.selected}" />
-                        -->    
                     </div>
                 </h:panelGroup>
             </h:form>

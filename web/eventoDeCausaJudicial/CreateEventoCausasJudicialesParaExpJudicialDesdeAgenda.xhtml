@@ -3,31 +3,63 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     
     <ui:composition>
 
         <p:dialog id="EventoJudicialCreatedesdeagendaDlg" widgetVar="EventoJudicialCreatedesdeagendaDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Evento Judicial Nuevo">
             <h:form id="EventoJudicialCreatedesdeagendaForm">
                 <h:panelGroup id="display">
-                    <h:panelGrid columns="4">
-                     
-                        <p:outputLabel value="Fecha:" for="fecha" style="font-weight: bold"/><br></br>
-                        <p:calendar disabledWeekends="true"  placeholder="dd/MM/yyyy" autocomplete="off" id="fecha"  mode="inline" pattern="dd/MM/yyyy" value="#{eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.fecha}" title="fecha de causa" showOn="button" /><br></br><br></br>
-                              
-                        <p:outputLabel value="tipo de fecha" for="tipo_de_fecha" style="font-weight: bold"/><br></br>
-                        <p:inputTextarea id="tipo_de_fecha" value="#{eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.tipoDeFecha}" title="inserte tipo de fecha" /><br></br><br></br>
-                        
-                     </h:panelGrid>
+                    <div class="botonesapilados" >
+                     <p:outputLabel value="Fecha:" for="fecha"  />
+                        <p:calendar disabledWeekends="true" mode="inline" required="true" requiredMessage="Fecha es requerido." placeholder="dd/MM/yyyy" autocomplete="off" id="fecha"  pattern="dd/MM/yyyy" value="#{eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.fecha}" title="fecha de causa"  />
+                                 
+                        <p:outputLabel value="Tipo de fecha:" for="tipo_de_fecha" style="margin-top: 10px;"/>
+                        <p:selectOneMenu id="tipo_de_fecha"
+                                         value="#{eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.tipoDeFecha}"
+                                         editable="true"
+                                         required="true"
+                                        requiredMessage="Debe seleccionar un tipo de fecha" />
+                            <f:selectItem itemLabel=" -- Seleccione un tipo de fecha --" itemValue="" noSelectionOption="true" />
+                            <f:selectItem itemLabel="Reclamo administrativo" itemValue="Reclamo administrativo" />
+                            <f:selectItem itemLabel="Resolución denegatoria" itemValue="Resolución denegatoria" />
+                            <f:selectItem itemLabel="Notificación de Resolución denegatoria" itemValue="Notificación de Resolución denegatoria" />
+                            <f:selectItem itemLabel="Presentación de demanda (envío mail)" itemValue="Presentación de demanda (envío mail)" />
+                            <f:selectItem itemLabel="Deox notificación de dda" itemValue="Deox notificación de dda" />
+                            <f:selectItem itemLabel="Sentencia 1ra instancia" itemValue="Sentencia 1ra instancia" />
+                            <f:selectItem itemLabel="Sentencia 2da instancia" itemValue="Sentencia 2da instancia" />
+                            <f:selectItem itemLabel="Sentencia REX" itemValue="Sentencia REX" />
+                            <f:selectItem itemLabel="Decreto de cumplimiento" itemValue="Decreto de cumplimiento" />
+                            <f:selectItem itemLabel="Inicio de ejecución" itemValue="Inicio de ejecución" />
+                            <f:selectItem itemLabel="Sentencia de ejecución" itemValue="Sentencia de ejecución" />
+                            <f:selectItem itemLabel="Primer embargo" itemValue="Primer embargo" />
+                            <f:selectItem itemLabel="Primer transferencia" itemValue="Primer transferencia" />
+                            <f:selectItem itemLabel="Primer denuncia cobro" itemValue="Primer denuncia cobro" />
+                            <f:selectItem itemLabel="Primer resolución aprobatoria planilla denuncia cobro" itemValue="Primer resolución aprobatoria planilla denuncia cobro" />
+                            <f:selectItem itemLabel="Segundo embargo" itemValue="Segundo embargo" />
+                            <f:selectItem itemLabel="Segunda transferencia" itemValue="Segunda transferencia" />
+                            <f:selectItem itemLabel="Segundo denuncia cobro" itemValue="Segundo denuncia cobro" />
+                            <f:selectItem itemLabel="Segunda resolución aprobatoria planilla denuncia cobro" itemValue="Segunda resolución aprobatoria planilla denuncia cobro" />
+                            <f:selectItem itemLabel="Tercer embargo" itemValue="Tercer embargo" />
+                            <f:selectItem itemLabel="Tercera transferencia" itemValue="Tercera transferencia" />
+                            <f:selectItem itemLabel="Cuarto denuncia cobro" itemValue="Cuarto denuncia cobro" />
+                            <f:selectItem itemLabel="Tercer resolución aprobatoria planilla denuncia cobro" itemValue="Tercer resolución aprobatoria planilla denuncia cobro" />
+                            <f:selectItem itemLabel="Cuarto embargo" itemValue="Cuarto embargo" />
+                            <f:selectItem itemLabel="Cuarta transferencia" itemValue="Cuarta transferencia" />
+                            <f:selectItem itemLabel="OTRA FECHA JUDICIAL" itemValue="OTRA FECHA JUDICIAL" />
+                        </p:selectOneMenu>
+                    
                     <p:commandButton actionListener="#{eventoDeCausasJudicialesController.createEventoJudicial(
                                                            eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.fecha,
                                                            eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.tipoDeFecha ,
                                                            eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.orden)}"
-                                         class="botonCrear" value="#{bundle.Save}" 
+                                         class="boton-verde-general" value="#{bundle.Save}" 
                                          oncomplete="handleSubmit(args,'EventoJudicialCreatedesdeagendaDialog');" 
                                          update=":ExpedienteJudicialViewDesdeAgendaForm:tabViewEditExpJudicialEditForm:datalist6,:growl"/>
                   
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('EventoJudicialCreatedesdeagendaDialog').hide();"/>
+             
+                </div>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -9,63 +9,85 @@
 
     <h:head>
         <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/updocumentos.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
     </h:head>
-    
+
     <ui:composition template="/template.xhtml">
 
         <ui:define name="body">
-            
-            <p:fieldset class="ui-fieldset-toggleable-verde" style="background-color: #123a6d" legend="Filtros" toggleable="true"  collapsed="true" toggleSpeed="500">
-            <h:form style="margin-top: 1%;" class="mrgBtn">    
-                
-                <p:outputLabel value="Estado del tramite:"  style="color:white;margin-left: 3%;font-weight: bold" />
-                
-                <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" requiredMessage="debe seleccionar un estado del tramite correcto" id="estadoDelTramite" value="#{expedienteController.estadoDelTramiteSelected}">
-                    <f:selectItem itemLabel=" -- Elige un Estado del tramite --"  noSelectionOption="true"  />
-                    <f:selectItems value="#{estadoDelTramiteController.items}" var="estado" itemLabel="#{estado.estado}" itemValue="#{estado.estado}" />
-                </p:selectOneMenu>
 
-                <p:outputLabel value="Tipo de exp:"  style="color:white;margin-left: 1%;font-weight: bold" />
-                
-                <p:selectOneMenu style="margin-right: 1%; margin-left: 1%" requiredMessage="debe seleccionar un tipo de expediente" id="tipoDeExpedienteBusqueda" value="#{expedienteController.tipoDeExpedienteSelected}">
-                    <f:selectItem itemLabel=" Elige un tipo de exp. --"  noSelectionOption="true"  />
-                    <f:selectItem itemLabel="administrativo"  itemValue="administrativo"  />
-                    <f:selectItem itemLabel="judicial"  itemValue="judicial"  />
-                    <f:selectItem itemLabel="sin carpeta"  itemValue="sin carpeta"  />
-                </p:selectOneMenu>
-                <br></br><br></br>
-                <p:outputLabel value="Tipo de tramite:"  style="color:white;margin-left: 3%;font-weight: bold" />
-                
-                    <p:selectOneMenu style="margin-left: 1%" requiredMessage="Seleccionar un tipo de tramite" id="tipoDeTramiteBusqueda" value="#{expedienteController.tipoDeTramiteSelected}">
-                        <f:selectItem itemLabel=" -- Elige un típo de trámite --"  noSelectionOption="true"  />
-                        <f:selectItems value="#{tipoDeTramiteController.items}" var="tipoDeTramite" itemLabel="#{tipoDeTramite.estado}" itemValue="#{tipoDeTramite.estado}" />
-                    </p:selectOneMenu>
-                <br></br><br></br>
-                <p:outputLabel value="Fecha de cumpleaños:"  style="color:white;margin-left: 3%;font-weight: bold" />
-                <p:inputText id="fechaDeCumple" value="#{expedienteController.fechaDeCumpleSelected}" placeholder="solo colocar día y mes = dd/MM" style="width: 15%; margin-right: 1%; margin-left: 1%" title="#{bundle.CreateExpedienteTitle_nombre}" />
-                
-                <p:outputLabel value="Responsable (nombre y apellido):"  style="color:white;margin-left: 3%;font-weight: bold" />
-                
-                <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" requiredMessage="debe seleccionar un responsable correcto" id="apoderado" value="#{expedienteController.responsableSelected}">
-                    <f:selectItem itemLabel=" -- Elige un Responsable --"  noSelectionOption="true"  />
-                    <f:selectItems value="#{empleadoController.items}" var="empleado" itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}" />
-                </p:selectOneMenu>
-                
-                <br></br>
-                <h:commandButton class="hoverBlue" value="Limpiar filtros" onclick="PF('expedientesTable').clearFilters()" actionListener="#{expedienteController.limpiarFiltros()}"
-                                 style="width: 45%;margin-top: .5%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 3%;"/>
-            
-                <h:commandButton class="hoverBlue" value="Aplicar Filtro" actionListener="#{expedienteController.filtroCompuesto(expedienteController.getTipoDeTramiteSelected(), expedienteController.getTipoDeExpedienteSelected(), expedienteController.getResponsableSelected(), expedienteController.getEstadoDelTramiteSelected(), expedienteController.getFechaDeCumpleSelected(), expedienteController.getSexoSelected())}"
-                                 style="width: 45%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 10px;" />
-            
-                <h:commandButton class="hoverBlue" value="#{expedienteController.mostrarSoloActivos ? 'Mostrar Todos' : 'Mostrar solo Activos'}" 
-                     action="#{expedienteController.toggleMostrarTodos()}" 
-                     style="width: 10%; padding: 0.5%; font-family: bolt; font-weight:bold; background: #4fb2e1; border-color: #9FCBD4;color: white; border-radius: 7px 7px 7px 7px; margin-left: 3%; margin-top: 1%"/>
 
-                
+            <h:form > 
+                <div class="filters" >
+                    <div style="display: flex ;font-size: 20px !important;font-weight: 600;margin-left: 10px ;color: #292B2C;">
+                        <i class="fa fa-filter"></i>
+                        <h:outputText  value="Filtrar Expediente"  style="font-size: 20px !important;font-weight: 600; font-family: Poppins, serif !important; color: #292B2C;"/>
+                    </div>
+                    <div style="display: flex">
+
+                        <h:commandButton class="boton-guardar" value="Aplicar Filtro" actionListener="#{expedienteController.filtroCompuesto(expedienteController.getTipoDeTramiteSelected(), expedienteController.getTipoDeExpedienteSelected(), expedienteController.getResponsableSelected(), expedienteController.getEstadoDelTramiteSelected(), expedienteController.getFechaDeCumpleSelected(), expedienteController.getSexoSelected())}"
+                                         />
+
+                        <h:commandButton styleClass="boton-sistema" style="margin-right: 10px" value="#{expedienteController.mostrarSoloActivos ? 'Mostrar Todos' : 'Mostrar solo Activos'}" 
+                                         action="#{expedienteController.toggleMostrarTodos()}" 
+                                         />
+                        <h:commandButton styleClass="boton-cancelar" value="Limpiar filtros" onclick="PF('expedientesTable').clearFilters()" actionListener="#{expedienteController.limpiarFiltros()}"
+                                         />
+
+                    </div>
+                </div>
+                <div class="mrgBtn">
+
+                    <div class="botonesapilados">
+
+                        <p:outputLabel value="Estado del tramite:"  />
+
+                        <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" requiredMessage="debe seleccionar un estado del tramite correcto" id="estadoDelTramite" value="#{expedienteController.estadoDelTramiteSelected}">
+                            <f:selectItem itemLabel="Seleccionar"  noSelectionOption="true"  />
+                            <f:selectItems value="#{estadoDelTramiteController.items}" var="estado" itemLabel="#{estado.estado}" itemValue="#{estado.estado}" />
+                        </p:selectOneMenu>
+                    </div>
+                    <div class="botonesapilados">
+                        <p:outputLabel value="Tipo de exp:"   />
+
+                        <p:selectOneMenu style="margin-right: 1%; margin-left: 1%" requiredMessage="debe seleccionar un tipo de expediente" id="tipoDeExpedienteBusqueda" value="#{expedienteController.tipoDeExpedienteSelected}">
+                            <f:selectItem itemLabel="Seleccionar"  noSelectionOption="true"  />
+                            <f:selectItem itemLabel="administrativo"  itemValue="administrativo"  />
+                            <f:selectItem itemLabel="judicial"  itemValue="judicial"  />
+                            <f:selectItem itemLabel="sin carpeta"  itemValue="sin carpeta"  />
+                        </p:selectOneMenu>
+                    </div>
+                    <div class="botonesapilados">
+                        <p:outputLabel value="Tipo de tramite:"   />
+
+                        <p:selectOneMenu style="margin-left: 1%" requiredMessage="Seleccionar un tipo de tramite" id="tipoDeTramiteBusqueda" value="#{expedienteController.tipoDeTramiteSelected}">
+                            <f:selectItem itemLabel="Seleccionar"  noSelectionOption="true"  />
+                            <f:selectItems value="#{tipoDeTramiteController.items}" var="tipoDeTramite" itemLabel="#{tipoDeTramite.estado}" itemValue="#{tipoDeTramite.estado}" />
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="botonesapilados">
+                        <p:outputLabel value="Fecha de cumpleaños:"   />
+                        <p:inputText id="fechaDeCumple" value="#{expedienteController.fechaDeCumpleSelected}" placeholder="solo colocar día y mes = dd/MM"  title="#{bundle.CreateExpedienteTitle_nombre}" />
+
+                    </div>
+
+                    <div class="botonesapilados">
+                        <p:outputLabel value="Responsable:"  />
+
+                        <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" requiredMessage="debe seleccionar un responsable correcto" id="apoderado" value="#{expedienteController.responsableSelected}">
+                            <f:selectItem itemLabel="Seleccionar"  noSelectionOption="true"  />
+                            <f:selectItems value="#{empleadoController.items}" var="empleado" itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}" />
+                        </p:selectOneMenu>
+                    </div>
+
+
+                </div>
+
             </h:form>
-          </p:fieldset>  
-            <h:form id="ExpedienteListForm" style=" background-color: #F4F8FA;">
+
+            <h:form id="ExpedienteListForm" >
                 <p:dataTable id="datalist" value="#{expedienteController.items}" var="item"
                              selectionMode="single" selection="#{expedienteController.selected}"
                              paginator="true"
@@ -77,6 +99,7 @@
                              resizableColumns="true"
                              rendered="true"  
                              emptyMessage="no existen expedientes con ese filtro"
+                              styleClass="tabla-tailwind"
                              >
 
                     <p:ajax event="rowSelect"   update="createButton "/>
@@ -84,7 +107,7 @@
 
                     <p:growl life="5000" id="message" showDetail="true" autoUpdate="true"/>
 
-                    <p:column style="width: 8% !important;" filterBy="#{item.orden}" sortBy="#{item.orden}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="exact">
+                    <p:column style="width: 4% !important;" filterBy="#{item.orden}" sortBy="#{item.orden}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="exact">
                         <f:facet name="header">
                             <h:outputText value="#{bundle.ListExpedienteTitle_orden}"/>
                         </f:facet>
@@ -93,9 +116,9 @@
                         </center>
                     </p:column>
 
-                    <p:column style="width: 35% !important;" filterBy="#{item.apellidoYNombre}" filterFunction="#{expedienteController.filterByApellidoYNombre}"  styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
+                    <p:column style="width: 25% !important;" filterBy="#{item.apellidoYNombre}" filterFunction="#{expedienteController.filterByApellidoYNombre}"  styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
                         <f:facet name="header" >
-                            <h:outputText  value="APELLIDO Y NOMBRE"/>
+                            <h:outputText  value="Apellido y Nombre"/>
                         </f:facet>
                         <center>
                             <h:outputText  id="JuanCuello" value="#{ item.apellidoYNombre}"/>
@@ -104,40 +127,48 @@
 
                     <p:column style="width: 11% !important;" filterBy="#{item.cuit}" sortBy="#{item.cuit}" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" filterMatchMode="contains">
                         <f:facet name="header">
-                            <h:outputText value="CUIT"/>
+                            <h:outputText value="Cuit"/>
                         </f:facet>
                         <center>
                             <h:outputText value="#{item.getCuit()}"/>
+                        </center>
+                    </p:column>
+                    <p:column style="width: 8% !important;" filterBy="#{item.tipoDeExpediente}"  styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" >
+                          <f:facet name="header">
+                            <h:outputText value="Tipo de expediente"/>
+                        </f:facet>
+                        <center>
+                            <h:outputText value="#{item.tipoDeExpediente}"/>
                         </center>
                     </p:column>
 
                     <p:column style="width: 15% !important;text-align: center; " styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" exportable="false">
 
                         <f:facet name="header">
-                            <h:outputText value="ACCIONES"/>
+                            <h:outputText value="Acciones"/>
                         </f:facet>
 
-                        <p:commandButton class="linea btnKey"  update=":ExpedienteViewDocumentosForm"  oncomplete="PF('ExpedienteViewDocumentosDialog').show()" icon="ui-icon-folder-open" title="Documentos">
-                            <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
-                        </p:commandButton>
-                        
-                        <p:commandButton class="linea btnSearchYellow"  update=":HonorarioListFormDesdeExp" oncomplete="PF('HonorariosListDialog').show()" rendered="#{item.tipoDeExpediente eq 'judicial'}" icon="ui-icon-pencil" title="Ver Honorarios">
-                            <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
-                        </p:commandButton>
-                        
-                        <p:commandButton class="linea btnKey"  update=":ExpedienteViewClavesForm2" oncomplete="PF('ExpedienteViewClavesDialog2').show()" icon="ui-icon-locked" rendered="#{item.tipoDeExpediente eq 'judicial' or item.tipoDeExpediente eq 'administrativo'}" title="Claves">
+                        <p:commandButton class="boton-transparente"  update=":ExpedienteViewDocumentosForm"  oncomplete="PF('ExpedienteViewDocumentosDialog').show()" icon="ui-icon-folder-open" title="Documentos">
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
 
-                        <p:commandButton class="linea btnSearch"  update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()"  icon="ui-icon-search" rendered="#{item.tipoDeExpediente eq 'administrativo'}" title="Ver exp. Administrativo">
+                        <p:commandButton class="boton-transparente"  update=":HonorarioListFormDesdeExp" oncomplete="PF('HonorariosListDialog').show()" rendered="#{item.tipoDeExpediente eq 'judicial'}" icon="ui-icon-pencil" title="Ver Honorarios">
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
 
-                        <p:commandButton class="linea btnSearch"  update=":ExpedienteSinCarpetaEditForm" oncomplete="PF('ExpedienteSinCarpetaEditDialog').show()"  icon="ui-icon-search" rendered="#{item.tipoDeExpediente eq 'sin carpeta'}" title="Ver exp. Sin Carpeta">
+                        <p:commandButton class="boton-transparente"  update=":ExpedienteViewClavesForm2" oncomplete="PF('ExpedienteViewClavesDialog2').show()" icon="ui-icon-locked" rendered="#{item.tipoDeExpediente eq 'judicial' or item.tipoDeExpediente eq 'administrativo'}" title="Claves">
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
 
-                        <p:commandButton class="linea btnSearch"  update=":ExpedienteJudicialEditForm" oncomplete="PF('ExpedienteJudicialEditDialog').show()" rendered="#{item.tipoDeExpediente eq 'judicial'}" icon="ui-icon-search" title="Ver exp. Judicial">
+                        <p:commandButton class="boton-transparente"  update=":ExpedienteEditForm" oncomplete="PF('ExpedienteEditDialog').show()"  icon="ui-icon-search" rendered="#{item.tipoDeExpediente eq 'administrativo'}" title="Ver exp. Administrativo">
+                            <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
+                        </p:commandButton>
+
+                        <p:commandButton class="boton-transparente"  update=":ExpedienteSinCarpetaEditForm" oncomplete="PF('ExpedienteSinCarpetaEditDialog').show()"  icon="ui-icon-search" rendered="#{item.tipoDeExpediente eq 'sin carpeta'}" title="Ver exp. Sin Carpeta">
+                            <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
+                        </p:commandButton>
+
+                        <p:commandButton class="boton-transparente"  update=":ExpedienteJudicialEditForm" oncomplete="PF('ExpedienteJudicialEditDialog').show()" rendered="#{item.tipoDeExpediente eq 'judicial'}" icon="ui-icon-search" title="Ver exp. Judicial">
                             <f:setPropertyActionListener value="#{item}" target="#{expedienteController.selected}" />
                         </p:commandButton>
 
@@ -156,7 +187,7 @@
                     <p:menuitem icon="ui-icon-pencil" style="background-color: white !important" value="agregar Agenda" actionListener="#{agendaController.prepareCreate}" update=":ExpedienteViewFormParaAgenda" oncomplete="PF('ExpedienteViewDialogParaAgenda').show()" />             
                     <p:menuitem icon="ui-icon-pencil" style="background-color: white !important" value="agregar Turno" actionListener="#{turnoController.prepareCreate}" update=":ExpedienteViewFormParaTurno" oncomplete="PF('ExpedienteViewDialogParaTurno').show()" />             
                 </p:contextMenu>    
-                
+
             </h:form>
 
             <ui:include src="Create.xhtml"/>

@@ -11,12 +11,11 @@
         <p:dialog id="EventoJudicialCreateDlg" widgetVar="EventoJudicialCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Evento Judicial Nuevo">
             <h:form id="EventoJudicialCreateForm">
                 <h:panelGroup id="display">
-                    <h:panelGrid columns="4">
-                     
-                        <p:outputLabel value="Fecha:" for="fecha" style="font-weight: bold"/><br></br>
-                        <p:calendar disabledWeekends="true" required="true" requiredMessage="Fecha es requerido." placeholder="dd/MM/yyyy" autocomplete="off" id="fecha"  pattern="dd/MM/yyyy" value="#{eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.fecha}" title="fecha de causa" showOn="button" /><br></br><br></br>
+                    <div class="botonesapilados" >
+                        <p:outputLabel value="Fecha:" for="fecha"  />
+                        <p:calendar disabledWeekends="true" mode="inline" required="true" requiredMessage="Fecha es requerido." placeholder="dd/MM/yyyy" autocomplete="off" id="fecha"  pattern="dd/MM/yyyy" value="#{eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.fecha}" title="fecha de causa"  />
                               
-                        <p:outputLabel value="Tipo de fecha:" for="tipo_de_fecha" style="font-weight: bold" /><br></br>
+                        <p:outputLabel value="Tipo de fecha:" for="tipo_de_fecha"  style="margin-top: 10px" />
 
                         <p:selectOneMenu id="tipo_de_fecha"
                                          value="#{eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.tipoDeFecha}"
@@ -24,7 +23,7 @@
                                          required="true"
                                         requiredMessage="Debe seleccionar un tipo de fecha"
                  
-                                         style="width:300px">
+                                      >
                             <f:selectItem itemLabel=" -- Seleccione un tipo de fecha --" itemValue="" noSelectionOption="true" />
                             <f:selectItem itemLabel="Reclamo administrativo" itemValue="Reclamo administrativo" />
                             <f:selectItem itemLabel="Resolución denegatoria" itemValue="Resolución denegatoria" />
@@ -54,16 +53,17 @@
                             <f:selectItem itemLabel="OTRA FECHA JUDICIAL" itemValue="OTRA FECHA JUDICIAL" />
                         </p:selectOneMenu>
                         
-                     </h:panelGrid>
+                    
                     <p:commandButton actionListener="#{eventoDeCausasJudicialesController.createEventoJudicial(
                                                            eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.fecha,
                                                            eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.tipoDeFecha ,
                                                            eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.orden)}"
-                                         class="botonCrear" value="#{bundle.Save}" 
+                                         class="boton-verde-general" value="#{bundle.Save}" 
                                          oncomplete="handleSubmit(args,'EventoJudicialCreateDialog');" 
                                          update="display,:ExpedienteJudicialEditForm,:growl"/>
                   
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('EventoJudicialCreateDialog').hide();"/>
+                    </div>
+                     
                 </h:panelGroup>
             </h:form>
         </p:dialog>

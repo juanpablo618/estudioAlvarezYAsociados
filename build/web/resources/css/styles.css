@@ -72,8 +72,18 @@ boto.fondo {
 }
 
 .mrgBtn{
-    margin-right: 2%; 
+    background: white !important ;
+     display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    padding: 20px;
+    align-items: end;
+ 
 } 
+
+.filters{
+   display: flex ;justify-content: space-between; background: white;padding: 20px 10px 0px 10px;
+}
 
 .mrg10{width: 10% !important;}
 .mrg20{width: 20%;}
@@ -206,8 +216,7 @@ boto.fondo {
 }
 
 #ExpedienteViewDlgParaTurno{
-    width: 85% !important;
-    height: 95% !important;
+   z-index: 1010 !important;
 }
 
 #ExpedienteViewDialogParaAgenda{

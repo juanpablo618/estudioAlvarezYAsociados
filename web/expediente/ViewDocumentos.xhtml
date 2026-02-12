@@ -976,6 +976,76 @@
                                             </p:commandButton>
                                         </div>
                                     </div> </div>
+                                
+                                    <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosDos').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+                                        <p:outputLabel value="Nombre del archivo Recibos Dos:" styleClass="titulopdfjpg"/>
+                                        <br></br>
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosDos')}" 
+                                                       styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosDos').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                       />
+                                        <br></br>
+                                        <p:growl life="2500" showDetail="true"  />
+                                        <p:fileUpload value="#{fileUploadBean.fileRecibosDos}" mode="simple"/>
+
+                                        <!-- Contenedor flex para los botones -->
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'RecibosDos')}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar Recibos Dos" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'RecibosDos')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileRecibosDos}" />
+                                            </p:commandButton>
+                                        </div>
+                                    </div> </div>
+                                
+                                    <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosTres').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+
+
+                                        <p:outputLabel value="Nombre del archivo Recibos Tres:" styleClass="titulopdfjpg"/>
+                                        <br></br>
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosTres')}" 
+                                                       styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosTres').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                       />
+                                        <br></br>
+                                        <p:growl life="2500" showDetail="true"  />
+                                        <p:fileUpload value="#{fileUploadBean.fileRecibosTres}" mode="simple"/>
+
+                                        <!-- Contenedor flex para los botones -->
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'RecibosTres')}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar Recibos Tres" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'RecibosTres')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileRecibosTres}" />
+                                            </p:commandButton>
+                                        </div>
+                                    </div> </div>
+                                
+                                    <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosCuatro').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+
+
+                                        <p:outputLabel value="Nombre del archivo Recibos Cuatro:" styleClass="titulopdfjpg"/>
+                                        <br></br>
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosCuatro')}" 
+                                                       styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosCuatro').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                       />
+                                        <br></br>
+                                        <p:growl life="2500" showDetail="true"  />
+                                        <p:fileUpload value="#{fileUploadBean.fileRecibosCuatro}" mode="simple"/>
+
+                                        <!-- Contenedor flex para los botones -->
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'RecibosCuatro')}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar Recibos Cuatro" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'RecibosCuatro')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileRecibosCuatro}" />
+                                            </p:commandButton>
+                                        </div>
+                                    </div> </div>
                             </p:panel></p:tab>
 
                         <br></br>

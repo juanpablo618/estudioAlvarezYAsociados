@@ -61,6 +61,10 @@ public class FileUploadBean implements Serializable{
         private UploadedFile fileExpAdministrativoDos;
         
         private UploadedFile fileRecibos;
+        private UploadedFile fileRecibosDos;
+        private UploadedFile fileRecibosTres;
+        private UploadedFile fileRecibosCuatro;
+        
         private UploadedFile fileLiquidacionBlueCorp;
         private UploadedFile fileLiquidacionBlueCorpDos;
         private UploadedFile fileLiquidacionBlueCorpTres;
@@ -114,6 +118,32 @@ public class FileUploadBean implements Serializable{
     public void setFileRecibos(UploadedFile fileRecibos) {
         this.fileRecibos = fileRecibos;
     }
+
+    public UploadedFile getFileRecibosDos() {
+        return fileRecibosDos;
+    }
+
+    public void setFileRecibosDos(UploadedFile fileRecibosDos) {
+        this.fileRecibosDos = fileRecibosDos;
+    }
+
+    public UploadedFile getFileRecibosTres() {
+        return fileRecibosTres;
+    }
+
+    public void setFileRecibosTres(UploadedFile fileRecibosTres) {
+        this.fileRecibosTres = fileRecibosTres;
+    }
+
+    public UploadedFile getFileRecibosCuatro() {
+        return fileRecibosCuatro;
+    }
+
+    public void setFileRecibosCuatro(UploadedFile fileRecibosCuatro) {
+        this.fileRecibosCuatro = fileRecibosCuatro;
+    }
+    
+    
 
     public UploadedFile getFileLiquidacionBlueCorp() {
         return fileLiquidacionBlueCorp;
@@ -1842,6 +1872,19 @@ public class FileUploadBean implements Serializable{
              case "Recibos":
                  fileParaSubir = fileRecibos;
                  break;
+            
+             case "RecibosDos":
+                 fileParaSubir = fileRecibosDos;
+                 break;
+            
+             case "RecibosTres":
+                 fileParaSubir = fileRecibosTres;
+                 break;
+            
+             case "RecibosCuatro":
+                 fileParaSubir = fileRecibosCuatro;
+                 break;     
+                 
             case "LiquidacionBlueCorp":
                  fileParaSubir = fileLiquidacionBlueCorp;
                  break;     

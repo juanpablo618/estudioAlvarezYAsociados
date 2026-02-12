@@ -67,6 +67,11 @@ public class FileDownloadBean implements Serializable {
     private StreamedContent fileExpAdministrativoDos;
 
     private StreamedContent fileRecibos;
+    private StreamedContent fileRecibosDos;
+    private StreamedContent fileRecibosTres;
+    private StreamedContent fileRecibosCuatro;
+    
+    
     private StreamedContent fileLiquidacionBlueCorp;
     private StreamedContent fileLiquidacionBlueCorpDos;
     private StreamedContent fileLiquidacionBlueCorpTres;
@@ -251,6 +256,30 @@ public class FileDownloadBean implements Serializable {
         this.fileRecibos = fileRecibos;
     }
 
+    public StreamedContent getFileRecibosDos() {
+        return fileRecibosDos;
+    }
+
+    public void setFileRecibosDos(StreamedContent fileRecibosDos) {
+        this.fileRecibosDos = fileRecibosDos;
+    }
+
+    public StreamedContent getFileRecibosTres() {
+        return fileRecibosTres;
+    }
+
+    public void setFileRecibosTres(StreamedContent fileRecibosTres) {
+        this.fileRecibosTres = fileRecibosTres;
+    }
+
+    public StreamedContent getFileRecibosCuatro() {
+        return fileRecibosCuatro;
+    }
+
+    public void setFileRecibosCuatro(StreamedContent fileRecibosCuatro) {
+        this.fileRecibosCuatro = fileRecibosCuatro;
+    }
+    
     public StreamedContent getFileLiquidacionBlueCorp() {
         return fileLiquidacionBlueCorp;
     }
@@ -1708,6 +1737,22 @@ public class FileDownloadBean implements Serializable {
                                 fileRecibos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileRecibos;
                                 break;
+                                
+                            case "RecibosDos":
+                                fileRecibosDos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileRecibosDos;
+                                break; 
+                                
+                            case "RecibosTres":
+                                fileRecibosTres = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileRecibosTres;
+                                break;
+                                
+                            case "RecibosCuatro":
+                                fileRecibosCuatro = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileRecibosCuatro;
+                                break;    
+                                
                             case "LiquidacionBlueCorp":
                                 fileLiquidacionBlueCorp = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileLiquidacionBlueCorp;
@@ -1777,6 +1822,18 @@ public class FileDownloadBean implements Serializable {
                             case "Recibos":
                                 fileRecibos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileRecibos;
+                                break;
+                            case "RecibosDos":
+                                fileRecibosDos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileRecibosDos;
+                                break;
+                            case "RecibosTres":
+                                fileRecibosTres = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileRecibosTres;
+                                break;
+                            case "RecibosCuatro":
+                                fileRecibosCuatro = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileRecibosCuatro;
                                 break;
                             case "LiquidacionBlueCorp":
                                 fileLiquidacionBlueCorp = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));

@@ -651,7 +651,7 @@
                                              value="Crear Turno" 
                                              actionListener="#{turnoController.prepareCreate}"
                                              update=":ExpedienteViewFormParaTurno"
-                                             oncomplete="PF('ExpedienteViewDialogParaTurno').show(); PF('ExpedienteJudicialEditDialog').show()" />
+                                             oncomplete="PF('ExpedienteViewDialogParaTurno').show(); PF('ExpedienteJudicialEditDialog').show();" />
                             <!-- Botón desplegable (se deja de utilizar por pedido del cliente se agregan acordeones)
                             <p:menuButton value="Historial de Agendas y Turnos"  id="historialdeagendas" >
                                 <p:menuitem value="Agendas Anteriores" actionListener="#{agendaController.seleccionarVista('agendasAnteriores')}" update="contenedorTablas" />
@@ -774,7 +774,7 @@
                                     <p:growl life="2500" id="message3"  showDetail="true" />
 
 
-                                    <p:column style="text-align: start !important ; width: 70%">
+                                    <p:column style="text-align: start !important ; width: 60%">
                                         <f:facet name="header">
                                             <h:outputText value="Descripción"/>
                                         </f:facet>
@@ -948,7 +948,7 @@
                                     <p:growl life="2500" id="message4" showDetail="true" />
 
 
-                                    <p:column style="text-align: start !important; width: 70%">
+                                    <p:column style="text-align: start !important; width: 60%">
                                         <f:facet name="header">
                                             <h:outputText value="Descripción"/>
                                         </f:facet>

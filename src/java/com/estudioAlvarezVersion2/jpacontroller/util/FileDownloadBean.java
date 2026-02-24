@@ -1303,7 +1303,7 @@ public class FileDownloadBean implements Serializable {
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
-                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosDemandas WHERE nroDeOrden = (?) AND numeroDocumento = (?);");
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosDemandasDOS WHERE nroDeOrden = (?) AND numeroDocumento = (?);");
                 ps.setInt(1, orden);
                 ps.setInt(2, 2);
 

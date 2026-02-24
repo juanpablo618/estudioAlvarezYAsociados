@@ -994,7 +994,7 @@ public class FileUploadBean implements Serializable{
 
                 if (fileDemandaDos.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileDemandaDos.getContentType().equalsIgnoreCase(APPLICATION_PDF)) {
                     con = DAO.getConnection();
-                    ps = con.prepareStatement("INSERT INTO documentosDemandas (documento, nroDeOrden, nombreDelDocumento, numeroDocumento) "
+                    ps = con.prepareStatement("INSERT INTO documentosDemandasDos (documento, nroDeOrden, nombreDelDocumento, numeroDocumento) "
                             + "VALUES (?, ?, ?, ?) "
                             + "ON DUPLICATE KEY UPDATE "
                             + "documento = VALUES(documento), "

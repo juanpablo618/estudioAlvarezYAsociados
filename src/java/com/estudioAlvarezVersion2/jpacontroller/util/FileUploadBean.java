@@ -947,8 +947,8 @@ public class FileUploadBean implements Serializable{
 
                 if (fileDemanda.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileDemanda.getContentType().equalsIgnoreCase(APPLICATION_PDF)) {
                     con = DAO.getConnection();
-                    ps = con.prepareStatement("INSERT INTO documentosDemandas (documento, nroDeOrden, nombreDelDocumento, numeroDocumento) "
-                            + "VALUES (?, ?, ?, ?) "
+                    ps = con.prepareStatement("INSERT INTO documentosDemandas (documento, nroDeOrden, nombreDelDocumento) "
+                            + "VALUES (?, ?, ?) "
                             + "ON DUPLICATE KEY UPDATE "
                             + "documento = VALUES(documento), "
                             + "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"
@@ -957,7 +957,7 @@ public class FileUploadBean implements Serializable{
                     ps.setBinaryStream(1, fileDemanda.getInputstream());
                     ps.setInt(2, orden);
                     ps.setString(3, fileDemanda.getFileName());
-                    ps.setInt(4, 1);
+                    
 
                     ps.executeUpdate();
                     con.close();
@@ -994,8 +994,8 @@ public class FileUploadBean implements Serializable{
 
                 if (fileDemandaDos.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileDemandaDos.getContentType().equalsIgnoreCase(APPLICATION_PDF)) {
                     con = DAO.getConnection();
-                    ps = con.prepareStatement("INSERT INTO documentosDemandasDos (documento, nroDeOrden, nombreDelDocumento, numeroDocumento) "
-                            + "VALUES (?, ?, ?, ?) "
+                    ps = con.prepareStatement("INSERT INTO documentosDemandasDos (documento, nroDeOrden, nombreDelDocumento) "
+                            + "VALUES (?, ?, ?) "
                             + "ON DUPLICATE KEY UPDATE "
                             + "documento = VALUES(documento), "
                             + "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"
@@ -1004,7 +1004,6 @@ public class FileUploadBean implements Serializable{
                     ps.setBinaryStream(1, fileDemandaDos.getInputstream());
                     ps.setInt(2, orden);
                     ps.setString(3, fileDemandaDos.getFileName());
-                    ps.setInt(4, 2);
 
                     ps.executeUpdate();
                     con.close();
@@ -1104,80 +1103,6 @@ public class FileUploadBean implements Serializable{
     }
 }
 
-    /*public void uploadBlueCorp(int orden, int numeroDocumento) {
-    Connection con = null;
-    PreparedStatement ps = null;
-    UploadedFile currentFile = null;
-
-    try {
-        
-         
-        switch (numeroDocumento) {
-            case 1:
-                currentFile = fileLiquidacionBlueCorp;
-                break;
-            case 2:
-                currentFile = fileLiquidacionBlueCorpDos;
-                break;
-            case 3:
-                currentFile = fileLiquidacionBlueCorpTres;
-                break;
-            default:
-                // Manejar el caso en el que el número de documento no sea válido
-                FacesMessage msg = new FacesMessage(ERROR, "Número de documento no válido: " + numeroDocumento);
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                return;
-        }
-        
-        if (currentFile != null && numeroDocumento >= 1 && numeroDocumento <= 3) {
-            if (currentFile.getContentType().equalsIgnoreCase(IMAGE_JPEG) || currentFile.getContentType().equalsIgnoreCase(APPLICATION_PDF)) {
-                con = DAO.getConnection();
-                ps = con.prepareStatement("INSERT INTO documentosliquidacionbluecorp (documento, nroDeOrden, nombreDelDocumento, numeroDocumento) " +
-                        "VALUES (?, ?, ?, ?) " +
-                        "ON DUPLICATE KEY UPDATE " +
-                        "documento = VALUES(documento), " +
-                        "nroDeOrden = LAST_INSERT_ID(nroDeOrden)," +
-                        "nombreDelDocumento = VALUES(nombreDelDocumento), " +
-                        "numeroDocumento = VALUES(numeroDocumento)"
-                );
-
-                ps.setBinaryStream(1, currentFile.getInputstream());
-                ps.setInt(2, orden);
-                ps.setString(3, currentFile.getFileName());
-                ps.setInt(4, numeroDocumento);
-
-                ps.executeUpdate();
-                FacesMessage msg = new FacesMessage(OK, "Fichero " + currentFile.getFileName() + SUBIDO_CORRECTAMENTE__CON_NRO_DE__ORDEN + orden + " y Número de Documento " + numeroDocumento);
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-            } else {
-                if (!"".equals(currentFile.getFileName())) {
-                    FacesMessage msg = new FacesMessage(ERROR, "No seleccionó un archivo JPG o PDF para el documento " + numeroDocumento);
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                } else {
-                    FacesMessage msg = new FacesMessage(ERROR, "Fichero " + currentFile.getFileName() + " no es un archivo JPG o PDF para el documento " + numeroDocumento);
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                }
-            }
-        }
-    } catch (IOException | SQLException e) {
-            FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + currentFile.getFileName() + " por favor seleccione otro.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-    } finally {
-        try {
-            if (ps != null) {
-                ps.close();
-            }
-            if (con != null) {
-                con.close();
-            }
-        } catch (SQLException e) {
-            // Manejar la excepción al cerrar la conexión
-            e.printStackTrace();
-        }
-    }
-}*/
-
-    
     public void uploadOtraDocumentacion(int orden) {  
                     
         try {

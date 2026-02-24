@@ -1262,9 +1262,9 @@ public class FileDownloadBean implements Serializable {
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
-                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosDemandas WHERE nroDeOrden = (?) AND numeroDocumento = (?);");
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosDemandas WHERE nroDeOrden = (?);");
                 ps.setInt(1, orden);
-                ps.setInt(2, 1);
+                
 
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -1303,10 +1303,9 @@ public class FileDownloadBean implements Serializable {
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
-                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosDemandasDos WHERE nroDeOrden = (?) AND numeroDocumento = (?);");
+                ps = con.prepareStatement("SELECT documento, nombreDelDocumento FROM documentosDemandasDos WHERE nroDeOrden = (?);");
                 ps.setInt(1, orden);
-                ps.setInt(2, 2);
-
+                
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     InputStream stream = rs.getBinaryStream("documento");
@@ -2351,9 +2350,8 @@ public class FileDownloadBean implements Serializable {
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
-                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosDemandas WHERE nroDeOrden = (?) AND numeroDocumento = (?);");
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosDemandas WHERE nroDeOrden = (?);");
                 ps.setInt(1, orden);
-                ps.setInt(2, 1);
 
                 ResultSet rs = ps.executeQuery();
 
@@ -2381,9 +2379,8 @@ public class FileDownloadBean implements Serializable {
         try {
             if (orden != 0) {
                 con = DAO.getConnection();
-                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosDemandasDos WHERE nroDeOrden = (?) AND numeroDocumento = (?);");
+                ps = con.prepareStatement("SELECT nombreDelDocumento FROM documentosDemandasDos WHERE nroDeOrden = (?);");
                 ps.setInt(1, orden);
-                ps.setInt(2, 2);
 
                 ResultSet rs = ps.executeQuery();
 

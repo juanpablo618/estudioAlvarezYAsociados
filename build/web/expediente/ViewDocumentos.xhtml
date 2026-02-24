@@ -84,13 +84,13 @@
                     <p:tabView orientation="left" style="width: 100%; height: 100vh;">
                          <p:tab >
                             <f:facet name="title">
-                                Partidas  
+                                Partidas
                                 <span class="circle-badge"  style=" #{fileDownloadBean.cantidadPartidas(expedienteController.selected.orden) == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
                                     #{fileDownloadBean.cantidadPartidas(expedienteController.selected.orden)}
                                 </span>
-                            </f:facet>    
-                            
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
+                            </f:facet>
+
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
                                      id="toggleable"
                                      header="Partidas"
                                      toggleable="false"
@@ -107,7 +107,7 @@
                                         <p:outputLabel value="Nombre del archivo JPG o PDF 1:"  styleClass="titulopdfjpg"/><br></br>
 
 
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPG(expedienteController.selected.orden)}" 
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPG(expedienteController.selected.orden)}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoJPG(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
 
@@ -124,7 +124,7 @@
 
                                     </div><div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoJPGDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
                                         <p:outputLabel value="Nombre del archivo JPG o PDF 2:"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGDos(expedienteController.selected.orden)}" 
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGDos(expedienteController.selected.orden)}"
                                                         styleClass="buscararchivo"
                                                         style=" #{fileDownloadBean.buscarNombreDeArchivoJPGDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"/><br></br>
 
@@ -137,12 +137,12 @@
                                             <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadJPGDos(expedienteController.selected.orden)}" ajax="false">
                                                 <p:fileDownload value="#{fileDownloadBean.fileDos}" />
                                             </p:commandButton>
-                                        </div>   
+                                        </div>
 
 
                                     </div><div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoJPGTres(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
                                         <p:outputLabel value="Nombre del archivo JPG o PDF 3:"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGTres(expedienteController.selected.orden)}" 
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGTres(expedienteController.selected.orden)}"
                                                         styleClass="buscararchivo"
                                                         style=" #{fileDownloadBean.buscarNombreDeArchivoJPGTres(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"/><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -156,10 +156,10 @@
                                         </div>
 
 
-                                    </div><div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoJPGCuatro(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}"> 
+                                    </div><div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoJPGCuatro(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
                                         <p:outputLabel value="Nombre del archivo JPG o PDF 4:" styleClass="titulopdfjpg"/><br></br>
                                         <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGCuatro(expedienteController.selected.orden)}"
-                                                        styleClass="buscararchivo"  
+                                                        styleClass="buscararchivo"
                                                         style=" #{fileDownloadBean.buscarNombreDeArchivoJPGCuatro(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"/><br></br>
 
                                         <p:growl life="2500" showDetail="true"/>
@@ -174,7 +174,7 @@
 
                                     </div><div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoJPGCinco(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
                                         <p:outputLabel value="Nombre del archivo JPG o PDF 5:" styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGCinco(expedienteController.selected.orden)}" 
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoJPGCinco(expedienteController.selected.orden)}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoJPGCinco(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -215,7 +215,7 @@
 
 
                                         <p:outputLabel value="Nombre del archivo JPG o PDF 7:"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFDos(expedienteController.selected.orden)}" 
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFDos(expedienteController.selected.orden)}"
                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoPDFDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                        /><br></br>
 
@@ -233,7 +233,7 @@
                                             <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadPDFDos(expedienteController.selected.orden)}" ajax="false">
                                                 <p:fileDownload value="#{fileDownloadBean.filePdfDos}" />
                                             </p:commandButton>
-                                        </div>    
+                                        </div>
 
                                     </div><div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoPDFTres(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
@@ -242,7 +242,7 @@
                                         <p:outputLabel value="Nombre del archivo JPG o PDF 8:"  styleClass="titulopdfjpg"/><br></br>
 
 
-                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFTres(expedienteController.selected.orden)}" 
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFTres(expedienteController.selected.orden)}"
                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoPDFTres(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                        /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -284,7 +284,7 @@
 
 
                                         <p:outputLabel value="Nombre del archivo JPG o PDF 10:" styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFCinco(expedienteController.selected.orden)}" 
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivoPDFCinco(expedienteController.selected.orden)}"
                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoPDFCinco(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                        /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -300,7 +300,7 @@
                                     </div>
                                 </div>
                             </p:panel>
-                        </p:tab>             
+                        </p:tab>
                         <p:tab>
 
                             <f:facet name="title">
@@ -309,15 +309,15 @@
                                     #{fileDownloadBean.cantidadArchivos(expedienteController.selected.orden, 'HistorialLaboralAnses')}
                                 </span>
                             </f:facet>
-                            
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
-                                     id="HistorialLaboralAnses" 
-                                     header="Historial laboral ANSES" 
-                                     toggleable="false" 
-                                     closable="false" 
-                                     collapsed="false" 
-                                     toggleSpeed="500" 
-                                     closeSpeed="500" 
+
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
+                                     id="HistorialLaboralAnses"
+                                     header="Historial laboral ANSES"
+                                     toggleable="false"
+                                     closable="false"
+                                     collapsed="false"
+                                     toggleSpeed="500"
+                                     closeSpeed="500"
                                      widgetVar="panelHistorialLaboralAnses"
 
                                      >
@@ -327,7 +327,7 @@
 
 
                                         <p:outputLabel value="Nombre del archivo Historial:"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralAnses')}" 
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralAnses')}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralAnses').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -341,7 +341,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </p:panel>   
+                            </p:panel>
                         </p:tab>
                         <p:tab >
                             <f:facet name="title">
@@ -349,16 +349,16 @@
                                 <span class="circle-badge"  style=" #{fileDownloadBean.cantidadArchivosOtrasCajas(expedienteController.selected.orden, 'HistorialLaboralOtrasCajas', 'HistorialLaboralOtrasCajasDos') == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
                                     #{fileDownloadBean.cantidadArchivosOtrasCajas(expedienteController.selected.orden, 'HistorialLaboralOtrasCajas', 'HistorialLaboralOtrasCajasDos')}
                                 </span>
-                            </f:facet>    
-                            
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
-                                     id="HistorialLaboralOtrasCajas" 
-                                     header="Historial laboral otras cajas" 
-                                     toggleable="false" 
-                                     closable="false" 
-                                     collapsed="false" 
-                                     toggleSpeed="500" 
-                                     closeSpeed="500" 
+                            </f:facet>
+
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
+                                     id="HistorialLaboralOtrasCajas"
+                                     header="Historial laboral otras cajas"
+                                     toggleable="false"
+                                     closable="false"
+                                     collapsed="false"
+                                     toggleSpeed="500"
+                                     closeSpeed="500"
                                      widgetVar="panelHistorialLaboralOtrasCajas"
                                      >
                                 <div class="contenedorcard"  >
@@ -383,7 +383,7 @@
 
 
                                         <p:outputLabel value="Nombre del archivo Historial 2"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralOtrasCajasDos')}" 
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralOtrasCajasDos')}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'HistorialLaboralOtrasCajasDos').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -394,10 +394,10 @@
                                             <p:commandButton class="botonsubirbajarpdf" value="Descargar Archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'HistorialLaboralOtrasCajasDos')}" ajax="false">
                                                 <p:fileDownload value="#{fileDownloadBean.fileHistorialLaboralOtrasCajasDos}" />
                                             </p:commandButton>
-                                        </div>    
+                                        </div>
                                     </div>
                                 </div>
-                            </p:panel>   
+                            </p:panel>
                         </p:tab>
                         <p:tab >
                             <f:facet name="title">
@@ -405,16 +405,16 @@
                                 <span class="circle-badge"  style=" #{fileDownloadBean.cantidadArchivosBoletasDeAportes(expedienteController.selected.orden, 'BoletaDeAportes', 'BoletaDeAportesDos') == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
                                     #{fileDownloadBean.cantidadArchivosBoletasDeAportes(expedienteController.selected.orden, 'BoletaDeAportes', 'BoletaDeAportesDos')}
                                 </span>
-                            </f:facet>    
-                            
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
-                                     id="BoletasDeAportes" 
-                                     header="Boletas de Aportes" 
-                                     toggleable="false" 
-                                     closable="false" 
-                                     collapsed="false" 
-                                     toggleSpeed="500" 
-                                     closeSpeed="500" 
+                            </f:facet>
+
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
+                                     id="BoletasDeAportes"
+                                     header="Boletas de Aportes"
+                                     toggleable="false"
+                                     closable="false"
+                                     collapsed="false"
+                                     toggleSpeed="500"
+                                     closeSpeed="500"
                                      widgetVar="panelBoletasDeAportes"
                                      >
                                 <div class="contenedorcard"  >
@@ -438,7 +438,7 @@
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'BoletaDeAportesDos').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
                                         <p:outputLabel value="Nombre del Boleta de Aportes 2"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'BoletaDeAportesDos')}" 
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'BoletaDeAportesDos')}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'BoletaDeAportesDos').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -449,10 +449,10 @@
                                             <p:commandButton class="botonsubirbajarpdf" value="Descargar Archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'BoletaDeAportesDos')}" ajax="false">
                                                 <p:fileDownload value="#{fileDownloadBean.fileBoletaDeAportesDos}" />
                                             </p:commandButton>
-                                        </div>    
+                                        </div>
                                     </div>
                                 </div>
-                            </p:panel>   
+                            </p:panel>
                         </p:tab>
                         <p:tab >
                             <f:facet name="title">
@@ -460,16 +460,16 @@
                                 <span class="circle-badge"  style=" #{fileDownloadBean.otrosPagos(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros', 'AfipDatosPersonalesPagosOtrosDos','AfipDatosPersonalesPagosOtrosTres') == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
                                     #{fileDownloadBean.otrosPagos(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros', 'AfipDatosPersonalesPagosOtrosDos','AfipDatosPersonalesPagosOtrosTres')}
                                 </span>
-                            </f:facet>    
-                            
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
-                                     id="AfipDatosPersonalesPagosOtros" 
-                                     header="AFIP: datos personales / pagos / otros" 
-                                     toggleable="false" 
-                                     closable="false" 
-                                     collapsed="false" 
-                                     toggleSpeed="500" 
-                                     closeSpeed="500" 
+                            </f:facet>
+
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
+                                     id="AfipDatosPersonalesPagosOtros"
+                                     header="AFIP: datos personales / pagos / otros"
+                                     toggleable="false"
+                                     closable="false"
+                                     collapsed="false"
+                                     toggleSpeed="500"
+                                     closeSpeed="500"
                                      widgetVar="panelAfipDatosPersonalesPagosOtros"
                                      >
                                 <div class="contenedorcard"  >
@@ -490,12 +490,12 @@
                                             <p:commandButton class="botonsubirbajarpdf" value="Descargar Archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros')}" ajax="false">
                                                 <p:fileDownload value="#{fileDownloadBean.fileAfipDatosPersonalesPagosOtros}" />
                                             </p:commandButton>
-                                        </div>  </div>   
+                                        </div>  </div>
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosDos').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
 
                                         <p:outputLabel value="Nombre del archivo Afip 2"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosDos')}" 
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosDos')}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosDos').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -516,11 +516,11 @@
                                         <p:fileUpload  value="#{fileUploadBean.fileAfipDatosPersonalesPagosOtrosTres}" mode="simple"/>
                                         <br></br>
                                         <p:outputLabel value="Nombre del archivo Afip 3"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosTres')}" 
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosTres')}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtrosTres').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
 
-                                        
+
                                          <p:growl life="2500" showDetail="true"/>
                                         <p:fileUpload  value="#{fileUploadBean.fileAfipDatosPersonalesPagosOtrosTres}" mode="simple"/>
                                         <div style="display: flex; gap: 10px; margin-top: 10px;">
@@ -531,7 +531,7 @@
                                             </p:commandButton>
                                         </div> </div>
                                 </div>
-                            </p:panel>   
+                            </p:panel>
                         </p:tab>
                         <p:tab title="Archivos frente y dorso dni para Exp. Sin Carpeta"
                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'sin carpeta'}"
@@ -539,9 +539,9 @@
 
 
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'sin carpeta'}"
-                                     id="frenteDniExpSinCarpeta" header="Archivos frente y dorso dni para Exp. Sin Carpeta" 
-                                     toggleable="false" 
-                                     closable="false" 
+                                     id="frenteDniExpSinCarpeta" header="Archivos frente y dorso dni para Exp. Sin Carpeta"
+                                     toggleable="false"
+                                     closable="false"
                                      collapsed="false"
                                      toggleSpeed="500"
                                      closeSpeed="500"
@@ -558,7 +558,7 @@
                                         <br></br>
 
                                         <p:outputLabel value="frente dni para Exp. Sin Carpeta:"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarFrenteDniParaExpSinCarpeta(expedienteController.selected.cuit)}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarFrenteDniParaExpSinCarpeta(expedienteController.selected.cuit)}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
 
@@ -581,7 +581,7 @@
                                         <br></br>
 
                                         <p:outputLabel value="Dorso dni para Exp. Sin Carpeta:"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarDorsoDniParaExpSinCarpeta(expedienteController.selected.cuit)}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarDorsoDniParaExpSinCarpeta(expedienteController.selected.cuit)}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'AfipDatosPersonalesPagosOtros').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
 
@@ -601,23 +601,23 @@
                                 <span class="circle-badge"  style=" #{fileDownloadBean.CronoAportes(expedienteController.selected.orden) == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
                                     #{fileDownloadBean.CronoAportes(expedienteController.selected.orden)}
                                 </span>
-                            </f:facet>    
-                            
+                            </f:facet>
+
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
-                                     id="cronoDeAportes" 
+                                     id="cronoDeAportes"
                                      header="Crono. de aportes"
                                      toggleable="false"
                                      closable="false"
                                      collapsed="false"
                                      toggleSpeed="500"
-                                     closeSpeed="500" 
+                                     closeSpeed="500"
                                      >
                                 <div class="contenedorcard"  >
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoCronoDeAportes(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
 
                                         <p:outputLabel value="Nombre del archivo 1:"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoCronoDeAportes(expedienteController.selected.orden)}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoCronoDeAportes(expedienteController.selected.orden)}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoCronoDeAportes(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -636,7 +636,7 @@
 
 
                                         <p:outputLabel value="Nombre del archivo 2:"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoCronoDeAportesDos(expedienteController.selected.orden)}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoCronoDeAportesDos(expedienteController.selected.orden)}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoCronoDeAportesDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -658,16 +658,16 @@
                                 <span class="circle-badge"  style=" #{fileDownloadBean.cantidadDni(expedienteController.selected.orden) == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
                                     #{fileDownloadBean.cantidadDni(expedienteController.selected.orden)}
                                 </span>
-                            </f:facet>    
-                            
-                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
+                            </f:facet>
+
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
                                      id="panelFrenteDni"
                                      header="DNI"
                                      toggleable="false"
-                                     closable="false" 
-                                     collapsed="false" 
+                                     closable="false"
+                                     collapsed="false"
                                      toggleSpeed="500"
-                                     closeSpeed="500" 
+                                     closeSpeed="500"
                                      >
                                 <div class="contenedorcard"  >
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoFrenteDni(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
@@ -679,7 +679,7 @@
 
 
                                         <p:outputLabel value="Nombre del archivo Frente DNI:"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoFrenteDni(expedienteController.selected.orden)}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoFrenteDni(expedienteController.selected.orden)}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoFrenteDni(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -700,7 +700,7 @@
 
 
                                         <p:outputLabel value="Nombre del archivo Dorso DNI:"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoDorsoDni(expedienteController.selected.orden)}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoDorsoDni(expedienteController.selected.orden)}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoDorsoDni(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
 
@@ -712,7 +712,57 @@
                                             <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadDorsoDni(expedienteController.selected.orden)}" ajax="false">
                                                 <p:fileDownload value="#{fileDownloadBean.fileDorsoDni}" />
                                             </p:commandButton>
-                                        </div>   </div> </div> 
+                                        </div>   </div> </div>
+                            </p:panel>  </p:tab>
+                        <p:tab >
+                            <f:facet name="title">
+                                DEMANDAS
+                                <span class="circle-badge"  style=" #{fileDownloadBean.cantidadDemandas(expedienteController.selected.orden) == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
+                                    #{fileDownloadBean.cantidadDemandas(expedienteController.selected.orden)}
+                                </span>
+                            </f:facet>
+
+                            <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
+                                     id="panelDemandas"
+                                     header="DEMANDAS"
+                                     toggleable="false"
+                                     closable="false"
+                                     collapsed="false"
+                                     toggleSpeed="500"
+                                     closeSpeed="500"
+                                     >
+                                <div class="contenedorcard"  >
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoDemanda(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+                                        <p:outputLabel value="Nombre del archivo Demanda 1:"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoDemanda(expedienteController.selected.orden)}"
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoDemanda(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileDemanda}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadDemanda(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadDemanda(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileDemanda}" />
+                                            </p:commandButton>
+                                        </div></div>
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoDemandaDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+
+                                        <p:outputLabel value="Nombre del archivo Demanda 2:"  styleClass="titulopdfjpg"/><br></br>
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoDemandaDos(expedienteController.selected.orden)}"
+                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoDemandaDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
+                                                        /><br></br>
+
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload  value="#{fileUploadBean.fileDemandaDos}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadDemandaDos(expedienteController.selected.orden)}" ajax="false" />
+
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadDemandaDos(expedienteController.selected.orden)}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileDemandaDos}" />
+                                            </p:commandButton>
+                                        </div>   </div> </div>
                             </p:panel>  </p:tab>
                         <p:tab >
                             <f:facet name="title">
@@ -720,16 +770,16 @@
                                 <span class="circle-badge"  style=" #{fileDownloadBean.cantidadOtraDoc(expedienteController.selected.orden) == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
                                     #{fileDownloadBean.cantidadOtraDoc(expedienteController.selected.orden)}
                                 </span>
-                            </f:facet>    
-                            
+                            </f:facet>
+
                             <p:panel rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
-                                     id="panelOtraDocumentacion" 
-                                     header="Otra Documentación" 
-                                     toggleable="false" 
-                                     closable="false" 
+                                     id="panelOtraDocumentacion"
+                                     header="Otra Documentación"
+                                     toggleable="false"
+                                     closable="false"
                                      collapsed="false"
                                      toggleSpeed="500"
-                                     closeSpeed="500"  
+                                     closeSpeed="500"
                                      >
                                 <div class="contenedorcard">
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
@@ -739,7 +789,7 @@
 
 
 
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden)}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden)}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -761,7 +811,7 @@
 
 
 
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionDos(expedienteController.selected.orden)}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionDos(expedienteController.selected.orden)}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -783,7 +833,7 @@
 
 
 
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionTres(expedienteController.selected.orden)}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionTres(expedienteController.selected.orden)}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionTres(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -796,12 +846,12 @@
                                                 <p:fileDownload value="#{fileDownloadBean.fileOtraDocumentacionTres}" />
                                             </p:commandButton>
                                         </div></div>
-                                    
+
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacion(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
                                         <p:outputLabel value="Otra Documentación 4:"  styleClass="titulopdfjpg"/><br></br>
 
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionCuatro(expedienteController.selected.orden)}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionCuatro(expedienteController.selected.orden)}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionCuatro(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -819,7 +869,7 @@
 
                                         <p:outputLabel value="Otra Documentación 5:"  styleClass="titulopdfjpg"/><br></br>
 
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionCinco(expedienteController.selected.orden)}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionCinco(expedienteController.selected.orden)}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionCinco(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -837,7 +887,7 @@
 
                                         <p:outputLabel value="Otra Documentación 6:"  styleClass="titulopdfjpg"/><br></br>
 
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionSeis(expedienteController.selected.orden)}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionSeis(expedienteController.selected.orden)}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoOtraDocumentacionSeis(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -860,7 +910,7 @@
                                     #{fileDownloadBean.cantidadArchivos(expedienteController.selected.orden, 'CartaPoder')}
                                 </span>
                             </f:facet>
-                            
+
                             <p:panel
                                 rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
                                 id="panelCartaPoder"
@@ -876,7 +926,7 @@
 
 
                                         <p:outputLabel value="Nombre del archivo Carta Poder:"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'CartaPoder')}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'CartaPoder')}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'CartaPoder').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -899,17 +949,17 @@
                                 <span class="circle-badge"  style=" #{fileDownloadBean.cantidadArchivos(expedienteController.selected.orden, 'ExpAdministrativo') == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
                                     #{fileDownloadBean.cantidadArchivos(expedienteController.selected.orden, 'ExpAdministrativo')}
                                 </span>
-                            </f:facet>    
-                            
+                            </f:facet>
+
                             <p:panel
-                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
-                                id="panelExpAdministrativo" 
-                                header="Exp Administrativo" 
+                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
+                                id="panelExpAdministrativo"
+                                header="Exp Administrativo"
                                 toggleable="false"
-                                closable="false" 
-                                collapsed="false" 
-                                toggleSpeed="500" 
-                                closeSpeed="500"  
+                                closable="false"
+                                collapsed="false"
+                                toggleSpeed="500"
+                                closeSpeed="500"
                                 >
                                 <div class="contenedorcard"  >
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ExpAdministrativo').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
@@ -917,7 +967,7 @@
 
                                         <p:outputLabel value="Nombre del archivo Exp Administrativo:"  styleClass="titulopdfjpg"/>
                                         <br></br>
-                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ExpAdministrativo')}" 
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ExpAdministrativo')}"
                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ExpAdministrativo').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                        />
                                         <br></br>
@@ -942,16 +992,16 @@
                                 <span class="circle-badge"  style=" #{fileDownloadBean.cantidadArchivos(expedienteController.selected.orden, 'Recibos') == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
                                     #{fileDownloadBean.cantidadArchivos(expedienteController.selected.orden, 'Recibos')}
                                 </span>
-                            </f:facet>    
-                            <p:panel 
-                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
+                            </f:facet>
+                            <p:panel
+                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
                                 id="recibos"
-                                header="Recibos" 
+                                header="Recibos"
                                 toggleable="false"
-                                closable="false" 
-                                collapsed="false" 
+                                closable="false"
+                                collapsed="false"
                                 toggleSpeed="500"
-                                closeSpeed="500" 
+                                closeSpeed="500"
                                 >
                                 <div class="contenedorcard"  >
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Recibos').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
@@ -960,7 +1010,7 @@
 
                                         <p:outputLabel value="Nombre del archivo Recibos:" styleClass="titulopdfjpg"/>
                                         <br></br>
-                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Recibos')}" 
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Recibos')}"
                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Recibos').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                        />
                                         <br></br>
@@ -976,13 +1026,13 @@
                                             </p:commandButton>
                                         </div>
                                     </div> </div>
-                                
+
                                     <div class="contenedorcard"  >
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosDos').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
                                         <p:outputLabel value="Nombre del archivo Recibos Dos:" styleClass="titulopdfjpg"/>
                                         <br></br>
-                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosDos')}" 
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosDos')}"
                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosDos').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                        />
                                         <br></br>
@@ -998,7 +1048,7 @@
                                             </p:commandButton>
                                         </div>
                                     </div> </div>
-                                
+
                                     <div class="contenedorcard"  >
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosTres').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
@@ -1006,7 +1056,7 @@
 
                                         <p:outputLabel value="Nombre del archivo Recibos Tres:" styleClass="titulopdfjpg"/>
                                         <br></br>
-                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosTres')}" 
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosTres')}"
                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosTres').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                        />
                                         <br></br>
@@ -1022,7 +1072,7 @@
                                             </p:commandButton>
                                         </div>
                                     </div> </div>
-                                
+
                                     <div class="contenedorcard"  >
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosCuatro').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
@@ -1030,7 +1080,7 @@
 
                                         <p:outputLabel value="Nombre del archivo Recibos Cuatro:" styleClass="titulopdfjpg"/>
                                         <br></br>
-                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosCuatro')}" 
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosCuatro')}"
                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'RecibosCuatro').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                        />
                                         <br></br>
@@ -1052,33 +1102,33 @@
                         <br></br>
                         <p:tab>
                              <f:facet name="title">
-                          Liquidación BlueCorp 
+                          Liquidación BlueCorp
                                 <span class="circle-badge"  style=" #{fileDownloadBean.cantidadBluecorp(expedienteController.selected.orden) == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
                                     #{fileDownloadBean.cantidadBluecorp(expedienteController.selected.orden)}
                                 </span>
-                            </f:facet>    
-                            <p:panel 
-                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
-                                id="liquidacionBlueCorp" 
-                                header="Liquidación BlueCorp" 
-                                toggleable="false" 
+                            </f:facet>
+                            <p:panel
+                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
+                                id="liquidacionBlueCorp"
+                                header="Liquidación BlueCorp"
+                                toggleable="false"
                                 closable="false"
                                 collapsed="false"
-                                toggleSpeed="500" 
-                                closeSpeed="500" 
+                                toggleSpeed="500"
+                                closeSpeed="500"
                                 >
                                 <div class="contenedorcard"  >
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorp(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                     
+
 
                                         <p:outputLabel value="Nombre del archivo Liquidación BlueCorp"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorp(expedienteController.selected.orden)}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorp(expedienteController.selected.orden)}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorp(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
    <p:growl life="2500" showDetail="true"/>
                                         <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorp}" mode="simple"/>
-                                      
+
                                         <div style="display: flex; gap: 10px; margin-top: 10px;">
 
                                             <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadBlueCorp(expedienteController.selected.orden)}" ajax="false" />
@@ -1090,14 +1140,14 @@
                                         </div> </div>
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorpDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                    
+
                                         <p:outputLabel value="Nombre del archivo Liquidación BlueCorp 2"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorpDos(expedienteController.selected.orden)}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorpDos(expedienteController.selected.orden)}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorpDos(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
   <p:growl life="2500" showDetail="true"/>
                                         <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorpDos}" mode="simple"/>
-                                      
+
                                         <div style="display: flex; gap: 10px; margin-top: 10px;">
 
                                             <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadBlueCorpDos(expedienteController.selected.orden)}" ajax="false" />
@@ -1110,14 +1160,14 @@
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorpTres(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
 
-                                      
+
                                         <p:outputLabel value="Nombre del archivo Liquidación BlueCorp 3"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorpTres(expedienteController.selected.orden)}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivoBlueCorpTres(expedienteController.selected.orden)}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivoBlueCorpTres(expedienteController.selected.orden).toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
  <p:growl life="2500" showDetail="true"/>
                                         <p:fileUpload  value="#{fileUploadBean.fileLiquidacionBlueCorpTres}" mode="simple"/>
-                                       
+
                                         <div style="display: flex; gap: 10px; margin-top: 10px;">
 
                                             <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadBlueCorpTres(expedienteController.selected.orden)}" ajax="false" />
@@ -1138,22 +1188,22 @@
                                 <span class="circle-badge"  style=" #{fileDownloadBean.cantidadArchivos(expedienteController.selected.orden, 'ResolucionDenegatoria') == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
                                     #{fileDownloadBean.cantidadArchivos(expedienteController.selected.orden, 'ResolucionDenegatoria')}
                                 </span>
-                            </f:facet>    
-                            <p:panel 
-                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
+                            </f:facet>
+                            <p:panel
+                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
                                 id="resolucionDenegatoria" header="Resolución Denegatoria"
                                 toggleable="false"
                                 closable="false"
                                 collapsed="false"
                                 toggleSpeed="500"
-                                closeSpeed="500" 
+                                closeSpeed="500"
                                 >
                                 <div class="contenedorcard"  >
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ResolucionDenegatoria').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
 
                                         <p:outputLabel value="Nombre del archivo Resolución Denegatoria:"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ResolucionDenegatoria')}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ResolucionDenegatoria')}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ResolucionDenegatoria').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -1177,23 +1227,23 @@
                                 <span class="circle-badge"  style=" #{fileDownloadBean.cantidadArchivos(expedienteController.selected.orden, 'ConvenioDeHonorarios') == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
                                     #{fileDownloadBean.cantidadArchivos(expedienteController.selected.orden, 'ConvenioDeHonorarios')}
                                 </span>
-                            </f:facet>    
+                            </f:facet>
                             <p:panel
-                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
-                                id="convenioDeHonorarios" 
-                                header="Convenio de honorarios" 
-                                toggleable="false" 
-                                closable="false" 
-                                collapsed="false" 
-                                toggleSpeed="500" 
-                                closeSpeed="500"  
+                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
+                                id="convenioDeHonorarios"
+                                header="Convenio de honorarios"
+                                toggleable="false"
+                                closable="false"
+                                collapsed="false"
+                                toggleSpeed="500"
+                                closeSpeed="500"
                                 >
                                 <div class="contenedorcard"  >
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
 
-                                        
+
                                         <p:outputLabel value="Nombre del archivo Convenio de honorarios"  styleClass="titulopdfjpg"/><br></br>
-                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios')}"  
+                                        <p:outputLabel  value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios')}"
                                                         styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConvenioDeHonorarios').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                         /><br></br>
                                         <p:growl life="2500" showDetail="true"/>
@@ -1217,17 +1267,17 @@
                                 <span class="circle-badge"  style=" #{fileDownloadBean.cantidadArchivos(expedienteController.selected.orden, 'ConstanciaDeCbu') == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
                                     #{fileDownloadBean.cantidadArchivos(expedienteController.selected.orden, 'ConstanciaDeCbu')}
                                 </span>
-                            </f:facet>    
-                            
-                            <p:panel 
-                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}" 
-                                id="constanciaDeCbu" 
-                                header="Constancia de CBU" 
+                            </f:facet>
+
+                            <p:panel
+                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
+                                id="constanciaDeCbu"
+                                header="Constancia de CBU"
                                 toggleable="false"
-                                closable="false" 
-                                collapsed="false" 
+                                closable="false"
+                                collapsed="false"
                                 toggleSpeed="500"
-                                closeSpeed="500" 
+                                closeSpeed="500"
                                 >
                                 <div class="contenedorcard"  >
                                     <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
@@ -1236,7 +1286,7 @@
 
                                         <!-- Icono de archivo -->
                                         <p:outputLabel value="Nombre del archivo Constancia de CBU" styleClass="titulopdfjpg"/><br/>
-                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu')}" 
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu')}"
                                                        styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'ConstanciaDeCbu').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"
                                                        />
                                         <br/>
@@ -1258,7 +1308,7 @@
 
                             </p:panel></p:tab>
                     </p:tabView>
-                </div>     
+                </div>
                 <br></br>
                 <br></br>
             </h:form>

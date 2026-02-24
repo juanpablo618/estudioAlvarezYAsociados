@@ -475,20 +475,41 @@ public class ExpedienteController implements Serializable {
 
     public void ingresarDni() {
 
-        if (selected.getCuit().length() > 8) {
-
-            String dni = selected.getCuit();
-            dni = dni.replace(" ", "");
-
-            dni = dni.substring(2, 10);
-
-            selected.setDni(dni);
-        } else {
-            selected.setDni(null);
-
-        }
+        String dni = extractDniFromCuit(selected.getCuit());
+        selected.setDni(dni);
     }
 
+    private String extractDniFromCuit(String cuit) {
+        String cleanCuit = normalizeCuitDigits(cuit);
+
+        if (cleanCuit == null) {
+            return null;
+        }
+
+        if (cleanCuit.length() == 11) {
+            return cleanCuit.substring(2, 10);
+        }
+
+        if (cleanCuit.length() == 8) {
+            return cleanCuit;
+        }
+
+        return null;
+    }
+
+    private String normalizeCuitDigits(String cuit) {
+        if (cuit == null || cuit.trim().isEmpty()) {
+            return null;
+        }
+
+        String cleanCuit = cuit.replaceAll("\\D", "");
+
+        if (cleanCuit.isEmpty() || "0".equals(cleanCuit)) {
+            return null;
+        }
+
+        return cleanCuit;
+    }
     public void ingresarOrdenAutoincremental() {
 
         selected.setOrden(autoIncrementarOrden());
@@ -515,11 +536,7 @@ public class ExpedienteController implements Serializable {
         long years = ChronoUnit.YEARS.between(start, end);
         selected.setEdad(Math.toIntExact(years));
 
-        if (selected.getCuit() != null) {
-            String cuit = selected.getCuit();
-            cuit = cuit.substring(2, 9);
-            selected.setDni(cuit);
-        }
+        selected.setDni(extractDniFromCuit(selected.getCuit()));
 
         String successMessage = "Expediente actualizado exitosamente";
 
@@ -546,11 +563,7 @@ public class ExpedienteController implements Serializable {
         long years = ChronoUnit.YEARS.between(start, end);
         selected.setEdad(Math.toIntExact(years));
 
-        if (selected.getCuit() != null) {
-            String cuit = selected.getCuit();
-            cuit = cuit.substring(2, 9);
-            selected.setDni(cuit);
-        }
+        selected.setDni(extractDniFromCuit(selected.getCuit()));
 
         int mayorOrden = buscarMayorIdAdmOrJudicial();
 
@@ -563,10 +576,11 @@ public class ExpedienteController implements Serializable {
         try {       
             
             long cuitLong = 0;
-            
-            if (!"0".equals(selected.getCuit()) && selected.getCuit() != null && !"".equals(selected.getCuit()))  {
-                cuitLong = Long.parseLong(selected.getCuit());
-            } 
+            String cleanCuit = normalizeCuitDigits(selected.getCuit());
+
+            if (cleanCuit != null) {
+                cuitLong = Long.parseLong(cleanCuit);
+            }
             
                 con = DAO.getConnection();
                 ps = con.prepareStatement("INSERT INTO documentosFrenteDni (documento, nroDeOrden, nombreDelDocumento) SELECT  documento, ?, nombreDelDocumento from frenteDniExpSinCarpeta where nroDeCuit = ? ;");
@@ -606,11 +620,7 @@ public class ExpedienteController implements Serializable {
         long years = ChronoUnit.YEARS.between(start, end);
         selected.setEdad(Math.toIntExact(years));
 
-        if (selected.getCuit() != null) {
-            String cuit = selected.getCuit();
-            cuit = cuit.substring(2, 9);
-            selected.setDni(cuit);
-        }
+        selected.setDni(extractDniFromCuit(selected.getCuit()));
 
         int mayorOrden = buscarMayorIdAdmOrJudicial();
 
@@ -623,10 +633,11 @@ public class ExpedienteController implements Serializable {
         try {       
             
             long cuitLong = 0;
-            
-            if (!"0".equals(selected.getCuit()) && selected.getCuit() != null && !"".equals(selected.getCuit()))  {
-                cuitLong = Long.parseLong(selected.getCuit());
-            } 
+            String cleanCuit = normalizeCuitDigits(selected.getCuit());
+
+            if (cleanCuit != null) {
+                cuitLong = Long.parseLong(cleanCuit);
+            }
             
                 con = DAO.getConnection();
                 ps = con.prepareStatement("INSERT INTO documentosFrenteDni (documento, nroDeOrden, nombreDelDocumento) SELECT  documento, ?, nombreDelDocumento from frenteDniExpSinCarpeta where nroDeCuit = ? ;");
@@ -1516,12 +1527,9 @@ public class ExpedienteController implements Serializable {
     }
     
     else {
-        if (consultaSelected.getCuit() != null) {
-            String cuit = consultaSelected.getCuit();
-            cuit = cuit.substring(2, 9);
-            expAInsertar.setDni(cuit);
-            expAInsertar.setCuit(consultaSelected.getCuit());
-        }
+        String dni = extractDniFromCuit(consultaSelected.getCuit());
+        expAInsertar.setDni(dni);
+        expAInsertar.setCuit(consultaSelected.getCuit());
 
         expAInsertar.setNombre(consultaSelected.getNombre());
         expAInsertar.setTipoDeDocumento(consultaSelected.getTipoDeDocumento());

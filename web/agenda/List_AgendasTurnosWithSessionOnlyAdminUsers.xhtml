@@ -362,20 +362,14 @@
             <script type="text/javascript">
                     // Función para activar el botón cuando la página se ha renderizado
                     function activarBoton() {
-                            var tablaTurnos = PF('turnosTable');
-                            var botonHoy = document.getElementById('formBotones:botonHoy');
-
-                            if (tablaTurnos && typeof tablaTurnos.filter === 'function') {
-                                    tablaTurnos.filter();
-                            }
-
-                            if (botonHoy) {
-                                    botonHoy.click();
-                            }
+                            PF('turnosTable').filter(); // Reemplaza 'tuWidgetVarDeLaTabla' con el widgetVar de tu tabla
+                            document.getElementById('formBotones:botonHoy').click();
+                        
                     }
 
-                    // Llama a la función para activar el botón cuando el DOM y PrimeFaces estén listos
-                    document.addEventListener('DOMContentLoaded', activarBoton);
+                    // Llama a la función para activar el botón
+                    activarBoton();
+                    
                     window.onload = activarBoton;
     
             </script>

@@ -20,7 +20,7 @@
                     
                         <div class="hijo">
                             <p:outputLabel value="Descripción:" for="descripcion" style="font-weight: bold"/><br></br>
-                            <p:inputTextarea  id="descripcion" rows="10" cols="33" autoResize="false" value="#{agendaController.selected.descripcion}" title="Descripcion" onkeyup="expandirAbreviacionesAgenda(this)"/>
+                            <p:inputTextarea  id="descripcion" rows="10" cols="33" autoResize="false" value="#{agendaController.selected.descripcion}" title="Descripcion"/>
                         </div>
                         
                     <div class="hijo">
@@ -67,31 +67,4 @@
         </p:dialog>
 
     </ui:composition>
-    <h:outputScript target="body">
-        function expandirAbreviacionesAgenda(textarea) {
-            const abreviaciones = {
-                sent: 'sentencia judicial '
-            };
-
-            const cursor = textarea.selectionStart;
-            const textoPrevio = textarea.value.substring(0, cursor);
-            const coincidencia = textoPrevio.match(/(?:^|\s)([A-Za-z]+)$/);
-
-            if (!coincidencia) {
-                return;
-            }
-
-            const abreviacion = coincidencia[1].toLowerCase();
-            const expansion = abreviaciones[abreviacion];
-
-            if (!expansion) {
-                return;
-            }
-
-            const inicioPalabra = cursor - coincidencia[1].length;
-            textarea.value = textarea.value.substring(0, inicioPalabra) + expansion + textarea.value.substring(cursor);
-            textarea.selectionStart = inicioPalabra + expansion.length;
-            textarea.selectionEnd = inicioPalabra + expansion.length;
-        }
-    </h:outputScript>
 </html>

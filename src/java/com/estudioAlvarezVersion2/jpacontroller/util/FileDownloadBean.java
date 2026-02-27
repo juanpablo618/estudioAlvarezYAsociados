@@ -61,6 +61,9 @@ public class FileDownloadBean implements Serializable {
     private StreamedContent fileBoletaDeAportes;
     private StreamedContent fileBoletaDeAportesDos;
 
+    private StreamedContent fileDocumental;
+    private StreamedContent fileDocumentalDos;
+
     private StreamedContent fileAfipDatosPersonalesPagosOtros;
     private StreamedContent fileAfipDatosPersonalesPagosOtrosDos;
     private StreamedContent fileAfipDatosPersonalesPagosOtrosTres;
@@ -106,6 +109,24 @@ public class FileDownloadBean implements Serializable {
         this.codigo = codigo;
     }
 
+    public StreamedContent getFileDocumental() {
+        return fileDocumental;
+    }
+
+    public void setFileDocumental(StreamedContent fileDocumental) {
+        this.fileDocumental = fileDocumental;
+    }
+
+    public StreamedContent getFileDocumentalDos() {
+        return fileDocumentalDos;
+    }
+
+    public void setFileDocumentalDos(StreamedContent fileDocumentalDos) {
+        this.fileDocumentalDos = fileDocumentalDos;
+    }
+
+    
+    
     public StreamedContent getFilePdf() {
         return filePdf;
     }
@@ -1819,6 +1840,15 @@ public class FileDownloadBean implements Serializable {
                     if (rs.getString("nombreDelDocumento").contains(".jpg")) {
 
                         switch (nombre) {
+                            case "Documental":
+                                fileDocumental = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileDocumental;
+                                break;
+                            case "DocumentalDos":
+                                fileDocumentalDos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileDocumentalDos;
+                                break;
+                                
                             case "CartaPoder":
                                 fileCartaPoder = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileCartaPoder;
@@ -1906,6 +1936,14 @@ public class FileDownloadBean implements Serializable {
                     } else {
 
                         switch (nombre) {
+                            case "Documental":
+                                fileDocumental = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileDocumental;
+                                break;
+                            case "DocumentalDos":
+                                fileDocumentalDos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileDocumentalDos;
+                                break;
                             case "CartaPoder":
                                 fileCartaPoder = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileCartaPoder;
@@ -2890,6 +2928,27 @@ public class FileDownloadBean implements Serializable {
 
         return cantidad;
     }
+    
+    public int cantidadArchivosDocumental(int orden, String nombrearchivo, String nombrearchivo2) {
+        int cantidad = 0; // Valor inicial
+
+        if (orden != 0) {
+            boolean nombre = buscarNombreDeArchivo(orden, nombrearchivo).contains("no existe archivo");
+            boolean nombre2 = buscarNombreDeArchivo(orden, nombrearchivo2).contains("no existe archivo");
+
+            if (nombre == false) {
+                cantidad += 1;
+            }
+            if (nombre2 == false) {
+                cantidad += 1;
+            } else {
+
+                return cantidad;
+            }
+        }
+
+        return cantidad;
+    }
 
     public int otrosPagos(int orden, String nombrearchivo, String nombrearchivo2, String nombrearchivo3) {
         int cantidad = 0; // Valor inicial
@@ -3097,5 +3156,5 @@ public class FileDownloadBean implements Serializable {
 
         return cantidadPartidas;
     }
-
-}
+    
+            }

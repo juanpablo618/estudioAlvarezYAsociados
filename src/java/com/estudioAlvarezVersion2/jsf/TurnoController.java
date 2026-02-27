@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
@@ -55,6 +56,8 @@ public class TurnoController implements Serializable {
     private static final String LA_FECHA_SELECCIONADA_NO_ES_VALIDA = "la fecha selecionada no es válida";
     private static final String POR_SER_FERIADO = " por ser feriado";
     private static final String SI = "Si";
+    private static final String WARNING_TURNO_MISMO_RESPONSABLE_Y_HORARIO = "Ya existe otro turno para la misma persona en ese horario.";
+    private static final String WARNING_TURNO_MISMA_OFICINA_Y_HORARIO = "Ya existe otro turno para la misma oficina en ese horario.";
     
     private String responsableSeleccionadoEnTurno;
     private String responsableSeleccionadoEnWithSessionOnlyAdmins;
@@ -372,6 +375,7 @@ public class TurnoController implements Serializable {
             FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
             items = null;
         } else {
+            addConflictWarningsOnCreate(selected);
 
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TurnoCreated"));
             if (!JsfUtil.isValidationFailed()) {
@@ -398,6 +402,7 @@ public class TurnoController implements Serializable {
             FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
             items = null;
         } else {
+            addConflictWarningsOnCreate(selected);
 
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TurnoCreated"));
             if (!JsfUtil.isValidationFailed()) {
@@ -463,6 +468,54 @@ public class TurnoController implements Serializable {
             items = getFacade().findAllSortedByDate();
         }
         return items; 
+    }
+
+    private void addConflictWarningsOnCreate(Turno turnoToCreate) {
+        if (turnoToCreate == null || turnoToCreate.getHoraYDia() == null) {
+            return;
+        }
+
+        boolean hasSameResponsableAndSchedule = false;
+        boolean hasSameOfficeAndSchedule = false;
+
+        for (Turno existingTurno : getItems()) {
+            if (!Objects.equals(existingTurno.getHoraYDia(), turnoToCreate.getHoraYDia())) {
+                continue;
+            }
+
+            if (!hasSameResponsableAndSchedule
+                    && Objects.equals(existingTurno.getResponsable(), turnoToCreate.getResponsable())) {
+                hasSameResponsableAndSchedule = true;
+            }
+
+            if (!hasSameOfficeAndSchedule
+                    && isNotBlank(turnoToCreate.getOficina())
+                    && Objects.equals(existingTurno.getOficina(), turnoToCreate.getOficina())) {
+                hasSameOfficeAndSchedule = true;
+            }
+
+            if (hasSameResponsableAndSchedule && hasSameOfficeAndSchedule) {
+                break;
+            }
+        }
+
+        if (hasSameResponsableAndSchedule) {
+            FacesContext.getCurrentInstance().addMessage("successInfo",
+                    new FacesMessage(FacesMessage.SEVERITY_WARN,
+                            WARNING_TURNO_MISMO_RESPONSABLE_Y_HORARIO,
+                            WARNING_TURNO_MISMO_RESPONSABLE_Y_HORARIO));
+        }
+
+        if (hasSameOfficeAndSchedule) {
+            FacesContext.getCurrentInstance().addMessage("successInfo",
+                    new FacesMessage(FacesMessage.SEVERITY_WARN,
+                            WARNING_TURNO_MISMA_OFICINA_Y_HORARIO,
+                            WARNING_TURNO_MISMA_OFICINA_Y_HORARIO));
+        }
+    }
+
+    private boolean isNotBlank(String value) {
+        return value != null && !value.trim().isEmpty();
     }
     
     public List<Turno> getItemsBySessionUser(String userNombreCompleto, String date) {

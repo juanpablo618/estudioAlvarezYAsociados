@@ -35,6 +35,12 @@ public class TurnoFacade extends AbstractFacade<Turno> {
         super(Turno.class);
     }
     
+    public List<Turno> findByHoraYDia(java.util.Date horaYDia) {
+        return em.createNamedQuery("Turno.findByHoraYDia", Turno.class)
+                 .setParameter("horaYDia", horaYDia)
+                 .getResultList();
+    }
+    
     public List<Turno> findByResponsable(String responsable) {
         
         return em.createNamedQuery("Turno.findByResponsable", Turno.class)

@@ -478,7 +478,7 @@ public class TurnoController implements Serializable {
         boolean hasSameResponsableAndSchedule = false;
         boolean hasSameOfficeAndSchedule = false;
 
-        for (Turno existingTurno : getItems()) {
+        for (Turno existingTurno : getFacade().findByHoraYDia(turnoToCreate.getHoraYDia())) {
             if (!Objects.equals(existingTurno.getHoraYDia(), turnoToCreate.getHoraYDia())) {
                 continue;
             }

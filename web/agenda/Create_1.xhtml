@@ -21,7 +21,16 @@
                     
                     <div class="hijo">
                         <p:outputLabel value="Descripción" for="descripcion" /><br></br>
-                        <p:inputTextarea  id="descripcion" rows="12" cols="33" autoResize="false" value="#{agendaController.selectedParaCrearUnaNueva.descripcion}" title="Descripcion"/>
+                        <p:autoComplete id="descripcion"
+                                        value="#{agendaController.selectedParaCrearUnaNueva.descripcion}"
+                                        completeMethod="#{agendaController.completeDescripcionAgenda}"
+                                        dropdown="true"
+                                        forceSelection="false"
+                                        maxResults="10"
+                                        scrollHeight="220"
+                                        size="34"
+                                        placeholder="Escribí una descripción"
+                                        title="Descripcion"/>
                     </div>
                         
                     <div class="hijo">

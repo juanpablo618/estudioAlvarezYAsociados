@@ -27,7 +27,16 @@
                         <div class="botonesapilados">
 
                             <p:outputLabel value="Actividad:" for="descripcion"  />
-                            <p:inputTextarea rows="6"  id="descripcion" value="#{agendaController.selected.descripcion}" title="#{bundle.CreateAgendaTitle_descripcion}"  style="margin-bottom: 10px;"/>
+                            <p:autoComplete id="descripcion"
+                                            value="#{agendaController.selected.descripcion}"
+                                            completeMethod="#{agendaController.completeDescripcionAgenda}"
+                                            dropdown="true"
+                                            forceSelection="false"
+                                            maxResults="10"
+                                            scrollHeight="220"
+                                            placeholder="Escribí una descripción"
+                                            title="#{bundle.CreateAgendaTitle_descripcion}"
+                                            style="margin-bottom: 10px; width: 100%;"/>
                             <p:outputLabel value="Responsable:" for="responsable"  />
                             <p:selectOneMenu  id="responsable" value="#{agendaController.selected.responsable}"  >
                                 <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />

@@ -77,6 +77,12 @@
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_cuit}" for="cuit"  />
                                     <p:inputText required="true" requiredMessage="CUIT ES REQUERIDO" id="cuit" value="#{expedienteController.selectedParaVerExp.cuit}" title="#{bundle.CreateExpedienteTitle_cuit}" />
 
+                                    <p:outputLabel value="Procedencia:" for="procedencia" />
+                                    <p:selectOneMenu  id="procedencia" value="#{expedienteController.selectedParaVerExp.procedencia}"  >
+                                        <f:selectItem itemLabel=" -- Procedencia --"  noSelectionOption="true"/>
+                                        <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.nombreProcedencia}" itemValue="#{procedencia.nombreProcedencia}" />
+                                    </p:selectOneMenu>
+
 
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_fechaDeNacimiento}" for="fechaDeNacimiento" />
                                     <p:calendar required="true" styleClass="inputfecha" requiredMessage="Fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selectedParaVerExp.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" showOn="button">
@@ -339,13 +345,6 @@
 
                                     <p:outputLabel value="Fecha de cobro:" for="fechaDeCobro"  rendered="#{expedienteController.selectedParaVerExp.estadoDelTramite eq 'FECHA DE COBRO.'}" />
                                     <p:calendar disabledWeekends="true" style="width: 112px;" id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selectedParaVerExp.fechaDeCobro}" title="fechaDeCobro" rendered="#{expedienteController.selectedParaVerExp.estadoDelTramite eq 'FECHA DE COBRO.'}" />
-
-
-                                    <p:outputLabel class="float-l" value="Procedencia:" for="procedencia" />
-                                    <p:selectOneMenu  id="procedencia" value="#{expedienteController.selectedParaVerExp.procedencia}"  >
-                                        <f:selectItem itemLabel=" -- Procedencia --"  noSelectionOption="true"/>
-                                        <f:selectItems value="#{procedenciaController.itemsAvailableSelectOne}" var="procedencia" itemLabel="#{procedencia.nombreProcedencia}" itemValue="#{procedencia.nombreProcedencia}" />
-                                    </p:selectOneMenu>
 
                                     <p:outputLabel class="float-l" value="Responsable:" for="responsable" />
 

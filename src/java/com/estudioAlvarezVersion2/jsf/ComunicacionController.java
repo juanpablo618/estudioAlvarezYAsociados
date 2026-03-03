@@ -94,6 +94,7 @@ public class ComunicacionController implements Serializable {
     public Comunicacion prepareCreateComunicacion(int orden) {
         selectedParaComunicacionNuevo = new Comunicacion();
         selectedParaComunicacionNuevo.setOrden(orden);
+        selectedParaComunicacionNuevo.setFecha(new Date());
         initializeEmbeddableKey();
 
         return selectedParaComunicacionNuevo;

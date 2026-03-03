@@ -239,33 +239,24 @@ public class ConsultaController implements Serializable {
 
         String successMessage = "Consulta creada exitosamente";
 
-        if (!selected.getCuit().isEmpty()) {
-            if (isCuitAlreadyRegistered(selected.getCuit())) {
-                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este CUIT ya existe en otra consulta.", "");
-                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-            }
+        if (selected.getTelefono() != null && !selected.getTelefono().trim().isEmpty() && isPhoneAlreadyRegistered(selected.getTelefono())) {
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "Este teléfono ya existe en otra consulta.",
+                    "Se permite guardar múltiples consultas con el mismo teléfono.");
+            FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+        }
 
-            if (isPhoneAlreadyRegistered(selected.getTelefono())) {
-                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este teléfono ya existe en otra consulta.", "");
-                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-            }
+        if (selected.getCuit() != null && !selected.getCuit().trim().isEmpty() && isCuitAlreadyRegistered(selected.getCuit())) {
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "Este CUIT ya existe en otra consulta.",
+                    "Se permite guardar múltiples consultas con el mismo CUIT.");
+            FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+        }
 
-            persist(JsfUtil.PersistAction.CREATE, successMessage);
+        persist(JsfUtil.PersistAction.CREATE, successMessage);
 
-            if (!JsfUtil.isValidationFailed()) {
-                items = null;    // Invalidate list of items to trigger re-query.
-            }
-        } else {
-            if (isPhoneAlreadyRegistered(selected.getTelefono())) {
-                FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Este teléfono ya existe en otra consulta.", "");
-                FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-            }
-
-            persist(JsfUtil.PersistAction.CREATE, successMessage);
-
-            if (!JsfUtil.isValidationFailed()) {
-                items = null;    // Invalidate list of items to trigger re-query.
-            }
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 

@@ -24,12 +24,14 @@
                         <p:autoComplete id="descripcion"
                                         value="#{agendaController.selectedParaCrearUnaNueva.descripcion}"
                                         completeMethod="#{agendaController.completeDescripcionAgenda}"
+                                        styleClass="descripcion-autocomplete"
+                                        panelStyleClass="descripcion-autocomplete-panel"
                                         dropdown="true"
                                         forceSelection="false"
                                         maxResults="10"
                                         scrollHeight="220"
-                                        size="34"
                                         placeholder="Escribí una descripción"
+                                        style="width: 100%;"
                                         title="Descripcion"/>
                     </div>
                         

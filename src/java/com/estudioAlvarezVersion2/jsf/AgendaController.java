@@ -1065,6 +1065,24 @@ public class AgendaController implements Serializable {
         //Collections.sort(cloned_list, new SortByDate());
         return items;
     }
+
+    public List<String> completeDescripcionAgenda(String query) {
+        List<String> sugerenciasPermitidas = Arrays.asList("sentencia judicial");
+        String normalizedQuery = query == null ? "" : query.trim().toLowerCase();
+
+        if (normalizedQuery.isEmpty()) {
+            return new ArrayList<>(sugerenciasPermitidas);
+        }
+
+        List<String> resultados = new ArrayList<>();
+        for (String sugerencia : sugerenciasPermitidas) {
+            if (sugerencia.toLowerCase().startsWith(normalizedQuery)) {
+                resultados.add(sugerencia);
+            }
+        }
+
+        return resultados;
+    }
     
     public List<Agenda> getItemsByOrder(Integer orden) {
         return getFacade().getItemsByOrder(orden);
@@ -1605,7 +1623,6 @@ public void seleccionarVista(String tipo) {
     }}}
 
     
-
 
 
 

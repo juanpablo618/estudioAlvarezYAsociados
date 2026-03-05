@@ -1804,3 +1804,20 @@ display: flex;
 #ExpedienteListForm{
     background: white ;
 }
+
+/* Autocomplete descripcion agenda */
+.descripcion-autocomplete {
+    width: 100% !important;
+}
+
+.descripcion-autocomplete .ui-autocomplete-input {
+    width: 100% !important;
+    min-width: 240px;
+}
+
+.descripcion-autocomplete-panel .ui-autocomplete-items .ui-autocomplete-item {
+    white-space: normal !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    line-height: 1.25rem;
+}

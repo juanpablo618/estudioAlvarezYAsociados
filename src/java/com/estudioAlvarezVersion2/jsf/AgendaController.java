@@ -30,7 +30,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -1068,37 +1067,21 @@ public class AgendaController implements Serializable {
     }
 
     public List<String> completeDescripcionAgenda(String query) {
+        List<String> sugerenciasManuales = Arrays.asList("sentencia judicial");
         String normalizedQuery = query == null ? "" : query.trim().toLowerCase();
-        LinkedHashSet<String> sugerencias = new LinkedHashSet<>();
 
-        sugerencias.add("sentencia judicial");
+        if (normalizedQuery.isEmpty()) {
+            return new ArrayList<>(sugerenciasManuales);
+        }
 
-        for (Agenda agenda : getItems()) {
-            if (agenda == null || agenda.getDescripcion() == null) {
-                continue;
-            }
-
-            String descripcion = agenda.getDescripcion().trim();
-            if (descripcion.isEmpty()) {
-                continue;
-            }
-
-            String descripcionLower = descripcion.toLowerCase();
-            if (normalizedQuery.isEmpty() || descripcionLower.startsWith(normalizedQuery)) {
-                sugerencias.add(descripcion);
-                continue;
-            }
-
-            String[] palabras = descripcionLower.split("\\s+");
-            for (String palabra : palabras) {
-                if (palabra.startsWith(normalizedQuery)) {
-                    sugerencias.add(descripcion);
-                    break;
-                }
+        List<String> resultado = new ArrayList<>();
+        for (String sugerencia : sugerenciasManuales) {
+            if (sugerencia.toLowerCase().startsWith(normalizedQuery)) {
+                resultado.add(sugerencia);
             }
         }
 
-        return new ArrayList<>(sugerencias).subList(0, Math.min(10, sugerencias.size()));
+        return resultado;
     }
     
     public List<Agenda> getItemsByOrder(Integer orden) {
@@ -1640,6 +1623,5 @@ public void seleccionarVista(String tipo) {
     }}}
 
     
-
 
 

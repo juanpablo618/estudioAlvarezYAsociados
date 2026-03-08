@@ -27,15 +27,10 @@
                         <div class="botonesapilados">
 
                             <p:outputLabel value="Actividad:" for="descripcion"  />
-                            <p:autoComplete id="descripcion"
+                            <p:inputTextarea id="descripcion"
                                             value="#{agendaController.selected.descripcion}"
                                             completeMethod="#{agendaController.completeDescripcionAgenda}"
-                                        styleClass="descripcion-autocomplete"
-                                        panelStyleClass="descripcion-autocomplete-panel"
-                                            dropdown="true"
-                                            forceSelection="false"
-                                            maxResults="10"
-                                            scrollHeight="220"
+                                            rows="10"
                                             placeholder="Escribí una descripción"
                                             title="#{bundle.CreateAgendaTitle_descripcion}"
                                             style="width: 100%; margin-bottom: 10px;"/>

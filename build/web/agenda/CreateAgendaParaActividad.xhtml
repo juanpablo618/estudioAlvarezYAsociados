@@ -21,7 +21,12 @@
                     
                     <div class="hijo">
                         <p:outputLabel value="Descripción:" for="descripcion" style="font-weight: bold"/><br></br>
-                        <p:inputTextarea  id="descripcion" rows="12" cols="33" autoResize="false" value="#{agendaController.selectedActividad.descripcion}" title="Descripcion"/>
+                        <p:inputTextarea id="descripcion"
+                                        value="#{agendaController.selectedActividad.descripcion}"
+                                        completeMethod="#{agendaController.completeDescripcionAgenda}"
+                                        placeholder="Escribí una descripción"
+                                        rows="10"
+                                        title="Descripcion"/>
                     </div>
                         
                     <div class="hijo">

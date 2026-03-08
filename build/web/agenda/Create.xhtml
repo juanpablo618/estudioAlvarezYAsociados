@@ -12,7 +12,7 @@
             <h:form id="AgendaCreateForm">
                 <h:panelGroup id="display">
                     
-                    <div class="padre" style="height: 300px; display: flex; flex-direction: row; justify-content: space-between;">
+                    <div class="padre" style="height: 500px; display: flex; flex-direction: row; justify-content: space-between;">
                         <div class="hijo">
                                 <p:outputLabel value="#{bundle.CreateAgendaLabel_fecha}" for="fecha" style="font-weight: bold"/>
                                 <p:calendar  widgetVar="testCalendar" mindate="today" disabledWeekends="true" id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" mode="inline" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
@@ -20,15 +20,11 @@
                     
                         <div class="hijo">
                             <p:outputLabel value="Descripción:" for="descripcion" style="font-weight: bold"/><br></br>
-                            <p:autoComplete id="descripcion"
+                            <p:inputTextarea id="descripcion"
                                             value="#{agendaController.selected.descripcion}"
                                             completeMethod="#{agendaController.completeDescripcionAgenda}"
-                                            dropdown="true"
-                                            forceSelection="false"
-                                            maxResults="10"
-                                            scrollHeight="220"
-                                            size="34"
                                             placeholder="Escribí una descripción"
+                                            rows="10"
                                             title="Descripcion"/>
                         </div>
                         

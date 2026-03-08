@@ -263,3 +263,151 @@ boto.fondo {
 .ui-growl-icon-error {
     color: #dc3545;
 }
+
+/* =========================
+   Modal Nueva Agenda (SaaS)
+   ========================= */
+.ui-dialog.agenda-dialog {
+    border-radius: 18px !important;
+    overflow: hidden;
+    border: 1px solid #dfe6ef !important;
+    box-shadow: 0 22px 55px rgba(10, 24, 43, 0.28) !important;
+}
+
+.ui-dialog.agenda-dialog .ui-dialog-titlebar {
+    background: #1E3A5F !important;
+    color: #ffffff !important;
+    border: none !important;
+    padding: 1rem 1.25rem !important;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.ui-dialog.agenda-dialog .ui-dialog-content {
+    background: #F5F7FA !important;
+    padding: 1.25rem !important;
+}
+
+.agenda-create-modal {
+    font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.agenda-create-grid {
+    display: grid;
+    grid-template-columns: minmax(290px, 36%) minmax(420px, 64%);
+    gap: 1rem;
+    align-items: stretch;
+}
+
+.agenda-create-calendar-panel,
+.agenda-create-form-panel {
+    background: #ffffff;
+    border: 1px solid #e7edf4;
+    border-radius: 14px;
+    padding: 1rem;
+    box-shadow: 0 8px 18px rgba(30, 58, 95, 0.08);
+}
+
+.agenda-section-title {
+    color: #1E3A5F;
+    font-weight: 700;
+    font-size: 0.98rem;
+    margin-bottom: 0.8rem;
+}
+
+.agenda-inline-calendar {
+    width: 100%;
+}
+
+.agenda-inline-calendar .ui-datepicker {
+    width: 100% !important;
+    border: none !important;
+}
+
+.agenda-inline-calendar .ui-datepicker-inline {
+    background: transparent !important;
+}
+
+.agenda-field-group {
+    margin-bottom: 0.9rem;
+}
+
+.agenda-field-label {
+    display: inline-block;
+    color: #1E3A5F !important;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+
+.agenda-field-control,
+.agenda-field-control input,
+.agenda-field-control .ui-inputfield,
+.agenda-field-control .ui-selectonemenu-label,
+.agenda-field-control textarea {
+    width: 100% !important;
+}
+
+.agenda-create-form-panel .ui-inputfield,
+.agenda-create-form-panel .ui-inputtextarea,
+.agenda-create-form-panel .ui-selectonemenu {
+    border: 1px solid #d3dde9 !important;
+    border-radius: 10px !important;
+    min-height: 42px;
+    padding: 0.5rem 0.7rem !important;
+    box-shadow: none !important;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.agenda-create-form-panel .ui-inputfield:focus,
+.agenda-create-form-panel .ui-inputtextarea:focus,
+.agenda-create-form-panel .ui-selectonemenu.ui-state-focus {
+    border-color: #1E3A5F !important;
+    box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.12) !important;
+}
+
+.agenda-two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+}
+
+.agenda-create-footer {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.65rem;
+}
+
+.agenda-btn {
+    border-radius: 10px !important;
+    min-width: 128px;
+    padding: 0.6rem 1rem !important;
+    font-weight: 600 !important;
+    border: 1px solid transparent !important;
+}
+
+.agenda-btn-secondary {
+    background: #ffffff !important;
+    color: #1E3A5F !important;
+    border-color: #cdd8e5 !important;
+}
+
+.agenda-btn-primary {
+    background: #22C55E !important;
+    color: #ffffff !important;
+}
+
+.agenda-btn-primary:hover {
+    background: #16a34a !important;
+}
+
+@media (max-width: 1024px) {
+    .agenda-create-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .agenda-two-columns {
+        grid-template-columns: 1fr;
+    }
+}

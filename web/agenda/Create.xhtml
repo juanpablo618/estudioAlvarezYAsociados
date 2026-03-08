@@ -8,65 +8,94 @@
 
     <ui:composition>
 
-        <p:dialog id="AgendaCreateDlg" widgetVar="AgendaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Agenda">
+        <p:dialog id="AgendaCreateDlg" widgetVar="AgendaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Nueva Agenda" styleClass="agenda-dialog" width="78vw" responsive="true" maximizable="true">
             <h:form id="AgendaCreateForm">
                 <h:panelGroup id="display">
-                    
-                    <div class="padre" style="height: 500px; display: flex; flex-direction: row; justify-content: space-between;">
-                        <div class="hijo">
-                                <p:outputLabel value="#{bundle.CreateAgendaLabel_fecha}" for="fecha" style="font-weight: bold"/>
-                                <p:calendar  widgetVar="testCalendar" mindate="today" disabledWeekends="true" id="fecha" pattern="dd/MM/yyyy" value="#{agendaController.selected.fecha}" mode="inline" title="#{bundle.EditAgendaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}" showOn="button"/>
-                        </div>
-                    
-                        <div class="hijo">
-                            <p:outputLabel value="Descripción:" for="descripcion" style="font-weight: bold"/><br></br>
-                            <p:inputTextarea id="descripcion"
-                                            value="#{agendaController.selected.descripcion}"
-                                            completeMethod="#{agendaController.completeDescripcionAgenda}"
-                                            placeholder="Escribí una descripción"
-                                            rows="10"
-                                            title="Descripcion"/>
-                        </div>
-                        
-                    <div class="hijo">
-                            
-                                <p:outputLabel value="Apellido y Nombre:" for="apellido" style="font-weight: bold"/><br></br>
-                                
-                                <p:selectOneMenu style="width: 100% !important" id="apellido" value="#{agendaController.selected.apellido}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith" >
-                                         <f:selectItem itemLabel="--Seleccione Uno--" itemValue="#{null}" noSelectionOption="true" />
-                                    <f:selectItems  value="#{expedienteController.itemsAvailableSelectOne}" var="exp" itemLabel="#{exp.getApellidoYNombre()}" itemDescription="#{exp.getApellidoYNombre()}"  itemValue="#{exp}" />
-                                    <p:ajax listener="#{agendaController.transferir()}" update="orden" />
-                                </p:selectOneMenu><br></br>
-                                
-                                <p:outputLabel value="Orden:" for="orden" style="font-weight: bold"/><br></br>
-                                <p:inputText id="orden" value="#{agendaController.selected.orden}" /><br></br>
+                    <div class="agenda-create-modal">
+                        <div class="agenda-create-grid">
+                            <section class="agenda-create-calendar-panel">
+                                <div class="agenda-section-title">Fecha</div>
+                                <p:calendar widgetVar="testCalendar"
+                                            mindate="today"
+                                            disabledWeekends="true"
+                                            id="fecha"
+                                            pattern="dd/MM/yyyy"
+                                            value="#{agendaController.selected.fecha}"
+                                            mode="inline"
+                                            title="#{bundle.EditAgendaTitle_fecha}"
+                                            required="true"
+                                            requiredMessage="#{bundle.EditAgendaRequiredMessage_fecha}"
+                                            showOn="button"
+                                            styleClass="agenda-inline-calendar"/>
+                            </section>
 
-                                <p:outputLabel value="Responsable:" for="responsable" style="font-weight: bold"/><br></br>
+                            <section class="agenda-create-form-panel">
+                                <div class="agenda-section-title">Detalles</div>
 
-                                <p:selectOneMenu  id="responsable" value="#{agendaController.selected.responsable}"  ><br></br>
-                                    <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
-                                </p:selectOneMenu>
-                                <br></br>
-                                
-                                <p:outputLabel value="prioridad" for="prioridad" style="font-weight: bold" />
-                            <p:selectOneMenu style="margin-left: 3%" id="prioridad" value="#{agendaController.selected.prioridad}" editable="false" effect="fold" >
-                                <f:selectItem itemLabel="--" itemValue="--" noSelectionOption="true" />
-                                <f:selectItem itemLabel="Si" itemValue="Si" />
-                                <f:selectItem itemLabel="No" itemValue="No" />
-                                
-                            </p:selectOneMenu>
-
-                                
-                                <div>
-                                    <p:commandButton actionListener="#{agendaController.createAgendaConFiltroPorNombreYApellido}"
-                                                     class="botonCrear hoverGreen" 
-                                                     value="#{bundle.Save}" 
-                                                     update="display,:AgendaListForm:datalist,:growl"  
-                                                     oncomplete="handleSubmit(args,'AgendaCreateDialog');PF('agendasTable').clearFilters()"/>
+                                <div class="agenda-field-group agenda-field-group-full">
+                                    <p:outputLabel value="Descripción" for="descripcion" styleClass="agenda-field-label"/>
+                                    <p:inputTextarea id="descripcion"
+                                                     value="#{agendaController.selected.descripcion}"
+                                                     completeMethod="#{agendaController.completeDescripcionAgenda}"
+                                                     placeholder="Ej. Reunión por seguimiento de expediente"
+                                                     rows="4"
+                                                     title="Descripcion"
+                                                     styleClass="agenda-field-control"/>
                                 </div>
+
+                                <div class="agenda-field-group agenda-field-group-full">
+                                    <p:outputLabel value="Persona" for="apellido" styleClass="agenda-field-label"/>
+                                    <p:selectOneMenu id="apellido"
+                                                     value="#{agendaController.selected.apellido}"
+                                                     converter="omnifaces.SelectItemsConverter"
+                                                     filter="true"
+                                                     filterMatchMode="startsWith"
+                                                     styleClass="agenda-field-control">
+                                        <f:selectItem itemLabel="--Seleccione Uno--" itemValue="#{null}" noSelectionOption="true" />
+                                        <f:selectItems value="#{expedienteController.itemsAvailableSelectOne}" var="exp" itemLabel="#{exp.getApellidoYNombre()}" itemDescription="#{exp.getApellidoYNombre()}"  itemValue="#{exp}" />
+                                        <p:ajax listener="#{agendaController.transferir()}" update="orden" />
+                                    </p:selectOneMenu>
+                                </div>
+
+                                <div class="agenda-two-columns">
+                                    <div class="agenda-field-group">
+                                        <p:outputLabel value="Orden" for="orden" styleClass="agenda-field-label"/>
+                                        <p:inputText id="orden" value="#{agendaController.selected.orden}" styleClass="agenda-field-control"/>
+                                    </div>
+
+                                    <div class="agenda-field-group">
+                                        <p:outputLabel value="Responsable" for="responsable" styleClass="agenda-field-label"/>
+                                        <p:selectOneMenu id="responsable" value="#{agendaController.selected.responsable}" styleClass="agenda-field-control">
+                                            <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado" itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+
+                                <div class="agenda-field-group agenda-field-group-full">
+                                    <p:outputLabel value="Prioridad" for="prioridad" styleClass="agenda-field-label"/>
+                                    <p:selectOneMenu id="prioridad" value="#{agendaController.selected.prioridad}" editable="false" effect="fold" styleClass="agenda-field-control">
+                                        <f:selectItem itemLabel="--" itemValue="--" noSelectionOption="true" />
+                                        <f:selectItem itemLabel="Si" itemValue="Si" />
+                                        <f:selectItem itemLabel="No" itemValue="No" />
+                                    </p:selectOneMenu>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="agenda-create-footer">
+                            <p:commandButton type="button"
+                                             value="Cancelar"
+                                             icon="ui-icon-close"
+                                             styleClass="agenda-btn agenda-btn-secondary"
+                                             onclick="PF('AgendaCreateDialog').hide();"/>
+                            <p:commandButton actionListener="#{agendaController.createAgendaConFiltroPorNombreYApellido}"
+                                             value="Guardar"
+                                             icon="ui-icon-check"
+                                             styleClass="agenda-btn agenda-btn-primary"
+                                             update="display,:AgendaListForm:datalist,:growl"
+                                             oncomplete="handleSubmit(args,'AgendaCreateDialog');PF('agendasTable').clearFilters()"/>
                         </div>
                     </div>
-                    
                 </h:panelGroup>
             </h:form>
         </p:dialog>

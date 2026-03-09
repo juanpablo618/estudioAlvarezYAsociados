@@ -78,6 +78,56 @@ public class AgendaController implements Serializable {
     private static final String SI = "Si";
     private static final String NO = "No";
     private static final String ESTA_PERSONA_PARA_ESTE_DIA_YA_TIENE_40_AGENDAS = "Esta persona para este día ya tiene 40 o más agendas ";
+    private static final List<String> SUGERENCIAS_DESCRIPCION_AGENDA = Arrays.asList(
+        "Subir dda y documental  + agendar en consecuencia + cargar datos en sistema en caso de que no estén+ pedir dinero aportes si no tenemos",
+        "Verificar si recibieron en MDE y resortearon JF sino para reclamar",
+        "Hacer oficio PTN",
+        "Anotar que tuvieron por acompañado el poder, y por ratificado lo actuado. Cargar en el sistema si no está.",
+        "Verificar si volvió con dictamen fiscal y JF dictó primer decreto de traslado de la demanda sino para reclamar.",
+        "Hacer deox notificando primer decreto con copia dda y documental + agendar 60 DÍAS HÁBILES + cargar fechas judiciales (dda fecha de envío mail + este trasaldo)+ datos si no están en el sistema",
+        "Verificar si ANSES contestó demanda sino solicitar decaimiento y pasen autos a despacho.",
+        "Verificar si se encuentra toda la prueba diligenciada, acompañar ADP y solicitar clausura, y revisar que esté poder ok, sino para gestionar.",
+        "Verificar si manifestaron algo del pedido de vista de solicitud clausura sino solicitar pase a fallo.",
+        "Verificar si volvió con dictamen fiscal y pasaron autos a despacho sino reclamar.",
+        "Verificar si perito presentó planilla (lo emplazaron a hacerlo dentro de los 10 días) sino ver si contactamos o agendar para pedir emplazamiento.",
+        "Verificar si perito Villarragut compareció (lo emplazaron a hacerlo dentro de los días) sino ver si contactamos o agendar para pedir emplazamiento.",
+        "Anotar que tuvieron por decaido el derecho de anses y que esta ratificado poder y cargar en el sistema si no llega a estar",
+        "Verificar si tuvimos novedades de sentencia de primera instancia sino para empezar a reclamar. Autos",
+        "Cargar fecha judicial",
+        "Anotar a listado de cúmplase.",
+        "Avisar a Sr. que ordenaron cumplimiento y pasos a seguir.",
+        "Revisar liquidación del Sr. para verificar si procedió reajuste automático. Cúmplase",
+        "Hacer escrito solicitando oficio AFIP para que habilite liquidación mediante ley 26970 acompañar captura de pantalla para demostrar que no está la opción.",
+        "Verificar si otorgaron turno sino solicitar emplazamiento.",
+        "Ordenaron cúmplase. Hacer escrito solicita apertura cuenta y certificación honorarios.",
+        "Verificar si otorgaron turno sino para reclamar en ANSES.",
+        "Hacer bluecorp para ejecución + agendar para hacer + a Pao para verificar",
+        "Empezar con medidas preparatorias de ejecución. Descargar liquidaciones, localizar administrativo+ agendar a Pao para hacer formulario cerca de la fecha en que se vence plazo",
+        "Verificar si otorgaron turno sino cuantificar las astreintes ya ordenadas pedir el aumento y nuevo emplazamiento",
+        "Verificar si otorgaron turno sino solicitar nuevo emplazamiento y astreintes.",
+        "Hoy se vence plazo cumplimiento ver si esta encaminado todo para presentar ejecución",
+        "Avisar al Sr. que presentamos ejecución, pasos a seguir y anotar en comunicaciones",
+        "Verificar si salió auto de aprobación de planilla sino ver si empezamos a reclamar.",
+        "Verificar si salió auto de ejecución sino ver si empezamos a reclamar.",
+        "Verificar si ANSES impugnó planilla sino solicitar aprueben y pase a resolver.",
+        "Contestar impugnación",
+        "Verificar si ANSES apeló sentencia de ejecución sino agendar a los 30 días para solicitar embargo",
+        "Avisar que salió sentencia de ejecución, explicar pasos a seguir, pedir CBU y anotar en comunicaciones.",
+        "Anotar que salió sentencia ejecución y regularon honorarios en UMAS",
+        "Verificar si ANSES cumplió sino solicitar embargo.",
+        "Verificar si se hizo efectiva transferencia, denunciar cobro y actualizar deuda.",
+        "Avisar a Sr. que ordenaron transferencia, coordinar por honorarios + agendar",
+        "Verificar si se hizo efectivo embargo sino para reclamar.",
+        "Verificar si AFIP presentó planilla rectificada sino solicitar astreintes.",
+        "Hacer apelación.",
+        "Avisar a cliente que salió sentencia de primera instancia favorable pero debemos esperar si ANSES apela + explicar pasos a seguir + anotar en comunicaciones.",
+        "Avisar a cliente que salió sentencia de primera instancia, pero debemos apelar por algunos complementos que no hicieron lugar + explicar pasos a seguir + anotar en comunicaciones.",
+        "Anotar que salió sentencia de primera instancia, impusieron costas a ANSES y difirieron regulación",
+        "Hacer cálculo de días corridos desde presentación de dda a sentencia.",
+        "Anotar que ya tenemos CBU cuenta.",
+        "Verificar si ANSES apeló sino solicitar certifiquen sentencia firme y ordenen cumplimiento.",
+        "Verificar si ya recibieron Expdte. en JF y dictaron cumplimiento sino para reclamar"
+    );
 
     private Agenda selected;
     
@@ -109,6 +159,7 @@ public class AgendaController implements Serializable {
     private List<Agenda> selectedItems;
 
     private String tipoDeAgendaMasiva;
+    private String descripcionPredeterminada;
     
     // Mapa de líderes a sus respectivos empleados
     private Map<String, List<String>> lideresEmpleadosMap;
@@ -341,6 +392,7 @@ public class AgendaController implements Serializable {
     public Agenda prepareCreate() {
         selected = new Agenda();
         selected.setRealizado("No");
+        descripcionPredeterminada = null;
         initializeEmbeddableKey();
         return selected;
     }
@@ -426,8 +478,27 @@ public class AgendaController implements Serializable {
     public Agenda prepareCreateConApellidoYNombre(String nombreYapellido) {
         selected = new Agenda();
         selected.setNombre(nombreYapellido);
+        descripcionPredeterminada = null;
         initializeEmbeddableKey();
         return selected;
+    }
+
+    public List<String> getSugerenciasDescripcionAgenda() {
+        return SUGERENCIAS_DESCRIPCION_AGENDA;
+    }
+
+    public String getDescripcionPredeterminada() {
+        return descripcionPredeterminada;
+    }
+
+    public void setDescripcionPredeterminada(String descripcionPredeterminada) {
+        this.descripcionPredeterminada = descripcionPredeterminada;
+    }
+
+    public void aplicarDescripcionPredeterminada() {
+        if (selected != null && descripcionPredeterminada != null && !descripcionPredeterminada.trim().isEmpty()) {
+            selected.setDescripcion(descripcionPredeterminada);
+        }
     }
     
 
@@ -1067,65 +1138,14 @@ public class AgendaController implements Serializable {
     }
 
     public List<String> completeDescripcionAgenda(String query) {
-        List<String> sugerenciasManuales = Arrays.asList(
-        "Subir dda y documental  + agendar en consecuencia + cargar datos en sistema en caso de que no estén+ pedir dinero aportes si no tenemos",
-        "Verificar si recibieron en MDE y resortearon JF sino para reclamar",
-        "Hacer oficio PTN",
-        "Anotar que tuvieron por acompañado el poder, y por ratificado lo actuado. Cargar en el sistema si no está.",
-        "Verificar si volvió con dictamen fiscal y JF dictó primer decreto de traslado de la demanda sino para reclamar.",
-        "Hacer deox notificando primer decreto con copia dda y documental + agendar 60 DÍAS HÁBILES + cargar fechas judiciales (dda fecha de envío mail + este trasaldo)+ datos si no están en el sistema",
-        "Verificar si ANSES contestó demanda sino solicitar decaimiento y pasen autos a despacho.",
-        "Verificar si se encuentra toda la prueba diligenciada, acompañar ADP y solicitar clausura, y revisar que esté poder ok, sino para gestionar.",
-        "Verificar si manifestaron algo del pedido de vista de solicitud clausura sino solicitar pase a fallo.",
-        "Verificar si volvió con dictamen fiscal y pasaron autos a despacho sino reclamar.",
-        "Verificar si perito presentó planilla (lo emplazaron a hacerlo dentro de los 10 días) sino ver si contactamos o agendar para pedir emplazamiento.",
-        "Verificar si perito Villarragut compareció (lo emplazaron a hacerlo dentro de los días) sino ver si contactamos o agendar para pedir emplazamiento.",
-        "Anotar que tuvieron por decaido el derecho de anses y que esta ratificado poder y cargar en el sistema si no llega a estar",
-        "Verificar si tuvimos novedades de sentencia de primera instancia sino para empezar a reclamar. Autos",
-        "Cargar fecha judicial",
-        "Anotar a listado de cúmplase.",
-        "Avisar a Sr. que ordenaron cumplimiento y pasos a seguir.",
-        "Revisar liquidación del Sr. para verificar si procedió reajuste automático. Cúmplase",
-        "Hacer escrito solicitando oficio AFIP para que habilite liquidación mediante ley 26970 acompañar captura de pantalla para demostrar que no está la opción.",
-        "Verificar si otorgaron turno sino solicitar emplazamiento.",
-        "Ordenaron cúmplase. Hacer escrito solicita apertura cuenta y certificación honorarios.",
-        "Verificar si otorgaron turno sino para reclamar en ANSES.",
-        "Hacer bluecorp para ejecución + agendar para hacer + a Pao para verificar",
-        "Empezar con medidas preparatorias de ejecución. Descargar liquidaciones, localizar administrativo+ agendar a Pao para hacer formulario cerca de la fecha en que se vence plazo",
-        "Verificar si otorgaron turno sino cuantificar las astreintes ya ordenadas pedir el aumento y nuevo emplazamiento",
-        "Verificar si otorgaron turno sino solicitar nuevo emplazamiento y astreintes.",
-        "Hoy se vence plazo cumplimiento ver si esta encaminado todo para presentar ejecución",
-        "Avisar al Sr. que presentamos ejecución, pasos a seguir y anotar en comunicaciones",
-        "Verificar si salió auto de aprobación de planilla sino ver si empezamos a reclamar.",
-        "Verificar si salió auto de ejecución sino ver si empezamos a reclamar.",
-        "Verificar si ANSES impugnó planilla sino solicitar aprueben y pase a resolver.",
-        "Contestar impugnación",
-        "Verificar si ANSES apeló sentencia de ejecución sino agendar a los 30 días para solicitar embargo",
-        "Avisar que salió sentencia de ejecución, explicar pasos a seguir, pedir CBU y anotar en comunicaciones.",
-        "Anotar que salió sentencia ejecución y regularon honorarios en UMAS",
-        "Verificar si ANSES cumplió sino solicitar embargo.",
-        "Verificar si se hizo efectiva transferencia, denunciar cobro y actualizar deuda.",
-        "Avisar a Sr. que ordenaron transferencia, coordinar por honorarios + agendar",
-        "Verificar si se hizo efectivo embargo sino para reclamar.",
-        "Verificar si AFIP presentó planilla rectificada sino solicitar astreintes.",
-        "Hacer apelación.",
-        "Avisar a cliente que salió sentencia de primera instancia favorable pero debemos esperar si ANSES apela + explicar pasos a seguir + anotar en comunicaciones.",
-        "Avisar a cliente que salió sentencia de primera instancia, pero debemos apelar por algunos complementos que no hicieron lugar + explicar pasos a seguir + anotar en comunicaciones.",
-        "Anotar que salió sentencia de primera instancia, impusieron costas a ANSES y difirieron regulación",
-        "Hacer cálculo de días corridos desde presentación de dda a sentencia.",
-        "Anotar que ya tenemos CBU cuenta.",
-        "Verificar si ANSES apeló sino solicitar certifiquen sentencia firme y ordenen cumplimiento.",
-        "Verificar si ya recibieron Expdte. en JF y dictaron cumplimiento sino para reclamar"
-        );
-        
         String normalizedQuery = query == null ? "" : query.trim().toLowerCase();
 
         if (normalizedQuery.isEmpty()) {
-            return new ArrayList<>(sugerenciasManuales);
+            return new ArrayList<>(SUGERENCIAS_DESCRIPCION_AGENDA);
         }
 
         List<String> resultado = new ArrayList<>();
-        for (String sugerencia : sugerenciasManuales) {
+        for (String sugerencia : SUGERENCIAS_DESCRIPCION_AGENDA) {
             if (sugerencia.toLowerCase().startsWith(normalizedQuery)) {
                 resultado.add(sugerencia);
             }
@@ -1673,5 +1693,4 @@ public void seleccionarVista(String tipo) {
     }}}
 
     
-
 

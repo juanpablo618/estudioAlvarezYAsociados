@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template.xhtml">
+
+    <ui:define name="title">Prototipo SaaS Moderno</ui:define>
+
+    <ui:define name="body">
+        <h2 class="section-title">Dashboard Operativo</h2>
+
+        <div class="saas-card" style="margin-bottom:16px;">
+            <h3 class="section-title">Expedientes recientes</h3>
+            <p:dataTable styleClass="saas-table" var="exp" value="#{expedienteController.items}" rows="6" paginator="false">
+                <p:column headerText="Expediente">
+                    #{exp.numeroExpediente}
+                </p:column>
+                <p:column headerText="Cliente">
+                    #{exp.apellidoNombre}
+                </p:column>
+                <p:column headerText="Estado">
+                    <span class="status-badge status-badge--open">Activo</span>
+                </p:column>
+                <p:column headerText="Responsable">
+                    #{exp.responsable}
+                </p:column>
+                <p:column headerText="Última actividad">
+                    #{exp.fecha}
+                </p:column>
+            </p:dataTable>
+        </div>
+
+        <p:commandButton value="Crear agenda (modal)" icon="pi pi-plus" onclick="PF('agendaModal').show();return false;" styleClass="btn-primary"/>
+
+        <p:dialog header="Crear Agenda" widgetVar="agendaModal" modal="true" styleClass="saas-modal" width="980" resizable="false">
+            <div class="modal-grid">
+                <div class="saas-card">
+                    <h:outputText value="Calendario" styleClass="section-title"/>
+                    <p:calendar inline="true" pattern="dd/MM/yyyy"/>
+                </div>
+                <div class="saas-card">
+                    <div style="margin-bottom:10px;">
+                        <label class="saas-label">Descripción</label>
+                        <p:inputText styleClass="saas-field"/>
+                    </div>
+                    <div style="margin-bottom:10px;">
+                        <label class="saas-label">Apellido y nombre</label>
+                        <p:inputText styleClass="saas-field"/>
+                    </div>
+                    <div style="margin-bottom:10px;">
+                        <label class="saas-label">Orden (número expediente)</label>
+                        <p:inputText styleClass="saas-field"/>
+                    </div>
+                    <div style="margin-bottom:10px;">
+                        <label class="saas-label">Responsable</label>
+                        <p:selectOneMenu styleClass="saas-field">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                        </p:selectOneMenu>
+                    </div>
+                    <div>
+                        <label class="saas-label">Prioridad</label>
+                        <p:selectOneMenu styleClass="saas-field">
+                            <f:selectItem itemLabel="Alta" itemValue="ALTA"/>
+                            <f:selectItem itemLabel="Media" itemValue="MEDIA"/>
+                            <f:selectItem itemLabel="Baja" itemValue="BAJA"/>
+                        </p:selectOneMenu>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <p:commandButton value="Cancelar" type="button" onclick="PF('agendaModal').hide();" styleClass="btn-secondary"/>
+                <p:commandButton value="Guardar" styleClass="btn-primary"/>
+            </div>
+        </p:dialog>
+    </ui:define>
+</ui:composition>

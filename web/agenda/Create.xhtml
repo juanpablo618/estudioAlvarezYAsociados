@@ -33,6 +33,19 @@
                                 <div class="agenda-section-title">Detalles</div>
 
                                 <div class="agenda-field-group agenda-field-group-full">
+                                    <p:outputLabel value="Descripción sugerida" for="descripcionSugerida" styleClass="agenda-field-label"/>
+                                    <p:selectOneMenu id="descripcionSugerida"
+                                                     value="#{agendaController.descripcionPredeterminada}"
+                                                     filter="true"
+                                                     filterMatchMode="contains"
+                                                     styleClass="agenda-field-control">
+                                        <f:selectItem itemLabel="--Seleccione una opción--" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{agendaController.sugerenciasDescripcionAgenda}"/>
+                                        <p:ajax listener="#{agendaController.aplicarDescripcionPredeterminada}" update="descripcion"/>
+                                    </p:selectOneMenu>
+                                </div>
+
+                                <div class="agenda-field-group agenda-field-group-full">
                                     <p:outputLabel value="Descripción" for="descripcion" styleClass="agenda-field-label"/>
                                     <p:inputTextarea id="descripcion"
                                                      value="#{agendaController.selected.descripcion}"

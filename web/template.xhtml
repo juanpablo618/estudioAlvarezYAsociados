@@ -10,86 +10,67 @@
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputStylesheet library="css" name="styles.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"></link>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"></link>
+
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </h:head>
 
-    <h:body class="app-shell">
+    <h:body class="fondo">
         <h:form>
+            
             <p:idleMonitor timeout="1800000">
                 <p:ajax event="idle" listener="#{login.onIdle}" update=":growl" />
             </p:idleMonitor>
         </h:form>
-
-        <p:growl id="growl" life="5000" showDetail="true" />
-
-        <p:layout fullPage="true" styleClass="app-layout">
-            <p:layoutUnit position="north" styleClass="topbar-container" resizable="false" closable="false" collapsible="false" size="84">
-                <div class="topbar">
-                    <div class="topbar-brand">
-                        <h:graphicImage value="../faces/resources/images/Alvarezyasociados.svg" styleClass="brand-logo"/>
-                        <div>
-                            <h3>Estudio Alvarez &amp; Asociados</h3>
-                            <span>Gestión legal integral</span>
-                        </div>
-                    </div>
-
-                    <div class="topbar-actions">
-                        <p:button outcome="/agenda/Create" value="Nueva Agenda" styleClass="action-btn action-btn-primary"/>
-                        <p:button outcome="/turno/Create" value="Nuevo Turno" styleClass="action-btn action-btn-secondary"/>
-                        <p:button outcome="/actividad/Create" value="Nueva Actividad" styleClass="action-btn action-btn-secondary"/>
-                    </div>
-
-                    <div class="topbar-user">
-                        <button type="button" class="notification-btn" aria-label="Notificaciones">
-                            <i class="far fa-bell"></i>
-                            <span class="notification-dot"></span>
-                        </button>
-                        <div class="user-chip">
-                            <span class="user-name">#{session.getAttribute('userNombreCompleto')}</span>
-                            <span class="user-role">Usuario activo</span>
-                        </div>
-                    </div>
-                </div>
+        <p:growl id="growl" life="5000" showDetail="true"  />
+        <p:layout fullPage="true" style="background: #123a6d;">
+            <p:layoutUnit position="north" class="bordersn maxwidth" style="margin: 0 !important; padding: 0 !important;">
+                <center style="background-color: #123a6d;">
+                    <h:graphicImage value="../faces/resources/images/Alvarezyasociados.svg" style="width: 30%; margin-bottom: 0% !important;"/>
+                </center>
             </p:layoutUnit>
+            <p:layoutUnit position="west" id="menuLeft" style="background: #123a6d;">
+                <h:form class="menuForm" style="background: #123a6d !important;">
+                    <p:menu  style="width: auto !important;background: #123a6d !important;">
+                        <p:submenu > 
+                            <p:menuitem outcome="/expediente/List" class="fa fa-folder-open fa-2x btnMenuLeft" title="Expedientes"/>
+                            <p:separator class="separador" />
+                            <p:menuitem outcome="/agenda/List_AgendasTurnos" class="fa fa-calendar-alt fa-2x btnMenuLeft" title="Agendas y Turnos"/>
+                            <p:separator class="separador"/>
 
-            <p:layoutUnit position="west" id="menuLeft" styleClass="sidebar-container" size="300" resizable="false" closable="false" collapsible="false">
-                <h:form styleClass="menuForm">
-                    <p:menu styleClass="app-sidebar-menu">
-                        <p:submenu label="Navegación principal">
-                            <p:menuitem outcome="/index" value="Dashboard" icon="fa fa-home" styleClass="sidebar-link"/>
-                            <p:menuitem outcome="/expediente/List" value="Expedientes" icon="fa fa-folder-open" styleClass="sidebar-link"/>
-                            <p:menuitem outcome="/agenda/List_AgendasTurnos" value="Agendas y Turnos" icon="fa fa-calendar" styleClass="sidebar-link"/>
-                            <p:menuitem outcome="/agenda/List_AgendasTurnosWithSession" value="Agendas y Turnos personales" icon="fa fa-tasks" styleClass="sidebar-link"/>
+                            <p:menuitem outcome="/agenda/List_AgendasTurnosWithSession" class="fa fa-tasks fa-2x btnMenuLeft" title="Agendas y Turnos personales"/>
+                            <p:separator class="separador"/>
+
                             <p:menuitem outcome="/agenda/List_AgendasTurnosWithSessionOnlyAdminUsers"
                                         rendered="#{empleadoController.isLeader(session.getAttribute('userNombreCompleto')) or session.getAttribute('userNombreCompleto') eq 'Natali D Agostino'}"
-                                        value="Agendas y Turnos de líderes"
-                                        icon="fa fa-eye"
-                                        styleClass="sidebar-link"/>
-                            <p:menuitem outcome="/empleado/List" value="Colaboradores" icon="fa fa-id-card" styleClass="sidebar-link"/>
-                            <p:menuitem outcome="/estadoDelTramite/List_EstadoDelTramiteYProcedencias" value="Tipos / Estados / Procedencias" icon="fa fa-file-archive" styleClass="sidebar-link"/>
-                            <p:menuitem outcome="/honorario/List" value="Honorarios" icon="fa fa-balance-scale" styleClass="sidebar-link"/>
-                            <p:menuitem outcome="/consulta/List" value="Consultas" icon="fa fa-laptop" styleClass="sidebar-link"/>
-                            <p:menuitem onclick="window.open('https://wa.me/543513220999?text=hola%20necesito%20ayuda%20con%20el%20sistema%20del%20estudio%20Alvarez'); return false;"
-                                        value="Soporte"
-                                        icon="fa fa-wrench"
-                                        styleClass="sidebar-link"/>
-                            <p:separator styleClass="sidebar-separator" />
-                            <p:menuitem action="#{login.logout()}" value="Cerrar sesión" icon="fa fa-sign-out" styleClass="sidebar-link sidebar-link-logout"/>
+                                        class="fa fa-eye fa-2x btnMenuLeft"
+                                        title="Agendas y Turnos de lideres"/>
+
+                            <p:separator class="separador" rendered="#{empleadoController.isLeader(session.getAttribute('userNombreCompleto'))}"/>
+
+                            <p:menuitem outcome="/empleado/List" class="fa fa-id-card fa-2x btnMenuLeft" title="Colaboradores" />
+                            <p:separator class="separador"/>
+                            <p:menuitem outcome="/estadoDelTramite/List_EstadoDelTramiteYProcedencias" class="fa fa-file-archive fa-2x btnMenuLeft" title="Tipos de tramites, Estados del tramite y Procedencias y actividades, fechas restringidas"/>
+                            <p:separator class="separador"/>
+                            <p:menuitem outcome="/honorario/List" class="fa fa-balance-scale fa-2x btnMenuLeft" title="Honorarios" />
+                            <p:separator class="separador"/>
+                            <p:menuitem outcome="/consulta/List" class="fa fa-laptop fa-2x btnMenuLeft" title="Consultas"/>
+                            <p:separator class="separador"/>
+                            <p:menuitem  
+                                onclick="window.open('https://wa.me/543513220999?text=hola%20necesito%20ayuda%20con%20el%20sistema%20del%20estudio%20Alvarez'); return false;"
+                                class="fa fas fa-wrench fa-2x btnMenuLeft"
+                                title="Contactar por WhatsApp" />
+                            <p:separator class="separador" />
+
+                            <p:menuitem  action="#{login.logout()}"  class="fa fa-user-circle fa-2x btnMenuLeft" title="Salir"/>
+
+
                         </p:submenu>
                     </p:menu>
                 </h:form>
             </p:layoutUnit>
-
-            <p:layoutUnit position="center" id="fondoCenter" styleClass="content-container">
-                <div class="content-wrapper">
-                    <div class="page-header">
-                        <h1><ui:insert name="sectionTitle">Panel de gestión jurídica</ui:insert></h1>
-                        <p><ui:insert name="sectionSubtitle">Expedientes, consultas, agendas y seguimiento en un único espacio de trabajo.</ui:insert></p>
-                    </div>
-                    <ui:insert name="body" />
-                </div>
+            <p:layoutUnit position="center"  id="fondoCenter">
+                <ui:insert name="body"  />
             </p:layoutUnit>
         </p:layout>
     </h:body>

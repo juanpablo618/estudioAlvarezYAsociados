@@ -428,6 +428,7 @@ public class AgendaController implements Serializable {
     public Agenda prepareCreateActividad() {
         selectedActividad = new Agenda();
         selectedActividad.setRealizado("No");
+        descripcionPredeterminadaActividad = null;
         initializeEmbeddableKey();
         return selectedActividad;
     }
@@ -470,6 +471,7 @@ public class AgendaController implements Serializable {
         selectedParaCrearUnaNueva.setRealizado("No");
         selectedParaCrearUnaNueva.setResponsable(agendaAnterior.getResponsable());
         selectedParaCrearUnaNueva.setPrioridad(agendaAnterior.getPrioridad());
+        descripcionPredeterminadaReagendar = null;
 
         initializeEmbeddableKey();
         return selectedParaCrearUnaNueva;
@@ -581,6 +583,7 @@ public class AgendaController implements Serializable {
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AgendaCreated"));
             if (!JsfUtil.isValidationFailed()) {
                 items = null;    // Invalidate list of items to trigger re-query.
+                prepareCreate();
             }
         }
     }

@@ -411,3 +411,13 @@ boto.fondo {
         grid-template-columns: 1fr;
     }
 }
+
+/*
+ * Fix: overlays de PrimeFaces (calendar/selectOneMenu/autocomplete)
+ * dentro de diálogos de agenda que quedaban por detrás del modal.
+ */
+body .ui-selectonemenu-panel,
+body .ui-datepicker,
+body .ui-autocomplete-panel {
+    z-index: 999999 !important;
+}

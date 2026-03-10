@@ -1820,3 +1820,211 @@ display: flex;
   overflow-wrap: anywhere;
   line-height: 1.25rem;
 }
+
+
+/* --- Sistema visual unificado (conservador, sin cambios funcionales) --- */
+body,
+.ui-widget,
+.ui-inputfield,
+.ui-outputlabel,
+.ui-panelgrid,
+.ui-datatable,
+.ui-dialog,
+.ui-button,
+.ui-selectonemenu-label {
+    font-family: "Inter", "Segoe UI", Arial, sans-serif !important;
+}
+
+.ui-widget {
+    color: #162338 !important;
+}
+
+.ui-layout-unit .ui-layout-unit-content,
+.ui-widget-content,
+.ui-panel,
+.ui-panelgrid,
+.ui-fieldset {
+    background: #ffffff;
+}
+
+h1, h2, h3, .ui-panel-title, .ui-dialog-title {
+    letter-spacing: .2px;
+}
+
+.ui-datatable {
+    border: 1px solid #dbe3ef !important;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(16, 24, 40, 0.05);
+}
+
+.ui-datatable thead th {
+    background: #f7f9fc !important;
+    color: #1b2b44 !important;
+    border-color: #e3eaf3 !important;
+    font-weight: 600;
+    padding: 10px 12px !important;
+}
+
+.ui-datatable tbody td {
+    border-color: #edf2f7 !important;
+    padding: 9px 12px !important;
+}
+
+.ui-datatable .ui-datatable-data tr.ui-state-hover {
+    background: #f2f7ff !important;
+}
+
+.ui-inputfield,
+.ui-selectonemenu,
+.ui-selectcheckboxmenu,
+.ui-spinner-input,
+.ui-calendar input,
+.ui-autocomplete-input,
+.ui-inputtextarea {
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    min-height: 36px;
+    padding: 6px 10px !important;
+    box-shadow: none !important;
+}
+
+.ui-inputfield:focus,
+.ui-state-focus,
+.ui-selectonemenu.ui-state-focus {
+    border-color: #1f4b84 !important;
+    box-shadow: 0 0 0 2px rgba(31, 75, 132, 0.15) !important;
+}
+
+.ui-outputlabel,
+label {
+    color: #344054;
+    font-weight: 500;
+}
+
+.ui-button,
+.ui-commandlink,
+.ui-button.ui-state-default {
+    border-radius: 8px !important;
+    border: 1px solid transparent !important;
+    text-shadow: none !important;
+    padding: 6px 12px !important;
+    transition: filter .2s ease;
+}
+
+.ui-button:hover,
+.ui-commandlink:hover {
+    filter: brightness(.97);
+}
+
+.ui-dialog {
+    border-radius: 12px !important;
+    overflow: hidden;
+    box-shadow: 0 18px 44px rgba(2, 6, 23, 0.24);
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    background: #123a6d !important;
+    color: #fff !important;
+    border: 0 !important;
+    padding: 12px 14px !important;
+}
+
+.ui-dialog .ui-dialog-content {
+    padding: 16px !important;
+    background: #fff !important;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+    border-top: 1px solid #e6edf5 !important;
+    background: #fafcff !important;
+}
+
+.ui-messages,
+.ui-growl-item-container {
+    border-radius: 10px !important;
+}
+
+.ui-panelgrid td,
+.ui-panelgrid tr {
+    border-style: none !important;
+}
+
+
+/* --- Refinamiento adicional de dialogs/modales/overlays (solo visual) --- */
+.ui-widget-overlay,
+.ui-dialog-mask {
+    background: rgba(15, 23, 42, 0.42) !important;
+}
+
+.ui-dialog {
+    border: 1px solid #d7e0ec !important;
+}
+
+.ui-dialog .ui-dialog-title {
+    font-weight: 600 !important;
+}
+
+.ui-dialog .ui-dialog-titlebar-icon {
+    border-radius: 6px !important;
+    transition: background-color .2s ease;
+}
+
+.ui-dialog .ui-dialog-titlebar-icon:hover {
+    background: rgba(255, 255, 255, 0.18) !important;
+}
+
+.ui-dialog .ui-dialog-content .ui-panelgrid,
+.ui-dialog .ui-dialog-content .ui-grid,
+.ui-dialog .ui-dialog-content .ui-g,
+.ui-dialog .ui-dialog-content table {
+    width: 100%;
+}
+
+.ui-dialog .ui-dialog-content .ui-panelgrid td,
+.ui-dialog .ui-dialog-content .ui-panelgrid tr,
+.ui-dialog .ui-dialog-content .ui-grid-row,
+.ui-dialog .ui-dialog-content .ui-g-12,
+.ui-dialog .ui-dialog-content .ui-g-6,
+.ui-dialog .ui-dialog-content .ui-g-4 {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+    padding: 10px 12px !important;
+}
+
+.ui-dialog .ui-dialog-buttonpane .ui-button,
+.ui-dialog .ui-dialog-content .ui-button {
+    min-height: 34px;
+    font-weight: 600 !important;
+}
+
+.ui-confirm-dialog .ui-dialog-content {
+    line-height: 1.45;
+}
+
+.ui-confirm-dialog .ui-dialog-buttonpane .ui-button {
+    min-width: 92px;
+}
+
+.ui-selectonemenu,
+.ui-selectonemenu .ui-selectonemenu-label,
+.ui-inputfield,
+.ui-inputtextarea,
+.ui-calendar input,
+.ui-autocomplete-input,
+.ui-spinner-input {
+    color: #162338 !important;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger {
+    border-left: 1px solid #d7e0ec !important;
+}
+
+.ui-messages,
+.ui-growl-item-container,
+.ui-message {
+    box-shadow: 0 4px 14px rgba(2, 6, 23, 0.08);
+}

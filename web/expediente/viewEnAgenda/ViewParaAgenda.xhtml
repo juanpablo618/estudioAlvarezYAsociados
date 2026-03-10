@@ -21,17 +21,6 @@
                         </div>
                         <div class="botonesapilados">
 
-                            <p:outputLabel value="Descripción sugerida:" for="descripcionSugerida" style="font-weight: bold" />
-                            <p:selectOneMenu id="descripcionSugerida"
-                                             value="#{agendaController.descripcionPredeterminada}"
-                                             filter="true"
-                                             filterMatchMode="contains"
-                                             style="width: 100%; margin-bottom: 10px;">
-                                <f:selectItem itemLabel="--Seleccione una opción--" itemValue="#{null}" noSelectionOption="true"/>
-                                <f:selectItems value="#{agendaController.sugerenciasDescripcionAgenda}"/>
-                                <p:ajax listener="#{agendaController.aplicarDescripcionPredeterminada}" update="descripcion"/>
-                            </p:selectOneMenu>
-
                             <p:outputLabel value="Actividad:" for="descripcion" style="font-weight: bold" />
                             <p:inputTextarea id="descripcion"
                                             value="#{agendaController.selected.descripcion}"

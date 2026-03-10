@@ -160,6 +160,8 @@ public class AgendaController implements Serializable {
 
     private String tipoDeAgendaMasiva;
     private String descripcionPredeterminada;
+    private String descripcionPredeterminadaActividad;
+    private String descripcionPredeterminadaReagendada;
     
     // Mapa de líderes a sus respectivos empleados
     private Map<String, List<String>> lideresEmpleadosMap;
@@ -428,6 +430,7 @@ public class AgendaController implements Serializable {
     public Agenda prepareCreateActividad() {
         selectedActividad = new Agenda();
         selectedActividad.setRealizado("No");
+        descripcionPredeterminadaActividad = null;
         initializeEmbeddableKey();
         return selectedActividad;
     }
@@ -470,6 +473,7 @@ public class AgendaController implements Serializable {
         selectedParaCrearUnaNueva.setRealizado("No");
         selectedParaCrearUnaNueva.setResponsable(agendaAnterior.getResponsable());
         selectedParaCrearUnaNueva.setPrioridad(agendaAnterior.getPrioridad());
+        descripcionPredeterminadaReagendada = null;
 
         initializeEmbeddableKey();
         return selectedParaCrearUnaNueva;
@@ -498,6 +502,34 @@ public class AgendaController implements Serializable {
     public void aplicarDescripcionPredeterminada() {
         if (selected != null && descripcionPredeterminada != null && !descripcionPredeterminada.trim().isEmpty()) {
             selected.setDescripcion(descripcionPredeterminada);
+        }
+    }
+
+    public String getDescripcionPredeterminadaActividad() {
+        return descripcionPredeterminadaActividad;
+    }
+
+    public void setDescripcionPredeterminadaActividad(String descripcionPredeterminadaActividad) {
+        this.descripcionPredeterminadaActividad = descripcionPredeterminadaActividad;
+    }
+
+    public void aplicarDescripcionPredeterminadaActividad() {
+        if (selectedActividad != null && descripcionPredeterminadaActividad != null && !descripcionPredeterminadaActividad.trim().isEmpty()) {
+            selectedActividad.setDescripcion(descripcionPredeterminadaActividad);
+        }
+    }
+
+    public String getDescripcionPredeterminadaReagendada() {
+        return descripcionPredeterminadaReagendada;
+    }
+
+    public void setDescripcionPredeterminadaReagendada(String descripcionPredeterminadaReagendada) {
+        this.descripcionPredeterminadaReagendada = descripcionPredeterminadaReagendada;
+    }
+
+    public void aplicarDescripcionPredeterminadaReagendada() {
+        if (selectedParaCrearUnaNueva != null && descripcionPredeterminadaReagendada != null && !descripcionPredeterminadaReagendada.trim().isEmpty()) {
+            selectedParaCrearUnaNueva.setDescripcion(descripcionPredeterminadaReagendada);
         }
     }
     
@@ -1693,4 +1725,3 @@ public void seleccionarVista(String tipo) {
     }}}
 
     
-

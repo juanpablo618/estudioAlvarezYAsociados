@@ -20,6 +20,17 @@
                     </div>
                     
                     <div class="hijo">
+                        <p:outputLabel value="Descripción sugerida" for="descripcionSugeridaReagendada" /><br></br>
+                        <p:selectOneMenu id="descripcionSugeridaReagendada"
+                                         value="#{agendaController.descripcionPredeterminadaReagendada}"
+                                         filter="true"
+                                         filterMatchMode="contains"
+                                         style="width: 100%; margin-bottom: 10px;">
+                            <f:selectItem itemLabel="--Seleccione una opción--" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{agendaController.sugerenciasDescripcionAgenda}"/>
+                            <p:ajax listener="#{agendaController.aplicarDescripcionPredeterminadaReagendada}" update="descripcion"/>
+                        </p:selectOneMenu>
+
                         <p:outputLabel value="Descripción" for="descripcion" /><br></br>
                         <p:inputTextarea id="descripcion"
                                         value="#{agendaController.selectedParaCrearUnaNueva.descripcion}"

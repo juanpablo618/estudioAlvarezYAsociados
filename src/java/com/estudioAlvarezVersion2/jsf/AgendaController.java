@@ -1029,7 +1029,7 @@ public class AgendaController implements Serializable {
 
     public void update() {
 
-        if (validateHolidays(selected.getFecha())) {
+        if (!canPersistAgendaOnDate(selected.getIdAgenda(), selected.getFecha())) {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
@@ -1047,7 +1047,7 @@ public class AgendaController implements Serializable {
 
     public void updateAgendaPasada() {
 
-        if (validateHolidays(selectedAgendaPasada.getFecha())) {
+        if (!canPersistAgendaOnDate(selectedAgendaPasada.getIdAgenda(), selectedAgendaPasada.getFecha())) {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
@@ -1065,7 +1065,7 @@ public class AgendaController implements Serializable {
 
     public void updateAgendaFutura() {
 
-        if (validateHolidays(selectedAgendaFutura.getFecha())) {
+        if (!canPersistAgendaOnDate(selectedAgendaFutura.getIdAgenda(), selectedAgendaFutura.getFecha())) {
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
             items = null;
@@ -1095,6 +1095,34 @@ public class AgendaController implements Serializable {
     public void marcarComoReagendada(){
         selected.setRealizado("Reagendada");
         this.update();
+    }
+
+    private boolean canPersistAgendaOnDate(Integer agendaId, Date fechaSeleccionada) {
+        if (!validateHolidays(fechaSeleccionada)) {
+            return true;
+        }
+
+        if (agendaId == null) {
+            return false;
+        }
+
+        Agenda agendaPersistida = getFacade().find(agendaId);
+        return agendaPersistida != null && isSameDay(agendaPersistida.getFecha(), fechaSeleccionada);
+    }
+
+    private boolean isSameDay(Date firstDate, Date secondDate) {
+        if (firstDate == null || secondDate == null) {
+            return false;
+        }
+
+        Calendar firstCalendar = Calendar.getInstance();
+        firstCalendar.setTime(firstDate);
+
+        Calendar secondCalendar = Calendar.getInstance();
+        secondCalendar.setTime(secondDate);
+
+        return firstCalendar.get(Calendar.YEAR) == secondCalendar.get(Calendar.YEAR)
+                && firstCalendar.get(Calendar.DAY_OF_YEAR) == secondCalendar.get(Calendar.DAY_OF_YEAR);
     }
     
     public void marcarComoRealizadaSiAgendaPasada() {

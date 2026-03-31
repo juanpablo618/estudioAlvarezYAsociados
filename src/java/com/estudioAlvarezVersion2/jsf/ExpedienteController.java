@@ -1542,6 +1542,7 @@ public class ExpedienteController implements Serializable {
         expAInsertar.setBarrio(consultaSelected.getBarrio());
         expAInsertar.setTelefono(consultaSelected.getTelefono());
         expAInsertar.setTelefonoAuxiliar(consultaSelected.getTelefonoAuxiliar());
+        expAInsertar.setEmail(consultaSelected.getEmail());
         expAInsertar.setFechaDeNacimiento(consultaSelected.getFechaDeNacimiento());
         expAInsertar.setClaveSeguridadSocial(consultaSelected.getClaveSeguridadSocial());
         expAInsertar.setClaveFiscal(consultaSelected.getClaveFiscal());

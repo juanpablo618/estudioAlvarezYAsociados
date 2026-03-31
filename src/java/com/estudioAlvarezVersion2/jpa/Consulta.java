@@ -110,6 +110,9 @@ public class Consulta implements Serializable {
     @Column(name = "telefonoAuxiliar")
     private String telefonoAuxiliar;
 
+    @Column(name = "email")
+    private String email;
+
     @Basic(optional = false)
     @Column(name = "fechaDeNacimiento")
     @Temporal(TemporalType.DATE)
@@ -551,6 +554,14 @@ public class Consulta implements Serializable {
 
     public void setTelefonoAuxiliar(String telefonoAuxiliar) {
         this.telefonoAuxiliar = telefonoAuxiliar;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Date getFechaDeNacimiento() {

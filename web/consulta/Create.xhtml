@@ -34,9 +34,12 @@
                                   
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="font-weight: bold" />
                                 <p:inputText id="telefono"  style="margin-left: 3%" required="true" requiredMessage="teléfono es necesario" value="#{consultaController.selected.telefono}"  title="#{bundle.CreateExpedienteTitle_telefono}" />
-                                
+
                                 <p:outputLabel value="teléfono auxiliar" for="telefono" style="margin-left: 3%;font-weight: bold" />
                                 <p:inputTextarea   autoResize="true"   id="telefonoAuxiliar" value="#{consultaController.selected.telefonoAuxiliar}" title="Telèfono Auxiliar"/>
+
+                                <p:outputLabel value="Email" for="email" style="margin-left: 3%;font-weight: bold" />
+                                <p:inputText id="email" value="#{consultaController.selected.email}" style="margin-left: 3%" title="Email" />
                                 
                                 <p:outputLabel value="Procedencia:" for="procedencia" style="font-weight: bold" />
                                     <p:selectOneMenu editable="true" id="procedencia" value="#{consultaController.selected.procedencia}"  >

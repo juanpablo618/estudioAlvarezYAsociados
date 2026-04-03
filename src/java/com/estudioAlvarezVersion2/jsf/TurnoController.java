@@ -81,6 +81,15 @@ public class TurnoController implements Serializable {
     
     private String expSeleccionado;
     private String asignarExpediente;
+    private List<String> responsablesSeleccionadosReunion;
+
+    public List<String> getResponsablesSeleccionadosReunion() {
+        return responsablesSeleccionadosReunion;
+    }
+
+    public void setResponsablesSeleccionadosReunion(List<String> responsablesSeleccionadosReunion) {
+        this.responsablesSeleccionadosReunion = responsablesSeleccionadosReunion;
+    }
 
     public Turno getSelectedTurnoPasado() {
         return selectedTurnoPasado;
@@ -362,8 +371,13 @@ public class TurnoController implements Serializable {
     public Turno prepareCreate() {
         selected = new Turno();
         selected.setRealizado("No");
+        responsablesSeleccionadosReunion = new ArrayList<>();
         initializeEmbeddableKey();
         return selected;
+    }
+
+    public Turno prepareCreateReunion() {
+        return prepareCreate();
     }
 
     public void create() {
@@ -383,6 +397,62 @@ public class TurnoController implements Serializable {
                 filteredTurnosConSesion = null;
                 filteredturnos = null;
             }
+        }
+    }
+
+    public void createReunion() {
+        if (selected == null || selected.getHoraYDia() == null) {
+            JsfUtil.addErrorMessage("Debe ingresar día y hora para la reunión.");
+            return;
+        }
+
+        if (responsablesSeleccionadosReunion == null || responsablesSeleccionadosReunion.isEmpty()) {
+            JsfUtil.addErrorMessage("Debe seleccionar al menos un asistente.");
+            return;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
+        String date = sdf.format(selected.getHoraYDia());
+
+        if (validateHolidays(date)) {
+            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA + POR_SER_FERIADO, POR_SER_FERIADO);
+            FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
+            items = null;
+            return;
+        }
+
+        int reunionesCreadas = 0;
+
+        for (String responsable : responsablesSeleccionadosReunion) {
+            if (!isNotBlank(responsable)) {
+                continue;
+            }
+
+            Turno reunion = new Turno();
+            reunion.setHoraYDia(selected.getHoraYDia());
+            reunion.setNombre(selected.getNombre());
+            reunion.setApellido(selected.getApellido());
+            reunion.setNroDeTelefono(selected.getNroDeTelefono());
+            reunion.setProcedencia(selected.getProcedencia());
+            reunion.setObservacion(selected.getObservacion());
+            reunion.setResponsable(responsable);
+            reunion.setTipoDeTurno(selected.getTipoDeTurno());
+            reunion.setOficina(selected.getOficina());
+            reunion.setAsignarExpediente("no");
+            reunion.setOrden(selected.getOrden());
+            reunion.setRealizado("No");
+
+            addConflictWarningsOnCreate(reunion);
+            getFacade().create(reunion);
+            reunionesCreadas++;
+        }
+
+        if (reunionesCreadas > 0) {
+            JsfUtil.addSuccessMessage("Reunión creada para " + reunionesCreadas + " asistentes.");
+            items = null;
+            filteredTurnosConSesion = null;
+            filteredturnos = null;
+            prepareCreate();
         }
     }
 

@@ -26,7 +26,7 @@
                     </div>
                     <div style="display: flex">
 
-                        <h:commandButton class="boton-guardar" value="Aplicar Filtro" actionListener="#{expedienteController.filtroCompuesto(expedienteController.getTipoDeTramiteSelected(), expedienteController.getTipoDeExpedienteSelected(), expedienteController.getResponsableSelected(), expedienteController.getEstadoDelTramiteSelected(), expedienteController.getFechaDeCumpleSelected(), expedienteController.getSexoSelected())}"
+                        <h:commandButton class="boton-guardar" value="Aplicar Filtro" actionListener="#{expedienteController.filtroCompuesto(expedienteController.getTipoDeTramiteSelected(), expedienteController.getTipoDeExpedienteSelected(), expedienteController.getResponsableSelected(), expedienteController.getEquipoSelected(), expedienteController.getEstadoDelTramiteSelected(), expedienteController.getFechaDeCumpleSelected(), expedienteController.getSexoSelected())}"
                                          />
 
                         <h:commandButton styleClass="boton-sistema" style="margin-right: 10px" value="#{expedienteController.mostrarSoloActivos ? 'Mostrar Todos' : 'Mostrar solo Activos'}" 
@@ -79,6 +79,15 @@
                         <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" requiredMessage="debe seleccionar un responsable correcto" id="apoderado" value="#{expedienteController.responsableSelected}">
                             <f:selectItem itemLabel="Seleccionar"  noSelectionOption="true"  />
                             <f:selectItems value="#{empleadoController.items}" var="empleado" itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}" />
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="botonesapilados">
+                        <p:outputLabel value="Equipo:"  />
+
+                        <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" requiredMessage="debe seleccionar un equipo correcto" id="equipo" value="#{expedienteController.equipoSelected}">
+                            <f:selectItem itemLabel="Seleccionar"  noSelectionOption="true"  />
+                            <f:selectItems value="#{equipoController.items}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo.nombre}" />
                         </p:selectOneMenu>
                     </div>
 

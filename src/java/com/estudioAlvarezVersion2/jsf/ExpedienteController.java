@@ -78,6 +78,7 @@ public class ExpedienteController implements Serializable {
     private String estadoDelTramiteSelected;
     private String fechaDeCumpleSelected;
     private String responsableSelected;
+    private String equipoSelected;
     private String tipoDeExpedienteSelected;
     private String sexoSelected;
     private String tipoDeTramiteSelected;
@@ -240,6 +241,14 @@ public class ExpedienteController implements Serializable {
 
     public void setResponsableSelected(String responsable) {
         this.responsableSelected = responsable;
+    }
+    
+    public String getEquipoSelected() {
+        return equipoSelected;
+    }
+
+    public void setEquipoSelected(String equipoSelected) {
+        this.equipoSelected = equipoSelected;
     }
 
     public String getTipoDeExpedienteSelected() {
@@ -1343,6 +1352,7 @@ public class ExpedienteController implements Serializable {
         this.fechaDeCumpleSelected = null;
         this.estadoDelTramiteSelected = null;
         this.responsableSelected = null;
+        this.equipoSelected = null;
         this.tipoDeTramiteSelected = null;
         this.tipoDeExpedienteSelected = null;
         this.sexoSelected = null;
@@ -1370,6 +1380,7 @@ public class ExpedienteController implements Serializable {
     public void filtroCompuesto(String tipoDeTramiteSelected,
             String tipoDeExpedienteSelected,
             String responsableSelected,
+            String equipoSelected,
             String estadoDelTramiteSelected,
             String fechaDeCumpleSelected,
             String sexoSelected) {
@@ -1378,6 +1389,7 @@ public class ExpedienteController implements Serializable {
                  .filter(ExpedienteUtils.filtroTipoDeTramite(tipoDeTramiteSelected))
                  .filter(ExpedienteUtils.filtroTipoDeExpediente(tipoDeExpedienteSelected))
                  .filter(ExpedienteUtils.filtroResponsable(responsableSelected))
+                 .filter(ExpedienteUtils.filtroEquipo(equipoSelected))
                  .filter(ExpedienteUtils.filtroEstadoDelTramite(estadoDelTramiteSelected))
                  .filter(ExpedienteUtils.filtroFechaDeCumple(fechaDeCumpleSelected))
                  .filter(ExpedienteUtils.filtroSexo(sexoSelected))

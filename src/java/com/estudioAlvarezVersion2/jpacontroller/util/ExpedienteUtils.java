@@ -113,6 +113,23 @@ public class ExpedienteUtils {
             return true;
         };
     }
+    
+    public static Predicate<Expediente> filtroEquipo(String equipoSelected) {
+        if (equipoSelected != null && !"".equals(equipoSelected)) {
+            return (Expediente l) -> {
+                if (l.getEquipo() != null) {
+
+                    return l.getEquipo().equals(equipoSelected);
+
+                } else {
+                    return false;
+                }
+            };
+        }
+        return (Expediente l) -> {
+            return true;
+        };
+    }
 
     public static Predicate<Expediente> filtroSexo(String sexoSelected) {
         if (sexoSelected != null && !"".equals(sexoSelected)) {

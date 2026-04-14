@@ -422,3 +422,54 @@ body .ui-autocomplete-panel {
     z-index: 999999 !important;
 }
 
+.whatsapp-floating {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 2000;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: #25d366;
+    color: #ffffff !important;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1;
+    text-decoration: none;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.30);
+    transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+
+.whatsapp-floating:hover {
+    background: #1fbe58;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+
+.whatsapp-floating:focus {
+    outline: 3px solid rgba(37, 211, 102, 0.35);
+    outline-offset: 2px;
+}
+
+.whatsapp-floating__icon {
+    font-size: 22px;
+}
+
+@media (max-width: 768px) {
+    .whatsapp-floating {
+        right: 14px;
+        bottom: 14px;
+        padding: 12px;
+        border-radius: 50%;
+        width: 56px;
+        height: 56px;
+        justify-content: center;
+    }
+
+    .whatsapp-floating__label {
+        display: none;
+    }
+}
+

@@ -343,6 +343,108 @@
                                 </div>
                             </p:panel>
                         </p:tab>
+                        <p:tab>
+                            <f:facet name="title">
+                                Sentencias
+                                <span class="circle-badge"  style=" #{fileDownloadBean.cantidadSentencias(expedienteController.selected.orden) == 0 ? 'background: #e87474; ' : 'background: #00c6ae;'}">
+                                    #{fileDownloadBean.cantidadSentencias(expedienteController.selected.orden)}
+                                </span>
+                            </f:facet>
+
+                            <p:panel
+                                rendered="#{expedienteController.selected.tipoDeExpediente eq 'judicial' or expedienteController.selected.tipoDeExpediente eq 'administrativo'}"
+                                id="sentencias"
+                                header="Sentencias"
+                                toggleable="false"
+                                closable="false"
+                                collapsed="false"
+                                toggleSpeed="500"
+                                closeSpeed="500"
+                                >
+                                <div class="contenedorcard">
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Sentencias').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+                                        <p:outputLabel value="Nombre del archivo Sentencia 1:" styleClass="titulopdfjpg"/>
+                                        <br></br>
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Sentencias')}"
+                                                       styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'Sentencias').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"/>
+                                        <br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload value="#{fileUploadBean.fileSentencias}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'Sentencias')}" ajax="false" />
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'Sentencias')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileSentencias}" />
+                                            </p:commandButton>
+                                        </div>
+                                    </div>
+
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'SentenciasDos').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+                                        <p:outputLabel value="Nombre del archivo Sentencia 2:" styleClass="titulopdfjpg"/>
+                                        <br></br>
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'SentenciasDos')}"
+                                                       styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'SentenciasDos').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"/>
+                                        <br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload value="#{fileUploadBean.fileSentenciasDos}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'SentenciasDos')}" ajax="false" />
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'SentenciasDos')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileSentenciasDos}" />
+                                            </p:commandButton>
+                                        </div>
+                                    </div>
+
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'SentenciasTres').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+                                        <p:outputLabel value="Nombre del archivo Sentencia 3:" styleClass="titulopdfjpg"/>
+                                        <br></br>
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'SentenciasTres')}"
+                                                       styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'SentenciasTres').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"/>
+                                        <br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload value="#{fileUploadBean.fileSentenciasTres}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'SentenciasTres')}" ajax="false" />
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'SentenciasTres')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileSentenciasTres}" />
+                                            </p:commandButton>
+                                        </div>
+                                    </div>
+
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'SentenciasCuatro').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+                                        <p:outputLabel value="Nombre del archivo Sentencia 4:" styleClass="titulopdfjpg"/>
+                                        <br></br>
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'SentenciasCuatro')}"
+                                                       styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'SentenciasCuatro').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"/>
+                                        <br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload value="#{fileUploadBean.fileSentenciasCuatro}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'SentenciasCuatro')}" ajax="false" />
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'SentenciasCuatro')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileSentenciasCuatro}" />
+                                            </p:commandButton>
+                                        </div>
+                                    </div>
+
+                                    <div class="cards1"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'SentenciasCinco').toString().contains('no existe archivo') ? 'border: 3px solid #e87474;background: #ffd5d5; ' : 'border:3px solid #00c6ae;background: #d0fff9;'}">
+                                        <p:outputLabel value="Nombre del archivo Sentencia 5:" styleClass="titulopdfjpg"/>
+                                        <br></br>
+                                        <p:outputLabel value="#{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'SentenciasCinco')}"
+                                                       styleClass="buscararchivo"  style=" #{fileDownloadBean.buscarNombreDeArchivo(expedienteController.selected.orden, 'SentenciasCinco').toString().contains('no existe archivo') ? 'background-color: #e87474; color: #780C28 ;' : 'background-color: #80d3bb; color:#11665c ;border-left: 5px solid #11665c;'}"/>
+                                        <br></br>
+                                        <p:growl life="2500" showDetail="true"/>
+                                        <p:fileUpload value="#{fileUploadBean.fileSentenciasCinco}" mode="simple"/>
+                                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'SentenciasCinco')}" ajax="false" />
+                                            <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'SentenciasCinco')}" ajax="false">
+                                                <p:fileDownload value="#{fileDownloadBean.fileSentenciasCinco}" />
+                                            </p:commandButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:panel>
+                        </p:tab>
+
                         <p:tab >
                             <f:facet name="title">
                                 Historial laboral otras cajas

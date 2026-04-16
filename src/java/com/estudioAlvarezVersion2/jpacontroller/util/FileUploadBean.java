@@ -66,6 +66,11 @@ public class FileUploadBean implements Serializable{
         private UploadedFile fileRecibosDos;
         private UploadedFile fileRecibosTres;
         private UploadedFile fileRecibosCuatro;
+        private UploadedFile fileSentencias;
+        private UploadedFile fileSentenciasDos;
+        private UploadedFile fileSentenciasTres;
+        private UploadedFile fileSentenciasCuatro;
+        private UploadedFile fileSentenciasCinco;
         
         private UploadedFile fileLiquidacionBlueCorp;
         private UploadedFile fileLiquidacionBlueCorpDos;
@@ -164,6 +169,46 @@ public class FileUploadBean implements Serializable{
 
     public void setFileRecibosCuatro(UploadedFile fileRecibosCuatro) {
         this.fileRecibosCuatro = fileRecibosCuatro;
+    }
+
+    public UploadedFile getFileSentencias() {
+        return fileSentencias;
+    }
+
+    public void setFileSentencias(UploadedFile fileSentencias) {
+        this.fileSentencias = fileSentencias;
+    }
+
+    public UploadedFile getFileSentenciasDos() {
+        return fileSentenciasDos;
+    }
+
+    public void setFileSentenciasDos(UploadedFile fileSentenciasDos) {
+        this.fileSentenciasDos = fileSentenciasDos;
+    }
+
+    public UploadedFile getFileSentenciasTres() {
+        return fileSentenciasTres;
+    }
+
+    public void setFileSentenciasTres(UploadedFile fileSentenciasTres) {
+        this.fileSentenciasTres = fileSentenciasTres;
+    }
+
+    public UploadedFile getFileSentenciasCuatro() {
+        return fileSentenciasCuatro;
+    }
+
+    public void setFileSentenciasCuatro(UploadedFile fileSentenciasCuatro) {
+        this.fileSentenciasCuatro = fileSentenciasCuatro;
+    }
+
+    public UploadedFile getFileSentenciasCinco() {
+        return fileSentenciasCinco;
+    }
+
+    public void setFileSentenciasCinco(UploadedFile fileSentenciasCinco) {
+        this.fileSentenciasCinco = fileSentenciasCinco;
     }
     
     
@@ -2032,9 +2077,24 @@ public class FileUploadBean implements Serializable{
                  fileParaSubir = fileRecibosTres;
                  break;
             
-             case "RecibosCuatro":
+            case "RecibosCuatro":
                  fileParaSubir = fileRecibosCuatro;
                  break;     
+            case "Sentencias":
+                 fileParaSubir = fileSentencias;
+                 break;
+            case "SentenciasDos":
+                 fileParaSubir = fileSentenciasDos;
+                 break;
+            case "SentenciasTres":
+                 fileParaSubir = fileSentenciasTres;
+                 break;
+            case "SentenciasCuatro":
+                 fileParaSubir = fileSentenciasCuatro;
+                 break;
+            case "SentenciasCinco":
+                 fileParaSubir = fileSentenciasCinco;
+                 break;
                  
             case "LiquidacionBlueCorp":
                  fileParaSubir = fileLiquidacionBlueCorp;

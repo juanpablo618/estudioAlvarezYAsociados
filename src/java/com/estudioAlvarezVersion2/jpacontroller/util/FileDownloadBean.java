@@ -75,6 +75,11 @@ public class FileDownloadBean implements Serializable {
     private StreamedContent fileRecibosDos;
     private StreamedContent fileRecibosTres;
     private StreamedContent fileRecibosCuatro;
+    private StreamedContent fileSentencias;
+    private StreamedContent fileSentenciasDos;
+    private StreamedContent fileSentenciasTres;
+    private StreamedContent fileSentenciasCuatro;
+    private StreamedContent fileSentenciasCinco;
     
     
     private StreamedContent fileLiquidacionBlueCorp;
@@ -317,6 +322,46 @@ public class FileDownloadBean implements Serializable {
 
     public void setFileRecibosCuatro(StreamedContent fileRecibosCuatro) {
         this.fileRecibosCuatro = fileRecibosCuatro;
+    }
+
+    public StreamedContent getFileSentencias() {
+        return fileSentencias;
+    }
+
+    public void setFileSentencias(StreamedContent fileSentencias) {
+        this.fileSentencias = fileSentencias;
+    }
+
+    public StreamedContent getFileSentenciasDos() {
+        return fileSentenciasDos;
+    }
+
+    public void setFileSentenciasDos(StreamedContent fileSentenciasDos) {
+        this.fileSentenciasDos = fileSentenciasDos;
+    }
+
+    public StreamedContent getFileSentenciasTres() {
+        return fileSentenciasTres;
+    }
+
+    public void setFileSentenciasTres(StreamedContent fileSentenciasTres) {
+        this.fileSentenciasTres = fileSentenciasTres;
+    }
+
+    public StreamedContent getFileSentenciasCuatro() {
+        return fileSentenciasCuatro;
+    }
+
+    public void setFileSentenciasCuatro(StreamedContent fileSentenciasCuatro) {
+        this.fileSentenciasCuatro = fileSentenciasCuatro;
+    }
+
+    public StreamedContent getFileSentenciasCinco() {
+        return fileSentenciasCinco;
+    }
+
+    public void setFileSentenciasCinco(StreamedContent fileSentenciasCinco) {
+        this.fileSentenciasCinco = fileSentenciasCinco;
     }
     
     public StreamedContent getFileLiquidacionBlueCorp() {
@@ -1881,6 +1926,26 @@ public class FileDownloadBean implements Serializable {
                                 fileRecibosCuatro = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileRecibosCuatro;
                                 break;    
+                            case "Sentencias":
+                                fileSentencias = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileSentencias;
+                                break;
+                            case "SentenciasDos":
+                                fileSentenciasDos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileSentenciasDos;
+                                break;
+                            case "SentenciasTres":
+                                fileSentenciasTres = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileSentenciasTres;
+                                break;
+                            case "SentenciasCuatro":
+                                fileSentenciasCuatro = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileSentenciasCuatro;
+                                break;
+                            case "SentenciasCinco":
+                                fileSentenciasCinco = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileSentenciasCinco;
+                                break;
                                 
                             case "LiquidacionBlueCorp":
                                 fileLiquidacionBlueCorp = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
@@ -1971,6 +2036,26 @@ public class FileDownloadBean implements Serializable {
                             case "RecibosCuatro":
                                 fileRecibosCuatro = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileRecibosCuatro;
+                                break;
+                            case "Sentencias":
+                                fileSentencias = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileSentencias;
+                                break;
+                            case "SentenciasDos":
+                                fileSentenciasDos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileSentenciasDos;
+                                break;
+                            case "SentenciasTres":
+                                fileSentenciasTres = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileSentenciasTres;
+                                break;
+                            case "SentenciasCuatro":
+                                fileSentenciasCuatro = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileSentenciasCuatro;
+                                break;
+                            case "SentenciasCinco":
+                                fileSentenciasCinco = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileSentenciasCinco;
                                 break;
                             case "LiquidacionBlueCorp":
                                 fileLiquidacionBlueCorp = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
@@ -3099,6 +3184,21 @@ public class FileDownloadBean implements Serializable {
             } else {
 
                 return cantidad;
+            }
+        }
+
+        return cantidad;
+    }
+
+    public int cantidadSentencias(int orden) {
+        int cantidad = 0;
+
+        if (orden != 0) {
+            String[] nombres = {"Sentencias", "SentenciasDos", "SentenciasTres", "SentenciasCuatro", "SentenciasCinco"};
+            for (String nombreArchivo : nombres) {
+                if (!buscarNombreDeArchivo(orden, nombreArchivo).contains("no existe archivo")) {
+                    cantidad += 1;
+                }
             }
         }
 

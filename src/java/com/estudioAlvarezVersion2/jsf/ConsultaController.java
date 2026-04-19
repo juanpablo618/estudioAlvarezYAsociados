@@ -206,6 +206,7 @@ public class ConsultaController implements Serializable {
         
         initializeEmbeddableKey();
         selected.setFechaDeAtencion(new Date());
+        selected.setEquipo("PREVISIONAL ADMINISTRATIVO");
         return selected;
     }
 

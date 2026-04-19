@@ -299,6 +299,14 @@
                         <p:commandButton class="linea btnSearch"  update=":AgendaEditForm" oncomplete="PF('AgendaEditDialog').show()" icon="ui-icon-search" title="Ver Agenda">
                             <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
                         </p:commandButton>
+
+                        <h:panelGroup rendered="#{agendaController.mostrarSemaforoAmarillo(item)}"
+                                      title="Atención: esta agenda ya fue reagendada #{agendaController.contarReagendadasPorOrden(item)} veces"
+                                      style="display: inline-block; margin-left: 4px; width: 10px; height: 10px; border-radius: 50%; background-color: #f1c40f; border: 1px solid #b7950b; vertical-align: middle;" />
+
+                        <h:panelGroup rendered="#{agendaController.mostrarSemaforoRojo(item)}"
+                                      title="Alerta: esta agenda ya fue reagendada #{agendaController.contarReagendadasPorOrden(item)} veces"
+                                      style="display: inline-block; margin-left: 4px; width: 10px; height: 10px; border-radius: 50%; background-color: #e74c3c; border: 1px solid #922b21; vertical-align: middle;" />
                         
                         <p:commandButton rendered="#{item.orden > 0 }" class="linea btnKey"  update=":AgendaViewClavesForm" oncomplete="PF('AgendaViewClavesDialog').show()" icon="ui-icon-locked" title="Claves">
                             <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />

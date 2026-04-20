@@ -1296,6 +1296,33 @@ public class AgendaController implements Serializable {
     public List<Agenda> getItemsByOrder(Integer orden) {
         return getFacade().getItemsByOrder(orden);
     }
+
+    public int contarReagendadasPorOrden(Agenda agenda) {
+        if (agenda == null || agenda.getOrden() == null || agenda.getOrden() <= 0) {
+            return 0;
+        }
+
+        int cantidadReagendadas = 0;
+        List<Agenda> agendasMismoOrden = getItemsByOrder(agenda.getOrden());
+
+        for (Agenda agendaPorOrden : agendasMismoOrden) {
+            if (agendaPorOrden != null && "Reagendada".equalsIgnoreCase(agendaPorOrden.getRealizado())) {
+                cantidadReagendadas++;
+            }
+        }
+
+        return cantidadReagendadas;
+    }
+
+    public boolean mostrarSemaforoAmarillo(Agenda agenda) {
+        int cantidadReagendadas = contarReagendadasPorOrden(agenda);
+        return cantidadReagendadas > 3 && cantidadReagendadas <= 6;
+    }
+
+    public boolean mostrarSemaforoRojo(Agenda agenda) {
+        return contarReagendadasPorOrden(agenda) > 6;
+    }
+
     
     public List<Agenda> getItemsBySessionUser(String userNombreCompleto, String dateStr) {
         Date date = null;

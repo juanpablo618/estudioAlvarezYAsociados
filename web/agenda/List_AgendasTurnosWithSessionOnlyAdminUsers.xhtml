@@ -341,11 +341,9 @@
                         </f:facet>
 
                         <h:panelGroup rendered="#{agendaController.mostrarSemaforoAmarillo(item)}"
-                                      title="Atención: esta agenda ya fue reagendada #{agendaController.contarReagendadasPorOrden(item)} veces"
                                       style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #f1c40f; border: 1px solid #b7950b; vertical-align: middle;" />
 
                         <h:panelGroup rendered="#{agendaController.mostrarSemaforoRojo(item)}"
-                                      title="Alerta: esta agenda ya fue reagendada #{agendaController.contarReagendadasPorOrden(item)} veces"
                                       style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #e74c3c; border: 1px solid #922b21; vertical-align: middle;" />
                     </p:column>
 

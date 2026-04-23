@@ -278,7 +278,7 @@ public class AgendaController implements Serializable {
             "Catalina Povarchik", "María Paz Bolinaga", "Camila Paez"));
 
         lideresEmpleadosMap.put("Ayelen Brizzio", Arrays.asList(
-            "Mateo Novau"));
+            "Mateo Novau", "Pilar Boglione"));
 
         // Agregar más líderes y empleados según sea necesario
     }
@@ -1388,7 +1388,7 @@ public class AgendaController implements Serializable {
             "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo", "Maria Jose Alaye",
             "Catalina Povarchik", "María Paz Bolinaga", "Camila Paez"});
         lideresEmpleadosMap.put("Ayelen Brizzio", new String[]{
-            "Mateo Novau", "Natali D Agostino",});
+            "Mateo Novau", "Natali D Agostino", "Pilar Boglione"});
         
         //hago esto por q la funcion del ojito, se la teniamos que dar a Naty tambièn 
         lideresEmpleadosMap.put("Natali D Agostino", new String[]{

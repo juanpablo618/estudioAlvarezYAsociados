@@ -271,10 +271,6 @@
                         <h:outputText value="#{item.responsable}" />
                     </p:column>
                     
-                    <p:column style="width: 13%" styleClass="centeredColumnContent#{item.realizado}">
-                        <h:outputText value="#{item.descripcion}"  />
-                    </p:column>
-
                    <p:column style="text-align: center; width: 20%;" filterBy="#{item.realizado}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
                         <f:facet name="filter" >
                             <p:inputText id="inputRealizadoEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.realizadoSeleccionadoEnTurnoWithSessionOnlyAdmins}" />
@@ -303,14 +299,6 @@
                         <p:commandButton rendered="#{item.orden > 0 }" class="linea btnKey"  update=":AgendaViewClavesForm" oncomplete="PF('AgendaViewClavesDialog').show()" icon="ui-icon-locked" title="Claves">
                             <f:setPropertyActionListener value="#{item}" target="#{agendaController.selected}" />
                         </p:commandButton>
-
-                        <h:panelGroup rendered="#{agendaController.mostrarSemaforoAmarillo(item)}"
-                                      title="Atención: esta agenda ya fue reagendada #{agendaController.contarReagendadasPorOrden(item)} veces"
-                                      style="display: inline-block; margin: 0 4px 0 0; width: 10px; height: 10px; border-radius: 50%; background-color: #f1c40f; border: 1px solid #b7950b; vertical-align: middle;" />
-
-                        <h:panelGroup rendered="#{agendaController.mostrarSemaforoRojo(item)}"
-                                      title="Alerta: esta agenda ya fue reagendada #{agendaController.contarReagendadasPorOrden(item)} veces"
-                                      style="display: inline-block; margin: 0 4px 0 0; width: 10px; height: 10px; border-radius: 50%; background-color: #e74c3c; border: 1px solid #922b21; vertical-align: middle;" />
 
                         <p:commandButton class="linea btnSearchDarkBlue"
                                          actionListener="#{expedienteController.prepareViewParaExpediente(item)}" 
@@ -345,6 +333,27 @@
                             <p:commandButton  update=":growl,datalist" oncomplete="PF('agendasTable').clearFilters()" value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;"/>
                             <p:commandButton update="@all"  oncomplete="agendasTable.filter()" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
                         </p:confirmDialog> 
+                    </p:column>
+
+                    <p:column style="text-align: center; width: 4%;" styleClass="centeredColumnContent#{item.realizado}">
+                        <f:facet name="header">
+                            <h:outputText value="SEM."/>
+                        </f:facet>
+
+                        <h:panelGroup rendered="#{agendaController.mostrarSemaforoAmarillo(item)}"
+                                      title="Atención: esta agenda ya fue reagendada #{agendaController.contarReagendadasPorOrden(item)} veces"
+                                      style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #f1c40f; border: 1px solid #b7950b; vertical-align: middle;" />
+
+                        <h:panelGroup rendered="#{agendaController.mostrarSemaforoRojo(item)}"
+                                      title="Alerta: esta agenda ya fue reagendada #{agendaController.contarReagendadasPorOrden(item)} veces"
+                                      style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #e74c3c; border: 1px solid #922b21; vertical-align: middle;" />
+                    </p:column>
+
+                    <p:column style="width: 13%" styleClass="centeredColumnContent#{item.realizado}">
+                        <f:facet name="header">
+                            <h:outputText value="DESCRIPCIÓN"/>
+                        </f:facet>
+                        <h:outputText value="#{item.descripcion}"  />
                     </p:column>
                     <f:facet name="footer">
                         <p:commandButton id="createButton" icon="ui-icon-plus" rendered="false"  value="#{bundle.Create}" actionListener="#{agendaController.prepareCreate}" update=":AgendaCreateForm" oncomplete="PF('AgendaCreateDialog').show()"/>

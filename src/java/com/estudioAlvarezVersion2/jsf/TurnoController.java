@@ -560,7 +560,7 @@ public class TurnoController implements Serializable {
         "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo", "Maria Jose Alaye",
         "Catalina Povarchik", "María Paz Bolinaga", "Camila Paez"});
     lideresEmpleadosMap.put("Ayelen Brizzio", new String[]{
-        "Mateo Novau"});
+        "Mateo Novau", "Pilar Boglione"});
     
     //hago esto para q naty pueda ver las agendas y turnos de otras personas
     lideresEmpleadosMap.put("Natali D Agostino", new String[]{

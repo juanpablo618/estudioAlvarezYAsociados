@@ -51,11 +51,14 @@ public class ExpedienteDAO {
 
                 ResultSet rs = ps.executeQuery();
 
+                int id = 0;
+                
                 if (rs.next()) {
-                    return rs.getInt(1);
+                    id = rs.getInt(1);
                 }
                 rs.close();
-
+                return id;
+                
             } catch (SQLException ex) {
                 System.out.println("contarPorEstadoFisico error -->" + ex.getMessage());
             } finally {

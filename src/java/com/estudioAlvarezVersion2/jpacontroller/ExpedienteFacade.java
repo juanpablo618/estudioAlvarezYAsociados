@@ -95,6 +95,12 @@ public class ExpedienteFacade extends AbstractFacade<Expediente> {
             return null;
         }
     }
+
+    public List<Expediente> findByFisico(String fisico) {
+        return em.createNamedQuery("Expediente.findByFisico", Expediente.class)
+                .setParameter("fisico", fisico)
+                .getResultList();
+    }
     
     
       // Método para obtener solo expedientes activos

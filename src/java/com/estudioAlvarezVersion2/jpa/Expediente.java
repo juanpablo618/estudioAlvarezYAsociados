@@ -47,6 +47,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Expediente.findClaveSeguridadSocialByOrden", query = "SELECT e.claveSeguridadSocial FROM Expediente e WHERE e.orden = :orden")
     , @NamedQuery(name = "Expediente.findClaveFiscalByOrden", query = "SELECT e.claveFiscal FROM Expediente e WHERE e.orden = :orden")
     , @NamedQuery(name = "Expediente.findCuitByOrden", query = "SELECT e.cuit FROM Expediente e WHERE e.orden = :orden")
+    , @NamedQuery(name = "Expediente.findByFisico", query = "SELECT e FROM Expediente e WHERE e.fisico = :fisico")
 })
 public class Expediente implements Serializable {
 
@@ -287,6 +288,9 @@ public class Expediente implements Serializable {
     
     @Column(name = "activo")    
     private String activo;
+    
+    @Column(name = "fisico")
+    private String fisico;
     
     public Expediente() {
     }
@@ -918,6 +922,14 @@ public class Expediente implements Serializable {
 
     public void setActivo(String activo) {
         this.activo = activo;
+    }
+
+    public String getFisico() {
+        return fisico;
+    }
+
+    public void setFisico(String fisico) {
+        this.fisico = fisico;
     }
     
     public boolean equals(Object object) {

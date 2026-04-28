@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class ExpedienteDAO {
 
-    public int devolverUltimoIdDeExpediente() {
+	public int devolverUltimoIdDeExpediente() {
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -39,9 +39,32 @@ public class ExpedienteDAO {
 		}
 		return 0;
 	}
+        
+        public int contarPorEstadoFisico(String fisico) {
+            Connection con = null;
+            PreparedStatement ps = null;
+
+            try {
+                con = DAO.getConnection();
+                ps = con.prepareStatement("select count(*) from Expediente where fisico = ?");
+                ps.setString(1, fisico);
+
+                ResultSet rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+                rs.close();
+
+            } catch (SQLException ex) {
+                System.out.println("contarPorEstadoFisico error -->" + ex.getMessage());
+            } finally {
+                DAO.close(con);
+            }
+            return 0;
+        }
 
 }
-
 
 
 

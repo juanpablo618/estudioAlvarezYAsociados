@@ -146,6 +146,12 @@
                                     <f:selectItems value="#{empleadoController.items}" var="empleado" itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}" />
                                 </p:selectOneMenu>
                             <br></br><br></br>
+                                <p:outputLabel value="Expediente físico:" for="fisico" style="font-weight: bold"/>
+                                <p:selectOneMenu id="fisico" value="#{expedienteController.selected.fisico}">
+                                    <f:selectItem itemLabel="NO" itemValue="NO" />
+                                    <f:selectItem itemLabel="SI" itemValue="SI" />
+                                </p:selectOneMenu>
+                            <br></br><br></br>
                             <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold;"/>
                             <p:inputTextarea rows="7" cols="55" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
 

@@ -295,6 +295,7 @@ public class ExpedienteController implements Serializable {
 
         selected.setOrden(buscarMayorIdAdmOrJudicial());
         selected.setActivo("Si");
+        selected.setFisico("NO");
         initializeEmbeddableKey();
         return selected;
     }
@@ -309,6 +310,7 @@ public class ExpedienteController implements Serializable {
         selected.setTablaDeHonorariosYGastos("fecha | concepto | debe | haber | saldo |");
 
         selected.setActivo("Si");
+        selected.setFisico("NO");
         initializeEmbeddableKey();
         return selected;
     }
@@ -320,6 +322,7 @@ public class ExpedienteController implements Serializable {
         selected.setFechaDeAtencion(date);
         selected.setOrden(null);
         selected.setTablaDeHonorariosYGastos("fecha | concepto | debe | haber | saldo |");
+        selected.setFisico("NO");
 
         initializeEmbeddableKey();
         return selected;
@@ -1597,6 +1600,7 @@ public class ExpedienteController implements Serializable {
         expAInsertar.setInscripcionAut(consultaSelected.getInscripcionAut());
         expAInsertar.setReclamoArt(consultaSelected.getReclamoArt());
         expAInsertar.setEquipo(consultaSelected.getEquipo());
+        expAInsertar.setFisico("NO");
         
         consultaControllerBean.getSelected().setEstadoConsulta("CONSULTA PASADA A EXP. ADMINISTRATIVO");
         consultaControllerBean.getSelected().setOrden(expAInsertar.getOrden());

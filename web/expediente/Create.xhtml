@@ -182,6 +182,12 @@
                                         <f:selectItems value="#{empleadoController.items}" var="empleado" itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}" />
                                     </p:selectOneMenu>
 
+                                    <p:outputLabel value="Expediente físico:" for="fisico" style="font-weight: bold" />
+                                    <p:selectOneMenu id="fisico" value="#{expedienteController.selected.fisico}">
+                                        <f:selectItem itemLabel="NO" itemValue="NO" />
+                                        <f:selectItem itemLabel="SI" itemValue="SI" />
+                                    </p:selectOneMenu>
+
                                     <p:outputLabel value="Cobra Beneficio" for="cobraBeneficio" style="margin-left: 3%;font-weight: bold" />
                                     <p:selectOneMenu style="margin-left: 3% ; width: 100%" id="cobraBeneficio" value="#{expedienteController.selected.cobraBeneficio}" editable="true" >
                                         <f:selectItem itemLabel="NO" itemValue="NO"  />

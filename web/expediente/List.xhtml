@@ -150,6 +150,22 @@
                             <h:outputText value="#{item.tipoDeExpediente}"/>
                         </center>
                     </p:column>
+                    
+                    <p:column style="width: 8% !important;" filterBy="#{item.fisico}" filterMatchMode="exact" styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}">
+                        <f:facet name="header">
+                            <h:outputText value="Físico"/>
+                        </f:facet>
+                        <f:facet name="filter">
+                            <p:selectOneMenu onchange="PF('expedientesTable').filter()" styleClass="custom-filter">
+                                <f:selectItem itemLabel="Todos" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItem itemLabel="SI" itemValue="SI" />
+                                <f:selectItem itemLabel="NO" itemValue="NO" />
+                            </p:selectOneMenu>
+                        </f:facet>
+                        <center>
+                            <h:outputText value="#{item.fisico}"/>
+                        </center>
+                    </p:column>
 
                     <p:column style="width: 15% !important;text-align: center; " styleClass="centeredColumnContent#{item.getTipoDeExpedienteParaEstilo()}" exportable="false">
 

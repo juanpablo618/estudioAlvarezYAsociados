@@ -235,7 +235,7 @@
                              rendered="true"  
                              paginatorPosition="bottom"
                              filteredValue="#{agendaController.filteredAgendasConSesionOnlyAdminUsers}"
-                             
+                             tableStyle="table-layout: fixed; width: 100%;"
                              >
                     <p:poll interval="2" update="datalist" />
                     <p:ajax event="rowSelect"   update="createButton "/>
@@ -256,7 +256,7 @@
                         <h:outputText value="#{item.orden}"/>
                     </p:column>
 
-                    <p:column style="width: 20%" filterBy="#{item.apellidoNombre}" styleClass="centeredColumnContent#{item.realizado}" filterMatchMode="contains">
+                    <p:column style="width: 18%" filterBy="#{item.apellidoNombre}" styleClass="centeredColumnContent#{item.realizado}" filterMatchMode="contains">
                         <f:facet name="filter" >
                             <p:inputText id="inputApellidoYNombreEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.apellidoYNombreSeleccionadoEnTurno}" />
                         </f:facet>
@@ -264,21 +264,21 @@
                         <h:outputText value="#{item.apellido} #{item.nombre}"/>
                     </p:column>
 
-                    <p:column id="columnToUpdate"  style="width: 20%"  filterBy="#{item.responsable}"  styleClass="centeredColumnContent#{item.realizado}"  filterMatchMode="exact">
+                    <p:column id="columnToUpdate"  style="width: 16%"  filterBy="#{item.responsable}"  styleClass="centeredColumnContent#{item.realizado}"  filterMatchMode="exact">
                         <f:facet name="filter" >
                             <p:inputText id="inputEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.responsableSeleccionadoEnWithSessionOnlyAdmins}" />
                         </f:facet>
                         <h:outputText value="#{item.responsable}" />
                     </p:column>
                     
-                   <p:column style="text-align: center; width: 20%;" filterBy="#{item.realizado}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
+                   <p:column style="text-align: center; width: 10%;" filterBy="#{item.realizado}" styleClass="centeredColumnContent#{item.getRealizado()}" filterMatchMode="exact">
                         <f:facet name="filter" >
                             <p:inputText id="inputRealizadoEnAgenda"  onmouseout="PF('agendasTable').filter()" value="#{turnoController.realizadoSeleccionadoEnTurnoWithSessionOnlyAdmins}" />
                         </f:facet>
                        <h:outputText value="#{item.realizado}"/>
                     </p:column>
                     
-                    <p:column exportable="false" styleClass="centeredColumnContent#{item.realizado}" style="text-align: center; width: 20% ">
+                    <p:column exportable="false" styleClass="centeredColumnContent#{item.realizado}" style="text-align: center; width: 18%">
 
                         <f:facet name="header">
                             <h:outputText value="ACCIONES"/>
@@ -347,7 +347,7 @@
                                       style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: #e74c3c; border: 1px solid #922b21; vertical-align: middle;" />
                     </p:column>
 
-                    <p:column style="width: 13%" styleClass="centeredColumnContent#{item.realizado}">
+                    <p:column style="width: 17%" styleClass="centeredColumnContent#{item.realizado}">
                         <f:facet name="header">
                             <h:outputText value="DESCRIPCIÓN"/>
                         </f:facet>

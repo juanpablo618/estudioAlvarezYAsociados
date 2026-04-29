@@ -36,6 +36,7 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -71,6 +72,7 @@ public class AgendaController implements Serializable {
 
     private List<Agenda> items = null;
     private List<Agenda> itemsitemsWithSession = null;
+    private transient Map<String, Integer> rachaConsecutivaPorClaveSemaforo = null;
     
     private static final String DD_MM_YYYY = "dd/MM/yyyy";
     private static final String LA_FECHA_SELECCIONADA_NO_ES_VALIDA = "la fecha selecionada no es válida";
@@ -1268,6 +1270,7 @@ public class AgendaController implements Serializable {
     public List<Agenda> getItems() {
         if (items == null) {
             items = getFacade().findAllSortedByDate();
+            rachaConsecutivaPorClaveSemaforo = null;
         }
         //List<Agenda> cloned_list;
 
@@ -1297,30 +1300,84 @@ public class AgendaController implements Serializable {
         return getFacade().getItemsByOrder(orden);
     }
 
-    public int contarReagendadasPorOrden(Agenda agenda) {
+    private String construirClaveSemaforo(Agenda agenda) {
         if (agenda == null || agenda.getOrden() == null || agenda.getOrden() <= 0) {
+            return null;
+        }
+
+        String descripcion = agenda.getDescripcion();
+        if (descripcion == null) {
+            return null;
+        }
+
+        String descripcionNormalizada = descripcion.trim();
+        if (descripcionNormalizada.isEmpty()) {
+            return null;
+        }
+
+        return agenda.getOrden() + "|" + descripcionNormalizada;
+    }
+
+    private void construirCacheSemaforoPorRachasConsecutivas() {
+        if (rachaConsecutivaPorClaveSemaforo != null) {
+            return;
+        }
+
+        rachaConsecutivaPorClaveSemaforo = new HashMap<>();
+        Map<String, Set<LocalDate>> fechasPorClave = new HashMap<>();
+
+        for (Agenda agendaActual : getItems()) {
+            String clave = construirClaveSemaforo(agendaActual);
+            if (clave == null || agendaActual.getFecha() == null) {
+                continue;
+            }
+
+            LocalDate fecha = agendaActual.getFecha().toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+
+            fechasPorClave.computeIfAbsent(clave, k -> new TreeSet<>()).add(fecha);
+        }
+
+        for (Map.Entry<String, Set<LocalDate>> entry : fechasPorClave.entrySet()) {
+            int maxRacha = 0;
+            int rachaActual = 0;
+            LocalDate fechaAnterior = null;
+
+            for (LocalDate fecha : entry.getValue()) {
+                if (fechaAnterior == null || fechaAnterior.plusDays(1).equals(fecha)) {
+                    rachaActual++;
+                } else {
+                    rachaActual = 1;
+                }
+
+                if (rachaActual > maxRacha) {
+                    maxRacha = rachaActual;
+                }
+                fechaAnterior = fecha;
+            }
+
+            rachaConsecutivaPorClaveSemaforo.put(entry.getKey(), maxRacha);
+        }
+    }
+
+    public int contarRachaConsecutivaMismaDescripcionYOrden(Agenda agenda) {
+        String clave = construirClaveSemaforo(agenda);
+        if (clave == null) {
             return 0;
         }
 
-        int cantidadReagendadas = 0;
-        List<Agenda> agendasMismoOrden = getItemsByOrder(agenda.getOrden());
-
-        for (Agenda agendaPorOrden : agendasMismoOrden) {
-            if (agendaPorOrden != null && "Reagendada".equalsIgnoreCase(agendaPorOrden.getRealizado())) {
-                cantidadReagendadas++;
-            }
-        }
-
-        return cantidadReagendadas;
+        construirCacheSemaforoPorRachasConsecutivas();
+        return rachaConsecutivaPorClaveSemaforo.getOrDefault(clave, 0);
     }
 
     public boolean mostrarSemaforoAmarillo(Agenda agenda) {
-        int cantidadReagendadas = contarReagendadasPorOrden(agenda);
-        return cantidadReagendadas > 3 && cantidadReagendadas <= 6;
+        int rachaConsecutiva = contarRachaConsecutivaMismaDescripcionYOrden(agenda);
+        return rachaConsecutiva > 3 && rachaConsecutiva <= 6;
     }
 
     public boolean mostrarSemaforoRojo(Agenda agenda) {
-        return contarReagendadasPorOrden(agenda) > 6;
+        return contarRachaConsecutivaMismaDescripcionYOrden(agenda) > 6;
     }
 
     

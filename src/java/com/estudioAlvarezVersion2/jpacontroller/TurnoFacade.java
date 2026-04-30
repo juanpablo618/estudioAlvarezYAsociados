@@ -91,7 +91,7 @@ public class TurnoFacade extends AbstractFacade<Turno> {
         cq.select(root);
         cq.where(buildPredicates(filters, cb, root).toArray(new Predicate[0]));
 
-        String safeSortField = (sortField == null || sortField.trim().isEmpty()) ? "horaYDia" : sortField;
+        String safeSortField = mapSortField(sortField);
         cq.orderBy(ascending ? cb.asc(root.get(safeSortField)) : cb.desc(root.get(safeSortField)));
 
         return getEntityManager().createQuery(cq)
@@ -114,7 +114,7 @@ public class TurnoFacade extends AbstractFacade<Turno> {
             String text = String.valueOf(value).trim();
             if ("diaMesAnio".equals(key)) {
                 Expression<String> fechaFormateada = cb.function("DATE_FORMAT", String.class, root.get("horaYDia"), cb.literal("%d/%m/%Y"));
-                predicates.add(cb.equal(fechaFormateada, text));
+                predicates.add(cb.like(fechaFormateada, text + "%"));
             } else if ("apellidoNombre".equals(key)) {
                 Expression<String> apellidoNombre = cb.concat(cb.concat(cb.coalesce(root.<String>get("apellido"), ""), " "), cb.coalesce(root.<String>get("nombre"), ""));
                 predicates.add(cb.like(cb.lower(apellidoNombre), "%" + text.toLowerCase() + "%"));
@@ -123,6 +123,16 @@ public class TurnoFacade extends AbstractFacade<Turno> {
             }
         }
         return predicates;
+    }
+
+    private String mapSortField(String sortField) {
+        if (sortField == null || sortField.trim().isEmpty() || "diaMesAnio".equals(sortField)) {
+            return "horaYDia";
+        }
+        if ("apellidoNombre".equals(sortField)) {
+            return "apellido";
+        }
+        return sortField;
     }
     
 }

@@ -35,8 +35,6 @@ import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
-import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortOrder;
 
 /**
  *
@@ -49,7 +47,6 @@ public class TurnoController implements Serializable {
     @EJB
     private com.estudioAlvarezVersion2.jpacontroller.TurnoFacade ejbFacade;
     private List<Turno> items = null;
-    private LazyDataModel<Turno> lazyItems;
     private Turno selected;
 
     private Turno selectedTurnoPasado;
@@ -471,21 +468,6 @@ public class TurnoController implements Serializable {
             items = getFacade().findAllSortedByDate();
         }
         return items; 
-    }
-
-    public LazyDataModel<Turno> getLazyItems() {
-        if (lazyItems == null) {
-            lazyItems = new LazyDataModel<Turno>() {
-                @Override
-                public List<Turno> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-                    boolean ascending = sortOrder == null || SortOrder.ASCENDING.equals(sortOrder);
-                    int total = getFacade().countForLazy(filters);
-                    setRowCount(total);
-                    return getFacade().findForLazy(first, pageSize, sortField, ascending, filters);
-                }
-            };
-        }
-        return lazyItems;
     }
 
     private void addConflictWarningsOnCreate(Turno turnoToCreate) {

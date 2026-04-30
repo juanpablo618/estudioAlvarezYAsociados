@@ -57,8 +57,6 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
-import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortOrder;
 
 
 
@@ -73,7 +71,6 @@ public class AgendaController implements Serializable {
     private EntityManager em;
 
     private List<Agenda> items = null;
-    private LazyDataModel<Agenda> lazyItems;
     private List<Agenda> itemsitemsWithSession = null;
     private transient Map<String, Integer> rachaConsecutivaPorClaveSemaforo = null;
     
@@ -1280,21 +1277,6 @@ public class AgendaController implements Serializable {
         //cloned_list = new ArrayList<>(this.items);
         //Collections.sort(cloned_list, new SortByDate());
         return items;
-    }
-
-    public LazyDataModel<Agenda> getLazyItems() {
-        if (lazyItems == null) {
-            lazyItems = new LazyDataModel<Agenda>() {
-                @Override
-                public List<Agenda> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-                    boolean ascending = sortOrder == null || SortOrder.ASCENDING.equals(sortOrder);
-                    int total = getFacade().countForLazy(filters);
-                    setRowCount(total);
-                    return getFacade().findForLazy(first, pageSize, sortField, ascending, filters);
-                }
-            };
-        }
-        return lazyItems;
     }
 
     public List<String> completeDescripcionAgenda(String query) {

@@ -56,6 +56,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.RequestContext;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 import org.primefaces.event.SelectEvent;
 
 
@@ -71,6 +73,8 @@ public class AgendaController implements Serializable {
     private EntityManager em;
 
     private List<Agenda> items = null;
+    private LazyDataModel<Agenda> lazyModel;
+    private List<Agenda> currentPageData = new ArrayList<Agenda>();
     private List<Agenda> itemsitemsWithSession = null;
     private transient Map<String, Integer> rachaConsecutivaPorClaveSemaforo = null;
     
@@ -1265,6 +1269,51 @@ public class AgendaController implements Serializable {
             selectedAgendaPasada = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
+    }
+
+
+    public LazyDataModel<Agenda> getLazyModel() {
+        if (lazyModel == null) {
+            initLazyModel();
+        }
+        return lazyModel;
+    }
+
+    private void initLazyModel() {
+        lazyModel = new LazyDataModel<Agenda>() {
+            @Override
+            public List<Agenda> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+                if (filters == null) {
+                    filters = new HashMap<String, Object>();
+                }
+                boolean ascending = sortOrder == null || SortOrder.ASCENDING.equals(sortOrder) || SortOrder.UNSORTED.equals(sortOrder);
+                currentPageData = getFacade().findRangeLazy(first, pageSize, sortField, ascending, filters);
+                setRowCount(getFacade().countLazy(filters));
+                return currentPageData;
+            }
+
+            @Override
+            public Object getRowKey(Agenda item) {
+                return item != null ? item.getIdAgenda() : null;
+            }
+
+            @Override
+            public Agenda getRowData(String rowKey) {
+                if (rowKey == null || rowKey.trim().isEmpty()) {
+                    return null;
+                }
+                for (Agenda item : currentPageData) {
+                    if (item != null && item.getIdAgenda() != null && rowKey.equals(String.valueOf(item.getIdAgenda()))) {
+                        return item;
+                    }
+                }
+                try {
+                    return getFacade().find(Integer.valueOf(rowKey));
+                } catch (NumberFormatException e) {
+                    return null;
+                }
+            }
+        };
     }
 
     public List<Agenda> getItems() {

@@ -41,9 +41,10 @@
 
                 <br></br><br></br>
 
-                <p:dataTable id="datalist" value="#{turnoController.items}" var="item"
+                <p:dataTable id="datalist" value="#{turnoController.lazyModel}" var="item"
                              selectionMode="single" selection="#{turnoController.selected}"
                              paginator="true"
+                             lazy="true"
                              rowKey="#{item.idTurno}"
                              widgetVar="turnosTable"
                              rows="20"
@@ -175,10 +176,11 @@
 
             <h:form id="AgendaListForm" style="background-color: #F4F8FA">
 
-                <p:dataTable id="datalist" value="#{agendaController.items}" var="item"
+                <p:dataTable id="datalist" value="#{agendaController.lazyModel}" var="item"
                              selectionMode="single" selection="#{agendaController.selected}"
                              rowKey="#{item.idAgenda}"
                              paginator="true"
+                             lazy="true"
                              rows="50"
                              widgetVar="agendasTable"
                              rowsPerPageTemplate="100,200,500"

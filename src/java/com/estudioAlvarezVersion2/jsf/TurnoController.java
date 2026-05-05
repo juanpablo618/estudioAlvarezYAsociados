@@ -34,6 +34,8 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -47,6 +49,8 @@ public class TurnoController implements Serializable {
     @EJB
     private com.estudioAlvarezVersion2.jpacontroller.TurnoFacade ejbFacade;
     private List<Turno> items = null;
+    private LazyDataModel<Turno> lazyModel;
+    private List<Turno> currentPageData = new ArrayList<Turno>();
     private Turno selected;
 
     private Turno selectedTurnoPasado;
@@ -461,6 +465,51 @@ public class TurnoController implements Serializable {
              filteredTurnosConSesion = null;
              filteredturnos = null;
         }
+    }
+
+
+    public LazyDataModel<Turno> getLazyModel() {
+        if (lazyModel == null) {
+            initLazyModel();
+        }
+        return lazyModel;
+    }
+
+    private void initLazyModel() {
+        lazyModel = new LazyDataModel<Turno>() {
+            @Override
+            public List<Turno> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+                if (filters == null) {
+                    filters = new HashMap<String, Object>();
+                }
+                boolean ascending = sortOrder == null || SortOrder.ASCENDING.equals(sortOrder) || SortOrder.UNSORTED.equals(sortOrder);
+                currentPageData = getFacade().findRangeLazy(first, pageSize, sortField, ascending, filters);
+                setRowCount(getFacade().countLazy(filters));
+                return currentPageData;
+            }
+
+            @Override
+            public Object getRowKey(Turno item) {
+                return item != null ? item.getIdTurno() : null;
+            }
+
+            @Override
+            public Turno getRowData(String rowKey) {
+                if (rowKey == null || rowKey.trim().isEmpty()) {
+                    return null;
+                }
+                for (Turno item : currentPageData) {
+                    if (item != null && item.getIdTurno() != null && rowKey.equals(String.valueOf(item.getIdTurno()))) {
+                        return item;
+                    }
+                }
+                try {
+                    return getFacade().find(Integer.valueOf(rowKey));
+                } catch (NumberFormatException e) {
+                    return null;
+                }
+            }
+        };
     }
 
     public List<Turno> getItems() {

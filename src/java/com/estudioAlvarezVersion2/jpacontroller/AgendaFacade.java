@@ -1,6 +1,9 @@
 package com.estudioAlvarezVersion2.jpacontroller;
 
 import com.estudioAlvarezVersion2.jpa.Agenda;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -92,10 +95,10 @@ public class AgendaFacade extends AbstractFacade<Agenda> {
             return;
         }
         if (hasFilter(filters, "diaMesAnio")) {
-            jpql.append(" AND FUNCTION('DATE_FORMAT', a.fecha, '%d/%m/%Y') LIKE :diaMesAnio");
+            jpql.append(" AND a.fecha >= :fechaDesde AND a.fecha < :fechaHasta");
         }
         if (hasFilter(filters, "orden")) {
-            jpql.append(" AND CAST(a.orden AS string) LIKE :orden");
+            jpql.append(" AND a.orden = :orden");
         }
         if (hasFilter(filters, "apellidoNombre")) {
             jpql.append(" AND LOWER(CONCAT(COALESCE(a.apellido,''), ' ', COALESCE(a.nombre,''))) LIKE :apellidoNombre");
@@ -113,10 +116,17 @@ public class AgendaFacade extends AbstractFacade<Agenda> {
             return;
         }
         if (hasFilter(filters, "diaMesAnio")) {
-            query.setParameter("diaMesAnio", "%" + String.valueOf(filters.get("diaMesAnio")).trim() + "%");
+            Date[] rangoFecha = parseDateFilter(String.valueOf(filters.get("diaMesAnio")));
+            if (rangoFecha != null) {
+                query.setParameter("fechaDesde", rangoFecha[0]);
+                query.setParameter("fechaHasta", rangoFecha[1]);
+            }
         }
         if (hasFilter(filters, "orden")) {
-            query.setParameter("orden", "%" + String.valueOf(filters.get("orden")).trim() + "%");
+            Integer orden = parseIntegerFilter(filters.get("orden"));
+            if (orden != null) {
+                query.setParameter("orden", orden);
+            }
         }
         if (hasFilter(filters, "apellidoNombre")) {
             query.setParameter("apellidoNombre", "%" + String.valueOf(filters.get("apellidoNombre")).trim().toLowerCase() + "%");
@@ -131,7 +141,51 @@ public class AgendaFacade extends AbstractFacade<Agenda> {
 
     private boolean hasFilter(Map<String, Object> filters, String key) {
         Object value = filters.get(key);
-        return value != null && !String.valueOf(value).trim().isEmpty();
+        if (value == null || String.valueOf(value).trim().isEmpty()) {
+            return false;
+        }
+        if ("orden".equals(key)) {
+            return parseIntegerFilter(value) != null;
+        }
+        if ("diaMesAnio".equals(key)) {
+            return parseDateFilter(String.valueOf(value)) != null;
+        }
+        return true;
+    }
+
+    private Integer parseIntegerFilter(Object value) {
+        try {
+            return Integer.valueOf(String.valueOf(value).trim());
+        } catch (NumberFormatException ex) {
+            return null;
+        }
+    }
+
+    private Date[] parseDateFilter(String value) {
+        if (value == null) {
+            return null;
+        }
+        String trimmed = value.trim();
+        if (trimmed.isEmpty() || trimmed.length() != 10) {
+            return null;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setLenient(false);
+        try {
+            Date date = sdf.parse(trimmed);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            cal.set(Calendar.HOUR_OF_DAY, 0);
+            cal.set(Calendar.MINUTE, 0);
+            cal.set(Calendar.SECOND, 0);
+            cal.set(Calendar.MILLISECOND, 0);
+            Date from = cal.getTime();
+            cal.add(Calendar.DATE, 1);
+            Date to = cal.getTime();
+            return new Date[]{from, to};
+        } catch (ParseException ex) {
+            return null;
+        }
     }
 
     public List<Agenda> findAllSortedByDate() {

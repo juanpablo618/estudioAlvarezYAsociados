@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReunionCreateDlg" widgetVar="ReunionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear reunión">
+            <h:form id="ReunionCreateForm">
+                <h:panelGroup id="displayReunion">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:outputLabel value="Día y hora:" for="horaYDiaReunion" style="font-weight: bold"/>
+                        <p:calendar id="horaYDiaReunion" pattern="dd/MM/yyyy HH:mm" placeholder="dd/MM/yyyy HH:mm" autocomplete="off"
+                                    value="#{turnoController.selected.horaYDia}" showOn="false"/>
+
+                        <p:outputLabel value="Asunto:" for="apellidoReunion" style="font-weight: bold"/>
+                        <p:inputText id="apellidoReunion" value="#{turnoController.selected.apellido}" />
+
+                        <p:outputLabel value="Detalle:" for="observacionReunion" style="font-weight: bold"/>
+                        <p:inputTextarea id="observacionReunion" cols="33" rows="5" autoResize="false" value="#{turnoController.selected.observacion}"/>
+
+                        <p:outputLabel value="Tipo de Turno:" for="tipoDeTurnoReunion" style="font-weight: bold"/>
+                        <p:selectOneMenu id="tipoDeTurnoReunion" value="#{turnoController.selected.tipoDeTurno}" editable="true" effect="fold">
+                            <f:selectItem itemLabel="TELEFÓNICO" itemValue="TELEFÓNICO" />
+                            <f:selectItem itemLabel="PRESENCIAL" itemValue="PRESENCIAL" />
+                            <p:ajax update="oficinaReunion" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Oficina:" for="oficinaReunion" style="font-weight: bold" rendered="#{turnoController.selected.tipoDeTurno == 'PRESENCIAL'}"/>
+                        <p:selectOneMenu id="oficinaReunion" value="#{turnoController.selected.oficina}" editable="true" effect="fold" rendered="#{turnoController.selected.tipoDeTurno == 'PRESENCIAL'}">
+                            <f:selectItem itemLabel="CERRO" itemValue="CERRO" />
+                            <f:selectItem itemLabel="CENTRO" itemValue="CENTRO" />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+
+                    <p:outputLabel value="Asistentes:" style="font-weight: bold"/>
+                    <p:selectCheckboxMenu id="asistentes" label="Seleccionar asistentes" filter="true" filterMatchMode="contains"
+                                          panelStyle="width: 350px" scrollHeight="220"
+                                          value="#{turnoController.responsablesSeleccionadosReunion}">
+                        <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado"
+                                       itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}"/>
+                    </p:selectCheckboxMenu>
+
+                    <br/><br/>
+
+                    <p:commandButton actionListener="#{turnoController.createReunion}"
+                                     class="botonCrear"
+                                     value="Guardar reunión"
+                                     update="displayReunion,:TurnoListForm:datalist,:growl"
+                                     oncomplete="handleSubmit(args,'ReunionCreateDialog');PF('turnosTable').clearFilters()"/>
+
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ReunionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

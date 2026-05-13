@@ -1,8 +1,6 @@
 package com.estudioAlvarezVersion2.jsf;
 
 import com.estudioAlvarezVersion2.jpa.EventoDeCausasJudiciales;
-import com.estudioAlvarezVersion2.jpa.Agenda;
-import com.estudioAlvarezVersion2.jpacontroller.AgendaFacade;
 import com.estudioAlvarezVersion2.jpacontroller.EventoDeCausasJudicialesFacade;
 import com.estudioAlvarezVersion2.jsf.util.JsfUtil;
 import javax.ejb.EJB;
@@ -10,11 +8,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,13 +28,9 @@ public class EventoDeCausasJudicialesController implements Serializable {
 
     @EJB
     private EventoDeCausasJudicialesFacade ejbFacade;
-    @EJB
-    private AgendaFacade agendaFacade;
     private List<EventoDeCausasJudiciales> items = null;
     private EventoDeCausasJudiciales selected;
     private EventoDeCausasJudiciales selectedParaEventoJudicialNuevo;
-    private List<SugerenciaAgendaJudicial> agendasSugeridas = new ArrayList<>();
-    private boolean agendasSugeridasYaProcesadas;
 
     public EventoDeCausasJudicialesController() {
     }
@@ -59,10 +49,6 @@ public class EventoDeCausasJudicialesController implements Serializable {
 
     public void setSelectedParaEventoJudicialNuevo(EventoDeCausasJudiciales selectedParaEventoJudicialNuevo) {
         this.selectedParaEventoJudicialNuevo = selectedParaEventoJudicialNuevo;
-    }
-
-    public List<SugerenciaAgendaJudicial> getAgendasSugeridas() {
-        return agendasSugeridas;
     }
     
     
@@ -159,88 +145,8 @@ public class EventoDeCausasJudicialesController implements Serializable {
         
         persistParaEventoJudicialNuevo(JsfUtil.PersistAction.CREATE, "Evento Judicial creado exitosamente para el nro de orden:"+ orden);
         if (!JsfUtil.isValidationFailed()) {
-            crearAgendasSugeridasSeleccionadas();
             items = null;    // Invalidate list of items to trigger re-query.
         }
-    }
-
-    public void onTipoFechaChange() {
-        agendasSugeridas = construirSugerenciasPorTipo(selectedParaEventoJudicialNuevo != null ? selectedParaEventoJudicialNuevo.getTipoDeFecha() : null);
-    }
-
-    private List<SugerenciaAgendaJudicial> construirSugerenciasPorTipo(String tipoDeFecha) {
-        List<SugerenciaAgendaJudicial> sugerencias = new ArrayList<>();
-        if (tipoDeFecha == null || !tipoDeFecha.toLowerCase(Locale.ROOT).contains("sentencia")) {
-            return sugerencias;
-        }
-        sugerencias.add(new SugerenciaAgendaJudicial("Avisar a cliente resultado de sentencia y estrategia", "Natali D Agostino", 1));
-        sugerencias.add(new SugerenciaAgendaJudicial("Anotar en honorarios salida de sentencia y próximos pasos", "Daniela Correa", 1));
-        sugerencias.add(new SugerenciaAgendaJudicial("Preparar apelación", "Juan Pablo Cuello", 1));
-        sugerencias.add(new SugerenciaAgendaJudicial("Verificar si ANSES apeló o solicitar sentencia firme", "Natali D Agostino", 5));
-        return sugerencias;
-    }
-
-    private void crearAgendasSugeridasSeleccionadas() {
-        if (agendasSugeridasYaProcesadas || selectedParaEventoJudicialNuevo == null || selectedParaEventoJudicialNuevo.getFecha() == null) {
-            return;
-        }
-        Integer orden = selectedParaEventoJudicialNuevo.getOrden();
-        if (orden == null) {
-            return;
-        }
-        ExpedienteController expedienteController = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{expedienteController}", ExpedienteController.class);
-        if (expedienteController == null || expedienteController.getSelected() == null) {
-            return;
-        }
-        String nombre = expedienteController.getSelected().getNombre();
-        String apellido = expedienteController.getSelected().getApellido();
-
-        for (SugerenciaAgendaJudicial sugerida : agendasSugeridas) {
-            if (!sugerida.isSeleccionada()) {
-                continue;
-            }
-            Date fechaAgenda = sumarDiasHabiles(selectedParaEventoJudicialNuevo.getFecha(), sugerida.getDiasHabilesOffset());
-            if (existeAgendaDuplicada(orden, sugerida.getDescripcion(), fechaAgenda)) {
-                continue;
-            }
-            Agenda agenda = new Agenda();
-            agenda.setOrden(orden);
-            agenda.setNombre(nombre);
-            agenda.setApellido(apellido);
-            agenda.setDescripcion(sugerida.getDescripcion());
-            agenda.setFecha(fechaAgenda);
-            agenda.setResponsable(sugerida.getResponsable());
-            agenda.setRealizado("No");
-            agenda.setPrioridad("No");
-            agendaFacade.create(agenda);
-        }
-        agendasSugeridasYaProcesadas = true;
-    }
-
-    private boolean existeAgendaDuplicada(Integer orden, String descripcion, Date fecha) {
-        List<Agenda> agendasPorOrden = agendaFacade.getItemsByOrder(orden);
-        for (Agenda agenda : agendasPorOrden) {
-            if (agenda.getFecha() != null && agenda.getDescripcion() != null
-                    && Objects.equals(agenda.getDescripcion().trim(), descripcion.trim())
-                    && agenda.getFecha().compareTo(fecha) == 0) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private Date sumarDiasHabiles(Date base, int diasHabiles) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(base);
-        int agregados = 0;
-        while (agregados < diasHabiles) {
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
-            int diaSemana = calendar.get(Calendar.DAY_OF_WEEK);
-            if (diaSemana != Calendar.SATURDAY && diaSemana != Calendar.SUNDAY) {
-                agregados++;
-            }
-        }
-        return calendar.getTime();
     }
     
     private void persistParaEventoJudicialNuevo(JsfUtil.PersistAction persistAction, String successMessage) {
@@ -280,33 +186,9 @@ public class EventoDeCausasJudicialesController implements Serializable {
     public EventoDeCausasJudiciales prepareCreateEventoJudicial(int orden) {
         selectedParaEventoJudicialNuevo = new EventoDeCausasJudiciales();
         selectedParaEventoJudicialNuevo.setOrden(orden);
-        agendasSugeridas = new ArrayList<>();
-        agendasSugeridasYaProcesadas = false;
         initializeEmbeddableKey();
 
         return selectedParaEventoJudicialNuevo;
-    }
-
-    public static class SugerenciaAgendaJudicial implements Serializable {
-        private String descripcion;
-        private String responsable;
-        private int diasHabilesOffset;
-        private boolean seleccionada;
-
-        public SugerenciaAgendaJudicial(String descripcion, String responsable, int diasHabilesOffset) {
-            this.descripcion = descripcion;
-            this.responsable = responsable;
-            this.diasHabilesOffset = diasHabilesOffset;
-        }
-
-        public String getDescripcion() { return descripcion; }
-        public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-        public String getResponsable() { return responsable; }
-        public void setResponsable(String responsable) { this.responsable = responsable; }
-        public int getDiasHabilesOffset() { return diasHabilesOffset; }
-        public void setDiasHabilesOffset(int diasHabilesOffset) { this.diasHabilesOffset = diasHabilesOffset; }
-        public boolean isSeleccionada() { return seleccionada; }
-        public void setSeleccionada(boolean seleccionada) { this.seleccionada = seleccionada; }
     }
 
 }

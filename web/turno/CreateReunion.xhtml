@@ -26,9 +26,11 @@
                         <p:selectOneMenu id="tipoDeTurnoReunion" value="#{turnoController.selected.tipoDeTurno}" editable="true" effect="fold">
                             <f:selectItem itemLabel="TELEFÓNICO" itemValue="TELEFÓNICO" />
                             <f:selectItem itemLabel="PRESENCIAL" itemValue="PRESENCIAL" />
-                            <p:ajax update="oficinaReunion" />
+                            <p:ajax process="@this" update="oficinaReunionPanel" />
                         </p:selectOneMenu>
+                    </h:panelGrid>
 
+                    <h:panelGrid id="oficinaReunionPanel" columns="2" cellpadding="5">
                         <p:outputLabel value="Oficina:" for="oficinaReunion" style="font-weight: bold" rendered="#{turnoController.selected.tipoDeTurno == 'PRESENCIAL'}"/>
                         <p:selectOneMenu id="oficinaReunion" value="#{turnoController.selected.oficina}" editable="true" effect="fold" rendered="#{turnoController.selected.tipoDeTurno == 'PRESENCIAL'}">
                             <f:selectItem itemLabel="CERRO" itemValue="CERRO" />

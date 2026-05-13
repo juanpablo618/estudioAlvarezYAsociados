@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -59,6 +60,7 @@ public class TurnoController implements Serializable {
     private static final String DD_MM_YYYY = "dd/MM/yyyy";
     private static final String LA_FECHA_SELECCIONADA_NO_ES_VALIDA = "la fecha selecionada no es válida";
     private static final String POR_SER_FERIADO = " por ser feriado";
+    private static final String POR_SER_DIA_INHABIL = " por ser día inhábil";
     private static final String SI = "Si";
     private static final String WARNING_TURNO_MISMO_RESPONSABLE_Y_HORARIO = "Ya existe otro turno para la misma persona en ese horario.";
     private static final String WARNING_TURNO_MISMA_OFICINA_Y_HORARIO = "Ya existe otro turno para la misma oficina en ese horario.";
@@ -350,27 +352,55 @@ public class TurnoController implements Serializable {
     }
 
     private Boolean validateHolidays(String date) {
-    // Formato esperado de la fecha recibida (ejemplo: "dd/MM/yyyy")
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        // Formato esperado de la fecha recibida (ejemplo: "dd/MM/yyyy")
+        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
 
-    FacesContext context = FacesContext.getCurrentInstance();
-    FechasRestringidasController fechasRestringidasController = context.getApplication().evaluateExpressionGet(context, "#{fechasRestringidasController}", FechasRestringidasController.class);
+        FacesContext context = FacesContext.getCurrentInstance();
+        FechasRestringidasController fechasRestringidasController = context.getApplication().evaluateExpressionGet(context, "#{fechasRestringidasController}", FechasRestringidasController.class);
 
-    Boolean result = false;
+        Boolean result = false;
 
-    for (FechasRestringidas item : fechasRestringidasController.getItems()) {
-        // Convertir la fecha del item a String en el mismo formato
-        String itemDateString = sdf.format(item.getFecha());
-        
-        // Comparar las fechas ya formateadas
-        if (itemDateString.equals(date)) {
-            result = true;
-            break; // Romper el bucle si se encuentra una coincidencia
+        for (FechasRestringidas item : fechasRestringidasController.getItems()) {
+            // Convertir la fecha del item a String en el mismo formato
+            String itemDateString = sdf.format(item.getFecha());
+
+            // Comparar las fechas ya formateadas
+            if (itemDateString.equals(date)) {
+                result = true;
+                break; // Romper el bucle si se encuentra una coincidencia
+            }
         }
+
+        return result;
     }
 
-    return result;
-}
+    private boolean isWeekend(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        return dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY;
+    }
+
+    private boolean rejectNonWorkingDay(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
+        String formattedDate = sdf.format(date);
+        String reason = null;
+
+        if (isWeekend(date)) {
+            reason = POR_SER_DIA_INHABIL;
+        } else if (validateHolidays(formattedDate)) {
+            reason = POR_SER_FERIADO;
+        }
+
+        if (reason == null) {
+            return false;
+        }
+
+        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA + reason, reason);
+        FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
+        items = null;
+        return true;
+    }
 
     public Turno prepareCreate() {
         selected = new Turno();
@@ -385,22 +415,17 @@ public class TurnoController implements Serializable {
     }
 
     public void create() {
-        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String date = sdf.format(selected.getHoraYDia());
+        if (rejectNonWorkingDay(selected.getHoraYDia())) {
+            return;
+        }
 
-        if (validateHolidays(date)) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
-            FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
-            items = null;
-        } else {
-            addConflictWarningsOnCreate(selected);
+        addConflictWarningsOnCreate(selected);
 
-            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TurnoCreated"));
-            if (!JsfUtil.isValidationFailed()) {
-                items = null;    // Invalidate list of items to trigger re-query.
-                filteredTurnosConSesion = null;
-                filteredturnos = null;
-            }
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TurnoCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+            filteredTurnosConSesion = null;
+            filteredturnos = null;
         }
     }
 
@@ -415,13 +440,7 @@ public class TurnoController implements Serializable {
             return;
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String date = sdf.format(selected.getHoraYDia());
-
-        if (validateHolidays(date)) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA + POR_SER_FERIADO, POR_SER_FERIADO);
-            FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
-            items = null;
+        if (rejectNonWorkingDay(selected.getHoraYDia())) {
             return;
         }
 
@@ -468,63 +487,40 @@ public class TurnoController implements Serializable {
         selected.setOrden(orden);
         
 
-        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String date = sdf.format(selected.getHoraYDia());
+        if (rejectNonWorkingDay(selected.getHoraYDia())) {
+            return;
+        }
 
-        if (validateHolidays(date)) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
-            FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
-            items = null;
-        } else {
-            addConflictWarningsOnCreate(selected);
+        addConflictWarningsOnCreate(selected);
 
-            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TurnoCreated"));
-            if (!JsfUtil.isValidationFailed()) {
-                items = null;    // Invalidate list of items to trigger re-query.
-            }
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TurnoCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String date = sdf.format(selected.getHoraYDia());
-
-        if (validateHolidays(date)) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
-            FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
-            items = null;
-        } else {
-
-            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("TurnoUpdated"));
+        if (rejectNonWorkingDay(selected.getHoraYDia())) {
+            return;
         }
+
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("TurnoUpdated"));
     }
     
     public void updateTurnoPasado() {
-        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String date = sdf.format(selectedTurnoPasado.getHoraYDia());
-
-        if (validateHolidays(date)) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
-            FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
-            items = null;
-        } else {
-
-            persistTurnoPasado(PersistAction.UPDATE, "Turno pasado actualizado exitosamente");
+        if (rejectNonWorkingDay(selectedTurnoPasado.getHoraYDia())) {
+            return;
         }
+
+        persistTurnoPasado(PersistAction.UPDATE, "Turno pasado actualizado exitosamente");
     }
     
     public void updateTurnoFuturo() {
-        SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
-        String date = sdf.format(selectedTurnoFuturo.getHoraYDia());
-
-        if (validateHolidays(date)) {
-            FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, LA_FECHA_SELECCIONADA_NO_ES_VALIDA+POR_SER_FERIADO, POR_SER_FERIADO);
-            FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
-            items = null;
-        } else {
-
-            persistTurnoFuturo(PersistAction.UPDATE, "Turno futuro actualizado exitosamente");
+        if (rejectNonWorkingDay(selectedTurnoFuturo.getHoraYDia())) {
+            return;
         }
+
+        persistTurnoFuturo(PersistAction.UPDATE, "Turno futuro actualizado exitosamente");
     }
 
     public void destroy() {

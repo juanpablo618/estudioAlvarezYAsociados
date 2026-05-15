@@ -1820,3 +1820,112 @@ display: flex;
   overflow-wrap: anywhere;
   line-height: 1.25rem;
 }
+
+/* =========================
+   Modal Crear reunión
+   ========================= */
+.ui-dialog.reunion-create-dialog {
+    width: 340px !important;
+    border-radius: 2px !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.55) !important;
+}
+
+.ui-dialog.reunion-create-dialog .ui-dialog-titlebar {
+    background: #123a6d !important;
+    color: #ffffff !important;
+    padding: 0.55rem 0.75rem !important;
+    text-shadow: none !important;
+}
+
+.ui-dialog.reunion-create-dialog .ui-dialog-title {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+}
+
+.ui-dialog.reunion-create-dialog .ui-dialog-content {
+    padding: 12px 12px 6px 12px !important;
+    overflow: visible !important;
+}
+
+.reunion-create-modal {
+    overflow: visible;
+}
+
+.reunion-create-grid {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 9px;
+}
+
+.reunion-create-grid td {
+    padding: 0 !important;
+    vertical-align: middle;
+}
+
+.reunion-create-label {
+    width: 105px;
+    padding-right: 6px !important;
+}
+
+.reunion-create-field {
+    width: 205px;
+}
+
+.reunion-label {
+    color: #333333 !important;
+    display: block;
+    font-weight: 700 !important;
+    line-height: 1.1;
+}
+
+.reunion-textarea-label {
+    vertical-align: middle !important;
+}
+
+.reunion-input,
+.reunion-input input,
+.reunion-input textarea,
+.reunion-input.ui-selectcheckboxmenu,
+.reunion-input.ui-selectonemenu {
+    box-sizing: border-box;
+    width: 100% !important;
+}
+
+.reunion-textarea {
+    min-height: 168px !important;
+    resize: none;
+}
+
+.reunion-asistentes-label {
+    background: #ffffff;
+    border: 1px solid #c9c9c9;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22);
+    color: #4a4a4a !important;
+    display: inline-block;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    margin-left: -30px;
+    padding: 5px 10px;
+    position: relative;
+    text-transform: uppercase;
+    white-space: nowrap;
+    z-index: 2;
+}
+
+.reunion-office-grid {
+    margin-top: -3px;
+}
+
+.reunion-actions {
+    display: block;
+    margin-top: 26px;
+}
+
+.reunion-actions .ui-button {
+    margin-right: 4px;
+}
+
+.reunion-cancel-button {
+    font-weight: 700 !important;
+}

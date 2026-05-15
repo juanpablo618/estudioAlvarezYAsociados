@@ -63,7 +63,7 @@ PrimeFaces.widget.Growl.prototype.show = function(messages) {
             showCloseButton: true,           // siempre muestra la X
             allowOutsideClick: !esBloqueante,
             allowEscapeKey: true,
-            timer: esBloqueante ? undefined : 6000, // bloqueantes sin timer
+            timer: esBloqueante ? undefined : 11000, // bloqueantes sin timer
             timerProgressBar: !esBloqueante          // bloqueantes sin barra
         }).then(() => {
             index++;

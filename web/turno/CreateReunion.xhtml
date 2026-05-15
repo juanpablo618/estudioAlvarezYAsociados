@@ -8,30 +8,30 @@
 
     <ui:composition>
 
-        <p:dialog id="ReunionCreateDlg" widgetVar="ReunionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear reunión" styleClass="reunion-create-dialog">
+        <p:dialog id="ReunionCreateDlg" widgetVar="ReunionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear reunión">
             <h:form id="ReunionCreateForm">
-                <h:panelGroup id="displayReunion" layout="block" styleClass="reunion-create-modal">
-                    <h:panelGrid columns="2" columnClasses="reunion-create-label,reunion-create-field" styleClass="reunion-create-grid">
+                <h:panelGroup id="displayReunion">
+                    <h:panelGrid columns="2">
 
-                        <p:outputLabel value="Día y hora:" for="horaYDiaReunion" styleClass="reunion-label" />
-                        <p:calendar placeholder="dd/MM/yyyy HH:mm" autocomplete="off" id="horaYDiaReunion" pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" showOn="false" styleClass="reunion-input" />
+                        <p:outputLabel value="Día y hora:" for="horaYDiaReunion" style="font-weight: bold" />
+                        <p:calendar placeholder="dd/MM/yyyy HH:mm" autocomplete="off" id="horaYDiaReunion" pattern="dd/MM/yyyy HH:mm" value="#{turnoController.selected.horaYDia}" showOn="false" />
 
-                        <p:outputLabel value="Asunto:" for="asuntoReunion" styleClass="reunion-label" />
-                        <p:inputText id="asuntoReunion" value="#{turnoController.selected.apellido}" styleClass="reunion-input" />
+                        <p:outputLabel value="Asunto:" for="asuntoReunion" style="font-weight: bold" />
+                        <p:inputText id="asuntoReunion" value="#{turnoController.selected.apellido}" />
 
-                        <p:outputLabel value="Detalle:" for="observacionReunion" styleClass="reunion-label reunion-textarea-label" />
-                        <p:inputTextarea cols="33" rows="10" autoResize="false" id="observacionReunion" value="#{turnoController.selected.observacion}" styleClass="reunion-input reunion-textarea" />
+                        <p:outputLabel value="Detalle:" for="observacionReunion" style="font-weight: bold" />
+                        <p:inputTextarea cols="33" rows="10" autoResize="false" id="observacionReunion" value="#{turnoController.selected.observacion}" />
 
-                        <p:outputLabel value="ASISTENTES" for="asistentes" styleClass="reunion-label reunion-asistentes-label" />
+                        <p:outputLabel value="ASISTENTES" for="asistentes" style="font-weight: bold" />
                         <p:selectCheckboxMenu id="asistentes" label="Seleccionar asistentes" filter="true" filterMatchMode="contains"
-                                              panelStyle="width: 350px" scrollHeight="220" styleClass="reunion-input reunion-asistentes"
+                                              panelStyle="width: 350px" scrollHeight="220"
                                               value="#{turnoController.responsablesSeleccionadosReunion}">
                             <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado"
                                            itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}" />
                         </p:selectCheckboxMenu>
 
-                        <p:outputLabel value="Tipo de Turno:" for="tipoDeTurnoReunion" styleClass="reunion-label" />
-                        <p:selectOneMenu id="tipoDeTurnoReunion" value="#{turnoController.selected.tipoDeTurno}" editable="true" effect="fold" styleClass="reunion-input">
+                        <p:outputLabel value="Tipo de Turno:" for="tipoDeTurnoReunion" style="font-weight: bold" />
+                        <p:selectOneMenu id="tipoDeTurnoReunion" value="#{turnoController.selected.tipoDeTurno}" editable="true" effect="fold">
                             <f:selectItem itemLabel="TELEFÓNICO" itemValue="TELEFÓNICO" />
                             <f:selectItem itemLabel="PRESENCIAL" itemValue="PRESENCIAL" />
                             <p:ajax update="inputPanelOficinaReunion" />
@@ -39,23 +39,23 @@
 
                     </h:panelGrid>
 
-                    <h:panelGrid id="inputPanelOficinaReunion" columns="2" columnClasses="reunion-create-label,reunion-create-field" styleClass="reunion-create-grid reunion-office-grid">
-                        <p:outputLabel value="Oficina:" for="oficinaReunion" styleClass="reunion-label" rendered="#{turnoController.selected.tipoDeTurno == 'PRESENCIAL'}" />
+                    <h:panelGrid id="inputPanelOficinaReunion" columns="4">
+                        <p:outputLabel value="Oficina:" for="oficinaReunion" style="font-weight: bold" rendered="#{turnoController.selected.tipoDeTurno == 'PRESENCIAL'}" />
 
-                        <p:selectOneMenu rendered="#{turnoController.selected.tipoDeTurno == 'PRESENCIAL'}" id="oficinaReunion" value="#{turnoController.selected.oficina}" editable="true" effect="fold" styleClass="reunion-input">
+                        <p:selectOneMenu rendered="#{turnoController.selected.tipoDeTurno == 'PRESENCIAL'}" id="oficinaReunion" value="#{turnoController.selected.oficina}" editable="true" effect="fold">
                             <f:selectItem itemLabel="CERRO" itemValue="CERRO" />
                             <f:selectItem itemLabel="CENTRO" itemValue="CENTRO" />
                         </p:selectOneMenu>
                     </h:panelGrid>
 
-                    <h:panelGroup layout="block" styleClass="reunion-actions">
+                    <h:panelGroup layout="block">
                         <p:commandButton actionListener="#{turnoController.createReunion}"
                                          class="botonCrear"
                                          value="#{bundle.Save}"
                                          update="displayReunion,:TurnoListForm:datalist,:growl"
                                          oncomplete="handleSubmit(args,'ReunionCreateDialog');PF('turnosTable').clearFilters()" />
 
-                        <p:commandButton value="#{bundle.Cancel}" onclick="ReunionCreateDialog.hide()" styleClass="reunion-cancel-button" />
+                        <p:commandButton value="#{bundle.Cancel}" onclick="ReunionCreateDialog.hide()" />
                     </h:panelGroup>
                 </h:panelGroup>
             </h:form>

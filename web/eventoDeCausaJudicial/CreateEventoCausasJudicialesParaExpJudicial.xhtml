@@ -24,7 +24,6 @@
                                         requiredMessage="Debe seleccionar un tipo de fecha"
                  
                                      > 
-                            <p:ajax listener="#{eventoDeCausasJudicialesController.onTipoDeFechaChange}" update="panelAgendasSentencia"/>
                             <f:selectItem itemLabel=" -- Seleccione un tipo de fecha --" itemValue="" noSelectionOption="true" />
                             <f:selectItem itemLabel="Reclamo administrativo" itemValue="Reclamo administrativo" />
                             <f:selectItem itemLabel="Resolución denegatoria" itemValue="Resolución denegatoria" />
@@ -53,28 +52,6 @@
                             <f:selectItem itemLabel="Cuarta transferencia" itemValue="Cuarta transferencia" />
                             <f:selectItem itemLabel="OTRA FECHA JUDICIAL" itemValue="OTRA FECHA JUDICIAL" />
                         </p:selectOneMenu>
-                        
-                        <h:panelGroup id="panelAgendasSentencia" layout="block"
-                                      rendered="#{eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.tipoDeFecha eq 'Sentencia 1ra instancia'}"
-                                      style="margin-top: 14px">
-                            <p:outputLabel value="Agendas predeterminadas:" style="font-weight:bold; margin-bottom:8px; display:block;"/>
-                            <p:dataTable value="#{eventoDeCausasJudicialesController.agendasPredeterminadasSentencia}" var="agendaPred" style="width:100%">
-                                <p:column style="width:5%; text-align:center">
-                                    <p:selectBooleanCheckbox value="#{agendaPred.seleccionada}" />
-                                </p:column>
-                                <p:column headerText="Plazo" style="width:18%">
-                                    <h:outputText value="#{agendaPred.etiquetaPlazo}"/>
-                                </p:column>
-                                <p:column headerText="Descripción">
-                                    <h:outputText value="#{agendaPred.descripcion}"/>
-                                </p:column>
-                                <p:column headerText="Responsable" style="width:25%">
-                                    <p:selectOneMenu value="#{agendaPred.responsable}">
-                                        <f:selectItems value="#{expedienteController.empleadosSelectOne}" />
-                                    </p:selectOneMenu>
-                                </p:column>
-                            </p:dataTable>
-                        </h:panelGroup>
                         
                     
                     <p:commandButton actionListener="#{eventoDeCausasJudicialesController.createEventoJudicial(

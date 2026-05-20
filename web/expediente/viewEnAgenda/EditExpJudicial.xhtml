@@ -578,7 +578,7 @@
                             <div style="text-align: right ; padding-bottom: 20px ;display: grid;">
                                 <p:commandButton  class="botonEditarAgendaEsteBotonNoSirveMasPeroLoNecesitaLaUI boton-guardar"
                                                   actionListener="#{eventoDeCausasJudicialesController.prepareCreateEventoJudicial(expedienteController.selectedParaVerExp.orden)}"  value="Crear fecha Judicial " 
-                                                  update=":EventoJudicialCreatedesdeagendaForm" 
+                                                  update=":EventoJudicialCreatedesdeagendaForm:display" 
                                                   oncomplete="PF('EventoJudicialCreatedesdeagendaDialog').show()" />
                             </div>
                             <p:dataTable id="datalist6" value="#{expedienteController.verFechasJudicialesPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}" var="item"

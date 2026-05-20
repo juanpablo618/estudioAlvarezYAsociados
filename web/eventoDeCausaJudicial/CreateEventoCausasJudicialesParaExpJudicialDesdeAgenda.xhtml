@@ -18,7 +18,7 @@
                         <p:outputLabel value="Tipo de fecha:" for="tipo_de_fecha" style="margin-top: 10px;"/>
                         <p:selectOneMenu id="tipo_de_fecha"
                                          value="#{eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.tipoDeFecha}"
-                                         editable="true"
+                                         editable="false"
                                          required="true"
                                         requiredMessage="Debe seleccionar un tipo de fecha" >
                             <f:selectItem itemLabel=" -- Seleccione un tipo de fecha --" itemValue="" noSelectionOption="true" />
@@ -48,7 +48,7 @@
                             <f:selectItem itemLabel="Cuarto embargo" itemValue="Cuarto embargo" />
                             <f:selectItem itemLabel="Cuarta transferencia" itemValue="Cuarta transferencia" />
                             <f:selectItem itemLabel="OTRA FECHA JUDICIAL" itemValue="OTRA FECHA JUDICIAL" />
-                            <p:ajax listener="#{eventoDeCausasJudicialesController.onTipoDeFechaChange}" update="agendasSentenciaPanel" />
+                            <p:ajax event="change" listener="#{eventoDeCausasJudicialesController.onTipoDeFechaChange}" update="agendasSentenciaPanel" />
                         </p:selectOneMenu>
                         <p:panel id="agendasSentenciaPanel" header="Agendas para Sentencia de 1ra instancia" toggleable="true" collapsed="false"
                                  rendered="#{eventoDeCausasJudicialesController.mostrarAgendasSentenciaPrimeraInstancia}" style="margin-top:10px;">

@@ -48,23 +48,27 @@
                             <f:selectItem itemLabel="Cuarto embargo" itemValue="Cuarto embargo" />
                             <f:selectItem itemLabel="Cuarta transferencia" itemValue="Cuarta transferencia" />
                             <f:selectItem itemLabel="OTRA FECHA JUDICIAL" itemValue="OTRA FECHA JUDICIAL" />
-                            <p:ajax event="change" listener="#{eventoDeCausasJudicialesController.onTipoDeFechaChange}" update="agendasSentenciaPanel" />
+                            <p:ajax update="agendasSentenciaPanel"  />
                         </p:selectOneMenu>
-                        <p:panel id="agendasSentenciaPanel" header="Agendas para Sentencia de 1ra instancia" toggleable="true" collapsed="false"
+                        <h:panelGrid id="agendasSentenciaPanel" 
                                  rendered="#{eventoDeCausasJudicialesController.mostrarAgendasSentenciaPrimeraInstancia}" style="margin-top:10px;">
                             <ui:repeat value="#{eventoDeCausasJudicialesController.agendasSentenciaPrimeraInstancia}" var="agendaConfig">
                                 <h:panelGrid columns="4" cellpadding="6" style="width:100%; margin-bottom:8px; border-bottom: 1px solid #e5e5e5; padding-bottom: 8px;">
-                                    <p:selectBooleanCheckbox value="#{agendaConfig.seleccionada}" />
-                                    <p:calendar value="#{agendaConfig.fecha}" pattern="dd/MM/yyyy" navigator="true" disabledWeekends="true" />
-                                    <p:selectOneMenu value="#{agendaConfig.responsable}" filter="true" filterMatchMode="startsWith">
+                                
+                                    <p:selectBooleanCheckbox value="#{agendaConfig.seleccionada}" rendered="#{eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.tipoDeFecha == 'Sentencia 1ra instancia'}" />
+                                    
+                                    <p:calendar value="#{agendaConfig.fecha}" pattern="dd/MM/yyyy" navigator="true" disabledWeekends="true" rendered="#{eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.tipoDeFecha == 'Sentencia 1ra instancia'}" />
+                                    
+                                    <p:selectOneMenu value="#{agendaConfig.responsable}" filter="true" filterMatchMode="startsWith" rendered="#{eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.tipoDeFecha == 'Sentencia 1ra instancia'}" >
                                         <f:selectItem itemLabel="-- Responsable --" itemValue="" noSelectionOption="true"/>
                                         <f:selectItems value="#{empleadoController.itemsAvailableSelectOne}" var="empleado"
                                                        itemLabel="#{empleado.getNombreyApellido()}" itemValue="#{empleado.getNombreyApellido()}" />
                                     </p:selectOneMenu>
-                                    <h:outputText value="#{agendaConfig.descripcion}" />
+                                    <h:outputText value="#{agendaConfig.descripcion}" rendered="#{eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.tipoDeFecha == 'Sentencia 1ra instancia'}" />
+                                
                                 </h:panelGrid>
                             </ui:repeat>
-                        </p:panel>
+                        </h:panelGrid>
                     
                     <p:commandButton actionListener="#{eventoDeCausasJudicialesController.createEventoJudicial(
                                                            eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.fecha,

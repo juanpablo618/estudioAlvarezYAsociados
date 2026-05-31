@@ -271,13 +271,21 @@ public class EventoDeCausasJudicialesController implements Serializable {
     }
 
     private void crearAgendasSentenciaPrimeraInstanciaSiCorresponde() {
-        if (!mostrarAgendasSentenciaPrimeraInstancia || selectedParaEventoJudicialNuevo == null) {
+        if (selectedParaEventoJudicialNuevo == null
+                || !SENTENCIA_1RA_INSTANCIA.equals(selectedParaEventoJudicialNuevo.getTipoDeFecha())) {
             return;
         }
+
+        int agendasCreadas = 0;
         for (AgendaSentenciaPrimeraInstancia agendaConfig : agendasSentenciaPrimeraInstancia) {
-            if (!agendaConfig.isSeleccionada() || agendaConfig.getResponsable() == null || agendaConfig.getResponsable().trim().isEmpty()) {
+            if (!agendaConfig.isSeleccionada()) {
                 continue;
             }
+            if (agendaConfig.getResponsable() == null || agendaConfig.getResponsable().trim().isEmpty()) {
+                JsfUtil.addErrorMessage("Debe seleccionar un responsable para cada agenda marcada.");
+                continue;
+            }
+
             Agenda agenda = new Agenda();
             agenda.setFecha(agendaConfig.getFecha());
             agenda.setResponsable(agendaConfig.getResponsable());
@@ -285,7 +293,12 @@ public class EventoDeCausasJudicialesController implements Serializable {
             agenda.setOrden(selectedParaEventoJudicialNuevo.getOrden());
             agenda.setRealizado("No");
             agenda.setPrioridad("No");
-            agendaFacade.edit(agenda);
+            agendaFacade.create(agenda);
+            agendasCreadas++;
+        }
+
+        if (agendasCreadas > 0) {
+            JsfUtil.addSuccessMessage("Agendas creadas: " + agendasCreadas);
         }
     }
 

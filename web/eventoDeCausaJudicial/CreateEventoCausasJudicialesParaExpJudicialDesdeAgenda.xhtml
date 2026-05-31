@@ -5,7 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
+
     <ui:composition>
 
         <p:dialog id="EventoJudicialCreatedesdeagendaDlg" widgetVar="EventoJudicialCreatedesdeagendaDialog" modal="true" resizable="false" appendTo="@(body)" header="Crear Evento Judicial Nuevo">
@@ -14,7 +14,7 @@
                     <div class="botonesapilados" >
                      <p:outputLabel value="Fecha:" for="fecha"  />
                         <p:calendar disabledWeekends="true" mode="inline" required="true" requiredMessage="Fecha es requerido." placeholder="dd/MM/yyyy" autocomplete="off" id="fecha"  pattern="dd/MM/yyyy" value="#{eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.fecha}" title="fecha de causa"  />
-                                 
+
                         <p:outputLabel value="Tipo de fecha:" for="tipo_de_fecha" style="margin-top: 10px;"/>
                         <p:selectOneMenu id="tipo_de_fecha"
                                          value="#{eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.tipoDeFecha}"
@@ -48,7 +48,7 @@
                             <f:selectItem itemLabel="Cuarto embargo" itemValue="Cuarto embargo" />
                             <f:selectItem itemLabel="Cuarta transferencia" itemValue="Cuarta transferencia" />
                             <f:selectItem itemLabel="OTRA FECHA JUDICIAL" itemValue="OTRA FECHA JUDICIAL" />
-                            <p:ajax update="agendasSentenciaPanel"  />
+                            <p:ajax listener="#{eventoDeCausasJudicialesController.onTipoDeFechaChange}" update="agendasSentenciaPanel" />
                         </p:selectOneMenu>
                         <h:panelGroup id="agendasSentenciaPanel" layout="block"
                                  rendered="#{eventoDeCausasJudicialesController.mostrarAgendasSentenciaPrimeraInstancia}" style="margin-top: 12px;">
@@ -79,16 +79,16 @@
                                 </h:panelGroup>
                             </ui:repeat>
                         </h:panelGroup>
-                    
+
                     <p:commandButton actionListener="#{eventoDeCausasJudicialesController.createEventoJudicial(
                                                            eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.fecha,
                                                            eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.tipoDeFecha ,
                                                            eventoDeCausasJudicialesController.selectedParaEventoJudicialNuevo.orden)}"
-                                         class="boton-verde-general" value="#{bundle.Save}" 
-                                         oncomplete="handleSubmit(args,'EventoJudicialCreatedesdeagendaDialog');" 
+                                         class="boton-verde-general" value="#{bundle.Save}" process="@form"
+                                         oncomplete="handleSubmit(args,'EventoJudicialCreatedesdeagendaDialog');"
                                          update=":ExpedienteJudicialViewDesdeAgendaForm:tabViewEditExpJudicialEditForm:datalist6,:growl"/>
-                  
-             
+
+
                 </div>
                 </h:panelGroup>
             </h:form>

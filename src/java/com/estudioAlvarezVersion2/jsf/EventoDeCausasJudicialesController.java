@@ -41,6 +41,7 @@ public class EventoDeCausasJudicialesController implements Serializable {
     private EventoDeCausasJudiciales selectedParaEventoJudicialNuevo;
     private boolean mostrarAgendasSentenciaPrimeraInstancia;
     private List<AgendaSentenciaPrimeraInstancia> agendasSentenciaPrimeraInstancia;
+    private String responsableExpedienteParaAgendasSentenciaPrimeraInstancia;
 
     private static final String SENTENCIA_1RA_INSTANCIA = "Sentencia 1ra instancia";
 
@@ -214,9 +215,14 @@ public class EventoDeCausasJudicialesController implements Serializable {
     }
     
     public EventoDeCausasJudiciales prepareCreateEventoJudicial(int orden) {
+        return prepareCreateEventoJudicial(orden, null);
+    }
+
+    public EventoDeCausasJudiciales prepareCreateEventoJudicial(int orden, String responsableExpediente) {
         selectedParaEventoJudicialNuevo = new EventoDeCausasJudiciales();
         selectedParaEventoJudicialNuevo.setOrden(orden);
         selectedParaEventoJudicialNuevo.setTipoDeFecha(null);
+        responsableExpedienteParaAgendasSentenciaPrimeraInstancia = responsableExpediente;
         mostrarAgendasSentenciaPrimeraInstancia = false;
         inicializarAgendasSentenciaPrimeraInstancia();
         initializeEmbeddableKey();
@@ -235,6 +241,9 @@ public class EventoDeCausasJudicialesController implements Serializable {
     public void onTipoDeFechaChange() {
         String tipo = selectedParaEventoJudicialNuevo != null ? selectedParaEventoJudicialNuevo.getTipoDeFecha() : null;
         mostrarAgendasSentenciaPrimeraInstancia = SENTENCIA_1RA_INSTANCIA.equals(tipo);
+        if (mostrarAgendasSentenciaPrimeraInstancia) {
+            asignarResponsablePorDefectoAAgendasSinResponsable();
+        }
     }
 
     private void inicializarAgendasSentenciaPrimeraInstancia() {
@@ -251,7 +260,20 @@ public class EventoDeCausasJudicialesController implements Serializable {
         AgendaSentenciaPrimeraInstancia agenda = new AgendaSentenciaPrimeraInstancia();
         agenda.setDescripcion(descripcion);
         agenda.setFecha(fecha);
+        agenda.setResponsable(responsableExpedienteParaAgendasSentenciaPrimeraInstancia);
         return agenda;
+    }
+
+    private void asignarResponsablePorDefectoAAgendasSinResponsable() {
+        if (responsableExpedienteParaAgendasSentenciaPrimeraInstancia == null
+                || responsableExpedienteParaAgendasSentenciaPrimeraInstancia.trim().isEmpty()) {
+            return;
+        }
+        for (AgendaSentenciaPrimeraInstancia agendaConfig : agendasSentenciaPrimeraInstancia) {
+            if (agendaConfig.getResponsable() == null || agendaConfig.getResponsable().trim().isEmpty()) {
+                agendaConfig.setResponsable(responsableExpedienteParaAgendasSentenciaPrimeraInstancia);
+            }
+        }
     }
 
     private LocalDate sumarDiasHabiles(LocalDate fechaBase, int diasHabiles) {

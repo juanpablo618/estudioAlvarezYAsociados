@@ -53,6 +53,7 @@ public class FileDownloadBean implements Serializable {
     private StreamedContent fileOtraDocumentacionSeis;
 
     private StreamedContent fileCartaPoder;
+    private StreamedContent fileCartaPoderDos;
     private StreamedContent fileHistorialLaboralAnses;
     
     private StreamedContent fileHistorialLaboralOtrasCajas;
@@ -282,6 +283,14 @@ public class FileDownloadBean implements Serializable {
 
     public void setFileCartaPoder(StreamedContent fileCartaPoder) {
         this.fileCartaPoder = fileCartaPoder;
+    }
+
+    public StreamedContent getFileCartaPoderDos() {
+        return fileCartaPoderDos;
+    }
+
+    public void setFileCartaPoderDos(StreamedContent fileCartaPoderDos) {
+        this.fileCartaPoderDos = fileCartaPoderDos;
     }
 
     public StreamedContent getFileExpAdministrativo() {
@@ -1898,6 +1907,10 @@ public class FileDownloadBean implements Serializable {
                                 fileCartaPoder = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileCartaPoder;
                                 break;
+                            case "CartaPoderDos":
+                                fileCartaPoderDos = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileCartaPoderDos;
+                                break;
                             case "ExpAdministrativo":
                                 fileExpAdministrativo = new DefaultStreamedContent(stream, IMAGE_JPEG, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileExpAdministrativo;
@@ -2012,6 +2025,10 @@ public class FileDownloadBean implements Serializable {
                             case "CartaPoder":
                                 fileCartaPoder = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
                                 fileAlmacenado = fileCartaPoder;
+                                break;
+                            case "CartaPoderDos":
+                                fileCartaPoderDos = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
+                                fileAlmacenado = fileCartaPoderDos;
                                 break;
                             case "ExpAdministrativo":
                                 fileExpAdministrativo = new DefaultStreamedContent(stream, APPLICATION_PDF, rs.getString("nombreDelDocumento"));
@@ -3167,6 +3184,22 @@ public class FileDownloadBean implements Serializable {
             } else {
 
                 return cantidad;
+            }
+        }
+
+        return cantidad;
+    }
+
+
+    public int cantidadArchivosCartaPoder(int orden) {
+        int cantidad = 0;
+
+        if (orden != 0) {
+            if (!buscarNombreDeArchivo(orden, "CartaPoder").contains("no existe archivo")) {
+                cantidad += 1;
+            }
+            if (!buscarNombreDeArchivo(orden, "CartaPoderDos").contains("no existe archivo")) {
+                cantidad += 1;
             }
         }
 

@@ -59,6 +59,7 @@ public class FileUploadBean implements Serializable{
         private UploadedFile fileOtraDocumentacionSeis;
         
         private UploadedFile fileCartaPoder;  
+        private UploadedFile fileCartaPoderDos;
         private UploadedFile fileExpAdministrativo;
         private UploadedFile fileExpAdministrativoDos;
         
@@ -371,6 +372,14 @@ public class FileUploadBean implements Serializable{
 
     public void setFileCartaPoder(UploadedFile fileCartaPoder) {
         this.fileCartaPoder = fileCartaPoder;
+    }
+
+    public UploadedFile getFileCartaPoderDos() {
+        return fileCartaPoderDos;
+    }
+
+    public void setFileCartaPoderDos(UploadedFile fileCartaPoderDos) {
+        this.fileCartaPoderDos = fileCartaPoderDos;
     }
 
     public UploadedFile getFileExpAdministrativo() {
@@ -2105,6 +2114,9 @@ public class FileUploadBean implements Serializable{
             case "ConvenioDeHonorarios":
                  fileParaSubir = fileConvenioDeHonorarios;
                  break;     
+            case "CartaPoderDos":
+                 fileParaSubir = fileCartaPoderDos;
+                 break;
             case "ConstanciaDeCbu":
                  fileParaSubir = fileConstanciaDeCbu;
                  break;     

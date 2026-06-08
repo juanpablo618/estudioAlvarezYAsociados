@@ -1194,7 +1194,7 @@
                                         <p:fileUpload  value="#{fileUploadBean.fileCartaPoderDos}" mode="simple"/>
 
                                         <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadDocumentoPorNombre(expedienteController.selected.orden, 'CartaPoderDos')}" ajax="false" />
+                                            <p:commandButton icon="fa-upload" value="Subir archivo" class="botonsubirbajarpdf" action="#{fileUploadBean.uploadCartaPoderDos(expedienteController.selected.orden)}" ajax="false" />
 
                                             <p:commandButton class="botonsubirbajarpdf" value="Descargar archivo" actionListener="#{fileDownloadBean.downloadDocumentoPorNombre(expedienteController.selected.orden, 'CartaPoderDos')}" ajax="false">
                                                 <p:fileDownload value="#{fileDownloadBean.fileCartaPoderDos}" />

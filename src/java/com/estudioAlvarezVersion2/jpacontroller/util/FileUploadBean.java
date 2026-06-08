@@ -1976,6 +1976,53 @@ public class FileUploadBean implements Serializable{
         
     }  
     
+    public void uploadCartaPoderDos(int orden) {  
+                    
+        try {
+            Connection con;
+		PreparedStatement ps;
+
+            if(fileCartaPoderDos != null){
+                    
+                    if(fileCartaPoderDos.getContentType().equalsIgnoreCase(IMAGE_JPEG) || fileCartaPoderDos.getContentType().equalsIgnoreCase(APPLICATION_PDF)){
+                        con = DAO.getConnection();
+                        ps = con.prepareStatement("INSERT INTO documentosCartaPoderDos (documento, nroDeOrden, nombreDelDocumento) " +
+                        "VALUES (?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                            "documento = VALUES(documento), " +
+                            "nroDeOrden = LAST_INSERT_ID(nroDeOrden),"+
+                            "nombreDelDocumento = VALUES(nombreDelDocumento) "
+                                );
+
+                        ps.setBinaryStream(1, fileCartaPoderDos.getInputstream());
+                        ps.setInt(2, orden);
+                        ps.setString(3, fileCartaPoderDos.getFileName());
+                        
+                        ps.executeUpdate();
+                        con.close();
+                                            
+                        FacesMessage msg = new FacesMessage(OK, "Fichero " + fileCartaPoderDos.getFileName() + SUBIDO_CORRECTAMENTE__CON_NRO_DE__ORDEN+orden);
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                    
+                    }else{
+                        if(!"".equals(fileCartaPoderDos.getFileName())){
+                            FacesMessage msg = new FacesMessage(ERROR, "no selecciono un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }else{
+                            FacesMessage msg = new FacesMessage(ERROR, "Fichero " + fileCartaPoderDos.getFileName() + " no es un archivo JPG O PDF");
+                            FacesContext.getCurrentInstance().addMessage(null, msg);
+                        }
+                    }
+                    
+            }
+            
+        } catch (IOException | SQLException e) {
+                        FacesMessage msg = new FacesMessage(ERROR, FICHERO_DEMASIADO_GRANDE + fileCartaPoderDos.getFileName() + " por favor seleccione otro.");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
+    }  
+    
     public void uploadExpAdministrativo(int orden) {  
                     
         try {
@@ -2114,9 +2161,6 @@ public class FileUploadBean implements Serializable{
             case "ConvenioDeHonorarios":
                  fileParaSubir = fileConvenioDeHonorarios;
                  break;     
-            case "CartaPoderDos":
-                 fileParaSubir = fileCartaPoderDos;
-                 break;
             case "ConstanciaDeCbu":
                  fileParaSubir = fileConstanciaDeCbu;
                  break;     

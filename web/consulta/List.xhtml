@@ -17,8 +17,8 @@
                 </div>
                 
                 <div style="float: left;margin-left: .5%;">
-                    <p:commandButton class="borderRd" value="Mostrar Filtradas" actionListener="#{consultaController.loadFilteredConsultas()}" update="datalist" />
-                    <p:commandButton class="borderRd" value="Mostrar Todas" actionListener="#{consultaController.loadAllConsultas()}" update="datalist" />
+                    <p:commandButton class="borderRd" value="Mostrar Filtradas" actionListener="#{consultaController.loadFilteredConsultas()}" update=":ConsultaListForm:datalist :ConsultaListForm:consultaCountPanel" />
+                    <p:commandButton class="borderRd" value="Mostrar Todas" actionListener="#{consultaController.loadAllConsultas()}" update=":ConsultaListForm:datalist :ConsultaListForm:consultaCountPanel" />
                 </div>
                 
                 <!-- Filtros por día, mes y año -->
@@ -26,7 +26,7 @@
                     <p:fieldset class="ui-fieldset-toggleable-azul" style="background-color: #123a6d" legend="Filtro por Día" toggleable="true"  collapsed="true" toggleSpeed="500">
                                     <p:calendar id="filterDay" value="#{consultaController.filterDay}" pattern="dd/MM/yyyy"
                                 placeholder="Seleccionar Día"  />
-                            <p:commandButton value="Filtrar" class="borderRd mrgTB2" action="#{consultaController.filterConsultas}" update="datalist" />
+                            <p:commandButton value="Filtrar" class="borderRd mrgTB2" action="#{consultaController.filterConsultas}" update=":ConsultaListForm:datalist :ConsultaListForm:consultaCountPanel" />
                 
                     </p:fieldset>  
                     
@@ -38,7 +38,7 @@
                         <f:selectItem itemLabel="Seleccionar Mes" itemValue="" />
                         <f:selectItems value="#{consultaController.months}" var="month" itemLabel="#{month}" itemValue="#{month}" />
                     </p:selectOneMenu>
-                        <p:commandButton value="Filtrar" class="borderRd mrgTB2" action="#{consultaController.filterConsultas}" update="datalist" />
+                        <p:commandButton value="Filtrar" class="borderRd mrgTB2" action="#{consultaController.filterConsultas}" update=":ConsultaListForm:datalist :ConsultaListForm:consultaCountPanel" />
                 
                     </p:fieldset>    
                 </div>
@@ -49,7 +49,7 @@
                         <f:selectItem itemLabel="Seleccionar Año" itemValue="" />
                         <f:selectItems value="#{consultaController.years}" var="year" itemLabel="#{year}" itemValue="#{year}" />
                     </p:selectOneMenu>
-                        <p:commandButton value="Filtrar" class="borderRd mrgTB2" action="#{consultaController.filterConsultas}" update="datalist" />
+                        <p:commandButton value="Filtrar" class="borderRd mrgTB2" action="#{consultaController.filterConsultas}" update=":ConsultaListForm:datalist :ConsultaListForm:consultaCountPanel" />
                    
                    </p:fieldset>    
                 </div>
@@ -77,8 +77,11 @@
                                   > 
                  
                         
-                        <p:ajax event="rowSelect"   update="createButton  "/>
-                        <p:ajax event="rowUnselect" update="createButton  "/>
+                        <p:ajax event="rowSelect"   update="createButton  " />
+                        <p:ajax event="rowUnselect" update="createButton  " />
+                        <p:ajax event="filter" update=":ConsultaListForm:consultaCountPanel" />
+                        <p:ajax event="page" update=":ConsultaListForm:consultaCountPanel" />
+                        <p:ajax event="sort" update=":ConsultaListForm:consultaCountPanel" />
 
                        <p:growl life="5000" id="message" showDetail="true" />
  
@@ -179,7 +182,7 @@
                                    <f:setPropertyActionListener value="#{item}" target="#{consultaController.selected}" />
                             </p:commandButton>
                             
-                            <p:commandButton oncomplete="PF('consultasTable').clearFilters()" class="linea btnDelete" update=":growl,datalist, message" actionListener="#{consultaController.destroy}"  icon="ui-icon-trash" title="Eliminar">
+                            <p:commandButton oncomplete="PF('consultasTable').clearFilters()" class="linea btnDelete" update=":growl :ConsultaListForm:datalist :ConsultaListForm:message :ConsultaListForm:consultaCountPanel" actionListener="#{consultaController.destroy}"  icon="ui-icon-trash" title="Eliminar">
                                 <f:setPropertyActionListener value="#{item}" target="#{consultaController.selected}" />
                                 <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert"  />
                             </p:commandButton>
@@ -195,6 +198,9 @@
                             <p:commandButton id="createButton"  rendered="false" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{consultaController.prepareCreate}" update=":ConsultaCreateForm" oncomplete="PF('ConsultaCreateDialog').show()"/>
                         </f:facet>
                     </p:dataTable>
+                    <p:outputPanel id="consultaCountPanel" styleClass="consulta-count-panel" style="margin-top:10px;">
+                        <h:outputText value="Consultas mostradas: #{consultaController.currentDisplayedConsultasCount}" />
+                    </p:outputPanel>
            </h:form>
 
             <ui:include src="Create.xhtml"/>

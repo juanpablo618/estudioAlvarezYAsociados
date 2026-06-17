@@ -1601,6 +1601,7 @@ public class ExpedienteController implements Serializable {
         expAInsertar.setReclamoArt(consultaSelected.getReclamoArt());
         expAInsertar.setEquipo(consultaSelected.getEquipo());
         expAInsertar.setFisico("NO");
+        expAInsertar.setJpTipo(consultaSelected.getJpTipo());
         
         consultaControllerBean.getSelected().setEstadoConsulta("CONSULTA PASADA A EXP. ADMINISTRATIVO");
         consultaControllerBean.getSelected().setOrden(expAInsertar.getOrden());

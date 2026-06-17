@@ -284,6 +284,9 @@ public class Consulta implements Serializable {
     @Column(name = "quienTomoConsulta")
     private String quienTomoConsulta;
 
+    @Column(name = "jpTipo")
+    private String jpTipo;
+
     public Consulta() {
     }
 
@@ -923,6 +926,14 @@ public class Consulta implements Serializable {
 
     public void setReclamoArt(String reclamoArt) {
         this.reclamoArt = reclamoArt;
+    }
+
+    public String getJpTipo() {
+        return jpTipo;
+    }
+
+    public void setJpTipo(String jpTipo) {
+        this.jpTipo = jpTipo;
     }
 
     public boolean equals(Object object) {

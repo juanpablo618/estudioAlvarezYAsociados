@@ -142,6 +142,15 @@
                                             <f:selectItem itemLabel="REAJUSTE" itemValue="REAJUSTE" />
                                             <f:selectItem itemLabel="OTRO" itemValue="OTRO" />
                                         </p:selectOneMenu>
+                                        <p:outputLabel value="JP Tipo:" for="jpTipo" style="font-weight: bold" />
+                                        <p:selectOneMenu id="jpTipo" value="#{expedienteController.selectedParaVerExp.jpTipo}" editable="true">
+                                            <f:selectItem itemLabel=" -- Elige un JP Tipo --" noSelectionOption="true" />
+                                            <f:selectItem itemLabel="DDHH" itemValue="DDHH" />
+                                            <f:selectItem itemLabel="LABORAL" itemValue="LABORAL" />
+                                            <f:selectItem itemLabel="LABORAL-LEY DE RIESGO" itemValue="LABORAL-LEY DE RIESGO" />
+                                            <f:selectItem itemLabel="JURISDICCIÓN VOLUNTARIA" itemValue="JURISDICCIÓN VOLUNTARIA" />
+                                            <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
+                                        </p:selectOneMenu>
                                     </div>
 
                                 </div>

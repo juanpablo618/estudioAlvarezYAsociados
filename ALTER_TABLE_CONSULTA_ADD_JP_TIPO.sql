@@ -1,0 +1,2 @@
+ALTER TABLE Consulta
+ADD COLUMN jpTipo VARCHAR(50);

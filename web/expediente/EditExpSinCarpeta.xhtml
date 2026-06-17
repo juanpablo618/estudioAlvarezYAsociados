@@ -55,6 +55,15 @@
                                             <f:selectItem itemLabel=" -- Elige un típo de trámite --"  noSelectionOption="true"  />
                                             <f:selectItems value="#{tipoDeTramiteController.items}" var="tipoDeTramite" itemLabel="#{tipoDeTramite.estado}" itemValue="#{tipoDeTramite.estado}" />
                                         </p:selectOneMenu>
+                                    <p:outputLabel value="JP Tipo:" for="jpTipo" style="font-weight: bold" />
+                                    <p:selectOneMenu id="jpTipo" value="#{expedienteController.selected.jpTipo}" editable="true">
+                                    <f:selectItem itemLabel=" -- Elige un JP Tipo --" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="DDHH" itemValue="DDHH" />
+                                    <f:selectItem itemLabel="LABORAL" itemValue="LABORAL" />
+                                    <f:selectItem itemLabel="LABORAL-LEY DE RIESGO" itemValue="LABORAL-LEY DE RIESGO" />
+                                    <f:selectItem itemLabel="JURISDICCIÓN VOLUNTARIA" itemValue="JURISDICCIÓN VOLUNTARIA" />
+                                    <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
+                                    </p:selectOneMenu>
                                     </div>
                                 </div>
                                 <br></br>

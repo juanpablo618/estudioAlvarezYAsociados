@@ -1,0 +1,2 @@
+ALTER TABLE Expediente
+ADD COLUMN jpTipo VARCHAR(50);

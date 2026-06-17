@@ -291,6 +291,9 @@ public class Expediente implements Serializable {
     
     @Column(name = "fisico")
     private String fisico;
+
+    @Column(name = "jpTipo")
+    private String jpTipo;
     
     public Expediente() {
     }
@@ -932,6 +935,14 @@ public class Expediente implements Serializable {
         this.fisico = fisico;
     }
     
+    public String getJpTipo() {
+        return jpTipo;
+    }
+
+    public void setJpTipo(String jpTipo) {
+        this.jpTipo = jpTipo;
+    }
+
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Expediente)) {

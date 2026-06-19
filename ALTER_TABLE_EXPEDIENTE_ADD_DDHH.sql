@@ -1,0 +1,15 @@
+ALTER TABLE Expediente ADD COLUMN ddhhCausante VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN ddhhDni VARCHAR(50);
+ALTER TABLE Expediente ADD COLUMN ddhhUltimoDomicilio VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN ddhhEstadoCivil VARCHAR(100);
+ALTER TABLE Expediente ADD COLUMN ddhhHerederos VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN ddhhHerederosDetalle TEXT;
+ALTER TABLE Expediente ADD COLUMN ddhhMotivos VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN ddhhMotivoInmuebleDetalle VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN ddhhMotivoAutomotorDetalle VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN ddhhMotivoCobroCreditoDetalle TEXT;
+ALTER TABLE Expediente ADD COLUMN ddhhMotivoOtroDetalle VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN ddhhPadreCausante VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN ddhhMadreCausante VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN ddhhObservaciones TEXT;
+ALTER TABLE Expediente ADD COLUMN usuarioSac VARCHAR(255);

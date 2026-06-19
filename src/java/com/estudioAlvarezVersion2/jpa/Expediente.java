@@ -294,6 +294,52 @@ public class Expediente implements Serializable {
 
     @Column(name = "jpTipo")
     private String jpTipo;
+
+
+    @Column(name = "ddhhCausante")
+    private String ddhhCausante;
+
+    @Column(name = "ddhhDni")
+    private String ddhhDni;
+
+    @Column(name = "ddhhUltimoDomicilio")
+    private String ddhhUltimoDomicilio;
+
+    @Column(name = "ddhhEstadoCivil")
+    private String ddhhEstadoCivil;
+
+    @Column(name = "ddhhHerederos")
+    private String[] ddhhHerederos;
+
+    @Column(name = "ddhhHerederosDetalle")
+    private String ddhhHerederosDetalle;
+
+    @Column(name = "ddhhMotivos")
+    private String[] ddhhMotivos;
+
+    @Column(name = "ddhhMotivoInmuebleDetalle")
+    private String ddhhMotivoInmuebleDetalle;
+
+    @Column(name = "ddhhMotivoAutomotorDetalle")
+    private String ddhhMotivoAutomotorDetalle;
+
+    @Column(name = "ddhhMotivoCobroCreditoDetalle")
+    private String ddhhMotivoCobroCreditoDetalle;
+
+    @Column(name = "ddhhMotivoOtroDetalle")
+    private String ddhhMotivoOtroDetalle;
+
+    @Column(name = "ddhhPadreCausante")
+    private String ddhhPadreCausante;
+
+    @Column(name = "ddhhMadreCausante")
+    private String ddhhMadreCausante;
+
+    @Column(name = "ddhhObservaciones")
+    private String ddhhObservaciones;
+
+    @Column(name = "usuarioSac")
+    private String usuarioSac;
     
     public Expediente() {
     }
@@ -942,6 +988,38 @@ public class Expediente implements Serializable {
     public void setJpTipo(String jpTipo) {
         this.jpTipo = jpTipo;
     }
+
+
+    public String getDdhhCausante() { return ddhhCausante; }
+    public void setDdhhCausante(String ddhhCausante) { this.ddhhCausante = ddhhCausante; }
+    public String getDdhhDni() { return ddhhDni; }
+    public void setDdhhDni(String ddhhDni) { this.ddhhDni = ddhhDni; }
+    public String getDdhhUltimoDomicilio() { return ddhhUltimoDomicilio; }
+    public void setDdhhUltimoDomicilio(String ddhhUltimoDomicilio) { this.ddhhUltimoDomicilio = ddhhUltimoDomicilio; }
+    public String getDdhhEstadoCivil() { return ddhhEstadoCivil; }
+    public void setDdhhEstadoCivil(String ddhhEstadoCivil) { this.ddhhEstadoCivil = ddhhEstadoCivil; }
+    public String[] getDdhhHerederos() { return ddhhHerederos; }
+    public void setDdhhHerederos(String[] ddhhHerederos) { this.ddhhHerederos = ddhhHerederos; }
+    public String getDdhhHerederosDetalle() { return ddhhHerederosDetalle; }
+    public void setDdhhHerederosDetalle(String ddhhHerederosDetalle) { this.ddhhHerederosDetalle = ddhhHerederosDetalle; }
+    public String[] getDdhhMotivos() { return ddhhMotivos; }
+    public void setDdhhMotivos(String[] ddhhMotivos) { this.ddhhMotivos = ddhhMotivos; }
+    public String getDdhhMotivoInmuebleDetalle() { return ddhhMotivoInmuebleDetalle; }
+    public void setDdhhMotivoInmuebleDetalle(String ddhhMotivoInmuebleDetalle) { this.ddhhMotivoInmuebleDetalle = ddhhMotivoInmuebleDetalle; }
+    public String getDdhhMotivoAutomotorDetalle() { return ddhhMotivoAutomotorDetalle; }
+    public void setDdhhMotivoAutomotorDetalle(String ddhhMotivoAutomotorDetalle) { this.ddhhMotivoAutomotorDetalle = ddhhMotivoAutomotorDetalle; }
+    public String getDdhhMotivoCobroCreditoDetalle() { return ddhhMotivoCobroCreditoDetalle; }
+    public void setDdhhMotivoCobroCreditoDetalle(String ddhhMotivoCobroCreditoDetalle) { this.ddhhMotivoCobroCreditoDetalle = ddhhMotivoCobroCreditoDetalle; }
+    public String getDdhhMotivoOtroDetalle() { return ddhhMotivoOtroDetalle; }
+    public void setDdhhMotivoOtroDetalle(String ddhhMotivoOtroDetalle) { this.ddhhMotivoOtroDetalle = ddhhMotivoOtroDetalle; }
+    public String getDdhhPadreCausante() { return ddhhPadreCausante; }
+    public void setDdhhPadreCausante(String ddhhPadreCausante) { this.ddhhPadreCausante = ddhhPadreCausante; }
+    public String getDdhhMadreCausante() { return ddhhMadreCausante; }
+    public void setDdhhMadreCausante(String ddhhMadreCausante) { this.ddhhMadreCausante = ddhhMadreCausante; }
+    public String getDdhhObservaciones() { return ddhhObservaciones; }
+    public void setDdhhObservaciones(String ddhhObservaciones) { this.ddhhObservaciones = ddhhObservaciones; }
+    public String getUsuarioSac() { return usuarioSac; }
+    public void setUsuarioSac(String usuarioSac) { this.usuarioSac = usuarioSac; }
 
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set

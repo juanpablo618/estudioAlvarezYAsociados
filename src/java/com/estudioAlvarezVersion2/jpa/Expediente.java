@@ -309,13 +309,13 @@ public class Expediente implements Serializable {
     private String ddhhEstadoCivil;
 
     @Column(name = "ddhhHerederos")
-    private String[] ddhhHerederos;
+    private String ddhhHerederos;
 
     @Column(name = "ddhhHerederosDetalle")
     private String ddhhHerederosDetalle;
 
     @Column(name = "ddhhMotivos")
-    private String[] ddhhMotivos;
+    private String ddhhMotivos;
 
     @Column(name = "ddhhMotivoInmuebleDetalle")
     private String ddhhMotivoInmuebleDetalle;
@@ -998,12 +998,12 @@ public class Expediente implements Serializable {
     public void setDdhhUltimoDomicilio(String ddhhUltimoDomicilio) { this.ddhhUltimoDomicilio = ddhhUltimoDomicilio; }
     public String getDdhhEstadoCivil() { return ddhhEstadoCivil; }
     public void setDdhhEstadoCivil(String ddhhEstadoCivil) { this.ddhhEstadoCivil = ddhhEstadoCivil; }
-    public String[] getDdhhHerederos() { return ddhhHerederos; }
-    public void setDdhhHerederos(String[] ddhhHerederos) { this.ddhhHerederos = ddhhHerederos; }
+    public String[] getDdhhHerederos() { return convertirTextoAArray(ddhhHerederos); }
+    public void setDdhhHerederos(String[] ddhhHerederos) { this.ddhhHerederos = convertirArrayATexto(ddhhHerederos); }
     public String getDdhhHerederosDetalle() { return ddhhHerederosDetalle; }
     public void setDdhhHerederosDetalle(String ddhhHerederosDetalle) { this.ddhhHerederosDetalle = ddhhHerederosDetalle; }
-    public String[] getDdhhMotivos() { return ddhhMotivos; }
-    public void setDdhhMotivos(String[] ddhhMotivos) { this.ddhhMotivos = ddhhMotivos; }
+    public String[] getDdhhMotivos() { return convertirTextoAArray(ddhhMotivos); }
+    public void setDdhhMotivos(String[] ddhhMotivos) { this.ddhhMotivos = convertirArrayATexto(ddhhMotivos); }
     public String getDdhhMotivoInmuebleDetalle() { return ddhhMotivoInmuebleDetalle; }
     public void setDdhhMotivoInmuebleDetalle(String ddhhMotivoInmuebleDetalle) { this.ddhhMotivoInmuebleDetalle = ddhhMotivoInmuebleDetalle; }
     public String getDdhhMotivoAutomotorDetalle() { return ddhhMotivoAutomotorDetalle; }
@@ -1012,6 +1012,20 @@ public class Expediente implements Serializable {
     public void setDdhhMotivoCobroCreditoDetalle(String ddhhMotivoCobroCreditoDetalle) { this.ddhhMotivoCobroCreditoDetalle = ddhhMotivoCobroCreditoDetalle; }
     public String getDdhhMotivoOtroDetalle() { return ddhhMotivoOtroDetalle; }
     public void setDdhhMotivoOtroDetalle(String ddhhMotivoOtroDetalle) { this.ddhhMotivoOtroDetalle = ddhhMotivoOtroDetalle; }
+    private String[] convertirTextoAArray(String valor) {
+        if (valor == null || valor.trim().isEmpty()) {
+            return new String[0];
+        }
+        return valor.split("\\|");
+    }
+
+    private String convertirArrayATexto(String[] valores) {
+        if (valores == null || valores.length == 0) {
+            return null;
+        }
+        return String.join("|", valores);
+    }
+
     public String getDdhhPadreCausante() { return ddhhPadreCausante; }
     public void setDdhhPadreCausante(String ddhhPadreCausante) { this.ddhhPadreCausante = ddhhPadreCausante; }
     public String getDdhhMadreCausante() { return ddhhMadreCausante; }

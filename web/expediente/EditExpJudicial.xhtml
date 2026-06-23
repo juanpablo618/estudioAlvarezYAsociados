@@ -336,6 +336,13 @@
                         <div class="datosexpediente">
                             <div class="columna">
 
+                                <p:outputLabel value="Equipo:" for="equipo"  />
+
+                                <p:selectOneMenu  id="equipo" editable="false" effect="fold" value="#{expedienteController.selected.equipo}">
+                                    <f:selectItem itemLabel=" -- Elige un equipo --"  noSelectionOption="true"  />
+                                    <f:selectItems value="#{equipoController.items}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo.nombre}" />
+                                </p:selectOneMenu>
+
                                 <p:outputLabel value="Tipo:" for="tipo" />
                                 <p:selectOneMenu   editable="true" id="tipo"  value="#{expedienteController.selected.tipo}" >
                                     <f:selectItem itemLabel="Reajustes" itemValue="Reajustes" />
@@ -357,51 +364,57 @@
                                     <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
                                     <p:ajax update="ddhhPanel" />
                                     </p:selectOneMenu>
-                                    <h:panelGroup id="ddhhPanel" layout="block" style="width: 100%; margin-top: 15px; display: #{expedienteController.selected.jpTipo eq 'DDHH' ? 'block' : 'none'};">
-                                        <div class="columna">
-                                            <p:outputLabel value="Causante:" for="ddhhCausante" />
-                                            <p:inputText id="ddhhCausante" value="#{expedienteController.selected.ddhhCausante}" />
-                                            <p:outputLabel value="DNI:" for="ddhhDni" />
-                                            <p:inputText id="ddhhDni" value="#{expedienteController.selected.ddhhDni}" />
-                                            <p:outputLabel value="Último domicilio:" for="ddhhUltimoDomicilio" />
-                                            <p:inputText id="ddhhUltimoDomicilio" value="#{expedienteController.selected.ddhhUltimoDomicilio}" />
-                                            <p:outputLabel value="Estado Civil:" for="ddhhEstadoCivil" />
-                                            <p:inputText id="ddhhEstadoCivil" value="#{expedienteController.selected.ddhhEstadoCivil}" />
-                                            <p:outputLabel value="Herederos:" />
-                                            <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.ddhhHerederos}">
-                                                <f:selectItem itemLabel="Descendientes" itemValue="Descendientes" />
-                                                <f:selectItem itemLabel="Cónyuge" itemValue="Cónyuge" />
-                                                <f:selectItem itemLabel="Ascendientes" itemValue="Ascendientes" />
-                                                <f:selectItem itemLabel="Colaterales" itemValue="Colaterales" />
-                                            </p:selectManyCheckbox>
-                                            <p:inputTextarea value="#{expedienteController.selected.ddhhHerederosDetalle}" rows="4" cols="25" autoResize="false" />
-                                        </div>
-                                        <div class="columna">
-                                            <p:outputLabel value="Motivo DDHH:" />
-                                            <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.ddhhMotivos}">
-                                                <f:selectItem itemLabel="Inmueble" itemValue="Inmueble" />
-                                                <f:selectItem itemLabel="Ganancial" itemValue="Ganancial" />
-                                                <f:selectItem itemLabel="Adjudicación" itemValue="Adjudicación" />
-                                                <f:selectItem itemLabel="Propio" itemValue="Propio" />
-                                                <f:selectItem itemLabel="Venta" itemValue="Venta" />
-                                                <f:selectItem itemLabel="Automotor" itemValue="Automotor" />
-                                                <f:selectItem itemLabel="Cobro de crédito" itemValue="Cobro de crédito" />
-                                                <f:selectItem itemLabel="Otro" itemValue="Otro" />
-                                            </p:selectManyCheckbox>
-                                            <p:outputLabel value="Detalle inmueble / cuenta rentas:" for="ddhhMotivoInmuebleDetalle" />
-                                            <p:inputText id="ddhhMotivoInmuebleDetalle" value="#{expedienteController.selected.ddhhMotivoInmuebleDetalle}" />
-                                            <p:outputLabel value="Detalle automotor / patente:" for="ddhhMotivoAutomotorDetalle" />
-                                            <p:inputText id="ddhhMotivoAutomotorDetalle" value="#{expedienteController.selected.ddhhMotivoAutomotorDetalle}" />
-                                            <p:outputLabel value="Cobro de crédito:" for="ddhhMotivoCobroCreditoDetalle" />
-                                            <p:inputTextarea id="ddhhMotivoCobroCreditoDetalle" value="#{expedienteController.selected.ddhhMotivoCobroCreditoDetalle}" rows="3" cols="30" autoResize="false" />
-                                            <p:outputLabel value="Otro:" for="ddhhMotivoOtroDetalle" />
-                                            <p:inputText id="ddhhMotivoOtroDetalle" value="#{expedienteController.selected.ddhhMotivoOtroDetalle}" />
-                                            <p:outputLabel value="Padre del Causante:" for="ddhhPadreCausante" />
-                                            <p:inputText id="ddhhPadreCausante" value="#{expedienteController.selected.ddhhPadreCausante}" />
-                                            <p:outputLabel value="Madre del Causante:" for="ddhhMadreCausante" />
-                                            <p:inputText id="ddhhMadreCausante" value="#{expedienteController.selected.ddhhMadreCausante}" />
-                                            <p:outputLabel value="Observaciones DDHH:" for="ddhhObservaciones" />
-                                            <p:inputTextarea id="ddhhObservaciones" value="#{expedienteController.selected.ddhhObservaciones}" rows="4" cols="30" autoResize="false" />
+                                    <h:panelGroup id="ddhhPanel" layout="block" styleClass="ddhh-panel" style="display: #{expedienteController.selected.jpTipo eq 'DDHH' ? 'block' : 'none'};">
+                                        <div class="ddhh-layout">
+                                            <div class="ddhh-col ddhh-causante">
+                                                <p:outputLabel value="Causante:" for="ddhhCausante" />
+                                                <p:inputText id="ddhhCausante" value="#{expedienteController.selected.ddhhCausante}" />
+                                                <p:outputLabel value="DNI:" for="ddhhDni" />
+                                                <p:inputText id="ddhhDni" value="#{expedienteController.selected.ddhhDni}" />
+                                                <p:outputLabel value="Último Domicilio:" for="ddhhUltimoDomicilio" />
+                                                <p:inputText id="ddhhUltimoDomicilio" value="#{expedienteController.selected.ddhhUltimoDomicilio}" />
+                                                <p:outputLabel value="Estado Civil:" for="ddhhEstadoCivil" />
+                                                <p:inputText id="ddhhEstadoCivil" value="#{expedienteController.selected.ddhhEstadoCivil}" />
+                                                <p:outputLabel value="Herederos:" />
+                                                <div class="ddhh-herederos">
+                                                    <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.ddhhHerederos}">
+                                                        <f:selectItem itemLabel="Descendientes" itemValue="Descendientes" />
+                                                        <f:selectItem itemLabel="Cónyuge" itemValue="Cónyuge" />
+                                                        <f:selectItem itemLabel="Ascendientes" itemValue="Ascendientes" />
+                                                        <f:selectItem itemLabel="Colaterales" itemValue="Colaterales" />
+                                                    </p:selectManyCheckbox>
+                                                    <p:inputTextarea value="#{expedienteController.selected.ddhhHerederosDetalle}" rows="4" cols="25" autoResize="false" />
+                                                </div>
+                                            </div>
+                                            <div class="ddhh-col ddhh-motivos">
+                                                <p:outputLabel value="Motivo DDHH:" />
+                                                <div class="ddhh-motivo-grilla">
+                                                    <p:selectManyCheckbox layout="grid" columns="3" value="#{expedienteController.selected.ddhhMotivos}">
+                                                        <f:selectItem itemLabel="Inmueble" itemValue="Inmueble" />
+                                                        <f:selectItem itemLabel="Ganancial" itemValue="Ganancial" />
+                                                        <f:selectItem itemLabel="Adjudicación" itemValue="Adjudicación" />
+                                                        <f:selectItem itemLabel="Propio" itemValue="Propio" />
+                                                        <f:selectItem itemLabel="Venta" itemValue="Venta" />
+                                                        <f:selectItem itemLabel="Automotor" itemValue="Automotor" />
+                                                        <f:selectItem itemLabel="Cobro de crédito" itemValue="Cobro de crédito" />
+                                                        <f:selectItem itemLabel="Otro" itemValue="Otro" />
+                                                    </p:selectManyCheckbox>
+                                                </div>
+                                                <p:outputLabel value="Nº cta RENTAS:" for="ddhhMotivoInmuebleDetalle" />
+                                                <p:inputText id="ddhhMotivoInmuebleDetalle" value="#{expedienteController.selected.ddhhMotivoInmuebleDetalle}" />
+                                                <p:outputLabel value="Patente:" for="ddhhMotivoAutomotorDetalle" />
+                                                <p:inputText id="ddhhMotivoAutomotorDetalle" value="#{expedienteController.selected.ddhhMotivoAutomotorDetalle}" />
+                                                <p:outputLabel value="Cobro de crédito:" for="ddhhMotivoCobroCreditoDetalle" />
+                                                <p:inputTextarea id="ddhhMotivoCobroCreditoDetalle" value="#{expedienteController.selected.ddhhMotivoCobroCreditoDetalle}" rows="3" cols="30" autoResize="false" />
+                                                <p:outputLabel value="Otro:" for="ddhhMotivoOtroDetalle" />
+                                                <p:inputText id="ddhhMotivoOtroDetalle" value="#{expedienteController.selected.ddhhMotivoOtroDetalle}" />
+                                                <p:outputLabel value="Padre del Causante:" for="ddhhPadreCausante" />
+                                                <p:inputText id="ddhhPadreCausante" value="#{expedienteController.selected.ddhhPadreCausante}" />
+                                                <p:outputLabel value="Madre del Causante:" for="ddhhMadreCausante" />
+                                                <p:inputText id="ddhhMadreCausante" value="#{expedienteController.selected.ddhhMadreCausante}" />
+                                                <p:outputLabel value="Observaciones:" for="ddhhObservaciones" />
+                                                <p:inputTextarea id="ddhhObservaciones" value="#{expedienteController.selected.ddhhObservaciones}" rows="4" cols="30" autoResize="false" />
+                                            </div>
                                         </div>
                                     </h:panelGroup>
 
@@ -409,12 +422,6 @@
                                 <p:confirmDialog id="confirmdialog" widgetVar="confirm" global="true" showEffect="fade" hideEffect="fade" message="¿está seguro?" header="No es muy común cambiar el tipo de expediente:">
                                     <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" update=":ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm" />
                                 </p:confirmDialog>
-                                <p:outputLabel value="Equipo:" for="equipo"  />
-
-                                <p:selectOneMenu  id="equipo" editable="false" effect="fold" value="#{expedienteController.selected.equipo}">
-                                    <f:selectItem itemLabel=" -- Elige un equipo --"  noSelectionOption="true"  />
-                                    <f:selectItems value="#{equipoController.items}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo.nombre}" />
-                                </p:selectOneMenu>
                                 <div class="checkboxexpedientes">
 
                                     <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Reajustes'}" >

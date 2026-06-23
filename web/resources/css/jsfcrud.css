@@ -1824,13 +1824,23 @@ display: flex;
 /* Reordenamiento visual para expediente judicial con JP Tipo DDHH */
 .ddhh-panel {
     width: 100%;
+    max-width: 100%;
     margin-top: 15px;
+    overflow-wrap: anywhere;
 }
 
 .ddhh-layout {
     display: grid;
-    grid-template-columns: minmax(230px, 1fr) minmax(260px, 1fr);
-    gap: 35px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    max-width: 100%;
+}
+
+@media (min-width: 1500px) {
+    .ddhh-layout {
+        grid-template-columns: minmax(230px, 1fr) minmax(260px, 1fr);
+        gap: 35px;
+    }
 }
 
 .ddhh-col {
@@ -1844,6 +1854,13 @@ display: flex;
     grid-template-columns: auto 1fr;
     gap: 10px;
     align-items: start;
+    max-width: 100%;
+}
+
+@media (max-width: 1200px) {
+    .ddhh-herederos {
+        grid-template-columns: 1fr;
+    }
 }
 
 .ddhh-motivo-grilla .ui-selectmanycheckbox td {

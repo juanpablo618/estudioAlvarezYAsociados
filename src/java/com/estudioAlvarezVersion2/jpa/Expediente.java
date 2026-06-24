@@ -1004,6 +1004,60 @@ public class Expediente implements Serializable {
     public void setDdhhHerederosDetalle(String ddhhHerederosDetalle) { this.ddhhHerederosDetalle = ddhhHerederosDetalle; }
     public String[] getDdhhMotivos() { return convertirTextoAArray(ddhhMotivos); }
     public void setDdhhMotivos(String[] ddhhMotivos) { this.ddhhMotivos = convertirArrayATexto(ddhhMotivos); }
+    public String[] getDdhhMotivosPrincipales() {
+        java.util.List<String> motivosPrincipales = new java.util.ArrayList<String>();
+        for (String motivo : getDdhhMotivos()) {
+            if (esDdhhMotivoPrincipal(motivo)) {
+                motivosPrincipales.add(motivo);
+            }
+        }
+        return motivosPrincipales.toArray(new String[motivosPrincipales.size()]);
+    }
+
+    public void setDdhhMotivosPrincipales(String[] ddhhMotivosPrincipales) {
+        java.util.List<String> motivos = new java.util.ArrayList<String>();
+        if (ddhhMotivosPrincipales != null) {
+            for (String motivoPrincipal : ddhhMotivosPrincipales) {
+                if (motivoPrincipal != null && !motivoPrincipal.trim().isEmpty()) {
+                    motivos.add(motivoPrincipal);
+                }
+            }
+        }
+        for (String motivo : getDdhhMotivos()) {
+            if (motivo != null && !esDdhhMotivoPrincipal(motivo)) {
+                motivos.add(motivo);
+            }
+        }
+        setDdhhMotivos(motivos.toArray(new String[motivos.size()]));
+    }
+
+    public String[] getDdhhMotivosSecundarios() {
+        java.util.List<String> motivosSecundarios = new java.util.ArrayList<String>();
+        for (String motivo : getDdhhMotivos()) {
+            if (motivo != null && !esDdhhMotivoPrincipal(motivo)) {
+                motivosSecundarios.add(motivo);
+            }
+        }
+        return motivosSecundarios.toArray(new String[motivosSecundarios.size()]);
+    }
+
+    public void setDdhhMotivosSecundarios(String[] ddhhMotivosSecundarios) {
+        java.util.List<String> motivos = new java.util.ArrayList<String>();
+        for (String motivo : getDdhhMotivos()) {
+            if (esDdhhMotivoPrincipal(motivo)) {
+                motivos.add(motivo);
+            }
+        }
+        if (ddhhMotivosSecundarios != null) {
+            for (String motivoSecundario : ddhhMotivosSecundarios) {
+                if (motivoSecundario != null && !motivoSecundario.trim().isEmpty()) {
+                    motivos.add(motivoSecundario);
+                }
+            }
+        }
+        setDdhhMotivos(motivos.toArray(new String[motivos.size()]));
+    }
+
     public String getDdhhMotivoPrincipal() {
         for (String motivo : getDdhhMotivos()) {
             if (esDdhhMotivoPrincipal(motivo)) {

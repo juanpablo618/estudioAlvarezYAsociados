@@ -393,17 +393,17 @@
                                         </div>
                                         <div class="columna">
                                             <p:outputLabel value="Motivo DDHH:" />
-                                            <p:selectOneRadio id="ddhhMotivos" layout="pageDirection" value="#{expedienteController.selected.ddhhMotivoPrincipal}">
+                                            <p:selectManyCheckbox id="ddhhMotivos" layout="pageDirection" value="#{expedienteController.selected.ddhhMotivosPrincipales}">
                                                 <f:selectItem itemLabel="Inmueble" itemValue="Inmueble" />
                                                 <f:selectItem itemLabel="Automotor" itemValue="Automotor" />
                                                 <f:selectItem itemLabel="Cobro de crédito" itemValue="Cobro de crédito" />
                                                 <f:selectItem itemLabel="Otro" itemValue="Otro" />
                                                 <p:ajax update="ddhhMotivosDetalle" />
-                                            </p:selectOneRadio>
+                                            </p:selectManyCheckbox>
                                             <h:panelGroup id="ddhhMotivosDetalle" layout="block">
                                                 <h:panelGroup layout="block" rendered="#{expedienteController.selected.ddhhMotivoInmuebleSeleccionado}">
                                                     <p:outputLabel value="Opciones inmueble:" />
-                                                    <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.ddhhMotivos}">
+                                                    <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.ddhhMotivosSecundarios}">
                                                         <f:selectItem itemLabel="Ganancial" itemValue="Ganancial" />
                                                         <f:selectItem itemLabel="Propio" itemValue="Propio" />
                                                         <f:selectItem itemLabel="Venta" itemValue="Venta" />
@@ -414,7 +414,7 @@
                                                 </h:panelGroup>
                                                 <h:panelGroup layout="block" rendered="#{expedienteController.selected.ddhhMotivoAutomotorSeleccionado}">
                                                     <p:outputLabel value="Opciones automotor:" />
-                                                    <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.ddhhMotivos}">
+                                                    <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.ddhhMotivosSecundarios}">
                                                         <f:selectItem itemLabel="Ganancial" itemValue="Ganancial" />
                                                         <f:selectItem itemLabel="Propio" itemValue="Propio" />
                                                         <f:selectItem itemLabel="Venta" itemValue="Venta" />
@@ -988,7 +988,7 @@
 
                                         <f:selectItem itemLabel="Sí" itemValue="Si" />
                                         <f:selectItem itemLabel="No" itemValue="No" />
-                                    </p:selectOneRadio>
+                                    </p:selectManyCheckbox>
 
                                 </div>
                             </div>

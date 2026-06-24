@@ -1004,6 +1004,21 @@ public class Expediente implements Serializable {
     public void setDdhhHerederosDetalle(String ddhhHerederosDetalle) { this.ddhhHerederosDetalle = ddhhHerederosDetalle; }
     public String[] getDdhhMotivos() { return convertirTextoAArray(ddhhMotivos); }
     public void setDdhhMotivos(String[] ddhhMotivos) { this.ddhhMotivos = convertirArrayATexto(ddhhMotivos); }
+    public String[] getDdhhMotivosPrincipales() { return filtrarDdhhMotivos(true); }
+    public void setDdhhMotivosPrincipales(String[] ddhhMotivosPrincipales) {
+        this.ddhhMotivos = convertirArrayATexto(unirArrays(ddhhMotivosPrincipales, getDdhhMotivosOpciones()));
+    }
+    public String[] getDdhhMotivosOpciones() { return filtrarDdhhMotivos(false); }
+    public void setDdhhMotivosOpciones(String[] ddhhMotivosOpciones) {
+        this.ddhhMotivos = convertirArrayATexto(unirArrays(getDdhhMotivosPrincipales(), ddhhMotivosOpciones));
+    }
+    public boolean isDdhhMotivoInmuebleSelected() { return tieneDdhhMotivo("Inmueble"); }
+    public boolean isDdhhMotivoAutomotorSelected() { return tieneDdhhMotivo("Automotor"); }
+    public boolean isDdhhMotivoBienRegistrableSelected() {
+        return isDdhhMotivoInmuebleSelected() || isDdhhMotivoAutomotorSelected();
+    }
+    public boolean isDdhhMotivoCobroCreditoSelected() { return tieneDdhhMotivo("Cobro de crédito"); }
+    public boolean isDdhhMotivoOtroSelected() { return tieneDdhhMotivo("Otro"); }
     public String getDdhhMotivoInmuebleDetalle() { return ddhhMotivoInmuebleDetalle; }
     public void setDdhhMotivoInmuebleDetalle(String ddhhMotivoInmuebleDetalle) { this.ddhhMotivoInmuebleDetalle = ddhhMotivoInmuebleDetalle; }
     public String getDdhhMotivoAutomotorDetalle() { return ddhhMotivoAutomotorDetalle; }
@@ -1012,6 +1027,43 @@ public class Expediente implements Serializable {
     public void setDdhhMotivoCobroCreditoDetalle(String ddhhMotivoCobroCreditoDetalle) { this.ddhhMotivoCobroCreditoDetalle = ddhhMotivoCobroCreditoDetalle; }
     public String getDdhhMotivoOtroDetalle() { return ddhhMotivoOtroDetalle; }
     public void setDdhhMotivoOtroDetalle(String ddhhMotivoOtroDetalle) { this.ddhhMotivoOtroDetalle = ddhhMotivoOtroDetalle; }
+    private boolean tieneDdhhMotivo(String motivo) {
+        for (String ddhhMotivo : getDdhhMotivos()) {
+            if (motivo.equals(ddhhMotivo)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private String[] filtrarDdhhMotivos(boolean principales) {
+        java.util.List<String> motivosFiltrados = new java.util.ArrayList<String>();
+        for (String motivo : getDdhhMotivos()) {
+            if (esDdhhMotivoPrincipal(motivo) == principales) {
+                motivosFiltrados.add(motivo);
+            }
+        }
+        return motivosFiltrados.toArray(new String[motivosFiltrados.size()]);
+    }
+    private boolean esDdhhMotivoPrincipal(String motivo) {
+        return "Inmueble".equals(motivo) || "Automotor".equals(motivo)
+                || "Cobro de crédito".equals(motivo) || "Otro".equals(motivo);
+    }
+    private String[] unirArrays(String[] primeros, String[] segundos) {
+        java.util.List<String> motivosUnidos = new java.util.ArrayList<String>();
+        agregarMotivos(motivosUnidos, primeros);
+        agregarMotivos(motivosUnidos, segundos);
+        return motivosUnidos.toArray(new String[motivosUnidos.size()]);
+    }
+    private void agregarMotivos(java.util.List<String> motivos, String[] nuevosMotivos) {
+        if (nuevosMotivos == null) {
+            return;
+        }
+        for (String motivo : nuevosMotivos) {
+            if (motivo != null && !motivo.trim().isEmpty() && !motivos.contains(motivo)) {
+                motivos.add(motivo);
+            }
+        }
+    }
     private String[] convertirTextoAArray(String valor) {
         if (valor == null || valor.trim().isEmpty()) {
             return new String[0];

@@ -1004,6 +1004,47 @@ public class Expediente implements Serializable {
     public void setDdhhHerederosDetalle(String ddhhHerederosDetalle) { this.ddhhHerederosDetalle = ddhhHerederosDetalle; }
     public String[] getDdhhMotivos() { return convertirTextoAArray(ddhhMotivos); }
     public void setDdhhMotivos(String[] ddhhMotivos) { this.ddhhMotivos = convertirArrayATexto(ddhhMotivos); }
+    public String getDdhhMotivoPrincipal() {
+        for (String motivo : getDdhhMotivos()) {
+            if (esDdhhMotivoPrincipal(motivo)) {
+                return motivo;
+            }
+        }
+        return null;
+    }
+
+    public void setDdhhMotivoPrincipal(String ddhhMotivoPrincipal) {
+        java.util.List<String> motivos = new java.util.ArrayList<String>();
+        if (ddhhMotivoPrincipal != null && !ddhhMotivoPrincipal.trim().isEmpty()) {
+            motivos.add(ddhhMotivoPrincipal);
+        }
+        for (String motivo : getDdhhMotivos()) {
+            if (motivo != null && !esDdhhMotivoPrincipal(motivo)) {
+                motivos.add(motivo);
+            }
+        }
+        setDdhhMotivos(motivos.toArray(new String[motivos.size()]));
+    }
+
+    private boolean esDdhhMotivoPrincipal(String motivo) {
+        return motivo != null && (motivo.equalsIgnoreCase("Inmueble")
+                || motivo.equalsIgnoreCase("Automotor")
+                || motivo.equalsIgnoreCase("Cobro de crédito")
+                || motivo.equalsIgnoreCase("Otro"));
+    }
+    public boolean isDdhhMotivoInmuebleSeleccionado() { return contieneDdhhMotivo("Inmueble"); }
+    public boolean isDdhhMotivoAutomotorSeleccionado() { return contieneDdhhMotivo("Automotor"); }
+    public boolean isDdhhMotivoCobroCreditoSeleccionado() { return contieneDdhhMotivo("Cobro de crédito"); }
+    public boolean isDdhhMotivoOtroSeleccionado() { return contieneDdhhMotivo("Otro"); }
+
+    private boolean contieneDdhhMotivo(String motivo) {
+        for (String ddhhMotivo : getDdhhMotivos()) {
+            if (ddhhMotivo != null && ddhhMotivo.trim().equalsIgnoreCase(motivo)) {
+                return true;
+            }
+        }
+        return false;
+    }
     public String getDdhhMotivoInmuebleDetalle() { return ddhhMotivoInmuebleDetalle; }
     public void setDdhhMotivoInmuebleDetalle(String ddhhMotivoInmuebleDetalle) { this.ddhhMotivoInmuebleDetalle = ddhhMotivoInmuebleDetalle; }
     public String getDdhhMotivoAutomotorDetalle() { return ddhhMotivoAutomotorDetalle; }

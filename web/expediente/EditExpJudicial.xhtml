@@ -336,8 +336,21 @@
                         <div class="datosexpediente">
                             <div class="columna">
 
-                                <p:outputLabel value="Tipo:" for="tipo" />
-                                <p:selectOneMenu   editable="true" id="tipo"  value="#{expedienteController.selected.tipo}" >
+                                <p:outputLabel value="Equipo:" for="equipo"  />
+
+                                <p:selectOneMenu  id="equipo" editable="false" effect="fold" value="#{expedienteController.selected.equipo}">
+                                    <f:selectItem itemLabel=" -- Elige un equipo --"  noSelectionOption="true"  />
+                                    <f:selectItems value="#{equipoController.items}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo.nombre}" />
+                                </p:selectOneMenu>
+                                
+                                
+                                <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" 
+                                               value="Tipo:"
+                                               for="tipo" />
+                                <p:selectOneMenu rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}"
+                                                 editable="true"
+                                                 id="tipo"
+                                                 value="#{expedienteController.selected.tipo}" >
                                     <f:selectItem itemLabel="Reajustes" itemValue="Reajustes" />
                                     <f:selectItem itemLabel="Pensiones" itemValue="Pensiones" />
                                     <f:selectItem itemLabel="Amparos" itemValue="Amparos" />
@@ -347,38 +360,51 @@
 
                                     <p:ajax event="change" update="confirmdialog" oncomplete="PF('confirm').show()" />
                                 </p:selectOneMenu>
-                                    <p:outputLabel value="JP Tipo:" for="jpTipo" style="font-weight: bold" />
-                                    <p:selectOneMenu id="jpTipo" value="#{expedienteController.selected.jpTipo}" editable="true">
-                                    <f:selectItem itemLabel=" -- Elige un JP Tipo --" noSelectionOption="true" />
-                                    <f:selectItem itemLabel="DDHH" itemValue="DDHH" />
-                                    <f:selectItem itemLabel="LABORAL" itemValue="LABORAL" />
-                                    <f:selectItem itemLabel="LABORAL-LEY DE RIESGO" itemValue="LABORAL-LEY DE RIESGO" />
-                                    <f:selectItem itemLabel="JURISDICCIÓN VOLUNTARIA" itemValue="JURISDICCIÓN VOLUNTARIA" />
-                                    <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
-                                    <p:ajax update="ddhhPanel" />
-                                    </p:selectOneMenu>
-                                    <h:panelGroup id="ddhhPanel" layout="block" style="width: 100%; margin-top: 15px; display: #{expedienteController.selected.jpTipo eq 'DDHH' ? 'block' : 'none'};">
-                                        <div class="columna">
-                                            <p:outputLabel value="Causante:" for="ddhhCausante" />
-                                            <p:inputText id="ddhhCausante" value="#{expedienteController.selected.ddhhCausante}" />
-                                            <p:outputLabel value="DNI:" for="ddhhDni" />
-                                            <p:inputText id="ddhhDni" value="#{expedienteController.selected.ddhhDni}" />
-                                            <p:outputLabel value="Último domicilio:" for="ddhhUltimoDomicilio" />
-                                            <p:inputText id="ddhhUltimoDomicilio" value="#{expedienteController.selected.ddhhUltimoDomicilio}" />
-                                            <p:outputLabel value="Estado Civil:" for="ddhhEstadoCivil" />
-                                            <p:inputText id="ddhhEstadoCivil" value="#{expedienteController.selected.ddhhEstadoCivil}" />
-                                            <p:outputLabel value="Herederos:" />
-                                            <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.ddhhHerederos}">
+                                
+                                <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" 
+                                               value="JP Tipo:" 
+                                               for="jpTipo" 
+                                               style="font-weight: bold" />
+                                <p:selectOneMenu rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" 
+                                                 id="jpTipo"
+                                                 value="#{expedienteController.selected.jpTipo}" 
+                                                 editable="true">
+                                <f:selectItem itemLabel=" -- Elige un JP Tipo --" noSelectionOption="true" />
+                                <f:selectItem itemLabel="DDHH" itemValue="DDHH" />
+                                <f:selectItem itemLabel="LABORAL" itemValue="LABORAL" />
+                                <f:selectItem itemLabel="LABORAL-LEY DE RIESGO" itemValue="LABORAL-LEY DE RIESGO" />
+                                <f:selectItem itemLabel="JURISDICCIÓN VOLUNTARIA" itemValue="JURISDICCIÓN VOLUNTARIA" />
+                                <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
+                                <p:ajax update="ddhhPanel" />
+                                </p:selectOneMenu>
+                                
+                                <h:panelGroup id="ddhhPanel" layout="block" style="width: 100%; margin-top: 15px; display: #{expedienteController.selected.jpTipo eq 'DDHH' ? 'block' : 'none'};">
+                                                                           
+                                    <p:outputLabel value="Causante:"
+                                               for="ddhhCausante" 
+                                               rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}"/>
+                                </h:panelGroup> 
+                                
+                                            <p:inputText id="ddhhCausante" rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" value="#{expedienteController.selected.ddhhCausante}" />
+                                            
+                                            <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" value="DNI:" for="ddhhDni" />
+                                            <p:inputText rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" id="ddhhDni" value="#{expedienteController.selected.ddhhDni}" />
+                                            <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" value="Último domicilio:" for="ddhhUltimoDomicilio" />
+                                            <p:inputText rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" id="ddhhUltimoDomicilio" value="#{expedienteController.selected.ddhhUltimoDomicilio}" />
+                                            <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" value="Estado Civil:" for="ddhhEstadoCivil" />
+                                            <p:inputText rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" id="ddhhEstadoCivil" value="#{expedienteController.selected.ddhhEstadoCivil}" />
+                                            <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" value="Herederos:" />
+                                            <p:selectManyCheckbox rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" layout="pageDirection" value="#{expedienteController.selected.ddhhHerederos}">
                                                 <f:selectItem itemLabel="Descendientes" itemValue="Descendientes" />
                                                 <f:selectItem itemLabel="Cónyuge" itemValue="Cónyuge" />
                                                 <f:selectItem itemLabel="Ascendientes" itemValue="Ascendientes" />
                                                 <f:selectItem itemLabel="Colaterales" itemValue="Colaterales" />
                                             </p:selectManyCheckbox>
-                                            <p:inputTextarea value="#{expedienteController.selected.ddhhHerederosDetalle}" rows="4" cols="25" autoResize="false" />
+                                            <p:inputTextarea rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" value="#{expedienteController.selected.ddhhHerederosDetalle}" rows="4" cols="25" autoResize="false" />
                                         </div>
-                                        <div class="columna">
-                                            <p:outputLabel value="Motivo DDHH:" />
-                                            <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.ddhhMotivos}">
+                            <div class="columna">
+                                            <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" value="Motivo DDHH:" />
+                                            <p:selectManyCheckbox rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" layout="pageDirection" value="#{expedienteController.selected.ddhhMotivos}">
                                                 <f:selectItem itemLabel="Inmueble" itemValue="Inmueble" />
                                                 <f:selectItem itemLabel="Ganancial" itemValue="Ganancial" />
                                                 <f:selectItem itemLabel="Adjudicación" itemValue="Adjudicación" />
@@ -388,36 +414,30 @@
                                                 <f:selectItem itemLabel="Cobro de crédito" itemValue="Cobro de crédito" />
                                                 <f:selectItem itemLabel="Otro" itemValue="Otro" />
                                             </p:selectManyCheckbox>
-                                            <p:outputLabel value="Detalle inmueble / cuenta rentas:" for="ddhhMotivoInmuebleDetalle" />
-                                            <p:inputText id="ddhhMotivoInmuebleDetalle" value="#{expedienteController.selected.ddhhMotivoInmuebleDetalle}" />
-                                            <p:outputLabel value="Detalle automotor / patente:" for="ddhhMotivoAutomotorDetalle" />
-                                            <p:inputText id="ddhhMotivoAutomotorDetalle" value="#{expedienteController.selected.ddhhMotivoAutomotorDetalle}" />
-                                            <p:outputLabel value="Cobro de crédito:" for="ddhhMotivoCobroCreditoDetalle" />
-                                            <p:inputTextarea id="ddhhMotivoCobroCreditoDetalle" value="#{expedienteController.selected.ddhhMotivoCobroCreditoDetalle}" rows="3" cols="30" autoResize="false" />
-                                            <p:outputLabel value="Otro:" for="ddhhMotivoOtroDetalle" />
-                                            <p:inputText id="ddhhMotivoOtroDetalle" value="#{expedienteController.selected.ddhhMotivoOtroDetalle}" />
-                                            <p:outputLabel value="Padre del Causante:" for="ddhhPadreCausante" />
-                                            <p:inputText id="ddhhPadreCausante" value="#{expedienteController.selected.ddhhPadreCausante}" />
-                                            <p:outputLabel value="Madre del Causante:" for="ddhhMadreCausante" />
-                                            <p:inputText id="ddhhMadreCausante" value="#{expedienteController.selected.ddhhMadreCausante}" />
-                                            <p:outputLabel value="Observaciones DDHH:" for="ddhhObservaciones" />
-                                            <p:inputTextarea id="ddhhObservaciones" value="#{expedienteController.selected.ddhhObservaciones}" rows="4" cols="30" autoResize="false" />
-                                        </div>
-                                    </h:panelGroup>
-
+                                            <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" value="Detalle inmueble / cuenta rentas:" for="ddhhMotivoInmuebleDetalle" />
+                                            <p:inputText rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" id="ddhhMotivoInmuebleDetalle" value="#{expedienteController.selected.ddhhMotivoInmuebleDetalle}" />
+                                            <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" value="Detalle automotor / patente:" for="ddhhMotivoAutomotorDetalle" />
+                                            <p:inputText rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" id="ddhhMotivoAutomotorDetalle" value="#{expedienteController.selected.ddhhMotivoAutomotorDetalle}" />
+                                            <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" value="Cobro de crédito:" for="ddhhMotivoCobroCreditoDetalle" />
+                                            <p:inputTextarea rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" id="ddhhMotivoCobroCreditoDetalle" value="#{expedienteController.selected.ddhhMotivoCobroCreditoDetalle}" rows="3" cols="30" autoResize="false" />
+                                            <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" value="Otro:" for="ddhhMotivoOtroDetalle" />
+                                            <p:inputText rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" id="ddhhMotivoOtroDetalle" value="#{expedienteController.selected.ddhhMotivoOtroDetalle}" />
+                                            <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" value="Padre del Causante:" for="ddhhPadreCausante" />
+                                            <p:inputText rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" id="ddhhPadreCausante" value="#{expedienteController.selected.ddhhPadreCausante}" />
+                                            <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" value="Madre del Causante:" for="ddhhMadreCausante" />
+                                            <p:inputText rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" id="ddhhMadreCausante" value="#{expedienteController.selected.ddhhMadreCausante}" />
+                                            <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" value="Observaciones DDHH:" for="ddhhObservaciones" />
+                                            <p:inputTextarea rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" id="ddhhObservaciones" value="#{expedienteController.selected.ddhhObservaciones}" rows="4" cols="30" autoResize="false" />
+                                    
 
                                 <p:confirmDialog id="confirmdialog" widgetVar="confirm" global="true" showEffect="fade" hideEffect="fade" message="¿está seguro?" header="No es muy común cambiar el tipo de expediente:">
                                     <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" update=":ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm" />
                                 </p:confirmDialog>
-                                <p:outputLabel value="Equipo:" for="equipo"  />
-
-                                <p:selectOneMenu  id="equipo" editable="false" effect="fold" value="#{expedienteController.selected.equipo}">
-                                    <f:selectItem itemLabel=" -- Elige un equipo --"  noSelectionOption="true"  />
-                                    <f:selectItems value="#{equipoController.items}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo.nombre}" />
-                                </p:selectOneMenu>
                                 <div class="checkboxexpedientes">
 
-                                    <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Reajustes'}" >
+                                    <p:selectManyCheckbox 
+                                                          layout="pageDirection" value="#{expedienteController.selected.subCategoriasDeTipo}" 
+                                                          rendered="#{expedienteController.selected.tipo eq 'Reajustes'}" >
                                         <f:selectItem itemValue="PBU - Quiroga" itemLabel="PBU - Quiroga" />
                                         <f:selectItem itemValue="Eliff (actualización de rem)" itemLabel="Eliff (actualización de rem)" />
                                         <f:selectItem itemValue="Badaro (movilidad 2002-2009)" itemLabel="Badaro (movilidad 2002-2009)" />
@@ -429,10 +449,9 @@
                                         <f:selectItem itemValue="Otros" itemLabel="Otros" />
                                     </p:selectManyCheckbox>
 
-
-
-
-                                    <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Pensiones'}">
+                                    <p:selectManyCheckbox 
+                                                          layout="pageDirection" value="#{expedienteController.selected.subCategoriasDeTipo}" 
+                                                          rendered="#{expedienteController.selected.tipo eq 'Pensiones'}">
                                         <f:selectItem itemValue="Separación de hecho (de Seta de Mazzucco)" itemLabel="Separación de hecho (de Seta de Mazzucco)" />
                                         <f:selectItem itemValue="Convivientes sin prueba suficiente" itemLabel="Convivientes sin prueba suficiente" />
                                         <f:selectItem itemValue="Proporcionalidad (Pinto)" itemLabel="Proporcionalidad (Pinto)" />
@@ -442,7 +461,9 @@
                                         <f:selectItem itemValue="Otros (DDJJ de Salud) (hijo incapacitado)" itemLabel="Otros (DDJJ de Salud) (hijo incapacitado)" />
                                     </p:selectManyCheckbox>
 
-                                    <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Amparos'}">
+                                    <p:selectManyCheckbox 
+                                        layout="pageDirection" value="#{expedienteController.selected.subCategoriasDeTipo}" 
+                                        rendered="#{expedienteController.selected.tipo eq 'Amparos'}">
                                         <f:selectItem itemValue="Hombres – Ley 26.970" itemLabel="Hombres – Ley 26.970" />
                                         <f:selectItem itemValue="DD.JJ. de Salud sin presentar en RTI" itemLabel="DD.JJ. de Salud sin presentar en RTI" />
                                         <f:selectItem itemValue="RVP" itemLabel="RVP" />
@@ -451,13 +472,17 @@
                                         <f:selectItem itemValue="Otros" itemLabel="Otros" />
                                     </p:selectManyCheckbox>
 
-                                    <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Otros'}">
+                                    <p:selectManyCheckbox
+                                        layout="pageDirection" value="#{expedienteController.selected.subCategoriasDeTipo}"
+                                        rendered="#{expedienteController.selected.tipo eq 'Otros'}">
                                         <f:selectItem itemValue="Imp. Ganancias" itemLabel="Imp. Ganancias" />
                                         <f:selectItem itemValue="Apelación dictamen CMC" itemLabel="Apelación dictamen CMC" />
                                         <f:selectItem itemValue="Laboral" itemLabel="Laboral" />
                                     </p:selectManyCheckbox>
 
-                                    <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.subCategoriasDeTipo}"  rendered="#{expedienteController.selected.tipo eq 'Provincia'}">
+                                    <p:selectManyCheckbox
+                                        layout="pageDirection" value="#{expedienteController.selected.subCategoriasDeTipo}" 
+                                        rendered="#{expedienteController.selected.tipo eq 'Provincia'}">
                                         <f:selectItem itemValue="DD.HH" itemLabel="DD.HH" />
                                         <f:selectItem itemValue="A.R.T" itemLabel="A.R.T" />
                                         <f:selectItem itemValue="Despido" itemLabel="Despido" />
@@ -469,18 +494,27 @@
                             </div>
                             <div class="columna">
 
-                                <p:outputLabel value="Nº de Expediente:" for="nroDeExpediente"  />
-                                <p:inputText id="nroDeExpediente" value="#{expedienteController.selected.nroDeExpediente}" title="nroDeExpediente" />
+                                <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}"
+                                               value="Nº de Expediente:" for="nroDeExpediente"  />
+                                <p:inputText rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}"
+                                             id="nroDeExpediente" value="#{expedienteController.selected.nroDeExpediente}"
+                                             title="nroDeExpediente" />
 
 
 
-                                <p:outputLabel value="Caratula:"  for="caratula" />
-                                <p:inputTextarea rows="3" cols="35" autoResize="false"  id="caratula" value="#{expedienteController.selected.caratula}" title="caratula"/>
+                                <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" 
+                                               value="Caratula:" 
+                                               for="caratula" />
+                                <p:inputTextarea rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" 
+                                                 rows="3" cols="35" autoResize="false"  id="caratula" 
+                                                 value="#{expedienteController.selected.caratula}" title="caratula"/>
 
 
 
-                                <p:outputLabel value="Jurisdicción:" for="jurisdiccion"  />
-                                <p:selectOneMenu id="jurisdiccion"  value="#{expedienteController.selected.jurisdiccion}" editable="true" >
+                                <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" 
+                                               value="Jurisdicción:" for="jurisdiccion"  />
+                                <p:selectOneMenu rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}"
+                                                 id="jurisdiccion"  value="#{expedienteController.selected.jurisdiccion}" editable="true" >
                                     <f:selectItem itemLabel="Provincia - Juzgado N°" itemValue="Provincia - Juzgado N°" />
                                     <f:selectItem itemLabel="Provincia - Cámara" itemValue="Provincia - Cámara" />
                                     <f:selectItem itemLabel="Federales - Juzgado 1" itemValue="Federales - Juzgado 1" />
@@ -490,8 +524,10 @@
                                     <f:selectItem itemLabel="Federales - Camara - Sala B" itemValue="Federales - Camara - Sala B" />
                                 </p:selectOneMenu>
 
-                                <p:outputLabel value="Etapa Procesal:" for="etapaProcesal" />
-                                <p:selectOneMenu id="etapaProcesal" editable="true"  value="#{expedienteController.selected.etapaProcesal}" >
+                                <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}"
+                                               value="Etapa Procesal:" for="etapaProcesal" />
+                                <p:selectOneMenu rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" 
+                                                 id="etapaProcesal" editable="true"  value="#{expedienteController.selected.etapaProcesal}" >
                                     <f:selectItem itemLabel="Preparación de Demanda" itemValue="Preparación de Demanda" />
                                     <f:selectItem itemLabel="DDA iniciada" itemValue="DDA iniciada" />
                                     <f:selectItem itemLabel="Contestacion" itemValue="Contestacion" />
@@ -506,51 +542,34 @@
 
 
 
-                                <p:outputLabel class="" value="Responsable:" for="responsable" />
+                                <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}"
+                                               value="Responsable:"
+                                               for="responsable" />
 
-                                <p:selectOneMenu requiredMessage="debe seleccionar un responsable correcto" id="responsable" value="#{expedienteController.selected.responsable}">
+                                <p:selectOneMenu rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}"
+                                                 requiredMessage="debe seleccionar un responsable correcto" id="responsable" 
+                                                 value="#{expedienteController.selected.responsable}">
                                     <f:selectItem itemLabel=" -- Elige un Responsable --"  noSelectionOption="true"  />
-                                    <f:selectItems value="#{empleadoController.items}" var="empleado" itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}" />
+                                    <f:selectItems value="#{empleadoController.items}" var="empleado" itemLabel="#{empleado.nombreyApellido}" 
+                                                   itemValue="#{empleado.nombreyApellido}" />
                                 </p:selectOneMenu>
 
-                                <p:outputLabel class="" value="Usuario SAC:" for="usuarioSac" />
-                                <p:selectOneMenu id="usuarioSac" value="#{expedienteController.selected.usuarioSac}">
+                                <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}"
+                                               value="Usuario SAC:" for="usuarioSac" />
+                                <p:selectOneMenu rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}"
+                                                 id="usuarioSac" value="#{expedienteController.selected.usuarioSac}">
                                     <f:selectItem itemLabel=" -- Elige un Usuario SAC --" noSelectionOption="true" />
-                                    <f:selectItems value="#{empleadoController.items}" var="empleado" itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}" />
+                                    <f:selectItems value="#{empleadoController.items}" var="empleado" 
+                                                   itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}" />
                                 </p:selectOneMenu>
 
                             </div>
-
                             <div class="columna">
-                                <p:outputLabel value="Observaciones:" for="observaciones" />
-                                <p:inputTextarea rows="19" cols="25" autoResize="false"  id="observaciones" value="#{expedienteController.selected.observaciones}" title="observaciones"/>
-
-
-
-                                <div>
-                                    <h:commandButton onclick="form.target = '_blank';" value="Imprimir Carátula" styleClass="boton-imprimir" actionListener="#{downloadBean.crearPdfDeCaratula(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion,
-                                                                                                                                                               expedienteController.selected.nroDeAltura, expedienteController.selected.barrio,
-                                                                                                                                                               expedienteController.selected.apoderado,
-                                                                                                                                                               expedienteController.selected.fechaDeAtencion,
-                                                                                                                                                               expedienteController.selected.sexo,
-                                                                                                                                                               expedienteController.selected.telefono,
-                                                                                                                                                               expedienteController.selected.cuit,
-                                                                                                                                                               expedienteController.selected.fechaDeNacimiento,
-                                                                                                                                                               expedienteController.selected.edad, 
-                                                                                                                                                               expedienteController.selected.cobraBeneficio,
-                                                                                                                                                               expedienteController.selected.tipoDeBeneficio,
-                                                                                                                                                               expedienteController.selected.aportes,
-                                                                                                                                                               expedienteController.selected.trabajando,
-                                                                                                                                                               expedienteController.selected.inscripcionAut,
-                                                                                                                                                               expedienteController.selected.estadoCivil,
-                                                                                                                                                               expedienteController.selected.cantidadDeHijos,
-                                                                                                                                                               expedienteController.selected.obraSocial,
-                                                                                                                                                               expedienteController.selected.claveCidi,
-                                                                                                                                                               expedienteController.selected.claveFiscal,
-                                                                                                                                                               expedienteController.selected.claveSeguridadSocial
-                                                                                                                                                               )}" />
-
-                                </div>                    
+                                <p:outputLabel rendered="#{!expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}" 
+                                               value="Observaciones:" for="observaciones" />
+                                <p:inputTextarea rendered="#{!expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}"
+                                                 rows="19" cols="25" autoResize="false"  id="observaciones"
+                                                 value="#{expedienteController.selected.observaciones}" title="observaciones"/>
                             </div>                          
                         </div>
 

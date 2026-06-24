@@ -99,6 +99,9 @@ public class ExpedienteController implements Serializable {
     private static final String ADMINISTRATIVO = "administrativo";
     private static final String JUDICIAL = "judicial";
     private static final String SIN_CARPETA = "sin carpeta";
+    private static final String DDHH = "DDHH";
+    private static final String JUSTICIA_PROVINCIAL = "JUSTICIA PROVINCIAL";
+
 
     public Date getDateSelected() {
         return dateSelected;
@@ -281,6 +284,24 @@ public class ExpedienteController implements Serializable {
 
     public void setMostrarSoloActivos(boolean mostrarSoloActivos) {
         this.mostrarSoloActivos = mostrarSoloActivos;
+    }
+    
+      public boolean isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial() {
+        return isExpedienteJudicialDdhhJusticiaProvincial(selected);
+    }
+
+    private boolean isExpedienteJudicialDdhhJusticiaProvincial(Expediente expediente) {
+        if (expediente == null) {
+            return false;
+        }
+
+        return equalsIgnoreCaseTrim(expediente.getTipoDeExpediente(), JUDICIAL)
+                && equalsIgnoreCaseTrim(expediente.getJpTipo(), DDHH)
+                && equalsIgnoreCaseTrim(expediente.getEquipo(), JUSTICIA_PROVINCIAL);
+    }
+
+    private boolean equalsIgnoreCaseTrim(String value, String expected) {
+        return value != null && expected != null && value.trim().equalsIgnoreCase(expected);
     }
     
     public Expediente prepareCreateExpAdministrativo() {

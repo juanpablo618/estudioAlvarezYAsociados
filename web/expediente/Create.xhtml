@@ -163,24 +163,45 @@
                                         </div>
                                         <div class="columna">
                                             <p:outputLabel value="Motivo DDHH:" />
-                                            <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.ddhhMotivos}">
+                                            <p:selectOneRadio id="ddhhMotivos" layout="pageDirection" value="#{expedienteController.selected.ddhhMotivoPrincipal}">
                                                 <f:selectItem itemLabel="Inmueble" itemValue="Inmueble" />
-                                                <f:selectItem itemLabel="Ganancial" itemValue="Ganancial" />
-                                                <f:selectItem itemLabel="Adjudicación" itemValue="Adjudicación" />
-                                                <f:selectItem itemLabel="Propio" itemValue="Propio" />
-                                                <f:selectItem itemLabel="Venta" itemValue="Venta" />
                                                 <f:selectItem itemLabel="Automotor" itemValue="Automotor" />
                                                 <f:selectItem itemLabel="Cobro de crédito" itemValue="Cobro de crédito" />
                                                 <f:selectItem itemLabel="Otro" itemValue="Otro" />
-                                            </p:selectManyCheckbox>
-                                            <p:outputLabel value="Detalle inmueble / cuenta rentas:" for="ddhhMotivoInmuebleDetalle" />
-                                            <p:inputText id="ddhhMotivoInmuebleDetalle" value="#{expedienteController.selected.ddhhMotivoInmuebleDetalle}" />
-                                            <p:outputLabel value="Detalle automotor / patente:" for="ddhhMotivoAutomotorDetalle" />
-                                            <p:inputText id="ddhhMotivoAutomotorDetalle" value="#{expedienteController.selected.ddhhMotivoAutomotorDetalle}" />
-                                            <p:outputLabel value="Cobro de crédito:" for="ddhhMotivoCobroCreditoDetalle" />
-                                            <p:inputTextarea id="ddhhMotivoCobroCreditoDetalle" value="#{expedienteController.selected.ddhhMotivoCobroCreditoDetalle}" rows="3" cols="30" autoResize="false" />
-                                            <p:outputLabel value="Otro:" for="ddhhMotivoOtroDetalle" />
-                                            <p:inputText id="ddhhMotivoOtroDetalle" value="#{expedienteController.selected.ddhhMotivoOtroDetalle}" />
+                                                <p:ajax update="ddhhMotivosDetalle" />
+                                            </p:selectOneRadio>
+                                            <h:panelGroup id="ddhhMotivosDetalle" layout="block">
+                                                <h:panelGroup layout="block" rendered="#{expedienteController.selected.ddhhMotivoInmuebleSeleccionado}">
+                                                    <p:outputLabel value="Opciones inmueble:" />
+                                                    <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.ddhhMotivos}">
+                                                        <f:selectItem itemLabel="Ganancial" itemValue="Ganancial" />
+                                                        <f:selectItem itemLabel="Propio" itemValue="Propio" />
+                                                        <f:selectItem itemLabel="Venta" itemValue="Venta" />
+                                                        <f:selectItem itemLabel="Adjudicación" itemValue="Adjudicación" />
+                                                    </p:selectManyCheckbox>
+                                                    <p:outputLabel value="Número de cuenta - Rentas:" for="ddhhMotivoInmuebleDetalle" />
+                                                    <p:inputText id="ddhhMotivoInmuebleDetalle" value="#{expedienteController.selected.ddhhMotivoInmuebleDetalle}" />
+                                                </h:panelGroup>
+                                                <h:panelGroup layout="block" rendered="#{expedienteController.selected.ddhhMotivoAutomotorSeleccionado}">
+                                                    <p:outputLabel value="Opciones automotor:" />
+                                                    <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selected.ddhhMotivos}">
+                                                        <f:selectItem itemLabel="Ganancial" itemValue="Ganancial" />
+                                                        <f:selectItem itemLabel="Propio" itemValue="Propio" />
+                                                        <f:selectItem itemLabel="Venta" itemValue="Venta" />
+                                                        <f:selectItem itemLabel="Adjudicación" itemValue="Adjudicación" />
+                                                    </p:selectManyCheckbox>
+                                                    <p:outputLabel value="Patente:" for="ddhhMotivoAutomotorDetalle" />
+                                                    <p:inputText id="ddhhMotivoAutomotorDetalle" value="#{expedienteController.selected.ddhhMotivoAutomotorDetalle}" />
+                                                </h:panelGroup>
+                                                <h:panelGroup layout="block" rendered="#{expedienteController.selected.ddhhMotivoCobroCreditoSeleccionado}">
+                                                    <p:outputLabel value="Cobro de crédito:" for="ddhhMotivoCobroCreditoDetalle" />
+                                                    <p:inputTextarea id="ddhhMotivoCobroCreditoDetalle" value="#{expedienteController.selected.ddhhMotivoCobroCreditoDetalle}" rows="3" cols="30" autoResize="false" />
+                                                </h:panelGroup>
+                                                <h:panelGroup layout="block" rendered="#{expedienteController.selected.ddhhMotivoOtroSeleccionado}">
+                                                    <p:outputLabel value="Otro:" for="ddhhMotivoOtroDetalle" />
+                                                    <p:inputText id="ddhhMotivoOtroDetalle" value="#{expedienteController.selected.ddhhMotivoOtroDetalle}" />
+                                                </h:panelGroup>
+                                            </h:panelGroup>
                                             <p:outputLabel value="Padre del Causante:" for="ddhhPadreCausante" />
                                             <p:inputText id="ddhhPadreCausante" value="#{expedienteController.selected.ddhhPadreCausante}" />
                                             <p:outputLabel value="Madre del Causante:" for="ddhhMadreCausante" />

@@ -28,6 +28,13 @@ public class ExpedienteFacade extends AbstractFacade<Expediente> {
     public ExpedienteFacade() {
         super(Expediente.class);
     }
+
+    public Expediente editAndRefresh(Expediente expediente) {
+        Expediente managedExpediente = em.merge(expediente);
+        em.flush();
+        em.refresh(managedExpediente);
+        return managedExpediente;
+    }
     
     public String findClaveCidiByOrden(int orden) {
         try {

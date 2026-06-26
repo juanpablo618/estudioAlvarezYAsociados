@@ -753,10 +753,11 @@ public class ExpedienteController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                    selected = getFacade().editAndRefresh(selected);
                 } else {
                     getFacade().remove(selected);
                 }
+                invalidateExpedienteCaches();
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
                 if (isOptimisticLockException(ex)) {
@@ -804,9 +805,14 @@ public class ExpedienteController implements Serializable {
             selected = getFacade().find(idExpediente);
         }
 
+        invalidateExpedienteCaches();
+        JsfUtil.addErrorMessage("No se guardaron los cambios porque este expediente fue modificado por otro usuario. Se volvió a cargar la última versión; revise los datos y vuelva a guardar si corresponde.");
+    }
+
+    private void invalidateExpedienteCaches() {
         items = null;
         activeItems = null;
-        JsfUtil.addErrorMessage("No se guardaron los cambios porque este expediente fue modificado por otro usuario. Se volvió a cargar la última versión; revise los datos y vuelva a guardar si corresponde.");
+        filteredExpedientes = null;
     }
 
     public Expediente getExpediente(java.lang.Integer id) {

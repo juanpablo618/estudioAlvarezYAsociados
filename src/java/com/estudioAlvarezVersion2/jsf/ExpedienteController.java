@@ -51,6 +51,7 @@ import java.util.Comparator;
 import java.util.concurrent.TimeUnit;
 import javax.faces.view.ViewScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
@@ -752,12 +753,17 @@ public class ExpedienteController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                    selected = getFacade().editAndRefresh(selected);
                 } else {
                     getFacade().remove(selected);
                 }
+                invalidateExpedienteCaches();
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
+                if (isOptimisticLockException(ex)) {
+                    handleConcurrentExpedienteUpdate();
+                    return;
+                }
                 String msg = "";
                 Throwable cause = ex.getCause();
                 if (cause != null) {
@@ -769,10 +775,44 @@ public class ExpedienteController implements Serializable {
                     JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
                 }
             } catch (Exception ex) {
+                if (isOptimisticLockException(ex)) {
+                    handleConcurrentExpedienteUpdate();
+                    return;
+                }
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
                 JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
         }
+    }
+
+    private boolean isOptimisticLockException(Throwable ex) {
+        Throwable cause = ex;
+
+        while (cause != null) {
+            if (cause instanceof OptimisticLockException) {
+                return true;
+            }
+            cause = cause.getCause();
+        }
+
+        return false;
+    }
+
+    private void handleConcurrentExpedienteUpdate() {
+        Integer idExpediente = selected != null ? selected.getIdExpediente() : null;
+
+        if (idExpediente != null) {
+            selected = getFacade().find(idExpediente);
+        }
+
+        invalidateExpedienteCaches();
+        JsfUtil.addErrorMessage("No se guardaron los cambios porque este expediente fue modificado por otro usuario. Se volvió a cargar la última versión; revise los datos y vuelva a guardar si corresponde.");
+    }
+
+    private void invalidateExpedienteCaches() {
+        items = null;
+        activeItems = null;
+        filteredExpedientes = null;
     }
 
     public Expediente getExpediente(java.lang.Integer id) {

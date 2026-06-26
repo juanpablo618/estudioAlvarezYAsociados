@@ -14,6 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -57,6 +58,10 @@ public class Expediente implements Serializable {
     @Basic(optional = false)
     @Column(name = "idExpediente")
     private Integer idExpediente;
+
+    @Version
+    @Column(name = "version")
+    private Integer version;
     
     @Basic(optional = false)
     @Column(name = "orden")
@@ -462,6 +467,14 @@ public class Expediente implements Serializable {
 
     public void setIdExpediente(Integer idExpediente) {
         this.idExpediente = idExpediente;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     public Integer getOrden() {

@@ -291,6 +291,10 @@ public class ExpedienteController implements Serializable {
         return isExpedienteJudicialDdhhJusticiaProvincial(selected);
     }
 
+    public boolean isExpedienteSeleccionadoJusticiaProvincial() {
+        return selected != null && equalsIgnoreCaseTrim(selected.getEquipo(), JUSTICIA_PROVINCIAL);
+    }
+
     private boolean isExpedienteJudicialDdhhJusticiaProvincial(Expediente expediente) {
         if (expediente == null) {
             return false;

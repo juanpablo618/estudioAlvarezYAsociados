@@ -362,8 +362,8 @@
                                         <f:selectItem itemLabel=" -- Elige un típo de trámite --"  noSelectionOption="true"  />
                                         <f:selectItems value="#{tipoDeTramiteController.items}" var="tipoDeTramite" itemLabel="#{tipoDeTramite.estado}" itemValue="#{tipoDeTramite.estado}" />
                                     </p:selectOneMenu>
-                                    <p:outputLabel value="JP Tipo:" for="jpTipo" style="font-weight: bold" />
-                                    <p:selectOneMenu id="jpTipo" value="#{expedienteController.selected.jpTipo}" editable="true">
+                                    <p:outputLabel value="JP Tipo:" for="jpTipo" style="font-weight: bold" rendered="#{expedienteController.expedienteSeleccionadoJusticiaProvincial}" />
+                                    <p:selectOneMenu id="jpTipo" value="#{expedienteController.selected.jpTipo}" editable="true" rendered="#{expedienteController.expedienteSeleccionadoJusticiaProvincial}">
                                     <f:selectItem itemLabel=" -- Elige un JP Tipo --" noSelectionOption="true" />
                                     <f:selectItem itemLabel="DDHH" itemValue="DDHH" />
                                     <f:selectItem itemLabel="LABORAL" itemValue="LABORAL" />
@@ -372,7 +372,7 @@
                                     <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
                                     <p:ajax update="ddhhPanel" />
                                     </p:selectOneMenu>
-                                    <h:panelGroup id="ddhhPanel" layout="block" style="width: 100%; margin-top: 15px; display: #{expedienteController.selected.jpTipo eq 'DDHH' ? 'block' : 'none'};">
+                                    <h:panelGroup id="ddhhPanel" layout="block" rendered="#{expedienteController.expedienteSeleccionadoJusticiaProvincial}" style="width: 100%; margin-top: 15px; display: #{expedienteController.selected.jpTipo eq 'DDHH' ? 'block' : 'none'};">
                                         <div class="columna">
                                             <p:outputLabel value="Causante:" for="ddhhCausante" />
                                             <p:inputText id="ddhhCausante" value="#{expedienteController.selected.ddhhCausante}" />

@@ -23,7 +23,7 @@
 
             function confirmarCambioAdministrativoAJudicial(select) {
                 if (select.value === 'judicial'
-                        && !confirm('Está por cambiar la instancia de Administrativo a Judicial. Esta acción es irreversible. ¿Desea continuar?')) {
+                        &amp;&amp; !confirm('Está por cambiar la instancia de Administrativo a Judicial. Esta acción es irreversible. ¿Desea continuar?')) {
                     select.value = 'administrativo';
                     return false;
                 }

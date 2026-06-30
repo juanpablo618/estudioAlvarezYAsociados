@@ -21,6 +21,16 @@
                 document.getElementById("myDialog").showModal();
             }
 
+            function confirmarCambioAdministrativoAJudicial(select) {
+                if (select.value === 'judicial'
+                        && !confirm('Está por cambiar la instancia de Administrativo a Judicial. Esta acción es irreversible. ¿Desea continuar?')) {
+                    select.value = 'administrativo';
+                    return false;
+                }
+
+                return true;
+            }
+
             function prepararDescargaReporteFinal(formId) {
                 var form = document.getElementById(formId);
                 if (!form) {
@@ -349,7 +359,7 @@
                             <div class="datosexpediente">
                                 <div class="columna">
                                     <p:outputLabel value="Tipo de Expediente"  for="tipoDeExpediente"  class="float-l"/>
-                                    <p:selectOneMenu id="tipoDeExpediente"  value="#{expedienteController.selected.tipoDeExpediente}" editable="false" >
+                                    <p:selectOneMenu id="tipoDeExpediente"  value="#{expedienteController.selected.tipoDeExpediente}" editable="false" onchange="return confirmarCambioAdministrativoAJudicial(this);" >
                                         <f:selectItem class="subMenu" itemLabel="Administrativo" itemValue="administrativo" />
                                         <f:selectItem class="subMenu" itemLabel="Judicial" itemValue="judicial" />
                                     </p:selectOneMenu>

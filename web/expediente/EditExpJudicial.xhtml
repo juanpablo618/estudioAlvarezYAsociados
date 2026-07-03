@@ -376,7 +376,8 @@
                                 <p:ajax update="ddhhPanel" />
                                 </p:selectOneMenu>
 
-                                <h:panelGroup id="ddhhPanel" layout="block" rendered="#{expedienteController.expedienteSeleccionadoJusticiaProvincial}" style="width: 100%; margin-top: 15px; display: #{expedienteController.selected.jpTipo eq 'DDHH' ? 'block' : 'none'};">
+                                <h:panelGroup id="ddhhPanel" layout="block" style="width: 100%; margin-top: 15px;">
+                                    <h:panelGroup layout="block" rendered="#{expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial}">
                                     <p:outputLabel value="Causante:" for="ddhhCausante" />
                                     <p:inputText id="ddhhCausante" value="#{expedienteController.selected.ddhhCausante}" />
                                     <p:outputLabel value="DNI:" for="ddhhDni" />
@@ -439,6 +440,7 @@
                                     <p:inputText id="ddhhMadreCausante" value="#{expedienteController.selected.ddhhMadreCausante}" />
                                     <p:outputLabel value="Observaciones DDHH:" for="ddhhObservaciones" />
                                     <p:inputTextarea id="ddhhObservaciones" value="#{expedienteController.selected.ddhhObservaciones}" rows="4" cols="30" autoResize="false" />
+                                    </h:panelGroup>
                                 </h:panelGroup>
 
                                 <p:confirmDialog id="confirmdialog" widgetVar="confirm" global="true" showEffect="fade" hideEffect="fade" message="¿está seguro?" header="No es muy común cambiar el tipo de expediente:">

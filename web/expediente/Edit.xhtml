@@ -382,7 +382,8 @@
                                     <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
                                     <p:ajax update="ddhhPanel" />
                                     </p:selectOneMenu>
-                                    <h:panelGroup id="ddhhPanel" layout="block" rendered="#{expedienteController.expedienteSeleccionadoJusticiaProvincial}" style="width: 100%; margin-top: 15px; display: #{expedienteController.selected.jpTipo eq 'DDHH' ? 'block' : 'none'};">
+                                    <h:panelGroup id="ddhhPanel" layout="block" style="width: 100%; margin-top: 15px;">
+                                    <h:panelGroup layout="block" rendered="#{expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial}">
                                         <div class="columna">
                                             <p:outputLabel value="Causante:" for="ddhhCausante" />
                                             <p:inputText id="ddhhCausante" value="#{expedienteController.selected.ddhhCausante}" />
@@ -449,6 +450,7 @@
                                             <p:outputLabel value="Observaciones DDHH:" for="ddhhObservaciones" />
                                             <p:inputTextarea id="ddhhObservaciones" value="#{expedienteController.selected.ddhhObservaciones}" rows="4" cols="30" autoResize="false" />
                                         </div>
+                                    </h:panelGroup>
                                     </h:panelGroup>
 
 

@@ -493,8 +493,8 @@
                                         <f:selectItem itemLabel="María Paz Bolinaga" itemValue="María Paz Bolinaga" />
                                     </p:selectOneMenu>
 
-                                    <p:outputLabel class="float-l" value="Usuario SAC:" for="usuarioSac"/>
-                                    <p:selectOneMenu id="usuarioSac" value="#{expedienteController.selected.usuarioSac}">
+                                    <p:outputLabel class="float-l" value="Usuario SAC:" for="usuarioSac" rendered="#{expedienteController.expedienteSeleccionadoJudicialJusticiaProvincial}"/>
+                                    <p:selectOneMenu id="usuarioSac" value="#{expedienteController.selected.usuarioSac}" rendered="#{expedienteController.expedienteSeleccionadoJudicialJusticiaProvincial}">
                                         <f:selectItem itemLabel=" -- Elige un Usuario SAC --" noSelectionOption="true" />
                                         <f:selectItems value="#{empleadoController.items}" var="empleado" itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}" />
                                     </p:selectOneMenu>

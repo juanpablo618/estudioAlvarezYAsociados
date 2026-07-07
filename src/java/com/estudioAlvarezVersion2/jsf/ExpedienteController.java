@@ -295,6 +295,19 @@ public class ExpedienteController implements Serializable {
         return selected != null && equalsIgnoreCaseTrim(selected.getEquipo(), JUSTICIA_PROVINCIAL);
     }
 
+    public boolean isExpedienteSeleccionadoJudicialJusticiaProvincial() {
+        return isExpedienteJudicialJusticiaProvincial(selected);
+    }
+
+    private boolean isExpedienteJudicialJusticiaProvincial(Expediente expediente) {
+        if (expediente == null) {
+            return false;
+        }
+
+        return equalsIgnoreCaseTrim(expediente.getTipoDeExpediente(), JUDICIAL)
+                && equalsIgnoreCaseTrim(expediente.getEquipo(), JUSTICIA_PROVINCIAL);
+    }
+
     private boolean isExpedienteJudicialDdhhJusticiaProvincial(Expediente expediente) {
         if (expediente == null) {
             return false;
@@ -303,6 +316,12 @@ public class ExpedienteController implements Serializable {
         return equalsIgnoreCaseTrim(expediente.getTipoDeExpediente(), JUDICIAL)
                 && equalsIgnoreCaseTrim(expediente.getJpTipo(), DDHH)
                 && equalsIgnoreCaseTrim(expediente.getEquipo(), JUSTICIA_PROVINCIAL);
+    }
+
+    private void limpiarUsuarioSacSiNoCorresponde() {
+        if (selected != null && !isExpedienteJudicialJusticiaProvincial(selected)) {
+            selected.setUsuarioSac(null);
+        }
     }
 
     private boolean equalsIgnoreCaseTrim(String value, String expected) {
@@ -476,6 +495,7 @@ public class ExpedienteController implements Serializable {
 
     public void create() {
 
+        limpiarUsuarioSacSiNoCorresponde();
         ingresarEdad();
 
         ingresarDni();
@@ -575,6 +595,8 @@ public class ExpedienteController implements Serializable {
         selected.setEdad(Math.toIntExact(years));
 
         selected.setDni(extractDniFromCuit(selected.getCuit()));
+
+        limpiarUsuarioSacSiNoCorresponde();
 
         String successMessage = "Expediente actualizado exitosamente";
 

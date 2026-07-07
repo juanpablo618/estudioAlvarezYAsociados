@@ -566,9 +566,9 @@
                                                    itemValue="#{empleado.nombreyApellido}" />
                                 </p:selectOneMenu>
 
-                                <p:outputLabel rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}"
+                                <p:outputLabel rendered="#{expedienteController.expedienteSeleccionadoJudicialJusticiaProvincial}"
                                                value="Usuario SAC:" for="usuarioSac" />
-                                <p:selectOneMenu rendered="#{expedienteController.isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial()}"
+                                <p:selectOneMenu rendered="#{expedienteController.expedienteSeleccionadoJudicialJusticiaProvincial}"
                                                  id="usuarioSac" value="#{expedienteController.selected.usuarioSac}">
                                     <f:selectItem itemLabel=" -- Elige un Usuario SAC --" noSelectionOption="true" />
                                     <f:selectItems value="#{empleadoController.items}" var="empleado"

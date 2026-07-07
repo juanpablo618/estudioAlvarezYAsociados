@@ -341,14 +341,17 @@
                                 <p:selectOneMenu  id="equipo" editable="false" effect="fold" value="#{expedienteController.selected.equipo}">
                                     <f:selectItem itemLabel=" -- Elige un equipo --"  noSelectionOption="true"  />
                                     <f:selectItems value="#{equipoController.items}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo.nombre}" />
+                                    <p:ajax update="@form" />
                                 </p:selectOneMenu>
 
 
                                 <p:outputLabel value="Tipo:"
-                                               for="tipo" />
+                                               for="tipo"
+                                               rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial}" />
                                 <p:selectOneMenu editable="true"
                                                  id="tipo"
-                                                 value="#{expedienteController.selected.tipo}" >
+                                                 value="#{expedienteController.selected.tipo}"
+                                                 rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial}" >
                                     <f:selectItem itemLabel="Reajustes" itemValue="Reajustes" />
                                     <f:selectItem itemLabel="Pensiones" itemValue="Pensiones" />
                                     <f:selectItem itemLabel="Amparos" itemValue="Amparos" />
@@ -373,7 +376,7 @@
                                 <f:selectItem itemLabel="LABORAL-LEY DE RIESGO" itemValue="LABORAL-LEY DE RIESGO" />
                                 <f:selectItem itemLabel="JURISDICCIÓN VOLUNTARIA" itemValue="JURISDICCIÓN VOLUNTARIA" />
                                 <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
-                                <p:ajax update="ddhhPanel" />
+                                <p:ajax update="@form" />
                                 </p:selectOneMenu>
 
                                 <h:panelGroup id="ddhhPanel" layout="block" style="width: 100%; margin-top: 15px;">

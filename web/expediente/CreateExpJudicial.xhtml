@@ -82,8 +82,8 @@
                     <p:tab title="Datos Expediente">
                         <div style="float: left; width: 50%"> 
                             <h:panelGrid columns="2" cellspacing="5">
-                                <p:outputLabel value="Tipo:" for="tipo" style="font-weight: bold"/>
-                                <p:selectOneMenu id="tipo" style="margin-left: 3%" value="#{expedienteController.selected.tipo}" >
+                                <p:outputLabel value="Tipo:" for="tipo" style="font-weight: bold" rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial}"/>
+                                <p:selectOneMenu id="tipo" style="margin-left: 3%" value="#{expedienteController.selected.tipo}" rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial}" >
                                         <f:selectItem itemLabel="Reajustes" itemValue="Reajuste" />
                                         <f:selectItem itemLabel="Pensiones" itemValue="Pensiones" />
                                         <f:selectItem itemLabel="Amparos" itemValue="Amparos" />
@@ -99,7 +99,7 @@
                                     <f:selectItem itemLabel="LABORAL-LEY DE RIESGO" itemValue="LABORAL-LEY DE RIESGO" />
                                     <f:selectItem itemLabel="JURISDICCIÓN VOLUNTARIA" itemValue="JURISDICCIÓN VOLUNTARIA" />
                                     <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
-                                    <p:ajax update="ddhhPanel" />
+                                    <p:ajax update="@form" />
                                     </p:selectOneMenu>
                                     <h:panelGroup id="ddhhPanel" layout="block" style="width: 100%; margin-top: 15px; display: #{expedienteController.selected.jpTipo eq 'DDHH' ? 'block' : 'none'};">
                                         <div class="columna">
@@ -179,7 +179,7 @@
                                          <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" id="equipo" editable="false" effect="fold" value="#{expedienteController.selected.equipo}">
                                             <f:selectItem itemLabel=" -- Elige un equipo --"  noSelectionOption="true"  />
                                             <f:selectItems value="#{equipoController.items}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo.nombre}" />
-                                            <p:ajax update="usuarioSacPanel" />
+                                            <p:ajax update="@form usuarioSacPanel" />
                                         
                                          </p:selectOneMenu>
 

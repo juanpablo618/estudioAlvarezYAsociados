@@ -338,8 +338,8 @@
                         <div class="datosexpediente">
                             <div class="columna">
 
-                                <p:outputLabel value="Tipo:" for="tipo" />
-                                <p:selectOneMenu   editable="true" id="tipo"  value="#{expedienteController.selectedParaVerExp.tipo}" >
+                                <p:outputLabel value="Tipo:" for="tipo" rendered="#{not expedienteController.expedienteParaVerSeleccionadoJudicialDdhhJusticiaProvincial}" />
+                                <p:selectOneMenu   editable="true" id="tipo"  value="#{expedienteController.selectedParaVerExp.tipo}" rendered="#{not expedienteController.expedienteParaVerSeleccionadoJudicialDdhhJusticiaProvincial}" >
                                     <f:selectItem itemLabel="Reajustes" itemValue="Reajustes" />
                                     <f:selectItem itemLabel="Pensiones" itemValue="Pensiones" />
                                     <f:selectItem itemLabel="Amparos" itemValue="Amparos" />
@@ -357,6 +357,7 @@
                                     <f:selectItem itemLabel="LABORAL-LEY DE RIESGO" itemValue="LABORAL-LEY DE RIESGO" />
                                     <f:selectItem itemLabel="JURISDICCIÓN VOLUNTARIA" itemValue="JURISDICCIÓN VOLUNTARIA" />
                                     <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
+                                    <p:ajax update="@form" />
                                     </p:selectOneMenu>
 
                                 <p:confirmDialog id="confirmdialog" widgetVar="confirm" global="true" showEffect="fade" hideEffect="fade" message="¿está seguro?" header="No es muy común cambiar el tipo de expediente:">
@@ -367,6 +368,7 @@
                                 <p:selectOneMenu  id="equipo" editable="false" effect="fold" value="#{expedienteController.selectedParaVerExp.equipo}">
                                     <f:selectItem itemLabel=" -- Elige un equipo --"  noSelectionOption="true"  />
                                     <f:selectItems value="#{equipoController.items}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo.nombre}" />
+                                    <p:ajax update="@form" />
                                 </p:selectOneMenu>
                                 <div class="checkboxexpedientes">
 

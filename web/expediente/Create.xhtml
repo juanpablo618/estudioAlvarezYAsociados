@@ -168,7 +168,7 @@
                                                 <f:selectItem itemLabel="Automotor" itemValue="Automotor" />
                                                 <f:selectItem itemLabel="Cobro de crédito" itemValue="Cobro de crédito" />
                                                 <f:selectItem itemLabel="Otro" itemValue="Otro" />
-                                                <p:ajax update="ddhhMotivosDetalle" />
+                                                <p:ajax process="@this ddhhMotivosDetalle" update="ddhhMotivosDetalle" />
                                             </p:selectManyCheckbox>
                                             <h:panelGroup id="ddhhMotivosDetalle" layout="block">
                                                 <h:panelGroup layout="block" rendered="#{expedienteController.selected.ddhhMotivoInmuebleSeleccionado}">

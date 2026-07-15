@@ -41,16 +41,16 @@
 
 
 
-                        <p:commandButton value="Cerrar" 
+                        <p:commandButton value="Cerrar"
 
                                          styleClass="boton-cancelar"
-                                         onclick="PF('ExpedienteViewDesdeAgendaDialog').hide();" 
+                                         onclick="PF('ExpedienteViewDesdeAgendaDialog').hide();"
                                          />
                     </f:facet>
 
                 </p:toolbar>
 
-                <div style="float: left;width: 100%;">   
+                <div style="float: left;width: 100%;">
 
                     <p:tabView id="tabViewEditExpAdm" orientation="left" styleClass="tabdatospersonales" >
                         <h:panelGroup id="display">
@@ -60,13 +60,13 @@
                         <p:tab >
                             <f:facet name="title">
 
-                                <h:outputText id="iconoDatos" 
-                                              styleClass="fa fa-user" 
+                                <h:outputText id="iconoDatos"
+                                              styleClass="fa fa-user"
                                               style="font-size: 1.2rem; cursor: pointer;" />
                                 <p:tooltip for="iconoDatos" value="Datos Personales" />
 
                             </f:facet>
-                            <div class="datospersonales"> 
+                            <div class="datospersonales">
                                 <div class="columna">
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_apellido}" for="apellido"  />
                                     <p:inputText id="apellido" value="#{expedienteController.selectedParaVerExp.apellido}" title="#{bundle.CreateExpedienteTitle_apellido}" />
@@ -89,7 +89,7 @@
                                     </p:calendar>
 
                                     <p:outputLabel value="#{bundle.EditExpedienteLabel_edad}" for="edad"  class=""/>
-                                    <p:inputText id="edad"  value="#{expedienteController.selectedParaVerExp.edad}" 
+                                    <p:inputText id="edad"  value="#{expedienteController.selectedParaVerExp.edad}"
                                                  title="#{bundle.EditExpedienteTitle_edad}"  readonly="true"/> <!-- AQUI SE CAMBIO EL LABEL POR INPUT QUE NO SE PUEDA EDITAR PARA QUE QUEDE MAS ESTETICO -->
 
                                     <p:outputLabel value="#{bundle.CreateExpedienteLabel_sexo}" for="sexo" />
@@ -137,11 +137,11 @@
                                         <p:outputLabel value="Hijos por los que percibió AUH:" rendered="#{expedienteController.selectedParaVerExp.sexo == 'Femenino'}" />
                                         <p:inputText rendered="#{expedienteController.selectedParaVerExp.sexo == 'Femenino'}" value="#{expedienteController.selectedParaVerExp.cantidadDeHijosPercibioAuh}" />
                                     </h:panelGrid>
-                                </div> 
+                                </div>
 
                                 <div class="columna">
 
-                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono"  />    
+                                    <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono"  />
 
                                     <div class="telefonoinput">
                                         <p:inputText id="telefono" value="#{expedienteController.selectedParaVerExp.telefono}" title="#{bundle.CreateExpedienteTitle_telefono}" />
@@ -152,7 +152,7 @@
                                             <img src="../faces/resources/images/whatsapp.png" ></img>
                                         </a>
                                     </div>
-                                    <p:outputLabel value="Teléfono Auxiliar" for="telefonoAuxiliar"  />            
+                                    <p:outputLabel value="Teléfono Auxiliar" for="telefonoAuxiliar"  />
                                     <p:inputTextarea    id="telefonoAuxiliar" value="#{expedienteController.selectedParaVerExp.telefonoAuxiliar}" cols="22" title="Telèfono Auxiliar" style="height: 21px;"/>
                                     <p:outputLabel value="Email:" for="email"  />
                                     <p:inputText id="email" value="#{expedienteController.selectedParaVerExp.email}" title="Email" />
@@ -198,13 +198,13 @@
                                     <p:selectOneMenu   id="inscripcionAut" value="#{expedienteController.selectedParaVerExp.inscripcionAut}" >
                                         <f:selectItem itemLabel="SI" itemValue="SI" />
                                         <f:selectItem itemLabel="NO" itemValue="NO" />
-                                    </p:selectOneMenu>   
+                                    </p:selectOneMenu>
 
                                     <p:outputLabel  value="Posible Reclamo ART: " for="reclamoArt" />
                                     <p:selectOneMenu id="reclamoArt" value="#{expedienteController.selectedParaVerExp.reclamoArt}" >
                                         <f:selectItem itemLabel="SI" itemValue="SI" />
                                         <f:selectItem itemLabel="NO" itemValue="NO" />
-                                    </p:selectOneMenu>   
+                                    </p:selectOneMenu>
 
                                     <p:outputLabel value="Expediente físico:" for="fisico" style="font-weight: bold" />
                                     <p:selectOneMenu id="fisico" value="#{expedienteController.selectedParaVerExp.fisico}">
@@ -231,7 +231,7 @@
                                         <f:selectItem itemLabel="NO" itemValue="NO" />
                                         <f:selectItem itemLabel="SI" itemValue="SI" />
                                         <p:ajax update="inputAportes" />
-                                    </p:selectOneMenu>   
+                                    </p:selectOneMenu>
 
                                     <h:panelGrid id="inputAportes" columns="1"
                                                  cellpadding="0"
@@ -245,7 +245,7 @@
                                             <f:selectItem itemLabel="NO" itemValue="NO" />
                                             <f:selectItem itemLabel="SI" itemValue="SI" />
                                             <p:ajax update="inputObraSocial" />
-                                        </p:selectOneMenu>   
+                                        </p:selectOneMenu>
 
                                     </h:panelGrid  >
                                     <h:panelGrid id="inputObraSocial" columns="1"
@@ -257,9 +257,9 @@
                                     </h:panelGrid>
 
                                 </div>
-                                <div  class="columna"> 
+                                <div  class="columna">
 
-                                    <div class="roww1"> 
+                                    <div class="roww1">
                                         <div class="imagenentidad">
                                             <a href="https://servicioscorp.anses.gob.ar/clavelogon/logon.aspx?system=miansesv2" target="_blank" >
                                                 <img src="../faces/resources/images/anses.png" ></img>
@@ -273,7 +273,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="roww1"> 
+                                    <div class="roww1">
                                         <div class="arca" >
                                             <a href="https://auth.afip.gob.ar/contribuyente_/login.xhtml" target="_blank" >
                                                 <img src="../faces/resources/images/arca.jpg"  ></img>
@@ -308,8 +308,8 @@
                         <p:tab >
                             <f:facet name="title">
 
-                                <h:outputText id="iconoEXP"  
-                                              styleClass="fa fa-folder" 
+                                <h:outputText id="iconoEXP"
+                                              styleClass="fa fa-folder"
                                               style="font-size: 1.2rem; cursor: pointer;" />
                                 <p:tooltip for="iconoEXP" value="Datos del expediente" />
 
@@ -338,13 +338,24 @@
                                     <f:selectItem itemLabel="LABORAL-LEY DE RIESGO" itemValue="LABORAL-LEY DE RIESGO" />
                                     <f:selectItem itemLabel="JURISDICCIÓN VOLUNTARIA" itemValue="JURISDICCIÓN VOLUNTARIA" />
                                     <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
+                                    <p:ajax update="@form" />
                                     </p:selectOneMenu>
 
 
 
 
 
-                                    <p:outputLabel value="Equipo:" for="equipo"  />
+
+
+                                    <h:panelGroup id="laboralPanel" layout="block" style="width: 100%; margin-top: 15px;">
+                                        <h:panelGroup layout="block" rendered="#{expedienteController.expedienteParaVerSeleccionadoLaboralJusticiaProvincial}">
+                                            <ui:include src="/expediente/fragments/laboralEdit.xhtml">
+                                                <ui:param name="expediente" value="#{expedienteController.selectedParaVerExp}" />
+                                            </ui:include>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+
+<p:outputLabel value="Equipo:" for="equipo"  />
                                     <p:selectOneMenu id="equipo" editable="false" effect="fold" value="#{expedienteController.selectedParaVerExp.equipo}">
                                         <f:selectItem itemLabel=" -- Elige un equipo --"  noSelectionOption="true"  />
                                         <f:selectItems value="#{equipoController.items}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo.nombre}" />
@@ -392,7 +403,7 @@
                                                                                                                                                                expedienteController.selectedParaVerExp.telefono,
                                                                                                                                                                expedienteController.selectedParaVerExp.cuit,
                                                                                                                                                                expedienteController.selectedParaVerExp.fechaDeNacimiento,
-                                                                                                                                                               expedienteController.selectedParaVerExp.edad, 
+                                                                                                                                                               expedienteController.selectedParaVerExp.edad,
                                                                                                                                                                expedienteController.selectedParaVerExp.cobraBeneficio,
                                                                                                                                                                expedienteController.selectedParaVerExp.tipoDeBeneficio,
                                                                                                                                                                expedienteController.selectedParaVerExp.aportes,
@@ -419,10 +430,10 @@
 
                                 <div style="text-align: right ; padding-bottom: 20px ;display: grid;" >
                                     <p:commandButton  class="botonEditarAgendaEsteBotonNoSirveMasPeroLoNecesitaLaUI boton-guardar"
-                                                      actionListener="#{comunicacionController.prepareCreateComunicacion(expedienteController.selectedParaVerExp.orden)}"  value="crear comunicación" 
+                                                      actionListener="#{comunicacionController.prepareCreateComunicacion(expedienteController.selectedParaVerExp.orden)}"  value="crear comunicación"
                                                       resetValues="true"
                                                       update=":ComunicacionCreateFormExpAdmDesdeAgenda" oncomplete="PF('ComunicacionCreateDialogExpAdmDesdeAgenda').show()" />
-                                </div>      
+                                </div>
 
                                 <p:dataTable id="datalist4"
                                              value="#{expedienteController.verComunicacionesPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}"
@@ -433,11 +444,11 @@
                                              rows="10"
                                              widgetVar="comunicacionesTable2"
                                              rowsPerPageTemplate="10,20,50"
-                                             emptyMessage="no hay comunicaciones agregadas" 
-                                             rendered="true"  
+                                             emptyMessage="no hay comunicaciones agregadas"
+                                             rendered="true"
                                              style="display: table;"
                                              styleClass="tabla-tailwind"
-                                             sortBy="#{item.fecha}" sortOrder="descending" 
+                                             sortBy="#{item.fecha}" sortOrder="descending"
                                              >
 
                                     <p:ajax event="rowSelect"  />
@@ -459,7 +470,7 @@
 
                                     <p:column  headerText="Responsable"  class="iconoturnorespondable"  >
                                         <div style="display:flex;justify-content: center">
-                                            <h:outputText id="responsableicon"  
+                                            <h:outputText id="responsableicon"
                                                           value="#{expedienteController.getIniciales(item.responsable)}"
                                                           style="color:white; border-radius:50%; width:28px; height:28px;
                                                           display:flex; align-items:center; justify-content:center;
@@ -483,16 +494,16 @@
                                         <p:commandButton class="linea btnDelete" update=":growl,datalist4" oncomplete="PF('expedientesTable').clearFilters()" actionListener="#{comunicacionController.destroy}"  icon="ui-icon-trash" title="Eliminar">
                                             <f:setPropertyActionListener value="#{item}" target="#{comunicacionController.selected}" />
                                             <p:confirm header="Confirmación" message="¿Estas seguro?"  icon="ui-icon-alert"/>
-                                        </p:commandButton> 
+                                        </p:commandButton>
 
-                                    </p:column>    
+                                    </p:column>
 
                                 </p:dataTable>
 
                                 <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
                                     <p:commandButton update=":ExpedienteListForm" value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;" />
                                     <p:commandButton update=":ExpedienteListForm" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;" />
-                                </p:confirmDialog> 
+                                </p:confirmDialog>
 
                             </div>
 
@@ -504,13 +515,13 @@
                                 <p:tooltip for="iconoAgendas" value="Agendas y Turnos" />
                             </f:facet>
 
-                            <div class="agendasyturnos"> 
+                            <div class="agendasyturnos">
 
-                                <p:commandButton 
-                                    id="createButton" 
-                                    class="boton-guardar" 
+                                <p:commandButton
+                                    id="createButton"
+                                    class="boton-guardar"
                                     value="Crear Agenda"
-                                    actionListener="#{agendaController.prepareCreate}"  
+                                    actionListener="#{agendaController.prepareCreate}"
                                     process="@this"
                                     update=":ExpedienteViewFormParaAgendadesdeagenda"
                                     oncomplete="PF('ExpedienteViewDialogParaAgendadesdeagenda').show();" />
@@ -518,17 +529,17 @@
                                 <p:commandButton id="createButtonTurno"
                                                  class="boton-sistema" style="margin-right: 10px !important;
                                                  margin-left: 10px;"
-                                                 value="Crear Turno" 
+                                                 value="Crear Turno"
                                                  actionListener="#{turnoController.prepareCreate}"
                                                  update=":ExpedienteViewFormParaTurnodesdeagenda"
                                                  oncomplete="PF('ExpedienteViewDialogParaTurnodesdeagenda').show(); " />
-                              
+
 
 
 
 
                                  <p:fieldset class="tablashistorial" legend="AGENDAS ANTERIORES" toggleable="true"  collapsed="true" toggleSpeed="500">
-                                    <p:dataTable id="datalist3" 
+                                    <p:dataTable id="datalist3"
                                                  value="#{expedienteController.verAgendasPasadasPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}"
                                                  var="item"
                                                  selectionMode="single"
@@ -538,7 +549,7 @@
                                                  rendered="true"
                                                  rows="10"
                                                  rowsPerPageTemplate="10,20,40,50"
-                                                 emptyMessage="no hay agendas Pasadas agregadas" 
+                                                 emptyMessage="no hay agendas Pasadas agregadas"
                                                  filteredValue="#{expedienteController.filteredAgendasAnteriores}"
                                                  style="display: table;padding: 20px"
                                                  styleClass="tabla-tailwind"
@@ -554,7 +565,7 @@
                                         </p:column>
                                         <p:column  headerText="Responsable"  class="iconoturnorespondable"  >
                                             <div style="display:flex;justify-content: center">
-                                                <h:outputText id="responsableicon"  
+                                                <h:outputText id="responsableicon"
                                                               value="#{expedienteController.getIniciales(item.responsable)}"
                                                               style="color:white; border-radius:50%; width:28px; height:28px;
                                                               display:flex; align-items:center; justify-content:center;
@@ -576,42 +587,42 @@
 
                                         <p:column  style="text-align: center; width:15%; " headerText="Acciones">
 
-                                     
+
 
                                             <p:commandButton class="linea btnKeyGreen"
-                                                             update=":ExpedienteViewDesdeAgendaForm:tabViewEditExpAdm:datalist3" 
+                                                             update=":ExpedienteViewDesdeAgendaForm:tabViewEditExpAdm:datalist3"
                                                              actionListener="#{agendaController.marcarComoRealizadaSiAgendaPasada()}"
                                                              icon=" ui-icon-check" title="Marcar como realizado si">
                                                 <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaPasada}" />
                                             </p:commandButton>
 
                                             <p:commandButton class="linea btnDelete"
-                                                             update=":ExpedienteViewDesdeAgendaForm:tabViewEditExpAdm:datalist3, message3" 
+                                                             update=":ExpedienteViewDesdeAgendaForm:tabViewEditExpAdm:datalist3, message3"
                                                              actionListener="#{agendaController.destroyAgendaPasada()}"  icon="ui-icon-trash" title="Eliminar">
                                                 <f:setPropertyActionListener value="#{item}" target="#{agendaController.selectedAgendaPasada}" />
                                                 <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert"/>
-                                            </p:commandButton> 
+                                            </p:commandButton>
 
                                             <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
                                                 <p:commandButton   update=":ExpedienteViewDesdeAgendaForm:tabViewEditExpAdm:datalist3"  value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;"/>
                                                 <p:commandButton update="@all" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
-                                            </p:confirmDialog> 
+                                            </p:confirmDialog>
                                         </p:column>
 
                                     </p:dataTable>
                                 </p:fieldset>
  <p:fieldset class="tablashistorial" legend="TURNOS ANTERIORES" toggleable="true"  collapsed="true" toggleSpeed="500">
-                                    <p:dataTable id="datalistTurnosAnteriores" 
+                                    <p:dataTable id="datalistTurnosAnteriores"
                                                  value="#{expedienteController.verTurnosPasadosPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}"
                                                  var="item"
                                                  selectionMode="single"
                                                  selection="#{turnoController.selectedTurnoPasado}"
                                                  rowKey="#{item.idTurno}"
-                                                 paginator="true"    
+                                                 paginator="true"
                                                  rendered="true"
                                                  rows="10"
                                                  rowsPerPageTemplate="10,20,40,50"
-                                                 emptyMessage="no hay turnos Pasados agregados" 
+                                                 emptyMessage="no hay turnos Pasados agregados"
                                                  filteredValue="#{expedienteController.filteredTurnosAnteriores}"
                                                  style="display: table;padding: 20px"
                                                  styleClass="tabla-tailwind"
@@ -636,18 +647,18 @@
                                                     <f:selectItem itemLabel="Pendiente" itemValue="Pendiente" />
                                                 </p:selectOneMenu>
                                             </f:facet>
-                                            <div class="apilarelementos"> 
+                                            <div class="apilarelementos">
                                                 <h:outputText value="#{item.realizado eq 'Si' ? 'Realizado' : (item.realizado eq 'Pendiente' ? 'Pendiente' : 'Por Atender')}" styleClass="estadofinalizado#{item.realizado}" />
 
                                                 <h:outputText  value="#{item.horaYDia}" styleClass="fechacolumna" >
                                                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                                                 </h:outputText>
-                                            </div> 
+                                            </div>
                                         </p:column>
                                         <p:column filterBy="#{item.responsable}" headerText="Responsable"  filterMatchMode="contains" style="width:10%" class="iconoturnorespondable" >
 
                                             <div style="display:flex;justify-content: center">
-                                                <h:outputText id="responsableicon"  
+                                                <h:outputText id="responsableicon"
                                                               value="#{expedienteController.getIniciales(item.responsable)}"
                                                               style="color:white; border-radius:50%; width:28px; height:28px;
                                                               display:flex; align-items:center; justify-content:center;
@@ -662,14 +673,14 @@
                                         <p:column  style="text-align: center; width: 10%" headerText="Acciones">
 
                                             <p:commandButton class="linea btnKeyGreen"
-                                                             update=":ExpedienteViewDesdeAgendaForm:tabViewEditExpAdm:datalistTurnosAnteriores" 
+                                                             update=":ExpedienteViewDesdeAgendaForm:tabViewEditExpAdm:datalistTurnosAnteriores"
                                                              actionListener="#{turnoController.marcarComoRealizadoSiTurnoPasado()}"
                                                              icon=" ui-icon-check" title="Marcar como realizado si">
                                                 <f:setPropertyActionListener value="#{item}" target="#{turnoController.selectedTurnoPasado}" />
                                             </p:commandButton>
 
                                             <p:commandButton class="linea btnDelete"
-                                                             update=":ExpedienteViewDesdeAgendaForm:tabViewEditExpAdm:datalistTurnosAnteriores, message3" 
+                                                             update=":ExpedienteViewDesdeAgendaForm:tabViewEditExpAdm:datalistTurnosAnteriores, message3"
                                                              actionListener="#{turnoController.destroyTurnoPasado()}"  icon="ui-icon-trash" title="Eliminar">
                                                 <f:setPropertyActionListener value="#{item}" target="#{turnoController.selectedTurnoPasado}" />
                                                 <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert"/>
@@ -678,15 +689,15 @@
                                             <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
                                                 <p:commandButton   update=":ExpedienteViewDesdeAgendaForm:tabViewEditExpAdm:datalistTurnosAnteriores"  value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;"/>
                                                 <p:commandButton update="@all" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
-                                            </p:confirmDialog> 
+                                            </p:confirmDialog>
                                         </p:column>
 
                                     </p:dataTable>
                                 </p:fieldset>
                          <p:fieldset class="tablashistorial" legend="AGENDAS FUTURAS" toggleable="true"  collapsed="true" toggleSpeed="500">
 
-                                    <p:dataTable id="datalist2" 
-                                                 value="#{expedienteController.verAgendasFuturasPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}" 
+                                    <p:dataTable id="datalist2"
+                                                 value="#{expedienteController.verAgendasFuturasPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}"
                                                  var="item"
                                                  selectionMode="single"
                                                  selection="#{agendaController.selectedAgendaFutura}"
@@ -695,7 +706,7 @@
                                                  rows="10"
                                                  rendered="true"
                                                  rowsPerPageTemplate="10,20,40,50"
-                                                 emptyMessage="no hay agendas futuras agregadas" 
+                                                 emptyMessage="no hay agendas futuras agregadas"
                                                  filteredValue="#{expedienteController.filteredAgendasFuturas}"
                                                  style="display: table;padding: 20px"
                                                  styleClass="tabla-tailwind"
@@ -713,7 +724,7 @@
                                         </p:column>
                                         <p:column  headerText="Responsable"  class="iconoturnorespondable"  >
                                             <div style="display:flex;justify-content: center">
-                                                <h:outputText id="responsableicon"  
+                                                <h:outputText id="responsableicon"
                                                               value="#{expedienteController.getIniciales(item.responsable)}"
                                                               style="color:white; border-radius:50%; width:28px; height:28px;
                                                               display:flex; align-items:center; justify-content:center;
@@ -750,18 +761,18 @@
                                             </p:commandButton>
 
                                             <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
-                                                <p:commandButton   update=":ExpedienteViewDesdeAgendaForm:tabViewEditExpAdm:datalist2" 
+                                                <p:commandButton   update=":ExpedienteViewDesdeAgendaForm:tabViewEditExpAdm:datalist2"
                                                                    value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;"/>
                                                 <p:commandButton update="@all" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
-                                            </p:confirmDialog> 
+                                            </p:confirmDialog>
                                         </p:column>
                                     </p:dataTable>
                                 </p:fieldset>
 
                                <p:fieldset class="tablashistorial" legend="TURNOS FUTUROS" toggleable="true"  collapsed="true" toggleSpeed="500">
 
-                                    <p:dataTable id="datalistTurnosFuturos" 
-                                                 value="#{expedienteController.verTurnosFuturosPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}" 
+                                    <p:dataTable id="datalistTurnosFuturos"
+                                                 value="#{expedienteController.verTurnosFuturosPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}"
                                                  var="item"
                                                  selectionMode="single"
                                                  selection="#{turnoController.selectedTurnoFuturo}"
@@ -770,7 +781,7 @@
                                                  rows="10"
                                                  rendered="true"
                                                  rowsPerPageTemplate="10,20,40,50"
-                                                 emptyMessage="no hay turnos futuros agregados" 
+                                                 emptyMessage="no hay turnos futuros agregados"
                                                  filteredValue="#{expedienteController.filteredTurnosFuturos}"
                                                  style="display: table;padding: 20px"
                                                  styleClass="tabla-tailwind"
@@ -796,18 +807,18 @@
                                                     <f:selectItem itemLabel="Pendiente" itemValue="Pendiente" />
                                                 </p:selectOneMenu>
                                             </f:facet>
-                                            <div class="apilarelementos"> 
+                                            <div class="apilarelementos">
                                                 <h:outputText value="#{item.realizado eq 'Si' ? 'Realizado' : (item.realizado eq 'Pendiente' ? 'Pendiente' : 'Por Atender')}" styleClass="estadofinalizado#{item.realizado}" />
 
                                                 <h:outputText  value="#{item.horaYDia}" styleClass="fechacolumna" >
                                                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                                                 </h:outputText>
-                                            </div> 
+                                            </div>
                                         </p:column>
                                         <p:column filterBy="#{item.responsable}" headerText="Responsable"  filterMatchMode="contains" style="width:10%" class="iconoturnorespondable" >
 
                                             <div style="display:flex;justify-content: center">
-                                                <h:outputText id="responsableicon"  
+                                                <h:outputText id="responsableicon"
                                                               value="#{expedienteController.getIniciales(item.responsable)}"
                                                               style="color:white; border-radius:50%; width:28px; height:28px;
                                                               display:flex; align-items:center; justify-content:center;
@@ -821,14 +832,14 @@
                                         <p:column  style="text-align: center; width: 10%" headerText="Acciones">
 
                                             <p:commandButton class="linea btnKeyGreen"
-                                                             update=":ExpedienteViewDesdeAgendaForm:tabViewEditExpAdm:datalistTurnosFuturos" 
+                                                             update=":ExpedienteViewDesdeAgendaForm:tabViewEditExpAdm:datalistTurnosFuturos"
                                                              actionListener="#{turnoController.marcarComoRealizadoSiTurnoFuturo()}"
                                                              icon=" ui-icon-check" title="Marcar como realizado si">
                                                 <f:setPropertyActionListener value="#{item}" target="#{turnoController.selectedTurnoFuturo}" />
                                             </p:commandButton>
 
                                             <p:commandButton class="linea btnDelete"
-                                                             update=":ExpedienteViewDesdeAgendaForm:tabViewEditExpAdm:datalistTurnosFuturos, message4" 
+                                                             update=":ExpedienteViewDesdeAgendaForm:tabViewEditExpAdm:datalistTurnosFuturos, message4"
                                                              actionListener="#{turnoController.destroyTurnoFuturo()}"  icon="ui-icon-trash" title="Eliminar">
                                                 <f:setPropertyActionListener value="#{item}" target="#{turnoController.selectedTurnoFuturo}" />
                                                 <p:confirm header="Confirmación" message="¿Estas seguro?" icon="ui-icon-alert"/>
@@ -837,7 +848,7 @@
                                             <p:confirmDialog  global="true" showEffect="fade" hideEffect="fade">
                                                 <p:commandButton   update=":ExpedienteViewDesdeAgendaForm:tabViewEditExpAdm:datalistTurnosFuturos"  value="Si" type="button" styleClass="ui-confirmdialog-yes ui-state-default" icon="ui-icon-check" style="color: black;"/>
                                                 <p:commandButton update="@all" value="No" type="button" styleClass="ui-confirmdialog-no ui-state-error-text" icon="ui-icon-close" style="color: black;"/>
-                                            </p:confirmDialog> 
+                                            </p:confirmDialog>
                                         </p:column>
 
                                     </p:dataTable>
@@ -880,7 +891,7 @@
                             </div>
                             <div class="editordetexto">
                                 <p:editor  value="#{expedienteController.selectedParaVerExp.tablaDeHonorariosYGastos}"></p:editor>
-                            </div>  
+                            </div>
                         </p:tab>
                         <p:tab >
                             <f:facet name="title">
@@ -892,7 +903,7 @@
                             <div class="comunicaciones">
 
                                 <p:commandButton  class="botonEditarAgendaEsteBotonNoSirveMasPeroLoNecesitaLaUI boton-guardar" style="margin-bottom: 20px;"
-                                                  actionListener="#{situacionPrevisionalController.prepareCreateSituacionPrevisional(expedienteController.selectedParaVerExp.orden)}"  value="crear situación previsional" 
+                                                  actionListener="#{situacionPrevisionalController.prepareCreateSituacionPrevisional(expedienteController.selectedParaVerExp.orden)}"  value="crear situación previsional"
                                                   update=":SituacionPrevisionalCreateFormExpAdmDesdeAgenda" oncomplete="PF('SituacionPrevisionalCreateDialogExpAdmDesdeAgenda').show()" />
                                 <p:dataTable id="datalistSituacionPrevisional"
                                              value="#{situacionPrevisionalController.verSituacionPrevisionalesPorNroDeOrden(expedienteController.selectedParaVerExp.orden)}"
@@ -904,7 +915,7 @@
                                              rows="10"
                                              rendered="true"
                                              rowsPerPageTemplate="10,20,50"
-                                             emptyMessage="no hay situaciones previsionales agregadas" 
+                                             emptyMessage="no hay situaciones previsionales agregadas"
                                              style="display: table;padding: 20px"
                                              styleClass="tabla-tailwind"
                                              >
@@ -947,7 +958,7 @@
 
                                         <p:commandButton class="linea btnDelete" update=":growl,datalistSituacionPrevisional" actionListener="#{situacionPrevisionalController.destroy}"  icon="ui-icon-trash" title="Eliminar">
                                             <f:setPropertyActionListener value="#{item}" target="#{situacionPrevisionalController.selected}" />
-                                        </p:commandButton> 
+                                        </p:commandButton>
 
                                     </p:column>
 
@@ -961,7 +972,7 @@
                                         <p:ajax update="panelCodigoEvaluacionSocioeconomica"/>
                                     </p:selectBooleanCheckbox>
 
-                                    <h:outputLabel for="btnCompraLey24476" 
+                                    <h:outputLabel for="btnCompraLey24476"
                                                    value="Compra aportes con moratoria Ley 24.476" />
                                 </div>
 
@@ -1007,15 +1018,15 @@
                                                      autoResize="true"
                                                      style="margin-left:10px;margin-right: 10px !important;"
                                                      rows="20"
-                                                     value="#{empty situacionPrevisionalController.totalTiempoConAportes 
-                                                              ? '' 
+                                                     value="#{empty situacionPrevisionalController.totalTiempoConAportes
+                                                              ? ''
                                                               : situacionPrevisionalController.totalTiempoConAportes.trim()}" />
                                 </h:panelGroup>
 
 
                             </div>
                         </p:tab>
-                    </p:tabView>      
+                    </p:tabView>
                 </div>
             </h:form>
 

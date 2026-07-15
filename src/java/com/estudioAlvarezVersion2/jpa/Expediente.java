@@ -62,7 +62,7 @@ public class Expediente implements Serializable {
     @Version
     @Column(name = "version")
     private Integer version;
-    
+
     @Basic(optional = false)
     @Column(name = "orden")
     private Integer orden;
@@ -77,12 +77,12 @@ public class Expediente implements Serializable {
 
     @Column(name = "nombre")
     private String nombre;
-    
+
     @Basic(optional = false)
     @Size(min = 1, max = 200)
     @Column(name = "tipoDeDocumento")
     private String tipoDeDocumento;
-    
+
     @Basic(optional = false)
     @Column(name = "sexo")
     private String sexo;
@@ -110,11 +110,11 @@ public class Expediente implements Serializable {
     @Basic(optional = false)
     @Column(name = "barrio")
     private String barrio;
-    
+
     @Basic(optional = false)
     @Column(name = "telefono")
     private String telefono;
-    
+
     @Basic(optional = false)
     @Column(name = "telefonoAuxiliar")
     private String telefonoAuxiliar;
@@ -200,11 +200,11 @@ public class Expediente implements Serializable {
     @Basic(optional = false)
     @Column(name = "observaciones")
     private String observaciones;
-    
+
     @Basic(optional = false)
     @Column(name = "responsable")
     private String responsable;
-    
+
     @Basic(optional = false)
     @Column(name = "apoderado")
     private String apoderado;
@@ -237,63 +237,63 @@ public class Expediente implements Serializable {
     @Basic(optional = false)
     @Column(name = "tipo")
     private String tipo;
-    
+
     @Basic(optional = false)
     @Column(name = "detalleDeEstadoDeTramite")
     private String detalleDeEstadoDeTramite;
-    
+
     @Basic(optional = false)
     @Column(name = "tablaDeHonorariosYGastos")
     private String tablaDeHonorariosYGastos;
-    
+
     @Column(name = "subCategoriasDeTipo")
     private String[]  subCategoriasDeTipo;
-    
+
     @Column(name = "cantidadDeHijos")
     private int  cantidadDeHijos;
-    
+
     @Column(name = "cantidadDeHijosConDiscapacidad")
     private int  cantidadDeHijosConDiscapacidad;
-    
+
     @Column(name = "cantidadDeHijosAdoptivos")
     private int  cantidadDeHijosAdoptivos;
-    
+
     @Column(name = "cantidadDeHijosPercibioAuh")
     private int  cantidadDeHijosPercibioAuh;
-    
+
     @Column(name = "estadoCivil")
     private String  estadoCivil;
 
-    @Column(name = "datosDelConyuge")    
+    @Column(name = "datosDelConyuge")
     private String datosDelConyuge;
-    
-    @Column(name = "tipoDeBeneficio")    
+
+    @Column(name = "tipoDeBeneficio")
     private String tipoDeBeneficio;
-    
-    @Column(name = "aportes")    
+
+    @Column(name = "aportes")
     private String aportes;
-    
-    @Column(name = "detalleDeAportes")    
+
+    @Column(name = "detalleDeAportes")
     private String detalleDeAportes;
-    
-    @Column(name = "trabajando")    
+
+    @Column(name = "trabajando")
     private String trabajando;
-    
-    @Column(name = "obraSocial")    
+
+    @Column(name = "obraSocial")
     private String obraSocial;
-    
-    @Column(name = "inscripcionAut")    
+
+    @Column(name = "inscripcionAut")
     private String inscripcionAut;
-    
-    @Column(name = "reclamoArt")    
+
+    @Column(name = "reclamoArt")
     private String reclamoArt;
-    
-    @Column(name = "equipo")    
+
+    @Column(name = "equipo")
     private String equipo;
-    
-    @Column(name = "activo")    
+
+    @Column(name = "activo")
     private String activo;
-    
+
     @Column(name = "fisico")
     private String fisico;
 
@@ -345,7 +345,58 @@ public class Expediente implements Serializable {
 
     @Column(name = "usuarioSac")
     private String usuarioSac;
-    
+
+    @Column(name = "laboralTipoReclamo")
+    private String laboralTipoReclamo;
+
+    @Column(name = "laboralDetalleReclamo")
+    private String laboralDetalleReclamo;
+
+    @Column(name = "laboralEmpleador")
+    private String laboralEmpleador;
+
+    @Column(name = "laboralCuit")
+    private String laboralCuit;
+
+    @Column(name = "laboralTrabajoRegistrado")
+    private String laboralTrabajoRegistrado;
+
+    @Column(name = "laboralArt")
+    private String laboralArt;
+
+    @Column(name = "laboralFechaIngreso")
+    @Temporal(TemporalType.DATE)
+    private Date laboralFechaIngreso;
+
+    @Column(name = "laboralFechaEgreso")
+    @Temporal(TemporalType.DATE)
+    private Date laboralFechaEgreso;
+
+    @Column(name = "laboralDescripcionPuesto")
+    private String laboralDescripcionPuesto;
+
+    @Column(name = "laboralJornada")
+    private String laboralJornada;
+
+    @Column(name = "laboralSalario")
+    private String laboralSalario;
+
+    @Column(name = "laboralCct")
+    private String laboralCct;
+
+    @Column(name = "laboralObservaciones")
+    private String laboralObservaciones;
+
+    @Column(name = "laboralSrtTipoTramite")
+    private String laboralSrtTipoTramite;
+
+    @Column(name = "laboralSrtExpediente")
+    private String laboralSrtExpediente;
+
+    @Column(name = "laboralCategoriaJuicio")
+    private String laboralCategoriaJuicio;
+
+
     public Expediente() {
     }
 
@@ -362,18 +413,18 @@ public class Expediente implements Serializable {
             String localidad, String tipoDeTramite, String procedencia,
             String estadoDelTramite, Date fechaDeCobro, String nacionalidad,
             String tipoDeExpediente, String caratula, String nroDeExpediente,
-            String juzgadoODependencia, String observaciones, String responsable, 
+            String juzgadoODependencia, String observaciones, String responsable,
             String apoderado, String comunicaciones, Date fechaDeAtencion,
             String convenioDeHonorarios, String jurisdiccion, String poderFirmado,
-            String tipo, String etapaProcesal, String detalleDeEstadoDeTramite, 
+            String tipo, String etapaProcesal, String detalleDeEstadoDeTramite,
             String tablaDeHonorariosYGastos, String[]  subCategoriasDeTipo,
             int cantidadDeHijos, int cantidadDeHijosConDiscapacidad,
             int cantidadDeHijosAdoptivos, int cantidadDeHijosPercibioAuh,
             String estadoCivil, String datosDelConyuge, String tipoDeBeneficio,
-            String aportes, String detalleDeAportes, String trabajando, 
+            String aportes, String detalleDeAportes, String trabajando,
             String obraSocial, String inscripcionAut, String reclamoArt,
             String equipo, String activo
-    
+
     ) {
         this.idExpediente = idExpediente;
         this.orden = orden;
@@ -429,7 +480,7 @@ public class Expediente implements Serializable {
         this.datosDelConyuge = datosDelConyuge;
         this.tipoDeBeneficio = tipoDeBeneficio;
         this.aportes = aportes;
-        
+
         this.detalleDeAportes = detalleDeAportes;
         this.trabajando = trabajando;
         this.obraSocial = obraSocial;
@@ -437,10 +488,10 @@ public class Expediente implements Serializable {
         this.reclamoArt = reclamoArt;
         this.equipo = equipo;
         this.activo = activo;
-        
-        
+
+
     }
-    
+
     public String[]  getSubCategoriasDeTipo() {
         return  subCategoriasDeTipo;
     }
@@ -448,7 +499,7 @@ public class Expediente implements Serializable {
     public void setSubCategoriasDeTipo(String[]  subCategoriasDeTipo) {
         this.subCategoriasDeTipo = subCategoriasDeTipo;
     }
-    
+
     public String getSelectedValueString() {
           return Arrays.toString(subCategoriasDeTipo);
         }
@@ -460,7 +511,7 @@ public class Expediente implements Serializable {
     public void setApoderado(String apoderado) {
         this.apoderado = apoderado;
     }
-    
+
     public Integer getIdExpediente() {
         return idExpediente;
     }
@@ -499,7 +550,7 @@ public class Expediente implements Serializable {
     public String getDni() {
         return dni;
     }
-    
+
     //ESTO LO TENGO Q HACER POR Q LOS DNI ESTÁN MAL CARGADOS LA GRAN MAYORíA
     public String getCuitRecordado() {
         if(cuit !=null && cuit.length()>=10){
@@ -550,7 +601,7 @@ public class Expediente implements Serializable {
             return null;
         }
     }
-       
+
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
@@ -742,7 +793,7 @@ public class Expediente implements Serializable {
     public void setTablaDeHonorariosYGastos(String tablaDeHonorariosYGastos) {
         this.tablaDeHonorariosYGastos = tablaDeHonorariosYGastos;
     }
-    
+
     public String getTipoDeExpedienteParaEstilo() {
         String tipoDeExpedienteParaEstilo = "no tiene tipo de exp.";
         if(tipoDeExpediente != null){
@@ -794,7 +845,7 @@ public class Expediente implements Serializable {
     public void setResponsable(String responsable) {
         this.responsable = responsable;
     }
-    
+
     public String getComunicaciones() {
         return comunicaciones;
     }
@@ -993,7 +1044,7 @@ public class Expediente implements Serializable {
     public void setFisico(String fisico) {
         this.fisico = fisico;
     }
-    
+
     public String getJpTipo() {
         return jpTipo;
     }
@@ -1142,6 +1193,39 @@ public class Expediente implements Serializable {
     public void setDdhhObservaciones(String ddhhObservaciones) { this.ddhhObservaciones = ddhhObservaciones; }
     public String getUsuarioSac() { return usuarioSac; }
     public void setUsuarioSac(String usuarioSac) { this.usuarioSac = usuarioSac; }
+    public String getLaboralTipoReclamo() { return laboralTipoReclamo; }
+    public void setLaboralTipoReclamo(String laboralTipoReclamo) { this.laboralTipoReclamo = laboralTipoReclamo; }
+    public String getLaboralDetalleReclamo() { return laboralDetalleReclamo; }
+    public void setLaboralDetalleReclamo(String laboralDetalleReclamo) { this.laboralDetalleReclamo = laboralDetalleReclamo; }
+    public String getLaboralEmpleador() { return laboralEmpleador; }
+    public void setLaboralEmpleador(String laboralEmpleador) { this.laboralEmpleador = laboralEmpleador; }
+    public String getLaboralCuit() { return laboralCuit; }
+    public void setLaboralCuit(String laboralCuit) { this.laboralCuit = laboralCuit; }
+    public String getLaboralTrabajoRegistrado() { return laboralTrabajoRegistrado; }
+    public void setLaboralTrabajoRegistrado(String laboralTrabajoRegistrado) { this.laboralTrabajoRegistrado = laboralTrabajoRegistrado; }
+    public String getLaboralArt() { return laboralArt; }
+    public void setLaboralArt(String laboralArt) { this.laboralArt = laboralArt; }
+    public Date getLaboralFechaIngreso() { return laboralFechaIngreso; }
+    public void setLaboralFechaIngreso(Date laboralFechaIngreso) { this.laboralFechaIngreso = laboralFechaIngreso; }
+    public Date getLaboralFechaEgreso() { return laboralFechaEgreso; }
+    public void setLaboralFechaEgreso(Date laboralFechaEgreso) { this.laboralFechaEgreso = laboralFechaEgreso; }
+    public String getLaboralDescripcionPuesto() { return laboralDescripcionPuesto; }
+    public void setLaboralDescripcionPuesto(String laboralDescripcionPuesto) { this.laboralDescripcionPuesto = laboralDescripcionPuesto; }
+    public String getLaboralJornada() { return laboralJornada; }
+    public void setLaboralJornada(String laboralJornada) { this.laboralJornada = laboralJornada; }
+    public String getLaboralSalario() { return laboralSalario; }
+    public void setLaboralSalario(String laboralSalario) { this.laboralSalario = laboralSalario; }
+    public String getLaboralCct() { return laboralCct; }
+    public void setLaboralCct(String laboralCct) { this.laboralCct = laboralCct; }
+    public String getLaboralObservaciones() { return laboralObservaciones; }
+    public void setLaboralObservaciones(String laboralObservaciones) { this.laboralObservaciones = laboralObservaciones; }
+    public String getLaboralSrtTipoTramite() { return laboralSrtTipoTramite; }
+    public void setLaboralSrtTipoTramite(String laboralSrtTipoTramite) { this.laboralSrtTipoTramite = laboralSrtTipoTramite; }
+    public String getLaboralSrtExpediente() { return laboralSrtExpediente; }
+    public void setLaboralSrtExpediente(String laboralSrtExpediente) { this.laboralSrtExpediente = laboralSrtExpediente; }
+    public String getLaboralCategoriaJuicio() { return laboralCategoriaJuicio; }
+    public void setLaboralCategoriaJuicio(String laboralCategoriaJuicio) { this.laboralCategoriaJuicio = laboralCategoriaJuicio; }
+
 
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -1158,7 +1242,7 @@ public class Expediente implements Serializable {
     public String toString() {
         return idExpediente.toString() ;
     }
-    
+
     public String toStringWithAllData() {
         return "Expediente{" + "orden=" + orden + ", cuit=" + cuit + ", dni=" + dni + ", nombre=" + nombre + ", tipoDeDocumento=" + tipoDeDocumento + ", sexo=" + sexo + ", apellido=" + apellido + ", direccion=" + direccion + ", nroDeAltura=" + nroDeAltura + ", piso=" + piso + ", depto=" + depto + ", barrio=" + barrio + ", telefono=" + telefono + ", fechaDeNacimiento=" + fechaDeNacimiento + ", edad=" + edad + ", claveSeguridadSocial=" + claveSeguridadSocial + ", claveFiscal=" + claveFiscal + ", claveCidi=" + claveCidi + ", cobraBeneficio=" + cobraBeneficio + ", fechaDeAltaDeExpediente=" + fechaDeAltaDeExpediente + ", codigoPostal=" + codigoPostal + ", localidad=" + localidad + ", tipoDeTramite=" + tipoDeTramite + ", procedencia=" + procedencia + ", estadoDelTramite=" + estadoDelTramite + ", fechaDeCobro=" + fechaDeCobro + ", nacionalidad=" + nacionalidad + ", tipoDeExpediente=" + tipoDeExpediente + ", caratula=" + caratula + ", nroDeExpediente=" + nroDeExpediente + ", juzgadoODependencia=" + juzgadoODependencia + ", observaciones=" + observaciones + ", comunicaciones=" + comunicaciones + ", fechaDeAtencion=" + fechaDeAtencion + ", convenioDeHonorarios=" + convenioDeHonorarios + ", poderFirmado=" + poderFirmado + ", etapaProcesal=" + etapaProcesal + ", jurisdiccion=" + jurisdiccion + ", tipo=" + tipo + ", detalleDeEstadoDeTramite=" + detalleDeEstadoDeTramite + ", tablaDeHonorariosYGastos=" + tablaDeHonorariosYGastos + '}';
     }
@@ -1166,5 +1250,5 @@ public class Expediente implements Serializable {
     public String toStringWithDatosPersonalesYDelExp() {
         return "orden=" + orden + "\n, cuit=" + cuit + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido +", tipo de documento=" + tipoDeDocumento + ", sexo=" + sexo + ", direccion=" + direccion + ", nro de altura=" + nroDeAltura + ", piso=" + piso + ", depto=" + depto + ", barrio=" + barrio + ", telefono=" + telefono + ", fecha de nacimiento=" + fechaDeNacimiento + ", edad=" + edad + ", cobraBeneficio=" + cobraBeneficio + ", fecha de alta del Expediente=" + fechaDeAltaDeExpediente + ", codigo postal=" + codigoPostal + ", localidad=" + localidad + ", tipo de tramite=" + tipoDeTramite + ", procedencia=" + procedencia + ", estadoDelTramite=" + estadoDelTramite + ", fechaDeCobro=" + fechaDeCobro + ", nacionalidad=" + nacionalidad + ", tipoDeExpediente=" + tipoDeExpediente + ", caratula=" + caratula + ", nroDeExpediente=" + nroDeExpediente + ", juzgadoODependencia=" + juzgadoODependencia + ", observaciones=" + observaciones + ", comunicaciones=" + comunicaciones + ", fechaDeAtencion=" + fechaDeAtencion + ", convenioDeHonorarios=" + convenioDeHonorarios + ", poderFirmado=" + poderFirmado + ", etapaProcesal=" + etapaProcesal + ", jurisdiccion=" + jurisdiccion + ", tipo=" + tipo + ", detalle De estado de tramite=" + detalleDeEstadoDeTramite + ", tabla de honorarios y gastos=" + tablaDeHonorariosYGastos + '}';
     }
-    
+
 }

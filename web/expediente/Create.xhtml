@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-            
+
         <p:dialog id="ExpedienteCreateDlg" class="crearExpediente" widgetVar="ExpedienteCreateDialog" modal="true" resizable="true" appendTo="@(body)" header="Crear expediente Administrativo" width="100" style="overflow-y:auto">
             <h:form id="ExpedienteCreateForm">
 
@@ -15,7 +15,7 @@
                                  style="float: right !important; margin-top: 0% !important;"/>
 
 
-                <div style="float: left;width: 100%">   
+                <div style="float: left;width: 100%">
 
                     <p:tabView scrollable="true" style="width: 100%">
                         <h:panelGroup id="display"></h:panelGroup >
@@ -32,7 +32,7 @@
 
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="margin-left: 3%;font-weight: bold" />
                                 <p:inputText id="telefono" value="#{expedienteController.selected.telefono}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_telefono}" />
-                                
+
                                 <p:outputLabel value="Telèfono Auxiliar" for="telefonoAuxiliar" style="margin-left: 3%;font-weight: bold" />
                                 <p:inputTextarea   autoResize="true"   id="telefonoAuxiliar" value="#{expedienteController.selected.telefonoAuxiliar}" title="Telèfono Auxiliar"/>
 
@@ -40,7 +40,7 @@
                             <h:panelGrid columns="4" cellspacing="5" cellpadding="1">
                                 <p:outputLabel value="Fecha de Nacimiento:" style="font-weight: bold" for="fechaDeNacimiento" />
                                 <p:calendar  required="true" requiredMessage="Fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selected.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" showOn="button">
-                                </p:calendar> 
+                                </p:calendar>
                                 <p:outputLabel value="Nacionalidad:" for="nacionalidad" style="margin-left: 3%;font-weight: bold" />
                                 <p:selectOneMenu id="nacionalidad" value="#{expedienteController.selected.nacionalidad}" style="margin-left: 3%" >
                                     <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
@@ -54,9 +54,9 @@
                                     <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
                                     <p:ajax update="inputPanelCantHijos" />
                                 </p:selectOneMenu>
-                                
-                                
-                                
+
+
+
                             </h:panelGrid>
                             <h:panelGrid  columns="4" cellspacing="5" id="inputPanelCantHijos">
                                 <p:outputLabel value="Número total de Hijos:" rendered="#{expedienteController.selected.sexo == 'Femenino'}" />
@@ -106,7 +106,7 @@
 
                                 <p:outputLabel value="Localidad:" for="localidad" style="margin-left: 3%;font-weight: bold" />
                                 <p:inputText id="localidad" value="#{expedienteController.selected.localidad}" style="margin-left: 3%"  title="localidad"/>
-                            </h:panelGrid>       
+                            </h:panelGrid>
                             <h:panelGrid columns="2" cellspacing="5">
                                 <p:outputLabel value="Código Postal:" for="codigoPostal" style="font-weight: bold" />
                                 <p:inputText id="codigoPostal" value="#{expedienteController.selected.codigoPostal}" title="codigoPostal" style="width: 79%;"/>
@@ -124,7 +124,7 @@
                                     </p:calendar>
                                 </h:panelGrid>
 
-                                <div style="width: 50%; margin-top: 1.5%"> 
+                                <div style="width: 50%; margin-top: 1.5%">
                                     <div>
                                         <p:outputLabel value="Tipo de tramite:" for="tipoDeTramite" style="font-weight: bold" /><br></br>
 
@@ -140,7 +140,7 @@
                                     <f:selectItem itemLabel="LABORAL-LEY DE RIESGO" itemValue="LABORAL-LEY DE RIESGO" />
                                     <f:selectItem itemLabel="JURISDICCIÓN VOLUNTARIA" itemValue="JURISDICCIÓN VOLUNTARIA" />
                                     <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
-                                    <p:ajax update="ddhhPanel" />
+                                    <p:ajax update="@form" />
                                     </p:selectOneMenu>
                                     <h:panelGroup id="ddhhPanel" layout="block" style="width: 100%; margin-top: 15px; display: #{expedienteController.selected.jpTipo eq 'DDHH' ? 'block' : 'none'};">
                                         <div class="columna">
@@ -215,10 +215,20 @@
                                     </div>
 
                                 </div>
-                                <div style="width: 50%; margin-top: 1.5%"> 
+                                <div style="width: 50%; margin-top: 1.5%">
                                     <div>
-                                        <p:outputLabel value="Equipo:" for="equipo" style="font-weight: bold" /><br></br>
-                                         
+
+
+                                    <h:panelGroup id="laboralPanel" layout="block" style="width: 100%; margin-top: 15px;">
+                                        <h:panelGroup layout="block" rendered="#{expedienteController.expedienteSeleccionadoLaboralJusticiaProvincial}">
+                                            <ui:include src="/expediente/fragments/laboralEdit.xhtml">
+                                                <ui:param name="expediente" value="#{expedienteController.selected}" />
+                                            </ui:include>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+
+<p:outputLabel value="Equipo:" for="equipo" style="font-weight: bold" /><br></br>
+
                                         <p:selectOneMenu style="margin-left: 1%; margin-right: 1%" id="equipo" editable="false" effect="fold" value="#{expedienteController.selected.equipo}">
                                             <f:selectItem itemLabel=" -- Elige un equipo --"  noSelectionOption="true"  />
                                             <f:selectItems value="#{equipoController.items}" var="equipo" itemLabel="#{equipo.nombre}" itemValue="#{equipo.nombre}" />
@@ -295,7 +305,7 @@
                                     <f:selectItem itemLabel="NO" itemValue="NO" />
                                     <f:selectItem itemLabel="SI" itemValue="SI" />
                                     <p:ajax update="inputAportes" />
-                                </p:selectOneMenu>   
+                                </p:selectOneMenu>
                             </h:panelGrid>
                             <h:panelGrid id="inputAportes" columns="2" cellspacing="5" >
                                 <p:outputLabel rendered="#{expedienteController.selected.aportes == 'SI'}" value="detalle de aportes:" for="detalleDeAportes" style="font-weight: bold"/><br></br>
@@ -325,7 +335,7 @@
                             <p:selectOneMenu style="margin-left: 3%" id="reclamoArt" value="#{expedienteController.selected.reclamoArt}" >
                                 <f:selectItem itemLabel="SI" itemValue="SI" />
                                 <f:selectItem itemLabel="NO" itemValue="NO" />
-                            </p:selectOneMenu>   
+                            </p:selectOneMenu>
                         </p:tab>
                         <p:tab title="Claves">
 
@@ -386,7 +396,7 @@
                             <br></br>
                             <br></br>
                             <p:editor width="700" value="#{expedienteController.selected.tablaDeHonorariosYGastos}"></p:editor>
-                        </p:tab> 
+                        </p:tab>
 
                     </p:tabView>
 

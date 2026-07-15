@@ -446,7 +446,17 @@
                                     </h:panelGroup>
                                 </h:panelGroup>
 
-                                <p:confirmDialog id="confirmdialog" widgetVar="confirm" global="true" showEffect="fade" hideEffect="fade" message="¿está seguro?" header="No es muy común cambiar el tipo de expediente:">
+
+
+                                <h:panelGroup id="laboralPanel" layout="block" style="width: 100%; margin-top: 15px;">
+                                    <h:panelGroup layout="block" rendered="#{expedienteController.expedienteSeleccionadoLaboralJusticiaProvincial}">
+                                        <ui:include src="/expediente/fragments/laboralEdit.xhtml">
+                                            <ui:param name="expediente" value="#{expedienteController.selected}" />
+                                        </ui:include>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+
+<p:confirmDialog id="confirmdialog" widgetVar="confirm" global="true" showEffect="fade" hideEffect="fade" message="¿está seguro?" header="No es muy común cambiar el tipo de expediente:">
                                     <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" update=":ExpedienteJudicialEditForm:tabViewEditExpJudicialEditForm" />
                                 </p:confirmDialog>
                                 <div class="checkboxexpedientes">
@@ -509,6 +519,9 @@
 
                             </div>
                             <div class="columna">
+
+                                <p:outputLabel value="Categoría de juicio:" for="laboralCategoriaJuicio" rendered="#{expedienteController.expedienteSeleccionadoJudicialLaboralJusticiaProvincial}" />
+                                <p:inputText id="laboralCategoriaJuicio" value="#{expedienteController.selected.laboralCategoriaJuicio}" rendered="#{expedienteController.expedienteSeleccionadoJudicialLaboralJusticiaProvincial}" />
 
                                 <p:outputLabel value="Nº de Expediente:" for="nroDeExpediente"  />
                                 <p:inputText id="nroDeExpediente" value="#{expedienteController.selected.nroDeExpediente}"

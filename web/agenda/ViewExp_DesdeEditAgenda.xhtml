@@ -7,11 +7,11 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        
-        
-        
+
+
+
         <p:dialog id="AgendaViewExpDialog" class="editDialogExpediente" widgetVar="AgendaViewExpDialog" modal="true" header="Ver Datos Del Expediente" resizable="true" appendTo="@(body)" width="100" style="overflow-y:auto">
-            
+
             <h:form id="AgendaViewExpForm">
 
                 <div style="font-weight: bold; float: left; width: 100%; ">
@@ -25,12 +25,12 @@
 
                 <br></br><br></br>
 
-                <div style="float: left;width: 100%;">   
+                <div style="float: left;width: 100%;">
 
                     <p:tabView style="width: 100%">
-                      
- 
-                        
+
+
+
                         <p:tab title="Datos personales">
                             <h:panelGrid columns="4" cellspacing="5">
                                 <p:outputLabel value="Orden:"  style="font-weight: bold" class="float-r"/>
@@ -49,7 +49,7 @@
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_cuit}" for="cuit" style="font-weight: bold" class="float-r"/>
                                 <p:inputText required="true" requiredMessage="CUIT ES REQUERIDO" id="cuit" value="#{expedienteController.selectedParaVerExp.cuit}" title="#{bundle.CreateExpedienteTitle_cuit}" readonly="true"/>
 
-                                <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="font-weight: bold" class="float-r"/>    
+                                <p:outputLabel value="#{bundle.CreateExpedienteLabel_telefono}" for="telefono" style="font-weight: bold" class="float-r"/>
                                 <p:inputText id="telefono" value="#{expedienteController.selectedParaVerExp.telefono}" style="margin-left: 3%" title="#{bundle.CreateExpedienteTitle_telefono}" readonly="true"/>
                             </h:panelGrid>
 
@@ -57,12 +57,12 @@
                                 <p:outputLabel value="Edad:"  style="font-weight: bold" class="float-r"/>
                                 <p:outputLabel value="#{expedienteController.selectedParaVerExp.edad}" style="font-weight: bold; margin-right: 30%;"/>
                             </h:panelGrid>
-                            <h:panelGrid columns="2" cellspacing="5" cellpadding="1">            
+                            <h:panelGrid columns="2" cellspacing="5" cellpadding="1">
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_fechaDeNacimiento}" style="font-weight: bold" for="fechaDeNacimiento" class="float-r"/>
                                 <p:calendar  disabledWeekends="true" readonly="true" required="true" requiredMessage="Fecha de nacimiento es requerido" id="fechaDeNacimiento" pattern="dd/MM/yyyy" value="#{expedienteController.selectedParaVerExp.fechaDeNacimiento}" title="#{bundle.EditExpedienteTitle_fechaDeNacimiento}" showOn="button">
                                 </p:calendar>
                             </h:panelGrid>
-                            <h:panelGrid columns="6" cellspacing="5" >        
+                            <h:panelGrid columns="6" cellspacing="5" >
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_sexo}" for="sexo" style="font-weight: bold" class="float-r"/>
                                 <p:selectOneMenu  style="margin-left: 3%" id="sexo" value="#{expedienteController.selectedParaVerExp.sexo}" >
                                     <f:selectItem itemLabel="Masculino" itemValue="masculino" />
@@ -83,11 +83,11 @@
                                 </p:selectOneMenu>
 
                             </h:panelGrid>
-                            <h:panelGrid columns="2" cellspacing="5" style="margin-top: 3%;"> 
+                            <h:panelGrid columns="2" cellspacing="5" style="margin-top: 3%;">
                                 <p:outputLabel value="Código_Postal:" for="codigoPostal" style="margin-left: 3%;font-weight: bold" />
                                 <p:inputText id="codigoPostal" value="#{expedienteController.selectedParaVerExp.codigoPostal}" style="margin-left: 3%;width: 71%" title="codigoPostal" readonly="true"/>
                             </h:panelGrid>
-                            <h:panelGrid columns="6" cellspacing="5" >         
+                            <h:panelGrid columns="6" cellspacing="5" >
                                 <p:outputLabel value="#{bundle.CreateExpedienteLabel_direccion}" for="direccion" style="font-weight: bold" />
                                 <p:inputText id="direccion" value="#{expedienteController.selectedParaVerExp.direccion}" title="#{bundle.CreateExpedienteTitle_direccion}" readonly="true"/>
 
@@ -105,7 +105,7 @@
 
                                 <p:outputLabel value="Localidad:" for="localidad" style="margin-left: 3%;font-weight: bold" />
                                 <p:inputText id="localidad" value="#{expedienteController.selectedParaVerExp.localidad}" style="margin-left: 3%"  title="localidad" readonly="true" />
-                            </h:panelGrid>           
+                            </h:panelGrid>
                         </p:tab>
                         <p:tab title="Datos Expediente">
                             <div style="float:left;width: 50%">
@@ -169,7 +169,7 @@
                                         <p:outputLabel value="Fecha de cobro:" for="fechaDeCobro" style="font-weight: bold" rendered="#{expedienteController.selectedParaVerExp.estadoDelTramite eq 'FECHA DE COBRO.'}" /><br></br>
                                         <p:calendar   disabledWeekends="true" style="width: 112px;" id="fechaDeCobro" pattern="dd/MM/yyyy" value="#{expedienteController.selectedParaVerExp.fechaDeCobro}" title="fechaDeCobro" rendered="#{expedienteController.selectedParaVerExp.estadoDelTramite eq 'FECHA DE COBRO.'}" />
                                     </div>
-                                    
+
                                 </div>
                                 <br></br>
 
@@ -181,7 +181,7 @@
                                 <br></br><br></br>
                                 <p:outputLabel value="Observaciones:" for="observaciones" style="font-weight: bold"/><br></br>
                                 <p:inputTextarea rows="5" cols="70" autoResize="false"  id="observaciones" value="#{expedienteController.selectedParaVerExp.observaciones}" title="observaciones" readonly="true" />
-                            </div>   
+                            </div>
                         </p:tab>
                         <p:tab title="Claves">
                             <div>
@@ -251,7 +251,7 @@
                             <div>
                                 <p:outputLabel value="Comunicaciones" for="comunicaciones" style="font-weight: bold"/><br></br>
                                  <p:editor width="700" id="comunicaciones" value="#{expedienteController.selectedParaVerExp.comunicaciones}"  ></p:editor>
-                               
+
                             </div>
 
                             <br></br>
@@ -264,10 +264,10 @@
                                         <p:outputLabel value="#{expedienteController.verProximaAgenda(expedienteController.selectedParaVerExp.orden)}" /><br></br>
                                     </p:fieldset>
                                 </div>
-                                
+
                             </div>
                         </p:tab>
-                        
+
                         <p:tab title="Honorarios y Gastos">
                             <div>
                             <p:outputLabel value="convenio de honorarios" style="font-weight: bold" for="convenioDeHonorarios" />
@@ -294,10 +294,10 @@
                             <br></br>
                             <br></br>
                             <p:editor width="700" value="#{expedienteController.selectedParaVerExp.tablaDeHonorariosYGastos}"></p:editor>
-                            </p:tab> 
+                            </p:tab>
 
- 
-                    </p:tabView>      
+
+                    </p:tabView>
                 </div>
             </h:form>
         </p:dialog>

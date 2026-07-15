@@ -1,0 +1,16 @@
+ALTER TABLE Expediente ADD COLUMN laboralTipoReclamo VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN laboralDetalleReclamo VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN laboralEmpleador VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN laboralCuit VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN laboralTrabajoRegistrado VARCHAR(10);
+ALTER TABLE Expediente ADD COLUMN laboralArt VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN laboralFechaIngreso DATE;
+ALTER TABLE Expediente ADD COLUMN laboralFechaEgreso DATE;
+ALTER TABLE Expediente ADD COLUMN laboralDescripcionPuesto VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN laboralJornada VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN laboralSalario VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN laboralCct VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN laboralObservaciones VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN laboralSrtTipoTramite VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN laboralSrtExpediente VARCHAR(255);
+ALTER TABLE Expediente ADD COLUMN laboralCategoriaJuicio VARCHAR(255);

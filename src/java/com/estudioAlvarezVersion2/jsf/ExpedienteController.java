@@ -63,7 +63,7 @@ public class ExpedienteController implements Serializable {
 
     @EJB
     private com.estudioAlvarezVersion2.jpacontroller.ExpedienteFacade ejbFacade;
-    
+
     @PersistenceContext(unitName = "EstudioAlvarezVersion2PU")
     private EntityManager em;
 
@@ -74,7 +74,7 @@ public class ExpedienteController implements Serializable {
     private Expediente selected;
     private Expediente selectedParaHonorarios;
     private Expediente selectedDesdeWithSession;
-    
+
     private Expediente selectedParaVerExp;
     private String estadoDelTramiteSelected;
     private String fechaDeCumpleSelected;
@@ -88,19 +88,20 @@ public class ExpedienteController implements Serializable {
     private List<Agenda> filteredAgendasParaHoy;
     private List<Agenda> filteredAgendasAnteriores;
     private List<Agenda> filteredAgendasFuturas;
-    
+
     private List<Agenda> filteredTurnosAnteriores;
     private List<Agenda> filteredTurnosFuturos;
-    
-    
+
+
     private List<Comunicacion> filteredComunicacionesPorNroDeOrden;
-    
+
     private Date dateSelected;
-    
+
     private static final String ADMINISTRATIVO = "administrativo";
     private static final String JUDICIAL = "judicial";
     private static final String SIN_CARPETA = "sin carpeta";
     private static final String DDHH = "DDHH";
+    private static final String LABORAL = "LABORAL";
     private static final String JUSTICIA_PROVINCIAL = "JUSTICIA PROVINCIAL";
 
 
@@ -146,7 +147,7 @@ public class ExpedienteController implements Serializable {
     public void setSelectedDesdeWithSession(Expediente selectedDesdeWithSession) {
         this.selectedDesdeWithSession = selectedDesdeWithSession;
     }
-    
+
     public void setSelectedParaHonorarios(Expediente selectedParaHonorarios) {
         this.selectedParaHonorarios = selectedParaHonorarios;
     }
@@ -201,12 +202,12 @@ public class ExpedienteController implements Serializable {
 
     public void setSelected(Expediente selected) {
         this.selected = selected;
-        
+
         // cada vez que se selecciona un expediente, vaciamos el reporte
         FacesContext context = FacesContext.getCurrentInstance();
         SituacionPrevisionalController situacionPrevisionalControllerBean = context.getApplication().evaluateExpressionGet(context, "#{situacionPrevisionalController}", SituacionPrevisionalController.class);
         situacionPrevisionalControllerBean.setTotalTiempoConAportes("");
-                
+
     }
 
     public void handleDateSelect(Date selected) {
@@ -246,7 +247,7 @@ public class ExpedienteController implements Serializable {
     public void setResponsableSelected(String responsable) {
         this.responsableSelected = responsable;
     }
-    
+
     public String getEquipoSelected() {
         return equipoSelected;
     }
@@ -286,7 +287,7 @@ public class ExpedienteController implements Serializable {
     public void setMostrarSoloActivos(boolean mostrarSoloActivos) {
         this.mostrarSoloActivos = mostrarSoloActivos;
     }
-    
+
       public boolean isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial() {
         return isExpedienteJudicialDdhhJusticiaProvincial(selected);
     }
@@ -301,6 +302,22 @@ public class ExpedienteController implements Serializable {
 
     public boolean isExpedienteSeleccionadoJudicialJusticiaProvincial() {
         return isExpedienteJudicialJusticiaProvincial(selected);
+    }
+
+    public boolean isExpedienteSeleccionadoLaboralJusticiaProvincial() {
+        return isExpedienteLaboralJusticiaProvincial(selected);
+    }
+
+    public boolean isExpedienteSeleccionadoJudicialLaboralJusticiaProvincial() {
+        return isExpedienteJudicialLaboralJusticiaProvincial(selected);
+    }
+
+    public boolean isExpedienteParaVerSeleccionadoLaboralJusticiaProvincial() {
+        return isExpedienteLaboralJusticiaProvincial(selectedParaVerExp);
+    }
+
+    public boolean isExpedienteParaVerSeleccionadoJudicialLaboralJusticiaProvincial() {
+        return isExpedienteJudicialLaboralJusticiaProvincial(selectedParaVerExp);
     }
 
     private boolean isExpedienteJudicialJusticiaProvincial(Expediente expediente) {
@@ -322,6 +339,21 @@ public class ExpedienteController implements Serializable {
                 && equalsIgnoreCaseTrim(expediente.getEquipo(), JUSTICIA_PROVINCIAL);
     }
 
+    private boolean isExpedienteLaboralJusticiaProvincial(Expediente expediente) {
+        if (expediente == null) {
+            return false;
+        }
+
+        return equalsIgnoreCaseTrim(expediente.getJpTipo(), LABORAL)
+                && (equalsIgnoreCaseTrim(expediente.getEquipo(), JUSTICIA_PROVINCIAL)
+                || expediente.getEquipo() == null || expediente.getEquipo().trim().isEmpty());
+    }
+
+    private boolean isExpedienteJudicialLaboralJusticiaProvincial(Expediente expediente) {
+        return isExpedienteLaboralJusticiaProvincial(expediente)
+                && equalsIgnoreCaseTrim(expediente.getTipoDeExpediente(), JUDICIAL);
+    }
+
     private void limpiarUsuarioSacSiNoCorresponde() {
         if (selected != null && !isExpedienteJudicialJusticiaProvincial(selected)) {
             selected.setUsuarioSac(null);
@@ -331,7 +363,7 @@ public class ExpedienteController implements Serializable {
     private boolean equalsIgnoreCaseTrim(String value, String expected) {
         return value != null && expected != null && value.trim().equalsIgnoreCase(expected);
     }
-    
+
     public Expediente prepareCreateExpAdministrativo() {
         selected = new Expediente();
         selected.setTipoDeExpediente(ADMINISTRATIVO);
@@ -444,7 +476,7 @@ public class ExpedienteController implements Serializable {
         }
         return null;
     }
-    
+
     /*
         este metodo va a devolver
         administrativo
@@ -503,8 +535,8 @@ public class ExpedienteController implements Serializable {
         ingresarEdad();
 
         ingresarDni();
-        
-        if(selected.getFechaDeNacimiento() != null){ 
+
+        if(selected.getFechaDeNacimiento() != null){
             crearAgendaSaludoPorCumpleaños(selected.getFechaDeNacimiento(), selected.getOrden(), selected.getNombre(), selected.getApellido());
         }
 
@@ -513,7 +545,7 @@ public class ExpedienteController implements Serializable {
         if (selected.getTipoDeExpediente() == null ? SIN_CARPETA != null : !selected.getTipoDeExpediente().equals(SIN_CARPETA)) {
             successMessage = "Expediente del tipo: ".concat(selected.getTipoDeExpediente().toUpperCase()).concat(" creado exitosamente").concat(" con el nro de Orden: ") + selected.getOrden();
         }
-        
+
         persist(PersistAction.CREATE, successMessage);
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -636,28 +668,28 @@ public class ExpedienteController implements Serializable {
 
         Connection con = null;
         PreparedStatement ps = null;
-            
-        try {       
-            
+
+        try {
+
             long cuitLong = 0;
             String cleanCuit = normalizeCuitDigits(selected.getCuit());
 
             if (cleanCuit != null) {
                 cuitLong = Long.parseLong(cleanCuit);
             }
-            
+
                 con = DAO.getConnection();
                 ps = con.prepareStatement("INSERT INTO documentosFrenteDni (documento, nroDeOrden, nombreDelDocumento) SELECT  documento, ?, nombreDelDocumento from frenteDniExpSinCarpeta where nroDeCuit = ? ;");
                 ps.setInt(1, selected.getOrden());
                 ps.setLong(2, cuitLong);
-                
+
                 ps.execute();
 
                 ps = con.prepareStatement("INSERT INTO documentosDorsoDni (documento, nroDeOrden, nombreDelDocumento) SELECT  documento, ?, nombreDelDocumento from dorsoDniExpSinCarpeta where nroDeCuit = ? ;");
                 ps.setInt(1, selected.getOrden());
                 ps.setLong(2, cuitLong);
-                
-                
+
+
                 ps.execute();
 
                 con.close();
@@ -666,12 +698,12 @@ public class ExpedienteController implements Serializable {
             FacesMessage msg = new FacesMessage("ERROR", "no se pudo transpasar frente y dorso de dni de este exp. transformando a administrativo");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-        
+
         persist(PersistAction.UPDATE, "Expediente transformado a ADMINISTRATIVO con el nro de orden: " + mayorOrden);
     }
-    
+
     public void updateConCambioParaJudicial() {
-            
+
         Date fechaAntigua = new Date();
 
         if (selected.getFechaDeNacimiento() != null) {
@@ -690,35 +722,35 @@ public class ExpedienteController implements Serializable {
 
         selected.setOrden(mayorOrden);
         selected.setTipoDeExpediente(JUDICIAL);
-        
+
         Connection con = null;
         PreparedStatement ps = null;
-            
-        try {       
-            
+
+        try {
+
             long cuitLong = 0;
             String cleanCuit = normalizeCuitDigits(selected.getCuit());
 
             if (cleanCuit != null) {
                 cuitLong = Long.parseLong(cleanCuit);
             }
-            
+
                 con = DAO.getConnection();
                 ps = con.prepareStatement("INSERT INTO documentosFrenteDni (documento, nroDeOrden, nombreDelDocumento) SELECT  documento, ?, nombreDelDocumento from frenteDniExpSinCarpeta where nroDeCuit = ? ;");
                 ps.setInt(1, selected.getOrden());
                 ps.setLong(2, cuitLong);
 
-                
+
                 ps.execute();
 
                 ps = con.prepareStatement("INSERT INTO documentosDorsoDni (documento, nroDeOrden, nombreDelDocumento) SELECT  documento, ?, nombreDelDocumento from dorsoDniExpSinCarpeta where nroDeCuit = ? ;");
                 ps.setInt(1, selected.getOrden());
                 ps.setLong(2, cuitLong);
 
-                
+
                 ps.execute();
 
-                
+
                 con.close();
 
         } catch (SQLException e) {
@@ -726,8 +758,8 @@ public class ExpedienteController implements Serializable {
             FacesMessage msg = new FacesMessage("ERROR", "no se pudo transpasar frente y dorso de dni de este exp.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-        
-        
+
+
         persist(PersistAction.UPDATE, "Expediente transformado a JUDICIAL con el nro de orden: " + mayorOrden);
     }
 
@@ -735,16 +767,16 @@ public class ExpedienteController implements Serializable {
 
          Integer maxOrden = em.createQuery("SELECT MAX(e.orden) FROM Expediente e", Integer.class)
             .getSingleResult();
-        
+
         // Si no hay expedientes en la base de datos, el máximo valor será null
         // En ese caso, asignar el valor 1 para el primer expediente
         if (maxOrden == null) {
             return 0;
         }
-        
+
         // Agregar 1 al máximo valor para generar un nuevo valor único
         return maxOrden + 1;
-        
+
     }
 
     public void update2() {
@@ -752,18 +784,18 @@ public class ExpedienteController implements Serializable {
     }
 
     public void destroy() {
-        
+
         HttpSession session = SessionUtils.getSession();
-        
+
         if(selected.getOrden() != null) System.out.println("nro de orden: "+selected.getOrden()+"borrado por: "+ session.getAttribute("username"));
-        
+
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ExpedienteDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    
+
    public List<Expediente> getItems() {
         if (mostrarSoloActivos) {
             if (activeItems == null) {
@@ -777,7 +809,7 @@ public class ExpedienteController implements Serializable {
             return items;
         }
     }
-   
+
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
@@ -848,21 +880,21 @@ public class ExpedienteController implements Serializable {
     public Expediente getExpediente(java.lang.Integer id) {
         return getFacade().find(id);
     }
-    
+
     public Expediente getExpedienteByNroDeOrden(java.lang.Integer orden) {
-        
+
         for (Expediente en : getFacade().findAll()) {
             if(Objects.equals(en.getOrden(), orden)){
                 return en;
             }
-            
+
         }
         return new Expediente();
     }
-    
+
     public Expediente getExpedienteByOrden(java.lang.Integer orden) {
          List<Expediente> listExpedientes = getItemsAvailableSelectMany();
-         
+
         for(int i = 0; i< listExpedientes.size(); i++){
             if(listExpedientes.get(i).getOrden() != null){
                 if(listExpedientes.get(i).getOrden().equals(orden)) return listExpedientes.get(i);
@@ -878,7 +910,7 @@ public class ExpedienteController implements Serializable {
     public List<Expediente> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
-    
+
     public List<Expediente> getItemsAvailableSelectOneOnlyJudiciales() {
         List<Expediente> expedientes = getFacade().findAll();
         List<Expediente> expedientesJudiciales = new ArrayList<>();
@@ -893,37 +925,37 @@ public class ExpedienteController implements Serializable {
     }
 
     private void crearNuevaComunicacion(String comunicacion, Integer orden, String responsable){
-        
+
         // Obtén la fecha actual
         LocalDate fechaActual = LocalDate.now();
 
         // Convierte LocalDate a Date
         Date fechaActualDate = Date.from(fechaActual.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-        
+
         FacesContext context = FacesContext.getCurrentInstance();
         ComunicacionController comunicacionControllerBean = context.getApplication().evaluateExpressionGet(context, "#{comunicacionController}", ComunicacionController.class);
         comunicacionControllerBean.prepareCreateComunicacion(orden);
-        
+
         comunicacionControllerBean.createComunicacion(fechaActualDate, comunicacion, responsable, orden);
-        
-    
+
+
     }
-    
-    
+
+
  private void crearAgendaSaludoPorCumpleaños(Date fechaDeNacimientoDelExp, Integer orden, String nombre, String apellido) {
         // Convertir Date a LocalDate
         LocalDate fechaNacimiento = fechaDeNacimientoDelExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        
+
         // Obtener la fecha actual
         LocalDate fechaActual = LocalDate.now();
-        
+
         // Calcular el próximo cumpleaños
         LocalDate proximoCumpleaños = fechaNacimiento.withYear(fechaActual.getYear());
         if (proximoCumpleaños.isBefore(fechaActual) || proximoCumpleaños.isEqual(fechaActual)) {
             proximoCumpleaños = proximoCumpleaños.plusYears(1);
         }
-        
+
         // Convertir el próximo cumpleaños a Date
         Date fechaProximoCumpleaños = Date.from(proximoCumpleaños.atStartOfDay(ZoneId.systemDefault()).toInstant());
         String porSerFeriado = " ";
@@ -940,12 +972,12 @@ public class ExpedienteController implements Serializable {
         agendaControllerBean.getSelected().setOrden(orden);
         agendaControllerBean.getSelected().setNombre(nombre);
         agendaControllerBean.getSelected().setApellido(apellido);
-        
+
         agendaControllerBean.getSelected().setResponsable("Natali D Agostino");
-        
+
         agendaControllerBean.create(nombre, apellido, orden);
     }
- 
+
  private void crearAgendaVerConsulta(Integer orden, String nombre, String apellido, String responsable) {
 
                                 HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
@@ -967,7 +999,7 @@ public class ExpedienteController implements Serializable {
 
                         Date fechaDeCreacion = dateToday; // Fecha de creación obtenida de la sesión
                         Date fechaProximoDiaHabil = getNextBusinessDay(fechaDeCreacion);
-                
+
         // Crear la agenda
         FacesContext context = FacesContext.getCurrentInstance();
         AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
@@ -977,12 +1009,12 @@ public class ExpedienteController implements Serializable {
         agendaControllerBean.getSelected().setOrden(orden);
         agendaControllerBean.getSelected().setNombre(nombre);
         agendaControllerBean.getSelected().setApellido(apellido);
-        
+
         agendaControllerBean.getSelected().setResponsable(responsable);
-        
+
         agendaControllerBean.create(nombre, apellido, orden);
     }
- 
+
  private void crearAgendaControlarSiDimosResp(Integer orden, String nombre, String apellido, String equipo) {
 
                                 HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
@@ -1003,24 +1035,24 @@ public class ExpedienteController implements Serializable {
                             }
 
                         Date fechaDeCreacion = dateToday; // Fecha de creación obtenida de la sesión
-                        
+
                         Calendar cal = Calendar.getInstance();
                         cal.setTime(fechaDeCreacion);
                         cal.add(Calendar.DATE, +14);
                         Date fechaCatorseDiasMas = cal.getTime();
-                        
+
                         Date fechaProximoDiaHabil = getNextBusinessDay(fechaCatorseDiasMas);
-                
-                        
-                        
+
+
+
                         String responsableParaAgendar = "";
-                        
+
                         if(equipo.equalsIgnoreCase("JUSTICIA FEDERAL")) responsableParaAgendar = "Paola Maldonado";
-                        
+
                         if(equipo.equalsIgnoreCase("PREVISIONAL ADMINISTRATIVO")) responsableParaAgendar = "Paula Alvarez";
-                        
+
                         if(equipo.equalsIgnoreCase("JUSTICIA PROVINCIAL")) responsableParaAgendar = "Ayelen Brizzio";
-     
+
         // Crear la agenda
         FacesContext context = FacesContext.getCurrentInstance();
         AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
@@ -1031,11 +1063,11 @@ public class ExpedienteController implements Serializable {
         agendaControllerBean.getSelected().setNombre(nombre);
         agendaControllerBean.getSelected().setApellido(apellido);
         agendaControllerBean.getSelected().setResponsable(responsableParaAgendar);
-        
+
         agendaControllerBean.create(nombre, apellido, orden);
     }
- 
- 
+
+
  private Date getNextBusinessDay(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -1046,7 +1078,7 @@ public class ExpedienteController implements Serializable {
 
         return calendar.getTime();
     }
-    
+
  private Boolean validateHolidays(Date date) {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Formato correcto
     String dateString = sdf.format(date); // Convertir la fecha a String en el formato deseado
@@ -1076,7 +1108,7 @@ public class ExpedienteController implements Serializable {
             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
             return dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY;
         }
- 
+
     @FacesConverter(forClass = Expediente.class)
     public static class ExpedienteControllerConverter implements Converter {
 
@@ -1202,7 +1234,7 @@ public class ExpedienteController implements Serializable {
 
      public List verAgendasParaHoyPorNroDeOrden(Integer orden) {
       List<Agenda> agendasParaHoy = new ArrayList<Agenda>();
-      
+
         FacesContext context = FacesContext.getCurrentInstance();
         AgendaController agendaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{agendaController}", AgendaController.class);
 
@@ -1225,11 +1257,11 @@ public class ExpedienteController implements Serializable {
         }
 
         return agendasParaHoy;
-      
+
      }
-    
+
     public List verAgendasFuturasPorNroDeOrden(Integer orden) {
-        
+
         List<Agenda> verAgendasFuturas = new ArrayList<Agenda>();
 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -1250,7 +1282,7 @@ public class ExpedienteController implements Serializable {
                 }
             }
         }
-        
+
         //por que ahora lo hacemos por base de datos con order by
         //agendaControllerBean.ordenarListItems(verAgendasFuturas);
 
@@ -1277,12 +1309,12 @@ public class ExpedienteController implements Serializable {
                 }
             }
         }
-        
+
         Collections.reverse(verAgendasPasadas);
-        
+
         return verAgendasPasadas;
     }
-    
+
     public List verTurnosPasadosPorNroDeOrden(Integer orden) {
 
         List<Turno> verTurnosPasados = new ArrayList<Turno>();
@@ -1305,12 +1337,12 @@ public class ExpedienteController implements Serializable {
         }
 
         Collections.reverse(verTurnosPasados);
-        
+
         return verTurnosPasados;
     }
-    
+
     public List verTurnosFuturosPorNroDeOrden(Integer orden) {
-        
+
         List<Turno> verTurnosFuturos = new ArrayList<Turno>();
 
         FacesContext context = FacesContext.getCurrentInstance();
@@ -1334,15 +1366,15 @@ public class ExpedienteController implements Serializable {
 
         return verTurnosFuturos;
     }
-    
+
     public List verComunicacionesPorNroDeOrden(Integer orden) {
-        
+
         List<Comunicacion> comunicaciones;
         comunicaciones = new ArrayList<>();
 
         FacesContext context = FacesContext.getCurrentInstance();
         ComunicacionController comunicacionControllerBean = context.getApplication().evaluateExpressionGet(context, "#{comunicacionController}", ComunicacionController.class);
-            
+
         comunicacionControllerBean.getItems().stream().filter(Comunicacion ->
                 (orden != null)).filter(Comunicacion ->
                         (Comunicacion.getOrden() != null)).filter(Comunicacion ->
@@ -1350,16 +1382,16 @@ public class ExpedienteController implements Serializable {
                                 {
             comunicaciones.add(Comunicacion);
         });
-        
+
         //Collections.sort(comunicaciones, (Comunicacion o1, Comunicacion o2) -> o1.getFecha().compareTo(o2.getFecha()));
-        
+
          // Ordenar de la más reciente a la más antigua
         Collections.sort(comunicaciones, (Comunicacion o1, Comunicacion o2) -> o2.getFecha().compareTo(o1.getFecha()));
 
-        
+
         return comunicaciones;
     }
-    
+
     public List<EventoDeCausasJudiciales> verFechasJudicialesPorNroDeOrden(Integer orden) {
     List<EventoDeCausasJudiciales> eventos = new ArrayList<>();
 
@@ -1404,7 +1436,7 @@ public class ExpedienteController implements Serializable {
     return eventos;
 }
 
-    
+
     public String verClaveFiscal(int orden) {
         String claveFiscal = getFacade().findClaveFiscalByOrden(orden);
         return claveFiscal != null ? claveFiscal : "No posee clave Fiscal";
@@ -1456,7 +1488,7 @@ public class ExpedienteController implements Serializable {
     }
 
     public void filtrarPorTipoDeTramite(String tipoDeTramiteSelected) {
-        
+
         this.filteredExpedientes = new ArrayList<Expediente>();
 
         if (tipoDeTramiteSelected != null) {
@@ -1470,7 +1502,7 @@ public class ExpedienteController implements Serializable {
             }
         }
     }
-    
+
     public void filtroCompuesto(String tipoDeTramiteSelected,
             String tipoDeExpedienteSelected,
             String responsableSelected,
@@ -1488,14 +1520,14 @@ public class ExpedienteController implements Serializable {
                  .filter(ExpedienteUtils.filtroFechaDeCumple(fechaDeCumpleSelected))
                  .filter(ExpedienteUtils.filtroSexo(sexoSelected))
                  .collect(Collectors.toList());
-        
+
 
         JsfUtil.addSuccessMessage("Cantidad de ocurrencias: "+this.filteredExpedientes.size());
-        
+
     }
 
     public void filtrarPorSexo(String sexoSelected) {
-        
+
         this.filteredExpedientes = new ArrayList<Expediente>();
 
         if (sexoSelected != null) {
@@ -1511,7 +1543,7 @@ public class ExpedienteController implements Serializable {
     }
 
     public void filtrarPorTipoDeExpediente(String tipoDeExpedienteSelected) {
-        
+
         this.filteredExpedientes = new ArrayList<Expediente>();
 
         if (tipoDeExpedienteSelected != null) {
@@ -1567,7 +1599,7 @@ public class ExpedienteController implements Serializable {
                     String strDate = dateFormat.format(date);
 
                     String sSubCadena = strDate.substring(0, 5);
-                    
+
                     if (sSubCadena.equals(fechaDeCumpleSelected)) {
                         filteredExpedientes.add(expediente);
                     }
@@ -1591,8 +1623,8 @@ public class ExpedienteController implements Serializable {
 
         return apellidoYNombre.contains(filterText);
     }
-    
-    
+
+
     public void cambiarConsultaAExpAdm(Consulta consultaSelected) {
         FacesContext context = FacesContext.getCurrentInstance();
         ConsultaController consultaControllerBean = context.getApplication().evaluateExpressionGet(context, "#{consultaController}", ConsultaController.class);
@@ -1620,18 +1652,18 @@ public class ExpedienteController implements Serializable {
     if ("0".equals(consultaSelected.getCuit()) || consultaSelected.getCuit() == null || "".equals(consultaSelected.getCuit()) || consultaSelected.getCuit().isEmpty() ) {
         FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Esta consulta no tiene cuit", "No es posible pasarla a exp. administrativo");
         FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-    } 
-    
+    }
+
      if (consultaSelected.getResponsable() == null || consultaSelected.getResponsable().isEmpty() ||
         consultaSelected.getEquipo() == null || consultaSelected.getEquipo().isEmpty()) {
-        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-                                                 "Faltan datos", 
+        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                 "Faltan datos",
                                                  "La consulta debe tener tanto 'responsable' como 'equipo' para convertirse en expediente administrativo.");
-        
+
         FacesContext.getCurrentInstance().addMessage(null, facesMsg);
-    
+
     }
-    
+
     else {
         String dni = extractDniFromCuit(consultaSelected.getCuit());
         expAInsertar.setDni(dni);
@@ -1693,26 +1725,26 @@ public class ExpedienteController implements Serializable {
         expAInsertar.setEquipo(consultaSelected.getEquipo());
         expAInsertar.setFisico("NO");
         expAInsertar.setJpTipo(consultaSelected.getJpTipo());
-        
+
         consultaControllerBean.getSelected().setEstadoConsulta("CONSULTA PASADA A EXP. ADMINISTRATIVO");
         consultaControllerBean.getSelected().setOrden(expAInsertar.getOrden());
         consultaControllerBean.update();
         persist(JsfUtil.PersistAction.CREATE, "Consulta transformada a ADMINISTRATIVO con el nro de orden: " + expAInsertar.getOrden());
-        
+
         if(expAInsertar.getFechaDeNacimiento() != null){
             crearAgendaSaludoPorCumpleaños(expAInsertar.getFechaDeNacimiento(), expAInsertar.getOrden(), expAInsertar.getNombre(), expAInsertar.getApellido());
             crearAgendaVerConsulta( expAInsertar.getOrden(), expAInsertar.getNombre(), expAInsertar.getApellido(), expAInsertar.getResponsable());
             crearAgendaControlarSiDimosResp( expAInsertar.getOrden(), expAInsertar.getNombre(), expAInsertar.getApellido(), expAInsertar.getEquipo());
-        
+
         }else{
             FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Exp a insertar no tiene fecha de Nacimiento", "No es posible crear agenda de saludo de cumpleaños");
             FacesContext.getCurrentInstance().addMessage(null, facesMsg);
         }
-        
+
         if(consultaSelected.getComunicaciones() != null && !consultaSelected.getComunicaciones().trim().isEmpty()){
             crearNuevaComunicacion(consultaSelected.getComunicaciones(), expAInsertar.getOrden(), consultaSelected.getResponsable());
         }
-        
+
         items = null;
         }
     }
@@ -1731,7 +1763,7 @@ public class ExpedienteController implements Serializable {
         String url = "https://wa.me/" + telefono+"?text=hola%20me%20comunico%20del%20Estudio%20Alvarez";
         return url;
     }
-    
+
     public String verClaveCidi(int orden) {
         String claveCidi = getFacade().findClaveCidiByOrden(orden);
         return claveCidi != null ? claveCidi : "No posee clave CIDI";
@@ -1741,17 +1773,17 @@ public class ExpedienteController implements Serializable {
         String cuit = getFacade().findCuitByOrden(orden);
         return cuit != null ? cuit : "No posee CUIL/CUIT";
     }
-    
+
     public void toggleMostrarTodos() {
         mostrarSoloActivos = !mostrarSoloActivos;
         activeItems = null;  // Refrescar lista de expedientes activos
         items = null;        // Refrescar lista de todos los expedientes
     }
-    
 
-    
-    
-  
+
+
+
+
 
    public String getEdadYComparacion() {
     if (selected == null || selected.getFechaDeNacimiento() == null || selected.getSexo() == null) {
@@ -1811,7 +1843,7 @@ public class ExpedienteController implements Serializable {
     return sb.toString();
 }
 //    para mostrar iniciales de responsable
-    
+
     public String getIniciales(String nombreCompleto) {
     if (nombreCompleto == null || nombreCompleto.isEmpty()) {
         return "";

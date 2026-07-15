@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <div class="columna">
+        <p:outputLabel value="Datos laborales" style="font-weight: bold" />
+        <p:outputLabel value="Tipo de reclamo laboral:" for="laboralTipoReclamo" />
+        <p:selectOneMenu id="laboralTipoReclamo" value="#{expediente.laboralTipoReclamo}" editable="false">
+            <f:selectItem itemLabel=" -- Elige un tipo --" noSelectionOption="true" />
+            <f:selectItem itemLabel="Ordinario - Despido" itemValue="Ordinario - Despido" />
+            <f:selectItem itemLabel="Ordinario - Otros" itemValue="Ordinario - Otros" />
+            <f:selectItem itemLabel="PDA" itemValue="PDA" />
+            <f:selectItem itemLabel="Otro" itemValue="Otro" />
+        </p:selectOneMenu>
+        <p:outputLabel value="Detalle de siniestro/reclamo:" for="laboralDetalleReclamo" />
+        <p:inputTextarea id="laboralDetalleReclamo" value="#{expediente.laboralDetalleReclamo}" rows="3" cols="25" autoResize="false" />
+        <p:outputLabel value="Empleador:" for="laboralEmpleador" />
+        <p:inputText id="laboralEmpleador" value="#{expediente.laboralEmpleador}" />
+        <p:outputLabel value="CUIT:" for="laboralCuit" />
+        <p:inputText id="laboralCuit" value="#{expediente.laboralCuit}" />
+        <p:outputLabel value="Trabajo registrado:" for="laboralTrabajoRegistrado" />
+        <p:selectOneMenu id="laboralTrabajoRegistrado" value="#{expediente.laboralTrabajoRegistrado}" editable="false">
+            <f:selectItem itemLabel=" -- Elige una opción --" noSelectionOption="true" />
+            <f:selectItem itemLabel="Sí" itemValue="Sí" />
+            <f:selectItem itemLabel="No" itemValue="No" />
+        </p:selectOneMenu>
+        <p:outputLabel value="ART:" for="laboralArt" />
+        <p:inputText id="laboralArt" value="#{expediente.laboralArt}" />
+    </div>
+    <div class="columna">
+        <p:outputLabel value="Fecha de ingreso:" for="laboralFechaIngreso" />
+        <p:calendar id="laboralFechaIngreso" pattern="dd/MM/yyyy" value="#{expediente.laboralFechaIngreso}" showOn="button" />
+        <p:outputLabel value="Fecha de egreso:" for="laboralFechaEgreso" />
+        <p:calendar id="laboralFechaEgreso" pattern="dd/MM/yyyy" value="#{expediente.laboralFechaEgreso}" showOn="button" />
+        <p:outputLabel value="Descripción del puesto:" for="laboralDescripcionPuesto" />
+        <p:inputTextarea id="laboralDescripcionPuesto" value="#{expediente.laboralDescripcionPuesto}" rows="4" cols="25" autoResize="false" />
+        <p:outputLabel value="Jornada:" for="laboralJornada" />
+        <p:inputText id="laboralJornada" value="#{expediente.laboralJornada}" />
+        <p:outputLabel value="Salario:" for="laboralSalario" />
+        <p:inputText id="laboralSalario" value="#{expediente.laboralSalario}" />
+        <p:outputLabel value="CCT:" for="laboralCct" />
+        <p:inputText id="laboralCct" value="#{expediente.laboralCct}" />
+        <p:outputLabel value="Observaciones:" for="laboralObservaciones" />
+        <p:inputTextarea id="laboralObservaciones" value="#{expediente.laboralObservaciones}" rows="3" cols="25" autoResize="false" />
+        <p:outputLabel value="Superintendencia de Riesgo del Trabajo" style="font-weight: bold" />
+        <p:outputLabel value="Tipo de trámite:" for="laboralSrtTipoTramite" />
+        <p:inputText id="laboralSrtTipoTramite" value="#{expediente.laboralSrtTipoTramite}" />
+        <p:outputLabel value="Expediente SRT:" for="laboralSrtExpediente" />
+        <p:inputText id="laboralSrtExpediente" value="#{expediente.laboralSrtExpediente}" />
+    </div>
+</ui:composition>

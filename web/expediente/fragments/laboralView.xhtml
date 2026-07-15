@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:panelGrid columns="4" cellspacing="5">
+        <h:outputText value="Tipo de reclamo laboral:" style="font-weight: bold" /><h:outputText value="#{expediente.laboralTipoReclamo}" />
+        <h:outputText value="Detalle de siniestro/reclamo:" style="font-weight: bold" /><h:outputText value="#{expediente.laboralDetalleReclamo}" />
+        <h:outputText value="Empleador:" style="font-weight: bold" /><h:outputText value="#{expediente.laboralEmpleador}" />
+        <h:outputText value="CUIT:" style="font-weight: bold" /><h:outputText value="#{expediente.laboralCuit}" />
+        <h:outputText value="Trabajo registrado:" style="font-weight: bold" /><h:outputText value="#{expediente.laboralTrabajoRegistrado}" />
+        <h:outputText value="ART:" style="font-weight: bold" /><h:outputText value="#{expediente.laboralArt}" />
+        <h:outputText value="Fecha de ingreso:" style="font-weight: bold" /><h:outputText value="#{expediente.laboralFechaIngreso}"><f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText>
+        <h:outputText value="Fecha de egreso:" style="font-weight: bold" /><h:outputText value="#{expediente.laboralFechaEgreso}"><f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText>
+        <h:outputText value="Descripción del puesto:" style="font-weight: bold" /><h:outputText value="#{expediente.laboralDescripcionPuesto}" />
+        <h:outputText value="Jornada:" style="font-weight: bold" /><h:outputText value="#{expediente.laboralJornada}" />
+        <h:outputText value="Salario:" style="font-weight: bold" /><h:outputText value="#{expediente.laboralSalario}" />
+        <h:outputText value="CCT:" style="font-weight: bold" /><h:outputText value="#{expediente.laboralCct}" />
+        <h:outputText value="Observaciones laborales:" style="font-weight: bold" /><h:outputText value="#{expediente.laboralObservaciones}" />
+        <h:outputText value="SRT - Tipo de trámite:" style="font-weight: bold" /><h:outputText value="#{expediente.laboralSrtTipoTramite}" />
+        <h:outputText value="SRT - Expediente:" style="font-weight: bold" /><h:outputText value="#{expediente.laboralSrtExpediente}" />
+    </h:panelGrid>
+</ui:composition>

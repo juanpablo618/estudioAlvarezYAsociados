@@ -596,6 +596,30 @@
                                 <p:outputLabel value="Observaciones:" for="observaciones" />
                                 <p:inputTextarea rows="19" cols="25" autoResize="false"  id="observaciones"
                                                  value="#{expedienteController.selected.observaciones}" title="observaciones"/>
+
+                                <div>
+                                    <h:commandButton onclick="form.target = '_blank';" value="Imprimir Carátula" styleClass="boton-imprimir" actionListener="#{downloadBean.crearPdfDeCaratula(expedienteController.selected.nombre, expedienteController.selected.apellido, expedienteController.selected.dni, expedienteController.selected.direccion,
+                                                                                                                                                               expedienteController.selected.nroDeAltura, expedienteController.selected.barrio,
+                                                                                                                                                               expedienteController.selected.apoderado,
+                                                                                                                                                               expedienteController.selected.fechaDeAtencion,
+                                                                                                                                                               expedienteController.selected.sexo,
+                                                                                                                                                               expedienteController.selected.telefono,
+                                                                                                                                                               expedienteController.selected.cuit,
+                                                                                                                                                               expedienteController.selected.fechaDeNacimiento,
+                                                                                                                                                               expedienteController.selected.edad,
+                                                                                                                                                               expedienteController.selected.cobraBeneficio,
+                                                                                                                                                               expedienteController.selected.tipoDeBeneficio,
+                                                                                                                                                               expedienteController.selected.aportes,
+                                                                                                                                                               expedienteController.selected.trabajando,
+                                                                                                                                                               expedienteController.selected.inscripcionAut,
+                                                                                                                                                               expedienteController.selected.estadoCivil,
+                                                                                                                                                               expedienteController.selected.cantidadDeHijos,
+                                                                                                                                                               expedienteController.selected.obraSocial,
+                                                                                                                                                               expedienteController.selected.claveCidi,
+                                                                                                                                                               expedienteController.selected.claveFiscal,
+                                                                                                                                                               expedienteController.selected.claveSeguridadSocial
+                                                                                                                                                               )}" />
+                                </div>
                             </div>
                         </div>
 

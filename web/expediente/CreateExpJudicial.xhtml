@@ -82,8 +82,8 @@
                     <p:tab title="Datos Expediente">
                         <div style="float: left; width: 50%">
                             <h:panelGrid columns="2" cellspacing="5">
-                                <p:outputLabel value="Tipo:" for="tipo" style="font-weight: bold" rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial}"/>
-                                <p:selectOneMenu id="tipo" style="margin-left: 3%" value="#{expedienteController.selected.tipo}" rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial}" >
+                                <p:outputLabel value="Tipo:" for="tipo" style="font-weight: bold" rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial and not expedienteController.expedienteSeleccionadoJudicialLaboralJusticiaProvincial}"/>
+                                <p:selectOneMenu id="tipo" style="margin-left: 3%" value="#{expedienteController.selected.tipo}" rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial and not expedienteController.expedienteSeleccionadoJudicialLaboralJusticiaProvincial}" >
                                         <f:selectItem itemLabel="Reajustes" itemValue="Reajuste" />
                                         <f:selectItem itemLabel="Pensiones" itemValue="Pensiones" />
                                         <f:selectItem itemLabel="Amparos" itemValue="Amparos" />

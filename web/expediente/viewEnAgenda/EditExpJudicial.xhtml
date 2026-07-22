@@ -338,8 +338,8 @@
                         <div class="datosexpediente">
                             <div class="columna">
 
-                                <p:outputLabel value="Tipo:" for="tipo" rendered="#{not expedienteController.expedienteParaVerSeleccionadoJudicialDdhhJusticiaProvincial}" />
-                                <p:selectOneMenu   editable="true" id="tipo"  value="#{expedienteController.selectedParaVerExp.tipo}" rendered="#{not expedienteController.expedienteParaVerSeleccionadoJudicialDdhhJusticiaProvincial}" >
+                                <p:outputLabel value="Tipo:" for="tipo" rendered="#{not expedienteController.expedienteParaVerSeleccionadoJudicialDdhhJusticiaProvincial and not expedienteController.expedienteParaVerSeleccionadoJudicialLaboralJusticiaProvincial}" />
+                                <p:selectOneMenu   editable="true" id="tipo"  value="#{expedienteController.selectedParaVerExp.tipo}" rendered="#{not expedienteController.expedienteParaVerSeleccionadoJudicialDdhhJusticiaProvincial and not expedienteController.expedienteParaVerSeleccionadoJudicialLaboralJusticiaProvincial}" >
                                     <f:selectItem itemLabel="Reajustes" itemValue="Reajustes" />
                                     <f:selectItem itemLabel="Pensiones" itemValue="Pensiones" />
                                     <f:selectItem itemLabel="Amparos" itemValue="Amparos" />

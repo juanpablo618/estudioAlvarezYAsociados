@@ -347,11 +347,11 @@
 
                                 <p:outputLabel value="Tipo:"
                                                for="tipo"
-                                               rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial}" />
+                                               rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial and not expedienteController.expedienteSeleccionadoJudicialLaboralJusticiaProvincial}" />
                                 <p:selectOneMenu editable="true"
                                                  id="tipo"
                                                  value="#{expedienteController.selected.tipo}"
-                                                 rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial}" >
+                                                 rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial and not expedienteController.expedienteSeleccionadoJudicialLaboralJusticiaProvincial}" >
                                     <f:selectItem itemLabel="Reajustes" itemValue="Reajustes" />
                                     <f:selectItem itemLabel="Pensiones" itemValue="Pensiones" />
                                     <f:selectItem itemLabel="Amparos" itemValue="Amparos" />

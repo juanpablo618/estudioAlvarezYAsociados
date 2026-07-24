@@ -288,8 +288,12 @@ public class ExpedienteController implements Serializable {
         this.mostrarSoloActivos = mostrarSoloActivos;
     }
 
-      public boolean isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial() {
+    public boolean isExpedienteSeleccionadoJudicialDdhhJusticiaProvincial() {
         return isExpedienteJudicialDdhhJusticiaProvincial(selected);
+    }
+
+    public boolean isExpedienteSeleccionadoDdhhJusticiaProvincial() {
+        return isExpedienteDdhhJusticiaProvincial(selected);
     }
 
     public boolean isExpedienteParaVerSeleccionadoJudicialDdhhJusticiaProvincial() {
@@ -330,13 +334,18 @@ public class ExpedienteController implements Serializable {
     }
 
     private boolean isExpedienteJudicialDdhhJusticiaProvincial(Expediente expediente) {
+        return isExpedienteDdhhJusticiaProvincial(expediente)
+                && equalsIgnoreCaseTrim(expediente.getTipoDeExpediente(), JUDICIAL);
+    }
+
+    private boolean isExpedienteDdhhJusticiaProvincial(Expediente expediente) {
         if (expediente == null) {
             return false;
         }
 
-        return equalsIgnoreCaseTrim(expediente.getTipoDeExpediente(), JUDICIAL)
-                && equalsIgnoreCaseTrim(expediente.getJpTipo(), DDHH)
-                && equalsIgnoreCaseTrim(expediente.getEquipo(), JUSTICIA_PROVINCIAL);
+        return equalsIgnoreCaseTrim(expediente.getJpTipo(), DDHH)
+                && (equalsIgnoreCaseTrim(expediente.getEquipo(), JUSTICIA_PROVINCIAL)
+                || expediente.getEquipo() == null || expediente.getEquipo().trim().isEmpty());
     }
 
     private boolean isExpedienteLaboralJusticiaProvincial(Expediente expediente) {

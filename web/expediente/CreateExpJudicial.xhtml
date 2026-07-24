@@ -81,7 +81,7 @@
                     </p:tab>
                     <p:tab title="Datos Expediente">
                         <div style="float: left; width: 50%">
-                            <h:panelGrid columns="2" cellspacing="5">
+                            <h:panelGrid id="tipoDeExpedientePanel" columns="2" cellspacing="5">
                                 <p:outputLabel value="Tipo:" for="tipo" style="font-weight: bold" rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial and not expedienteController.expedienteSeleccionadoJudicialLaboralJusticiaProvincial}"/>
                                 <p:selectOneMenu id="tipo" style="margin-left: 3%" value="#{expedienteController.selected.tipo}" rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial and not expedienteController.expedienteSeleccionadoJudicialLaboralJusticiaProvincial}" >
                                         <f:selectItem itemLabel="Reajustes" itemValue="Reajuste" />
@@ -98,7 +98,7 @@
                                     <f:selectItem itemLabel="LABORAL" itemValue="LABORAL" />
                                     <f:selectItem itemLabel="JURISDICCIÓN VOLUNTARIA" itemValue="JURISDICCIÓN VOLUNTARIA" />
                                     <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
-                                    <p:ajax update="@form" />
+                                    <p:ajax update="tipoDeExpedientePanel laboralPanel" />
                                     </p:selectOneMenu>
                                     <h:panelGroup id="ddhhPanel" layout="block" style="width: 100%; margin-top: 15px; display: #{expedienteController.selected.jpTipo eq 'DDHH' ? 'block' : 'none'};">
                                         <div class="columna">

@@ -102,6 +102,7 @@ public class ExpedienteController implements Serializable {
     private static final String SIN_CARPETA = "sin carpeta";
     private static final String DDHH = "DDHH";
     private static final String LABORAL = "LABORAL";
+    private static final String JURISDICCION_VOLUNTARIA = "JURISDICCIÓN VOLUNTARIA";
     private static final String JUSTICIA_PROVINCIAL = "JUSTICIA PROVINCIAL";
 
 
@@ -316,6 +317,20 @@ public class ExpedienteController implements Serializable {
         return isExpedienteJudicialLaboralJusticiaProvincial(selected);
     }
 
+    public boolean isExpedienteSeleccionadoJurisdiccionVoluntaria() {
+        return isExpedienteJurisdiccionVoluntaria(selected);
+    }
+
+    public boolean isExpedienteParaVerSeleccionadoJurisdiccionVoluntaria() {
+        return isExpedienteJurisdiccionVoluntaria(selectedParaVerExp);
+    }
+
+    private boolean isExpedienteJurisdiccionVoluntaria(Expediente expediente) {
+        return expediente != null
+                && equalsIgnoreCaseTrim(expediente.getEquipo(), JUSTICIA_PROVINCIAL)
+                && equalsIgnoreCaseTrim(expediente.getJpTipo(), JURISDICCION_VOLUNTARIA);
+    }
+
     public boolean isExpedienteParaVerSeleccionadoLaboralJusticiaProvincial() {
         return isExpedienteLaboralJusticiaProvincial(selectedParaVerExp);
     }
@@ -366,6 +381,12 @@ public class ExpedienteController implements Serializable {
     private void limpiarUsuarioSacSiNoCorresponde() {
         if (selected != null && !isExpedienteJudicialJusticiaProvincial(selected)) {
             selected.setUsuarioSac(null);
+        }
+    }
+
+    private void normalizarJurisdiccionVoluntaria() {
+        if (selected != null && Boolean.FALSE.equals(selected.getJurisdiccionVoluntariaOtro())) {
+            selected.setJurisdiccionVoluntariaOtroDetalle(null);
         }
     }
 
@@ -541,6 +562,7 @@ public class ExpedienteController implements Serializable {
     public void create() {
 
         limpiarUsuarioSacSiNoCorresponde();
+        normalizarJurisdiccionVoluntaria();
         ingresarEdad();
 
         ingresarDni();
@@ -642,6 +664,7 @@ public class ExpedienteController implements Serializable {
         selected.setDni(extractDniFromCuit(selected.getCuit()));
 
         limpiarUsuarioSacSiNoCorresponde();
+        normalizarJurisdiccionVoluntaria();
 
         String successMessage = "Expediente actualizado exitosamente";
 

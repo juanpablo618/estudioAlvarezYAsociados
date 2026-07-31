@@ -396,6 +396,21 @@ public class Expediente implements Serializable {
     @Column(name = "laboralCategoriaJuicio")
     private String laboralCategoriaJuicio;
 
+    @Column(name = "jurisdiccionVoluntariaSumariaInformacion")
+    private Boolean jurisdiccionVoluntariaSumariaInformacion;
+
+    @Column(name = "jurisdiccionVoluntariaLimitacionCapacidad")
+    private Boolean jurisdiccionVoluntariaLimitacionCapacidad;
+
+    @Column(name = "jurisdiccionVoluntariaOtro")
+    private Boolean jurisdiccionVoluntariaOtro;
+
+    @Column(name = "jurisdiccionVoluntariaOtroDetalle")
+    private String jurisdiccionVoluntariaOtroDetalle;
+
+    @Column(name = "jurisdiccionVoluntariaObservaciones")
+    private String jurisdiccionVoluntariaObservaciones;
+
 
     public Expediente() {
     }
@@ -1225,6 +1240,17 @@ public class Expediente implements Serializable {
     public void setLaboralSrtExpediente(String laboralSrtExpediente) { this.laboralSrtExpediente = laboralSrtExpediente; }
     public String getLaboralCategoriaJuicio() { return laboralCategoriaJuicio; }
     public void setLaboralCategoriaJuicio(String laboralCategoriaJuicio) { this.laboralCategoriaJuicio = laboralCategoriaJuicio; }
+
+    public Boolean getJurisdiccionVoluntariaSumariaInformacion() { return jurisdiccionVoluntariaSumariaInformacion; }
+    public void setJurisdiccionVoluntariaSumariaInformacion(Boolean value) { this.jurisdiccionVoluntariaSumariaInformacion = value; }
+    public Boolean getJurisdiccionVoluntariaLimitacionCapacidad() { return jurisdiccionVoluntariaLimitacionCapacidad; }
+    public void setJurisdiccionVoluntariaLimitacionCapacidad(Boolean value) { this.jurisdiccionVoluntariaLimitacionCapacidad = value; }
+    public Boolean getJurisdiccionVoluntariaOtro() { return jurisdiccionVoluntariaOtro; }
+    public void setJurisdiccionVoluntariaOtro(Boolean value) { this.jurisdiccionVoluntariaOtro = value; }
+    public String getJurisdiccionVoluntariaOtroDetalle() { return jurisdiccionVoluntariaOtroDetalle; }
+    public void setJurisdiccionVoluntariaOtroDetalle(String value) { this.jurisdiccionVoluntariaOtroDetalle = value; }
+    public String getJurisdiccionVoluntariaObservaciones() { return jurisdiccionVoluntariaObservaciones; }
+    public void setJurisdiccionVoluntariaObservaciones(String value) { this.jurisdiccionVoluntariaObservaciones = value; }
 
 
     public boolean equals(Object object) {

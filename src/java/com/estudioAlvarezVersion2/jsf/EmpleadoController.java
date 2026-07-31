@@ -330,6 +330,18 @@ public class EmpleadoController implements Serializable {
         return items;
     }
 
+    /** Empleados cuyo cargo está identificado como abogado/a. */
+    public List<Empleado> getAbogados() {
+        List<Empleado> abogados = new ArrayList<>();
+        for (Empleado empleado : getItems()) {
+            if (empleado.getCargo() != null
+                    && empleado.getCargo().trim().toUpperCase().contains("ABOGAD")) {
+                abogados.add(empleado);
+            }
+        }
+        return abogados;
+    }
+
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();

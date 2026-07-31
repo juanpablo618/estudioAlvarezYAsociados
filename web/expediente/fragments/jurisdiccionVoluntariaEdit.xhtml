@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <div class="columna">
+        <p:outputLabel value="Tipo de trámite" style="font-weight: bold" />
+        <p:selectBooleanCheckbox id="jvSumaria" value="#{expediente.jurisdiccionVoluntariaSumariaInformacion}" itemLabel="Sumaria información" />
+        <p:selectBooleanCheckbox id="jvLimitacion" value="#{expediente.jurisdiccionVoluntariaLimitacionCapacidad}" itemLabel="Limitación a la capacidad" />
+        <p:selectBooleanCheckbox id="jvOtro" value="#{expediente.jurisdiccionVoluntariaOtro}" itemLabel="Otro">
+            <p:ajax process="@this" update="jvOtroDetallePanel" />
+        </p:selectBooleanCheckbox>
+        <h:panelGroup id="jvOtroDetallePanel" layout="block">
+            <p:outputLabel value="Detalle de Otro:" for="jvOtroDetalle" rendered="#{expediente.jurisdiccionVoluntariaOtro}" />
+            <p:inputText id="jvOtroDetalle" value="#{expediente.jurisdiccionVoluntariaOtroDetalle}"
+                         required="#{expediente.jurisdiccionVoluntariaOtro}"
+                         requiredMessage="Debe completar el detalle de Otro."
+                         rendered="#{expediente.jurisdiccionVoluntariaOtro}" />
+        </h:panelGroup>
+    </div>
+    <div class="columna">
+        <p:outputLabel value="Observaciones" for="jvObservaciones" style="font-weight: bold" />
+        <p:inputTextarea id="jvObservaciones" value="#{expediente.jurisdiccionVoluntariaObservaciones}"
+                         rows="10" cols="30" autoResize="false" />
+    </div>
+</ui:composition>

@@ -356,7 +356,7 @@
                                     <f:selectItem itemLabel="LABORAL" itemValue="LABORAL" />
                                     <f:selectItem itemLabel="JURISDICCIÓN VOLUNTARIA" itemValue="JURISDICCIÓN VOLUNTARIA" />
                                     <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
-                                    <p:ajax update="@form" />
+                                    <p:ajax process="@this" update="laboralPanel" />
                                     </p:selectOneMenu>
 
 
@@ -419,13 +419,6 @@
                                         <f:selectItem itemValue="Imp. Ganancias" itemLabel="Imp. Ganancias" />
                                         <f:selectItem itemValue="Apelación dictamen CMC" itemLabel="Apelación dictamen CMC" />
                                         <f:selectItem itemValue="Laboral" itemLabel="Laboral" />
-                                    </p:selectManyCheckbox>
-
-                                    <p:selectManyCheckbox layout="pageDirection" value="#{expedienteController.selectedParaVerExp.subCategoriasDeTipo}"  rendered="#{expedienteController.selectedParaVerExp.tipo eq 'Provincia'}">
-                                        <f:selectItem itemValue="DD.HH" itemLabel="DD.HH" />
-                                        <f:selectItem itemValue="A.R.T" itemLabel="A.R.T" />
-                                        <f:selectItem itemValue="Despido" itemLabel="Despido" />
-                                        <f:selectItem itemValue="Otros" itemLabel="otros" />
                                     </p:selectManyCheckbox>
 
                                 </div>

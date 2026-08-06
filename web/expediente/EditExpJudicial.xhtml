@@ -345,22 +345,24 @@
                                 </p:selectOneMenu>
 
 
-                                <p:outputLabel value="Tipo:"
-                                               for="tipo"
-                                               rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial and not expedienteController.expedienteSeleccionadoJudicialLaboralJusticiaProvincial}" />
-                                <p:selectOneMenu editable="true"
-                                                 id="tipo"
-                                                 value="#{expedienteController.selected.tipo}"
-                                                 rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial and not expedienteController.expedienteSeleccionadoJudicialLaboralJusticiaProvincial}" >
-                                    <f:selectItem itemLabel="Reajustes" itemValue="Reajustes" />
-                                    <f:selectItem itemLabel="Pensiones" itemValue="Pensiones" />
-                                    <f:selectItem itemLabel="Amparos" itemValue="Amparos" />
-                                    <f:selectItem itemLabel="Otros" itemValue="Otros" />
-                                    <f:selectItem itemLabel="Provincia" itemValue="Provincia" />
-                                    <f:selectItem itemLabel="Impuesto a las Ganancias" itemValue="Impuesto a las Ganancias" />
+                                <h:panelGroup id="tipoDeExpedientePanel" layout="block">
+                                    <p:outputLabel value="Tipo:"
+                                                   for="tipo"
+                                                   rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial and not expedienteController.expedienteSeleccionadoJudicialLaboralJusticiaProvincial}" />
+                                    <p:selectOneMenu editable="true"
+                                                     id="tipo"
+                                                     value="#{expedienteController.selected.tipo}"
+                                                     rendered="#{not expedienteController.expedienteSeleccionadoJudicialDdhhJusticiaProvincial and not expedienteController.expedienteSeleccionadoJudicialLaboralJusticiaProvincial}" >
+                                        <f:selectItem itemLabel="Reajustes" itemValue="Reajustes" />
+                                        <f:selectItem itemLabel="Pensiones" itemValue="Pensiones" />
+                                        <f:selectItem itemLabel="Amparos" itemValue="Amparos" />
+                                        <f:selectItem itemLabel="Otros" itemValue="Otros" />
+                                        <f:selectItem itemLabel="Provincia" itemValue="Provincia" />
+                                        <f:selectItem itemLabel="Impuesto a las Ganancias" itemValue="Impuesto a las Ganancias" />
 
-                                    <p:ajax event="change" update="confirmdialog" oncomplete="PF('confirm').show()" />
-                                </p:selectOneMenu>
+                                        <p:ajax event="change" update="confirmdialog" oncomplete="PF('confirm').show()" />
+                                    </p:selectOneMenu>
+                                </h:panelGroup>
 
                                 <p:outputLabel rendered="#{expedienteController.expedienteSeleccionadoJusticiaProvincial}"
                                                value="JP Tipo:"

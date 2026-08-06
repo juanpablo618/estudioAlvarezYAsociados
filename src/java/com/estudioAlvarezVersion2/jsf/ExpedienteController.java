@@ -103,6 +103,7 @@ public class ExpedienteController implements Serializable {
     private static final String DDHH = "DDHH";
     private static final String LABORAL = "LABORAL";
     private static final String JURISDICCION_VOLUNTARIA = "JURISDICCIÓN VOLUNTARIA";
+    private static final String OTROS = "OTROS";
     private static final String JUSTICIA_PROVINCIAL = "JUSTICIA PROVINCIAL";
 
 
@@ -323,6 +324,25 @@ public class ExpedienteController implements Serializable {
 
     public boolean isExpedienteParaVerSeleccionadoJurisdiccionVoluntaria() {
         return isExpedienteJurisdiccionVoluntaria(selectedParaVerExp);
+    }
+
+    public boolean isExpedienteSeleccionadoOtrosJusticiaProvincial() {
+        return isExpedienteOtrosJusticiaProvincial(selected);
+    }
+
+    public boolean isExpedienteParaVerSeleccionadoOtrosJusticiaProvincial() {
+        return isExpedienteOtrosJusticiaProvincial(selectedParaVerExp);
+    }
+
+    public boolean isExpedienteSeleccionadoUsuarioSacConAbogados() {
+        return isExpedienteJurisdiccionVoluntaria(selected)
+                || isExpedienteOtrosJusticiaProvincial(selected);
+    }
+
+    private boolean isExpedienteOtrosJusticiaProvincial(Expediente expediente) {
+        return expediente != null
+                && equalsIgnoreCaseTrim(expediente.getEquipo(), JUSTICIA_PROVINCIAL)
+                && equalsIgnoreCaseTrim(expediente.getJpTipo(), OTROS);
     }
 
     private boolean isExpedienteJurisdiccionVoluntaria(Expediente expediente) {

@@ -98,7 +98,7 @@
                                     <f:selectItem itemLabel="LABORAL" itemValue="LABORAL" />
                                     <f:selectItem itemLabel="JURISDICCIÓN VOLUNTARIA" itemValue="JURISDICCIÓN VOLUNTARIA" />
                                     <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
-                                    <p:ajax process="@this" update="tipoDeExpedientePanel ddhhPanel laboralPanel jurisdiccionVoluntariaPanel" />
+                                    <p:ajax process="@this" update="tipoDeExpedientePanel ddhhPanel laboralPanel jurisdiccionVoluntariaPanel otrosPanel" />
                                     </p:selectOneMenu>
                                     <h:panelGroup id="ddhhPanel" layout="block" style="width: 100%; margin-top: 15px; display: #{expedienteController.selected.jpTipo eq 'DDHH' ? 'block' : 'none'};">
                                         <div class="columna">
@@ -190,6 +190,14 @@
                                             </ui:include>
                                         </h:panelGroup>
                                     </h:panelGroup>
+                                    <h:panelGroup id="otrosPanel" layout="block" style="width: 100%; margin-top: 15px;">
+                                        <h:panelGroup layout="block" rendered="#{expedienteController.expedienteSeleccionadoOtrosJusticiaProvincial}">
+                                            <ui:include src="/expediente/fragments/otrosEdit.xhtml">
+                                                <ui:param name="expediente" value="#{expedienteController.selected}" />
+                                            </ui:include>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+
 
 <p:outputLabel value="Equipo:" for="equipo" style="font-weight: bold" /><br></br>
 
@@ -260,8 +268,8 @@
                                         <p:outputLabel class="float-l" value="Usuario SAC:" for="usuarioSac" rendered="#{expedienteController.expedienteSeleccionadoJudicialJusticiaProvincial}"/>
                                         <p:selectOneMenu id="usuarioSac" value="#{expedienteController.selected.usuarioSac}" rendered="#{expedienteController.expedienteSeleccionadoJudicialJusticiaProvincial}">
                                             <f:selectItem itemLabel=" -- Elige un Usuario SAC --" noSelectionOption="true" />
-                                            <f:selectItems value="#{empleadoController.abogados}" var="empleado" itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}" rendered="#{expedienteController.expedienteSeleccionadoJurisdiccionVoluntaria}" />
-                                        <f:selectItems value="#{empleadoController.items}" var="empleado" itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}" rendered="#{not expedienteController.expedienteSeleccionadoJurisdiccionVoluntaria}" />
+                                            <f:selectItems value="#{empleadoController.abogados}" var="empleado" itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}" rendered="#{expedienteController.expedienteSeleccionadoUsuarioSacConAbogados}" />
+                                        <f:selectItems value="#{empleadoController.items}" var="empleado" itemLabel="#{empleado.nombreyApellido}" itemValue="#{empleado.nombreyApellido}" rendered="#{not expedienteController.expedienteSeleccionadoUsuarioSacConAbogados}" />
                                         </p:selectOneMenu>
                                     </h:panelGroup>
                             <br></br><br></br>

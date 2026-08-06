@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <div class="columna">
+        <p:outputLabel value="Tipo / clasificación" style="font-weight: bold" />
+        <p:selectBooleanCheckbox id="otrosDanosAccidente" value="#{expediente.otrosDanosAccidente}" itemLabel="Daños – Accidente" />
+        <p:selectBooleanCheckbox id="otrosDanosIncumplimiento" value="#{expediente.otrosDanosIncumplimientoContractualLeySeguros}" itemLabel="Daños – Incumplimiento contractual – Ley de Seguros" />
+        <p:selectBooleanCheckbox id="otrosDivorcio" value="#{expediente.otrosDivorcio}" itemLabel="Divorcio" />
+        <p:selectBooleanCheckbox id="otrosOtroSeleccionado" value="#{expediente.otrosOtroSeleccionado}" itemLabel="Otros" />
+    </div>
+    <div class="columna">
+        <p:outputLabel value="Demandado:" for="otrosDemandado" />
+        <p:inputText id="otrosDemandado" value="#{expediente.otrosDemandado}" />
+        <p:outputLabel value="CUIT:" for="otrosCuit" />
+        <p:inputText id="otrosCuit" value="#{expediente.otrosCuit}" />
+        <p:outputLabel value="Domicilio:" for="otrosDomicilio" />
+        <p:inputText id="otrosDomicilio" value="#{expediente.otrosDomicilio}" />
+        <p:outputLabel value="3ero citado en garantía:" for="otrosTerceroCitadoGarantia" />
+        <p:inputText id="otrosTerceroCitadoGarantia" value="#{expediente.otrosTerceroCitadoGarantia}" />
+        <p:outputLabel value="Observaciones:" for="otrosObservaciones" />
+        <p:inputTextarea id="otrosObservaciones" value="#{expediente.otrosObservaciones}" rows="7" cols="30" autoResize="false" />
+    </div>
+</ui:composition>

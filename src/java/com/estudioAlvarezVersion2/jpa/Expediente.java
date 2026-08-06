@@ -411,6 +411,33 @@ public class Expediente implements Serializable {
     @Column(name = "jurisdiccionVoluntariaObservaciones")
     private String jurisdiccionVoluntariaObservaciones;
 
+    @Column(name = "otrosDanosAccidente")
+    private Boolean otrosDanosAccidente;
+
+    @Column(name = "otrosDanosIncumplimientoContractualLeySeguros")
+    private Boolean otrosDanosIncumplimientoContractualLeySeguros;
+
+    @Column(name = "otrosDivorcio")
+    private Boolean otrosDivorcio;
+
+    @Column(name = "otrosOtroSeleccionado")
+    private Boolean otrosOtroSeleccionado;
+
+    @Column(name = "otrosDemandado")
+    private String otrosDemandado;
+
+    @Column(name = "otrosCuit")
+    private String otrosCuit;
+
+    @Column(name = "otrosDomicilio")
+    private String otrosDomicilio;
+
+    @Column(name = "otrosTerceroCitadoGarantia")
+    private String otrosTerceroCitadoGarantia;
+
+    @Column(name = "otrosObservaciones")
+    private String otrosObservaciones;
+
 
     public Expediente() {
     }
@@ -1251,6 +1278,25 @@ public class Expediente implements Serializable {
     public void setJurisdiccionVoluntariaOtroDetalle(String value) { this.jurisdiccionVoluntariaOtroDetalle = value; }
     public String getJurisdiccionVoluntariaObservaciones() { return jurisdiccionVoluntariaObservaciones; }
     public void setJurisdiccionVoluntariaObservaciones(String value) { this.jurisdiccionVoluntariaObservaciones = value; }
+
+    public Boolean getOtrosDanosAccidente() { return otrosDanosAccidente; }
+    public void setOtrosDanosAccidente(Boolean value) { this.otrosDanosAccidente = value; }
+    public Boolean getOtrosDanosIncumplimientoContractualLeySeguros() { return otrosDanosIncumplimientoContractualLeySeguros; }
+    public void setOtrosDanosIncumplimientoContractualLeySeguros(Boolean value) { this.otrosDanosIncumplimientoContractualLeySeguros = value; }
+    public Boolean getOtrosDivorcio() { return otrosDivorcio; }
+    public void setOtrosDivorcio(Boolean value) { this.otrosDivorcio = value; }
+    public Boolean getOtrosOtroSeleccionado() { return otrosOtroSeleccionado; }
+    public void setOtrosOtroSeleccionado(Boolean value) { this.otrosOtroSeleccionado = value; }
+    public String getOtrosDemandado() { return otrosDemandado; }
+    public void setOtrosDemandado(String value) { this.otrosDemandado = value; }
+    public String getOtrosCuit() { return otrosCuit; }
+    public void setOtrosCuit(String value) { this.otrosCuit = value; }
+    public String getOtrosDomicilio() { return otrosDomicilio; }
+    public void setOtrosDomicilio(String value) { this.otrosDomicilio = value; }
+    public String getOtrosTerceroCitadoGarantia() { return otrosTerceroCitadoGarantia; }
+    public void setOtrosTerceroCitadoGarantia(String value) { this.otrosTerceroCitadoGarantia = value; }
+    public String getOtrosObservaciones() { return otrosObservaciones; }
+    public void setOtrosObservaciones(String value) { this.otrosObservaciones = value; }
 
 
     public boolean equals(Object object) {

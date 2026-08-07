@@ -1,10 +1,15 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui">
     <div class="columna">
         <p:outputLabel value="Tipo / clasificación" style="font-weight: bold" />
-        <p:selectBooleanCheckbox id="otrosDanosAccidente" value="#{expediente.otrosDanosAccidente}" itemLabel="Daños – Accidente" />
-        <p:selectBooleanCheckbox id="otrosDanosIncumplimiento" value="#{expediente.otrosDanosIncumplimientoContractualLeySeguros}" itemLabel="Daños – Incumplimiento contractual – Ley de Seguros" />
+        <p:selectBooleanCheckbox id="otrosDanosAccidente" value="#{expediente.otrosDanosAccidente}" itemLabel="Daños – Accidente">
+            <p:ajax update="otrosTerceroCitadoGarantiaPanel" />
+        </p:selectBooleanCheckbox>
+        <p:selectBooleanCheckbox id="otrosDanosIncumplimiento" value="#{expediente.otrosDanosIncumplimientoContractualLeySeguros}" itemLabel="Daños – Incumplimiento contractual – Ley de Seguros">
+            <p:ajax update="otrosTerceroCitadoGarantiaPanel" />
+        </p:selectBooleanCheckbox>
         <p:selectBooleanCheckbox id="otrosDivorcio" value="#{expediente.otrosDivorcio}" itemLabel="Divorcio" />
         <p:selectBooleanCheckbox id="otrosOtroSeleccionado" value="#{expediente.otrosOtroSeleccionado}" itemLabel="Otros" />
     </div>
@@ -15,8 +20,13 @@
         <p:inputText id="otrosCuit" value="#{expediente.otrosCuit}" />
         <p:outputLabel value="Domicilio:" for="otrosDomicilio" />
         <p:inputText id="otrosDomicilio" value="#{expediente.otrosDomicilio}" />
-        <p:outputLabel value="3ero citado en garantía:" for="otrosTerceroCitadoGarantia" />
-        <p:inputText id="otrosTerceroCitadoGarantia" value="#{expediente.otrosTerceroCitadoGarantia}" />
+        <p:outputPanel id="otrosTerceroCitadoGarantiaPanel" layout="block">
+            <h:panelGroup layout="block"
+                          rendered="#{expediente.otrosDanosAccidente or expediente.otrosDanosIncumplimientoContractualLeySeguros}">
+                <p:outputLabel value="3ero citado en garantía:" for="otrosTerceroCitadoGarantia" />
+                <p:inputText id="otrosTerceroCitadoGarantia" value="#{expediente.otrosTerceroCitadoGarantia}" />
+            </h:panelGroup>
+        </p:outputPanel>
         <p:outputLabel value="Observaciones:" for="otrosObservaciones" />
         <p:inputTextarea id="otrosObservaciones" value="#{expediente.otrosObservaciones}" rows="7" cols="30" autoResize="false" />
     </div>

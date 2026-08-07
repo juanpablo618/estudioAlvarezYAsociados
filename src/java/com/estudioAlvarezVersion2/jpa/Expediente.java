@@ -438,6 +438,36 @@ public class Expediente implements Serializable {
     @Column(name = "otrosObservaciones")
     private String otrosObservaciones;
 
+    @Column(name = "contenciosoPlenaJurisdiccion")
+    private Boolean contenciosoPlenaJurisdiccion;
+
+    @Column(name = "contenciosoAmparo")
+    private Boolean contenciosoAmparo;
+
+    @Column(name = "contenciosoOtrosSeleccionado")
+    private Boolean contenciosoOtrosSeleccionado;
+
+    @Column(name = "contenciosoNumeroExpedienteAdministrativo")
+    private String contenciosoNumeroExpedienteAdministrativo;
+
+    @Column(name = "contenciosoFechaInicioSolicitud")
+    @Temporal(TemporalType.DATE)
+    private Date contenciosoFechaInicioSolicitud;
+
+    @Column(name = "contenciosoResolucion")
+    private String contenciosoResolucion;
+
+    @Column(name = "contenciosoFechaResolucion")
+    @Temporal(TemporalType.DATE)
+    private Date contenciosoFechaResolucion;
+
+    @Column(name = "contenciosoVencimientoDemanda")
+    @Temporal(TemporalType.DATE)
+    private Date contenciosoVencimientoDemanda;
+
+    @Column(name = "contenciosoObservaciones")
+    private String contenciosoObservaciones;
+
 
     public Expediente() {
     }
@@ -1297,6 +1327,25 @@ public class Expediente implements Serializable {
     public void setOtrosTerceroCitadoGarantia(String value) { this.otrosTerceroCitadoGarantia = value; }
     public String getOtrosObservaciones() { return otrosObservaciones; }
     public void setOtrosObservaciones(String value) { this.otrosObservaciones = value; }
+
+    public Boolean getContenciosoPlenaJurisdiccion() { return contenciosoPlenaJurisdiccion; }
+    public void setContenciosoPlenaJurisdiccion(Boolean value) { this.contenciosoPlenaJurisdiccion = value; }
+    public Boolean getContenciosoAmparo() { return contenciosoAmparo; }
+    public void setContenciosoAmparo(Boolean value) { this.contenciosoAmparo = value; }
+    public Boolean getContenciosoOtrosSeleccionado() { return contenciosoOtrosSeleccionado; }
+    public void setContenciosoOtrosSeleccionado(Boolean value) { this.contenciosoOtrosSeleccionado = value; }
+    public String getContenciosoNumeroExpedienteAdministrativo() { return contenciosoNumeroExpedienteAdministrativo; }
+    public void setContenciosoNumeroExpedienteAdministrativo(String value) { this.contenciosoNumeroExpedienteAdministrativo = value; }
+    public Date getContenciosoFechaInicioSolicitud() { return contenciosoFechaInicioSolicitud; }
+    public void setContenciosoFechaInicioSolicitud(Date value) { this.contenciosoFechaInicioSolicitud = value; }
+    public String getContenciosoResolucion() { return contenciosoResolucion; }
+    public void setContenciosoResolucion(String value) { this.contenciosoResolucion = value; }
+    public Date getContenciosoFechaResolucion() { return contenciosoFechaResolucion; }
+    public void setContenciosoFechaResolucion(Date value) { this.contenciosoFechaResolucion = value; }
+    public Date getContenciosoVencimientoDemanda() { return contenciosoVencimientoDemanda; }
+    public void setContenciosoVencimientoDemanda(Date value) { this.contenciosoVencimientoDemanda = value; }
+    public String getContenciosoObservaciones() { return contenciosoObservaciones; }
+    public void setContenciosoObservaciones(String value) { this.contenciosoObservaciones = value; }
 
 
     public boolean equals(Object object) {

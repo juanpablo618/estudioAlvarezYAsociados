@@ -104,6 +104,7 @@ public class ExpedienteController implements Serializable {
     private static final String LABORAL = "LABORAL";
     private static final String JURISDICCION_VOLUNTARIA = "JURISDICCIÓN VOLUNTARIA";
     private static final String OTROS = "OTROS";
+    private static final String CONTENCIOSO_ADMINISTRATIVO = "CONTENCIOSO ADMINISTRATIVO";
     private static final String JUSTICIA_PROVINCIAL = "JUSTICIA PROVINCIAL";
 
 
@@ -336,7 +337,18 @@ public class ExpedienteController implements Serializable {
 
     public boolean isExpedienteSeleccionadoUsuarioSacConAbogados() {
         return isExpedienteJurisdiccionVoluntaria(selected)
-                || isExpedienteOtrosJusticiaProvincial(selected);
+                || isExpedienteOtrosJusticiaProvincial(selected)
+                || isExpedienteContenciosoAdministrativo(selected);
+    }
+
+    public boolean isExpedienteSeleccionadoContenciosoAdministrativo() {
+        return isExpedienteContenciosoAdministrativo(selected);
+    }
+
+    private boolean isExpedienteContenciosoAdministrativo(Expediente expediente) {
+        return expediente != null
+                && equalsIgnoreCaseTrim(expediente.getEquipo(), JUSTICIA_PROVINCIAL)
+                && equalsIgnoreCaseTrim(expediente.getJpTipo(), CONTENCIOSO_ADMINISTRATIVO);
     }
 
     private boolean isExpedienteOtrosJusticiaProvincial(Expediente expediente) {

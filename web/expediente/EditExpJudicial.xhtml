@@ -377,7 +377,8 @@
                                 <f:selectItem itemLabel="LABORAL" itemValue="LABORAL" />
                                 <f:selectItem itemLabel="JURISDICCIÓN VOLUNTARIA" itemValue="JURISDICCIÓN VOLUNTARIA" />
                                 <f:selectItem itemLabel="OTROS" itemValue="OTROS" />
-                                <p:ajax process="@this" update="tipoDeExpedientePanel ddhhPanel laboralPanel jurisdiccionVoluntariaPanel otrosPanel" />
+                                <f:selectItem itemLabel="CONTENCIOSO ADMINISTRATIVO" itemValue="CONTENCIOSO ADMINISTRATIVO" />
+                                <p:ajax process="@this" update="tipoDeExpedientePanel ddhhPanel laboralPanel jurisdiccionVoluntariaPanel otrosPanel contenciosoAdministrativoPanel" />
                                 </p:selectOneMenu>
 
                                 <h:panelGroup id="ddhhPanel" layout="block" style="width: 100%; margin-top: 15px;">
@@ -467,6 +468,13 @@
                                     <h:panelGroup id="otrosPanel" layout="block" style="width: 100%; margin-top: 15px;">
                                         <h:panelGroup layout="block" rendered="#{expedienteController.expedienteSeleccionadoOtrosJusticiaProvincial}">
                                             <ui:include src="/expediente/fragments/otrosEdit.xhtml">
+                                                <ui:param name="expediente" value="#{expedienteController.selected}" />
+                                            </ui:include>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <h:panelGroup id="contenciosoAdministrativoPanel" layout="block" style="width: 100%; margin-top: 15px;">
+                                        <h:panelGroup layout="block" rendered="#{expedienteController.expedienteSeleccionadoContenciosoAdministrativo}">
+                                            <ui:include src="/expediente/fragments/contenciosoAdministrativoEdit.xhtml">
                                                 <ui:param name="expediente" value="#{expedienteController.selected}" />
                                             </ui:include>
                                         </h:panelGroup>

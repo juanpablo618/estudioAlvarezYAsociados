@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <div class="columna">
+        <p:outputLabel value="Tipo de contencioso administrativo" style="font-weight: bold" />
+        <p:selectBooleanCheckbox id="contenciosoPlenaJurisdiccion"
+                                 value="#{expediente.contenciosoPlenaJurisdiccion}"
+                                 itemLabel="Plena Jurisdicción" />
+        <p:selectBooleanCheckbox id="contenciosoAmparo"
+                                 value="#{expediente.contenciosoAmparo}"
+                                 itemLabel="Amparo" />
+        <p:selectBooleanCheckbox id="contenciosoOtrosSeleccionado"
+                                 value="#{expediente.contenciosoOtrosSeleccionado}"
+                                 itemLabel="Otros" />
+    </div>
+    <div class="columna">
+        <p:outputLabel value="N° de Expediente Administrativo:" for="contenciosoNumeroExpedienteAdministrativo" />
+        <p:inputText id="contenciosoNumeroExpedienteAdministrativo"
+                     value="#{expediente.contenciosoNumeroExpedienteAdministrativo}" />
+        <p:outputLabel value="Fecha inicio de solicitud:" for="contenciosoFechaInicioSolicitud" />
+        <p:calendar id="contenciosoFechaInicioSolicitud" pattern="dd/MM/yyyy"
+                    value="#{expediente.contenciosoFechaInicioSolicitud}" showOn="button" />
+        <p:outputLabel value="Resolución:" for="contenciosoResolucion" />
+        <p:inputTextarea id="contenciosoResolucion" value="#{expediente.contenciosoResolucion}"
+                         rows="3" cols="30" autoResize="false" />
+        <p:outputLabel value="Fecha de Resolución:" for="contenciosoFechaResolucion" />
+        <p:calendar id="contenciosoFechaResolucion" pattern="dd/MM/yyyy"
+                    value="#{expediente.contenciosoFechaResolucion}" showOn="button" />
+        <p:outputLabel value="Vto. para presentar demanda:" for="contenciosoVencimientoDemanda" />
+        <p:calendar id="contenciosoVencimientoDemanda" pattern="dd/MM/yyyy"
+                    value="#{expediente.contenciosoVencimientoDemanda}" showOn="button" />
+        <p:outputLabel value="Observaciones:" for="contenciosoObservaciones" />
+        <p:inputTextarea id="contenciosoObservaciones" value="#{expediente.contenciosoObservaciones}"
+                         rows="7" cols="30" autoResize="false" />
+    </div>
+</ui:composition>

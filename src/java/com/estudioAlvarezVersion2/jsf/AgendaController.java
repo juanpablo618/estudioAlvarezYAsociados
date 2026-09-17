@@ -277,7 +277,7 @@ public class AgendaController implements Serializable {
 
         lideresEmpleadosMap.put("Paula Alvarez", Arrays.asList(
             "Mateo Novau", "Natali D Agostino", "Catalina Povarchik",
-            "Pilar Boglione"));
+            "Pilar Boglione", "Lucia Amarú Oroda Salgado", "Camila Paez"));
 
         lideresEmpleadosMap.put("Paola Maldonado", Arrays.asList(
             "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo", "Maria Jose Alaye",
@@ -1489,7 +1489,8 @@ public class AgendaController implements Serializable {
             "Liliana Romero", "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo",
             "Pilar Boglione", "juan cuello"});
         lideresEmpleadosMap.put("Paula Alvarez", new String[]{
-            "Mateo Novau", "Natali D Agostino", "Catalina Povarchik", "Pilar Boglione"});
+            "Mateo Novau", "Natali D Agostino", "Catalina Povarchik", "Pilar Boglione",
+            "Lucia Amarú Oroda Salgado", "Camila Paez"});
         lideresEmpleadosMap.put("Paola Maldonado", new String[]{
             "Ezequiel Brener", "Camila A Ruiz Diaz", "Amparo Alanis Toledo", "Maria Jose Alaye",
             "Catalina Povarchik", "María Paz Bolinaga", "Camila Paez"});

@@ -60,9 +60,40 @@
         }
         .logo img {
             width: 75%;
-            margin-bottom: 50px;
+            margin-bottom: 24px;
         
                 
+        }
+        .portal-identity {
+            color: #ffffff;
+            font-family: "Poppins", Arial, sans-serif;
+            margin: 0 50px 30px;
+            text-align: center;
+        }
+        .portal-identity__eyebrow {
+            display: block;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            margin-bottom: 4px;
+            opacity: 0.72;
+            text-transform: uppercase;
+        }
+        .portal-identity h1 {
+            font-size: 27px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            line-height: 1.2;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .portal-identity__divider {
+            background: #ffffff;
+            display: inline-block;
+            height: 2px;
+            margin-top: 13px;
+            opacity: 0.65;
+            width: 42px;
         }
         .clavediv  {
             text-align: initial;
